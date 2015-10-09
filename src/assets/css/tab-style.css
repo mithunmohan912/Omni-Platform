@@ -1,0 +1,507 @@
+@CHARSET "ISO-8859-1";
+
+.nav-tabs {
+    margin: 0;
+    padding: 0;
+    border: 0;    
+}
+.nav-tabs > li > a {
+    background: #FAFAFA;
+    border-radius: 0;
+    color: #050d9e;
+    border-left: 1px solid #d7d7d7;
+    border-top: 1px solid #d7d7d7;
+    margin: 0px;
+    margin-bottom: -2px;
+    padding-right: 25px;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.nav-tabs > li.disabled > a,
+.nav-tabs > li.disabled > a:hover {
+    color: #d7d7d7;    
+    cursor: default;
+    background: #FAFAFA;
+    border-right: 1px solid #d7d7d7;
+    border-top: 1px solid #d7d7d7;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
+    background: #FAFAFA;
+    color: #050d9e;
+    cursor: default;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    font-size: 16px;
+    border-top: 2px solid #050d9e;
+    
+}
+.checkComplete{
+    z-index: 3;
+    position: absolute;
+    float: right;
+    right: -20px;
+    color: #8DC759;
+    font-size: 48px;
+    top: -15px;
+    border-radius: 100%;
+    }
+.checkCompleteBG{   
+    background-color: #fff;
+    z-index: 2;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    border-radius: 100%;
+    }
+
+/* Tab Content */
+.tab-pane {
+    background: #FAFAFA;
+    border-radius: 0;
+    text-align: left;
+    padding: 2px 0px 2px 0px;
+}
+.tab-content
+{
+    border: 1px solid #DADADA;
+    border-top: 0px;
+	border-bottom: 0px;
+    border-top: 1px solid #009ca9;
+}
+.tab-content-div{
+    border: 1px solid #d7d7d7;
+    
+    
+}
+.border-none{border: 0px;width: 98%;margin: 0px auto;}
+/* inner Tabs and  Content */
+.wizard {
+    margin: 0px auto;
+    background: #fff;
+}
+
+.wizard .nav-tabs {
+    position: relative;
+    margin: 0px auto;
+    margin-bottom: 0;
+    background-color: #FAFAFA;
+}
+
+.wizard > div.wizard-inner {
+        position: relative;
+    }
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+.wizard.nav-tabs>li {
+    float: left;
+    margin-bottom: -3px;
+}
+
+span.round-tab {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #dfdfdf;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background: #fff;
+    border: 2px solid #050d9e;
+    
+}
+.wizard li.active P {
+    
+    color:#050d9e;
+    
+}
+
+.wizard li.active span.round-tab i{
+    color: #050d9e;
+}
+
+span.round-tab:hover {
+    color: #333;
+   border: 2px solid #dfdfdf;
+}
+
+.wizard .nav-tabs > li {
+    /* width: 25%; */
+    margin: 0px 10px;
+    width: 110px;
+
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #fff;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 40%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: -3px;
+    border: 10px solid transparent;
+    border-bottom-color: #fff;
+}
+.wizard li p {
+    font-size: .8em;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 0px;
+}
+.wizard .nav-tabs > li a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    margin: 0px auto;
+    border-radius: 100%;
+    padding: 0;
+    margin-top: 10px;
+    border: 0px;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+         
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 10px;
+    background-color: #fff;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+.hr_margin{margin-left: 20px ;margin-right: 20px}
+.onl_hrOr_1 {
+    background-color: #4ad9d9;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 5px !important;
+    width: 15%;
+    float: left;
+	
+}
+.onl_hrOr_2 {
+    background-color: #dfdfdf;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 5px !important;
+	right: 10px;
+    float: left;
+    width: 85%;
+}
+.icon-box{
+
+
+}
+.icon-box i {
+    color: #009ca9;
+    top: 10px;
+    font-size: 60px;
+}
+.h2-title{
+    margin-top: 0px;
+    border-left: 1px solid #DCD6D6;
+    padding: 5px 0px;
+    padding-left: 10px;
+    font-size: 25px;
+}
+.quote-icon{margin: 10px;margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;}
+.quote-icon div:nth-last-child { border: 1px solid red}
+.quote-icon ul { margin-top: 15px;}
+div.quote-icon > div:nth-last-child(1) {margin-top: 10px;}
+div.quote-icon > div > ul> li> span:nth-child(1) {color: #716F6F;}
+div.quote-icon > div > ul> li> span:nth-last-child(1) {color: #8A8181; font-weight: bold;font-size:12px;}
+
+
+.v-center {
+    display:table !important;
+    height:60px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.content {
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.interestedParties{
+	height: 80px;
+}
+
+.interestedParties-sub{
+	height: 37px;
+}
+
+/* ---> Checkbox Group <--- */
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+
+}
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+
+
+}
+
+
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+
+.checkbox .cr .cr-icon{ color: #2c4269}
+.checkbox > label {width: 70%;}
+.checkbox > label > div > span{font-weight: bold;}
+.checkbox > div{margin-left: 3em;}
+h4{color:#5bc0de; text-transform: capitalize; margin: 2em 0px; clear: both;}
+
+/* top navbar */
+.navbar .brand {
+max-height: 40px;
+overflow: visible;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-nav>li.language a{       
+    padding: 2px 7px;
+    margin: 10px 2px;
+    font-size: .8em;
+    color: #050d9e;
+    font-weight: bold;
+}
+
+.languageActive{ border: 1px solid #050d9e;} 
+
+.broker{
+    padding: 15px 25px;
+    font-size: .8em;
+    font-weight: bold;
+}
+.broker span:nth-child(2) {color: #050d9e; font-weight: bold;}
+.navbar-nav>li.logout a{
+    padding-right: 0px;
+    color: #050d9e;
+    font-weight: bold;
+    font-size: .8em;
+    padding: 13px 0px;
+}
+
+/* login */
+.loginDiv{
+    height: 400px;
+    margin: 0px auto;
+    border-bottom: 4px solid #353C92;
+    padding: 0px 15px;
+    background-color: rgba(1, 157, 180, 0.1);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f5fa+0,fcfcfc+100 */
+    background: #f2f5fa; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f2f5fa 0%, #fcfcfc 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f5fa), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f2f5fa 0%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f2f5fa 0%,#fcfcfc 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f2f5fa 0%,#fcfcfc 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f2f5fa 0%,#fcfcfc 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5fa', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
+
+}
+/* .bottom-to-top {	
+    border-width: 1px;
+    border-style: solid;
+	
+    -webkit-border-image: 
+      -webkit-gradient(linear, 0 100%, 0 0, from(grey), to(rgba(0, 0, 0, 0))) 1 100%; 
+    
+    border-image:
+      linear-gradient(to top, grey, rgba(0, 0, 0, 0)) 1 100%;
+
+}*/
+
+.sectionlabel{
+	margin-left: 20px !important;
+}
+
+@media (min-width: 1200px){
+.container {
+    width: 970px;
+}}
+
+@media (min-width: 768px){
+.navbar-right .dropdown-menu {
+    right: auto;
+    left: 0px;
+}
+}
+
+/* table css */
+
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+    #no-more-tables table, 
+    #no-more-tables thead, 
+    #no-more-tables tbody, 
+    #no-more-tables th, 
+    #no-more-tables td, 
+    #no-more-tables tr { 
+        display: block; 
+    }
+ 
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #no-more-tables thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+ 
+    #no-more-tables tr { border: 1px solid #ccc; }
+ 
+    #no-more-tables td { 
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%; 
+        white-space: normal;
+        text-align:left;
+    }
+ 
+    #no-more-tables td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+ 
+    /*
+    Label the data
+    */
+    #no-more-tables td:before { content: attr(data-title); }
+}

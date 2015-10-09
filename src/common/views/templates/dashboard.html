@@ -1,0 +1,24 @@
+<div ng-repeat="section in dashboard">
+    <div class="col-xs-6  col-sm-4 dashboard-txtCenter ng-scope" ng-repeat="subsection in section.sections">
+
+        <div id="{{subsection.name}}-icon" class="" data-toggle="modal" data-target="{{'#' + subsection.name}}">
+            <h4 class="ng-binding">{{locale[subsection.label]}}<span class="dec ng-binding"></span></h4>
+            <span class="{{subsection.icon}} dashboard-iconsize"></span>
+        </div>
+
+        <div class="modal fade" id="{{subsection.name}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content dashboard_panel">
+                    <div class="modal-body">
+                        <div class="col-xs-6  col-sm-4 dashboard-txtCenter modalOption ng-scope" ng-repeat=" field in subsection.elements">
+                            <div ng-click="navigate(field.actionurl, config.products[field.name]);">
+                                <h4 class="ng-binding">{{locale[field.label]}}<span class="dec ng-binding"></span></h4>
+                                <span class="{{field.icon}} dashboard-iconsize modalOption"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

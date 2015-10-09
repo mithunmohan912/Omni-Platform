@@ -1,0 +1,60 @@
+<table st-safe-src="stTableList" st-table="displayed" class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:{{column.width}} "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
+        </tr>
+        <tr ng-show="field.tableMetaData.searching">
+            <th colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
+                <input ng-model="searchText" class="form-control" placeholder="Filter Results on this page ..." type="search" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-hide="showResult">
+            <td colspan="5"><span>{{locale["Data_not _found"]}}.</span></td>
+        </tr>
+        <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
+
+            <td style="cursor:pointer;" ng-repeat="column in field.tableMetaData.element" ng-click="selectItem(row,field.tableMetaData.actionurl);">
+                <ng-switch on="column.type">
+                    <span ng-switch-when="label">    
+                        {{row[column.field][column.columnField]}}
+					</span>
+				
+                    <span ng-switch-when="icon" class="list_icon"><span class="{{column.field}}"></span></span>
+                    <span ng-switch-when="process_label" process-label text="{{row[column.field]}}"></span>
+                    <span ng-switch-when="date">{{row[column.field] | date : column.format}}</span>
+                    <span ng-switch-when="linklabel">
+					<ng-switch on="column.action">
+						<span ng-switch-when="Edit">
+							<a style="cursor:pointer;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>		
+						</span>
+                    <span ng-switch-when="Delete">
+							<a style="cursor:pointer;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>		
+						</span>
+                </ng-switch>
+
+                </span>
+                <div ng-switch-when="dropdown">
+
+
+                    <span ng-repeat="option in column.options">
+						<a>
+							<i class="{{option.icon}} actionIcon" ng-click="doActionItem(option.value, row, field.name,field.tableMetaData.actionurl);"><span class="iconText">{{locale[option.description]}}</span></i>
+                    </a>
+                    </span>
+                    </ul>
+                </div>
+                </ng-switch>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="8" class="text-center">
+                <div st-items-by-page="5" st-pagination="" st-template="common/views/templates/stpaging.html">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

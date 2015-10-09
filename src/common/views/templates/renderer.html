@@ -1,0 +1,114 @@
+<form class="form-horizontal" id="{{metadata[screenId].formid}}" ng-submit="save(data)" novalidate>
+    <div>
+        <!-- Work flow Section -->
+        <div class="form-group wizardMargin" ng-repeat="workflowGrp in metadata[screenId].workflowGrp">
+            <div ng-include src="config.templates.workflow"></div>
+        </div>
+        <div class="spacer"></div>
+        <!-- top button group section -->
+        <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metadata[screenId].buttonGrp">
+            <div ng-include src="config.templates.buttongroup"></div>
+        </div>
+        
+        <div quick-ng-repeat="section in metadata[screenId].sections" quick-repeat-list="metadata[screenId].sections">
+
+            <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref">
+                <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid">
+                </div>
+            </div>
+            <div ng-if="section.$ref === undefined || section.$ref === ''">
+                <div ng-include="'sectionRenderer.html'">
+                </div>
+            </div>
+        </div>
+        <!-- bottom button group section -->
+        <div class="form-group wizardMargin" ng-repeat="section in metadata[screenId].buttonGrp">
+            <div ng-include src="config.templates.buttongroup"></div>
+        </div>
+    </div>
+
+
+</form>
+<script type="text/ng-template" id="sectionRenderer.html">
+    <!-- Header section -->
+    <div class="form-group marginbottom0px">
+        <div ng-include src="config.templates.header"></div>
+    </div>
+
+    <h4>{{locale[section.title]}}</h4>
+    <ng-switch on="section.category">
+        <div ng-switch-when="nonaccordion">
+            <div quick-ng-repeat="subsection in section.sections" quick-repeat-list="subsection in section.sections" ng-show="subsection.visible">
+                <ng-switch on="subsection.category">
+
+                    <div ng-switch-when="nonaccordion" class="form-group marginbottom0px col-md-{{subsection.columnsize}}">
+                        <div quick-ng-repeat="field in subsection.elements" quick-repeat-list="subsection.elements" class="col-md-{{field.columnsize}}" ng-show="checkvisible(field)">
+                            <div ng-if="field.$ref !== ''">
+                                <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                    <div ng-include src="config.templates.layout"></div>
+                                </div>
+                            </div>
+                            <div ng-if="field.$ref === undefined || field.$ref === ''">
+                                <div ng-include src="config.templates.layout"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </ng-switch>
+            </div>
+
+            <div class="form-group marginbottom0px col-md-{{section.columnsize}}">
+                <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
+                    <div ng-if="field.$ref !== ''">
+                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                            <div ng-include src="config.templates.layout"></div>
+                        </div>
+                    </div>
+                    <div ng-if="field.$ref === undefined || field.$ref === ''">
+                        <div ng-include src="config.templates.layout"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div ng-include src="config.templates.layout"></div> -->
+        </div>
+
+        <div ng-switch-when="accordion">
+            <div ng-include src="config.templates.accordionlayout"></div>
+        </div>
+        <div ng-switch-when="modal">
+            <div id = {{section.name}} class="form-group marginbottom0px col-md-{{section.columnsize}} oc-modal oc-show">
+                <div class="oc-modal-dialog">
+                    <div class="oc-modal-content {{section.divison}}">
+                        <div class="oc-modal-header border-none">
+                            <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
+                            <h3 class="text-left">{{section.title}}</h3>
+                            <hr class="onl_hrOr_1"><hr class="onl_hrOr_2">
+                        </div>
+
+                        <div class="modal-body">
+                                <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
+                                    <div ng-if="field.$ref !== ''">
+                                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                            <div ng-include src="config.templates.layout"></div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="field.$ref === undefined || field.$ref === ''">
+                                        <div ng-include src="config.templates.layout"></div>
+                                    </div>
+                                </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-switch>
+    <div id="subsectionId" class="subsectiondiv">
+        <!-- Non Accordion Sections-->
+        <div ng-repeat="subsections in section.comment">
+            <div ng-include src="config.templates.layout"></div>
+        </div>
+    </div>
+</script>
