@@ -1,4 +1,4 @@
-Omnichannel-infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OCIA-Dev-Client)](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/job/OCIA-Dev-Client/)
+Omnichannel-Infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OCIA-Dev-Client)](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/job/OCIA-Dev-Client/)
 ================================
 
 > A full-featured User Interface written in Angular for Omnichannel Solutions 
@@ -15,9 +15,7 @@ Fork this Repository to your Bitbucket Account then :
     $ cd omnichannel-infrastructure
     $ git checkout '<develop-Sprintx>'
     $ npm start
-    $ grunt startServer
-
-
+   
 ```
 
 Boom!! , This will open your default browser window running current development version. It will **reload the app** if you make changes to source files.
