@@ -5,34 +5,37 @@
         "formid": "dashboard",
         "groupid": "",
         "sections": [
-        	{
-				"title": "_RESOURCE_MANAGEMENT",
+            {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
                 "name": "resource_management",
                 "category": "nonaccordion",
-                "columnsize": 12,
+                "columnsize": 4,    
                 "visible" : true,
-                "sections" : [
-                	{
-                        "name": "Resources",
-                        "type": "button",
-                        "label": "_RESOURCE_MANAGEMENT",
-                        "columnsize": 4,
-                        "icon": "flaticon-adults",
-                        "visible": true,
-                        "elements" : [
-                    		{
-		                        "name": "partysearch",
-		                        "type": "button",
-		                        "label": "_PARTIES",
-		                        "columnsize": 2,
-		                        "icon": "flaticon-adults",
-		                        "actionurl": "/screen/partiessearch",
-		                        "visible": true
-		                    }
-                        ]
-                    }
-                ]
-        	}
+                "showButton": true,
+                "height": "100px",
+                "width": "100px",
+                "buttonLabel": "_RESOURCE_MANAGEMENT",
+                "icon": "",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel",
+                "elements" : [
+                        {
+                            "subtitle": "Party",
+                            "name": "partysearch",
+                            "type": "button",
+                            "label": "_PARTIES",
+                            "columnsize": 2,
+                            "icon": "flaticon-adults",
+                            "method":"navigate",
+                            "actionurl": "/screen/partiessearch",
+                            "visible": true,
+                            "height": "75px",
+                            "width": "75px"
+                            } 
+                    ]
+            }
         ]
     }
 }

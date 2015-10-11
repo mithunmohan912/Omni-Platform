@@ -68,9 +68,10 @@
     <div ng-switch-when="button" class="col-md-{{field.columnsize}}" style="text-align: center;" ng-show="field.visible">
         <button id="{{field.name}}" class="btn btn-primary btn-mg" ng-click="doaction(field.method, section)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>-->
-	<div ng-switch-when="button" class="col-md-{{field.columnsize}}" style="text-align: center;" ng-show="field.visible">
-				<button id="{{field.name}}" class="ocbtn" ng-click="doaction(field.method, section,field.action,field.actionurl)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
-	</div>
+	<div ng-switch-when="button" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="ocbtn {{field.icon}}" 
+                style="height: {{field.height}}; width: {{field.width}}" ng-click="doaction(field.method, section,field.action,field.actionurl)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+    </div>
 
 
     <div ng-switch-when="table" id="{{field.name}}" class="col-md-{{field.columnsize}}" ng-controller='TableController'>
@@ -174,7 +175,7 @@
                     <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" to-currency amount="data[field.name]">
                 </div>
                 <div ng-switch-when="button" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="ocbtn" ng-click="doaction(subfield.method, subsection)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                <button id="{{subfield.name}}" class="ocbtn {{field.icon}}" ng-click="doaction(subfield.method, subsection)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="password">
                     <input type="password" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">

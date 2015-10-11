@@ -10,7 +10,7 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
     $routeProvider.
    when('/dashboard', {
 	   templateUrl: function(){
-		   return 'ocinfra/templates/dashboard.html';
+		   return 'ocinfra/templates/screen.html';
         }, 
           controller: DashboardController
 	 }).
