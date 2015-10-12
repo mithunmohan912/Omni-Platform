@@ -8,7 +8,9 @@ module.exports = {
   },
   all: [
     'Gruntfile.js',
-    'src/app/js/{,*/}*.js',
+    'src/app-clientmanagement/{,*/}*.js',
+    'src/app-miniquote/{,*/}*.js',
+    'src/app-weather/{,*/}*.js',
     'src/common/js/{,*/}*.js',
     'grunt/*.js',
     'tests/unit/*.js',

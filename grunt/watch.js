@@ -3,43 +3,28 @@
 module.exports = {
  scripts: {
     files: [
-    'src/app/**/*.js',
-    'src/app/app.js',
+    'src/app-clientmanagement/app/**/*.js',
+    'src/app-clientmanagement/js/**/*.js',
+    'src/app-clientmanagement/assets/css/*.css',
+    'src/app-miniquote/app/**/*.js',
+    'src/app-miniquote/js/**/*.js',
+    'src/app-miniquote/assets/css/*.css',
+    'src/app-weather/app/**/*.js',
+    'src/app-weather/js/**/*.js',
+    'src/app-weather/assets/css/*.css',
     'src/common/**/*.js',
+    'src/common/**/*.html',
     'grunt/*.js',
-    'tests/**/*.js' 
+    'tests/**/*.js' ,
+    'src/vendors/*',
+    'src/common/*',
+    'src/assets/css/*' , 
+    '!src/vendors/angular/i18n/**'
     ],
-    tasks: ['jshint','karma:unit'],
+    tasks: ['jshint','karma:unit','copy','injector','replace'],
     options: {
       spawn: false,
       livereload:true
     },
-  },
-   html: {
-    files: [
-     'src/app/**/*.html',
-     'src/app/index.html'],
-    tasks: ['jshint','karma:unit'],
-    options: {
-      spawn: false,	
-      livereload: true
-    }
-  },
-   inject_into_index: {
-    files: ['src/vendors/*','src/common/*','src/assets/css/*' , '!src/vendors/angular/i18n/**'],
-    tasks: ['injector','replace'],
-    options: {
-      spawn: false, 
-      livereload: true
-    }
-  },
-  build_dist: {
-    files: ['src/vendors/*','src/common/js/*','src/assets/**' , '!src/vendors/angular/i18n/**'],
-    tasks: ['copy'],
-    options: {
-      spawn: false, 
-      livereload: true
-    }
   }
-
 };
