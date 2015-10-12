@@ -4,8 +4,9 @@ global forAll,createDriver,session,takeScreenshot,test
 */
 /* exported obj */
 
-var domain = 'localhost:8080/#';
 
+//var domain = 'localhost:8080/#';
+var domain = 'localhost:8080/app-clientmanagement/#';
 
 /*
 A list of all devices that will be used in our tests

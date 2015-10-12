@@ -6,4 +6,4 @@ logo                css      div.oc-logo
 ------------------------------------
 logo
     height: 60px
-    width: 170px
+    width:  70 to 105 px

@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular,showMessage
+global angular,optionsProcessor
 */
 
 /*
@@ -110,106 +110,37 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 		var url;
 		var objectName;
 		var headers= {
-			//'Access-Control-Allow-Origin': '*',
-			//'Access-Control-Allow-Methods':'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD',
-			//'Access-Control-Allow-Headers':'X-Requested-With, content-type',
-			// 'NSP_USERID': localStorage.username,
 			'Accept' : 'application/json, text/plain, */*',
             'Content-Type' : 'application/json, text/plain, */*'
-			};   
+			}; 
+		var params = {};		
         if(action==='search'){
-			
-		url = $rootScope.HostURL;
-		var params = {};	
+			url = $rootScope.HostURL;
+			// Option processing
+			optionsProcessor($rootScope,$scope,reqParm, params,action,url);	 
+			// Option processing		
 		
-		// Option processing
-        var searchOption= [];	
-		if($rootScope.optionData!==undefined && $rootScope.optionData[url]!== undefined) {
-		angular.forEach($rootScope.optionData[url], function(value){
-
-		if(value.rel==='search'){
-				searchOption.push(value);
-			}
-		 });			
-			
-	    objectName=reqParm.replace('search','');
-		angular.forEach(searchOption, function(value){
-		var object=value.schema[objectName];	
-		var requiredVariables= object.required;		
-			angular.forEach(requiredVariables, function(value){
-			var field = objectName.concat('.').concat(value);	
-			params[value]	=$scope.data[field];
-			});		
-			
-	     });		
-		}		 
-		// Option processing		
-		
-	    var listDispScope = angular.element($('.table-striped')).scope();
+			var listDispScope = angular.element($('.table-striped')).scope();
 			HttpService.search(url,headers,params,listDispScope);
 			$scope.listDispScope=listDispScope;
-        }   else  if(action==='add'){
+        } else  if(action==='add'){
 			 $rootScope.resourceHref=undefined;
 			 $rootScope.navigate(actionURL);
 		} else  if(action==='submit'){
 		   var addResource=false;
 		   method='PATCH';
 		   url = $rootScope.resourceHref;
-			
-			if (url === undefined) {
+		   if (url === undefined) {
 			    addResource=true;
 				 method='POST';
 				url = $rootScope.HostURL;
 			}
 			var payLoad = {};
-			
-			
-			// Option processing
-			var options= [];		
-			angular.forEach($rootScope.optionData[url], function(value){
-			if((addResource && value.rel==='create')||(!addResource && value.rel==='update'&& value.method==='PATCH')){
-				options.push(value);
-			}});			
-			
 			objectName=reqParm.replace('Detail','');
-			angular.forEach(options, function(value){
-				var object=value.schema[objectName];	
-				var requiredVariables= object.required;		
-				angular.forEach(requiredVariables, function(value){
-				var field = objectName.concat('.').concat(value);	
-				payLoad[value]	=$scope.data[field];
-				});	
-				
-			//	for(var name in object.properties) {
-				 angular.forEach(object.properties, function(value, key){
-				 var objProperty = object.properties[key];
-				 if(Array.isArray(objProperty)) {
-					  var subRequiredObj= objProperty[0];
-					  var subobj	=[];
-					  var subRequiredObjVariables= subRequiredObj.required;		
-					  angular.forEach(subRequiredObjVariables, function(value){
-							var field = key.concat('.').concat(value);	
-							subobj[value]=$scope.data[field];
-						});	
-					 payLoad[key]	=subobj;	
-				 }
-				 });	
-			//	}
-
-			});			
-		// Option processing		
-		 
-			 $http({
-				method: method,
-				url: url,
-				headers: headers,
-				data: payLoad
-			}).success(function(data){
-			 if (data) {
-				 var resource=objectName.charAt(0).toUpperCase() + objectName.substring(1);
-				 showMessage(resource+' Added/Updated successfully');
-			 }
-			});
+			// Option processing
+			optionsProcessor($rootScope,$scope,reqParm, params,action,url,payLoad,objectName);	
+			// Option processing		
+		   HttpService.addUpdate(method,url,headers,payLoad,objectName);
 			
 		}
     };
@@ -218,7 +149,6 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
         var listDispScope = angular.element($('.table-striped')).scope();
 		var url = row._link.self.href;
          var headers = {
-          //   'NSP_USERID': localStorage.username,
              'Content-Type': 'application/json'
          };
          $http({

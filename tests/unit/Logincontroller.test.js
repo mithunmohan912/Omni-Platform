@@ -1,11 +1,13 @@
 'use strict';
 //Export Global Functions
-
+/*global LoginController*/
 
 describe('LoginController', function() {
 
+
+
  beforeEach(function(){
-  // injecting all required modules ....
+    // injecting all required modules ....
      angular.mock.module('ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel');
 });
 
@@ -18,15 +20,12 @@ describe('LoginController', function() {
   var $resource;
   var $oc_Roles;
   var $tmh_DynamicLocale;
-  var $routeParams;
+  var LoginSrv;
   var $cookieStore;
- // var httpMock;
-  var httpBackend;
-//  var url = 'http://localhost:8080/#/';
- // var browser = new Browser();
+  var createController;
 
-  beforeEach(inject(function(_$controller_, _$rootScope_ , _$location_ ,_$http_ ,
-                             _$resource_ ,OCRoles,tmhDynamicLocale,_$routeParams_,_$cookieStore_,$httpBackend ){
+  beforeEach(inject(function(_$controller_, _$rootScope_ , _$location_ , _$cookieStore_,_$http_ ,
+                             _$resource_ ,OCRoles,tmhDynamicLocale,_LoginSrv_ ){
     // The injector unwraps the underscores (_) from around the parameter names when matching
    
     $controller = _$controller_;
@@ -37,23 +36,25 @@ describe('LoginController', function() {
     $resource = _$resource_;
     $oc_Roles = OCRoles;
     $tmh_DynamicLocale = tmhDynamicLocale;
-    $routeParams = _$routeParams_;
+    LoginSrv = _LoginSrv_;
     $cookieStore= _$cookieStore_;
-	//httpMock = $httpMock;
-	httpBackend = $httpBackend;
+	
+	createController = function() {
+		new LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, $oc_Roles, $tmh_DynamicLocale,LoginSrv);	
+        };
+	
   }));
 
   
 describe('A suit for LoginController', function() {
-    it('test case to test validate login.', function() {
-		
-		//new LoginController($scope, $rootScope, $cookieStore, $http, $resource, $oc_Roles, $tmh_DynamicLocale);
-       // expect($rootScope.showHeader).toEqual(false);
-	
-	//	 httpMock.flush();
-		 
+    it('test case to test LoginController.', function() {
+		createController();
+        expect($cookieStore.userid).not.toEqual('kkdrensk');
     });
   });
+  
+  
+  
 
   
  });
