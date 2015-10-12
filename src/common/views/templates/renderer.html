@@ -34,8 +34,36 @@
     <div class="form-group marginbottom0px">
         <div ng-include src="config.templates.header"></div>
     </div>
+<h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
+    <div class="hr_margin"><hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true"><hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true"></div> 
 
-    <h4>{{locale[section.title]}}</h4>
+    <div ng-if="section.modaledit !== true" class="{{section.heightClass}}">
+        <div ng-include src="'nonaccordionsection.html'"></div>
+    </div>
+    <div ng-if="section.showButton === true">
+        <button data-toggle="modal" data-target="#modalquote{{section.name}}" ng-click="addEmptySection(section, $event)" ng-style="{'height': section.height, 'width': section.width}" 
+            class=" {{section.txtCenter}} {{section.icon}}">{{locale[section.buttonLabel]}}
+        </button>
+    </div>
+    <div id="subsectionId" class="subsectiondiv">
+        <div ng-repeat="subsections in section.comment">
+            <div ng-include src="config.templates.layout"></div>
+        </div>
+    </div>
+    <div ng-if="!section.groupedAction" class="oc-modal fade" id="modalquote{{section.name}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="oc-modal-dialog">
+            <div class="oc-modal-content {{section.division}}">
+                <div class="oc-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                  
+                </div>
+                <div class="oc-modal-body">
+                    <div ng-include src="'nonaccordionsection.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="nonaccordionsection.html">
     <ng-switch on="section.category">
         <div ng-switch-when="nonaccordion">
             <div quick-ng-repeat="subsection in section.sections" quick-repeat-list="subsection in section.sections" ng-show="subsection.visible">
@@ -79,7 +107,7 @@
         <div ng-switch-when="modal">
             <div id = {{section.name}} class="form-group marginbottom0px col-md-{{section.columnsize}} oc-modal oc-show">
                 <div class="oc-modal-dialog">
-                    <div class="oc-modal-content {{section.divison}}">
+                    <div class="oc-modal-content {{section.division}}">
                         <div class="oc-modal-header border-none">
                             <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
                             <h3 class="text-left">{{section.title}}</h3>
