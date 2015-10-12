@@ -4,7 +4,7 @@ global app
 */
 
 app.service('DataMappingService', function() {
-    this.map = function( $scope) {
+    this.map = function($scope) {
 		// Simply this and make it generic
       $scope.data['parties.firstName']=$scope.data.parties.firstName;
 	  $scope.data['parties.lastName']=$scope.data.parties.lastName;
