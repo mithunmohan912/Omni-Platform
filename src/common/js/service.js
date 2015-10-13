@@ -94,6 +94,25 @@ app.service('HttpService', function($http,DataMappingService) {
 		});
     };
 	
+	this.addUpdate = function( method, url,headers, payLoad,objectName) {
+    $http({
+				method: method,
+				url: url,
+				headers: headers,
+				data: payLoad
+			}).success(function(data){
+			 if (data) {
+				 var resource=objectName.charAt(0).toUpperCase() + objectName.substring(1);
+				 if(method==='PATCH'){
+					  showMessage(resource+' Updated successfully');
+				 } else{
+					  showMessage(resource+' Added successfully');
+				 }
+				
+			 }
+			});
+    };
+	
     return this;
 });
 

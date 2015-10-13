@@ -10,8 +10,8 @@ var LoginPage = function (driver) {
     GalenPages.extendPage(this, driver, {
         container: 'div.container-fluid' ,
         inputUserName: 'id: inputUsername',
-        passwordinput: 'id: passwordinput',
-        signInButton: 'button.oc-btn'
+        inputPassword: 'id: inputPassword',
+        signInButton: 'id: submit'
     },{
     	errorMessage : 'id: messageID',
 
@@ -21,7 +21,7 @@ var LoginPage = function (driver) {
             
             logged('Login as '  + user.username + 'with password ' + user.password, function () {
                 thisPage.inputUserName.typeText(user.username);
-                thisPage.passwordinput.typeText(user.password);
+                thisPage.inputPassword.typeText(user.password);
                 thisPage.signInButton.click();
             });
         }

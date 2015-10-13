@@ -21,7 +21,7 @@ app.run(function($rootScope,  $location,  $cookieStore ) {
             $location.url('/');
        }
    });	
-	
+	 $rootScope.showHeader = false;
 	
 });
 

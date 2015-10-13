@@ -40,6 +40,7 @@ describe('HeaderController', function() {
 	
 	createController = function() {
 		$rootScope.showHeader=false;
+		$cookieStore.put('userid','kkdrensk');
 		$rootScope.routeParams=$routeParams;
             return $controller('HeaderController', {
                '$scope': $scope,'$rootScope': $rootScope,'$http':$http,'$location' : $location, '$cookieStore' :$cookieStore
@@ -51,9 +52,9 @@ describe('HeaderController', function() {
   
 describe('A suit for HeaderController', function() {
     it('test case to test HeaderController.', function() {
-		
 		 createController();
-         expect($rootScope.showHeader).toEqual(false);
+		 $rootScope.logout();
+         expect($cookieStore.userid).not.toEqual('kkdrensk');
     });
   });
 
