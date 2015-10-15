@@ -14,6 +14,13 @@ app.service('OCAppConfig', function($resource, $rootScope){
 				if(!data.config.base)	{
                     showMessage('This application \'s configuration is not available', '30');
                 }
+                angular.forEach($rootScope.config.properties, function(key) {
+                       $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                       angular.forEach($rootScope.localeOpts.options, function(key) {
+                       key.description = key.description;
+                        });
+                 
+                });
                
             }
         });

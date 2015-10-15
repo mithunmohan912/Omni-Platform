@@ -16,13 +16,15 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right" >
+        <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'fr-fr') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a></li>
+        <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{locale["_ENGLISH"]}}</a></li>
         <li class="broker"><span>{{user.name}}</span> 
-        <li class="logout"><a href ng-click="logout();" >Logout</a></li>
+        <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
       
       <ul class="nav navbar-nav navbar-right" style="clear:right" ng-repeat="section in dashboard">
-        <li><a href ng-click="navigate('/dashboard')" >Home</a></li>
+        <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
         
         <li class="dropdown" ng-repeat="application in section.sections">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

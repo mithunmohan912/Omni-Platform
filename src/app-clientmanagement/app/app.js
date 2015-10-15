@@ -33,7 +33,7 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
         controller: LoginController
     });
 	
-    tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular/i18n/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
 	 
     
 }]);

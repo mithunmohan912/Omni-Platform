@@ -5,7 +5,7 @@
         </tr>
         <tr ng-show="field.tableMetaData.searching">
             <th colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
-                <input ng-model="searchText" class="form-control" placeholder="Filter Results on this page ..." type="search" />
+                <input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_RESULTS"]}} type="search" />
             </th>
         </tr>
     </thead>
