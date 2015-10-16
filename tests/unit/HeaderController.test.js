@@ -37,6 +37,7 @@ describe('HeaderController', function() {
     $tmh_DynamicLocale = tmhDynamicLocale;
     $routeParams = _$routeParams_;
     $cookieStore= _$cookieStore_;
+
 	
 	createController = function() {
 		$rootScope.showHeader=false;
@@ -51,12 +52,25 @@ describe('HeaderController', function() {
 
   
 describe('A suit for HeaderController', function() {
-    it('test case to test HeaderController.', function() {
-		 createController();
-		 $rootScope.logout();
-         expect($cookieStore.userid).not.toEqual('kkdrensk');
+        it('test case to test HeaderController.', function() {
+            createController();
+            $rootScope.logout();
+            expect($cookieStore.userid).not.toEqual('kkdrensk');
+        });
     });
-  });
+
+    describe('A suit for HeaderController', function() {
+        it('test case to test HeaderController for locale change.', function() {
+            var localeOpts={};
+            var options = [{value:'en-gb', description:'English'},{value:'es-us', description:'Spanish'} ];
+            $rootScope.localeOpts=localeOpts;
+            $rootScope.localeOpts.options = options;
+            $rootScope.newlocale = 'es-us';
+            createController();
+            $scope.setLocate('en-gb');
+            expect($rootScope.newlocale).toEqual('en-gb');
+        });
+    });
 
   
  });
