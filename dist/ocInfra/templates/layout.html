@@ -1,11 +1,11 @@
 <ng-switch on="field.type">
     <ng-switch on="field.required">
-        <div ng-switch-when="required" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'button' && field.type != 'checkboxgroup'" class="margin_BTM_15px whiteSpaceNowrap">
+        <div ng-switch-when="required" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup'" class="margin_BTM_15px whiteSpaceNowrap">
             <label class="col-md-{{field.columnsize}} " for="{{field.name}}">
                 <span class="requiredmark">*</span> {{(locale[field.label]?locale[field.label] : field.label)}}
             </label>
         </div>
-        <div ng-switch-default class="margin_BTM_15px whiteSpaceNowrap" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'button' && field.type != 'checkboxgroup' && field.type != 'view'">
+        <div ng-switch-default class="margin_BTM_15px whiteSpaceNowrap" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup' && field.type != 'view'">
             <label class="col-md-{{field.columnsize}} {{field.class}} " for="{{field.name}}" id="{{field.name}}_label">
                 <span class="padding12px"></span>{{(locale[field.label]?locale[field.label] : field.label)}}
             </label>
@@ -64,15 +64,15 @@
             
         </select>
     </div>
-	<!--
-    <div ng-switch-when="button" class="col-md-{{field.columnsize}}" style="text-align: center;" ng-show="field.visible">
-        <button id="{{field.name}}" class="btn btn-primary btn-mg" ng-click="doaction(field.method, section)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
-    </div>-->
-	<div ng-switch-when="button" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
-                <button id="{{field.name}}" class="ocbtn {{field.icon}}" 
-                style="height: {{field.height}}; width: {{field.width}}" ng-click="doaction(field.method, section,field.action,field.actionurl)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+	<div ng-switch-when="buttonSmall" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>
-
+    <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+    </div>
+    <div ng-switch-when="buttonXs" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="oc-btn oc-btn-xs {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+    </div>
 
     <div ng-switch-when="table" id="{{field.name}}" class="col-md-{{field.columnsize}}" ng-controller='TableController'>
         <ng-include src="config.templates.table"></ng-include>
@@ -117,12 +117,12 @@
         <div ng-repeat="subfield in field.elementgroup" ng-show="checkvisible(subfield)" class="row">
             <ng-switch on="subfield.type">
                 <ng-switch on="subfield.required">
-                    <div ng-switch-when="required" ng-if="subfield.type != 'button'">
+                    <div ng-switch-when="required" ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
                         <label class="col-md-{{subfield.columnsize}} " for="{{subfield.name}}">
                             <span class="requiredmark">*</span> {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
                         </label>
                     </div>
-                    <div ng-switch-default ng-if="subfield.type != 'button'">
+                    <div ng-switch-default ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
                         <label class="col-md-{{subfield.columnsize}} {{subfield.class}}" for="{{subfield.name}}" id="{{subfield.name}}_label">
                             <span class="padding12px"></span>{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
                         </label>
@@ -174,8 +174,14 @@
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="money">
                     <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" to-currency amount="data[field.name]">
                 </div>
-                <div ng-switch-when="button" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="ocbtn {{field.icon}}" ng-click="doaction(subfield.method, subsection)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+               <div ng-switch-when="buttonSmall" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                </div>
+                <div ng-switch-when="buttonLarge" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-large {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                </div>
+                <div ng-switch-when="buttonXs" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-xs {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="password">
                     <input type="password" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">

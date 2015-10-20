@@ -3,7 +3,7 @@
 global app,showMessage 
 */
 app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale){	
-    this.runLogin = function($scope) {
+    this.runLogin = function($scope,nextScreenId) {
 				$rootScope.showIcon = true;
 				 $http({
                     url: 'ocInfra/assets/resources/config/users.json',
@@ -33,7 +33,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     $resource('assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
                         $rootScope.locale = data;
                         tmhDynamicLocale.set($rootScope.newlocale);
-                        OCRoles.load(user.roles[0], '/dashboard');
+                        OCRoles.load(user.roles[0], nextScreenId);
                     }, function() {});
                 }).error(function(data) {
                     $rootScope.showIcon = false;

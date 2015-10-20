@@ -2,30 +2,43 @@
 /*
 global app,showMessage 
 */
-app.service('OCAppConfig', function($resource, $rootScope){	
+/*
+exported checkVisibility
+*/
+app.service('OCInfraConfig', function($resource, $rootScope){	
     this.load = function() {
-        $resource('assets/resources/config/appConf.json').get(function(data) {
-            if (data.config !== undefined) {
-			$rootScope.config = data.config.base;
-                if (!$rootScope.HostURL) {
-                    $rootScope.HostURL = $rootScope.config.hostURL;
-                }
-                $rootScope.cleanAPIURL = $rootScope.config.cleanAPIURL;
-				if(!data.config.base)	{
-                    showMessage('This application \'s configuration is not available', '30');
-                }
-                angular.forEach($rootScope.config.properties, function(key) {
-                      if (key.name === 'language') {
-                        $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
-                        angular.forEach($rootScope.localeOpts.options, function(key) {
-                        key.description = key.description;
-                         });
-                  }
-                 });
-               
-            }
-        });
+    	$rootScope.infraConfig = {};
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+			$rootScope.infraConfig = data.config.base;
+			$rootScope.metadataPath = data.config.base.templates.metaData;
+            });
     };
+});
+
+app.service ('FieldService', function() {
+    this.checkVisibility = function (field, $scope) {
+	    if(field.visibleWhen) {
+	    	if ($scope.data[field.visibleWhen.expression.field] === field.visibleWhen.expression.value) {
+	    		return true;
+	    		}	
+	    } else {
+	    	return true;
+	    }	
+	};   
+});    
+
+app.service ('OCMetadata', function($rootScope, $resource) {
+	this.load = function(scope,metadataLocation) { 
+		var screenId = $rootScope.screenId;
+		var metadataName = metadataLocation + screenId + '.json';
+    	$rootScope.metadata = {};
+    	scope.data = {};
+    	$resource(metadataName).get(function(data) {
+        	$rootScope.metadata[screenId] = data.metadata;
+        	$rootScope.title = data.metadata.title;
+        	scope.screenId = screenId;
+    	});
+    };	
 });
 
 app.service('OCRoles', function($resource, $rootScope, $location) {
