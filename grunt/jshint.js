@@ -11,7 +11,7 @@ module.exports = {
     'src/app-clientmanagement/{,*/}*.js',
     'src/app-miniquote/{,*/}*.js',
     'src/app-weather/{,*/}*.js',
-    'src/common/js/{,*/}*.js',
+    'src/ocInfra/js/{,*/}*.js',
     'grunt/*.js',
     'tests/unit/*.js',
     'tests/galen/js/*.js',

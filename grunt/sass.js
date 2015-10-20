@@ -5,7 +5,7 @@ module.exports = {
                     style: 'expanded'
                 },
                  files: {
-					'src/assets/css/mystyle.css': 'src/assets/saas/mystyle.scss'
+					'src/ocInfra/css/mystyle.css': 'src/ocInfra/assets/saas/mystyle.scss'
 				}
             },
             dist: {

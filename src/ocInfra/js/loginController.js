@@ -35,7 +35,7 @@ function evaluateExpression()
 	
 	
 function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv) {
-    var metadataName = 'ocinfra/assets/resources/metadata/login.json';
+    var metadataName = 'ocInfra/assets/resources/metadata/login.json';
     var screenId = 'login';
     loadMetadata(metadataName, screenId, $scope, $rootScope, $resource);
      $scope.checkvisible = function(field) {

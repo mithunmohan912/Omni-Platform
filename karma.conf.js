@@ -39,7 +39,7 @@ module.exports = function(config) {
             'src/vendors/modernizr/modernizr.js',
             'src/vendors/quick-ng-repeat/quick-ng-repeat.js',
             'src/vendors/jquery-validation/dist/jquery.validate.js',
-			'src/common/js/*.js',
+			'src/ocInfra/js/*.js',
             'tests/unit/*.js'
 
         ],
@@ -52,8 +52,10 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'src/app/**/*.js': ['coverage'],
-            'src/common/**/*.js': ['coverage']
+            'src/app-clientmanagement/**/*.js': ['coverage'],
+            'src/app-miniquote/**/*.js': ['coverage'],
+            'src/app-weather/**/*.js': ['coverage'],
+            'src/ocInfra/**/*.js': ['coverage']
         },
 
 

@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  vendors:  ['vendors'] ,
   dist : ['dist'] ,
   lib: ['src/vendors'],
   reports:['reports'],

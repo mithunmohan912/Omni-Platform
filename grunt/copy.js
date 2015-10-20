@@ -16,10 +16,10 @@ module.exports = {
      {
       expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
       dest: 'dist/ocInfra/' ,
-      src: ['assets/**' , '!assets/css/**']
+      src: ['assets/**']
      },
       {
-      expand: true , cwd:'src/common/views' , flatten: false,  filter: 'isFile',
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'dist/ocInfra/' ,
       src: ['templates/**']
      },
@@ -29,22 +29,22 @@ module.exports = {
     files: [
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-clientmanagement/ocinfra/js' ,
+      dest: 'src/app-clientmanagement/ocInfra/js' ,
       src: ['js/*.js']
      },
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-clientmanagement/ocinfra/css' ,
+      dest: 'src/app-clientmanagement/ocInfra/css' ,
       src: ['css/*.css']
      },
      {
       expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-clientmanagement/ocinfra/' ,
-      src: ['assets/**' , '!assets/css/**']
+      dest: 'src/app-clientmanagement/ocInfra/' ,
+      src: ['assets/**']
      },
       {
-      expand: true , cwd:'src/common/views' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-clientmanagement/ocinfra/' ,
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-clientmanagement/ocInfra/' ,
       src: ['templates/**']
      },
    ]
@@ -53,22 +53,22 @@ module.exports = {
     files: [
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-weather/ocinfra/js' ,
+      dest: 'src/app-weather/ocInfra/js' ,
       src: ['js/*.js']
      },
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-weather/ocinfra/css' ,
+      dest: 'src/app-weather/ocInfra/css' ,
       src: ['css/*.css']
      },
      {
       expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-weather/ocinfra/' ,
-      src: ['assets/**' , '!assets/css/**']
+      dest: 'src/app-weather/ocInfra/' ,
+      src: ['assets/**']
      },
       {
-      expand: true , cwd:'src/common/views' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-weather/ocinfra/' ,
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-weather/ocInfra/' ,
       src: ['templates/**']
      },
    ]
@@ -77,22 +77,22 @@ module.exports = {
     files: [
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-miniquote/ocinfra/js' ,
+      dest: 'src/app-miniquote/ocInfra/js' ,
       src: ['js/*.js']
      },
      {
       expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
-      dest: 'src/app-miniquote/ocinfra/css' ,
+      dest: 'src/app-miniquote/ocInfra/css' ,
       src: ['css/*.css']
      },
      {
       expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-miniquote/ocinfra/' ,
-      src: ['assets/**' , '!assets/css/**']
+      dest: 'src/app-miniquote/ocInfra/' ,
+      src: ['assets/**']
      },
       {
-      expand: true , cwd:'src/common/views' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-miniquote/ocinfra/' ,
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-miniquote/ocInfra/' ,
       src: ['templates/**']
      },
    ]

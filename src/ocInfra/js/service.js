@@ -30,7 +30,7 @@ app.service('OCAppConfig', function($resource, $rootScope){
 
 app.service('OCRoles', function($resource, $rootScope, $location) {
     this.load = function(roleList, url) {
-        $resource('ocinfra/assets/resources/config/roles.json').get(function(data) {
+        $resource('ocInfra/assets/resources/config/roles.json').get(function(data) {
             angular.forEach(data.Roles, function(key) {
                 if (key[roleList] !== undefined) {
                     $rootScope.roleConfig = key[roleList];

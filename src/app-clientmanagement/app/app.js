@@ -10,30 +10,30 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
     $routeProvider.
    when('/dashboard', {
 	   templateUrl: function(){
-		   return 'ocinfra/templates/screen.html';
+		   return 'ocInfra/templates/screen.html';
         }, 
           controller: DashboardController
 	 }).
     when('/screen/:screenId', {
         templateUrl: function() {
-            return 'ocinfra/templates/screen.html';
+            return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
     }).
     when('/screen/:screenId/:newTransaction', {
         templateUrl: function() {
-            return 'ocinfra/templates/screen.html';
+            return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
     }).
 	when('/', {
         templateUrl: function() {
-            return 'ocinfra/templates/screen.html';
+            return 'ocInfra/templates/screen.html';
         },
         controller: LoginController
     });
 	
-    tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
 	 
     
 }]);

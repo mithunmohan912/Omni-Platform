@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
 	require('load-grunt-config')(grunt);
 
-	grunt.registerTask('clean_components', [ 'clean:vendors', 'clean:dist',
+	grunt.registerTask('clean_components', ['clean:dist',
 			'clean:lib', 'clean:reports' , 'clean:tmp' ]);
 
 	grunt.registerTask('build', ['codereview' ]);
@@ -15,9 +15,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('startServer', [ 'connect:dev', 'watch' ]);
 
-	grunt.registerTask('createPackage', [ 'compress:pack' ]);
-
-	grunt.registerTask('buildcss', [ 'sass:dist' ]);
+    grunt.registerTask('buildcss', [ 'sass:dist' ]);
 
 	grunt.registerTask('inject', ['injector','replace']);
 

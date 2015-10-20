@@ -8,7 +8,7 @@ exported showHostErrorMessage
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
   	
-    tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular/i18n/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
 	 
     
 }]);
@@ -229,7 +229,7 @@ function evaluateExpression()
 	
 	
 function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv) {
-    var metadataName = 'ocinfra/assets/resources/metadata/login.json';
+    var metadataName = 'ocInfra/assets/resources/metadata/login.json';
     var screenId = 'login';
     loadMetadata(metadataName, screenId, $scope, $rootScope, $resource);
      $scope.checkvisible = function(field) {
@@ -266,7 +266,7 @@ app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OC
     this.runLogin = function($scope) {
 				$rootScope.showIcon = true;
 				 $http({
-                    url: 'ocinfra/assets/resources/config/users.json',
+                    url: 'ocInfra/assets/resources/config/users.json',
                     method: 'GET'
                 }).success(function(data) {
                     //extract user
@@ -310,7 +310,7 @@ app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OC
 
 app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resource, $rootScope, $location) {
     this.load = function(roleList, url) {
-        $resource('ocinfra/assets/resources/config/roles.json').get(function(data) {
+        $resource('ocInfra/assets/resources/config/roles.json').get(function(data) {
             angular.forEach(data.Roles, function(key) {
                 if (key[roleList] !== undefined) {
                     $rootScope.roleConfig = key[roleList];
@@ -600,7 +600,7 @@ app.service('OCAppConfig', ['$resource', '$rootScope', function($resource, $root
 
 app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resource, $rootScope, $location) {
     this.load = function(roleList, url) {
-        $resource('ocinfra/assets/resources/config/roles.json').get(function(data) {
+        $resource('ocInfra/assets/resources/config/roles.json').get(function(data) {
             angular.forEach(data.Roles, function(key) {
                 if (key[roleList] !== undefined) {
                     $rootScope.roleConfig = key[roleList];

@@ -6,7 +6,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
     this.runLogin = function($scope) {
 				$rootScope.showIcon = true;
 				 $http({
-                    url: 'ocinfra/assets/resources/config/users.json',
+                    url: 'ocInfra/assets/resources/config/users.json',
                     method: 'GET'
                 }).success(function(data) {
                     //extract user
@@ -50,7 +50,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
 
 app.service('OCRoles', function($resource, $rootScope, $location) {
     this.load = function(roleList, url) {
-        $resource('ocinfra/assets/resources/config/roles.json').get(function(data) {
+        $resource('ocInfra/assets/resources/config/roles.json').get(function(data) {
             angular.forEach(data.Roles, function(key) {
                 if (key[roleList] !== undefined) {
                     $rootScope.roleConfig = key[roleList];
