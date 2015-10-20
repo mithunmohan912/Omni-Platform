@@ -13,7 +13,6 @@ Fork this Repository to your Bitbucket Account then :
 ```
     $ git clone https://bitbucket.org/<your-bitbucket-id>/omnichannel-infrastructure.git
     $ cd omnichannel-infrastructure
-    $ git checkout '<develop-Sprintx>'
     $ npm start
    
 ```
