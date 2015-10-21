@@ -22,11 +22,11 @@
         <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      
-      <ul class="nav navbar-nav navbar-right" style="clear:right" ng-repeat="section in dashboard">
+      <div ng-if="metadata[screenId].viewAs === 'menu'" >
+      <ul class="nav navbar-nav navbar-right" style="clear:right">
         <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
         
-        <li class="dropdown" ng-repeat="application in section.sections">
+        <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
@@ -42,7 +42,7 @@
 
 
          </ul>
-
+       </div>  
        </div>
      </div>
    </nav>
