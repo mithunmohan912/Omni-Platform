@@ -1,5 +1,5 @@
 'use strict';
-
+/*global OCController,LoginController*/
 
 /*
 exported showHostErrorMessage
@@ -7,13 +7,26 @@ exported showHostErrorMessage
 
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
+$routeProvider.
+   when('/:screenId', {
+       templateUrl: function(){
+           return 'ocInfra/templates/screen.html';
+        }, 
+          controller: OCController
+     }).
+    when('/', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        controller: LoginController
+    });
   	
     tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
 	 
     
 }]);
 
-app.run(function($rootScope,  $location,  $cookieStore ) {
+app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
 	
    $rootScope.$on('$locationChangeStart', function () {
 	 
@@ -22,7 +35,7 @@ app.run(function($rootScope,  $location,  $cookieStore ) {
        }
    });	
 	 $rootScope.showHeader = false;
-	
+   OCInfraConfig.load();
 });
 
 function showHostErrorMessage(message, severity) {

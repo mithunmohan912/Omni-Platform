@@ -1,5 +1,37 @@
 'use strict';
 
+/*
+exported OCController
+*/
+
+function OCController($scope, $rootScope, $routeParams, $location, $http, $resource,FieldService,OCMetadata) {  
+	$rootScope.showHeader = true;
+    var reqParm = null;
+
+    if ($routeParams.screenId.indexOf(':') !== -1) {
+        reqParm = $routeParams.screenId.split(':');
+        $rootScope.screenId = reqParm[1];
+    } else {
+        reqParm = $routeParams.screenId;
+        $rootScope.screenId = reqParm;
+    }
+    var metadataLocation = $rootScope.config.templates.metaData;
+    OCMetadata.load($scope,metadataLocation);
+    $scope.checkvisible = function(field) {
+            return FieldService.checkVisibility(field, $scope);    
+     };
+    $scope.doaction = function(method, subsections, action, actionURL) {
+        if (method === 'navigate'){
+            $scope.navigate(actionURL);
+        }
+    };
+    $rootScope.navigate = function(actionURL) {
+        $location.path(actionURL);
+    };
+}
+OCController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$http', '$resource', 'FieldService', 'OCMetadata'];
+'use strict';
+/*global OCController,LoginController*/
 
 /*
 exported showHostErrorMessage
@@ -7,13 +39,26 @@ exported showHostErrorMessage
 
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
+$routeProvider.
+   when('/:screenId', {
+       templateUrl: function(){
+           return 'ocInfra/templates/screen.html';
+        }, 
+          controller: OCController
+     }).
+    when('/', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        controller: LoginController
+    });
   	
     tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
 	 
     
 }]);
 
-app.run(['$rootScope', '$location', '$cookieStore', function($rootScope,  $location,  $cookieStore ) {
+app.run(['$rootScope', '$location', '$cookieStore', 'OCInfraConfig', function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
 	
    $rootScope.$on('$locationChangeStart', function () {
 	 
@@ -22,7 +67,7 @@ app.run(['$rootScope', '$location', '$cookieStore', function($rootScope,  $locat
        }
    });	
 	 $rootScope.showHeader = false;
-	
+   OCInfraConfig.load();
 }]);
 
 function showHostErrorMessage(message, severity) {
@@ -199,60 +244,32 @@ app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location'
 exported LoginController
 */
 
-
-function loadMetadata (metadataName, screenId, $scope, $rootScope, $resource) {
-    $rootScope.metadata = {};
-    $scope.data = {};
-    $resource(metadataName).get(function(data) {
-        $rootScope.metadata[screenId] = data.metadata;
-        $rootScope.title = data.metadata.title;
-        $scope.screenId = screenId;
-    });    
-}
-
-function checkVisibility (field) {
-    if(field.visibleWhen)
-        {
-            var response = evaluateExpression(field.visibleWhen.expression);
-            
-            return response;
-        }
-        return true;
-    }
-
-function evaluateExpression()
-    {    var response = true;
-      //  response = $scope.data[expression.field] === expression.value;
-        
-        return response;
-    }
-	
-	
-function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv) {
-    var metadataName = 'ocInfra/assets/resources/metadata/login.json';
-    var screenId = 'login';
-    loadMetadata(metadataName, screenId, $scope, $rootScope, $resource);
-     $scope.checkvisible = function(field) {
-            return checkVisibility(field);    
+function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
+    $rootScope.screenId = 'login';
+    var metadataLocation = $rootScope.infraConfig.metaData;
+    OCMetadata.load($scope,metadataLocation);
+    $scope.checkvisible = function(field) {
+            return FieldService.checkVisibility(field, $scope);    
      };
     $rootScope.showHeader = false;	
-    $scope.doaction = function(method) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId) {
         if (method === 'submit'){
-            $scope.submit();
+            $scope.submit(nextScreenId);
         }
     };
-    $scope.submit= function (){
+    $scope.submit= function (nextScreenId){
 	 var FormID = $('form').attr('id');		
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
                 showMessage('Network is not available', '30');
             } else {
-				LoginSrv.runLogin($scope);
+				LoginSrv.runLogin($scope, nextScreenId);
             }
         }
     };
 }
+LoginController.$inject = ['$scope', '$rootScope', '$location', '$cookieStore', '$http', '$resource', 'OCRoles', 'tmhDynamicLocale', 'LoginSrv', 'FieldService', 'OCInfraConfig', 'OCMetadata'];
 
 
 
@@ -263,7 +280,7 @@ function LoginController($scope, $rootScope, $location, $cookieStore, $http, $re
 global app,showMessage 
 */
 app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OCRoles', 'tmhDynamicLocale', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale){	
-    this.runLogin = function($scope) {
+    this.runLogin = function($scope,nextScreenId) {
 				$rootScope.showIcon = true;
 				 $http({
                     url: 'ocInfra/assets/resources/config/users.json',
@@ -293,7 +310,7 @@ app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OC
                     $resource('assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
                         $rootScope.locale = data;
                         tmhDynamicLocale.set($rootScope.newlocale);
-                        OCRoles.load(user.roles[0], '/dashboard');
+                        OCRoles.load(user.roles[0], nextScreenId);
                     }, function() {});
                 }).error(function(data) {
                     $rootScope.showIcon = false;
@@ -572,30 +589,44 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 /*
 global app,showMessage 
 */
-app.service('OCAppConfig', ['$resource', '$rootScope', function($resource, $rootScope){	
+/*
+exported checkVisibility
+*/
+app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $rootScope){	
     this.load = function() {
-        $resource('assets/resources/config/appConf.json').get(function(data) {
-            if (data.config !== undefined) {
-			$rootScope.config = data.config.base;
-                if (!$rootScope.HostURL) {
-                    $rootScope.HostURL = $rootScope.config.hostURL;
-                }
-                $rootScope.cleanAPIURL = $rootScope.config.cleanAPIURL;
-				if(!data.config.base)	{
-                    showMessage('This application \'s configuration is not available', '30');
-                }
-                angular.forEach($rootScope.config.properties, function(key) {
-                      if (key.name === 'language') {
-                        $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
-                        angular.forEach($rootScope.localeOpts.options, function(key) {
-                        key.description = key.description;
-                         });
-                  }
-                 });
-               
-            }
-        });
+    	$rootScope.infraConfig = {};
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+			$rootScope.infraConfig = data.config.base;
+			
+			$rootScope.infraConfig.metaData = data.config.base.templates.metaData; 
+            });
     };
+}]);
+
+app.service ('FieldService', function() {
+    this.checkVisibility = function (field, $scope) {
+	    if(field.visibleWhen) {
+	    	if ($scope.data[field.visibleWhen.expression.field] === field.visibleWhen.expression.value) {
+	    		return true;
+	    		}	
+	    } else {
+	    	return true;
+	    }	
+	};   
+});    
+
+app.service ('OCMetadata', ['$rootScope', '$resource', function($rootScope, $resource) {
+	this.load = function(scope,metadataLocation) { 
+		var screenId = $rootScope.screenId;
+		var metadataName = metadataLocation + screenId + '.json';
+    	$rootScope.metadata = {};
+    	scope.data = {};
+    	$resource(metadataName).get(function(data) {
+        	$rootScope.metadata[screenId] = data.metadata;
+        	$rootScope.title = data.metadata.title;
+        	scope.screenId = screenId;
+    	});
+    };	
 }]);
 
 app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resource, $rootScope, $location) {
@@ -693,11 +724,6 @@ app.service('HttpService', ['$http', 'DataMappingService', function($http,DataMa
 	
     return this;
 }]);
-
-
-
-
-
 
 'use strict';
 

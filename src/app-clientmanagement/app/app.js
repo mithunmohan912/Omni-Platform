@@ -1,6 +1,6 @@
 'use strict';
 
-/*global DashboardController,ScreenController,LoginController*/
+/*global ScreenController*/
 /*
 exported showHostErrorMessage
 */
@@ -8,12 +8,6 @@ exported showHostErrorMessage
 var app = angular.module('clientManagement', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
     $routeProvider.
-   when('/dashboard', {
-	   templateUrl: function(){
-		   return 'ocInfra/templates/screen.html';
-        }, 
-          controller: DashboardController
-	 }).
     when('/screen/:screenId', {
         templateUrl: function() {
             return 'ocInfra/templates/screen.html';
@@ -25,12 +19,6 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
             return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
-    }).
-	when('/', {
-        templateUrl: function() {
-            return 'ocInfra/templates/screen.html';
-        },
-        controller: LoginController
     });
 	
     tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
