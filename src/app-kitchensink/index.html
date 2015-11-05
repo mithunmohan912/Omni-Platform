@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="kitchensink">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{config.appTitle}}</title>
+<base href="./" target="_blank">
+  <!-- bower_injector:css -->
+  <link rel="stylesheet" href="../vendors/angular-bootstrap-colorpicker/css/colorpicker.css">
+  <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="../vendors/angular-motion/dist/angular-motion.css">
+  <link rel="stylesheet" href="../vendors/angular-ui-select/dist/select.css">
+  <link rel="stylesheet" href="../vendors/jasny-bootstrap/dist/css/jasny-bootstrap.css">
+  <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../vendors/open-sans/css/open-sans.css">
+  <link rel="stylesheet" href="../vendors/select2/select2.css">
+  <!-- endbower_injector -->
+  <!-- injector:css -->
+  <link rel="stylesheet" href="ocInfra/css/ocInfra.css">
+  <!-- endinjector -->
+</head>
+  <body  hidemessage>
+ <div ng-include="'ocInfra/templates/homeheader.html'" />
+        </div>
+		  <div ng-include="'ocInfra/templates/footer.html'" />
+        </div>
+        <div class="header-margin-wide"></div>
+        <!-- loading... -->
+        <div class="loading" ng-show="loader.loading">
+            <h3>
+			<span class="label label-default">
+				Processing ..<i class="fa fa-spinner fa-spin"></i>
+			</span>
+		</h3>
+        </div>
+        <div class="container-fluid">
+            <div ng-view autoscroll="true"></div>
+        </div>
+        <div ng-include src='"ocInfra/templates/errorDialog.html"'></div>
+
+        <div id="errorPopup" class="alert alert-info  affix" style="display: none;">
+            <div>
+                <p id="errorMessage" class="error-text"></p>
+            </div>
+            <div ng-repeat="error in errordata" class="error-spacer">
+                <div id="errorIcon" class="error-icon fa-exclamation-triangle fa fa-3x" ng-if="error.severity == 'error'"></div>
+                <div id="errorIcon" class="error-icon fa-info-circle fa fa-3x" ng-if="!error.severity"></div>
+                <div>
+                    <p class="error-text" ng-if="error.severity"><span style="color:black;">Severity:</span> {{error.severity}}</p>
+                </div>
+                <div>
+                    <p class="error-text" ng-if="error.context"><span style="color:black;">Context:</span> {{error.context}}</p>
+                </div>
+                <div>
+                    <p class="error-text" ng-if="error.message"><span style="color:black;">Message:</span> {{error.message}}</p>
+                </div>
+
+            </div>
+        </div>
+ 
+    </div>
+  <!-- bower_injector:js -->
+  <script src="../vendors/modernizr/modernizr.js"></script>
+  <script src="../vendors/jquery/dist/jquery.js"></script>
+  <script src="../vendors/angular/angular.js"></script>
+  <script src="../vendors/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="../vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+  <script src="../vendors/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+  <script src="../vendors/angular-resource/angular-resource.js"></script>
+  <script src="../vendors/angular-sanitize/angular-sanitize.js"></script>
+  <script src="../vendors/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../vendors/angular-animate/angular-animate.js"></script>
+  <script src="../vendors/angular-strap/dist/angular-strap.js"></script>
+  <script src="../vendors/angular-strap/dist/angular-strap.tpl.js"></script>
+  <script src="../vendors/angular-smart-table/dist/smart-table.js"></script>
+  <script src="../vendors/angular-route/angular-route.js"></script>
+  <script src="../vendors/angular-cookies/angular-cookies.js"></script>
+  <script src="../vendors/angular-ui-select/dist/select.js"></script>
+  <script src="../vendors/jquery-ui/jquery-ui.js"></script>
+  <script src="../vendors/angular-ui-date/src/date.js"></script>
+  <script src="../vendors/bootbox/bootbox.js"></script>
+  <script src="../vendors/angular-ui-mask/dist/mask.js"></script>
+  <script src="../vendors/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+  <script src="../vendors/jquery-validation/dist/jquery.validate.js"></script>
+  <script src="../vendors/quick-ng-repeat/quick-ng-repeat.js"></script>
+  <script src="../vendors/lodash/lodash.js"></script>
+  <script src="../vendors/restangular/dist/restangular.js"></script>
+  <script src="../vendors/select2/select2.js"></script>
+  <!-- endbower_injector -->
+  <!-- injector:js -->
+  <script src="app/app.js"></script>
+  <script src="app/LoadConfig/LoadConfig.js"></script>
+  <script src="app/Search/DataMappingService.js"></script>
+  <script src="ocInfra/js/ocInfra.js"></script>
+  <!-- endinjector -->
+  </body>
+</html>
