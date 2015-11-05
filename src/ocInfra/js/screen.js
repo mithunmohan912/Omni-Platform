@@ -173,5 +173,15 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 	
 	 $scope.next = function() {
 	 };
+	 
+	  $rootScope.step=1;
+
+
+          
+$scope.selecttab=function(step1){
+
+            
+        $rootScope.step = step1;
+    };
  
 }
