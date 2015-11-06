@@ -15,6 +15,14 @@ module.exports = {
                                                     'src/app-clientmanagement/ocInfra/js/ocInfra.js', 
                                                     'src/app-clientmanagement/ocInfra/css/ocInfra.css'
             ],
+            'src/app-kitchensink/index.html': ['src/app-kitchensink/js/*.js',
+                                                    'src/app-kitchensink/js/**/*.js',
+                                                    'src/app-kitchensink/app/*.js',
+                                                    'src/app-kitchensink/app/**/*.js',  
+                                                    'src/app-kitchensink/assets/css/*.css',
+                                                    'src/app-kitchensink/ocInfra/js/ocInfra.js', 
+                                                    'src/app-kitchensink/ocInfra/css/ocInfra.css'
+            ],
             'src/app-miniquote/index.html': ['src/app-miniquote/js/*.js',
                                              'src/app-miniquote/js/**/*.js',
                                              'src/app-miniquote/app/*.js',
@@ -45,6 +53,7 @@ module.exports = {
             'src/app-clientmanagement/index.html': ['bower.json'],
             'src/app-miniquote/index.html': ['bower.json'],
             'src/app-weather/index.html': ['bower.json'],
+            'src/app-kitchensink/index.html': ['bower.json'],
         }
     }
 };

@@ -53,6 +53,7 @@ module.exports = function(config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'src/app-clientmanagement/**/*.js': ['coverage'],
+            'src/app-kitchensink/**/*.js': ['coverage'],
             'src/app-miniquote/**/*.js': ['coverage'],
             'src/app-weather/**/*.js': ['coverage'],
             'src/ocInfra/**/*.js': ['coverage']

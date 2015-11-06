@@ -49,6 +49,30 @@ module.exports = {
      },
    ]
   },
+  dist_kitchensink : {
+    files: [
+     {
+      expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
+      dest: 'src/app-kitchensink/ocInfra/js' ,
+      src: ['js/*.js']
+     },
+     {
+      expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
+      dest: 'src/app-kitchensink/ocInfra/css' ,
+      src: ['css/*.css']
+     },
+     {
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-kitchensink/ocInfra/' ,
+      src: ['assets/**']
+     },
+      {
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-kitchensink/ocInfra/' ,
+      src: ['templates/**']
+     },
+   ]
+  },
   dist_weather : {
     files: [
      {
