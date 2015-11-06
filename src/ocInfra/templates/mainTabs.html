@@ -1,0 +1,7 @@
+<div ng-if="screenId=='partiesDetail'">
+	<ul class="nav nav-tabs">
+		<li quick-ng-repeat="field in metadata[screenId].sections" quick-repeat-list="field in metadata[screenId].sections" >
+			<a ng-show="field.renderAsTab" ng-click="selecttab(field.step)">{{field.name}}</a>
+		</li>
+</ul>
+</div>
