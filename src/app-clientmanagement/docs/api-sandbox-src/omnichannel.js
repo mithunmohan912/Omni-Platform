@@ -1,7 +1,7 @@
 var utility = require("utility.js");
 var entities = require("entities.js");
 state.partiesList = state.partiesList || [];
-var baseUrl = "https://oc-infraapis.getsandbox.com/omnichannel/v1/parties";
+var baseUrl = "https://oc-infraapi.getsandbox.com/omnichannel/v1/parties";
 var nodeName = "";
 var selectedItem = selectedItem || [];
 var item = item || [];
@@ -162,57 +162,17 @@ exports.optionsOmnichannelV1Parties = function(req, res) {
                      },
                      {
                         "rel"   : "search",
-                        "title" : "Search parties by firstname and last name",
-                        "href"  : baseUrl,
+                        "title" : "Search parties by firstname and lastname",
+                        "href"  : baseUrl + "?firstName=&lastName=",
                         "method": "GET",
-                        "schema":  {
-                                "parties": {
-                                  "required": [
-                                    "firstName",
-                                    "lastName",
-                                  ],
-                                  "type": "object",
-                                  "properties": {
-                                    "firstName": {
-                                      "type": "string"
-                                    },
-                                    "lastName": {
-                                      "type": "string"
-                                    },
-                                    "_page": {
-                                        "type": "interger"
-                                    },
-                                    "_limit": {
-                                        "type": "interger"
-                                    }
-                                 }
-                            } 
-                        }    
+                        "schema":  entities.partyHypermediaSchema()    
                      },     
                      {
                         "rel"   : "search",
                         "title" : "Search parties by dob",
-                        "href"  : baseUrl, 
+                        "href"  : baseUrl + "?dob=&_page=&_limit=",
                         "method": "GET",
-                        "schema":  {
-                                "parties": {
-                                  "required": [
-                                    "dob"
-                                  ],
-                                  "type": "object",
-                                  "properties": {
-                                    "dob": {
-                                      "type": "string"
-                                    },
-                                    "_page": {
-                                        "type": "interger"
-                                    },
-                                    "_limit": {
-                                        "type": "interger"
-                                    }
-                                 }
-                            } 
-                        }
+                        "schema":  entities.partyHypermediaSchema()
                      }
                 ]   
 	    };
@@ -236,7 +196,8 @@ exports.optionsOmnichannelV1Parties2 = function(req, res) {
                             "rel"   : "fetch",
                             "title" : "Fetch the Party details",
                             "href"  : url,
-                            "method": "GET"
+                            "method": "GET",
+                            "schema":  entities.partyHypermediaSchema()
                             },
                             {
                             "rel"   : "delete",
@@ -562,19 +523,7 @@ exports.optionsOmnichannelV1PartiesAddresses = function(req, res) {
                         "title" : "Search a list of addresses associated to a party",
                         "href"  : url,
                         "method": "GET",
-                        "schema":  {
-                                "addresses": {
-                                  "type": "object",
-                                  "properties": {
-                                    "_page": {
-                                        "type": "interger"
-                                    },
-                                    "_limit": {
-                                        "type": "interger"
-                                    }
-                                 }
-                            } 
-                        }
+                        "schema":  entities.addressHypermediaSchema()
                      }
                 ]   
 	    };
@@ -598,7 +547,8 @@ exports.optionsOmnichannelV1PartiesAddresses2 = function(req, res) {
                             "rel"   : "fetch",
                             "title" : "Fetch the Address details",
                             "href"  : url,
-                            "method": "GET"
+                            "method": "GET",
+                            "schema": entities.addressHypermediaSchema()
                             },
                             {
                             "rel"   : "delete",
@@ -982,19 +932,7 @@ exports.optionsOmnichannelV1PartiesEmails = function(req, res) {
                         "title" : "Search a list of emails associated to a party",
                         "href"  : url,
                         "method": "GET",
-                        "schema":  {
-                                "emails": {
-                                  "type": "object",
-                                  "properties": {
-                                    "_page": {
-                                        "type": "interger"
-                                    },
-                                    "_limit": {
-                                        "type": "interger"
-                                    }
-                                 }
-                            } 
-                        }
+                        "schema":  entities.emailHypermediaSchema()
                      }
                 ]   
 	    };
@@ -1018,7 +956,8 @@ exports.optionsOmnichannelV1PartiesEmails2 = function(req, res) {
                             "rel"   : "fetch",
                             "title" : "Fetch the Email details",
                             "href"  : url,
-                            "method": "GET"
+                            "method": "GET",
+                            "schema":  entities.emailHypermediaSchema()
                             },
                             {
                             "rel"   : "delete",
@@ -1404,19 +1343,7 @@ exports.optionsOmnichannelV1PartiesContacts = function(req, res) {
                         "title" : "Search a list of contacts associated to a party",
                         "href"  : url,
                         "method": "GET",
-                        "schema":  {
-                                "addresses": {
-                                  "type": "object",
-                                  "properties": {
-                                    "_page": {
-                                        "type": "interger"
-                                    },
-                                    "_limit": {
-                                        "type": "interger"
-                                    }
-                                 }
-                            } 
-                        }
+                        "schema":  entities.contactHypermediaSchema()
                      }
                 ]   
 	    };
@@ -1440,7 +1367,8 @@ exports.optionsOmnichannelV1PartiesContacts2 = function(req, res) {
                             "rel"   : "fetch",
                             "title" : "Fetch the Contact details",
                             "href"  : url,
-                            "method": "GET"
+                            "method": "GET",
+                            "schema":  entities.contactHypermediaSchema()
                             },
                             {
                             "rel"   : "delete",
@@ -1635,7 +1563,7 @@ exports.patchOmnichannelV1Parties4 = function(req, res) {
  * DELETE /omnichannel/v1/parties/{id}/contacts/{id1}
  *
  * Parameters (named path params accessible on req.params and query params on req.query):
- *
+ *h
  * id(type: string) - path parameter - client id of client.
  * id1(type: string) - path parameter - id of contact.
  */
