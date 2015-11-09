@@ -16,3 +16,13 @@
 5. Console tab can be used to view the incoming request and response.
 
 6. State tab will have the state of data being added.
+
+#### To include hypermedia support
+
+1. Include [hypermedia.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/1c330f5cbdc11055708cee15223d6e456067b291/src/app-clientmanagement/docs/api-sandbox-src/hypermedia.js?at=master&fileviewer=file-view-default) in your sandbox code.
+
+2. Use hypermedia by using the file as below 
+		*var hypermedia = require("hypermedia.js");* 
+		use the fuction *hypermedia.hypermediaSchema()*
+
+3. Refer example [entities.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/1c330f5cbdc11055708cee15223d6e456067b291/src/app-clientmanagement/docs/api-sandbox-src/entities.js?at=master&fileviewer=file-view-default)

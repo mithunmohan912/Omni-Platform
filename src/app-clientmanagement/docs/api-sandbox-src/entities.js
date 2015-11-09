@@ -1,5 +1,5 @@
-var partySchema = {
-                    "parties": {
+var hypermedia = require("hypermedia.js");
+var partySchema =   {
                         "required": [
                             "firstName",
                             "lastName",
@@ -105,10 +105,8 @@ var partySchema = {
                                 }
                             ]
                         }
-                    }
-};
-var addressSchema =  { "addresses":  {
-                                    "required": [
+                    };
+var addressSchema =  {  "required": [
                                         "address",
                                         "postalCode",
                                         "city",
@@ -135,12 +133,10 @@ var addressSchema =  { "addresses":  {
                                         "country": {
                                             "type": "string"
                                         }
-                                    }   
-                                    }    
-                            };
+                                    }
+};
 
-var emailSchema = {  "emails": {
-                                    "required": [
+var emailSchema = {     "required": [
                                         "email"
                                     ],
                                     "type" : "object",
@@ -155,11 +151,8 @@ var emailSchema = {  "emails": {
                                             "type": "string"
                                         }
                                     }
-                                }
-               
 };
-var contactSchema = { "contacts":  {
-                                    "required": [
+var contactSchema = {   "required": [
                                         "contact_number"
                                     ],
                                     "type" : "object",
@@ -174,19 +167,83 @@ var contactSchema = { "contacts":  {
                                             "type": "string"
                                         }
                                     }
-                                }
                             
 };
 
+var _parties = {
+    "_page":  {
+                "type": "number"
+        },
+    "_limit":  {
+                "type": "number"
+    },                                    
+    "_parties": { 
+    "_link": hypermedia.hypermediaSchema(),
+    "parties": partySchema
+    }
+};
+
+var _addresses = {
+    "_page":  {
+                "type": "number"
+        },
+    "_limit":  {
+                "type": "number"
+    },
+    "_addresses": { 
+    "_link": hypermedia.hypermediaSchema(),
+    "addresses": addressSchema
+    }
+};
+
+var _emails = {
+    "_page":  {
+                "type": "number"
+        },
+    "_limit":  {
+                "type": "number"
+    },
+    "_emails": { 
+    "_link": hypermedia.hypermediaSchema(),
+    "addresses": emailSchema
+    }
+};
+
+var _contacts = { 
+    "_page":  {
+                "type": "number"
+        },
+    "_limit":  {
+                "type": "number"
+    },
+    "_contacts": { 
+    "_link": hypermedia.hypermediaSchema(),
+    "contacts": contactSchema
+    }
+};
 exports.partySchema = function () {
-                return partySchema;
+                return {"parties": partySchema};
 };
 exports.addressSchema = function () {
-                return addressSchema;
+                return {"addresses": addressSchema};
 };
 exports.emailSchema = function () {
-                return emailSchema;
+                return {"emails": emailSchema};
 };
 exports.contactSchema = function () {
-                return contactSchema;
+                return {"contacts": contactSchema};
+};
+
+exports.partyHypermediaSchema = function () {
+                return _parties;
+                
+};
+exports.addressHypermediaSchema = function () {
+                return _addresses;
+};
+exports.emailHypermediaSchema = function () {
+                return _emails;
+};
+exports.contactHypermediaSchema = function () {
+                return _contacts;
 };
