@@ -1,0 +1,18 @@
+<div class="pagination" ng-if="pages.length >= 1">
+    <nav>
+        <ul class="pagination">
+            <li><a ng-click="selectPage(1)">First</a></li>
+            <li><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
+            <li>
+                <a>
+                    <page-select></page-select> of {{numPages}}</a>
+            </li>
+            <li><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
+            <li><a ng-click="selectPage(numPages)">Last</a></li>
+        </ul>
+    </nav>
+</div>
+<!-- <pre>  pages :{{pages}}
+currentPage : {{currentPage}}
+numPages : {{numPages}}
+ <pagination total-items="numPages" ng-model="" max-size="5" class="pagination-sm" boundary-links="true"></pagination> -->

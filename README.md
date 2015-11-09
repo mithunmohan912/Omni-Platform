@@ -13,7 +13,6 @@ Fork this Repository to your Bitbucket Account then :
 ```
     $ git clone https://bitbucket.org/<your-bitbucket-id>/omnichannel-infrastructure.git
     $ cd omnichannel-infrastructure
-    $ git checkout '<develop-Sprintx>'
     $ npm start
    
 ```
@@ -81,9 +80,10 @@ To run Unit Test Cases , Simply Type
 If you like to build a deployable Artifact and run it in your own http server. Simply Type :
 
  ```
- $ grunt build
- $ grunt buildpackage
+ $ grunt dist
   ``` 
+
+This command will simply annotate all the js files present in ocInfra directory , minify annotated js and css files , recreate dist folder with new changes and also updated corresponding reference apps directories with new code. 
 
 ###Contributions
 ---

@@ -1,0 +1,23 @@
+<accordion close-others="true">
+    <accordion-group is-open="true">
+        <accordion-heading>
+            <label ng-click="addEmptySection(section, $event)" class="clickable">{{locale[section.buttonLabel]}} <span>{{data[section.firstName]}} {{data[section.lastName]}}</span></label>
+            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': data[section.name], 'glyphicon-chevron-right': !data[section.name]}" oc-prevent-default></i>
+            <i class="pull-right glyphicon glyphicon-{{remove}} chcRight" style="color:{{removestyle}}" id="valid_{{section.name}}" oc-prevent-default></i>
+        </accordion-heading>
+
+        <div class="form-group marginbottom0px col-md-{{section.columnsize}}">
+            <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
+                <div ng-if="field.$ref !== ''">
+                    <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                        <div ng-include src="config.templates.layout"></div>
+                    </div>
+                </div>
+                <div ng-if="section.$ref === undefined || section.$ref === ''">
+                    <div ng-include src="config.templates.layout"></div>
+                </div>
+            </div>
+        </div>
+
+    </accordion-group>
+</accordion>

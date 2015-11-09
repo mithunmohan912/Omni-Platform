@@ -8,7 +8,7 @@ module.exports = {
        report : 'gzip'
      },
        files: {
-         'tmp/css/ocInfra.css': ['src/assets/css/*.css']
+         'tmp/css/ocInfra.css': ['src/ocInfra/css/*.css']
        }
   },
   cssmin: {

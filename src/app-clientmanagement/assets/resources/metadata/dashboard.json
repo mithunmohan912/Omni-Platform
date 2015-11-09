@@ -4,6 +4,7 @@
         "name": "dashboard",
         "formid": "dashboard",
         "groupid": "",
+        "viewAs": "menu",
         "sections": [
             {
                 "title": "_RESOURCE_MANAGEMENT",
@@ -13,9 +14,7 @@
                 "columnsize": 4,    
                 "visible" : true,
                 "showButton": true,
-                "height": "100px",
-                "width": "100px",
-                "buttonLabel": "_RESOURCE_MANAGEMENT",
+                "label": "_RESOURCE_MANAGEMENT",
                 "icon": "",
                 "txtCenter":"dashboard-txtCenter",
                 "modaledit": true,
@@ -24,15 +23,25 @@
                         {
                             "subtitle": "Party",
                             "name": "partysearch",
-                            "type": "button",
+                            "type": "buttonSmall",
                             "label": "_PARTIES",
-                            "columnsize": 2,
+                            "columnsize": 6,
                             "icon": "flaticon-adults",
                             "method":"navigate",
                             "actionurl": "/screen/partiessearch",
-                            "visible": true,
-                            "height": "75px",
-                            "width": "75px"
+                            "visible": true
+                            },
+
+                            {
+                            "subtitle": "Sample",
+                            "name": "Sample",
+                            "type": "buttonSmall",
+                            "label": "_SAMPLE",
+                            "columnsize": 6,
+                            "icon": "flaticon-adults",
+                            "method":"navigate",
+                            "actionurl": "/screen/sample",
+                            "visible": true
                             } 
                     ]
             }
