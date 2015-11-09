@@ -12,7 +12,7 @@
         
         <div quick-ng-repeat="section in metadata[screenId].sections" quick-repeat-list="metadata[screenId].sections">
 
-            <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref">
+            <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
                 <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid">
                 </div>
             </div>

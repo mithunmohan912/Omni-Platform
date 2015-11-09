@@ -1,4 +1,4 @@
-# Mock API using sanbox
+# Mock API using sandbox
 
 1. Go to [getsandbox](https://getsandbox.com) and create an account.
 
