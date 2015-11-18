@@ -3,4 +3,6 @@ To use the swagger editor on AWS [click here](http://ec2-54-77-27-13.eu-west-1.c
 
 
 **Save YAML** - will save the yaml spec on S3 bucket.Spec will be saved in JSON format.
+
+
 **Open Spec** - will provide option to retrieve the yaml spec from S3 bucket. The file will load in yaml format.
