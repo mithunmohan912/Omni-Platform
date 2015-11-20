@@ -30,7 +30,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     localStorage.Authentication = user.token;
                     var defaultLocale = user.personalizationData.locale;
                     $rootScope.newlocale = defaultLocale;
-                    $resource('assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
+                    $resource('ocInfra/assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
                         $rootScope.locale = data;
                         tmhDynamicLocale.set($rootScope.newlocale);
                         OCRoles.load(user.roles[0], nextScreenId);

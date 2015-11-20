@@ -11,6 +11,15 @@ app.service('OCInfraConfig', function($resource, $rootScope){
         $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
 			$rootScope.infraConfig = data.config.base;
 			$rootScope.metadataPath = data.config.base.templates.metaData;
+			angular.forEach($rootScope.infraConfig.properties, function(key) {
+                    if (key.name === 'language') {
+                        $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                        angular.forEach($rootScope.localeOpts.options, function(key) {
+                            key.description = key.description;
+                            //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
+                        });
+                    } 
+                });
             });
     };
 });
