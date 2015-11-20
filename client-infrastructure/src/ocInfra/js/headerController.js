@@ -22,7 +22,7 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
                         $rootScope.selectedLanguage = val.description;
             }
         }); 
-        $resource('assets/resources/i18n/' + newlocale + '.json').get(function(data) {
+        $resource('ocInfra/assets/resources/i18n/' + newlocale + '.json').get(function(data) {
             $rootScope.locale = data;
             tmhDynamicLocale.set(newlocale);
 

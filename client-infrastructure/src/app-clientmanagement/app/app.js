@@ -53,7 +53,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     $rootScope.resourceURI = [];
     $rootScope.errordata = [];
 
-    $resource('assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
+    $resource('ocInfra/assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
         $rootScope.locale = data;
         tmhDynamicLocale.set($rootScope.newlocale);
     }, function() {});
