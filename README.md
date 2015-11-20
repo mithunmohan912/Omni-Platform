@@ -1,4 +1,4 @@
-Omnichannel-Infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OCIA-Dev-Client)](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/job/OCIA-Dev-Client/)
+Omnichannel-Infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Dev-Infra)](http://ec2-54-72-70-139.eu-west-1.compute.amazonaws.com:8080/job/OC-Dev-Infra/)
 ================================
 
 > A full-featured User Interface written in Angular for Omnichannel Solutions 
