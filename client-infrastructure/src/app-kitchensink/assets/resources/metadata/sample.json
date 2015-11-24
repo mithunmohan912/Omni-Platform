@@ -66,24 +66,10 @@
                                 "name": "sample.select",
                                 "type": "select",
                                 "label": "Select",
-                                "columnsize": 5,
-                                "typeahead": "true",
-                                "maxlength": 80,
-                                "visibleWhen": {
-                                    "expression": {
-                                        "operator": "AND",
-                                        "conditions": [
-                                            {
-                                                "field": "minimalinformation",
-                                                "value": false
-                                            },
-                                            {
-                                                "field": "contract_risk_owner:type",
-                                                "value": "person"
-                                            }
-                                        ]
-                                    }
-                                }
+                                "visible":true,
+                                "columnsize": 5
+                                
+                                
                             },
                              {
                         "name": "sample.buttonSmall",
@@ -117,8 +103,16 @@
                         "label": "_SUBMIT",
                         "action":"submit",
                         "visible": true,
-                        "columnsize": "12"
+                        "columnsize": 12
+                },
+                {
+                        "name": "sample.richtext",
+                        "type": "richtext",
+                        "label": "Richtext",
+                        "visible": true,
+                        "columnsize": 5
                 }
+
                 ]
             }
         ] 

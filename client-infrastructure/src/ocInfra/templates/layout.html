@@ -56,15 +56,19 @@
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="textarea">
         <textarea ng-model="data[field.name]" class="form-control input-md" label="{{field.instructions}}" id="{{field.name}}" name="{{field.name}}" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" placeholder="{{field.placeholder}}">{{field.value}}</textarea>
     </div>
+    <div class="col-md-{{field.columnsize}}" ng-switch-when="richtext">
+    <textarea class="ck-editor" ng-model="data[field.name]"></textarea>
+    </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="email">
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
-        <select id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(field)" ng-change="validateEachSection(field.name)">
+        <select id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-init="getenumdata()" ng-required="{{field.required == 'required'}}" ng-options="enum.value as  enum.value for enum in enumdata" ng-change="validateEachSection(field.name)">
             
         </select>
-    </div>
-	<div ng-switch-when="buttonSmall" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+
+    
+    </div>	<div ng-switch-when="buttonSmall" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
                 <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>
     <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
@@ -164,7 +168,7 @@
                     <ng-include src="config.templates.table"></ng-include>
                 </div>
 
-                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="email">
+                <div class="col-md-{{subfield.columnsize}}  " ng-switch-when="email">
                     <input type="email" id="{{field.name}}" name="{{subfield.name}}" maxlength="{{subfield.maxlength}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name)">
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="select">
