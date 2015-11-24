@@ -176,6 +176,26 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 	 
 	  $rootScope.step=1;
 
+	   $scope.getenumdata=function(){ 
+
+	   	var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
+         var headers = {
+             'Content-Type': 'application/json'
+         };
+         $http(
+			{
+				method : 'GET',
+				url: url,
+                headers: headers
+                
+			}
+		).success(function(data){
+			 $scope.enumdata=data;
+					});
+
+     	
+     };
+
 
           
 $scope.selecttab=function(step1){
