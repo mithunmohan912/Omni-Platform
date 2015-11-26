@@ -12,6 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.Header;
 import org.apache.camel.util.URISupport;
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.jettison.JettisonFeature;
@@ -37,13 +38,11 @@ public class MessageTranslator {
 	 *            the URI Query string
 	 * @throws URISyntaxException
 	 */
-	public Message replacePattern(Message message) throws URISyntaxException {
+	public Message replacePattern(Message message, @Header("pattern") String pattern, @Header("replacement") String replacement) throws URISyntaxException {
 		// URL params are not automatically added to Header params for POSTs
 		// use CamelHttpQuery header to get URL params
 
 		Map<String, Object> any = message.getAny();
-		String pattern = (String) any.get("pattern");
-		String replacement = (String) any.get("replacement");
 		log.info("messageTranslator::replacePattern::message=" + any.toString());
 		log.info("messageTranslator::replacePattern::pattern=" + pattern);
 		log.info("messageTranslator::replacePattern::replacement=" + replacement);

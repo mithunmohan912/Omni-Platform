@@ -1,0 +1,303 @@
+swagger: "2.0"
+info:
+  description: Metamodel Specification
+  title: Metamodel Specification
+  version: 1.5.0
+basePath: /api
+paths:
+  /metamodel:
+    get:
+      responses:
+        "200":
+          description: model model response
+          schema:
+            type: object
+            $ref: "#/definitions/MetaData"
+definitions:
+  MetaData:
+    required:
+      - title
+      - name
+      - formid
+      - groupid
+      - sections
+    properties:
+      title:
+        type: string
+      name:
+        type: string
+      formid:
+        type: string
+      $ref:
+        type: string
+      groupid:
+        type: string
+      sections:
+        type: array
+        items:
+          $ref: "#/definitions/Section"
+      workflowgrps:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowGrp"
+  Section:
+    type: object
+    required:
+      - category
+      - columnsize      
+    properties:
+      title:
+        type: string
+      name:
+        type: string
+      category:
+        type: string
+        enum:
+          - nonaccordion
+          - accordion
+          - table
+          - covtable
+      $ref:
+        type: string    
+      columnsize:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+      searching:
+        type: boolean
+        default: false
+      visible:
+        type: boolean
+        default: true
+	    header:
+        type: object
+        properties:
+          elements:
+            type: array
+            items:
+              oneOf:
+                - 
+                  $ref: "#/definitions/InputFieldDefinition"
+                - 
+                  $ref: "#/definitions/SelectFieldDefinition"
+                - 
+                  $ref: "#/definitions/ButtonDefinition"
+      sections:
+        type: array
+        items:
+          $ref: "#/definitions/Section"
+      elements:
+        type: array
+        items:
+          oneOf:
+            - 
+              $ref: "#/definitions/InputFieldDefinition"
+            - 
+              $ref: "#/definitions/SelectFieldDefinition"
+            - 
+              $ref: "#/definitions/ButtonDefinition"
+  WorkFlowGrp:
+    type: object
+    properties:
+      flowgrps:
+        type: array
+        items:
+          $ref: "#/definitions/FlowGrp"
+  InputFieldDefinition:
+    type: object
+    required:
+      - name
+      - type
+      - label
+      - columnsize
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - text
+          - number
+          - date
+          - textarea
+          - email
+          - checkbox
+          - label
+          - money
+          - checkboxgroup
+          - richtext
+      label:
+        type: string    
+      columnsize:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+      maxlength:
+        type: integer
+      minlength:
+        type: integer
+      required:
+        type: boolean
+        default: false
+      visible:
+        type: boolean
+        default: true
+      disabled:
+        type: boolean
+        default: false
+      typeahead:
+        type: boolean
+        default: false  
+  SelectFieldDefinition:
+    type: object
+    required:
+      - name
+      - type
+      - label
+      - options
+      - columnsize
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - select
+          - dropdown
+      label:
+        type: string 
+      options:
+        type: array
+        items:
+          title: Option
+          $ref: "#/definitions/OptionDefinition"  
+      columnsize:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+      required:
+        type: boolean
+        default: false
+      visible:
+        type: boolean
+        default: true
+  OptionDefinition:
+    type: object
+    required:
+      - value
+      - description
+    properties:
+      description:
+        type: string
+      value:
+        type: string
+  ButtonDefinition:
+    type: object
+    required:
+      - name
+      - type
+      - label
+      - columnsize
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - button
+		      - link
+      label:
+        type: string
+      columnsize:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+	    icon:
+		    type: string
+      actionurl:
+        type: string
+      onclick:
+        type: string
+  FlowGrp:
+    type: object
+    required:
+      - name
+      - label
+      - completed
+      - doneclass
+      - columnsize
+    properties:
+      name:
+        type: string
+      label:
+        type: string
+      completed:
+        type: string
+        enum:
+          - complete
+          - disabled
+      classname:
+        type: string
+      actionurl:
+        type: string
+      doneclass:
+        type: string
+      columnsize:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12

@@ -1,0 +1,56 @@
+{
+    "metadata": {
+        "formid": "partysearch",
+        "title": "_PARTY_SEARCH",
+        "name": "parties",
+		
+        "sections": [
+            {
+                "title": "_PARTY_SEARCH",
+                "name": "party_search",
+                "category": "nonaccordion",
+                "elements": [
+                   
+                    {
+                        "name": "parties.firstName",
+                        "type": "text",
+                        "label": "_FIRSTNAME",
+                        "visible": true,
+                        "columnsize": 3
+                    },
+					 {
+                        "name": "parties.lastName",
+                        "type": "text",
+                        "label": "_LASTNAME",
+                        "visible": true,
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "search",
+                        "type": "buttonSmall",
+                        "label": "_SEARCH",
+						"action":"search",
+                        "visible": true,
+                        "columnsize": "12"
+                    },
+                    {
+                        "name": "add",
+                        "type": "buttonSmall",
+                        "label": "_ADD",
+						"actionurl": "/screen/partiesDetail",
+						"action":"add",
+                        "visible": true,
+                        "columnsize": "12"
+                    },
+                    {
+                        "name": "partysearchlist",
+                        "type": "table",
+                        "label": "_PARTY_SEARCH",
+                        "visible": true,
+                        "columnsize": 12
+                    }
+                ]
+            }
+        ]
+    }
+}

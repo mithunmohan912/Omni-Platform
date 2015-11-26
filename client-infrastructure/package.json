@@ -1,0 +1,58 @@
+{
+  "name": "omnichannel-infrastructure",
+  "version": "0.1.0",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "connect-livereload": "^0.5.3",
+    "grunt": "~0.4.5",
+    "grunt-bower-install": "^1.6.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.12.0",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-sass": "0.8.1",
+    "grunt-contrib-uglify": "^0.9.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-injector": "0.6.0",
+    "grunt-karma": "^0.10.1",
+    "grunt-ng-annotate": "^1.0.1",
+    "grunt-text-replace": "^0.4.0",
+    "jshint-html-reporter": "0.2.4",
+    "jshint-stylish": "^1.0.1",
+    "karma": "^0.12.32",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-coverage": "^0.5.2",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-htmlfile-reporter": "~0.2",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "load-grunt-config": "^0.17.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "prebower-install": "npm install",
+    "bower-install": "grunt clean_components",
+    "postbower-install": "bower install",
+    "prebuild": "npm run bower-install",
+    "build": "grunt build",
+    "prestart": "npm run build",
+    "start": "grunt test",
+    "poststart": "npm run watch-it",
+    "prewatch-it": "grunt dist",
+    "watch-it": "grunt inject",
+    "postwatch-it": "grunt startServer"
+  },
+  "description": "User Interface for Omnichannel Solutions",
+  "main": "Gruntfile.js",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": " https://bitbucket.org/cscdev/omnichannel-infrastructure.git"
+  },
+  "author": "Pallav Boonlia",
+  "license": "CSC"
+}

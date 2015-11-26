@@ -1,0 +1,51 @@
+    {
+    "metadata": {
+        "formid": "partiesdetail",
+        "title": "_PARTY_DETAIL",
+        "name": "partiesdetail",
+        "sections": [
+            {
+              "$ref": "parties",
+              "renderAsTab":true,
+              "name":"Parties",
+              "step":1
+           } , {
+              
+              "$ref": "addresses",
+              "renderAsTab":true,
+              "name":"Address",
+              "step":2
+       } , {
+              
+              "$ref": "contacts",
+              "renderAsTab":true,
+              "name":"Contacts",
+              "step":3
+       } , {
+              
+              "$ref": "emails",
+              "renderAsTab":true,
+              "name":"E-mail",
+              "step":4
+       }  , {
+              
+              "$ref": "submit",
+              "step":4
+
+              
+       } , {
+              
+              "$ref": "empty"
+             
+       } , {
+              
+              "$ref": "empty"
+              
+       } 
+            
+        ]
+    },
+    "include": [
+        "parties", "addresses","contacts","emails","submit","empty"
+    ]
+}
