@@ -1,0 +1,100 @@
+{
+ 	"dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL054"
+        },
+        {
+          "name": "strLOC"
+        },
+        {
+          "name": "strMCO"
+        },
+        {
+          "name": "strAgency"
+        }, 
+        {
+          "name": "ORIGDATE"
+        },
+        {
+          "name": "KEY_CASH_RECORD_SEQ"
+        },
+        {
+          "type": "VALUE",
+          "value": " 999"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSACTDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Activity Date"
+    }, {
+      "field" : "WSTRANDESC",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Activity Type"
+    }, {
+      "field" : "WSPOSTSTATUS",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Status"
+    }, {
+      "field" : "WSMCO",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "MCO"
+    }, {
+      "field" : "WSAGENCY",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Agency Number"
+    }, {
+      "field" : "WSPAYAMT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "displayName" : "Payment Amount"
+    }, {
+      "field" : "WSCHECKNUM",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Check Number"
+    }, {
+      "field" : "WSCHECKDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Check Date"
+    }, {
+      "field" : "WSBANK",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Bank Code"
+    }, {
+      "field" : "WSSUSAMT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "displayName" : "Amount in Suspense"
+    } ],
+    "title" : "Audit Trail of Original Payment"
+  }
+}

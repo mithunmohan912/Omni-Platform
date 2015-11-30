@@ -1,0 +1,285 @@
+{
+  "gridMetaData": {
+    "title": "Commercial Package Policy - Coverage List",
+    "rowTemplate": "rowTemplateDblClick.html",   
+    "element": [
+      {
+        "field": "CVCOVGDESC",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "CVCOVERAGE",
+        "displayName": "Coverage",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "20%"
+      },
+      {
+        "field": "CVCOVGSEQ",
+        "displayName": "Seq",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false
+      },
+      {
+        "field": "CVPRODUCT",
+        "displayName": "Product",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "CVRATESTATE",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "CVRISKLOCATION",
+        "displayName": "Loc",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "CVSUBLOCATION",
+        "displayName": "Bld",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "CVUNITNUMBER",
+        "displayName": "Unit",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "CVRECSTATUSDESC",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "CVRATEPREMIUM",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "REASON_AMENDED",
+        "displayName": "Reas Amd",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "20%"
+      }
+    ],
+    "operation":{
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Reinstate",
+          "value": "RI"
+        },
+        {
+          "name": "Item List",
+          "value": "IT"
+        }
+      ],
+      "rowactionfunction": "PolCppCoverageListAction",
+      "listfunction": "PolCppCoverageListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO064(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "253",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "lob",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20",
+          "order": "6"
+        },
+        {
+          "name": "pco",
+          "type": "KEY",
+          "startIndex": "20",
+          "endIndex": "22",
+          "order": "7"
+        },
+        {
+          "name": "transtype",
+          "type": "KEY",
+          "startIndex": "31",
+          "endIndex": "33",
+          "order": "8"
+        },
+        {
+          "name": "insline",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "97",
+          "order": "9"
+        },
+        {
+          "name": "prod",
+          "type": "KEY",
+          "startIndex": "97",
+          "endIndex": "103",
+          "order": "10"
+        },
+        {
+          "name": "ratestate",
+          "type": "KEY",
+          "startIndex": "141",
+          "endIndex": "143",
+          "order": "11"
+        },
+        {
+          "name": "unitno",
+          "type": "KEY",
+          "startIndex": "113",
+          "endIndex": "118",
+          "order": "12"
+        },
+        {
+          "name": "riskloc",
+          "type": "KEY",
+          "startIndex": "103",
+          "endIndex": "108",
+          "order": "13"
+        },
+        {
+          "name": "subloc",
+          "type": "KEY",
+          "startIndex": "108",
+          "endIndex": "113",
+          "order": "14"
+        },
+        {
+          "name": "covgcode",
+          "type": "KEY",
+          "startIndex": "226",
+          "endIndex": "233",
+          "order": "15"
+        },
+        {
+          "name": "covgseq",
+          "type": "KEY",
+          "startIndex": "233",
+          "endIndex": "238",
+          "order": "16"
+        },
+        {
+          "name": "covgdesc",
+          "type": "KEY",
+          "startIndex": "195",
+          "endIndex": "226",
+          "order": "17"
+        },
+        {
+          "name": "risklocsearch",
+          "type": "KEY",
+          "startIndex": "238",
+          "endIndex": "243",
+          "order": "18"
+        },
+        {
+          "name": "sublocsearch",
+          "type": "KEY",
+          "startIndex": "243",
+          "endIndex": "248",
+          "order": "19"
+        },
+        {
+          "name": "unitnumsearch",
+          "type": "KEY",
+          "startIndex": "248",
+          "endIndex": "253",
+          "order": "20"
+        }
+      ]
+    }
+  }
+}

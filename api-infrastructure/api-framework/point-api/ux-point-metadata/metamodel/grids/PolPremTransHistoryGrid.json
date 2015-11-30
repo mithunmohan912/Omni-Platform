@@ -1,0 +1,89 @@
+{
+  "dataSource": {
+    "pagesize": "10",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASISA51  "
+        },
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "17"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {},
+    "element": [
+      {
+        "field": "ERRORMESSAGE",
+        "visible": false,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Error Desc"
+      },
+      {
+        "field": "OUTNAME",
+        "visible": false,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Name"
+      },
+      {
+        "field": "OUTTRANSDESC",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Transaction"
+      },
+      {
+        "field": "OUTTRANSDTE",
+        "visible": true,
+        "width": "12%",
+        "align": "center",
+        "displayName": "Trans Eff Date",
+      	"headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "OUTENTRYDTE",
+        "visible": true,
+        "width": "12%",
+        "align": "center",
+        "displayName": "Entry Date"
+      },
+      {
+        "field": "OUTPREMIUM",
+        "visible": true,
+        "width": "11%",
+        "align": "right",
+        "displayName": "Written Premium",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+      	"headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "OUTORIGINAL",
+        "visible": true,
+        "width": "12%",
+        "align": "right",
+        "displayName": "Original Premium",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+      	"headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "OUTTOTALPREM",
+        "visible": true,
+        "width": "12%",
+        "align": "right",
+        "displayName": "Total Written",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+      	"headerCellTemplate": "ux/template/HeaderTemplate.html"
+      }
+    ],
+    "title": "Premium Transaction History"
+  }
+}

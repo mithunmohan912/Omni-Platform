@@ -1,0 +1,141 @@
+{
+  "gridMetaData": {
+    "title": "Workers Compensation Policy - State List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "STWCSTATUSDESC",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "30%"
+      },
+      {
+        "field": "STSTATEDESC",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "30%"
+      },
+	  {
+        "field": "STEFFDATE",
+        "displayName": "ARD",
+        "type": "date",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "40%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Location List",
+          "value": "SI"
+        },
+        {
+          "name": "Forms List",
+          "value": "FO"
+        },
+        {
+          "name": "Modifiers List",
+          "value": "MO"
+        }
+      ],
+      "rowactionfunction": "WcpStateListAction",
+      "listfunction": "WcpStateListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO072(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "229",
+    "params": {
+      "query": [
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "1"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "2"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "3"
+        },
+        {
+          "name": "lob",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20",
+          "order": "4"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "5"
+        },
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "6"
+        },
+        {
+          "name": "wcstsearch",
+          "type": "KEY",
+          "startIndex": "195",
+          "endIndex": "196",
+          "order": "7"
+        },
+        {
+          "name": "wcstatesearch",
+          "type": "KEY",
+          "startIndex": "196",
+          "endIndex": "198",
+          "order": "8"
+        },
+        {
+          "name": "wcstatedescsearch",
+          "type": "KEY",
+          "startIndex": "198",
+          "endIndex": "229",
+          "order": "9"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+	"gridMetaData":{
+		"title":"New Grid",
+		"draggability": false,
+		"resizableColumn" : false,
+		"enableSorting" : false,
+		"pinnableColumn" : false,
+		"showColumnMenu" : false,
+		"enableSearching" : "none",
+		"enablePaging" : true,
+		"pageSize" : "",
+		"element":[
+			{
+				"field":"",
+				"visible":false,
+				"align":"left",
+				"type":"select",
+				"displayName":"FirstColumn",
+				"editable":"true",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":true,
+				"align":"center",
+				"type":"text",
+				"displayName":"SecondColumn",
+				"editable":"false",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":true,
+				"align":"center",
+				"type":"text",
+				"displayName":"ThirdColumn",
+				"editable":"false",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":false,
+				"align":"center",
+				"type":"text",
+				"displayName":"FourthColumn",
+				"editable":"false",
+				"width":"0%"
+			}
+		],
+        "operation": {
+            "selectfield": "radio",
+            "jsfunction": "selectPolicy",
+            "options": ""
+        },
+        "buttons": []
+	},
+    "dataSource": {
+        "type": "SP",
+        "SP": "BASDBIO040(@query@)",
+        "params":
+            {
+                "query": [
+                	{
+                        "name": "user",
+						"type":"VALUE",
+                        "length": "10",
+                        "order":"1",
+                        "fill": " "
+                    }
+                ]
+            }
+    }
+}
+

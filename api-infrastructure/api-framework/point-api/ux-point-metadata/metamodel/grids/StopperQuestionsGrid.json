@@ -1,0 +1,79 @@
+{
+    "gridMetaData": {
+        "title": "",
+        "draggability": false,
+        "resizableColumn": false,
+        "enableSorting": false,
+        "pinnableColumn": false,
+        "showColumnMenu": false,
+        "enableSearching": "none",
+        "enablePaging": false,
+        "pageSize": "200",
+        "showFooter": false, 
+        "enablePinning" : false,
+        "enableSorting" : false,
+        "headerRowHeight" : 28,     
+        "element": [
+            {
+                "field": "QUESTIONTXT",
+                "visible": true,
+                "align": "center",
+                "type": "label",
+                "cellTemplate": "ux/template/StopperQuestionTemplate.html",
+                "displayName": "The following questions are included to save time relating to exposures that are generally not written.",
+                "editable": "false",
+                "width": "100%",
+                "index": 0
+            }
+        ],
+        "operation": {
+            "selectfield": "radio",
+            "jsfunction": "",
+            "options": ""
+        },
+        "buttons": []
+    },
+    "dataSource": {
+        "type": "SP",
+        "SP": "PREQUALQUES(@querystr@)",
+        "params": {
+            "querystr": [
+                {
+		          "name": "loc"
+                },
+                {
+		          "name": "mco"
+                },
+				{
+		          "name": "pco"
+                },
+				{
+		          "name": "lob"
+                },
+				{
+		          "name": "StateCd"
+		          
+                },
+				{
+		          "name": "EffDate"
+		          
+                },
+				{
+		          "name": "sym"
+                },
+                {
+		          "name": "polno"
+                },
+                {
+		          "name": "mod"
+                },                
+				{
+		          "name": "trancode"
+                },                
+                {
+                   "name": "Stopper_OnLoadInd"
+                }
+            ]
+        }
+    }
+}

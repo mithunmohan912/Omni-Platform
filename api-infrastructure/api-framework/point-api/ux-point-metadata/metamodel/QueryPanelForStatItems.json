@@ -1,0 +1,317 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "QueryPanelForStatItems",
+                     "title":  "Cash Posting Search",
+                     "defaultsubmitresetbuttons":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "MASTER_BROKER_GROUPTEXT",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "MASTER_BROKER",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Master Broker",
+                                                                                                             "size":  "2",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BROKER_NO",
+                                                                                                             "type":  "text",
+                                                                                                             "support":  "true",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLTSEQNUM",
+                                                                                                             "type":  "hidden",
+                                                                                                             "support":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ADDRSEQNUM",
+                                                                                                             "type":  "hidden",
+                                                                                                             "support":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "proactbroker",
+                                                                                                             "type":  "hidden",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BROKER_NAME",
+                                                                                                             "type":  "text",
+                                                                                                             "support":  "true",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AVAIL_AMT_GROUPTEXT",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Available Amount",
+                                                                                                             "size":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "suspAmt",
+                                                                                                             "type":  "money",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "MCO_SELECT",
+                                                                                    "type":  "select",
+                                                                                    "order":  "34",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "label":  "Master Company",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BROKER_NO_SELECT",
+                                                                                    "type":  "select",
+                                                                                    "order":  "34",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "label":  "Broker Number",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BROKER_NAME_SELECT",
+                                                                                    "type":  "select",
+                                                                                    "order":  "34",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "label":  "Broker Name",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_KEY_GROUPTEXT",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Key",
+                                                                                    "fieldspan":  "4",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MOD",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "QueryPanelForStatItems",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSURED_NAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured Name",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "10",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  7,
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITEM_BALANCE",
+                                                                                    "type":  "money",
+                                                                                    "decimal":  "2",
+                                                                                    "label":  "Item Balance",
+                                                                                    "maxlength":  "19",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  2,
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITEM_STATUS",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Item Status",
+                                                                                    "fieldspan":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "open_checkbox",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Open",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "close_checkbox",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Close",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "SEARCHBUTTON",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Search",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RESETBUTTON",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Reset",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "QueryPanelForStatItems",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

@@ -1,0 +1,279 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ClmClaimsWorkOrder",
+                     "title":  "Work Order Print",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CWO_STRCLAIM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Range of Claim Numbers",
+                                                                                    "required":  "required",
+                                                                                    "order":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_ENDCLAIM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "To",
+                                                                                    "required":  "required",
+                                                                                    "order":  "2",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_ALLCLMTYP1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Claim Type",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ALLCLMTYP1",
+                                                                                                             "type":  "radio",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "3",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "1",
+                                                                                                                                 "description":  "All Claims within the Range"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ClmClaimsWorkOrder",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CATCLMTYP1",
+                                                                                                             "type":  "radio",
+                                                                                                             "order":  "4",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "1",
+                                                                                                                                 "description":  "Catastrophe Claims within the Range"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ClmClaimsWorkOrder",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CWO_CATCODE",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "5",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "8",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ClmClaimsWorkOrder",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "NCTCLMTYP1",
+                                                                                                             "type":  "radio",
+                                                                                                             "order":  "6",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "1",
+                                                                                                                                 "description":  "Non-Catastrophe Claims within the Range "
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ClmClaimsWorkOrder",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_CLAIMOFF",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Claim Office",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "3",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CWO_SELDATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Last Selection Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "23",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_SELTIME",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Last Selection Time",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "24",
+                                                                                    "mask":  "##:##:##",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CWO_RECCOUNT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_ALLCLMTYP",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_CATCLMTYP",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CWO_NCTCLMTYP",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmClaimsWorkOrder",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

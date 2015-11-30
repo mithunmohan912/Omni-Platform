@@ -1,0 +1,57 @@
+{
+  "dataSource": {
+    "pagesize": "30",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+      	{
+		  "type" : "VALUE",
+		  "value" : "BASPPBC04 "
+		},
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "4",
+          "order": "2"
+        },
+        {
+          "name": "BC_POLICY_COMPANY",
+          "order": "3",
+          "length": "2",
+          "fill": " "
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectValue"
+    },
+    "element": [
+      {
+        "field": "OUTPUTCRCDE",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Carrier Code"
+      },
+      {
+        "field": "OUTPUTCRRDSC",
+        "visible": true,
+        "width": "80%",
+        "align": "left",
+        "displayName": "Carrier Description"
+      }
+    ],
+    "title": ""
+  }
+}

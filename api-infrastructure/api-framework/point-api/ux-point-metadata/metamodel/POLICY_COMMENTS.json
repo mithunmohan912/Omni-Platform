@@ -1,0 +1,597 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Comments",
+                     "title":  "Policy Comments Detail",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason Suspended",
+                                                                                    "fieldspan":  12,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "COMMENT_KEY_REASON_SUSPENDED",
+                                                                                                             "type":  "text",
+                                                                                                             "label":  "Reason Suspended",
+                                                                                                             "order":  "1",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  4,
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "required",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "description":  "Permanent",
+                                                                                                                                 "value":  "PC"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "name":  "",
+                                                                                                                                 "value":  "TC",
+                                                                                                                                 "description":  "Temporary"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "selectedoption":  {
+                                                                                                                                    "description":  "Permanent",
+                                                                                                                                    "value":  "PC"
+                                                                                                                                },
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "POLICY_COMMENTS",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CUSTOM_COMMENT",
+                                                                                                             "label":  "SP = Custom Comment (Record Only)",
+                                                                                                             "size":  3,
+                                                                                                             "type":  "label",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "POLICY_COMMENTS",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "PERMANENT_COMMENT",
+                                                                                                             "label":  "PC = Permanent Comment",
+                                                                                                             "size":  3,
+                                                                                                             "type":  "label",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "POLICY_COMMENTS",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "TEMPORARY_COMMENT",
+                                                                                                             "label":  "TC = Temporary Comment",
+                                                                                                             "size":  3,
+                                                                                                             "type":  "label",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "POLICY_COMMENTS",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  4
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_SUSPENSE_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Suspend Date(MMDDYY)",
+                                                                                    "order":  "2",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_EFFDTE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Effective Date(MMDDYY)",
+                                                                                    "order":  "2",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COMMENT_PERSON_ENTERING",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Requester",
+                                                                                    "order":  "3",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_EXPDTE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Expiration Date(MMDDYY)",
+                                                                                    "order":  "2",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "disabled":  "true",
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COMMENT_ROOM_DESTINATION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Destination",
+                                                                                    "order":  "4",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  12,
+                                                                                    "size":  3,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "A_COMMENT_MESSAGE_1",
+                                                                                    "type":  "text",
+                                                                                    "order":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "70",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  12,
+                                                                                    "size":  8,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "label":  "Comments",
+                                                                                    "required":  "required",
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COMMENT_MESSAGE_2",
+                                                                                    "type":  "text",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "70",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  12,
+                                                                                    "size":  8,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COMMENT_MESSAGE_3",
+                                                                                    "type":  "text",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "70",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  12,
+                                                                                    "size":  8,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_COMMENTS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_ID_03",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_SUSPENSE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_REASON_SUSPENDED",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_TRANSACTION_STATUS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "27",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "13",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "28",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMENT_KEY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "POLICY_COMMENTS",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete"
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

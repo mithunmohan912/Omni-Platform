@@ -1,0 +1,80 @@
+{
+	"gridMetaData":{
+		"title":"",
+		"element":
+		[
+			{
+				"field": "WSTRANSCODE",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Trans Code",
+				"editable": "false",
+				"width":"30%"
+			},
+			{
+				"field": "WSDISPLACEMENTVALUE1",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Displacement Value1",
+				"editable": "false",
+				"width":"30%"
+			},
+			{
+				"field": "WSDISPLACEMENTVALUE2",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Displacement Value2",
+				"editable": "false",
+				"width":"30%"
+			}
+		],
+        "operation": {
+            "selectfield": "radio",
+            "jsfunction": "",
+            "options": ""
+        },
+        "buttons": []
+	},
+    "dataSource": {
+        "type": "SP",
+        "SP": "BASSYSGRID(@query@)",
+        "params": 
+            {
+                "query": [
+                   {
+                   "type": "VALUE",
+                   "value": "BASRCVL087"
+                   },
+		   {
+		  "type": "KEY",
+		  "startIndex": "0",
+		  "endIndex": "2"
+		},
+		{
+		  "type": "KEY",
+		  "startIndex": "2",
+		  "endIndex": "4"
+		},
+		{
+		  "type": "KEY",
+		  "startIndex": "4",
+		  "endIndex": "7"
+		},
+		{
+		  "type": "KEY",
+		  "startIndex": "7",
+		  "endIndex": "14"
+		},
+		{
+		  "type": "KEY",
+		  "startIndex": "14",
+		  "endIndex": "16"
+		}
+                ]
+            }
+        
+    }
+}

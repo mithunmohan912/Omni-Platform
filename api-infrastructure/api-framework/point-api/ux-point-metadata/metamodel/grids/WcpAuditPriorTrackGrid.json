@@ -1,0 +1,68 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASWC35T02"          
+        },
+        {
+          "name": "KEY_LOCATION"
+        },
+        {
+          "name": "KEY_MCO"
+		},
+        {
+          "name": "KEY_POLICY_SYMBOL"
+        },
+        {
+          "name": "KEY_POLICY_NUMBER"
+        },
+        {
+          "name": "KEY_POLICY_MODULE"
+        },
+        {
+          "name": "KEY_AUDIT_KIND"
+        },
+        {
+          "name": "AUDIT_EFF_DTE"
+        },
+        {
+          "name": "KEY_SITE_NUMBER"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "options": " ,Select",
+      "jsfunction": ""
+    },
+    "element": [
+      {
+        "field": "OUTPUTSEQ",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Sequence No."
+      },
+      {
+        "field": "OUTPUTAUDRVDTE",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Revoked / Reordered Date"
+      },
+      {
+        "field": "OUTPUTSITESTATUSDESC",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Status"
+      }
+    ],
+    "title": "Search Results"
+  }
+}

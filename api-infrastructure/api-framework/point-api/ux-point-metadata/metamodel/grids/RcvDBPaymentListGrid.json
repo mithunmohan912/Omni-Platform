@@ -1,0 +1,210 @@
+{
+  "gridMetaData": {
+    "title": "Payment Adjustment Search",
+    "element": [
+      {
+        "field": "WSCHECKNUM",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Check Number",
+        "editable": "false",
+        "width": "9%"
+      },
+      {
+        "field": "WSPOLORCUST",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Customer/Policy Number",
+        "editable": "false",
+        "width": "14%"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "MCO",
+        "editable": "false",
+        "width": "4%"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "LOC",
+        "editable": "false",
+        "width": "4%"
+      },
+      {
+        "field": "WSDATEENT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Date Entered",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "WSCASHACT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Tran",
+        "editable": "false",
+        "width": "4%"
+      },
+      {
+        "field": "WSPYMTAMT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Payment Amount",
+        "editable": "false",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "11%"
+      },
+      {
+        "field": "WSAVAILAMT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Available Amount",
+        "editable": "false",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "11%"
+      },
+      {
+        "field": "WSRCPTTYPDESC",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Receipt Type",
+        "editable": "false",
+        "width": "13%"
+      },
+      {
+        "field": "WSNSFDATE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "NSF Date",
+        "editable": "false",
+        "width": "7%"
+      },
+      {
+        "field": "WSCORRDTE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Correct Date",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "WSSTATDESC",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Status",
+        "editable": "false",
+        "width": "8%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Transfer",
+          "value": "Transfer"
+        },
+        {
+          "name": "NSF",
+          "value": "NSF"
+        },
+        {
+          "name": "Correct",
+          "value": "Correct"
+        },
+        {
+          "name": "Audit Trail",
+          "value": "Audit Trail"
+        },
+        {
+          "name": "Add Notes",
+          "value": "Add Notes"
+        }
+      ],
+      "rowactionfunction": "RcvDBPaymentListAction",
+      "listfunction": "RcvDBPaymentListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASSYSGRID(@querystr@)",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL058"
+        },
+        {
+          "name": "USER",
+          "length": "10",
+          "order": "1",
+          "fill": " "
+        },
+        {
+          "name": "WSCHECKNUM",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "name": "LOCATION",
+          "length": "2",
+          "order": "2",
+          "fill": " "
+        },
+        {
+          "name": "MASTERCO",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "WSSYMBOL",
+          "length": "3",
+          "fill": " "
+        },
+        {
+          "name": "WSPOLICYNUM",
+          "length": "7",
+          "fill": " "
+        },
+        {
+          "name": "WSMODULE",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "CUST0NO",
+          "length": "10",
+          "fill": " "
+        },
+        {
+          "name": "WSDATEENT",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "type": "VALUE",
+          "value": "100"
+        }
+      ]
+    }
+  }
+}

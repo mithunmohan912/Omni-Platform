@@ -1,0 +1,182 @@
+{
+  "dataSource": {
+    "SP": "BASWC35T04(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "name": "LOC"
+        },
+		{
+          "name": "MCO"
+        },
+		{
+          "name": "KEYSYMBOL",
+		  "length": "3",
+          "fill": " "
+        },
+		{
+          "name": "KEYPOLICYNUMBER",
+		  "length": "7",
+          "fill": " "
+        },
+		{
+          "name": "KEYMODULE",
+		  "length": "2",
+          "fill": " "
+        },
+		{
+          "name": "SITE",
+		  "length": "5",
+          "fill": " "
+        },
+		{
+          "name": "AUDITTYPE",
+		  "length": "1",
+          "fill": " "
+        },
+		{
+          "name": "AUDIT_ORD_DATE_FROM",
+		  "length": "7",
+          "fill": " "
+        },
+		{
+          "name": "AUDIT_ORD_DATE_TO",
+		  "length": "7",
+          "fill": " "
+        },
+		{
+          "name": "VENDORNAME",
+		  "length": "30",
+          "fill": " "
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Approve",
+          "value": "APP"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        },
+		{
+          "name": "Modify Vendor",
+          "value": "MOD"
+        }
+	  ],
+      "rowactionfunction": "WcvAuditOrderSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "OUTPUTSYMBOL",
+        "visible": true,
+        "width": "8%",
+        "align": "center",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "OUTPUTPOLICYNO",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Policy Number"
+      },
+      {
+        "field": "OUTPUTMODULE",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Module"
+      },
+      {
+        "field": "OUTPUTNAME",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Name"
+      },
+      {
+        "field": "OUTPUTSITE",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Site"
+      },
+      {
+        "field": "OUTPUTAUDKIND",
+        "visible": true,
+        "width": "11%",
+        "align": "left",
+        "displayName": "Audit Kind"
+      },
+      {
+        "field": "OUTPUTAUDEFFDTE",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Audit Effective Date",
+		"type" : "date",
+		"cellTemplate": "ux/template/DateTemplate.html"
+      },
+      {
+        "field": "OUTPUTAUDEXPDTE",
+        "visible": true,
+        "width": "18%",
+        "align": "left",
+        "displayName": "Audit Expiration Date",
+		"type" : "date",
+		"cellTemplate": "ux/template/DateTemplate.html"
+      },
+	  {
+        "field": "OUTPUTGENDTE",
+        "visible": true,
+        "width": "18%",
+        "align": "left",
+        "displayName": "Create Date",
+		"type" : "date",
+		"cellTemplate": "ux/template/DateTemplate.html"
+      },
+	  {
+        "field": "OUTPUTVENDORNAME",
+        "visible": true,
+        "width": "18%",
+        "align": "left",
+        "displayName": "Audit Vendor"
+      },
+	  {
+        "field": "",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Error"
+      },
+	  {
+        "field": "OUTPUTVENDORID",
+        "visible": false,
+        "width": "0%",
+        "align": "left"
+      },
+	  {
+        "field": "OUTPUTSTATE",
+        "visible": false,
+        "width": "0%",
+        "align": "left"
+      },
+	  {
+        "field": "OUTPUTAUDITFLAG",
+        "visible": false,
+        "width": "0%",
+        "align": "left"
+      }
+    ],
+    "title": ""
+  }
+}

@@ -1,0 +1,226 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvABCashBatchListFrame",
+                     "title":  "Agency Bill Batch List",
+                     "subtitle":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "SEARCHCASHBATCH",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Search",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RESET",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Reset",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  2,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ENTRYDATE",
+                                                                                    "type":  "date",
+                                                                                    "size":  11,
+                                                                                    "fieldspan":  "2",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_TYPE",
+                                                                                    "type":  "select",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  30,
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "ACOR",
+                                                                                                        "description":  "ACOR"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "AGTR",
+                                                                                                        "description":  "AGTR"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "APAY",
+                                                                                                        "description":  "APAY"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "APST",
+                                                                                                        "description":  "APST"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "ARFD",
+                                                                                                        "description":  "ARFD"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "ATRN",
+                                                                                                        "description":  "ATRN"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "NADJ",
+                                                                                                        "description":  "NADJ"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "PRFN",
+                                                                                                        "description":  "PRFN"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "WAIV",
+                                                                                                        "description":  "WAIV"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_MCO",
+                                                                                    "type":  "text",
+                                                                                    "fieldspan":  "1",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  9,
+                                                                                    "maxlength":  "2",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_AGENCY",
+                                                                                    "type":  "text",
+                                                                                    "fieldspan":  "1",
+                                                                                    "autoformat":  "true",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "size":  12,
+                                                                                    "maxlength":  "7",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "USER",
+                                                                                    "type":  "text",
+                                                                                    "fieldspan":  "2",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  7,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_STS",
+                                                                                    "type":  "select",
+                                                                                    "fieldspan":  1,
+                                                                                    "size":  40,
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Held",
+                                                                                                        "description":  "Held"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Not Posted",
+                                                                                                        "description":  "Not Posted"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Out of Bal",
+                                                                                                        "description":  "Out of Bal"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Posted",
+                                                                                                        "description":  "Posted"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Unallocated",
+                                                                                                        "description":  "Unallocated"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Batch in Error",
+                                                                                                        "description":  "Batch in Error"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "All Unposted",
+                                                                                                        "description":  "All Unposted"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_POST",
+                                                                                    "type":  "date",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  20,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvABCashBatchListGrid",
+                                                                                    "type":  "grid",
+                                                                                    "gridId":  "RcvABCashBatchListGrid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "5"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADD_PAYMENTS",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Add Payments",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABCashBatchListFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

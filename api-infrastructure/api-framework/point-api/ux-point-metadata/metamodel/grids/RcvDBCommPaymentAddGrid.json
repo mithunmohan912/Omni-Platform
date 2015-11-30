@@ -1,0 +1,89 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Change",
+          "value": "CHG"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        }
+	  ],
+      "rowactionfunction": "RcvDBACAddSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": true,
+        "width": "8%",
+        "align": "center",
+        "displayName": "Error"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "MCO"
+      },
+      {
+        "field": "WSAGENCYNBR",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Agency Number"
+      },
+      {
+        "field": "WSPAYMENTAMT",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+		"decimalLen": "2",
+        "displayName": "Payment Amount",
+		"cellTemplate": "ux/template/CurrencyTemplate.html"
+      },
+      {
+        "field": "WSCHECKNBR",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "displayName": "Check Number"
+      },
+      {
+        "field": "WSRCPTTYPE",
+        "visible": false,
+        "width": "13%",
+        "align": "right",
+        "displayName": "Reciept Type"
+      },
+	  {
+       "field": "WSRCPTDESC",
+       "visible": true,
+       "width": "18%",
+       "align": "left",
+       "displayName": "Receipt Type"
+      },
+      {
+        "field": "WSCOMMENT",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Comment"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Comment"
+      }
+	  
+    ],
+    "title": ""
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "gridMetaData": {
+    "gridType": "selectableGrid",
+    "title": "",
+    "element": [
+      {
+        "field": "POLSYMBOL",
+        "displayName": "Symbol",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "POLPOLICY0NUM",
+        "displayName": "Policy Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+       {
+        "field": "POLMODULE",
+        "displayName": "Module",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+       {
+        "field": "POLLOCATION",
+        "displayName": "Location",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+       {
+        "field": "POLMASTER0CO",
+        "displayName": "Master Co",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": " BASDBIO105(@query@)",
+    "params": {
+      "query": [
+        {
+          "name": "BAS9_NUM_05"
+        },
+        {
+          "name": "KEY_ADDRESS_SEQUENCE_NUMBER"
+        }
+      ]
+    }
+  }
+}

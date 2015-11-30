@@ -1,0 +1,192 @@
+{
+  "gridMetaData": {
+    "title": "Dwelling Fire Policy - List of Coverages",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "BCCOVERAGESEQUENCE",
+        "displayName": "Unit Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "BCCOVERAGEDESCRIPTION",
+        "displayName": "Coverage",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "25%"
+      },
+      {
+        "field": "BCSTATUS",
+        "displayName": "Status",
+        "cellTemplate": "ux/template/DataTemplate.html",
+        "function": "formatTransactionStatus",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "BCRATEPREMIUM",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "BCRATESTATE",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCLASTCHANGEDATE",
+        "displayName": "Change Date",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "13%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "PolFPCoverageAction",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO045(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "150",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "lob",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20",
+          "order": "6"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "                                                                          ",
+          "order": "7"
+        },
+        {
+          "name": "insline",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "97",
+          "order": "8"
+        },
+        {
+          "name": "product",
+          "type": "KEY",
+          "startIndex": "97",
+          "endIndex": "103",
+          "order": "9"
+        },
+        {
+          "name": "riskloc",
+          "type": "KEY",
+          "startIndex": "103",
+          "endIndex": "108",
+          "order": "10"
+        },
+        {
+          "name": "subloc",
+          "type": "KEY",
+          "startIndex": "108",
+          "endIndex": "113",
+          "order": "11"
+        },
+        {
+          "name": "unitno",
+          "type": "KEY",
+          "startIndex": "113",
+          "endIndex": "118",
+          "order": "12"
+        },
+        {
+          "name": "pco",
+          "type": "KEY",
+          "startIndex": "20",
+          "endIndex": "22",
+          "order": "13"
+        },
+        {
+          "name": "state",
+          "type": "KEY",
+          "startIndex": "29",
+          "endIndex": "31",
+          "order": "14"
+        }
+      ]
+    }
+  }
+}

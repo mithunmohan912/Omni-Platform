@@ -1,0 +1,260 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvDBTransferPmt",
+                     "title":  "Transfer Payment",
+                     "defaultsubmitresetbuttons":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "label":  "Transfer From",
+                                                                                    "labelspan":  "8",
+                                                                                    "fieldspan":  12,
+                                                                                    "size":  10,
+                                                                                    "type":  "label"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_SYM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Symbol",
+                                                                                    "order":  "1",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_POLNO",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Policy",
+                                                                                    "order":  "2",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_MOD",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Module",
+                                                                                    "order":  "3",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_MCO",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Master Company",
+                                                                                    "order":  "4",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_LOC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Location",
+                                                                                    "fieldspan":  "4",
+                                                                                    "order":  "5",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AVAL_TRF",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Available for Transfer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "order":  "7",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WS_AVAILCR",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Available for Transfer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "SYMBOL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Symbol",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "3",
+                                                                                    "autoformat":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "7",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MODULE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Module",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MCO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Master Company",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LOC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Location",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TRANSFERAMT",
+                                                                                    "type":  "money",
+                                                                                    "decimal":  "2",
+                                                                                    "label":  "Transfer Amount",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "19",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDTRANSFER",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Add Transfer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RESET",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Reset",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvDBTransferPmtGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "label":  "",
+                                                                                    "gridId":  "RcvDBTransferPmtGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "spacer",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUBMITDATA",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Submit",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOUPDATE",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Exit/No Update",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBTransferPmt",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

@@ -1,0 +1,60 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "SP" : "BASRCVL060(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "name": "KEY",
+          "type": "KEY",
+	  "startIndex": "13",
+	  "endIndex": "30",
+          "order": "1"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSSYMBOL",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Symbol"
+    }, {
+      "field" : "WSPOLNO",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "right",
+      "displayName" : "Policy"
+    }, {
+      "field" : "WSMODULE",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Module"
+    }, {
+      "field" : "WSMCO",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Master Company"
+    }, {
+      "field" : "WSACTDATE",
+      "visible" : true,
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Activity Date"
+    }, {
+      "field" : "WSREMBAL",
+      "visible" : true,
+      "width" : "20%",
+      "align" : "right",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "displayName" : "Remaining Balance"
+    } ],
+    "title" : "Audit Trail of Original Payment"
+  }
+}

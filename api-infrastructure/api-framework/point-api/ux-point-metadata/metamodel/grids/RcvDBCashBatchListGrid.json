@@ -1,0 +1,141 @@
+{
+  "dataSource": {
+    "SP": "BASRCVL000(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL014"
+        },
+        {
+          "name": "ENTRYDATE"
+        },
+        {
+          "name": "Type",
+          "length": "4",
+          "fill": " "
+        },
+        {
+          "name": "USER",
+          "length": "10",
+          "fill": " "
+        },
+		{
+          "name": "Status",
+          "length": "15",
+          "fill": " "
+        },
+        {
+          "name": "PostedDate"
+        },
+        {
+          "name": "USER"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Update Payment",
+          "value": "UP"
+        },
+        {
+          "name": "Hold",
+          "value": "HL"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+		{
+          "name": "Display",
+          "value": "DS"
+        },
+		{
+          "name": "Release",
+          "value": "RL"
+        },
+		{
+          "name": "Print Deposit List",
+          "value": "PD"
+        },
+		{
+          "name": "Print Deposit List with Status",
+          "value": "PS"
+        },
+		{
+          "name": "Post",
+          "value": "PO"
+        }
+	  ],
+      "rowactionfunction": "RcvDBCashBatchSelect",
+	  "listfunction": "RcvDBCashBatchFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "WSBATENTDATE",
+        "visible": true,
+        "width": "13%",
+        "align": "center",
+        "displayName": "Entry Date"
+      },
+      {
+        "field": "WSBATSEQNBR",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Seq#"
+      },
+      {
+        "field": "WSBATTYPE",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "displayName": "Type"
+      },
+      {
+        "field": "WSBATUSER",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "User"
+      },
+      {
+        "field": "WSBATCTLAMT",
+        "visible": true,
+        "width": "11%",
+        "align": "left",
+        "displayName": "Control Amount",
+		"cellTemplate": "ux/template/CurrencyTemplate.html"
+      },
+      {
+        "field": "WSBATENTAMT",
+        "visible": true,
+        "width": "11%",
+        "align": "left",
+        "displayName": "Entered Amount",
+		"cellTemplate": "ux/template/CurrencyTemplate.html"
+      },
+      {
+        "field": "WSBATSTATUS",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Status"
+      },
+      {
+        "field": "WSBATPSTDATE",
+        "visible": true,
+        "width": "18%",
+        "align": "left",
+        "displayName": "Posted Date"
+      }
+    ],
+    "title": ""
+  }
+}

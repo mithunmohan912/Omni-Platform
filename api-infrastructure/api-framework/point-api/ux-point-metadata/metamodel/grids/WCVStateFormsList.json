@@ -1,0 +1,214 @@
+{
+  "gridMetaData": {
+    "title": "Forms List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "rowAction": {
+      "rowFunction": "selectAction",
+      "keyParams": [
+        {
+          "type": "VALUE",
+          "value": "PMSPWC03  "
+        },
+        {
+          "type": "VALUE",
+          "value": "N"
+        },
+        {
+          "type": "KEY",
+          "start": "31",
+          "end": "33"
+        },
+        {
+          "type": "OPTION",
+          "length": "30",
+          "value": "description",
+          "fill": " "
+        },
+        {
+          "type": "KEY",
+          "start": "1",
+          "end": "3"
+        },
+        {
+          "type": "KEY",
+          "start": "3",
+          "end": "5"
+        },
+        {
+          "type": "KEY",
+          "start": "20",
+          "end": "22"
+        },
+        {
+          "type": "KEY",
+          "start": "94",
+          "end": "96",
+          "length": "3",
+          "fill": " "
+        },
+        {
+          "type": "KEY",
+          "start": "17",
+          "end": "20",
+          "length": "20",
+          "fill": " "
+        },
+        {
+          "type": "VALUE",
+          "value": "                    "
+        },
+        {
+          "type": "VALUE",
+          "value": "                    "
+        },
+        {
+          "type": "VALUE",
+          "value": "                    "
+        },
+        {
+          "type": "VALUE",
+          "value": "                    "
+        }
+      ],
+      "options": [
+        {
+          "value": "DL",
+          "description": "Delete",
+          "reqcode": "WCVFORMSDLTRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "0",
+              "end": "114"
+            },
+            {
+              "type": "ROW",
+              "value": "FORMID",
+              "length": "10",
+              "fill": " "
+            },
+            {
+              "type": "KEY",
+              "start": "124",
+              "end": ""
+            }
+          ]
+        }
+      ]
+    },
+    "element": [
+      
+{
+        "field": "button",
+        
+"displayName": "Actions",
+        "cellTemplate": "ux/template/row_action_template.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      
+{
+        "field": "FORMID",
+ "displayName": "Form Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      
+{
+        "field": "FORMDESC",
+  "displayName": "Form Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "30%"
+      }
+, 
+{
+        "field": "FORMSEQ",
+"displayName": "Form Number Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      
+{
+        "field": "FORMSEQIT",
+ "displayName": "Form Number Iterations",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      }
+     ],
+
+    "operation": {
+      "selectfield": "select",
+      "jsfunction": "",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "WCSTFRMLST(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "150",
+    "params": {
+      "query": [
+        {
+          "name": "strKey",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "17",
+          "order": "1"
+        },
+        {
+          "name": "state",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "96",
+          "length": "3",
+          "fill": "0",
+          "order": "2"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": " ",
+          "length": "322",
+          "fill": " ",
+          "order": "3"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "N",
+          "order": "4"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "null",
+          "length": "14",
+          "fill": " ",
+          "order": "5"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "Y",
+          "order": "6"
+        }
+      ]
+    }
+  }
+}

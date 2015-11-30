@@ -1,0 +1,131 @@
+{
+  "gridMetaData": {
+    "title": "Class List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "A1ADCD",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "A1KJTX",
+        "displayName": "Class Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "A1A2DT",
+        "displayName": "Effective Date",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "A1KKTX",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "40%"
+      },
+      {
+        "field": "CLASS_DETAILS_BUTTON",
+        "visible": true,
+        "align": "center",
+        "displayName": "",
+        "type": "button",
+        "cellTemplate": "ux/template/buttonTemplate.html",
+        "editable": "true",
+        "pinned": false,
+        "width": "15%",
+        "buttononClickFn": "showClassDetails",
+        "buttonval" : "Class Details"
+      },
+      {
+        "field": "A1O4TX",
+        "visible": true,
+        "align": "center",
+        "displayName": "",
+        "type": "button",
+        "pinned": false,
+        "cellTemplate": "ux/template/buttonTemplateHolder.html",
+        "editable": "true",
+        "width": "15%",
+        "buttononClickFn": "showFootNotes",
+        "buttonval" : "Footnotes"
+      }
+    ],
+    "operation": {
+      "selectfield": "",
+      "jsfunction": "selectClassValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO007(@query@)",
+    "pagesize": "10",
+    "gridMaxSize": "30",
+    "params": {
+      "query": [
+        {
+          "name": "INSLINEVAL",
+          "length": "3",
+          "order": "1",
+          "fill": " "
+        },
+        {
+          "name": "STATEVAL",
+          "length": "2",
+          "order": "2",
+          "fill": " "
+        },
+        {
+          "name": "POLEFFDATE",
+          "length": "7",
+          "order": "3",
+          "fill": "9"
+        },
+        {
+          "name": "CLASSCODE",
+          "length": "6",
+          "order": "4",
+          "fill": " "
+        },
+		{  
+           "type": "KEY",
+		   "startIndex": "0",
+           "endIndex": "16"
+        },
+        {
+          "name": "CLASSDESC",
+          "length": "60",
+          "order": "5",
+          "fill": " "
+        },
+        {
+          "name": "MAXRECORDS",
+          "length": "3",
+          "fill": " "
+        },
+        {
+          "name": "DEFAULTSEARCH",
+          "type": "VALUE",
+          "value": "1"
+        }
+      ]
+    }
+  }
+}

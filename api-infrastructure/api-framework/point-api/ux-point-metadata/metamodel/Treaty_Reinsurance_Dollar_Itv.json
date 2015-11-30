@@ -1,0 +1,806 @@
+{
+    "metadata":  {
+                     "groupid":  "REINSURANCE",
+                     "formid":  "Treaty_Reinsurance_Dollar_Itv",
+                     "title":  "Treaty Reinsurance Dollar Intervention",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_KEY_AGENCY_MASTER_COMPANY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Master Company",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ITV_KEY_MASTER_COMPANY",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "5",
+                                                                                                             "support":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "size":  8,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ITV_KEY_POLICY_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ITV_KEY_POLICY_NUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "5",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ITV_KEY_POLICY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "type":  "label",
+                                                                                    "label":  "Treaty Information",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5
+                                                                                },
+                                                                                {
+                                                                                    "type":  "label",
+                                                                                    "label":  "Intervention Dates",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_ITV_KEY_CONTRACT",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Contract",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ITV_KEY_CONTRACT",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "1",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  11,
+                                                                                                             "buttonid":  "ID_Contract_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_EFFECTIVE_DATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Effective Date",
+                                                                                    "order":  "16",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CONTRACT_EFF_DATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Effective Date",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_EXPIRATION_DATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "order":  "19",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "order":  0,
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "type":  "spacer",
+                                                                                    "properties":  [
+
+                                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_CANCEL_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "New Expiration Date",
+                                                                                    "order":  "22",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete",
+                                                                "title":  "Treaty Information / Intervention Dates"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ITV_ORIGINAL_PREMIUM",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Original Premium",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_COMM_PERCENT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Commission Rate",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "7",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_PREM_AMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Written Premium",
+                                                                                    "order":  "29",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_OCCURENCE",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Occurrence Amount",
+                                                                                    "order":  "31",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "18",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  7,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ],
+                                                                "title":  "Dollar Entry Data"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ITV_UNIT_NUMBER",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Unit",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "34",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_SUBLINE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Subline",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "36",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_SA_SPECIAL_USE_A",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Special Use",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "38",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_MAJOR_PERIL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Major Peril",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CLASS_CODE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Class",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "42",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_STATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "State",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "44",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_TYPE_BUREAU",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Type Bureau",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "46",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_PRODUCT_LINE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Product",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "48",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_ANNUAL_STATEMENT",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Annual Statement Line",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "50",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ITV_PREM_RATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_LOSS_RATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CONTRACT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_EFFECTIVE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CLASS_CODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_PRODUCT_LINE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_SUBLINE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CONTRACT_EFF_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "5",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "4",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  2,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Treaty_Reinsurance_Dollar_Itv",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

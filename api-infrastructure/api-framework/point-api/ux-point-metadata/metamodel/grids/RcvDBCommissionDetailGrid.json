@@ -1,0 +1,136 @@
+{
+ "dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL081"
+        },
+        {
+          "type": "KEY"
+        }
+       
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "OUTPUTLOCATION",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : "Location Company"
+    },
+    {
+      "field" : "OUTPUTMASTERCO",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : "Master Company"
+    },  
+    {
+      "field" : "OUTPUTAGENCY",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : "Agency Number"
+    }, 
+    {
+      "field" : "OUTPUTINSUREDNAME",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Insured Name"
+    }, {
+      "field" : "OUTPUTCUSTNUM",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Customer"
+    }, {
+      "field" : "OUTPUTSYMBOL",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Symbol"
+    }, {
+      "field" : "OUTPUTPOLICYNUM",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Policy"
+    }, {
+      "field" : "OUTPUTMODULE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Mod"
+    }, {
+      "field" : "OUTPUTPOLEFFDATE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Eff Date"
+    }, {
+      "field" : "OUTPUTPOLEXPDATE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Exp Date"
+    }, {
+      "field" : "OUTPUTACCTGPERIOD",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Acct Date"
+    }, {
+      "field" : "OUTPUTTRANSEFFDATE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Trans Date"
+    }, {
+      "field" : "OUTPUTTRANSDESC",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Trans Code"
+    },  
+    {
+      "field" : "OUTPUTGROSSPREMIUM",
+      "visible" : "true",
+      "width" : "20%",
+       "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "align" : "left",
+      "displayName" : "Gross Premium/SC"
+    },
+     {
+      "field" : "OUTPUTCOMMISSIONAMT",
+      "visible" : "true",
+      "width" : "20%",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "align" : "left",
+      "displayName" : "Comm Amount"
+    },
+    {
+      "field" : "OUTPUTPAIDAMOUNT",
+      "visible" : "true",
+      "width" : "20%",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "align" : "left",
+      "displayName" : "Paid"
+    },
+     {
+      "field" : "OUTPUTAMOUNTDUE",
+      "visible" : "true",
+      "width" : "20%",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "align" : "left",
+      "displayName" : "Amount Due"
+    } ],
+    "title" : "Statement Items"
+  }
+}

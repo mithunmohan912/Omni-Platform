@@ -1,0 +1,188 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "element": [
+      {
+        "field": "TBEZ_SCREEN_TYPE",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Capture Type",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "TBEZ_FORMID",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Capture_ID",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "TBEZ_VERSION",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Version",
+        "editable": "false",
+        "width": "5%"
+      },
+      {
+        "field": "TBEZ_EDITION_MMYY",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Edition Date",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "TBEZ_EFF_DATE",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Effective Date",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "TBEZ_EXP_DATE",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Expiration Date",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "TBEZ_STATUS",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Final/Draft",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "TBEZ_LOCATION",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "LOC",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "TBEZ_MASTERCO",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "MCO",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "TBEZ_POLICYCO",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "PCO",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "TBEZ_STATE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "STATE",
+        "editable": "false",
+        "width": "8%"
+      },
+      {
+        "field": "TBEZ_LOB",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "LOB",
+        "editable": "false",
+        "width": "8%"
+      }
+    ],
+    "operation": {
+      "rowactionfunction": "EzcFrameGridListAction",
+      "listfunction":"EzcFrameGridListFilter",
+      "jsfunction": "selectRowforAction",
+       "options": [
+        {
+          "name": "Copy",
+          "value": "Copy"
+        },
+        {
+          "name": "Delete",
+          "value": "Delete"
+        },
+        {
+          "name": "Display",
+          "value": "Display"
+        },
+         {
+          "name": "Edit",
+          "value": "Edit"
+        },
+        {
+          "name": "Final",
+          "value": "Final"
+        },
+        {
+          "name": "Test",
+          "value": "Test"
+        },
+         {
+          "name": "Draft",
+          "value": "Draft"
+        },
+        {
+          "name": "Map",
+          "value": "Map"
+        },
+        {
+          "name": "Prod",
+          "value": "Prod"
+        },
+        {
+          "name": "Expire",
+          "value": "Expire"
+        },
+        {
+          "name": "Version",
+          "value": "Version"
+        }
+      ]
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "restrictGridData": true,
+    "SQL": "SELECT TBEZ_SCREEN_TYPE,TBEZ_FORMID,TBEZ_VERSION,TBEZ_EDITION_MMYY,TBEZ_EFF_DATE,TBEZ_EXP_DATE,TBEZ_STATUS,TBEZ_LOCATION,TBEZ_MASTERCO,TBEZ_POLICYCO,TBEZ_STATE,TBEZ_LOB FROM TBEZCAP WHERE @WHERECLAUSE@",
+    "pagesize": "20",
+    "maxKeySize": "17",
+    "params": {
+      "WHERECLAUSE": [
+        {
+          "name": "WHERECLAUSE"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "gridMetaData": {
+    "title": "Personal Automobile Policy - List of Coverages for Vehicle",
+    "element": [
+      {
+        "field": "BCCOVERAGEDESCRIPTION",
+        "displayName": "Coverage Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "BCRECORDSTATUS",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCRATEPREMIUM",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCCHANGEEFFECTIVEDATE",
+        "displayName": "Change Date",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "BCCOVERAGELIMIT",
+        "displayName": "Limit",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCCOVERAGEDEDUCT",
+        "displayName": "Deductible/Exposure",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCRATEBOOKFILE",
+        "displayName": "Ratebook",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "BCREASONAMENDEDDESC",
+        "displayName": "Reason Amended",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Reinstate",
+          "value": "RI"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "PolAPVCoverageListAction",
+      "listfunction": "PolAPVCoverageListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO024(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "150",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "lob",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20",
+          "order": "6"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "                                                  ",
+          "order": "7"
+        },
+        {
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "                        ",
+          "order": "8"
+        },
+        {
+          "name": "insline",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "97",
+          "order": "9"
+        },
+        {
+          "name": "product",
+          "type": "KEY",
+          "startIndex": "97",
+          "endIndex": "103",
+          "order": "10"
+        },
+        {
+          "name": "riskloc",
+          "type": "KEY",
+          "startIndex": "103",
+          "endIndex": "108",
+          "order": "11"
+        },
+        {
+          "name": "subloc",
+          "type": "KEY",
+          "startIndex": "108",
+          "endIndex": "113",
+          "order": "12"
+        },
+        {
+          "name": "unitno",
+          "type": "KEY",
+          "startIndex": "113",
+          "endIndex": "118",
+          "order": "13"
+        }
+      ]
+    }
+  }
+}

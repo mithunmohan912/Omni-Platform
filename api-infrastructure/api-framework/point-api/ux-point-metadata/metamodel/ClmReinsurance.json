@@ -1,0 +1,420 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ClmReinsurance",
+                     "title":  "Reinsurance",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CL_DATE_OF_LOSS",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Loss Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "9",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "MISC_COMPANY",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reinsurance Company",
+                                                                                    "order":  "1",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_MISC_CONTRACT_NUM",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Contract Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "MISC_CONTRACT_NUM",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "2",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Contract_Search_Button",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ClmReinsurance",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MISC_ACCT",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reinsurance Account",
+                                                                                    "order":  "4",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MISC_CONTRACT_EFFECTIVE_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Contract Effective Date",
+                                                                                    "order":  "5",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MISC_CERTIFICATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Certificate",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NAME",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_CATEGORY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIMANT_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLCMT_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_LNAME",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_SUB_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_DIR_TRN_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_ADJUSTOR_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENCY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TAX_ID",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIM_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLM_ENTRY_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_COV_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_STATUS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_FNAME",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "ClmReinsurance",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}
