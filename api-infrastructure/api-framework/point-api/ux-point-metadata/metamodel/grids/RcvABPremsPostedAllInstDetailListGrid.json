@@ -1,0 +1,141 @@
+{
+  "gridMetaData": {
+    "gridType": "",
+    "title": "Premiums Posted Detail",
+     
+    "element": [
+       {
+	"field": "WSINSTNBR",
+	"visible": true,
+	"enableCellEdit": false,
+	"align": "center",
+	"type": "text",
+	"width": "10%",
+	"displayName": "Inst"
+                
+      },
+      {
+        "field": "WSSTMTDATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Stmt Date",
+        "width": "15%"
+      },
+      {
+        "field": "WSTRANCODE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+	"displayName": "Transaction Code",
+        "width": "25%"
+      },
+      {
+        "field": "WSTRANDESC",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Transaction Description",
+        "width": "25%"
+      },
+       {
+        "field": "WSEFFDATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Trans Effective Date",
+        "width": "25%"
+      }, {
+        "field": "WSGROSSAMT",   
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Gross",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "25%"
+      },
+      {
+        "field": "WSCOMMPERCNT",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Comm%",
+        "width": "25%"
+      },
+      {
+        "field": "WSCOMMAMT",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Comm$",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "25%"
+      },
+      {
+        "field": "WSCOLLECTABLE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Collectable",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "25%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": "",
+      "jsfunction": "showRcvInstallmentDetails"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": " BASSYSGRID(@query@)",
+    "params": {
+      "query": [
+	{
+          "type": "VALUE",
+          "value": "BASRCVL025"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "2"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        },
+	{
+          "type": "KEY",
+          "startIndex": "16",
+          "endIndex": "18"
+        }
+      ]
+    }
+  }
+}

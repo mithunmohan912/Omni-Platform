@@ -1,0 +1,72 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+	  ]
+    },
+	"gridType": "editableGrid",
+    "title": "Add Suspense",
+    "element": [
+      {
+        "field": "WSSYMBOL",
+        "visible": "true",
+        "width": "20%",
+        "align": "center",
+        "maxlength" : "3",
+        "displayName": "Symbol",
+		"editable": "true",
+		"regexp": "^[a-zA-Z ]*$",
+		"autoformat": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPOLICYNUM",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "maxlength" : "7",
+        "displayName": "Policy",
+		"autoformat" : "true",
+		"editable": "true",
+		"regexp": "^[.]?[0-9]+[.]?[0-9]*$",
+		"autoformat": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSMODULE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Mod",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPOLPOSTAMT",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Post Amount",
+		"type" : "money",
+		"maxlength" : "22",
+		"autoformat" : "true",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCOMMENT",
+        "visible": "true",
+        "width": "20%",
+        "align": "right",
+        "displayName": "Comment",
+		"maxlength" : "45",
+		"type": "text",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      }
+    ]
+  }
+}

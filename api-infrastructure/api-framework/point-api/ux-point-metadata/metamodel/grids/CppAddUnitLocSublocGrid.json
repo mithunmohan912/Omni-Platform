@@ -1,0 +1,74 @@
+{
+  "gridMetaData": {
+    "title": "Building List",
+    "element": [
+      {
+        "field": "OUTLOC",
+        "visible": true,
+        "align": "center",
+        "width": "10%",
+        "editable": "false",
+        "displayName": "Location"
+      },
+      {
+        "field": "OUTSUBLOC",
+        "visible": true,
+        "align": "center",
+        "width": "10%",
+        "editable": "false",
+        "displayName": "Building"
+      },
+      {
+        "field": "OUTLOCADDR",
+        "visible": true,
+        "align": "center",
+        "width": "45%",
+        "editable": "false",
+        "displayName": "Building Address"
+      },
+      {
+        "field": "OUTLOCSTATE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "State",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "OUTSUBLOCADDR",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Description",
+        "editable": "false",
+        "width": "25%"
+      },
+      {
+        "field": "OUTDISABLEIND",
+        "visible": false,
+        "align": "center",
+        "displayName": "",
+        "editable": "false",
+        "width": "0%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValueCppAddUnit",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": " BASASBUV02(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY"
+        }
+      ]
+    }
+  }
+}

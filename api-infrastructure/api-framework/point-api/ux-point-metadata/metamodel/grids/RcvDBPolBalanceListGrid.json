@@ -1,0 +1,78 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "type" : "SP",
+    "SP" : "BASRCVL009(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "2"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+  "gridType": "",
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSACTDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Activity Date"
+    }, {
+      "field" : "WSEFFDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Effective Date"
+    }, {
+      "field" : "WSTRANCODE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Transaction Code"
+    }, {
+      "field" : "WSACTDESC",
+      "visible" : "true",
+      "width" : "25%",
+      "align" : "left",
+      "displayName" : "Transaction"
+    }, {
+      "field" : "WSACTAMOUNT",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "right",
+      "displayName" : "Amount"
+    }, {
+      "field" : "WSPOLBAL",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "right",
+      "displayName" : "Policy Balance"
+    }],
+    "title" : "Policy Balance"
+  }
+}

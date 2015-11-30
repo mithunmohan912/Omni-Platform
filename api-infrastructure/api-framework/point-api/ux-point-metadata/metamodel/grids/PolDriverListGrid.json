@@ -1,0 +1,186 @@
+{
+  "gridMetaData": {
+    "title": "Commercial Package Policy - List of Drivers",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "DRNAME",
+        "displayName": "Name",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "22%"
+      },
+      {
+        "field": "DRDOB",
+        "displayName": "Date of Birth",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "14%"
+      },
+      {
+        "field": "DRLICSTATE",
+        "displayName": "License State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "13%"
+      },
+      {
+        "field": "DRLICNUM",
+        "displayName": "License Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "DRID",
+        "displayName": "Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "5%"
+      },
+      {
+        "field": "DRSTATUSDESC",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "DRTYPE",
+        "displayName": "Relationship",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "DRFEIN",
+        "displayName": "FEIN",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+	 {
+          "name": "Driver Codes",
+          "value": "DC"
+        }
+      ],
+      "rowactionfunction": "PolAPVDriverListAction",
+      "listfunction": "GenericInquireFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO073(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "267",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "drtypesearch",
+          "type": "KEY",
+          "startIndex": "195",
+          "endIndex": "196",
+          "order": "6"
+        },
+        {
+          "name": "dridsearch",
+          "type": "KEY",
+          "startIndex": "196",
+          "endIndex": "201",
+          "order": "7"
+        },
+        {
+          "name": "drnamesearch",
+          "type": "KEY",
+          "startIndex": "201",
+          "endIndex": "244",
+          "order": "8"
+        },
+        {
+          "name": "drlicstatesearch",
+          "type": "KEY",
+          "startIndex": "244",
+          "endIndex": "247",
+          "order": "9"
+        },
+        {
+          "name": "drlicnumsearch",
+          "type": "KEY",
+          "startIndex": "247",
+          "endIndex": "267",
+          "order": "10"
+        }
+      ]
+    }
+  }
+}

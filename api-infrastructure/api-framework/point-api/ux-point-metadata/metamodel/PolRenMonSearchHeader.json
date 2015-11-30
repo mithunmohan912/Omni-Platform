@@ -1,0 +1,295 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "PolRenMonSearchHeader",
+                     "title":  "Renewal Monitor Screen",
+                     "gridid":  "PolRenMonSearchGrid",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "EXPIRATION_DATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Expiration Date(MM/YYYY)",
+                                                                                    "required":  "required",
+                                                                                    "order":  "1",
+                                                                                    "placeholder":  "MM/YYYY",
+                                                                                    "maxlength":  "7",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "type":  "searchtext",
+                                                                                    "label":  "Agent Number",
+                                                                                    "order":  "2",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "maxlength":  "7",
+                                                                                    "fieldspan":  "6",
+                                                                                    "autoformat":  "true",
+                                                                                    "title":  "Search",
+                                                                                    "size":  10,
+                                                                                    "buttonid":  "ID_Agent_Search_Button",
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICYCO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy Company",
+                                                                                    "fieldspan":  "6",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "2",
+                                                                                    "autoformat":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolRenMonSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "6",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolRenMonSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolRenMonSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LINE0BUS",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Line of Business",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "3",
+                                                                                    "autoformat":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSURED",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "60",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNDERWRITER",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Underwriter",
+                                                                                    "fieldspan":  "3",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "support":  "true",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "label1",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Exclude From Display",
+                                                                                    "fieldspan":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CANCELED",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Cancelled",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NONRENEWED",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Non-Renewed",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RNT",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Renewal Not Taken",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RENEWED",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Renewed",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NONACTIVITY",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "No Activity",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RENEWTOQUOTE",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Ren-to-Quote",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HOLDRENEW",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Hold Renewal",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "label":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Policy_Search_Reset_Button",
+                                                                                                             "gridId":  "PolRenMonSearchGrid",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolRenMonSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "EmailReport",
+                                                                                                             "label":  "Email Report",
+                                                                                                             "type":  "button",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolRenMonSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PolRenMonSearchGrid",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "PolRenMonSearchGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolRenMonSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

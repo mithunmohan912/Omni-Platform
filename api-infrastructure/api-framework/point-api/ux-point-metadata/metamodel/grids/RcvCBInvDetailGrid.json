@@ -1,0 +1,58 @@
+{
+  "dataSource" : {
+    "SP" : "BASSYSGRID(@query@)",
+    "type" : "SP",
+     "params": {
+      "query": [
+        {
+			"type": "VALUE",
+			"value": "BASRCVL029"
+        },
+		{
+			"type": "KEY",
+			"startIndex": "4",
+			"endIndex": "14"
+        },
+		{
+			"name": "WSINVDATE"
+		}
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSSYMBOL",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Sym"
+    }, {
+      "field" : "WSPOLICY",
+      "visible" : true,
+      "width" : "20%",
+      "align" : "right",
+      "displayName" : "Policy"
+    }, {
+      "field" : "WSMODULE",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Mod"
+    }, {
+      "field" : "WSMASCOMP",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "MCO"
+    }, {
+      "field" : "WSBILLAMOUNT",
+      "visible" : true,
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "width" : "35%",
+      "align" : "right",
+      "displayName" : "Billed Amount"
+    } ],
+    "title" : ""
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "gridMetaData": {
+    "title": "",
+   "element": [
+     
+      {
+        "field": "UNDWRTRCODE",
+        "displayName": "Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "UNDWRTRDESC",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "filename": "TBUNDCDE",
+    "SQL": "Select UNDCODE AS UNDWRTRCODE ,UNDDESC AS UNDWRTRDESC from TBUNDCDE WHERE AGNUNBR =  @agentnum@ " ,
+    "pagesize": "10",
+    "params": {
+      "agentnum": [
+        {
+          "name": "TRANS_AGENT_NUMBER"
+        }
+     ]
+    }
+  }
+}

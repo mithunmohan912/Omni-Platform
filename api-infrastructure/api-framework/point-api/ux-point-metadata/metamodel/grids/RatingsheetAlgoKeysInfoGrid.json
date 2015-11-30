@@ -1,0 +1,174 @@
+{
+  "dataSource": {
+    "type": "SP",
+    "SP": " RATEWKSHT(@query1@ , @query2@ , @query3@ , @PolicyCo@ , @Symbol@ , @Policy@ , @Module@ , @WorkSheetSeq@ , @Ins@ , @Location@ , @Building@ , @Unit@ , @Product@ , @Coverage@ , @Item@)",
+    "params": {
+      "query1": [
+        {
+          "type": "VALUE",
+          "value": "GETALRKEYS"
+        }
+      ],
+      "query2": [
+        {
+          "type": "VALUE",
+          "value": ""
+        }
+      ],
+      "query3": [
+        {
+          "type": "VALUE",
+          "value": ""
+        }
+      ],
+      "PolicyCo": [
+        {
+          "name": "PolicyCo",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Symbol": [
+        {
+          "name": "Symbol",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Policy": [
+        {
+          "name": "Policy",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Module": [
+        {
+          "name": "Module",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "WorkSheetSeq": [
+        {
+          "name": "WorkSheetSeq",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Ins": [
+        {
+          "name": "Ins",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Location": [
+        {
+          "name": "Location",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Building": [
+        {
+          "name": "Building",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Unit": [
+        {
+          "name": "Unit",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Product": [
+        {
+          "name": "Product",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Coverage": [
+        {
+          "name": "Coverage",
+          "length": "1",
+          "fill": ""
+        }
+      ],
+      "Item": [
+        {
+          "name": "Item",
+          "length": "1",
+          "fill": ""
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Worksheet Algorithms",
+          "value": "1"
+        }
+      ],
+      "rowactionfunction": "doRatingsheetAction",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "B7AGTX",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Ins"
+      },
+      {
+        "field": "B7BRNB",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Location"
+      },
+      {
+        "field": "B7EGNB",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Building"
+      },
+      {
+        "field": "B7AENB",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Unit"
+      },
+      {
+        "field": "B7ANTX",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Product"
+      },
+      {
+        "field": "B7AOTX",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Coverage"
+      },
+      {
+        "field": "B7PBTX",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Item"
+      }
+    ]
+  }
+}

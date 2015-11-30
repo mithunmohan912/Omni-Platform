@@ -1,0 +1,190 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL084"
+        },
+		{
+          "name": "LOC"
+        },
+		{
+          "name": "MCO"
+        },
+		{
+          "name": "PARAM"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Detail",
+          "value": "FRD"
+        },
+        {
+          "name": "Audit Trail",
+          "value": "AT"
+        },
+        {
+          "name": "Correct",
+          "value": "CR"
+        },
+		{
+          "name": "NSF",
+          "value": "NSF"
+        },
+		{
+          "name": "Allocate Payment",
+          "value": "ALP"
+        }
+	  ],
+      "rowactionfunction": "RcvCBSuspCusOptions",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "WSENTRYDATE",
+        "visible": true,
+        "width": "12%",
+        "align": "center",
+        "displayName": "Entry Date"
+      },
+      {
+        "field": "WSSTATUS",
+        "visible": true,
+        "width": "12%",
+        "align": "left",
+        "displayName": "Status"
+      },
+      {
+        "field": "WSMCO",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "MCO"
+      },
+      {
+        "field": "WSCUSTOMER",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Customer"
+      },
+      {
+        "field": "WSCHECKNUM",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Check Number"
+      },
+      {
+        "field": "WSAMNTSUSP",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Amount in Suspense",
+		"cellTemplate": "ux/template/CurrencyTemplate.html"
+      },
+	  {
+        "field": "WSBATCHSEQ",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+		"displayName" : "Batch Seq#"
+      },
+      {
+        "field": "WSBATCHPSTDT",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "displayName": "Batch Date"
+      },
+      {
+        "field": "WSCASHWRITDTE",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Cash Written Date"
+      },
+	  {
+        "field": "WSCASHWRITSEQ",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Cash Written Seq"
+      },
+	  {
+        "field": "WSORIGWRITDTE",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Original Written date"
+      },
+	  {
+        "field": "WSORIGWRITSEQ",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Original written seq"
+      },
+	  {
+        "field": "WSLCO",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "LCO"
+      },
+	  {
+        "field": "WSSYM",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Symbol"
+      },
+	  {
+        "field": "WSPOLICYNUM",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+		"displayName": "Number"
+      },
+	  {
+        "field": "WSMODULE",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+		"displayName": "Module"
+      },
+	  {
+        "field": "WSRECEIPTID",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+		"displayName": "Receipt"
+      },
+	  {
+        "field": "WSPAYBY",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+		"displayName": "Payby"
+      },
+	  {
+        "field": "WSPOSTSTATUS",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+		"displayName": "Status"
+      }
+    ],
+    "title": "Suspended Customer Payments"
+  }
+}

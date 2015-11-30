@@ -1,0 +1,2215 @@
+{
+  "metadata": {
+    "title": "Premises Operations",
+    "properties": [
+      {
+        "name": "DISPLAYSEQ",
+        "value": 99999
+      },
+      {
+        "name": "SCREENIND1",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND2",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND3",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND4",
+        "value": "Y"
+      },
+      {
+        "name": "SCREENIND5",
+        "value": ""
+      }
+    ],
+    "groupid": "CPP",
+    "section": [
+      {
+        "sectionsize": 12,
+        "subsection": [
+          {
+            "element": [
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 4,
+                "name": "COMMON_DESC_RECORD_STATUS",
+                "label": "Status",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "controlgroup": [
+                  {
+                    "fieldspan": 6,
+                    "order": 6,
+                    "name": "COVERAGE_KEY_SYMBOL",
+                    "type": "text",
+                    "disabled": true,
+                    "size": 3
+                  },
+                  {
+                    "fieldspan": 6,
+                    "order": 7,
+                    "name": "COVERAGE_KEY_POLICY_NUMBER",
+                    "type": "text",
+                    "disabled": true,
+                    "size": 6
+                  },
+                  {
+                    "fieldspan": 6,
+                    "order": 8,
+                    "name": "COVERAGE_KEY_MODULE",
+                    "type": "text",
+                    "disabled": true,
+                    "size": 2
+                  }
+                ],
+                "name": "GROUP_COVERAGE_KEY_SYMBOL",
+                "label": "Policy Number",
+                "type": "grouptext"
+              },
+              {
+                "fieldspan": 6,
+                "order": 10,
+                "name": "COVERAGE_KEY_INSURANCE_LINE",
+                "label": "Insurance Line",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 12,
+                "name": "COVERAGE_KEY_PRODUCT",
+                "label": "Product",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 19,
+                "name": "COVERAGE_KEY_RISK_LOCATION_NUMBER",
+                "label": "Location",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 21,
+                "name": "COVERAGE_KEY_COVERAGE",
+                "label": "Coverage",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 27,
+                "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+                "label": "Sequence",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              }
+            ],
+            "subsectiontitle": ""
+          },
+          {
+            "element": [
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 1,
+                "order": 14,
+                "autoformat": true,
+                "name": "A_COVERAGE_RATEBOOK_RATEFILE",
+                "label": "RateBook",
+                "type": "text",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 19,
+                "order": 15,
+                "name": "A_COVERAGE_RATE_PREMIUM",
+                "label": "Premium",
+                "type": "money",
+                "decimal": 2,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 31,
+                "name": "GC_STATE",
+                "label": "State",
+                "type": "text",
+                "disabled": true,
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 30,
+                "order": 16,
+                "autoformat": true,
+                "name": "SEARCH_CLASS_CODE_COVERAGE",
+                "label": "Enter the beginning characters of a Class Code or Description to search on",
+                "type": "text",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "buttonid": "ID_Class_Search",
+                "order": 18,
+                "name": "ID_Class_Search",
+                "action": "doClassSearch();",
+                "label": "Class Search",
+                "type": "button",
+                "size": 10
+              },
+              {
+                "fieldspan": 12,
+                "controlgroup": [
+                  {
+                    "fieldspan": 1,
+                    "order": 109,
+                    "name": "GC_COVER_CLASS_CODE",
+                    "type": "text",
+                    "disabled": true,
+                    "size": 1,
+                    "parentField": "SubField",
+                    "help": "none",
+                    "properties": []
+                  },
+                  {
+                    "minlength": 0,
+                    "fieldspan": 11,
+                    "maxlength": 60,
+                    "order": 22,
+                    "name": "GC_COVER_CLASS_DESCRIPTION",
+                    "type": "text",
+                    "size": 10,
+                    "parentField": "SubField",
+                    "help": "none",
+                    "properties": []
+                  }
+                ],
+                "name": "GROUP_GC_COVER_CLASS_CODE",
+                "label": "Class Code",
+                "type": "grouptext",
+                "parentField": "Field",
+                "help": "none",
+                "controlCount": 2
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 23,
+                "name": "GC_TERRITORY",
+                "label": "Territory",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 264
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 3
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": "R"
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "required": "required",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 24,
+                "autoformat": true,
+                "name": "GC_USER_CODE_7",
+                "label": "Average/Above Premops",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT O PRM BAS PO"
+                  },
+                  {
+                    "name": "position",
+                    "value": 503
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 18,
+                "order": 26,
+                "name": "GC_EXPOSURE",
+                "label": "Exposure",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 309
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "V"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 20
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "money",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 38,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_4",
+                "label": "Exposure Basis",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT EXPOS BASIS"
+                  },
+                  {
+                    "name": "position",
+                    "value": 440
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 40,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_6",
+                "label": "Premium Basis",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PREMIUM BASIS"
+                  },
+                  {
+                    "name": "position",
+                    "value": 442
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 41,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_2",
+                "label": "Prem Inc Lmt Ind",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PO LIMIT TBL"
+                  },
+                  {
+                    "name": "position",
+                    "value": 438
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 44,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_1",
+                "label": "'A' Rate Indicator",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PREMOPS A IND"
+                  },
+                  {
+                    "name": "position",
+                    "value": 437
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 9,
+                "order": 46,
+                "name": "GC_USER_FACTOR_1",
+                "label": "'AA' Base Rate",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 1
+                  },
+                  {
+                    "name": "position",
+                    "value": 712
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 48,
+                "autoformat": true,
+                "name": "GC_USER_CODE_3",
+                "label": "PMA Code",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PMA CODE"
+                  },
+                  {
+                    "name": "position",
+                    "value": 479
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": "R"
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "required": "required",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 50,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_16",
+                "label": "Combined Minimum Indicator",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT STOREKEEP IND"
+                  },
+                  {
+                    "name": "position",
+                    "value": 452
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 52,
+                "autoformat": true,
+                "name": "GC_USER_CODE_9",
+                "label": "Deductible Type",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 515
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 53,
+                "autoformat": true,
+                "name": "GC_USER_CODE_10",
+                "label": "Bodily Injury Deductible",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 0
+                  },
+                  {
+                    "name": "position",
+                    "value": 521
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 56,
+                "autoformat": true,
+                "name": "GC_USER_CODE_11",
+                "label": "Average/Above Product",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT O PRM BAS PC"
+                  },
+                  {
+                    "name": "position",
+                    "value": 1206
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 58,
+                "autoformat": true,
+                "name": "GC_USER_CODE_4",
+                "label": "Property Damage Ded",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 0
+                  },
+                  {
+                    "name": "position",
+                    "value": 485
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 60,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_3",
+                "label": "Prod Increase Limit Ind",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PC LIMIT TBL"
+                  },
+                  {
+                    "name": "position",
+                    "value": 439
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 62,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_5",
+                "label": "Prod A Rate Indicator",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "CT PRODCO A IND"
+                  },
+                  {
+                    "name": "position",
+                    "value": 441
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": "C"
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 9,
+                "order": 64,
+                "name": "GC_USER_FACTOR_3",
+                "label": "Prod AA Base Rate",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 1
+                  },
+                  {
+                    "name": "position",
+                    "value": 543
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 67,
+                "autoformat": true,
+                "name": "GC_USER_CODE_6",
+                "label": "Prod Deductible Type",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 497
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 69,
+                "autoformat": true,
+                "name": "GC_USER_CODE_8",
+                "label": "Prod BI Deductible",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 0
+                  },
+                  {
+                    "name": "position",
+                    "value": 509
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 71,
+                "autoformat": true,
+                "name": "GC_USER_CODE_5",
+                "label": "Prod PD Deductible",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 0
+                  },
+                  {
+                    "name": "position",
+                    "value": 491
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 72,
+                "autoformat": true,
+                "name": "GC_USER_CODE_2",
+                "label": "Exclude XCU",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "NA"
+                  },
+                  {
+                    "name": "position",
+                    "value": 473
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 73,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_7",
+                "label": "Exclude Products",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 443
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 74,
+                "autoformat": true,
+                "name": "GC_USER_CODE_1",
+                "label": "Subline",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": 334
+                  },
+                  {
+                    "name": "position",
+                    "value": 467
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "text",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 8,
+                "order": 75,
+                "name": "GC_USER_FACTOR_8",
+                "label": "CT Premop Trn Factor",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 583
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 8,
+                "order": 76,
+                "name": "GC_USER_FACTOR_5",
+                "label": "CT Premop Rate",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 559
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 77,
+                "name": "GC_USER_DATE_1",
+                "mask": "mm/dd/yyyy",
+                "label": "CT Prem Effective Date",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 812
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "D"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 7
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "date",
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 8,
+                "order": 84,
+                "name": "GC_USER_FACTOR_9",
+                "label": "CT Prodco Trn Factor",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 591
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "minlength": 0,
+                "fieldspan": 6,
+                "maxlength": 8,
+                "order": 85,
+                "name": "GC_USER_FACTOR_6",
+                "label": "CT Prodco Rate",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 567
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "P"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 8
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "number",
+                "decimal": 5,
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 88,
+                "name": "GC_USER_DATE_2",
+                "mask": "mm/dd/yyyy",
+                "label": "CT Prod Effective Date",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 819
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "D"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 7
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "date",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 90,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_10",
+                "label": "NJ In Or Prior To 1978",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 446
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 91,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_19",
+                "label": "Employers Liability",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 455
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 93,
+                "autoformat": true,
+                "name": "GC_USER_CODE_12",
+                "label": "Texas Stat Territory",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 1212
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 6
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": "Y"
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "order": 94,
+                "name": "GC_USER_DATE_3",
+                "mask": "mm/dd/yyyy",
+                "label": "Condo Year Built",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 826
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "D"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 7
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "date",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 95,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_17",
+                "label": "Amended By Laws",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 453
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 96,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_25",
+                "label": "Ltd Pers Adv Exl",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 461
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 97,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_23",
+                "label": "Exclude BYOA",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 459
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "fieldspan": 6,
+                "support": "true",
+                "order": 98,
+                "autoformat": true,
+                "name": "GC_USER_INDICATOR_20",
+                "label": "Excl Lead Hazard",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": "N"
+                  },
+                  {
+                    "name": "position",
+                    "value": 456
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "T"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 1
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "select",
+                "size": 10
+              },
+              {
+                "minlength": 4,
+                "fieldspan": 6,
+                "maxlength": 4,
+                "order": 99,
+                "name": "GC_USER_NUMBER_4",
+                "label": "MD Only Year Built",
+                "properties": [
+                  {
+                    "name": "USRENTRYFIELD",
+                    "value": {}
+                  },
+                  {
+                    "name": "position",
+                    "value": 702
+                  },
+                  {
+                    "name": "datatype",
+                    "value": "N"
+                  },
+                  {
+                    "name": "reclength",
+                    "value": 5
+                  },
+                  {
+                    "name": "ERRORCD",
+                    "value": ""
+                  },
+                  {
+                    "name": "PRINTIND",
+                    "value": ""
+                  },
+                  {
+                    "name": "SC_CODE",
+                    "value": ""
+                  },
+                  {
+                    "name": "REQUIRED_PT",
+                    "value": ""
+                  },
+                  {
+                    "name": "INDD",
+                    "value": ""
+                  }
+                ],
+                "type": "text",
+                "size": 10
+              }
+            ],
+            "subsectiontitle": ""
+          },
+          {
+            "element": [
+              {
+                "name": "DB_BEAN_COVERAGE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "GC_STDFT_ADDRESS_CITY",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "GC_STDFT_COUNTY_CODE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "TEMPHASHDATA",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "PROC_LDA_SET_TYPE_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "PROC_MESSAGE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_EXPIRATION_DATE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_MASTER_COMPANY",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_UNIT_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_INSURANCE_LINE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_SYMBOL",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_LOCATION_COMPANY",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_EFFECTIVE_DATE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_RECORD_STATUS",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_POLICY_COMPANY",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_MODULE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_AGENT_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_RISK_SUBLOCATION_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_STATE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_COVERAGE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_RISK_LOCATION_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_PRODUCT",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "COVERAGE_KEY_POLICY_NUMBER",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "BC_LINE_OF_BUSINESS",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "REQUESTCODE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "TMPREQUESTCODE",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "target",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "tmptarget",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "fullkey",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "Refresh",
+                "type": "hidden",
+                "size": 0
+              },
+              {
+                "name": "DisplayTable",
+                "type": "hidden",
+                "size": 0
+              }
+            ],
+            "subsectiontitle": "hiddenfields"
+          }
+        ]
+      }
+    ],
+    "formid": "Coverage"
+  }
+}

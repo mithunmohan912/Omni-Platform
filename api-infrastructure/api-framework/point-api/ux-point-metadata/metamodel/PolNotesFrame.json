@@ -1,0 +1,191 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "PolNotes",
+                     "title":  "Policy Note",
+                     "gridid":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "4",
+                                                                                    "required":  "required",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolNotesFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_POLICY_NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "4",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolNotesFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolNotesFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "USERID",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "User ID",
+                                                                                    "fieldspan":  "4",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "5",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Date_of_Entry",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Entry",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "4",
+                                                                                    "support":  "false",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Type_of_Entry",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Type of Entry",
+                                                                                    "order":  "20",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  20,
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TIME_OF_ENTRY",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Time of Entry",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  20,
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POL_SUBJECT",
+                                                                                    "type":  "text",
+                                                                                    "maxlength":  "60",
+                                                                                    "label":  "Subject",
+                                                                                    "disabled":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "support":  "false",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOTETEXT",
+                                                                                    "type":  "textarea",
+                                                                                    "label":  "",
+                                                                                    "disabled":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOTETEXTINSERT",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "True",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOTETEXTUPDATE",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "True",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOTETEXTDELETE",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "True",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolNotesFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

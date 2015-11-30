@@ -1,0 +1,290 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvCBPaymentAlloc",
+                     "title":  "Allocate Payment to Policy",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "HDR_CUST_NBR",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer #",
+                                                                                    "order":  "1",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_PYMT_AMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Payment Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "order":  "5",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CUST_NAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Name",
+                                                                                    "order":  "2",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_ALLOC_AMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Allocated Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "order":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_RCPT_TYPE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Receipt Type",
+                                                                                    "order":  "3",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_AVAIL_AMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Amount Available",
+                                                                                    "fieldspan":  "6",
+                                                                                    "order":  "7",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CHECK_NBR",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Check Number",
+                                                                                    "order":  "4",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "fieldspan":  "3",
+                                                                                    "type":  "spacer"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CUST_BAL",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Customer Balance",
+                                                                                    "fieldspan":  "3",
+                                                                                    "order":  "8",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_MIN_DUE",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Minimum Due Amount",
+                                                                                    "fieldspan":  "3",
+                                                                                    "order":  "9",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "fieldspan":  "1",
+                                                                                    "type":  "spacer"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_LOC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Location",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_MCO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Master Company",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_SYM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Symbol",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "3",
+                                                                                    "autoformat":  "true",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_POL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "7",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_MOD",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Module",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_PAYMT_AMT",
+                                                                                    "type":  "money",
+                                                                                    "decimal":  "2",
+                                                                                    "label":  "Payment Amount",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "19",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_ADD",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Add Suspense",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUSP_RESET",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Reset",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvCBPaymentAllocGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "label":  "",
+                                                                                    "gridId":  "RcvCBPaymentAllocGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "spacer",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SUBMITDATA",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Save Changes \u0026 Exit",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOUPDATE",
+                                                                                    "type":  "button",
+                                                                                    "label":  "No Updates \u0026 Exit",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAlloc",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

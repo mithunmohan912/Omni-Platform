@@ -1,0 +1,136 @@
+{
+  "gridMetaData": {
+    "gridType": "editAndSelectGrid",
+    "title": "Selective Unit Processing Request",
+    "element": [
+      {
+        "field": "RQSTYPE",
+        "visible": true,
+        "enableCellEdit": false,
+        "width": "10%",
+        "align": "center",
+        "cellTemplate": "ux/template/selectRqsType.html",
+        "displayName": "Rqs Type",
+        "editable": "true"
+      },
+      {
+        "field": "SYMBOL",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Symbol",
+        "width": "10%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "POLICYNUM",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Policy",
+        "width": "10%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "MODULE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Module",
+        "width": "6%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "LOCATION",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Location",
+        "width": "10%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "MASTERCO",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "MCO",
+        "width": "5%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "RISK0STATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "State",
+        "width": "9%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "RPTNO",
+        "visible": true,
+        "align": "center",
+        "type": "decimal",
+        "enableCellEdit": false,
+        "displayName": "Report",
+        "editable": "true",
+        "width": "10%",
+        "maxlength": "13",
+        "decimalLen": "10",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "CORRID",
+        "visible": true,
+        "align": "center",
+        "type": "decimal",
+        "enableCellEdit": false,
+        "displayName": "Correction Seq",
+        "editable": "true",
+        "width": "10%",
+        "maxlength": "13",
+        "decimalLen": "10",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "ADDDATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Date",
+        "width": "10%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "ADDUSER",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "User Id",
+        "width": "10%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT RQSTYPE,SYMBOL,POLICYNUM,MODULE,LOCATION,MASTERCO,RISK0STATE,RPTNO,CORRID,ADDDATE,ADDUSER FROM BASPUS20",
+    "filename": "BASPUS20"
+  }
+}

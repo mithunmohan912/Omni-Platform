@@ -1,0 +1,78 @@
+{
+  "dataSource": {
+    "pagesize": "30",
+  "maxKeySize":"100",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASWC04T01"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "2"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "28",
+          "endIndex": "30"
+        },
+        {
+          "name": "ClassCode"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectAuditClass"
+    },
+    "element": [
+      {
+        "field": "OUTCLASS",
+        "visible": "true",
+        "width": "20%",
+        "align": "center",
+        "displayName": "Class"
+      },
+      {
+        "field": "OUTSEQ",
+        "visible": "true",
+        "width": "20%",
+        "align": "center",
+        "displayName": "Sequence"
+      },
+      {
+        "field": "OUTDESC",
+        "visible": "true",
+        "width": "60%",
+        "align": "left",
+        "displayName": "Description"
+      }
+    ],
+    "title": ""
+  }
+}

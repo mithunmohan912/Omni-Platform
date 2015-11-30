@@ -1,0 +1,152 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "",
+                     "title":  "Set Pending Cancellation",
+                     "gridid":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CA_POL_HDR_EFF_DATE",
+                                                                                    "type":  "date",
+                                                                                    "disabled":  "true",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "label":  "Effective Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "SetPendingCancellation",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CA_POL_HDR_EXP_DATE",
+                                                                                    "type":  "date",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "SetPendingCancellation",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CA_PC_SCH_CANCELLATION_DATE",
+                                                                                    "type":  "date",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "required":  "required",
+                                                                                    "disabled":  "false",
+                                                                                    "label":  "Cancellation Effective Date",
+                                                                                    "fieldspan":  "12",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "SetPendingCancellation",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AMEND_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason Amended",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "SetPendingCancellation",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "SetPendingCancellation",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "SetPendingCancellation",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DESC",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "94",
+                                                                                                             "placeholder":  "",
+                                                                                                             "required":  "required",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  9,
+                                                                                                             "buttonid":  "ID_Reason_Amend_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "SetPendingCancellation",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  4
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CANCEL_MODE",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "required":  "required",
+                                                                                    "label":  "Cancellation Method",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "SetPendingCancellation",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

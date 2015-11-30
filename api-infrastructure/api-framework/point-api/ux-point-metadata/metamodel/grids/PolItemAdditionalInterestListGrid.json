@@ -1,0 +1,243 @@
+{
+  "gridMetaData": {
+    "title": "Policy Interest List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "PIINTTYPE",
+        "displayName": "Type",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "PIINTLOCATION",
+        "displayName": "Loc",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "PIINTSEQ",
+        "displayName": "Seq",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "PINAME",
+        "displayName": "Name",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "PIADDRESS",
+        "displayName": "Address",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "PICITY",
+        "displayName": "City",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "PISTATE",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "11%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Unattach",
+          "value": "UA"
+        }
+      ],
+      "rowactionfunction": "PolItemAdditionalInterestListAction",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO068(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "301",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        },
+        {
+          "name": "intTypeSearch",
+          "type": "KEY",
+          "startIndex": "195",
+          "endIndex": "197"
+        },
+        {
+          "name": "intLocSearch",
+          "type": "KEY",
+          "startIndex": "197",
+          "endIndex": "201"
+        },
+        {
+          "name": "intSeqSearch",
+          "type": "KEY",
+          "startIndex": "202",
+          "endIndex": "207"
+        },
+        {
+          "name": "nameSearch",
+          "type": "KEY",
+          "startIndex": "207",
+          "endIndex": "238"
+        },
+        {
+          "name": "addressSearch",
+          "type": "KEY",
+          "startIndex": "238",
+          "endIndex": "269"
+        },
+        {
+          "name": "citySearch",
+          "type": "KEY",
+          "startIndex": "269",
+          "endIndex": "298"
+        },
+        {
+          "name": "stateSearch",
+          "type": "KEY",
+          "startIndex": "298",
+          "endIndex": "301"
+        },
+	{
+          "name": "space",
+          "type": "KEY",
+          "startIndex": "108",
+          "endIndex": "109"
+        },
+        {
+          "name": "insline",
+          "type": "KEY",
+          "startIndex": "106",
+          "endIndex": "109"
+        },
+        {
+          "name": "prod",
+          "type": "KEY",
+          "startIndex": "109",
+          "endIndex": "115"
+        },
+        {
+          "name": "riskLoc",
+          "type": "KEY",
+          "startIndex": "115",
+          "endIndex": "121"
+        },
+        {
+          "name": "subloc",
+          "type": "KEY",
+          "startIndex": "121",
+          "endIndex": "125"
+        },
+        {
+          "name": "unitno",
+          "type": "KEY",
+          "startIndex": "125",
+          "endIndex": "130"
+        },
+        {
+          "name": "covg",
+          "type": "KEY",
+          "startIndex": "131",
+          "endIndex": "137"
+        },
+        {
+          "name": "covgseq",
+          "type": "KEY",
+          "startIndex": "137",
+          "endIndex": "143"
+        },
+        {
+          "name": "item",
+          "type": "KEY",
+          "startIndex": "143",
+          "endIndex": "148"
+        },
+        {
+          "name": "itemseq",
+          "type": "KEY",
+          "startIndex": "148",
+          "endIndex": "153"
+        },
+        {
+          "name": "ratestate",
+          "type": "KEY",
+          "startIndex": "154",
+          "endIndex": "156"
+        }
+      ]
+    }
+  }
+}

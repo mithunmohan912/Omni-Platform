@@ -1,0 +1,132 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "gridType":"editableGrid",
+    "rowTemplate": "",
+    "element": [
+      {
+        "field": "SELECT",
+        "displayName": "Select",
+        "type": "TEXT",
+        "align": "center",
+        "visible" :"true",
+        "cellTemplate": "app/template/EnableDisableCheckBox.html",
+        "function":"selectChange",
+        "editable": "false",
+        "width": "11%"
+      },
+      {
+        "field": "BEB8NB",
+        "displayName": "Form Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "BEB7NB",
+        "displayName": "Form Number Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "FORMSEQIT",
+        "displayName": "Form Number Iterations",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "SPECIMEN",
+        "displayName": "Specimen",
+        "align": "center",
+        "editable": "false",
+        "checkedvalue": "-",
+        "uncheckedvalue": "0",
+        "disabled": "true",
+        "cellTemplate": "ux/template/CheckBoxValueCellTemplate.html",
+        "width": "10%"
+      },
+      {
+        "field": "A6N7TX",
+        "displayName": "Form Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "30%"
+      },
+      {
+        "field": "AFORMDESC",
+        "displayName": "Additional Form Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "30%"
+      },
+      {
+        "field": "PRINTSEQ",
+        "displayName": "Printing Seq Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "FOOTERNUM",
+        "displayName": "Footer Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "width": "10%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASFRMLST1(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "17",
+          "order": "1"
+        },
+        {
+          "type": "VALUE",
+          "value": "100",
+          "order": "2"
+        },
+        {
+          "name": "fillspaces",
+          "length": "312",
+          "fill": " ",
+          "order": "3"
+        },
+        {
+          "type": "VALUE",
+          "value": "Nnull",
+          "order": "4"
+        },
+        {
+          "name": "fillspaces",
+          "length": "10",
+          "fill": " ",
+          "order": "5"
+        },
+        {
+          "type": "VALUE",
+          "value": "Y",
+          "order": "6"
+        }
+      ]
+    }
+  }
+}

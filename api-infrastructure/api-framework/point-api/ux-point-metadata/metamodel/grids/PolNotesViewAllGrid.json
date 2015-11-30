@@ -1,0 +1,146 @@
+{
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASPOLNOT1(@query@)",
+    "params": {
+      "query": [
+        {
+          "name": "USER",
+          "length": "10",
+          "fill": " "
+        },
+        {
+          "name": "LOC"
+        },
+        {
+          "name": "MCO"
+        },
+        {
+          "name": "KEY_SYMBOL",
+		  "length": "3",
+          "fill": " "
+        },
+        {
+          "name": "KEY_POLICY_NUM"
+        },
+        {
+          "name": "KEY_MODULE",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "KEY_TYPE_OF_ENTRY",
+          "length": "4",
+          "fill": " "
+        },
+        {
+          "name": "Date_of_Entry",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "name": "ToDate",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "name": "Entry_time",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "name": "Value1"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": []
+    },
+    "element": [
+      {
+        "field": "OUTPUTUSERIDSW",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "User ID"
+      },
+      {
+        "field": "OUTPUTENTRYDATESW",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Date of Entry"
+      },
+      {
+        "field": "OUTPUTENTRYTIMESW",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Time of Entry"
+      },
+      {
+        "field": "OUTPUTENTRYTYPESW",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Type of Entry"
+      },
+      {
+        "field": "OUTPUTSYMBOLSW",
+        "visible": true,
+        "width": "10%",
+        "align": "center",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "OUTPUTPOLICYNUMSW",
+        "visible": true,
+        "width": "15%",
+        "align": "center",
+        "displayName": "Policy Number"
+      },
+      {
+        "field": "OUTPUTMODULESW",
+        "visible": true,
+        "width": "10%",
+        "align": "center",
+        "displayName": "Module"
+      },
+      {
+        "field": "OUTPUTINSUREDSW",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Insured"
+      },
+      {
+        "field": "OUTPUTSUBJECTSW",
+        "visible": true,
+        "width": "30%",
+        "align": "left",
+        "displayName": "Subject"
+      },
+      {
+        "field": "OUTPUTNOTEKEYSW",
+        "visible": false,
+        "align": "right",
+        "displayName": "Comments"
+      },
+      {
+        "field": "NOTETEXT",
+        "visible": true,
+        "width": "40%",
+        "align": "left",
+        "displayName": "Comments"
+      },
+      {
+        "field": "OUTPUTENTRYTYPECODE",
+        "visible": false,
+        "align": "left"
+      }
+    ]
+  }
+}

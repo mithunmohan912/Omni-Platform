@@ -1,0 +1,119 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "SP" : "BASSYSGRID(@query@)",
+	"type" : "SP",
+    "params": {
+      "query": [
+		{
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "BASACHL003",
+          "order": "1"
+        },
+        {
+          "name": "USER"
+        },
+        {
+          "name": "KEY"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSSERIAL",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Transit Seq"
+    }, {
+      "field" : "WSPOLCUST",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Policy/Customer"
+    }, {
+      "field" : "WSNAME",
+      "visible" : "true",
+      "width" : "17%",
+      "align" : "center",
+      "displayName" : "Name"
+    }, {
+      "field" : "WSAMOUNT",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+	  "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "displayName" : "Amount"
+    }, {
+      "field" : "WSACCOUNT",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Account"
+    }, {
+      "field" : "WSROUTING",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Routing"
+    }, {
+      "field" : "WSCHECK",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Check"
+    }, {
+      "field" : "WSTRANSACTION",
+      "visible" : "true",
+      "width" : "13%",
+      "align" : "center",
+      "displayName" : "Account Type"
+    }, {
+      "field" : "WSCORRIND",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Correction Indicator"
+    }, {
+      "field" : "WSTYPE",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Type"
+    }, {
+      "field" : "WSWITHDATE",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Withdrawl Date"
+    }, {
+      "field" : "WSMEMNAME",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Member Name"
+    }, {
+      "field" : "WSBATCHAMOUNT",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Batch Amount"
+    }, {
+      "field" : "WSBATCHCOUNT",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Batch Count"
+    }, {
+      "field" : "WSCOUNT",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Row Count"
+    } ],
+    "title" : ""
+  }
+}

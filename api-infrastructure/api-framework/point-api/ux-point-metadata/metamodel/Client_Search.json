@@ -1,0 +1,327 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Basic_Contract",
+                     "title":  "Client Name and Address Search",
+                     "subtitle":  "",
+                     "gridid":  "NAClientSearch",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "SUFFIX",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Suffix",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NAMETYPE",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Client Type ",
+                                                                                    "fieldspan":  11,
+                                                                                    "maxlength":  "500",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "I",
+                                                                                                        "description":  "Individual",
+                                                                                                        "size":  "5"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "B",
+                                                                                                        "description":  "Business",
+                                                                                                        "size":  "5"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "G",
+                                                                                                        "description":  "Group",
+                                                                                                        "size":  "5"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "",
+                                                                                                        "description":  "All",
+                                                                                                        "size":  "5"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LASTNAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Business Name/Last Name",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "256",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FIRSTNAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "First Name(If an Individual)",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DBA",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Doing Business As",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLIENT_SEARCH_FULL_ADDRESS",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City/State/Postal Code",
+                                                                                    "fieldspan":  11,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CITY",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  4,
+                                                                                                             "maxlength":  "32",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Client_Search",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "STATE",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  1,
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Client_Search",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ZIP",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  2,
+                                                                                                             "maxlength":  "10",
+                                                                                                             "placeholder":  "",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Client_Search",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUPNO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Group Number",
+                                                                                    "fieldspan":  2,
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CONTRACTNO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Contract Number",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SSN",
+                                                                                    "type":  "text",
+                                                                                    "label":  "SSN/FEIN",
+                                                                                    "fieldspan":  2,
+                                                                                    "maxlength":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TELEPHONE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Phone Number",
+                                                                                    "fieldspan":  2,
+                                                                                    "maxlength":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FACODE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "FA Number",
+                                                                                    "fieldspan":  2,
+                                                                                    "maxlength":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DOB",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Date of Birth",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "type":  "search_button",
+                                                                                                             "label":  "Search",
+                                                                                                             "size":  "6",
+                                                                                                             "gridId":  "NAClientSearch",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Client_Search",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Client_Search_Add_Button",
+                                                                                                             "label":  "Add Client",
+                                                                                                             "type":  "button",
+                                                                                                             "fieldspan":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Client_Search",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Client",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Client List",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "NAClientSearch",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Client_Search",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

@@ -1,0 +1,66 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASMAJCL  "
+        },
+        {
+          "name" : "KEY_POL_LOC"
+        },
+		{
+          "name" : "KEY_POL_MCO"
+        },
+		{
+          "name" : "KEY_POL_SYMBOL"
+        },
+		{
+          "name" : "MAJORPERILTYPE"
+        },
+        {
+          "name" : "STATE"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+  	"gridId":"PolRetroClassCodeSearchGrid",
+    "operation": {
+      "jsfunction": "selectClass"
+    },
+    "element": [
+      {
+        "field": "OUTPUTCLASS",
+        "visible": true,
+        "width": "10%",
+        "align": "center",
+        "displayName": "Class"
+      },
+      {
+        "field": "OUTPUTCLASSDESC",
+        "visible": true,
+        "width": "50%",
+        "align": "left",
+        "displayName": "Class Description"
+      },
+      {
+        "field": "OUTPUTMAJPTYP",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Type"
+      },
+      {
+        "field": "OOUTPUTMAJPDES",
+        "visible": true,
+        "width": "50%",
+        "align": "left",
+        "displayName": "Major Peril Description"
+      }
+    ],
+    "title": "Class Code Selection List"
+  }
+}

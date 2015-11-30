@@ -1,0 +1,104 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "rowTemplate": "",
+    "element": [
+      {
+        "field": "PRDNAME",
+        "displayName": "Accounting Year",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "PRDMONTH",
+        "displayName": "Unit Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "PRDSTDATE",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "PRDENDATE",
+        "displayName": "Address",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "20%"
+      },
+      {
+        "field": "PRDSTATUS",
+        "displayName": "Type of Construction",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "20%"
+      },
+      {
+        "field": "PRDSEQ",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "PRDIDDATE",
+        "displayName": "Year",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "PRDIDUSER",
+        "displayName": "Change Date",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      }
+    ],
+	"operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Display",
+          "value": "Display"
+        },
+        {
+          "name": "Change",
+          "value": "Change"
+        }
+      ],
+      "rowactionfunction": "displayorChangeAP",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+   "dataSource": {
+    "type": "SP",
+    "SP": "CSHACCPDDB(@query@)",
+    "params": {
+      "query": []
+    }
+  }
+}

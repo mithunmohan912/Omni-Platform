@@ -1,0 +1,87 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Change",
+          "value": "CHG"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        }
+	  ],
+      "rowactionfunction": "agnLicAddSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "title": "",
+    "element": [
+      {
+        "field": "AGENT_LIC_NUM",
+        "visible": "true",
+        "width": "20%",
+        "align": "center",
+        "displayName": "License Number",
+		"editable": "false"
+      },
+      {
+        "field": "ERRORINDIC_A",
+        "visible": false,
+        "width": "10%",
+        "align": "center",
+        "displayName": "Error",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"cellTemplate": "app/template/GL_status_template.html",
+		"title":"",
+		"editable": "true"
+      },
+      {
+        "field": "AGENT_LIC_STATE",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "License State",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"editable": "true"
+      },
+      {
+        "field": "AGENT_LIC_EFFDATE",
+        "visible": true,
+        "width": "20%",
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "License Effective Date"
+      },
+      {
+        "field": "AGENT_LIC_EXPDATE",
+        "visible": true,
+        "width": "20%",
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "License Expiration Date"
+      },
+      {
+        "field": "AGENT_LIC_ENT_DATE",
+        "visible": true,
+        "width": "20%",
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Entry Date"
+      }
+    ]
+  },
+    "dataSource": {
+    "type": "SQL",
+    "filename": "PMSP1200",
+    "SQL": "",	
+    "params": {
+    }
+  }
+}
