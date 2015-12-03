@@ -16,7 +16,8 @@ _java -jar jetty-runner.jar OCIntegration.war_
 
 
 * For **URI Transformation**
-<p>For URI transformation (Clean API to Textured API and vice versa), we have built a camel route to pass the body payload and header parameters (pattern and replacement) to a bean which will then perform the pattern matching and replacement with the given string parameters.</p>
+For URI transformation (Clean API to Textured API and vice versa), we have built a camel route to pass the body payload and header parameters (pattern and replacement) to a bean which will then perform the pattern matching and replacement with the given string parameters.
+
 *Test Steps*
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
