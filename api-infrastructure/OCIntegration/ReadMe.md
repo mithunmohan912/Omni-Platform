@@ -19,6 +19,7 @@ _java -jar jetty-runner.jar OCIntegration.war_
 For URI transformation (Clean API to Textured API and vice versa), we have built a camel route to pass the body payload and header parameters (pattern and replacement) to a bean which will then perform the pattern matching and replacement with the given string parameters.
 
 *Test Steps*
+
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
 	3. Add the JSON Message in which you want to transform the URL.
@@ -33,6 +34,7 @@ The [Aggregator](http://camel.apache.org/aggregator.html) Integration pattern fr
 ![Aggregator Pattern](images/Aggregator.bmp)
 
 *Test Steps*
+
 	1. Select the "GET" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
 	3. Add the header "URIS" to the request and in value, add the comma separated list of the rest service URIs.
@@ -45,6 +47,7 @@ Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-s
 ![Publish/Subscribe Channel Pattern](images/PubSub-channel.bmp)
 
 *Test Steps*
+
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Publish_.
 	3. Add the header "activity" to the request and in value, add the activity (Activity1, Activity2 or Activity3).
@@ -58,6 +61,7 @@ Camel supports the [Pipes and Filters](http://camel.apache.org/pipes-and-filters
 ![Pipes and Filters Pattern](images/PipesAndFilters.bmp)
 
 *Test Steps*
+
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Pipeline_.
 	3. Add the "pattern" and "replacement" in header for the request.
