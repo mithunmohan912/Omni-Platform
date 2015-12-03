@@ -28,7 +28,9 @@ _java -jar jetty-runner.jar OCIntegration.war_
 
 * For **Aggregation Pattern**
 The [Aggregator](http://camel.apache.org/aggregator.html) Integration pattern from the Apache Camel EIP patterns allows you to combine the responses from multiple rest services, as shown in the figure below -
+
 ![Aggregator Pattern](images/Aggregator.bmp)
+
 *Test Steps*
 	1. Select the "GET" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
@@ -37,8 +39,10 @@ The [Aggregator](http://camel.apache.org/aggregator.html) Integration pattern fr
 
 
 * For **Publish/Subscribe Channel Pattern**
-Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-subscribe-channel.html) from the EIP patterns, that allows you to publish a message to a queue from where it can be read by multiple consumers who have subscribed for the activity/event. The AMQP product <a href="http://www.rabbitmq.com/" title="RabbitMQ">RabbitMQ</a> has been used for queue management. The figure below represents the implementation - 
+Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-subscribe-channel.html) from the EIP patterns, that allows you to publish a message to a queue from where it can be read by multiple consumers who have subscribed for the activity/event. The AMQP product <a href="http://www.rabbitmq.com/" title="RabbitMQ">RabbitMQ</a> has been used for queue management. The figure below represents the implementation -
+ 
 ![Publish/Subscribe Channel Pattern](images/PubSub-channel.bmp)
+
 *Test Steps*
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Publish_.
@@ -49,7 +53,9 @@ Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-s
 
 * For **Pipes and Filters Pattern**
 Camel supports the [Pipes and Filters](http://camel.apache.org/pipes-and-filters.html) pattern, which allows us to split the processing across multiple independent end-point instances which can then be chained together. We can create pipelines of logic using multiple end-point instances as follows -
+
 ![Pipes and Filters Pattern](images/PipesAndFilters.bmp)
+
 *Test Steps*
 	1. Select the "POST" method/verb.
 	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Pipeline_.
