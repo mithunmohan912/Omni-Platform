@@ -1,21 +1,17 @@
 package com.csc.eip.pattern;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import java.util.Properties;
 
 import org.apache.camel.Header;
+import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.util.URISupport;
 import org.apache.log4j.Logger;
-import org.glassfish.jersey.jettison.JettisonFeature;
 
 import com.csc.eip.bo.Message;
 
@@ -38,7 +34,8 @@ public class MessageTranslator {
 	 *            the URI Query string
 	 * @throws URISyntaxException
 	 */
-	public Message replacePattern(Message message, @Header("pattern") String pattern, @Header("replacement") String replacement) throws URISyntaxException {
+	public Message replacePattern(Message message, @Header("pattern") String pattern,
+			@Header("replacement") String replacement) throws URISyntaxException {
 		// URL params are not automatically added to Header params for POSTs
 		// use CamelHttpQuery header to get URL params
 
@@ -58,11 +55,10 @@ public class MessageTranslator {
 		Map<String, Object> params = URISupport.parseQuery(camelHttpQuery);
 		String pattern = (String) params.get("pattern");
 		String replacement = (String) params.get("replacement");
-		
-		return "Replace this - "+pattern+" with this - "+replacement;
+
+		return "Replace this - " + pattern + " with this - " + replacement;
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	private void crawlMessage(Map<String, Object> any, String pattern, String replacement) {
 		log.info("messageTranslator::crawlMessage::map=" + any.toString());
