@@ -42,7 +42,7 @@ The [Aggregator](http://camel.apache.org/aggregator.html) Integration pattern fr
 
 
 * For **Publish/Subscribe Channel Pattern**
-Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-subscribe-channel.html) from the EIP patterns, that allows you to publish a message to a queue from where it can be read by multiple consumers who have subscribed for the activity/event. The AMQP product <a href="http://www.rabbitmq.com/" title="RabbitMQ">RabbitMQ</a> has been used for queue management. The figure below represents the implementation -
+Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-subscribe-channel.html) from the EIP patterns, that allows you to publish a message to a queue from where it can be read by multiple consumers who have subscribed for the activity/event. The AMQP product [RabbitMQ](http://www.rabbitmq.com/) has been used for queue management. The figure below represents the implementation -
  
 ![Publish/Subscribe Channel Pattern](images/PubSub-channel.bmp)
 
