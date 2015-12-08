@@ -1,0 +1,102 @@
+{
+  "dataSource": {
+    "pagesize": "10",
+    "restrictGridData":true,
+    "modifySQLQuery":true,
+    "SQL": "SELECT B.SUBPRDCODE as CODE ,B.CLOSEDIND as CLOSEDIND, B.SUBPRDNAME AS NAME, B.SUBPRDADD AS ADDRESS, B.SUBPRDCITY AS CITY , B.SUBPRDST AS STATE , B.SUBPRDPH AS PHONE, B.SUBPRDFAX AS FAX , B.SUBPRDZIP AS ZIP FROM PMSPAG03 A, PMSPAG02 B WHERE A.SUBPRDCODE= B.SUBPRDCODE AND A.AGENCYMCO=@EX02_KEY_MASTER_COMPANY@ AND A.AGENCYNUM =@EX02_AGENT_PRODUCER_NAME@ AND A.SUBPRDCODE = @SUB_PRODUCER_CODE@ AND B.SUBPRDNAME LIKE @SUB_PRODUCER_NAME@ AND B.SUBPRDADD LIKE @ADDRESS@ AND B.SUBPRDCITY LIKE @CITY@ AND B.SUBPRDST = @STATE@ AND B.SUBPRDZIP = @POSTAL_CODE@ ",
+    "filename": "PMSPAG03 A, PMSPAG02 B",
+    "type": "SQL"
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Select",
+          "value": "SL"
+        },
+        {
+          "name": "Display",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "subProdListAction",
+      "listfunction": "subProdInquireFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "CODE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Number"
+      },
+      {
+        "field": "NAME",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Name"
+      },
+      {
+        "field": "ADDRESS",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Address"
+      },
+      {
+        "field": "CITY",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "City"
+      },
+      {
+        "field": "STATE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "State"
+      },
+      {
+        "field": "PHONE",
+        "visible": "false",
+        "width": "0%",
+        "align": "left",
+        "displayName": "Phone"
+      },
+      {
+        "field": "FAX",
+        "visible": "false",
+        "width": "0%",
+        "align": "left",
+        "displayName": "Fax"
+      },
+      {
+        "field": "ZIP",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Postal Code"
+      },
+      {
+        "field": "CLOSEDIND",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Status"
+      }
+    ],
+    "title": "Sub Producer Selection List"
+  }
+}

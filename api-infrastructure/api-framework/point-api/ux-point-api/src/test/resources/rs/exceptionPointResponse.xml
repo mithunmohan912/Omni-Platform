@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<POINTXML >
+	<Status>
+		<StatusCd>SystemError</StatusCd>
+		<StatusDesc>System error occurred. </StatusDesc>
+	</Status>
+	<InsuranceSvcRs>
+		<CPPBCONTRs>
+			<MsgStatus>
+				<MsgStatusCd>SystemError</MsgStatusCd>
+				<MsgStatusDesc>System error occurred. </MsgStatusDesc>
+				<ExtendedStatus>
+					<ExtendedStatusCd>SystemError</ExtendedStatusCd>
+					<ExtendedStatusDesc>CPPBCONTRq: Fault {http://www.csc.com/fsg/cfw/}communicationFailure: : com.csc.fw.util.FwException: Error retrieving transaction from envelope: Fault {http://www.csc.com/fsg/cfw/}communicationFailure: HTTP connection error. URL:http://20.15.80.196:9081/ptsvcsux/servlet/PTBusinessServiceServlet
+Error Response: Error 500: CPPBCONT001Rq: com.csc.fw.util.FwException: : java.lang.NullPointerException
+2013-08-23-08.03.27.852
+com.csc.fw.util.FwException: : java.lang.NullPointerException
+	at com.csc.pt.servlet.common.PTBusinessServiceServlet.doPost&amp;#40;PTBusinessServiceServlet.java:173&amp;#41;
+	at javax.servlet.http.HttpServlet.service&amp;#40;HttpServlet.java:595&amp;#41;
+	at javax.servlet.http.HttpServlet.service&amp;#40;HttpServlet.java:668&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.service&amp;#40;ServletWrapper.java:1214&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest&amp;#40;ServletWrapper.java:774&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest&amp;#40;ServletWrapper.java:456&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapperImpl.handleRequest&amp;#40;ServletWrapperImpl.java:178&amp;#41;
+	at com.ibm.ws.webcontainer.filter.WebAppFilterManager.invokeFilters&amp;#40;WebAppFilterManager.java:1027&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.CacheServletWrapper.handleRequest&amp;#40;CacheServletWrapper.java:87&amp;#41;
+	at com.ibm.ws.webcontainer.WebContainer.handleRequest&amp;#40;WebContainer.java:895&amp;#41;
+	at com.ibm.ws.webcontainer.WSWebContainer.handleRequest&amp;#40;WSWebContainer.java:1662&amp;#41;
+	at com.ibm.ws.webcontainer.channel.WCChannelLink.ready&amp;#40;WCChannelLink.java:195&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleDiscrimination&amp;#40;HttpInboundLink.java:458&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleNewRequest&amp;#40;HttpInboundLink.java:522&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.processRequest&amp;#40;HttpInboundLink.java:311&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.ready&amp;#40;HttpInboundLink.java:282&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.sendToDiscriminators&amp;#40;NewConnectionInitialReadCallback.java:214&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.complete&amp;#40;NewConnectionInitialReadCallback.java:113&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.AioReadCompletionListener.futureCompleted&amp;#40;AioReadCompletionListener.java:165&amp;#41;
+	at com.ibm.io.async.AbstractAsyncFuture.invokeCallback&amp;#40;AbstractAsyncFuture.java:217&amp;#41;
+	at com.ibm.io.async.AsyncChannelFuture.fireCompletionActions&amp;#40;AsyncChannelFuture.java:161&amp;#41;
+	at com.ibm.io.async.AsyncFuture.completed&amp;#40;AsyncFuture.java:138&amp;#41;
+	at com.ibm.io.async.ResultHandler.complete&amp;#40;ResultHandler.java:204&amp;#41;
+	at com.ibm.io.async.ResultHandler.runEventProcessingLoop&amp;#40;ResultHandler.java:775&amp;#41;
+	at com.ibm.io.async.ResultHandler$2.run&amp;#40;ResultHandler.java:905&amp;#41;
+	at com.ibm.ws.util.ThreadPool$Worker.run&amp;#40;ThreadPool.java:1783&amp;#41;
+---------
+java.lang.NullPointerException
+	at bphx.c2ab.as400.Local_DataArea.putData&amp;#40;Local_DataArea.java:85&amp;#41;
+	at com.csc.pt.svc.driver.Baswebdr00.mainline&amp;#40;Baswebdr00.java:91&amp;#41;
+	at com.csc.pt.svc.driver.Baswebdr00.mainSubroutine&amp;#40;Baswebdr00.java:79&amp;#41;
+	at bphx.c2ab.util.Process.run&amp;#40;Process.java:13&amp;#41;
+	at bphx.c2ab.util.ProcessInfo.run&amp;#40;ProcessInfo.java:20&amp;#41;
+	at com.csc.pt.servlet.common.PTBusinessServiceServlet.process&amp;#40;PTBusinessServiceServlet.java:593&amp;#41;
+	at com.csc.pt.servlet.common.PTBusinessServiceServlet.doPost&amp;#40;PTBusinessServiceServlet.java:153&amp;#41;
+	at javax.servlet.http.HttpServlet.service&amp;#40;HttpServlet.java:595&amp;#41;
+	at javax.servlet.http.HttpServlet.service&amp;#40;HttpServlet.java:668&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.service&amp;#40;ServletWrapper.java:1214&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest&amp;#40;ServletWrapper.java:774&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest&amp;#40;ServletWrapper.java:456&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.ServletWrapperImpl.handleRequest&amp;#40;ServletWrapperImpl.java:178&amp;#41;
+	at com.ibm.ws.webcontainer.filter.WebAppFilterManager.invokeFilters&amp;#40;WebAppFilterManager.java:1027&amp;#41;
+	at com.ibm.ws.webcontainer.servlet.CacheServletWrapper.handleRequest&amp;#40;CacheServletWrapper.java:87&amp;#41;
+	at com.ibm.ws.webcontainer.WebContainer.handleRequest&amp;#40;WebContainer.java:895&amp;#41;
+	at com.ibm.ws.webcontainer.WSWebContainer.handleRequest&amp;#40;WSWebContainer.java:1662&amp;#41;
+	at com.ibm.ws.webcontainer.channel.WCChannelLink.ready&amp;#40;WCChannelLink.java:195&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleDiscrimination&amp;#40;HttpInboundLink.java:458&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleNewRequest&amp;#40;HttpInboundLink.java:522&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.processRequest&amp;#40;HttpInboundLink.java:311&amp;#41;
+	at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.ready&amp;#40;HttpInboundLink.java:282&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.sendToDiscriminators&amp;#40;NewConnectionInitialReadCallback.java:214&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.complete&amp;#40;NewConnectionInitialReadCallback.java:113&amp;#41;
+	at com.ibm.ws.tcp.channel.impl.AioReadCompletionListener.futureCompleted&amp;#40;AioReadCompletionListener.java:165&amp;#41;
+	at com.ibm.io.async.AbstractAsyncFuture.invokeCallback&amp;#40;AbstractAsyncFuture.java:217&amp;#41;
+	at com.ibm.io.async.AsyncChannelFuture.fireCompletionActions&amp;#40;AsyncChannelFuture.java:161&amp;#41;
+	at com.ibm.io.async.AsyncFuture.completed&amp;#40;AsyncFuture.java:138&amp;#41;
+	at com.ibm.io.async.ResultHandler.complete&amp;#40;ResultHandler.java:204&amp;#41;
+	at com.ibm.io.async.ResultHandler.runEventProcessingLoop&amp;#40;ResultHandler.java:775&amp;#41;
+	at com.ibm.io.async.ResultHandler$2.run&amp;#40;ResultHandler.java:905&amp;#41;
+	at com.ibm.ws.util.ThreadPool$Worker.run&amp;#40;ThreadPool.java:1783&amp;#41;
+: java.io.IOException: Server returned HTTP response code: 500 for URL: http://20.15.80.196:9081/ptsvcsux/servlet/PTBusinessServiceServlet
+</ExtendedStatusDesc>
+				</ExtendedStatus>
+<!-- FSIT # 180491 RESL # 65904: Start -->
+<!--			<ExtendedStatus>
+					<ExtendedStatusCd>UserError</ExtendedStatusCd>
+					<ExtendedStatusDesc>System error occurred. </ExtendedStatusDesc>
+				</ExtendedStatus>-->
+<!-- FSIT # 180491 RESL # 65904: End -->
+			</MsgStatus>
+		</CPPBCONTRs>
+	</InsuranceSvcRs>
+</POINTXML>

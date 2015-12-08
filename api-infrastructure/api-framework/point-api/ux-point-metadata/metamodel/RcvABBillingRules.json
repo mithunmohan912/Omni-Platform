@@ -1,0 +1,336 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvABBillingRules",
+                     "title":  "Billing Rules",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "T1_MODE_CODE_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Pay Plan Description",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_NUM_OF_INST",
+                                                                                    "type":  "number",
+                                                                                    "label":  "# of Installments",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_1ST_INST_PERCENT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "First Installment Percent",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_T1_INST_DUE_INTERVAL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Due Date Interval",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "T1_INST_DUE_INTERVAL",
+                                                                                                             "type":  "number",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "7",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DER_INST_DUE_INTERVAL_TYP_DESC",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "8",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "Service Charge Rules",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DER_SERVICE_CHARGE_TYPE_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Type",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "16",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERV_CHG_BEGIN_WITH_INST",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Begins With Inst #",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERVICE_CHARGE_AMOUNT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "18",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label2",
+                                                                                    "type":  "label",
+                                                                                    "label":  "or",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  1,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERV_CHG_FACTOR_AMOUNT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Percent",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "decimal":  "4",
+                                                                                    "size":  12,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "Additional Billing Rules",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "TW_AB_PRCS_CTRL_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Processing Control",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_COLLECTION_MTD_DESC",
+                                                                                    "type":  "text",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "label":  "Collection Method",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "24",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Hyperlink_NP_Major_Peril",
+                                                                                    "type":  "labelHyperlink",
+                                                                                    "labelForHyperlink":  "Non-Premium Major Perils",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_ReturnButton",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Return",
+                                                                                    "order":  "26",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "action":  "history.back();",
+                                                                                    "size":  10,
+                                                                                    "buttonid":  "ID_ReturnButton",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TW_AB_PROCESS_CTRL_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "I8_COLLECTION_MTD_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "I7_NON_PREMIUM_MAJ_PERIL_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

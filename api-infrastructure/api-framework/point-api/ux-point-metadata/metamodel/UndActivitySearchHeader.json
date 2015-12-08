@@ -1,0 +1,218 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Underwriting_Activity",
+                     "title":  "Underwriting Activity",
+                     "gridid":  "UnderwritingResultsGrid",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "UndActivitySearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "6",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "UndActivitySearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "UndActivitySearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "STATUS",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Status",
+                                                                                    "fieldspan":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "support":  "true",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "size":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNDERWRITER",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Underwriter",
+                                                                                    "fieldspan":  "3",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "support":  "true",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DATE_OF_ENTRY",
+                                                                                    "type":  "date",
+                                                                                    "label":  "From",
+                                                                                    "order":  "2",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  "8",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DATE_OF_ENTRY_END",
+                                                                                    "type":  "date",
+                                                                                    "label":  "To",
+                                                                                    "order":  "2",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  "8",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ACTIVITY",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Activity",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "AL",
+                                                                                                        "description":  "All"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "EN",
+                                                                                                        "description":  "Endorsement"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "NB",
+                                                                                                        "description":  "New Business"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "RB",
+                                                                                                        "description":  "Renewal Business"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "CV",
+                                                                                                        "description":  "Converted"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DISPLAYMCO",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Display All MCO\u0027s",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  "3",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "label":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Underwriting_Activity_Reset_Button",
+                                                                                                             "gridId":  "UnderwritingResultsGrid",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "UndActivitySearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "Reassign",
+                                                                                                             "label":  "Reassign",
+                                                                                                             "type":  "button",
+                                                                                                             "size":  "3",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "UndActivitySearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UnderwritingResults",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Underwriting Activity",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "UnderwritingResultsGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "undLevelIsAdmin",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "UndActivitySearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

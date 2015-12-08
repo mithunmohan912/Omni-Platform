@@ -1,0 +1,180 @@
+{
+	"dataSource": {
+    "SP": "BASRCVL000(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVR03 "
+        },
+        {
+          "name": "EntryDate"
+        },
+        {
+          "name": "SeqNbr"
+        },
+        {
+          "name": "PaymentUser"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Display Allocation",
+          "value": "DS"
+        },
+        {
+          "name": "Delete Allocation",
+          "value": "DA"
+        },
+        {
+          "name": "Allocate Payment",
+          "value": "AL"
+        },
+        {
+          "name": "Delete Payment",
+          "value": "DL"
+        }
+	  ],
+      "rowactionfunction": "RcvCBBulkPaymentUpdate",
+      "listfunction": "RcvCBBulkPaymentUpdateFilter",
+      "jsfunction": "selectRowforAction"
+    },
+	"gridType": "editableGrid",
+    "title": "",
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": true,
+        "width": "5%",
+        "align": "center",
+        "displayName": "Error"
+      },
+      {
+        "field": "WSCUSTNBR",
+        "visible": true,
+        "width": "14%",
+        "align": "left",
+        "displayName": "Customer Number",
+        "editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPAYMENTAMT",
+        "visible": true,
+        "width": "10%",
+        "align": "right",
+        "type": "money",
+        "displayName": "Payment Amount",
+        "editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCHECKNBR",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Check Number",
+        "editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "MCO",
+        "editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "LOC",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSRCPTTYPE",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "displayName": "Receipt Type",
+        "editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSSTATUS",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "editable": "false",
+        "displayName": "Status"
+      },
+      {
+        "field": "WSOVERPAYIND",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "editable": "false",
+        "displayName": "Overpaid/Underpaid"
+      },
+      {
+        "field": "WSCASHRECDTE",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "WSCASHRECSEQ",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "WSCASHRECSEQ",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "WSUSRDTE03",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "WSORIGWRTDTE",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "WSORIGRECSEQ",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      },
+      {
+        "field": "SUCCESS_INDIC",
+        "visible": false,
+        "width": "15%",
+        "align": "left",
+        "editable": "false"
+      }
+    ]
+  }
+}

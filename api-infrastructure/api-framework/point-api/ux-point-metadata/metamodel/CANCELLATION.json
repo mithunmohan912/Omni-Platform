@@ -1,0 +1,1765 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Basic_Contract",
+                     "title":  "Cancellation",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "space",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATUS",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Status",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "24",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_LATEST_POLICY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "5",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "64",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "65",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "4",
+                                                                                                             "size":  6,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "66",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "space",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  1,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_LATEST_POLICY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Latest Renewal Module",
+                                                                                    "fieldspan":  "5",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_LATEST_POLICY_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "64",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_LATEST_POLICY_NUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "65",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "4",
+                                                                                                             "size":  6,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_LATEST_POLICY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "66",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "1",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_CANCELLATION_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Cancellation Effective Date",
+                                                                                    "order":  "1",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  6,
+                                                                                    "required":  "required",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EFFECTIVE_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "32",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EXPIRATION_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Expiration Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "35",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_REASON_AMEND_DIGIT1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason Amended",
+                                                                                    "fieldspan":  9,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "type":  "text",
+                                                                                                             "size":  1,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "type":  "text",
+                                                                                                             "size":  1,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "type":  "text",
+                                                                                                             "size":  1,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DESC",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "82",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  7,
+                                                                                                             "buttonid":  "ID_Reason_Amend_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "false",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Multiple_Reason_Amend_Button",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Reason Amend Comments",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "buttonid":  "ID_Multiple_Reason_Amend_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "required":  "required",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  5,
+                                                                                    "required":  "required"
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     },
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "title":  "CommentSection",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GRP_PRINTPOLICY",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label_Print",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Print Policy on Output(Y/N):",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "PIF_POLICY_OP_IND",
+                                                                                                             "type":  "radio",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "Y",
+                                                                                                                                 "description":  "Yes"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "value":  "N",
+                                                                                                                                 "description":  "No"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "size":  5,
+                                                                                                             "parentField":  "Field",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  2
+                                                                                },
+                                                                                {
+                                                                                    "name":  "spacer",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_INSURED_NAME_IND",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Insured\u0027s Name",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_INSURED_MAILING_IND",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Insured\u0027s Mailing Address",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_CHANGE_EXPOSURE_IND",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Change Exposure",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_ADD_COVERAGE_IND",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Add Coverage",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_DELETE_COVERAGE_IND",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Delete Coverage",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  "2",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GRP_OVERRIDERETPREM",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Override Return Premium(Y/N):",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "OVERRIDE_RETURN_PREMIUM_IND",
+                                                                                                             "type":  "radio",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "Y",
+                                                                                                                                 "description":  "Yes"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "value":  "N",
+                                                                                                                                 "description":  "No"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "size":  5,
+                                                                                                             "parentField":  "Field",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  2
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MANUAL_RETUN_PREMIUM_AMT",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Manual Return Premium",
+                                                                                    "order":  "44",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_END_DETAIL",
+                                                                                    "type":  "textarea",
+                                                                                    "disabled":  "false",
+                                                                                    "label":  "Policy Comments",
+                                                                                    "order":  "44",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "required":  "required",
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_STATE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Rate State",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "90",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_AGENT_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Agency Name",
+                                                                                    "fieldspan":  4,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NAME",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "48",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  10,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_LINE_OF_BUSINESS",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Line Of Business",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "87",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "type":  "searchtext",
+                                                                                    "label":  "Insured",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "22",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  5,
+                                                                                    "title":  "Search",
+                                                                                    "size":  10,
+                                                                                    "buttonid":  "ID_BC_SEARCH_BUTTON",
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SORT_NAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Sort name",
+                                                                                    "disabled":  "false",
+                                                                                    "order":  "39",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  2,
+                                                                                    "size":  3,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_02",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Optional/Name/Address",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "39",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  7,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_03",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Address",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "41",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  7,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_ADDRESS_CITY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City/State/Postal Code",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_INSURED_ADDRESS_CITY",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "43",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_INSURED_ADDRESS_STATE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "44",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_ZIP_CODE",
+                                                                                                             "type":  "mask",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "45",
+                                                                                                             "mask":  "#####-####",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "CANCELLATION",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_COMPANY_LINE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Company Line",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "73",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  2,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BRANCH",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Branch",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "72",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  2,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PROFIT_CENTER",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Profit Center",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  2,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PRODUCER",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Producer",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  5,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_A",
+                                                                                    "label":  "Area Code",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "false",
+                                                                                    "order":  "69",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  5,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy Company",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "77",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KIND_CODE",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "69",
+                                                                                    "label":  "Direct/Assumed",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_B",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "false",
+                                                                                    "order":  "69",
+                                                                                    "label":  "Phone Number",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  7,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CUSTOMER_NUMBER",
+                                                                                    "type":  "searchtext",
+                                                                                    "order":  "11",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "10",
+                                                                                    "fieldspan":  "7",
+                                                                                    "label":  "Customer Number",
+                                                                                    "title":  "Search",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "buttonid":  "ID_BC_Customer_Number_Search",
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "space",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  1,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_C",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "false",
+                                                                                    "order":  "71",
+                                                                                    "placeholder":  "",
+                                                                                    "label":  "Extension",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  7,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AUDIT_CODE",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Audit Frequency",
+                                                                                    "order":  "13",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_PAYBY_MODE_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Pay Plan",
+                                                                                    "support":  "false",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "67",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMENDMENT_NUMBER",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Amendment Number",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "57",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEW_PAYBY_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Renewal Pay Plan",
+                                                                                    "disabled":  "true",
+                                                                                    "support":  "false",
+                                                                                    "order":  "92",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ENTERED_DATE",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Amendment Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "59",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BUSINESS_SEGMENT",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Business Segment",
+                                                                                    "order":  "150",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_CODE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Renewal Option",
+                                                                                    "order":  "17",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BUSINESS_UNIT",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Business Unit",
+                                                                                    "order":  "152",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CORP_PROFIT_CENTER",
+                                                                                    "type":  "select",
+                                                                                    "order":  "154",
+                                                                                    "label":  "Corp. Profit Center",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BASSYS1700_SWITCH",
+                                                                                    "type":  "hidden",
+                                                                                    "order":  "145",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PIF_ZEROENIND",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "OVERRIDE_RETURN_PREMIUM_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MANUAL_RETUN_PREMIUM_AMT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ACCTG_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TRANSSEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ISSUE_CODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_CUR_REC_SET_STATUS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TEMPHASHDATA",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SET_TYPE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ENDORSE_TEXT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_OP_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_NON_RENEWAL_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_NAME_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_MAILING_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CHANGE_EXPOSURE_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADD_COVERAGE_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_DELETE_COVERAGE_IND",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SECURITY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MT_FLAG",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_DEFAULT_MT_URL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_TRANSACTION_STATUS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_NUMBER_OF_INSTALLMENTS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PRINTED_STATEMENT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN1",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN2",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN3",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_VARIATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMENDED",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_EFFECTIVE_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SYSTEM_DATE_OVERRIDE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_HIERARCHY_SWITCH",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_BASIC_CONTRACT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TYPE_ACTIVITY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TYPE_ACTIVITY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SECURITY_INDIC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_TRANSACTION_TYPE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TEMP_SPECIAL_USE_C",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_PANEL_MODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_TOTAL_PREMIUM",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_UNDERWRITER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REVIEW_CODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE_DESC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_PAY_BY_PLAN",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MVR_REPORT_YEAR",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSTALLMENT_TERM",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAY_BY_PLAN",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ORIGINAL_INCEPTION_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_GRADE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CASH_WITH_APPLICATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CHECK_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_MODE_CODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "85",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "83",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "84",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "86",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "47",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SORT_NAME",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Sort Name",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "3",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                    "maxlength":  "1",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                    "maxlength":  "1",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                    "maxlength":  "1",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "CANCELLATION",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xmlns:camel="http://camel.apache.org/schema/spring" xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<util:properties id="app-config" location="classpath:app-config.properties" />
+	<util:properties id="surround-config" location="classpath:surround_products.properties" />
+	<util:properties id="navigation-config" location="classpath:navigation_processor.properties" />
+	<util:properties id="modifier-config" location="classpath:policy_modifier.properties" />
+
+	<!-- Imports the configurations of the different infrastructure systems of the application -->
+	<import resource="mvc-config.xml" />
+	<import resource="data-access-config.xml" />
+	<import resource="classpath:META-INF/config/application-context.xml" />
+
+	<!-- Service Processors -->
+
+	<!-- XStream Delegate -->
+	<bean id="xStreamServiceProcessor" class="com.csc.cscip.ux.common.rest.processor.xml.XStreamServiceProcessor" />
+
+	<!-- Point JDBC XML Delegate -->
+	<bean id="pointJDBCXMLProcessor" class="com.csc.cscip.ux.pointin.rest.processor.PointJDBCXMLProcessor">
+		<property name="delegate" ref="xStreamServiceProcessor"></property>
+	</bean>
+
+	<!-- Data -->
+	<bean id="dataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.DataProcessor">
+		<property name="delegate" ref="xStreamServiceProcessor"></property>
+	</bean>
+
+	<!-- LRARO -->
+	<bean id="editableGridDataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.EditableGridDataProcessor">
+		<property name="delegate" ref="xStreamServiceProcessor"></property>
+	</bean>
+
+	<!-- Navigation Data -->
+	<bean id="navigationDataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.NavigationDataProcessor">
+		<property name="delegate" ref="xStreamServiceProcessor"></property>
+	</bean>
+
+	<!-- Support Data -->
+	<bean id="supportDataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.SupportDataProcessor">
+		<property name="delegate" ref="pointJDBCXMLProcessor"></property>
+	</bean>
+
+	<!-- Grid Data -->
+	<bean id="gridDataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.GridDataProcessor">
+		<property name="delegate" ref="pointJDBCXMLProcessor"></property>
+	</bean>
+
+	<!-- Action -->
+	<bean id="actionProcessor" class="com.csc.cscip.ux.pointin.rest.processor.ActionProcessor">
+		<property name="delegate" ref="pointJDBCXMLProcessor"></property>
+	</bean>
+
+	<!-- Media -->
+	<bean id="mediaURLResolver" class="com.csc.cscip.ux.pointin.rest.processor.MediaURLResolver" />
+
+	<!-- Policy ModifierURL -->
+	<bean id="policyModifierURLResolver" class="com.csc.cscip.ux.pointin.rest.processor.PolicyModifierURLResolver" />
+
+	<!-- PICS -->
+	<bean id="picsDataProcessor" class="com.csc.cscip.ux.pointin.rest.processor.PICSDataProcessor">
+		<property name="delegate" ref="xStreamServiceProcessor"></property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		 <!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="400000" />
+
+	</bean>
+	<bean class="com.csc.cscip.ux.common.rest.processor.ServiceProcessorFactory">
+		<property name="serviceProcessorRegistry">
+			<map>
+				<entry key="${Application}" value-ref="dataProcessor" />
+
+				<entry key="LRARO" value-ref="editableGridDataProcessor" />
+				<entry key="AUDIT" value-ref="editableGridDataProcessor" />
+				<entry key="RCV" value-ref="editableGridDataProcessor" />
+				<entry key="MNFORMS" value-ref="editableGridDataProcessor"/>
+				<entry key="PICS" value-ref="picsDataProcessor" />
+				<entry key="ADDCHG" value-ref="editableGridDataProcessor"/>
+				<entry key="SUBJ" value-ref="editableGridDataProcessor" />
+				<entry key="FORMS" value-ref="editableGridDataProcessor" />
+				<entry key="CLT" value-ref="editableGridDataProcessor" />
+				<entry key="VEHCOVG" value-ref="editableGridDataProcessor" />
+				<entry key="NAVIGATION" value-ref="navigationDataProcessor" />
+				<entry key="RETRO" value-ref="editableGridDataProcessor" />
+				<entry key="JDBC" value-ref="pointJDBCXMLProcessor" />
+
+				<entry key="SUPPORT" value-ref="supportDataProcessor" />
+				<entry key="GRID" value-ref="gridDataProcessor" />
+				<entry key="ACTION" value-ref="actionProcessor" />
+
+				<entry key="MEDIA" value-ref="mediaURLResolver" />
+				<entry key="POLICYMODIFIER" value-ref="policyModifierURLResolver" />
+				
+				<entry key="DOJO" value-ref="editableGridDataProcessor" />
+				<entry key="Underwriter" value-ref="editableGridDataProcessor" />
+                                <entry key="STMT" value-ref="editableGridDataProcessor" />  <!--Key for Statement page -->
+			</map>
+		</property>
+	</bean>
+
+	<context:annotation-config />
+
+	<!-- Controllers -->
+	<context:component-scan base-package="com.csc.cscip.ux.pointin.rest" />
+
+	<!-- Camel Context -->
+
+		<!-- define a bean of type StreamCachingStrategy which CamelContext will automatic use -->
+		<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
+		  <property name="spoolDirectory" value="/tmp/cachedir"/>
+		  <property name="spoolThreshold" value="9048576"/>
+		  <property name="bufferSize" value="9384662"/>
+		</bean>
+	
+	<camel:camelContext id="camelContext" streamCache="true">
+
+		<camel:template id="camelTemplate" />
+		<camel:consumerTemplate id="camelConsumerTemplate" />
+
+		<camel:endpoint id="serviceEndPoint" uri="${ServiceEndPointURI}" />
+
+		<camel:endpoint id="exceptionResponseXML" uri="xslt:${ExceptionResponseXSLPath}" />
+
+		<camel:endpoint id="requestXML" uri="xslt:${RequestXSLPath}" />
+		<camel:endpoint id="responseXML" uri="xslt:${ResponseXSLPath}" />
+		<camel:endpoint id="responseCltSelectChgHeaderXML" uri="xslt:${ResponseCltSelectChgHeaderXSLPath}" />
+		<camel:endpoint id="navigationXML" uri="xslt:${NavigationXSLPath}" />
+		
+		<camel:endpoint id="reportXML" uri="xslt:${ReportXSLPath}" />
+
+		<camel:endpoint id="requestGridXML" uri="xslt:${RequestGridXSLPath}" />
+		<camel:endpoint id="requestAuditGridXML" uri="xslt:${RequestAuditGridXSLPath}" />
+		<camel:endpoint id="requestStatementXML" uri="xslt:${RequestStatementXSLPath}" /> <!--Reference of stylesheet created for Statement page request xml-->
+		<camel:endpoint id="requestPolicyLevelAuditGridXML" uri="xslt:${RequestPolicyLevelAuditGridXSLPath}" />		
+		<camel:endpoint id="requestInterimAuditGridXML" uri="xslt:${RequestInterimAuditGridXSLPath}" />
+		<camel:endpoint id="requestInterimAuditDeleteXML" uri="xslt:${RequestInterimAuditDeleteXSLPath}" />
+		
+		<camel:endpoint id="requestWCVAuditOrderConfirmInfoXML" uri="xslt:${RequestWCVAuditOrderInfoXSLPath}" />
+		
+		<camel:endpoint id="requestRcvDBPaymentInfoXML" uri="xslt:${RequestRcvDBPaymentInfoXSLPath}" />
+		<camel:endpoint id="requestRcvABPaymentInfoXML" uri="xslt:${RequestRcvABPaymentInfoXSLPath}" />
+		<camel:endpoint id="requestRcvDBTransferPmtXML" uri="xslt:${RequestRcvDBTransferPmtXSLPath}" />
+		<camel:endpoint id="requestRcvDBACPaymentInfoXML" uri="xslt:${RequestRcvDBACPaymentInfoXSLPath}" />
+		<camel:endpoint id="requestRcvCBBulkPaymentInfoXML" uri="xslt:${RequestRcvCBPaymentInfoXSLPath}" />
+		<camel:endpoint id="responseRcvDBTransferPmtXML" uri="xslt:${ResponseRcvDBTransferPmtXSLPath}" />
+		<camel:endpoint id="responseRcvDBWaiveInstGridXML" uri="xslt:${ResponseRcvDBWaiveInstGridXSLPath}" />
+		
+		<camel:endpoint id="requestRcvDBNSFPmtProcXML" uri="xslt:${RequestRcvDBNSFPmtProcXSLPath}" />
+		<camel:endpoint id="responseRcvDBNSFPmtProcXML" uri="xslt:${ResponseRcvDBNSFPmtProcXSLPath}" />
+		<camel:endpoint id="requestRcvDBAdjNxtActDtGridInfoXML" uri="xslt:${RequestRcvDBAdjNxtActDtGridXSLPath}" />
+		<camel:endpoint id="requestRcvDBWaiveInstGridInfoXML" uri="xslt:${RequestRcvDBWaiveInstGridXSLPath}" />
+		<camel:endpoint id="requestRcvDBRevWaiveAmtGridInfoXML" uri="xslt:${RequestRcvDBRevWaiveAmtGridXSLPath}" />
+		<camel:endpoint id="requestWCVFormsListInfoXML" uri="xslt:${RequestWCVFormsListXSLPath}" />
+
+		<camel:endpoint id="requestRcvECheckCustAddInfoXML" uri="xslt:${RequestRcvECheckCustAddXSLPath}" />
+		<camel:endpoint id="requestRcvABTfrAgyPayXML" uri="xslt:${RequestRcvABTfrAgyPayXSLPath}" />
+		<camel:endpoint id="requestRcvBBTfrBrPayXML" uri="xslt:${RequestRcvBBTfrBrPayXSLPath}" />
+		<camel:endpoint id="requestAccountingPeriodGridInfoXML" uri="xslt:${RequestAccountingPeriodGridXSLPath}" />
+		<camel:endpoint id="requestRcvABStmtPostAddSSXML" uri="xslt:${RequestRcvABStmtPostAddSSXSLPath}" />
+		<camel:endpoint id="requestAddManualFormsXML" uri="xslt:${RequestAddManualFormsXSLPath}" />
+		<camel:endpoint id="requestDeleteManualFormsXML" uri="xslt:${RequestDeleteManualFormsXSLPath}" />
+		<camel:endpoint id="requestAdditionalChargesXML" uri="xslt:${RequestAdditionalChargesXSLPath}" />
+		<camel:endpoint id="requestAdjustInstallmentRqXML" uri="xslt:${RequestAdjustInstallmentRqXSLPath}" />
+		<camel:endpoint id="requestPICSXML" uri="xslt:${RequestPICSXSLPath}" />
+		<camel:endpoint id="requestSubjGridXML" uri="xslt:${RequestSubjGridXSLPath}" />
+		<camel:endpoint id="requestUWXML" uri="xslt:${RequestUWXSLPath}" />
+		<camel:endpoint id="responseUWXML" uri="xslt:${ResponseUWXSLPath}" />
+		<camel:endpoint id="requestCLTXML" uri="xslt:${RequestCLTXSLPath}" />
+		<camel:endpoint id="requestRcvCBPaymentAllocXML" uri="xslt:${RequestRcvCBPaymentAllocXSLPath}" />
+		<camel:endpoint id="responseRcvCBPaymentAllocXML" uri="xslt:${ResponseRcvCBPaymentAllocXSLPath}" />
+		<camel:endpoint id="requestRcvDBCorrectPaymentXML" uri="xslt:${RequestRcvDBCorrectPaymentXSLPath}" />
+		<camel:endpoint id="responseRcvDBCorrectPaymentXML" uri="xslt:${ResponseRcvDBCorrectPaymentXSLPath}" />
+		<camel:endpoint id="requestCPPFormsListExtXML" uri="xslt:${RequestCPPFormsListExtXSLPath}" />
+		<camel:endpoint id="requestStopCollectionGridInfoXML" uri="xslt:${RequestStopCollectionSearchGridXSLPath}" />
+		<camel:endpoint id="requestWcpImportLocationXML" uri="xslt:${RequestWcpImportLocationXSLPath}" />
+		<camel:endpoint id="requestUnitListXML" uri="xslt:${RequestUnitListXSLPath}" />
+		<camel:endpoint id="requestUWReassignXML" uri="xslt:${RequestUWReassignXSLPath}" />
+		<camel:endpoint id="responseUWReassignXML" uri="xslt:${ResponseUWReassignXSLPath}" />
+		<camel:endpoint id="requestDetLosFormGridInfoXML" uri="xslt:${RequestDetLosFormGridXSLPath}" />
+		<camel:endpoint id="requestVehicleCoveragesXML" uri="xslt:${RequestVehicleCoveragesXSLPath}" />
+		<camel:endpoint id="requestPolRetroTaxSurchargeFeeAdjustmentXML" uri="xslt:${RequestPolRetroTaxSurchargeFeeAdjustmentXSLPath}" />
+		<camel:endpoint id="requestAgnLicDetailXML" uri="xslt:${RequestLicDetailGridXSLPath}" />
+		<camel:endpoint id="responseAgnLicDetailXML" uri="xslt:${ResponseLicDetailGridXSLPath}" />
+		<camel:endpoint id="requestVinCheckRqXML" uri="xslt:${RequestVinCheckRqXSLPath}" />
+		<camel:endpoint id="responseVinCheckRqXML" uri="xslt:${ResponseVinCheckRqXSLPath}" />
+		<camel:route id="exceptionHandler">
+			<camel:from uri="direct:exceptionHandler" />
+
+			<camel:filter>
+				<camel:xpath>/*/Status/StatusCd ='SystemError'</camel:xpath>
+				<camel:to ref="exceptionResponseXML" />
+			</camel:filter>
+		</camel:route>
+
+		<camel:route id="service">
+			<camel:from uri="direct:service" />
+
+			<camel:setHeader headerName="Content-Type">
+				<camel:constant>text/xml</camel:constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="CamelHttpMethod">
+				<camel:constant>POST</camel:constant>
+			</camel:setHeader>
+
+			<camel:to ref="serviceEndPoint" />
+		</camel:route>
+
+		<camel:route id="data">
+			<camel:from uri="direct:data" />
+
+			<camel:to ref="requestXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseXML" />
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="importFile">
+			<camel:from uri="direct:importFile" />
+
+			<camel:to ref="requestWcpImportLocationXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseXML" />
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="unitList">
+			<camel:from uri="direct:unitList" />
+
+			<camel:to ref="requestUnitListXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseXML" />
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="UndReassign">
+			<camel:from uri="direct:UndReassign" />
+
+			<camel:to ref="requestUWReassignXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseUWReassignXML" />
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+
+		<camel:route id="report">
+			<camel:from uri="direct:report" />
+
+			<camel:to ref="requestXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="reportXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+
+		<camel:route id="reportdownload">
+			<camel:from uri="direct:reportdownload" />
+			<camel:to ref="requestXML" />
+			<camel:to uri="direct:service" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+
+		<camel:route id="reportTopdf">
+			<camel:from uri="direct:reportTopdf" />
+			<camel:to uri="fop:application/pdf" />
+		</camel:route>
+
+		<camel:route id="Griddata">
+			<camel:from uri="direct:Griddata" />
+			<camel:to ref="requestGridXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+
+		<camel:route id="AuditGridData">
+			<camel:from uri="direct:AuditGridData" />
+			<camel:to ref="requestAuditGridXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="StatementData">
+			<camel:from uri="direct:StatementData" />
+			<camel:to ref="requestStatementXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		<camel:route id="PolicyLevelAuditGridData">
+			<camel:from uri="direct:PolicyLevelAuditGridData" />
+			<camel:to ref="requestPolicyLevelAuditGridXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="VehicleCoverages">
+			<camel:from uri="direct:VehicleCoverages" />
+			<camel:to ref="requestVehicleCoveragesXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="VinCheckRq">
+			<camel:from uri="direct:VinCheckRq" />
+			<camel:to ref="requestVinCheckRqXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseVinCheckRqXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="PolRetroTaxSurchargeFeeAdjustment">
+			<camel:from uri="direct:PolRetroTaxSurchargeFeeAdjustment" />
+			<camel:to ref="requestPolRetroTaxSurchargeFeeAdjustmentXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+
+		<camel:route id="InterimAuditGridData">
+			<camel:from uri="direct:InterimAuditGridData" />
+			<camel:to ref="requestInterimAuditGridXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="InterimAuditDeleteData">
+			<camel:from uri="direct:InterimAuditDeleteData" />
+			<camel:to ref="requestInterimAuditDeleteXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		
+		<camel:route id="StopCollectionInfo">
+			<camel:from uri="direct:StopCollectionInfo" />
+			<camel:to ref="requestStopCollectionGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBBulkPaymentInfo">
+			<camel:from uri="direct:RcvDBBulkPaymentInfo" />
+			<camel:to ref="requestRcvDBPaymentInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="WCVAuditOrderConfirmInfo">
+			<camel:from uri="direct:WCVAuditOrderConfirmInfo" />
+			<camel:to ref="requestWCVAuditOrderConfirmInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+	   <camel:route id="RcvABBulkPaymentInfo">
+			<camel:from uri="direct:RcvABBulkPaymentInfo" />
+			<camel:to ref="requestRcvABPaymentInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+				
+		<camel:route id="RcvDBACPaymentInfo">
+			<camel:from uri="direct:RcvDBACPaymentInfo" />
+			<camel:to ref="requestRcvDBACPaymentInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvECheckCustAddInfo">
+			<camel:from uri="direct:RcvECheckCustAddInfo" />
+			<camel:to ref="requestRcvECheckCustAddInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBAdjNxtActDtGridInfo">
+			<camel:from uri="direct:RcvDBAdjNxtActDtGridInfo" />
+			<camel:to ref="requestRcvDBAdjNxtActDtGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvABTransferAgPyInfo">
+			<camel:from uri="direct:RcvABTransferAgPyInfo" />
+			<camel:to ref="requestRcvABTfrAgyPayXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvBBTransferBrPyInfo">
+			<camel:from uri="direct:RcvBBTransferBrPyInfo" />
+			<camel:to ref="requestRcvBBTfrBrPayXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="AddManualForms">
+			<camel:from uri="direct:AddManualForms" />
+			<camel:to ref="requestAddManualFormsXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="AdditionalCharges">
+			<camel:from uri="direct:AdditionalCharges" />
+			<camel:to ref="requestAdditionalChargesXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+
+		<camel:route id="AdjustInstallmentRq">
+			<camel:from uri="direct:AdjustInstallmentRq" />
+			<camel:to ref="requestAdjustInstallmentRqXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+		
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="CPPFormsListExt">
+			<camel:from uri="direct:CPPFormsListExt" />
+			<camel:to ref="requestCPPFormsListExtXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="DeleteManualForms">
+			<camel:from uri="direct:DeleteManualForms" />
+			<camel:to ref="requestDeleteManualFormsXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBWaiveInstGridInfo">
+			<camel:from uri="direct:RcvDBWaiveInstGridInfo" />
+			<camel:to ref="requestRcvDBWaiveInstGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+            <camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBRevWaiveAmtGridInfo">
+			<camel:from uri="direct:RcvDBRevWaiveAmtGridInfo" />
+			<camel:to ref="requestRcvDBRevWaiveAmtGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="WCVFormsListInfo">
+			<camel:from uri="direct:WCVFormsListInfo" />
+			<camel:to ref="requestWCVFormsListInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+            <camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="AccountingPeriodInfo">
+			<camel:from uri="direct:AccountingPeriodInfo" />
+			<camel:to ref="requestAccountingPeriodGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvCBBulkPaymentInfo">
+			<camel:from uri="direct:RcvCBBulkPaymentInfo" />
+			<camel:to ref="requestRcvCBBulkPaymentInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBTransferPmt">
+			<camel:from uri="direct:RcvDBTransferPmt" />
+			<camel:to ref="requestRcvDBTransferPmtXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseRcvDBTransferPmtXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBNSFPmtProc">
+			<camel:from uri="direct:RcvDBNSFPmtProc" />
+			<camel:to ref="requestRcvDBNSFPmtProcXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseRcvDBNSFPmtProcXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="navigationdata">
+			<camel:from uri="direct:navigationdata" />
+			<camel:to ref="navigationXML" />
+			<camel:to uri="direct:service" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+
+		<camel:route id="PICSGriddata">
+			<camel:from uri="direct:PICSGriddata" />
+
+			<camel:to ref="requestPICSXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<!-- <camel:to uri="direct:exceptionHandler" /> -->
+		</camel:route>
+		
+			<camel:route id="RcvABStmtPostAddSSInfo">
+			<camel:from uri="direct:RcvABStmtPostAddSSInfo" />
+
+			<camel:to ref="requestRcvABStmtPostAddSSXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<!-- <camel:to uri="direct:exceptionHandler" /> -->
+		</camel:route>
+		
+		
+		<camel:route id="SUBJGriddata">
+			<camel:from uri="direct:SUBJGriddata" />
+			<camel:to ref="requestSubjGridXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+			<!-- <camel:to uri="direct:exceptionHandler" /> -->
+		</camel:route>
+		
+		<camel:route id="CLTGriddata">
+			<camel:from uri="direct:CLTGriddata" />
+			<camel:to ref="requestCLTXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseCltSelectChgHeaderXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="UnderWriterCall">
+			<camel:from uri="direct:UnderWriterCall" />
+
+			<camel:to ref="requestUWXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseUWXML" />
+			<camel:to uri="direct:exceptionHandler" />
+			
+			<!-- <camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseUWXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" /> -->
+		</camel:route>
+		<camel:route id="RcvCBPaymentAlloc">
+			<camel:from uri="direct:RcvCBPaymentAlloc" />
+			<camel:to ref="requestRcvCBPaymentAllocXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseRcvCBPaymentAllocXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="RcvDBCorrectPayment">
+			<camel:from uri="direct:RcvDBCorrectPayment" />
+			<camel:to ref="requestRcvDBCorrectPaymentXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseRcvDBCorrectPaymentXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+		<camel:route id="DetailLossInfo">
+			<camel:from uri="direct:DetailLossInfo" />
+			<camel:to ref="requestDetLosFormGridInfoXML" />
+			<camel:to uri="direct:service" />
+			<camel:filter>
+				<camel:xpath>POINTXML/InsuranceSvcRs/*/PayLoad</camel:xpath>
+				<camel:to ref="responseXML" />
+			</camel:filter>
+
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		<camel:route id="AgnLicInfo">
+			<camel:from uri="direct:AgnLicInfo" />
+			<camel:to ref="requestAgnLicDetailXML" />
+			<camel:to uri="direct:service" />
+			<camel:to ref="responseAgnLicDetailXML" />
+			<camel:to uri="direct:exceptionHandler" />
+		</camel:route>
+		
+	</camel:camelContext>
+
+	<!-- Surround Products -->
+	<bean class="com.csc.cscip.ux.pointin.util.SurroundProductConfig">
+		<property name="properties" ref="surround-config" />
+	</bean>
+
+	<bean class="com.csc.cscip.ux.pointin.util.PolicyModifierConfig">
+		<property name="properties" ref="modifier-config" />
+	</bean>
+
+	<!-- Navigation Config -->
+	<bean class="com.csc.cscip.ux.pointin.util.NavigationConfig">
+		<property name="properties" ref="navigation-config" />
+	</bean>
+</beans>

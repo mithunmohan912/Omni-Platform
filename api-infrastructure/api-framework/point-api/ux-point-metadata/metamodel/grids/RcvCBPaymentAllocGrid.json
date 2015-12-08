@@ -1,0 +1,131 @@
+{
+  "dataSource": {
+    "pagesize": "10",
+    "SP": "BASRCVL000(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVR04",
+	  "length" : "10",
+	  "fill" : " "
+        },
+        {
+          "type": "KEY",
+          "name": "KEY"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Installment Balance",
+          "value": "IB"
+        },
+        {
+          "name": "Payment Inquiry",
+          "value": "PI"
+        },
+	{
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "RcvCBPaymentAllocSelect",
+      "listfunction": "RcvCBPaymentAllocFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": true,
+        "width": "5%",
+        "align": "center",
+        "displayName": "Error"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": true,
+        "width": "6%",
+        "align": "left",
+        "displayName": "Location"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Master Company"
+      },
+      {
+        "field": "WSSYMBOL",
+        "visible": true,
+        "width": "6%",
+        "align": "left",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "WSPOLICYNUM",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Policy"
+      },
+      {
+        "field": "WSMODULE",
+        "visible": true,
+        "width": "6%",
+        "align": "left",
+        "displayName": "Module"
+      },
+      {
+        "field": "WSLOB",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Line Of Business"
+      },
+      {
+        "field": "WSEFFDATE",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Effective Date"
+      },
+      {
+        "field": "WSPOLCUSTBAL",
+        "visible": true,
+        "width": "13%",
+        "align": "right",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "displayName": "Customer Balance"
+      },
+      {
+        "field": "WSPOLMINDUE",
+        "visible": true,
+        "width": "15%",
+        "align": "right",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "displayName": "Minimum Due Amount"
+      },
+      {
+        "field": "WSPOLPYMTAMT",
+        "visible": true,
+        "width": "15%",
+        "align": "right",
+        "type": "money",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "displayName": "Payment Amount"
+      }
+    ],
+    "title": ""
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL045"
+        },
+        {
+          "name": "strLOC"
+        },
+        {
+          "name": "strMCO"
+        },
+        {
+          "name": "strAgency"
+        },
+        {
+          "name": "strDsp1"
+        },
+        {
+          "name": "strDsp"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Post to Statement Items",
+          "value": "Post to Statement Items"
+        },
+        {
+          "name": "Balance Pre-Receipt Batch",
+          "value": "Balance Pre-Receipt Batch"
+        },
+         {
+          "name": "Correct",
+          "value": "Correct"
+        },
+         {
+          "name": "Transfer",
+          "value": "Transfer"
+        },
+         {
+          "name": "Agency Refund",
+          "value": "Agency Refund"
+        },
+        {
+          "name": "History",
+          "value": "History"
+        },
+        {
+          "name": "Detail",
+          "value": "Detail"
+        }
+      ],
+      "rowactionfunction": "RcvABWorkAgyPaymentsSelect",
+      "listfunction": "RcvABWorkAgyPaymentsFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "WSPAYWRTDATE",
+        "visible": "true",
+        "width": "15%",
+        "align": "center",
+        "displayName": "Entry Date"
+      },
+      {
+        "field": "WSPAYACTTYP",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Activity Type"
+      },
+      {
+        "field": "WSPAYPSTSTS",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Status"
+      },
+      {
+        "field": "WSPAYCHKNBR",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Check Number"
+      },
+      {
+        "field": "WSCHECKDATE",
+        "visible": "false",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Check Date"
+      },
+      {
+        "field": "WSPAYUSER",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "User"
+      },
+      {
+        "field": "WSPAYPAYAMT",
+        "visible": "true",
+        "width": "15%",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "left",
+        "displayName": "Payment Amount"
+      },
+      {
+        "field": "WSPAYPSTDATE",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Posted Date"
+      },
+      {
+        "field": "WSPAYAVLAMT",
+        "visible": "true",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Amount in Suspense"
+      }
+    ],
+    "title": "Work with Agency Payments"
+  }
+}

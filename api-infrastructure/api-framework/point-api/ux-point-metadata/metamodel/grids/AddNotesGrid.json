@@ -1,0 +1,67 @@
+{
+  "dataSource" : {
+		"pagesize" : "10",
+		"SQL" : "SELECT RCDDATE, RCDTIME, RCDUSER, NOTESKEY, D3D4RECSEQ, D3WRITDATE FROM RCD3CPPE WHERE D3D4RECSEQ = @REC_SEQ@ AND D3POLBRO = @D3POLBRO@",
+		"filename" : "RCD3CPPE",
+		"type" : "SQL"
+	},
+	"gridMetaData" : {
+		"operation": {
+	      "selectfield": "select",
+	      "options": [
+	        {
+	          "name": "Inquire",
+	          "value": "INQ"
+	        },
+	        {
+	          "name": "Change",
+	          "value": "CHG"
+	        },
+	        {
+	          "name": "Delete",
+	          "value": "DLT"
+	        }
+		  ],
+	      "rowactionfunction": "doNotesSelect",
+		  "listfunction": "",
+	      "jsfunction": "selectRowforAction"
+	    },
+	    "element" : [ 
+			{
+		      "field" : "RCDDATE",
+		      "visible" : true,
+		      "width" : "30%",
+		      "align" : "center",
+		      "displayName" : "Date Entered"
+		    },
+			{
+		      "field" : "RCDTIME",
+		      "visible" : true,
+		      "width" : "30%",
+		      "align" : "right",
+		      "displayName" : "Time Entered"
+		    }, {
+		      "field" : "RCDUSER",
+		      "visible" : true,
+		      "width" : "30%",
+		      "align" : "center",
+		      "displayName" : "User ID"
+		    }, {
+		      "field" : "NOTESKEY",
+		      "visible" : false,
+		      "width" : "0%",
+		      "align" : "left"
+		    }, {
+		      "field" : "D3D4RECSEQ",
+		      "visible" : false,
+		      "width" : "10%",
+		      "align" : "left"
+		    }, {
+		      "field" : "D3WRITDATE",
+		      "visible" : false,
+		      "width" : "0%",
+		      "align" : "left"
+		    } 		
+		]
+	}
+}

@@ -1,0 +1,62 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "rowTemplate": "",
+    "element": [
+      {
+        "field": "B0FATX",
+        "displayName": "Footnotes",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "80%"
+      },
+      {
+        "field": "B0CGNB",
+        "displayName": "Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      }
+    ],
+	"operation": {
+      
+    },
+    "buttons": []
+  },
+ "dataSource": {
+    "type": "SQL",
+    "SQL": "Select B0FATX,B0CGNB from ASB0REL1 WHERE B0AGTX =@INSLINE@ and  B0ADCD =@STATE@ and B0KJTX = @CLASS_CODE@ and B0A2DT = @ACCTG_DATE@ and B0KKTX = @CLASS_DESCRIPTION@",
+    "pagesize": "10",
+    "params": {
+      "INSLINE": [
+        {
+          "name": "A1AGTX"
+        }
+      ],
+      "STATE": [
+        {
+          "name": "A1ADCD"
+        }
+      ],
+      "CLASS_CODE": [
+        {
+          "name": "A1KJTX"
+        }
+      ],
+      "ACCTG_DATE": [
+        {
+          "name": "A1A2DT"
+        }
+      ],
+      "CLASS_DESCRIPTION": [
+        {
+          "name": "CLASS_DESC"
+        }
+      ]
+    }
+  }
+}

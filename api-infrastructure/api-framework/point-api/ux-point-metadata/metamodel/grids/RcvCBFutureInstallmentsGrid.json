@@ -1,0 +1,101 @@
+{
+  "gridMetaData": {
+    "title": "Customer Future Installments",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "WSBILLDATE",
+        "displayName": "Bill Date",
+        "type": "DATE",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSDUEDATE",
+        "displayName": "Due Date",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "type": "DATE",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSSYMBOL",
+        "displayName": "Sym",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSPOLICY",
+        "displayName": "Policy",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSMODULE",
+        "displayName": "Mod",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSEFFDATE",
+        "displayName": "Effective Date",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "type": "DATE",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "WSPAYMODE",
+        "displayName": "Payment Plan",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "13%"
+      },
+      {
+        "field": "WSINSTBALANCE",
+        "displayName": "Amount Due",
+        "type": "MONEY",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASRCVL078(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "15"
+        }
+      ]
+    }
+  }
+}

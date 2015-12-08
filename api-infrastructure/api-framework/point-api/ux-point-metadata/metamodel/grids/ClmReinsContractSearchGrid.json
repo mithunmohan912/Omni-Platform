@@ -1,0 +1,52 @@
+{
+  "dataSource" : {
+    "pagesize" : "10",
+    "SQL" : "SELECT RECONT ,REEFFDTE ,RENAME,REPREMPART,RELOSSPART,RECONTCOMM  FROM PMSPRE1100",
+    "filename" : "PMSPRE1100",
+    "type" : "SQL"
+  },
+  "gridMetaData" : {
+    "operation" : {
+      "jsfunction" : "selectValue"
+    },
+    "element" : [ {
+      "field" : "RECONT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Contract"
+    }, {
+      "field" : "REEFFDTE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Effective Date",
+      "cellTemplate": "ux/template/DateTemplate.html"
+    }, {
+      "field" : "RENAME",
+      "visible" : "true",
+      "width" : "30%",
+      "align" : "left",
+      "displayName" : "Contract Description"
+    }, {
+      "field" : "REPREMPART",
+      "visible" : "true",
+      "width" : "13%",
+      "align" : "left",
+      "displayName" : "Premium Rate"
+    }, {
+      "field" : "RELOSSPART",
+      "visible" : "true",
+      "width" : "13%",
+      "align" : "left",
+      "displayName" : "Loss Rate"
+    }, {
+      "field" : "RECONTCOMM",
+      "visible" : "true",
+      "width" : "13%",
+      "align" : "left",
+      "displayName" : "Commission Rate"
+    } ],
+    "title" : "Contract Selection List"
+  }
+}

@@ -6,7 +6,13 @@ Omnichannel-Infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.c
 ###Quick Start
 ---
 
-Install [Node.js](https://nodejs.org/download/).
+Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/).
+
+Install grunt using below command
+ 
+```
+ $ npm install -g grunt-cli	
+```
 
 Fork this Repository to your Bitbucket Account then :
    

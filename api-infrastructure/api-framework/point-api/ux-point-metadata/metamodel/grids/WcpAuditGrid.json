@@ -1,0 +1,157 @@
+{
+    "dataSource": {
+        "SP": "BASWC60I02(@query@)",
+        "type": "SP",
+        "params": {
+            "query": [
+                {
+                    "type": "KEY",
+                    "startIndex": "1",
+                    "endIndex": "17"
+                },
+                {
+                    "type": "KEY",
+                    "startIndex": "96",
+                    "endIndex": "101"
+                }
+            ]
+        }
+    },
+    "gridMetaData": {
+        "operation": {
+            "selectfield": "",
+            "options": [
+                {
+                    "name": "Select",
+                    "value": "SEL"
+                },
+                {
+                    "name": "Tracking",
+                    "value": "TRK"
+                },
+                {
+                    "name": "Delete",
+                    "value": "DLT"
+                },
+                {
+                    "name": "Reprint",
+                    "value": "PRT"
+                }
+            ],
+            "rowactionfunction": "WCPAuditGridAction",
+            "listfunction": "WCPAuditGridFilter",
+            "jsfunction": "selectRowforAction"
+        },
+        "element": [
+            {
+                "field": "STATE",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "State"
+            },
+            {
+                "field": "SITE",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Site"
+            },
+            {
+                "field": "NAME",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Name"
+            },
+            {
+                "field": "AUDEFFDTE",
+                "visible": true,
+                "width": "10%",
+                "align": "center",
+                "cellTemplate": "ux/template/DateTemplate.html",
+                "displayName": "Audit Effective Date"
+            },
+            {
+                "field": "AUDEXPDTE",
+                "visible": true,
+                "width": "10%",
+                "align": "center",
+                "cellTemplate": "ux/template/DateTemplate.html",
+                "displayName": "Audit Expiration Date"
+            },
+            {
+                "field": "COMAUDKINDDESCRIPTION",
+                "visible": true,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Audit Type"
+            },
+            {
+                "field": "COMAUDSTATUSDESCRIPTION",
+                "visible": true,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Status"
+            },
+            {
+                "field": "AUDRPTDTE",
+                "visible": true,
+                "width": "10%",
+                "align": "center",
+                "cellTemplate": "ux/template/DateTemplate.html",
+                "displayName": "Report Date"
+            },
+            {
+                "field": "AUDKIND",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "AudType"
+            },
+            {
+                "field": "AUDITREPRINTREQDESCRIPTION",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Report Date"
+            },
+            {
+                "field": "PENDINGSTATSTHISAUDITIND",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            },
+            {
+                "field": "ALLOWWAIVESW",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            },
+            {
+                "field": "ALLOWREPRINTSW",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            },
+            {
+                "field": "ALLOWCHANGESW",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            },
+            {
+                "field": "ALLOWDELETESW",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            }
+        ],
+        "title": "Search Results"
+    }
+}

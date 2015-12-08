@@ -1,0 +1,306 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvDBBulkPaymentAdd",
+                     "title":  "Bulk Payment Entry",
+                     "defaultsubmitresetbuttons":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BATDTE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Batch Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATCTL",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Control Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATSEQ",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Batch Seq#",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "12",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATENT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Entered Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATUSER",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Batch User",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATDIF",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Difference",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATSPACER",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BATCNT",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Number Of Items",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "13",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "SYM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Sym",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "3",
+                                                                                    "autoformat":  "true",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "7",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MOD",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Mod",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MCO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "MCO",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "2",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AMT",
+                                                                                    "type":  "money",
+                                                                                    "decimal":  "2",
+                                                                                    "label":  "Payment Amount",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "19",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CHK",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Check Number",
+                                                                                    "required":  "required",
+                                                                                    "autoformat":  "true",
+                                                                                    "regexp":  "^[.]?[a-z0-9]+[.]?[a-z0-9]*$",
+                                                                                    "maxlength":  "8",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TYP",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Receipt Type",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICYSPACER",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "7",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDPAYMENT",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Add",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLLVL",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Policy Level",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvDBBulkPaymentAddGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "label":  "",
+                                                                                    "gridId":  "RcvDBBulkPaymentAddGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "spacer",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "2",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SAVEREVIEW",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Save Batch \u0026 Review Status",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SAVEEXIT",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Save Batch \u0026 Exit",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NOUPDATE",
+                                                                                    "type":  "button",
+                                                                                    "label":  "No Updates \u0026 Exit",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PAYMENTENTRY",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBulkPaymentAdd",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

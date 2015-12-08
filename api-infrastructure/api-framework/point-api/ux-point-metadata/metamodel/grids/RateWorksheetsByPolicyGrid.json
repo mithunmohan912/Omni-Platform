@@ -1,0 +1,113 @@
+{
+  "dataSource": {
+    "SQL": "SELECT B7AACD, B7ABCD, B7ACCD, B7ARTX, B7ASTX, B7ADNB, B7HANB, B7DSST, B7A3CD FROM ASB7CPP where B7AACD = @KEY_LOCATION_NUMBER@ and B7ABCD = @KEY_MASTER_COMPANY@ @WHERECLAUSE@ Group By B7AACD, B7ABCD, B7ACCD, B7ARTX, B7ASTX, B7ADNB, B7HANB, B7DSST, B7A3CD",
+    "params": {
+      "KEY_LOCATION_NUMBER": [
+        {
+          "name": "KEY_LOCATION_NUMBER"
+        }
+      ],
+      "KEY_MASTER_COMPANY": [
+        {
+          "name": "KEY_MASTER_COMPANY"
+        }
+      ],
+      "WHERECLAUSE": [
+        {
+          "name": "WHERECLAUSE"
+        }
+      ]
+    },
+    "type": "SQL"
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Select Policy",
+          "value": "1"
+        },
+        {
+          "name": "Print Worksheets",
+          "value": "2"
+        },
+        {
+          "name": "Delete",
+          "value": "3"
+        },
+        {
+          "name": "Print Worksheets and Delete",
+          "value": "4"
+        }
+      ],
+      "rowactionfunction": "doRateWorksheetsAction",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "B7AACD",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Location"
+      },
+      {
+        "field": "B7ABCD",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Master Co"
+      },
+      {
+        "field": "B7ACCD",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Policy Co"
+      },
+      {
+        "field": "B7ARTX",
+        "visible": true,
+        "width": "12%",
+        "align": "left",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "B7ASTX",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Policy"
+      },
+      {
+        "field": "B7ADNB",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Module"
+      },
+      {
+        "field": "B7HANB",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "WorkSheet Seq."
+      },
+      {
+        "field": "B7DSST",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Issue Code"
+      },
+      {
+        "field": "B7A3CD",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Type Activity"
+      }
+    ]
+  }
+}

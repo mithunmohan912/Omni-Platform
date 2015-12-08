@@ -1,0 +1,153 @@
+{
+  "gridMetaData": {
+    "title": "Customer Policy List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "WSSYMBOL",
+        "displayName": "Sym",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "6%"
+      },
+      {
+        "field": "WSPOLICY",
+        "displayName": "Number",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "9%"
+      },
+      {
+        "field": "WSMODULE",
+        "displayName": "Mod",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "6%"
+      },
+      {
+        "field": "WSEFFDATE",
+        "displayName": "Effective Date",
+        "type": "DATE",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "11%"
+      },
+      {
+        "field": "WSPAYBY",
+        "displayName": "Payby",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "6%"
+      },
+      {
+        "field": "WSPAYMODE",
+        "displayName": "Mode",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "6%"
+      },
+      {
+        "field": "WSTOTCOLLACT",
+        "displayName": "Collectable",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "14%"
+      },
+      {
+        "field": "WSTOTPAID",
+        "displayName": "Paid",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "14%"
+      },
+      {
+        "field": "WSPOLBALANCE",
+        "displayName": "Policy Balance",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "14%"
+      },
+      {
+        "field": "WSCURRDUE",
+        "displayName": "Current Due",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "14%"
+      },
+      {
+        "field": "WSLOCATION",
+        "displayName": "LOC",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "0%"
+      },
+      {
+        "field": "WSMASTERCO",
+        "displayName": "MCO",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "0%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": "",
+      "jsfunction": "selectRcvPolicy"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASSYSGRID(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL036"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "14"
+        },
+        {
+          "name": "MODE",
+          "length" :"2",
+          "fill": "N"
+        },
+        {	
+          "type" : "VALUE",
+          "value" : " "
+        },
+        {
+          "name": "NUMBER",
+          "length" : "3",
+          "fill" : "9"
+        }
+      ]
+    }
+  }
+}

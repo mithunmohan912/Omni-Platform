@@ -1,0 +1,43 @@
+{
+  "dataSource": {
+    "pagesize": "999",
+    "SP": "BASPPLCR01(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "name": "BC_STATE",
+          "length": "2",
+          "fill": " ",
+          "order": "1"
+        },
+        {
+          "name": "EX02_COUNTY_CODE",
+          "order": "2"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectValue"
+    },
+    "element": [
+      {
+        "field": "OLOSREPCD",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Code"
+      },
+      {
+        "field": "OLOSREPDSC",
+        "visible": "true",
+        "width": "80%",
+        "align": "left",
+        "displayName": "Name"
+      }
+    ],
+    "title": "Loss Prevention Representative Selection List"
+  }
+}

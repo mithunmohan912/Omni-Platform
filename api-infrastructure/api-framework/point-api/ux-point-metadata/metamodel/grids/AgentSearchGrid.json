@@ -1,0 +1,156 @@
+{
+	"gridMetaData":{
+		"title":"Agent Search",
+		"element":
+		[
+			{
+				"field": "AGNMNBR",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Agent Number",
+				"editable": "false",
+				"width":"20%"
+			},
+			{
+				"field": "ACNMNAME1",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Agent Name",
+				"editable": "false",
+				"width":"20%"
+			},
+			{
+				"field": "ACNMADDRS",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Address",
+				"editable": "false",
+				"width":"20%"
+			},
+			{
+				"field": "ACNMCTYST",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "City State",
+				"editable": "false",
+				"width":"20%"
+			},
+			{
+				"field": "ACNMZIP",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Postal Code",
+				"editable": "false",
+				"width":"20%"
+			},
+			{
+				"field": "AGNMACCT",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Account Number",
+				"editable": "false",
+				"width":"20%"
+			}
+		],
+        "operation": {
+            "selectfield": "radio",
+            "jsfunction": "selectValue",
+            "options": ""
+        },
+        "buttons": []
+	},
+    "dataSource": {
+        "type": "SP",
+	"restrictGridData":true,
+        "SP": "BASDBIO008(@query@)",
+        "params": 
+            {
+                "query": [
+                    {
+                        "name": "BC_KEY_MASTER_COMPANY",
+                        "length": "2",
+                        "order":"1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "BCAGENTNUMBER",
+                        "length": "7",
+                        "order":"2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "BCAGENTNAME",
+                        "length": "30",
+                        "fill": " "
+                    },
+                    {
+                        "name": "AGENTNAME2",
+                        "length": "30",
+                        "fill": " "
+                    },
+                    {
+                        "name": "ADDRESS",
+                        "length": "30",
+                        "fill": " "
+                    },
+                    {
+                        "name": "CITY",
+                        "length": "28",
+                        "fill": " "
+                    },
+                    {
+                        "name": "STATE",
+                        "length": "2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "ZIP",
+                        "length": "10",
+                        "fill": " "
+                    },
+                    {
+                        "name": "TELEPHONE",
+                        "length": "13",
+                        "fill": " "
+                    },
+                    {
+		        "name": "PRINCIPAL",
+		        "length": "60",
+		        "fill": " "
+                    },
+		    {
+		        "name": "EXACTSWITCH",
+		        "length": "1",
+		        "fill": " "
+                    },
+                    {
+                        "name": "MAXRECORDS",
+                        "length": "3",
+                        "fill": " "
+                    },
+                    {
+                        "name": "SWITCHWILDCARDAGENTSEARCH",
+                        "length": "6",
+                        "fill": " "
+                    },
+                    {
+                        "name": "AGNMTYPE",
+                        "length": "1",
+                        "fill": " "
+                    },
+					{
+                        "name": "user",
+                        "length": "15",
+                        "fill": " "
+                    }
+                ]
+            }
+        
+    }
+}

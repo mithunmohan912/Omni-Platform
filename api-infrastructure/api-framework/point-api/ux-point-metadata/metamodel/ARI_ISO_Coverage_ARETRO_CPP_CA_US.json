@@ -1,0 +1,383 @@
+{
+  "metadata": {
+    "title": "Auto Retrospective Rating Plan",
+    "properties": [
+      {
+        "name": "DISPLAYSEQ",
+        "value": 99999
+      },
+      {
+        "name": "SCREENIND1",
+        "value": "Y"
+      },
+      {
+        "name": "SCREENIND2",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND3",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND4",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND5",
+        "value": ""
+      }
+    ],
+    "groupid": "CPP",
+    "section": [{
+      "sectionsize": 12,
+      "subsection": [
+        {
+          "element": [
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 4,
+              "name": "COMMON_DESC_RECORD_STATUS",
+              "label": "Status",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "controlgroup": [
+                {
+                  "fieldspan": 6,
+                  "order": 11,
+                  "name": "COVERAGE_KEY_SYMBOL",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 3
+                },
+                {
+                  "fieldspan": 6,
+                  "order": 12,
+                  "name": "COVERAGE_KEY_POLICY_NUMBER",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 6
+                },
+                {
+                  "fieldspan": 6,
+                  "order": 13,
+                  "name": "COVERAGE_KEY_MODULE",
+                  "type": "number",
+                  "disabled": true,
+                  "size": 3
+                }
+              ],
+              "name": "GROUP_COVERAGE_KEY_SYMBOL",
+              "label": "Policy Number",
+              "type": "grouptext"
+            },
+            {
+              "fieldspan": 6,
+              "order": 14,
+              "name": "COVERAGE_KEY_INSURANCE_LINE",
+              "label": "Insurance Line",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 15,
+              "name": "COVERAGE_KEY_PRODUCT",
+              "label": "Product",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 16,
+              "name": "COVERAGE_KEY_UNIT_NUMBER",
+              "label": "Unit",
+              "type": "number",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 17,
+              "name": "COVERAGE_KEY_COVERAGE",
+              "label": "Coverage",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 18,
+              "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+              "label": "Sequence",
+              "type": "number",
+              "disabled": true,
+              "size": 10
+            }
+          ],
+          "subsectiontitle": ""
+        },
+        {
+          "element": [
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 30,
+              "order": 20,
+              "autoformat": true,
+              "name": "A_COVERAGE_RATEBOOK_RATEFILE",
+              "label": "RateBook",
+              "type": "text",
+              "size": 10
+            },
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 19,
+              "order": 22,
+              "name": "A_COVERAGE_RATE_PREMIUM",
+              "label": "Premium",
+              "type": "money",
+              "decimal": 2,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 24,
+              "name": "GC_STATE",
+              "label": "State",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 30,
+              "order": 26,
+              "autoformat": true,
+              "name": "SEARCH_CLASS_CODE_COVERAGE",
+              "label": "Enter the beginning characters of a Class Code or Description to search on",
+              "type": "text",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "buttonid": "ID_Class_Search",
+              "order": 28,
+              "name": "ID_Class_Search",
+              "action": "doClassSearch();",
+              "label": "Class Search",
+              "type": "button",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "controlgroup": [
+                {
+                  "minlength": 0,
+                  "fieldspan": 6,
+                  "maxlength": 30,
+                  "order": 30,
+                  "name": "GC_COVER_CLASS_CODE",
+                  "type": "text",
+                  "size": 1
+                },
+                {
+                  "minlength": 0,
+                  "fieldspan": 6,
+                  "maxlength": 60,
+                  "order": 31,
+                  "name": "GC_COVER_CLASS_DESCRIPTION",
+                  "type": "text",
+                  "size": 11
+                }
+              ],
+              "name": "GROUP_GC_COVER_CLASS_CODE",
+              "label": "Class Code",
+              "type": "grouptext"
+            }
+          ],
+          "subsectiontitle": ""
+        },
+        {
+          "element": [
+            {
+              "name": "DB_BEAN_COVERAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "GC_STDFT_ADDRESS_CITY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "GC_STDFT_COUNTY_CODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "TEMPHASHDATA",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "PROC_LDA_SET_TYPE_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "PROC_LDA_ISSUE_CODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "PROC_MESSAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_EXPIRATION_DATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_MASTER_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_UNIT_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_INSURANCE_LINE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_SYMBOL",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_LOCATION_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_EFFECTIVE_DATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RECORD_STATUS",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_POLICY_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_MODULE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_AGENT_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RISK_SUBLOCATION_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_STATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_COVERAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RISK_LOCATION_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_PRODUCT",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_POLICY_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_LINE_OF_BUSINESS",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "REQUESTCODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "TMPREQUESTCODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "target",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "tmptarget",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "fullkey",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "Refresh",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "DisplayTable",
+              "type": "hidden",
+              "size": 0
+            }
+          ],
+          "subsectiontitle": "hiddenfields"
+        }
+      ]
+    }],
+    "formid": "Coverage"
+  }
+}

@@ -1,0 +1,186 @@
+{
+    "metadata":  {
+                     "groupid":  "",
+                     "formid":  "",
+                     "title":  "Direct Bill Customer Summary",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Master Company",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "mcoNumber",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  "1",
+                                                                                                             "disabled":  "true",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBCommissionSummary",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "mcoName",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "7",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBCommissionSummary",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Agency Number/Name",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "agencyNumber",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBCommissionSummary",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "agencyName",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBCommissionSummary",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvDBCommissionSummaryGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "label":  "",
+                                                                                    "gridId":  "RcvDBCommissionSummaryGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ShowTransactionsButtonSPACER",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "5",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ShowTransactionsButton",
+                                                                                    "type":  "button",
+                                                                                    "disabled":  false,
+                                                                                    "label":  "Show Open Transactions",
+                                                                                    "align":  "center",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  "15",
+                                                                                    "buttonid":  "ShowTransactionsButton",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "Total",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ShowTransactionsButtonSPACER",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "2",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TOT_OUTPUTGROSSPREMIUM",
+                                                                                    "type":  "money",
+                                                                                    "size":  "12",
+                                                                                    "fieldspan":  "3",
+                                                                                    "label":  "Gross Premium",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TOT_OUTPUTCOMMAMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  "12",
+                                                                                    "fieldspan":  "3",
+                                                                                    "label":  "(-)Commission",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TOT_OUTPUTPAIDAMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  "12",
+                                                                                    "fieldspan":  "2",
+                                                                                    "label":  "(+)Paid",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TOT_OUTPUTNETAMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  "12",
+                                                                                    "fieldspan":  "2",
+                                                                                    "label":  "(=)Net Due",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCommissionSummary",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

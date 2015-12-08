@@ -12,9 +12,29 @@
 	<!-- Custom Aggregation Strategy -->
 	<bean id="aggregationStrategy" class="com.csc.eip.strategy.CollectionAggregationStrategy" />
 
+	<!-- Publish/Subscribe Channel -->
+	<bean id="Publish" class="com.csc.eip.pattern.PublishSubscribe">
+		<property name="factory" ref="connectionFactory" />
+	</bean>
+
+	<bean id="configProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:/application.properties</value>
+		</property>
+	</bean>
+
+	<bean id="connectionFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="host" value="${RABBITMQ_HOST}"></property>
+		<property name="username" value="${RABBITMQ_USERNAME}"></property>
+		<property name="password" value="${RABBITMQ_PASSWORD}"></property>
+		<property name="port" value="${RABBITMQ_PORT}"></property>
+	</bean>
+
 	<camelContext id="camelContext" streamCache="true"
 		xmlns="http://camel.apache.org/schema/spring">
-
+		<propertyPlaceholder id="properties"
+			location="classpath:/application.properties" />
 		<restConfiguration component="servlet" host="localhost"
 			bindingMode="json">
 			<dataFormatProperty key="prettyPrint" value="true" />
@@ -25,7 +45,8 @@
 			<post uri="/OCIntegration" consumes="application/json" produces="application/json"
 				type="com.csc.eip.bo.Message" outType="com.csc.eip.bo.Message">
 				<description>Replace all pattern matches in a JSON Message</description>
-				<to uri="bean:OCIntegration?method=replacePattern(${body}, ${header.pattern}, ${header.replacement})" />
+				<to
+					uri="bean:OCIntegration?method=replacePattern(${body}, ${header.pattern}, ${header.replacement})" />
 			</post>
 		</rest>
 
@@ -39,6 +60,35 @@
 				</route>
 			</get>
 		</rest>
+
+		<rest>
+			<description>PUBLISH SUBSCRIBE WITH REGISTRY PATTERN</description>
+			<post uri="/OCIntegration/Publish" produces="application/json"
+				type="com.csc.eip.bo.Message" outType="com.csc.eip.bo.Message">
+				<description>Deliver message to multiple consumers who have subscribed for the activity/event</description>
+				<route>
+					<to
+						uri="bean:Publish?method=publishMessage(${body}, ${properties:{${header.activity}}}, ${properties:{EXCHANGE_NAME}})" />
+				</route>
+			</post>
+		</rest>
+
+		<rest>
+			<description>PIPES AND FILTERS PATTERN</description>
+			<post uri="/OCIntegration/Pipeline" produces="application/json"
+				type="com.csc.eip.bo.Message" outType="com.csc.eip.bo.Message">
+				<description>Processing across multiple independent endpoint instances which are chained together</description>
+				<route>
+					<pipeline>
+						<to
+							uri="bean:OCIntegration?method=replacePattern(${body}, ${header.pattern}, ${header.replacement})" />
+						<to
+							uri="bean:Publish?method=publishMessage(${body}, ${properties:{${header.activity}}}, ${properties:{EXCHANGE_NAME}})" />
+					</pipeline>
+				</route>
+			</post>
+		</rest>
+
 
 		<route>
 			<from uri="direct:serviceAggregate" />

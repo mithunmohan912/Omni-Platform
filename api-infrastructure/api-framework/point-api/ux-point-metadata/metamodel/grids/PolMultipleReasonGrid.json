@@ -1,0 +1,39 @@
+{
+    "dataSource": {
+        "type": "SP",
+        "SP": "BASSYSGRID(@query@)",
+        "params": {
+            "query": [
+                {
+                    "type": "VALUE",
+                    "value": "BASDBIO101"
+                }
+            ]
+        }
+    },
+    "gridMetaData": {
+        "operation": {
+            "jsfunction": "showAlert"
+        },
+ 		"gridType": "selectableGrid",
+        "element": [
+           
+            {
+                "field": "OREASONAMEND",
+                "displayName": "Non Renewal Reason Code",
+                "align": "center",
+                "type": "TEXT",
+                "visible": true,
+                "width": "20%"
+            },
+            {
+                "field": "ODESCRIPTION",
+                "displayName": "Non Renewal Reason Description",
+                "align": "center",
+                "type": "TEXT",
+                "visible": true,
+                "width": "75%"
+            }
+        ]
+    }
+}

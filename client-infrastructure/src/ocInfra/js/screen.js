@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope, $routeParams, $location, MetaData, HttpService) {
+function ScreenController($http, $scope, $rootScope, $routeParams, $location, MetaData, HttpService, dataFactory ) {
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
 	$scope.disableNext = false;
@@ -148,15 +148,8 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 	  $scope.deleteRow = function(row) {
         var listDispScope = angular.element($('.table-striped')).scope();
 		var url = row._link.self.href;
-         var headers = {
-             'Content-Type': 'application/json'
-         };
-         $http({
-             method: 'DELETE',
-             url: url,
-             headers: headers,
-             data: {}
-         });
+		var id='';
+         dataFactory.delete(url,id);
 	     var index=0;
 		 angular.forEach(listDispScope.stTableList, function(item){
            if(item.$$hashKey===row.$$hashKey){
@@ -177,24 +170,17 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 	  $rootScope.step=1;
 
 	   $scope.getenumdata=function(){ 
-
+       
 	   	var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
-         var headers = {
-             'Content-Type': 'application/json'
-         };
-         $http(
-			{
-				method : 'GET',
-				url: url,
-                headers: headers
-                
-			}
-		).success(function(data){
+        
+         	dataFactory.getData(url).success(function(data){
 			 $scope.enumdata=data;
-					});
+					
 
      	
-     };
+     });
+
+ };
 
 
           

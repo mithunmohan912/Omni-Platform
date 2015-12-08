@@ -1,0 +1,105 @@
+{
+  "dataSource": {
+    "SP": "BASWC47T01(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "name": "LOC"
+        },
+		{
+          "name": "MCO"
+        },
+		{
+          "name": "STATE"
+        },
+		{
+          "name": "AUDTYPE",
+		  "length": "1",
+          "fill": " "
+        },
+		{
+          "name": "SYMBOL",
+		  "length": "3",
+          "fill": " "
+        },
+		{
+          "name": "POLNUM",
+		  "length": "7",
+          "fill": " "
+        },
+		{
+          "name": "MOD",
+		  "length": "2",
+          "fill": " "
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Select",
+          "value": "SEL"
+        }
+	  ],
+      "rowactionfunction": "WcvAuditOrderMVSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "OUTPUTVENDORID",
+        "visible": true,
+        "width": "20%",
+        "align": "center",
+        "displayName": "Vendor Id"
+      },
+      {
+        "field": "OUTPUTNAME",
+        "visible": true,
+        "width": "20%",
+        "align": "left",
+        "displayName": "Name"
+      },
+      {
+        "field": "OUTPUTOPTADDR",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Optional"
+      },
+      {
+        "field": "OUTPUTADDR",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Address"
+      },
+      {
+        "field": "OUTPUTCITY",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "City"
+      },
+      {
+        "field": "OUTPUTZIPCODE",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Postal Code"
+      },
+      {
+        "field": "OUTPUTPHONE",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Phone"
+      }
+    ],
+    "title": ""
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "gridMetaData": {
+    "title": "Accounting Period Summary",
+    "gridType":"",
+    "rowTemplate": "",
+    "element": [
+       {
+        "field": "OUTPUTACCTGPERIODTEXT",
+        "displayName": "Accounting Period",
+        "type": "TEXT",
+        "cellTemplate" : "ux/template/cell_link_template.html",
+        "function":"showRcvABAccountingPeriodDetail",
+        "align": "center",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "OUTPUTGROSSPREMIUM",
+        "displayName": "Gross Premium",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "OUTPUTCOMMAMOUNT",
+        "displayName": "(-)Commission",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "OUTPUTPAIDAMOUNT",
+        "displayName": "(+)Paid",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "12%"
+      },
+	  {
+        "field": "OUTPUTNETAMOUNT",
+        "displayName": "(=)Net Due",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "11%"
+      },
+      {
+        "field": "OUTPUTAGENCYMCO",
+        "displayName": "Agency MCO",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "8%"
+      },
+      {
+        "field": "WSMCO",
+        "displayName": "Agency No",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "5%"
+      },
+      {
+        "field": "WSAGENCY",
+        "displayName": "Payby Code",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTPUTACCTGPERIOD",
+        "displayName": "Accounting period",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "5%"
+      },
+      {
+        "field": "OUTPUTTRANSTYPE",
+        "displayName": "TransType",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "8%"
+      },
+      {
+        "field": "OUTPUTPRIORACCTG",
+        "displayName": "Prior Acctg Period",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "5%"
+      }
+    ],
+	"operation": {
+      "jsfunction": "",
+      "options": ""
+    },
+    "buttons": []
+  },
+   "dataSource": {
+    "type": "SP",
+    "SP": "BASRCVL079(@query@)",
+    "params": {
+      "query": [
+        {
+          "name": "mcoNumber",
+          "length": "2"
+        },
+	    {
+        	"name": "agencyNumber"
+        },
+        {
+          "type" : "VALUE",
+          "value" : "A"
+          
+        },
+        {
+          "name": "transType"
+        }
+      ]
+    }
+  }
+}

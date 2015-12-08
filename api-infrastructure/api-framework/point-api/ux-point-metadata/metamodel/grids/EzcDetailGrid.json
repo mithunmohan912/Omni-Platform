@@ -1,0 +1,152 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Edit",
+          "value": "Edit"
+        },
+        {
+          "name": "Ins After",
+          "value": "Ins After"
+        },
+        {
+          "name": "Delete",
+          "value": "Delete"
+        },
+          {
+          "name": "Select",
+          "value": "Select"
+        }
+      ],
+      "rowactionfunction": "ezcDetailGridListAction",
+      "listfunction":"ezcDetailGridListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "title": "",
+    "element": [
+      {
+        "field": "TBEZ_ELEMENT_NO",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Seq Nbr",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "TBEZ_ELEMENT_NAME",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Element Name",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "C3",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Label (first 30-positions)",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "TBEZ_ELEMENT_TYPE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Type",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "TBEZ_ELMNT_MAX_LNGTH",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Length",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "TBEZ_ELEMENT_MASK",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Mask",
+        "editable": "false",
+        "width": "15%"
+      },
+      {
+        "field": "TBEZ_ELMNT_DECIMALS",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Decimal",
+        "editable": "false",
+        "width": "15%"
+      }
+    ],
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT TBEZ_ELEMENT_NO,TBEZ_ELEMENT_NAME,SUBSTRING(TBEZ_ELEMENT_LABEL,1,30),TBEZ_ELEMENT_TYPE,TBEZ_ELMNT_MAX_LNGTH,TBEZ_ELEMENT_MASK,TBEZ_ELMNT_DECIMALS,TBEZ_ELMNT_CURRENCY,TBEZ_ELMNT_REQUIRED FROM TBEZCAP WHERE TBEZ_LOCATION = @WS_EZT_LOC@ and TBEZ_MASTERCO = @WS_EZT_MCO@ and TBEZ_POLICYCO = @WS_EZT_PCO@ and TBEZ_STATE = @WS_EZT_STATE@ and TBEZ_LOB = @WS_EZT_LOB@ and TBEZ_SCREEN_TYPE = @WS_EZT_SCRN_TYP@ and TBEZ_FORMID = @WS_EZT_FORMID@ and TBEZ_VERSION = @WS_EZT_VERSION@ AND TBEZ_EDITION_MMYY = @WS_EZT_EDITION@ ORDER BY TBEZ_ELEMENT_NO",
+    "pagesize": "20",
+    "maxKeySize": "17",
+    "params": {
+      "WS_EZT_LOC": [
+        {
+          "name": "WS_EZT_LOC"
+        }
+      ],
+      "WS_EZT_MCO": [
+        {
+          "name": "WS_EZT_MCO"
+        }
+      ],
+      "WS_EZT_PCO": [
+        {
+          "name": "WS_EZT_PCO"
+        }
+      ],
+      "WS_EZT_STATE": [
+        {
+          "name": "WS_EZT_STATE"
+        }
+      ],
+      "WS_EZT_LOB": [
+        {
+          "name": "WS_EZT_LOB"
+        }
+      ],
+      "WS_EZT_SCRN_TYP": [
+        {
+          "name": "WS_EZT_SCRN_TYP"
+        }
+      ],
+      "WS_EZT_FORMID": [
+        {
+          "name": "WS_EZT_FORMID"
+        }
+      ],
+      "WS_EZT_VERSION": [
+        {
+          "name": "WS_EZT_VERSION"
+        }
+      ],
+      "WS_EZT_EDITION": [
+        {
+          "name": "WS_EZT_EDITION"
+        }
+      ]
+    }
+  }
+}

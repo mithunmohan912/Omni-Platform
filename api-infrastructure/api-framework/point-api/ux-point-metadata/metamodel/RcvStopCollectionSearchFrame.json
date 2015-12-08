@@ -1,0 +1,194 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Search",
+                     "title":  "Policies in Collection",
+                     "gridid":  "FindPolicyForActionGrid",
+                     "defaultsubmitresetbutton":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CUST0NO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvStopCollectionSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Collection Sent Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "COLLSENTDATEFROM",
+                                                                                                             "type":  "date",
+                                                                                                             "maxlength":  "40",
+                                                                                                             "cellTemplate":  "ux/template/DateTemplate.html",
+                                                                                                             "size":  "4",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "TO",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "to",
+                                                                                                             "size":  "1",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "COLLSENTDATETO",
+                                                                                                             "type":  "date",
+                                                                                                             "cellTemplate":  "ux/template/DateTemplate.html",
+                                                                                                             "maxlength":  "11",
+                                                                                                             "size":  "4",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COLAGENCY",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "size":  "3",
+                                                                                    "label":  "Collection Agency",
+                                                                                    "maxlength":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvStopCollectionSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DISPLAYMCO",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Display All MCO\u0027s",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  "3",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvStopCollectionSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COLHIST",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Include Collection History",
+                                                                                    "fieldspan":  "3",
+                                                                                    "options":  {
+                                                                                                    "Yes":  "Y",
+                                                                                                    "No":  "N"
+                                                                                                },
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvStopCollectionSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "label":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Policy_Search_Reset_Button",
+                                                                                                             "gridId":  "RcvStopCollectionSearchGrid",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvStopCollectionSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PolicySearch",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Policy Search",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "RcvStopCollectionSearchGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvStopCollectionSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

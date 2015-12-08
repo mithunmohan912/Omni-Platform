@@ -1,0 +1,76 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "WcpAudHistReview",
+                     "title":  "Audit History Review",
+                     "defaultsubmitresetbuttons":  "No", 
+                     "subtitle":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                 {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  3,
+                                                                                                             "disabled":  "true",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  5,
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  3,
+                                                                                                             "maxlength":  "2",
+                                                                                                             "autoformat":  "true"
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+	                                                            					 "name":  "KEY_AUDIT_FREQ_1",
+	                                                                                 "type":  "hidden",
+	                                                                                 "support":  "false"
+	                                                                            },
+                                                                                {
+	                                                            					 "name":  "KEY_AUDIT_FREQ_2",
+	                                                                                 "type":  "text",
+	                                                                                 "disabled":  "true",
+	                                                                                 "label":  "Policy Audit Frequency",
+	                                                                                 "size":  10,
+	                                                                                 "fieldspan":"6"
+	                                                                            },
+                                                                                {
+                                                                                    "name":  "WcpAudHistReviewGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "WcpAudHistReviewGrid"
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

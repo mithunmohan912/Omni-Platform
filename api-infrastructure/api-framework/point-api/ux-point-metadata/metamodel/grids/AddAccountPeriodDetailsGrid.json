@@ -1,0 +1,91 @@
+{
+  "gridMetaData": {
+    "title": "Cash Accounting Period Details",
+    "gridType":"editAndSelectGrid",
+    "rowTemplate": "",
+    "element": [
+       {
+        "field": "PRDMONTH",
+        "displayName": "Month",
+        "enableCellEdit": false,
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "PRDSTDATE",
+        "displayName": "Period Start Date",
+        "type": "Date",
+        "required" : "required",
+        "align": "center",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "enableCellEdit": true,
+        "disabled": "true",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "PRDENDATE",
+        "displayName": "Period End Date",
+        "type": "Date",
+        "required" : "required",
+        "align": "center",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "enableCellEdit": true,
+        "disabled": "true",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "PRDSTATUS",
+        "displayName": "Period Status (Open/Closed)",
+        "enableCellEdit": false,
+        "cellTemplate": "app/template/selectAccountingType.html",
+        "align": "center",
+        "support" : true,
+        "disabled": "true",
+        "visible": true,
+        "width": "15%"
+      },
+	  {
+        "field": "PRDSEQ",
+        "displayName": "",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "0%"
+      },
+      {
+        "field": "PRDIDDATE",
+        "displayName": "Last Closed(Identify Date)",
+        "type": "TEXT",
+        "enableCellEdit": false,
+        "align": "center",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "PRDIDUSER",
+        "displayName": "Closed By (Identify User)",
+        "type": "TEXT",
+        "enableCellEdit": false,
+        "align": "center",
+        "visible": true,
+        "width": "15%"
+      }
+    ],
+	"operation": {
+      "selectfield": "select",
+      "options": []
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "CSHACCDTDBIO(@query@)",
+    "params": {
+      "query": []
+    }
+  }
+}

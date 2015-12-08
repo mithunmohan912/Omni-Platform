@@ -1,0 +1,721 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvDBBillingRules",
+                     "title":  "Billing Rules",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "T1_MODE_CODE_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Pay Plan Description",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_NUM_OF_INST",
+                                                                                    "type":  "number",
+                                                                                    "label":  "# of Installments",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_1ST_INST_PERCENT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "First Installment Percent",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "4",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_T1_INST_DUE_INTERVAL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Due Date Interval",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "T1_INST_DUE_INTERVAL",
+                                                                                                             "type":  "number",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "7",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DER_INST_DUE_INTERVAL_TYP_DESC",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "8",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_CARRY_DTE_OPTION_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Carry Date Option",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "Label1",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Service Charge Rules",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_SERVICE_CHARGE_TYPE_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Type",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "16",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERV_CHG_BEGIN_WITH_INST",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Begins With Inst #",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERVICE_CHARGE_AMOUNT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "18",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  11,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label2",
+                                                                                    "type":  "label",
+                                                                                    "label":  "or",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  1,
+                                                                                    "size":  6,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "T1_SERV_CHG_FACTOR_AMOUNT",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Percent",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "2",
+                                                                                    "decimal":  "4",
+                                                                                    "size":  12,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "Label3",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Displacement Rules",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "5",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label4",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Due Date Displacement",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  3,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label5",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Late Entry Bill Date Displacement",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "3",
+                                                                                    "size":  3,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label6",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Invoice (N1)",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label7",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "1st Installment Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_1ST_IN_BILL_DSP_NB_RN",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  1,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label8",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Remaining Installments Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_OTHER_IN_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  1,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label6",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Reminder (N2)",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label7",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Send Reminder Notice Indicator",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DER_REMINDER_INDICATOR_DESC",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "5",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label8",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "1st Installment Reminder Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_1ST_IN_REMINDER_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  3,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_LATE_ENTRY_REM_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  3,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label8",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Remaining Installments Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_OTHER_IN_REM_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  1,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Label6",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Pre-Cancel(N3)",
+                                                                                    "disabled":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  4,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label8",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "1st Installment Pre-Cancel Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_1ST_IN_PRE_CAN_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  3,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_LATE_ENTRY_PRE_CANC_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  3,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "Label8",
+                                                                                                             "type":  "label",
+                                                                                                             "label":  "Remaining Install Pre-Cancel Send Disp",
+                                                                                                             "disabled":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "7",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "T1_OTHER_IN_PRE_CAN_BILL_DISP",
+                                                                                                             "type":  "number",
+                                                                                                             "label":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "41",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "size":  1,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "Hyperlink_Late_Entered",
+                                                                                    "type":  "labelHyperlink",
+                                                                                    "labelForHyperlink":  "Late Entered",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_BILLING_CTRL_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Billing Control",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "maxlength":  "11",
+                                                                                    "order":  "48",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_COLLECTION_MTD_DESC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Collection Method",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "maxlength":  "11",
+                                                                                    "order":  "49",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "size":  6,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_T8_DESCRIPTION",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Self Destruct",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "maxlength":  "11",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "T8_DESCRIPTION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "50",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "12",
+                                                                                                             "size":  6,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvDBBillingRules",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "I8_COLLECTION_MTD_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBBillingRules",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

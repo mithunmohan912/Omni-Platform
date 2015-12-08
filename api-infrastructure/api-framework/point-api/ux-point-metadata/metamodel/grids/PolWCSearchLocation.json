@@ -1,0 +1,142 @@
+{
+  "dataSource" : {
+    "SP" : "BASSYSGRID(@query@)",
+    "type" : "SP",
+	"params": {
+      "query": [
+		{
+          "type": "VALUE",
+          "value": "BASBLOCIMP"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex" : "17"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex" : "5"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex" : "3"
+        },
+        {
+          "type": "VALUE",
+          "value": " "
+        },
+        {
+          "name": "STATE",
+          "fill":" ",
+          "length":"2"
+        },
+        {
+          "name": "SITE",
+          "fill":" ",
+          "length":"5"
+        },
+        {
+          "name": "FEIN",
+          "fill":" ",
+          "length":"9"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Display",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "PolWCSearchLocationAction",
+      "jsfunction": "selectRowforAction"
+    },
+    "element" : [ {
+      "field" : "SITES",
+      "visible" : true,
+      "width" : "5%",
+      "align" : "left",
+      "displayName" : "Location/Site"
+    }, {
+      "field" : "FEIN",
+      "visible" : true,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "FEIN"
+    }, {
+      "field" : "NAME",
+      "visible" : true,
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Name"
+    }, {
+      "field" : "ADDRESS",
+      "visible" : true,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "Address"
+    }, {
+      "field" : "CITY",
+      "visible" : true,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "City"
+    }, {
+      "field" : "STATE",
+      "visible" : true,
+      "width" : "5%",
+      "align" : "left",
+      "displayName" : "State"
+    }, {
+      "field" : "LOC",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "LOC"
+    }, {
+      "field" : "MCO",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "MCO"
+    }, {
+      "field" : "SYMBOL",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "SYMBOL"
+    }, {
+      "field" : "POLICYNO",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "POLICYNO"
+    }, {
+      "field" : "MODULE",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "MODULE"
+    }, {
+      "field" : "fetchStateCodebaspwc04e2RecgetState",
+      "visible" : false,
+      "width" : "10%",
+      "align" : "left",
+      "displayName" : "STATECODE"
+    } ]
+  }
+}

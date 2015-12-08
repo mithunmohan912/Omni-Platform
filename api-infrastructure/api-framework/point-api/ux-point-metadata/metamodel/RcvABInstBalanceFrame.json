@@ -1,0 +1,418 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "RcvABInstBalanceFrame",
+                     "title":  "Receivables - Billing Summary",
+                     "gridid":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "D0_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  2,
+                                                                                                             "disabled":  "true",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABInstBalanceFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "D0_POLICY_NUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  6,
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABInstBalanceFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "D0_POLICY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  2,
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABInstBalanceFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_NAME_OF_INSURED",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Insured",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "256",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_POLICY_EFFECTIVE_DATE",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Effective Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_POLICY_EXPIRATION_DATE",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_D0_AGENT_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "label":  "Agent",
+                                                                                    "fieldspan":  6,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "D0_POLICY_AGENCY",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "5",
+                                                                                                             "placeholder":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "7",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABInstBalanceFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DER_AGENCY_NAME",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "23",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  7,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+                                                                                                                                {
+                                                                                                                                    "name":  "indicator",
+                                                                                                                                    "value":  "update"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "RcvABInstBalanceFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  2
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_PAYPLAN_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "label":  "Pay Plan",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_CURRENT_INSTALLMENT",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Current Installment",
+                                                                                    "fieldspan":  "12",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "5",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_GROSS_PREMIUM",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Gross",
+                                                                                    "fieldspan":  "8",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "5",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_POLICY_TOTAL_BILLED",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Billed",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_POLICY_COMMISSION_AMT",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Commission",
+                                                                                    "fieldspan":  8,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "5",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_COLLECTABLE_PREMIUM",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Collectable",
+                                                                                    "fieldspan":  8,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  5,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_USER_AMOUNT_10",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Paid",
+                                                                                    "fieldspan":  8,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  4,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_DUE_AMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Due",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "D0_POLICY_BALANCE",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "label":  "Policy Balance",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  8,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "RcvABInstBalanceFrameGrid",
+                                                                                    "disabled":  "false",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "RcvABInstBalanceFrameGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "All_Installments",
+                                                                                    "type":  "button",
+                                                                                    "disabled":  "false",
+                                                                                    "label":  "All Installments",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  "8",
+                                                                                    "buttonid":  "All_Installments",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvABInstBalanceFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

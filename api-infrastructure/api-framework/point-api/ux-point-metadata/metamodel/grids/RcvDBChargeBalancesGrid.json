@@ -1,0 +1,39 @@
+{
+  "gridMetaData": {
+    "title": "Charge Balances",
+    "element": [
+      {
+        "field": "ADJ_TRANS_CODE",
+        "visible": true,
+        "width": "60%",
+        "align": "center",
+        "enableCellEdit": false,
+        "displayName": "Charge"
+      },
+      {
+        "field": "ADJ_BALANCE",
+        "visible": true,
+        "width": "40%",
+        "align": "left",
+        "enableCellEdit": false,
+        "type": "money",
+        "cellTemplate": "ux/template/CurrencyTemplate.html", 
+        "displayName": "Balance"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": "",
+      "jsfunction": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+  "type": "SP",
+    "SP": "CSHACCDTDBIO(@query@)",
+    "params": {
+      "query": []
+  
+   }
+  }
+}

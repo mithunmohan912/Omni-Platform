@@ -1,0 +1,73 @@
+{
+  "gridMetaData": {
+    "title": "State/Line of Business selection",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "BC_RISK_STATE",
+        "displayName": "State Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+         "width": "20%"
+      },
+      {
+        "field": "COMMON_DESC_STATE",
+        "displayName": "State Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "30%"
+      },
+      {
+        "field": "BC_LINE_OF_BUSINESS",
+        "displayName": "Line of Business",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "COMMON_DESC_LINE_OF_BUSINESS",
+        "displayName": "Line of Business Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "30%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "filename": "TBTS01,TBTS02,TBTL17",
+    "SQL": "SELECT STATEABBRV AS BC_RISK_STATE ,STATENAME AS COMMON_DESC_STATE,TL17LINBUS AS BC_LINE_OF_BUSINESS,LNBUSDCDAT AS COMMON_DESC_LINE_OF_BUSINESS FROM TBTS01,TBTS02,TBTL17 WHERE STATECDKEY = STCDNAMKEY AND STCDNAMKEY = TL17STATE AND TL17LOC ='99' AND STATEABBRV >= @BC_INSURED_ADDRESS_STATE@ AND TL17MCO ='99' union all SELECT STATEABBRV ,STATENAME ,TL17LINBUS ,LNBUSDCDAT  FROM TBTS01,TBTS02,TBTL17 WHERE STATECDKEY = STCDNAMKEY AND STCDNAMKEY = TL17STATE AND TL17LOC = @BC_KEY_LOCATION_COMPANY@ AND STATEABBRV >= @BC_INSURED_ADDRESS_STATE@ AND TL17MCO =@BC_KEY_MASTER_COMPANY@",
+    "pagesize": "10",
+    "params": {
+      "BC_KEY_LOCATION_COMPANY": [
+        {
+          "name":"BC_KEY_LOCATION_COMPANY"
+        }
+      ],
+      "BC_KEY_MASTER_COMPANY": [
+        {
+          "name":"BC_KEY_MASTER_COMPANY"
+        }
+      ],
+      "BC_INSURED_ADDRESS_STATE": [
+        {
+          "name":"BC_INSURED_ADDRESS_STATE"
+        }
+      ]
+    }
+  }
+} 
