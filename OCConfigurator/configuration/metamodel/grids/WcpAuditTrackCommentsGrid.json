@@ -1,0 +1,127 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASWC37T01"          
+        },
+        {
+          "name": "KEY_LOCATION"
+        },
+        {
+          "name": "KEY_MCO"
+		},
+        {
+          "name": "KEY_POLICY_SYMBOL"
+        },
+        {
+          "name": "KEY_POLICY_NUMBER"
+        },
+        {
+          "name": "KEY_POLICY_MODULE"
+        },
+        {
+          "name": "KEY_STATE_NUMBER"
+        },
+        {
+          "name": "KEY_SITE_NUMBER"
+        },
+        {
+          "name": "KEY_AUDIT_KIND"
+        },
+        {
+          "name": "AUDIT_EFF_DTE"
+		},
+        {
+          "name": "KEY_AUDIT_SEQUENCE"
+        },
+        {
+          "name": "TYPE_OF_COMMENT"
+        },
+        {
+          "name": "AUDIT_EXP_DTE"
+        },
+        {
+          "type": "VALUE",
+          "value": " "
+        },
+        {
+          "name": "USER"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+      "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "View",
+          "value": "VW"
+        },
+        {
+          "name": "Change",
+          "value": "CHG"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        }
+      ],
+      "rowactionfunction": "WCPAuditCommentsList",
+      "listfunction": "WCPAuditCommentsFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": [],
+    "element": [
+      {
+		"field":"button",
+		"displayName":"Action",
+		"cellTemplate":"ux/template/auditRowActionTemplate.html",
+		"align":"center",
+		"editable":"false",
+		"visible":false,
+		"width":"10%"
+      },
+      {
+        "field": "OUTPUTENTRYDATE",
+        "visible": true,
+        "width": "20%",
+        "align": "center",
+        "displayName": "Entry Date"
+      },
+      {
+        "field": "OUTPUTCOMMENTTYPE",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Comment Type"
+      },
+      {
+        "field": "OUTPUTSUBJECT",
+        "visible": true,
+        "width": "30%",
+        "align": "center",
+        "displayName": "Subject"
+      },
+      {
+        "field": "OUTPUTENTRYTIME",
+        "visible": true,
+        "width": "20%",
+        "align": "center",
+        "displayName": "Entry Time"
+      },
+      {
+        "field": "OUTPUTCOMMENTUSER",
+        "visible": true,
+        "width": "20%",
+        "align": "center",
+        "displayName": "User Id"
+      }
+    ],
+    "title": "Search Results"
+  }
+}

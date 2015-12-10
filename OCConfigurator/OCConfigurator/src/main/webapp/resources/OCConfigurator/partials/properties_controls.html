@@ -1,0 +1,249 @@
+<div id="fieldProperty" class="span3 " style="margin: 0px; display:block;">
+	<div id="arrowDiv" class="arrow-left">
+				</div>
+	<div class="well theme sidebar-nav" style="height: 100%;">
+		
+		<h4 class="staticdatabar property-header">Properties</h4>
+		<img src="img/cross.png" class="property-image" onclick="$('#fieldProperty').hide();" >
+		<ul class="nav nav-tabs nav-stacked property-list">
+			<!--in progress item Rendering the code dynamically from properties_control.json: Commented 
+      	   			 <div class="input" ng-repeat="prop in properties">
+	           		 <label for="{{prop.id}}">{{prop.label}}</label>	            
+	        		 <ng-switch on="prop.type">
+							<input id="{{prop.id}}" ng-switch-default  ng-model="properties[prop.model]"  ng-required style="font-size:10pt; height:15px;">	         
+	          				 <select id="{{prop.id}}" ng-switch-when="select"  ng-required style="font-size:10pt; height:15px;" ng-model="prop.model">
+			   				 <option ng-repeat="option in prop.options" value="{{option.value}}">{{option.name}}</option>
+			  			 </select>
+			  			 </ng-switch>
+			         </div>-->
+			<!--View Level Properties Section -->
+			<!--View Level Properties Section -->
+			<!--View Level Properties Section -->
+			<!--View Level Properties Section -->
+			<li id="ViewLevelProperties">
+				<div class="input">
+					<label for="title" class="property-label">View Title:</label> <input type="text"
+						id="title" ng-required ng-model="mainView.title"
+						style="font-size:10pt; height:15px;">
+				</div>
+				<div class="input">
+					<label for="subtitle" class="property-label">Sub Title:</label> <input
+						ng-click="updatePageProp()" type="text" id="subtitle" ng-required
+						ng-model="mainView.subtitle" style="font-size:10pt; height:15px;">
+				</div>
+				<div class="input">
+					<label for="groupid" class="property-label">Group ID:</label> <input
+						ng-click="updatePageProp()" type="text" id="groupid" ng-required
+						ng-model="mainView.groupid" style="font-size:10pt; height:15px;">
+				</div>
+				<div class="input">
+					<label for="formid" class="property-label">Form ID:</label> <input
+						ng-click="updatePageProp()" type="text" id="formid"
+						ng-model="mainView.formid" style="font-size:10pt; height:15px;" ng-required
+						auto-complete ui-items="screens">
+				</div>
+			</li>
+			<!--Group Level Properties Section -->
+			<!--Group Level Properties Section -->
+			<!--Group Level Properties Section -->
+			<!--Group Level Properties Section -->
+			<li id="GroupLevelProperties">
+				<div class="input">
+					<label for="newField-name" class="property-label">Field Name:</label> <input type="text"
+						id="newField-name" ng-model="newField.name" style="font-size:10pt; height:15px;"
+						ng-required auto-complete ui-items="attrs" ng-change="UpdateElementProp(newField)">
+				</div>
+				<div class="input">
+					<label for="newField-required" class="property-label">Required:</label> <select
+						id="newField-required" ng-model="newField.required"
+						style="font-size:10pt; height:20px;" ng-required>
+						<option value="false" selected="selected">false</option>
+						<option value="required">true</option>
+					</select>
+				</div>
+				<div class="input">
+					<label for="newField-type" class="property-label">Field Type:</label> <select
+						id="newField-type" ng-model="newField.type" ng-required
+						style="font-size:10pt; height:20px;">
+						<option value="text" selected="selected">Text</option>
+						<option value="radio">Radio Buttons</option>
+						<option value="select">Drop Menu (Select)</option>
+						<option value="multiple">Multi-Select</option>
+						<option value="checkbox">Toggle (Checkbox)</option>
+						<option value="checkboxes">Checkboxes</option>
+						<option value="textarea">Paragraph(s)</option>
+						<option value="date">Date</option>
+						<option value="number">Number</option>
+						<option value="money">Money</option>
+						<option value="url">Url</option>
+						<option value="phone">Phone</option>
+						<option value="email">Email</option>
+						<option value="header">Heading</option>
+						<option value="searchtext">Search Text</option>
+						<option value="button">Button</option>
+					</select>
+				</div>
+				<div class="input">
+					<label for="newField-label" class="property-label">Label Text:</label> <input type="text"
+						ng-required id="newField-label" ng-model="newField.label"
+						style="font-size:10pt; height:15px;">
+				</div>
+				<div class="input">
+					<label for="newField-placeholder" class="property-label">Placeholder Text:</label> <input
+						type="text" id="newField-placeholder"
+						ng-model="newField.placeholder" style="font-size:10pt; height:15px;" ng-required>
+				</div>
+				
+				<div class="input">
+					<label for="newField-fieldspan" class="property-label">Field Span:</label> <input
+						type="text" id="newField-fieldspan" ng-model="newField.fieldspan"
+						style="font-size:10pt; height:15px;" ng-required>
+				</div> 
+				
+				<div id="stateGroup">
+					<label class="property-label">State/Class:</label>
+					<select style="font-size:10pt; height:20px;" ng-model="stateclassitem" ng-change="toggleStateClass(this)">
+			     <option value=""></option>
+			     <option value="S">S</option>
+			     <option value="C">C</option>
+			     </select>
+				</div>
+				
+				<div id="defaultGroup">
+					<label class="property-label">Default to:</label>
+					<select id="stclcd" style="font-size:10pt; height:20px;">
+			     <option ng-repeat="cd in stateclasscd" value="{{cd}}">{{cd}}</option>
+			     </select>
+			      <input type="text" id="stclcdtext" style="font-size:10pt; height:15px; display:none">
+				</div>
+					 
+			      			
+				<ng-switch on="typeSwitch(newField.type)">
+				<fieldset ng-switch-when="grouptext">
+					<div class="input">
+						<label class="property-label">Group Control Count:</label> <input
+							type="text" id="fieldcount" ng-model="newField.controlCount"
+							style="font-size:10pt; height:15px;" ng-required ng-change="updateGroupControl(newField, this)">
+					</div>
+				</fieldset>
+				
+				<fieldset ng-switch-when="multiple">
+
+					<legend>
+						<strong>Option:</strong>
+						<!-- <button class="btn" ng-click="addOption()">Add Option</button> -->
+						<i class="icon-plus-sign-alt" style="cursor:pointer;" ng-click="addOption()"></i>
+					</legend>
+					<div class="newOption"
+						ng-repeat="option in newField.options | orderBy:order">
+						<!-- <strong>Option:</strong> -->
+						<!-- <button class="btn" ng-click="splice(option, newField.options)">Remove</button> -->
+						<i class="icon-minus-sign-alt" ng-click="splice(option, newField.options)" style="cursor:pointer;"></i>
+						<label class="property-label"> Name: <input type="text" ng-model="option.name"
+							ng-required style="font-size:10pt; height:15px;" class="property-label-option">
+						</label> <label class="property-label"> Value: <input type="text" ng-model="option.value"
+							style="font-size:10pt; height:15px;" class="property-label-option">
+						</label> <label class="property-label"> Order: <input type="number"
+							ng-model="option.order" style="font-size:10pt; height:15px;" class="property-label-option">
+						</label>
+					</div>
+				</fieldset>
+				<span ng-switch-when="checkbox"></span> <span
+					ng-switch-when="header"></span> </ng-switch>
+
+
+			</li>
+			<li id="SectionLevelProperties">
+				<div class="input">
+					<label for="columnsize" class="property-label">Section Column Size:</label> <input
+						type="text" id="columnsize" ng-model="newSection.columnsize"
+						style="font-size:10pt; height:15px;" ng-required>
+				</div>
+			</li>
+			<li id="GroupElementLevelProperties">
+				<div class="input">
+					<label for="newField-name" class="property-label">Field Name:</label> <input type="text"
+						id="newField-name" ng-model="newField.name" style="font-size:10pt; height:15px;"
+						ng-required auto-complete ui-items="attrs" ng-change="UpdateElementProp(newField)">
+				</div>
+				<div class="input">
+					<label for="newField-type" class="property-label">Field Type:</label> <select
+						id="newField-type" ng-model="newField.type" ng-required
+						style="font-size:10pt; height:20px;">
+						<option value="text" selected="selected">Text</option>
+						<option value="radio">Radio Buttons</option>
+						<option value="select">Drop Menu (Select)</option>
+						<option value="multiple">Multi-Select</option>
+						<option value="checkbox">Toggle (Checkbox)</option>
+						<option value="checkboxes">Checkboxes</option>
+						<option value="textarea">Paragraph(s)</option>
+						<option value="date">Date</option>
+						<option value="number">Number</option>
+						<option value="money">Money</option>
+						<option value="url">Url</option>
+						<option value="phone">Phone</option>
+						<option value="email">Email</option>
+						<option value="header">Heading</option>
+						<option value="searchtext">Search Text</option>
+						<option value="button">Button</option>
+					</select>
+				</div>
+				<div class="input">
+					<label for="newField-placeholder" class="property-label">Placeholder Text:</label> <input
+						type="text" id="newField-placeholder"
+						ng-model="newField.placeholder" style="font-size:10pt; height:15px;" ng-required>
+				</div>
+				<div class="input">
+					<label for="newField-size" class="property-label">Field Size:</label> <input type="text"
+						id="newField-size" ng-model="newField.size" style="font-size:10pt; height:15px;"
+						ng-required>
+
+				</div>
+				<div id="stateElement">
+						<label class="property-label">State/Class:</label>
+					<select style="font-size:10pt; height:20px;" ng-model="stateclassitem" ng-change="toggleStateClass(this)">
+			     <option value=""></option>
+			     <option value="S">S</option>
+			     <option value="C">C</option>
+			     </select>
+				</div>
+				
+				<div id="defaultElement">
+						<label class="property-label">Default to:</label>
+					<select id="stclcdE" style="font-size:10pt; height:20px;">
+			     <option ng-repeat="cd in stateclasscd" value="{{cd}}">{{cd}}</option>
+			     </select>
+			      <input type="text" id="stclcdtextE" style="font-size:10pt; height:15px; display:none">
+				</div>
+				<ng-switch on="typeSwitch(newField.type)">
+
+				<fieldset ng-switch-when="multiple">
+
+					<legend>
+						<button class="btn" ng-click="addOption()">Add Option</button>
+					</legend>
+					<div class="newOption"
+						ng-repeat="option in newField.options | orderBy:order">
+						<strong>Option:</strong>
+						<button class="btn" ng-click="splice(option, newField.options)">Remove</button>
+						<label class="property-label"> Name: <input type="text" ng-model="option.name"
+							ng-required style="font-size:10pt; height:15px;">
+						</label> <label class="property-label"> Value: <input type="text" ng-model="option.value"
+							style="font-size:10pt; height:15px;">
+						</label> <label class="property-label"> Order: <input type="number"
+							ng-model="option.order" style="font-size:10pt; height:15px;">
+						</label>
+					</div>
+				</fieldset>
+				<span ng-switch-when="checkbox"></span> <span
+					ng-switch-when="header"></span> </ng-switch>
+			</li>
+
+
+
+		</ul>
+	</div>
+	<!--/.well -->
+
+</div>
+<!--/span-->

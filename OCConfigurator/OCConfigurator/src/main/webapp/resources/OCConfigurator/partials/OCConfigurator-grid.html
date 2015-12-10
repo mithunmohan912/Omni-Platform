@@ -1,0 +1,19 @@
+<!--CANVAS Main form -->
+<ng-include id="sidebar" src="sidebarTemplate" class="span2" style="float:left;margin:10px; margin-top:0px;"></ng-include>
+<div class="container-fluid">
+	<form class="span11 form-horizontal canvas-form" style="margin:0px;" >
+		<div class="uppersectiondiv" >
+           	<div id="subsection" class="subsectiondiv">
+				<div ng-click="editGridField(field,'grid', $event)" style="cursor:pointer;">
+                	<img id="fieldDelete" src="img/cross.png" ng-click="deleteField($event)" class="" style="float:right; cursor:pointer; display:none;"  title="Delete Field" alt="X">
+                  	<ng-include src="gridTemplate"></ng-include>
+                </div>     	
+			</div>
+		</div>
+		
+	</form>
+	<!-- <ng-include src="previewMetadata"></ng-include> -->
+</div>
+
+
+

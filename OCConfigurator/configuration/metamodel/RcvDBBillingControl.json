@@ -1,0 +1,311 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvDBBillingControl",
+                     "title":  "Billing Control",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "I8_BILLING_CONTROL_SEQ",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Seq #",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "4",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_BILLING_CTRL_EFF_DATE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "6",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_INST_ROLL_TOLERANCE_DOL_DUE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Roll Tolerance Amount for Installments that are Underpaid",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_INST_ROLL_TOLERANCE_PCT_DUE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Roll Tolerance Percent for Installments that are Underpaid",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_LAST_IN_MINIMUM_BILL_AMT",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Control Last Installment Billing based on Minimum Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "13",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_REBILL_UNDERPAY_DESC",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Re-bill following Underpayment Received",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "15",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_RE_BILL_UNDERPAID_PRT_DSP",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Print Displacement (# days)",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "17",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_POLICY_WAIVE_DOL_AMT_DUE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Waive Due Amount/Percent",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "22",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_POLICY_WAIVE_PCT_AMT_DUE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "/",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_POLICY_WAIVE_OVERPAY_AMT",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Waive Policy Credit",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "24",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_POLICY_EXPIRED_WAIVE_DISP",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Waive # of days Displacement",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_RFND_CANCEL_EFF_DISP",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Cancellation # of Days",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "32",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_RFND_RTRN_PREM_EFF_DISP",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Return Premium  # of Days",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "33",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TA_RFND_OVERPAY_ENTRY_DISP",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Overpayment # of Days",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "34",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_REFUND_AUDIT_POL_DESC",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Refund Auditable Policy after cancellation",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "35",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_TA_FINAL_AUDIT_EFF_DISP",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Final Audit # of Days",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "TA_FINAL_AUDIT_EFF_DISP",
+                                                                                                             "page":  "RcvDBBillingControl",
+                                                                                                             "type":  "number",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "36",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "RcvDBBillingControl",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

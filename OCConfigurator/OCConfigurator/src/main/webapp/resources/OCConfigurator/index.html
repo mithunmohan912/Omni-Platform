@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ux">
+  <head>
+    <meta charset="utf-8">
+    <title>CSC OCConfigurator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="CSC">
+
+    
+    <!-- Generic browser tab/window/bookmark icon -->
+  	<link rel="shortcut icon" href="ux/icons/App_76x76.png">
+ 
+  	<!-- Touch screen bookmark icons -->
+  	<link rel="apple-touch-icon" sizes="76x76" href="ux/icons/App_76x76.png">
+  	<link rel="apple-touch-icon" sizes="120x120" href="ux/icons/App_120x120.png">
+  	<link rel="apple-touch-icon" sizes="152x152" href="ux/icons/App_152x152.png">
+ 
+  	<!-- Splash/launch image  -->
+  	<link rel="apple-touch-startup-image" sizes="1024x768" href="ux/images/splash/ipad-splash-hz.png">
+  	<link rel="apple-touch-startup-image" sizes="768x1024" href="ux/images/splash/ipad-splash-vt.png">
+    
+	
+ 	
+ 	<link rel="stylesheet" href="lib/angular/ui/ng-grid/ng-grid.css">
+ 	<link rel="stylesheet" href="lib/angular/ui/angular-ui.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" id="theme" >
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-multiselect.css">    
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" >
+	<link rel="stylesheet" href="lib/jquery/jquery-ui.css">
+ 		
+	<link rel="stylesheet" href="css/slide.css">
+ 	<link rel="stylesheet" href="css/jsondiffpatch.html.css" type="text/css" media="screen" />
+    
+    
+        
+       
+	
+	<link rel="stylesheet" href="css/ux/ux.css">
+	
+	<link rel="stylesheet" href="css/canvas.css">
+	
+  </head>
+
+  <body ng-controller="HandleClick" ng-click="closeProperties()" hideerror>
+<div >
+    <div id="header" ng-include class="navbar navbar-inner navbar-fixed-top" src='"partials/header.html"' ng-controller='HeaderCtrl' ></div>
+  		<div id="errorPopup" class="alert alert-info  affix" style="display: none;">
+			<div id="errorIcon" class="error-icon icon-3x"></div> 
+			<div><p id="errorMessage" class="error-text"></p></div>
+		</div>
+  	 
+    <div id="outerpart" class="outerdiv canvas-outerdiv">
+		<div ng-view text-align="center"></div>
+			
+	</div>	
+</div>
+		
+		 <div class="footerdiv" ng-include src='"partials/footer.html"' ng-controller='FooterCtrl' >
+   		</div><!--/.fluid-container-->
+   	<script type="text/ng-template" id="InProgress.html">
+        <div class="modal-body imgLoading"></div> 
+	</script>
+	
+
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="lib/jquery/jquery-1.10.2.min.js"></script>
+	<script src="lib/jquery/jquery-ui.js"></script>
+	<script src="lib/jquery/jquery.validate.js"></script>
+	
+	<script src="lib/bootstrap/js/bootstrap-transition.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-alert.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-modal.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-tab.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-tooltip.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-popover.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-button.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-collapse.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-carousel.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-typeahead.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-affix.js"></script>
+	<script src="lib/bootstrap/js/bootstrap-multiselect.js"></script>
+	
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-resource.js"></script>
+	<script src="lib/angular/ui/angular-ui.js"></script>
+	<script src="lib/angular/ui/bootstrap/ui-bootstrap-0.5.0.js"></script>
+	<script src="lib/angular/ui/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+	<script src="lib/angular/ui/ng-grid/ng-grid.js"></script>
+	<script src="lib/angular/slider.js"></script>	
+    
+    
+         
+    <script type="text/javascript" src="js/implJSONdiff.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/directives.js"></script>
+	<script src="js/factory.js"></script>
+	<script src="js/filters.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/ValidationEngine.js"></script>
+	<script src="js/pagetheme.js"></script>
+	<script src="js/resizeText.js"></script> 
+	<!-- <script src="js/navigation.js"></script>  -->
+	
+</body>
+</html>

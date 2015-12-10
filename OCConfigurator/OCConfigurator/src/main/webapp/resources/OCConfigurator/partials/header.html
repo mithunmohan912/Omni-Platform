@@ -1,0 +1,218 @@
+<div class="navbar-inner">
+    <div class="header container-fluid">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="#"><div class="imglogo"></div><span class="headertext">OCConfigurator</span></a>
+       <div class="nav-collapse collapse" id="headerLinks">
+        	
+        	<ul class="nav nav-pills pull-right" id="themeSwitcher" style="display:none;">        	
+        	  <li class="dropdown">
+ 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+     				<i class="icon-camera-retro icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Change the theme of the View')" ng-mouseleave="hideHintPopup('canvashintdiv')"  ></i>
+     				<b class="caret"></b>
+   				</a>
+   				<ul class="dropdown-menu">
+   					<li><a href="javascript:updateTheme('csctheme')">UX Theme</a></li>
+   					<li class="divider"></li>
+					<li><a href="javascript:updateTheme('b_simplex')">Simplex</a></li>
+					<li><a href="javascript:updateTheme('b_readable')">Readable</a></li>
+					<li><a href="javascript:updateTheme('b_cyborg')">Cyborg</a></li>
+ 					<li><a href="javascript:updateTheme('b_cerulean')">Cerulean</a></li>
+ 					<li><a href="javascript:updateTheme('b_flatly')">Flatly</a></li>
+ 					<li><a href="javascript:updateTheme('b_slate')">Slate</a></li>
+ 				</ul>
+			  </li>
+			  </ul>
+			  
+			  <ul class="nav nav-pills pull-right" id="previewmenu" style="display:none;">
+			  <li class="dropdown">
+			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+     				<i class="icon-eye-open icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Preview of the designed View')" ng-mouseleave="hideHintPopup('canvashintdiv')"  ></i>
+     				<b class="caret"></b>
+   				</a>
+			  <ul class="dropdown-menu">
+   					<li style="text-align: center; cursor : pointer;"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Desktop')" ng-mouseleave="hideHintPopup('canvashintdiv')"  ng-click="submitToNewWindow('#/OCConfigurator-preview/' + window.location.hash.split('/')[2], 'LARGE')"><a role="menuitem"><i class="icon-desktop icon-large"></i></a></li>   					
+   					<li style="text-align: center; cursor : pointer;"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Phone')" ng-mouseleave="hideHintPopup('canvashintdiv')" ng-click="submitToNewWindow('#/OCConfigurator-preview/' + window.location.hash.split('/')[2], 'MOBILE')"><a role="menuitem"><i class="icon-mobile-phone icon-large"></i></a></li>
+   					<li style="text-align: center; cursor : pointer;"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Tablet')" ng-mouseleave="hideHintPopup('canvashintdiv')"  ng-click="submitToNewWindow('#/OCConfigurator-preview/' + window.location.hash.split('/')[2], 'TABLET')"><a role="menuitem"><i class="icon-tablet icon-large"></a></i></li>
+   					</ul>
+			 
+    
+			  </li>
+			</ul>
+	<!-- 		<ul class="nav nav-pills pull-right" id="editmenu" style="display:none;">
+			  <li class="dropdown">
+			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+     				<i class="icon-cogs icon-large"></i>
+     				<b class="caret"></b>
+   				</a>
+			  <ul class="dropdown-menu">
+   				<li><a href="javascript:void(0);" ng-click="undoChanges()">Undo</a></li>
+   				<li><a href="#">Redo</a></li>	
+   					</ul>
+			 
+    
+			  </li>
+			</ul> -->
+			
+			<i id="jsonEditor" class="icon-edit icon-large canvas-icon" ng-click="openJSONEditor()"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'JSON Editor')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+			
+			<i id="gridJSONEditor" class="icon-edit icon-large canvas-icon" ng-click="gridJSONEditor()" title="Grid JSON Editor"></i>
+			
+			<!-- <i id="advJsonEditor" class="icon-edit icon-large canvas-icon" ng-click="openAdvEditor()" title="Advance JSON Editor."></i>
+			
+			<i id="jsonEditor" class="icon-film icon-large canvas-icon" ng-click="openEditor()" title="JSON Editor."></i>
+			 -->
+			<!-- <ul class="nav nav-pills pull-right" id="showJSON" style="display:none;" >
+			  <li class="dropdown" >
+			  	<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="showJSON()">
+     				<i class="icon-film icon-large" title="Watch the meta model JSON." ></i>
+     				<b class="caret"></b>
+   				</a>
+   				<ul class="dropdown-menu" style="width:550px;height:500px; overflow-y:scroll;">
+   					<li>
+   						
+   							<div id="jsonPopup" ng-click="showJSON()">	
+			  					<img id="hideJSON" src="img/cross.png" onclick="$('#jsonPopup').hide();" style="position:fixed; margin-left:550px; cursor:pointer; z-index:1000; ">
+			      				<pre>
+					           		{{prettyJSON}}
+					           	</pre>
+			      			</div>
+   						
+   					</li>   					
+   				</ul>
+  				
+			  </li>
+			</ul> -->
+			<!-- <i popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" popover-placement="bottom" id="redomenu" class="icon-repeat icon-large canvas-icon" ng-click="redoChanges()" title="Redo changes."></i> -->
+			<!-- <i popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" popover-placement="bottom" id="editmenu" class="icon-undo icon-large canvas-icon" ng-click="undoChanges()" title="Undo changes."></i> -->
+			
+			<ul class="nav nav-pills pull-right" id="redomenu" style="display:none;">
+			  <li class="dropdown">
+			  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i id="redoList" class="icon-repeat icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Redo List')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+     				<b class="caret"></b>
+   				</a>  			
+			  	  <ul id="rmList" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+   						<li role="presentation" ng-repeat="items in redoList| orderBy:'id':reverse=true" ng-click="redoChanges(this)"> <a role="menuitem" href="javascript:void(0);">{{items.item}}</a></li>   					
+   						   					
+   					</ul>
+			  </li>
+			</ul>
+			
+			<ul class="nav nav-pills pull-right" id="editmenu" style="display:none;">
+			  <li class="dropdown">
+			  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i id="undoList" class="icon-undo icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Undo List')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+     				<b class="caret"></b>
+   				</a>  			
+			  	  <ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
+   						<li role="presentation" ng-repeat="items in undoList | orderBy:'id':reverse=true" ng-click="undoChanges(this)"> <a role="menuitem" href="javascript:void(0);">{{items.item}}</a></li>   					
+   						   					
+   					</ul>
+			  </li>
+			</ul>
+			<ul class="nav nav-pills pull-right" id="save" style="display:none;">
+			  <li class="dropdown">
+			  	<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+					<i  class="icon-save icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Save the changes made in the View')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+					<b class="caret"></b>
+   				</a>  			
+			   <ul class="dropdown-menu" ng-click="preventDefault()" >
+   				 <li><center><input id="trackingid" placeholder="Tracking#" type="text" style="height:12px;width:100px;border:none;"></input>
+   				 <input id="userid" placeholder="User ID" type="text" style="height:12px;width:100px;border:none;"></input>
+   				 <textarea type="text" id="saveRemarks" placeholder="Remarks" style="display:block;height:24px;width:220px;border:none;margin:5px"></textarea><i style="margin-left:10px;cursor:pointer" class="icon-youtube-play" ng-click="PublishMetaData($event,false,'false')"></i></center></li>   					
+   			   </ul>
+   			 </li>
+			</ul>
+			<i id="revision" class="icon-list-ul icon-large canvas-icon" ng-click="openRevision()"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'View/Move to a revision')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+			<!-- STARTS -->
+			<ul class="nav nav-pills pull-right" id="showEvents" style="display:none;">
+			  <li class="dropdown">
+			  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i id="InitRules" class="icon-cogs icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Launch Rules Designer')" ng-mouseleave="hideHintPopup('canvashintdiv')"></i>
+     				<b class="caret"></b>
+   				</a>  			
+			  	  <ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
+   						<li role="presentation"> <a role="menuitem" href="javascript:void(0);" ng-click="initRules($event,'OnLoad')" >On Load</a></li>   					
+   						<li  role="presentation"> <a role="menuitem" href="javascript:void(0);"  ng-click="initRules($event,'OnSave')">On Save</a></li>   					
+   					</ul>
+			  </li>
+			</ul>			
+			<!-- END -->
+			<ul class="nav nav-pills pull-right" id="showFSITD" style="display:none">
+			  <li class="dropdown">
+			  	<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+     				<i id="publish" class="icon-rocket icon-large" ng-mouseenter="showHintPopup('canvashintdiv',$event,'Publish the changes made in the View')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+     				<b class="caret"></b>
+   				</a>  			
+			  	  <ul class="dropdown-menu" ng-click="PublishMetaData($event,false,'true')">
+   				<li><center><input id="fsitText" placeholder="Tracking#" type="text" style="height:12px;width:100px;border:none;"></input><i style="margin-left:10px;cursor:pointer" class="icon-youtube-play"></i></center></li>   					
+   					</ul>
+   					</li>
+			</ul>
+			<ul class="nav nav-pills pull-right" id="saveGrids" style="display:none;">
+			  <li class="dropdown">
+			<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+			<i  class="icon-save icon-large"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'Save the changes made in the Grid')" ng-mouseleave="hideHintPopup('canvashintdiv')" ></i>
+					<b class="caret"></b>
+   				</a>  			
+			   <ul class="dropdown-menu" ng-click="preventDefault()" >
+   				 <li><center><input id="trackingidg" placeholder="Tracking#" type="text" style="height:12px;width:100px;border:none;"></input>
+   				 <input id="useridg" placeholder="User ID" type="text" style="height:12px;width:100px;border:none;"></input>
+   				 <textarea type="text" id="saveRemarksg" placeholder="Remarks" style="display:block;height:24px;width:220px;border:none;margin:5px"></textarea><i style="margin-left:10px;cursor:pointer" class="icon-youtube-play" ng-click="SaveGridMetadata()"></i></center></li>   					
+   			   </ul>
+   			 </li>
+			</ul>			
+			<i id="SuccessIcon" class="icon-check icon-large canvas-icon" ></i>
+			<i id="ErrorIcon" class="icon-thumbs-down icon-large canvas-icon" ></i>			
+      	   <!--  <div id="fsitTextDiv" class="canvas-showfsit">	
+      	    <img id="hidefsit" src="img/cross.png" onclick="$('#fsitTextDiv').hide();" style="position:fixed; margin-left:250px; cursor:pointer; z-index:1000; ">
+  					<div id="fsitnmbr"  class="input-small">
+  					FSIT: <input id="fsitText" type="Text" ></input>
+  					<label id="successMsg">Publish Successful</label>
+  					<label id="errorMsg">Publish Failed</label>
+  					</div>	      				
+      		</div> -->
+      	</div><!--/.nav-collapse -->
+      	
+	 </div>
+	 
+    <div id="optionalbar" class="optionbar canvas-optionbar">
+    
+    
+			 
+    </div>
+   
+   <script type="text/ng-template" id="JSONEditor.html">
+        <div class="modal-body">
+			<img src="img/cross.png" ng-click="cancel()" style="float:right; cursor:pointer; margin-top:-10px;">
+			<h4 style="float: right; margin-right: 20px; margin-top:-5px;">JSON Editor</h4>
+			<tabset>
+    			<tab heading="Basic" select="showFooter()" style="cursor:pointer;">
+					<div style="overflow:hidden !important;">
+						<textarea class="canvasTextArea" id="txtJSONString" cols="50" rows="50" style="white-space:pre;">{{jsonMetaString}}
+      					</textarea>
+					</div>
+				</tab>
+    			<tab heading="Advance" select="hideFooter()" style="cursor:pointer;">
+      				<div class="jsonView" defocus>
+            			<json child="jsonData" type="'object'"></json>
+        			</div>		
+    			</tab>
+    
+  			</tabset>
+        </div>
+		<div class="modal-footer" id="jsonFooter">
+			<i id="success" style=" display:none; margin:0px;" class="span1 icon-thumbs-up icon-large">Success</i>
+			<i id="warning" style="display:none; margin:0px;" class="span1 icon-warning-sign icon-large">{{errormessage}}</i>
+			<button class="btn btn-default" ng-click="done()">Done</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+   </script>
+   
+   
+</div>
+	

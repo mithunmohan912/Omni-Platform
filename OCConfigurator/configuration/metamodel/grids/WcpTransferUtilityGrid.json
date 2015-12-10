@@ -1,0 +1,81 @@
+{
+  "gridMetaData": {
+    "title": "",
+   "element": [
+     
+      {
+        "field": "LOSREPCD",
+        "displayName": "Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "LOSREPDSC",
+        "displayName": "Name",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "STATE",
+        "displayName": "State",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "PHONE",
+        "displayName": "Phone",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "FAX",
+        "displayName": "Fax",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      },
+      {
+        "field": "EMAIL",
+        "displayName": "E-mail",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "50%"
+      	
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "filename": "TBLCR01",
+    "SQL": "SELECT LOSREPCD,LOSREPDSC,STATE,PHONE,FAX,EMAIL FROM TBLCR01" ,
+    "pagesize": "10"
+    
+  }
+}

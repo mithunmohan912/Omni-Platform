@@ -1,0 +1,124 @@
+{
+  "dataSource": {
+    "pagesize": "15",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASDBIO086"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        },
+        {
+          "type": "VALUE",
+          "value": "100"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "options": [
+        {
+          "name": "Display",
+          "value": "DI"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Void",
+          "value": "VO"
+        }
+      ],
+      "rowactionfunction": "PolBureauCritGridOptions",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "BTSTATUS",
+        "visible": "true",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Sts"
+      },
+      {
+        "field": "BTBATCHNR",
+        "visible": "true",
+        "width": "17%",
+        "align": "center",
+        "displayName": "Batch Number"
+      },
+      {
+        "field": "BTBUREAUID",
+        "visible": "true",
+        "width": "17%",
+        "align": "center",
+        "displayName": "Bureau"
+      },
+      {
+        "field": "BTCRITDTE",
+        "visible": "true",
+        "width": "17%",
+        "align": "center",
+        "displayName": "Received",
+        "cellTemplate": "ux/template/DateTemplate.html"
+      },
+      {
+        "field": "BTCRITRSN1",
+        "visible": "true",
+        "width": "22%",
+        "align": "left",
+        "displayName": "Reason for Crit"
+      },
+      {
+        "field": "BTCRITRSL",
+        "visible": "true",
+        "width": "17%",
+        "align": "center",
+        "displayName": "Resolved",
+        "cellTemplate": "ux/template/DateTemplate.html"
+      },
+      {
+        "field": "BTREQUESTADDDATE",
+        "visible": "false",
+        "width": "0%",
+        "align": "center",
+        "displayName": "Add Date"
+      },
+      {
+        "field": "BTREQUESTADDTIME",
+        "visible": "false",
+        "width": "0%",
+        "align": "center",
+        "displayName": "Add Time"
+      }
+    ]
+  }
+}

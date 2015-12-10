@@ -1,0 +1,206 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Policy_Search_NAOff",
+                     "title":  "Policy Search",
+                     "gridid":  "FindPolicyForActionGridNAOff",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "page":  "Policy_Search_NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "page":  "Policy_Search_NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "page":  "Policy_Search_NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LASTNAME",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "256",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SORT0NAME",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Sort Name",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CUST0NO",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DBA",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Doing Business As",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "256",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DISPLAYMCO",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Display All MCO\u0027s",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  "3",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FEINCHK",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Include Site",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FEINCHK2",
+                                                                                    "page":  "Policy_Search_NAOff",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Include Policy Interest",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "labelSearch":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Policy_Search_Reset_Button",
+                                                                                                             "gridId":  "FindPolicyForActionGridNAOff",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Policy_Search_Advanced_NAOFF_Button",
+                                                                                                             "label":  "Advanced",
+                                                                                                             "page":  "Policy_Search_NAOff",
+                                                                                                             "type":  "button",
+                                                                                                             "size":  "3",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PolicySearch",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Policy Search",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "FindPolicyForActionGridNAOff"
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

@@ -1,0 +1,53 @@
+{
+  "dataSource": {
+    "pagesize": "30",
+    "SP": "BASPPBC04(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "BC_POLICY_COMPANY",
+          "order": "3",
+          "length": "2",
+          "fill": " "
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectValue"
+    },
+    "element": [
+      {
+        "field": "OUTPUTCRCDE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Carrier Code"
+      },
+      {
+        "field": "OUTPUTCRRDSC",
+        "visible": "true",
+        "width": "80%",
+        "align": "left",
+        "displayName": "Carrier Description"
+      }
+    ],
+    "title": "Carrier Code Selection List"
+  }
+}

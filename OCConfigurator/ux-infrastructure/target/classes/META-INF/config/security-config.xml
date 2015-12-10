@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:security="http://www.springframework.org/schema/security" xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<security:authentication-manager id="authenticationManager">
+		<security:authentication-provider>
+			<security:user-service id="userService">
+				<security:user name="user" password="user" authorities="ROLE_USER" />
+				<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:http pattern="/lib/**" security="none" />
+
+	<security:http pattern="/ux/css/**" security="none" />
+	<security:http pattern="/ux/icons/**" security="none" />
+	<security:http pattern="/ux/images/**" security="none" />
+	<security:http pattern="/ux/js/**" security="none" />
+
+	<security:http pattern="/ux/partials/login.html" security="none" />
+	<security:http pattern="/ux/partials/header.html" security="none" />
+	<security:http pattern="/ux/partials/footer.html" security="none" />
+	<security:http pattern="/ux/partials/exception.html" security="none" />
+	<security:http pattern="/ux/partials/maximized_modal_exception.html" security="none" />
+	<security:http pattern="/ux/template/**" security="none" />
+
+	<security:http pattern="/app/config/**" security="none" />
+	<security:http pattern="/app/js/**" security="none" />
+
+	<security:http pattern="/index.html" security="none" />
+
+	<security:http pattern="/rules/**" security="none" />
+	<security:http pattern="/authenticate" security="none" />
+	<security:http pattern="/data/**" security="none" />
+
+	<security:http auto-config="false" create-session="stateless" use-expressions="true" entry-point-ref="restAuthenticationEntryPoint" authentication-manager-ref="authenticationManager">
+		<security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
+		<security:intercept-url pattern="/ux/partials/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+	</security:http>
+
+	<bean id="restAuthenticationEntryPoint" class="com.csc.cscip.ux.common.security.authentication.RestAuthenticationEntryPoint" />
+
+	<bean id="authenticationTokenProcessingFilter" class="com.csc.cscip.ux.common.security.authentication.AuthenticationTokenProcessingFilter">
+		<constructor-arg ref="authenticationManager" />
+		<constructor-arg ref="userService" />
+	</bean>
+
+</beans>

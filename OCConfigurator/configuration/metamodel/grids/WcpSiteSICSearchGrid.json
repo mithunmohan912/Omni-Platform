@@ -1,0 +1,81 @@
+{
+  "gridMetaData": {
+    "title": "SIC Code Results",
+    "element": [
+      {
+        "field": "OUTCLASSCODE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Class Code"
+      },
+      {
+        "field": "OUTSICCODE",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "SIC Code"
+      },
+      {
+        "field": "OUTCLASSDESC",
+        "visible": "true",
+        "width": "60%",
+        "align": "left",
+        "displayName": "Class Description"
+      },
+      {
+        "field": "OUTMAXRECS",
+        "visible": "false",
+        "width": "0%",
+        "align": "left",
+        "displayName": "Max Records Indic"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "pagesize": "15",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASDBIO091",
+          "length": "6",
+          "order": "1",
+          "fill": " "
+        },
+        {
+          "name": "SITE_SIC_CODE",
+          "length": "6",
+          "order": "2",
+          "fill": " "
+        },
+        {
+          "name": "CLASSCODE",
+          "length": "6",
+          "order": "3",
+          "fill": " "
+        },
+        {
+          "name": "CLASSDESC",
+          "length": "100",
+          "order": "4",
+          "fill": " "
+        },
+        {
+          "name": "KEY_STATE_NUMBER",
+          "length": "2",
+          "order": "5",
+          "fill": " "
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,642 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "WcpVoluntaryPolicyInformation",
+                     "title":  "Dividend Retention",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_INSURED_NAME",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured Name",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_STATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "State",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "11",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_DIVIDEND_DET_PLAN_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Dividend Plan",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "DIVIDEND_DET_PLAN_CODE",
+                                                                                                             "page":  "WcpDivdendRetentionFrame",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "12",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "10",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DIVIDEND_DET_PLAN_CODE_DESC",
+                                                                                                             "page":  "WcpDivdendRetentionFrame",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "43",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Add_divplan_Search",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_SETTLEMENT_DATE_1",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Settlement Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_SETTLEMENT_DATE_2",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Settlement Date  2",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "29",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_EFF_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_END_DATE_PROGRAM",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "31",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_QUALIFYING_PREM",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Qualifying Premium",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_CONTRACT_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Contract Received Date",
+                                                                                    "order":  "15",
+                                                                                    "mask":  "dd/mm/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_MINIMUM_FACTOR",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Minimum Factor",
+                                                                                    "order":  "16",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_MAXIMUM_FACTOR",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Maximum Factor",
+                                                                                    "order":  "17",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_LOSS_CONV_FACTOR",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "L.C.F.",
+                                                                                    "order":  "18",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_MAX_CALC",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Maxiumum Premium",
+                                                                                    "order":  "19",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "NORMAL"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "S",
+                                                                                                        "description":  "STANDARD"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_BOND_PERCENTAGE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Bond Percentage",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_FLAT_RATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Flat Rate",
+                                                                                    "order":  "21",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_IBNR_PERCENTAGE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "IBNR Percentage",
+                                                                                    "order":  "22",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_LIMITAT_FACTOR",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Limitation Factor",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "7",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "Insurance_Line_List",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "WcpRetentionTotalsListGrid"
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_SYMBOL",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_MASTER_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_MODULE_NUMBER",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_POLICY_NUMBER",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_PLAN_TYPE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_POLICY_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_STATE_CODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_LOB",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_POL_EFF_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_EFF_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_ASSOCIATION_CODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_STATE_CODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_LOB",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_MASTER_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_POLICY_NUMBER",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_SYMBOL",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_MODULE_NUMBER",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_PROGRAM_CODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_POLICY_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_KEY_GROUP_CODE_OF_PROGRAM",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DIVIDEND_DET_VAR_PERCENTAGE",
+                                                                                    "page":  "WcpDivdendRetentionFrame",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Variable Dividend %",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "51",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

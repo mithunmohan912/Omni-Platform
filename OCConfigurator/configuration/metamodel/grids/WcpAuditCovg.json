@@ -1,0 +1,253 @@
+{
+    "dataSource": {
+        "SP": "BASWC50I02(@query@)",
+        "type": "SP",
+        "params": {
+            "query": [
+                {
+                    "type": "KEY",
+                    "startIndex": "0",
+                    "endIndex": "16"
+                },
+                {
+                    "name": "KEY_SITE_NUMBER"
+                },
+                {
+                    "name": "KEY_AUDIT_KIND"
+                },
+                {
+                    "name": "KEY_AUDIT_EFFECTIVE_DATE"
+                }
+            ]
+        }
+    },
+    "gridMetaData": {
+        "gridType": "editableGrid",
+        "operation": {
+            "options": " ,Select",
+            "jsfunction": ""
+        },
+        "rowAction": {
+            "rowFunction": "selectAction",
+            "options": [
+                {
+                    "value": "CH",
+                    "description": "Change",
+                    "reqcode": "PAPDRVDTCHGRq",
+                    "keyParams": [
+                        {
+                            "type": "KEY",
+                            "start": "0",
+                            "end": "64",
+                            "value": ""
+                        },
+                        {
+                            "type": "VALUE",
+                            "value": "00101"
+                        },
+                        {
+                            "type": "KEY",
+                            "start": "69",
+                            "end": "94",
+                            "value": ""
+                        },
+                        {
+                            "type": "KEY",
+                            "start": "94",
+                            "end": "97",
+                            "value": ""
+                        },
+                        {
+                            "type": "ROW",
+                            "value": "DRPRODUCT",
+                            "length": "6",
+                            "fill": " "
+                        },
+                        {
+                            "type": "ROW",
+                            "value": "DRLOCATION",
+                            "length": "5",
+                            "fill": "0"
+                        },
+                        {
+                            "type": "ROW",
+                            "value": "DRSUBLOC",
+                            "length": "5",
+                            "fill": "0"
+                        },
+                        {
+                            "type": "VALUE",
+                            "value": " "
+                        },
+                        {
+                            "type": "ROW",
+                            "start": "0",
+                            "end": "1",
+                            "value": "DRSTATUSDESC"
+                        },
+                        {
+                            "type": "VALUE",
+                            "value": " "
+                        },
+                        {
+                            "type": "ROW",
+                            "value": "DRID",
+                            "length": "5",
+                            "fill": "0"
+                        },
+                        {
+                            "type": "VALUE",
+                            "value": " "
+                        }
+                    ]
+                }
+            ]
+        },
+        "element": [
+            {
+                "field": "",
+                "visible": true,
+                "width": "6%",
+                "enableCellEdit": false,
+                "align": "center",
+                "displayName": "Error"
+            },
+            {
+                "field": "CLASSDDS",
+                "visible": true,
+                "width": "7%",
+                "enableCellEdit": false,
+                "align": "center",
+                "displayName": "ClassCode",
+                "cellTemplate": "ux/template/inputCellTemplate.html",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "DESCRIPTIONSEQ",
+                "visible": true,
+                "enableCellEdit": false,
+                "width": "8%",
+                "align": "center",
+                "displayName": "Description Sequence",
+                "cellTemplate": "ux/template/inputCellTemplate.html",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "VOLIND",
+                "visible": true,
+                "width": "7%",
+                "align": "center",
+                "displayName": "Voluntary Comp",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "NAMED",
+                "visible": true,
+                "width": "7%",
+                "align": "center",
+                "displayName": "Named"
+            },
+            {
+                "field": "RPTPAYROLL",
+                "visible": true,
+                "width": "12%",
+                "align": "center",
+                "enableCellEdit": false,
+                "displayName": "Reported Payroll",
+                "type": "decimal",
+                "maxlength": "19",
+                "decimalLen": "2",
+                "cellTemplate": "ux/template/inputCellTemplate.html",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "RATE",
+                "visible": true,
+                "width": "8%",
+                "enableCellEdit": false,
+                "cellTemplate": "ux/template/checkBoxCellTemplate.html",
+                "editableCellTemplate": "ux/template/checkBoxEditorCellTemplate.html",
+                "align": "center",
+                "type": "decimal",
+                "maxlength": "7",
+                "decimalLen": "3",
+                "checkboxmodelval": "RATEOV",
+                "displayName": "Rate Overrides",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "AUDPREM",
+                "visible": true,
+                "width": "8%",
+                "align": "center",
+                "enableCellEdit": false,
+                "displayName": "Manual Premium",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "",
+                "visible": true,
+                "width": "6%",
+                "align": "center",
+                "enableCellEdit": false,
+                "displayName": "Cancel Status",
+                "headerCellTemplate": "ux/template/HeaderTemplate.html"
+            },
+            {
+                "field": "RATEOV",
+                "visible": false,
+                "width": "5%",
+                "align": "center",
+                "displayName": "Audit Type"
+            },
+            {
+                "field": "BASIS",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Status"
+            },
+            {
+                "field": "ESTENTRYTHISCLASSSW",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": "Report Date"
+            },
+            {
+                "field": "CLASSDESCRIPTION",
+                "visible": true,
+                "width": "25%",
+                "enableCellEdit": false,
+                "align": "center",
+                "displayName": "Class Description"
+            },
+            {
+                "field": "COVCDE",
+                "visible": true,
+                "enableCellEdit": false,
+                "width": "18%",
+                "align": "center",
+                "cellTemplate": "ux/template/selectEditorCellTemplate.html",
+                "displayName": "Exp Cov Code Description"
+            },
+            {
+                "field": "COVCODEDESCRIPTION",
+                "visible": false,
+                "width": "15%",
+                "enableCellEdit": false,
+                "align": "center",
+                "displayName": "Exp Cov Code Description ",
+                "cellTemplate": "ux/template/selectEditorCellTemplate.html"
+            },
+            {
+                "field": "COVSEQ",
+                "visible": false,
+                "width": "10%",
+                "align": "center",
+                "displayName": ""
+            }
+        ],
+        "title": ""
+    }
+}

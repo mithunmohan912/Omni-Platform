@@ -1,0 +1,110 @@
+{
+  "dataSource": {
+    "pagesize": "20",
+    "SP": "BASADIN01(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "name": "ADDLINT_KEY_USE_CODE",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "ADDLINT_KEY_LOCATION_COMPANY"
+        },
+        {
+          "name": "ADDLINT_KEY_MASTER_COMPANY"
+        },
+        {
+          "name": "ADDLINT_KEY_SYMBOL",
+          "length": "3",
+          "fill": " "
+        },
+        {
+          "name": "ADDLINT_KEY_POLICY_NUMBER"
+        },
+        {
+          "name": "ADDLINT_KEY_MODULE"
+        },
+        {
+          "name": "lobCode",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectValue"
+    },
+    "element": [
+      {
+        "field": "OUSECD1KEY",
+        "visible": "true",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Code"
+      },
+      {
+        "field": "OUSECD1DESC",
+        "visible": "true",
+        "width": "50%",
+        "align": "left",
+        "displayName": "Description"
+      },
+      {
+        "field": "OUSECD1OPT",
+        "visible": "true",
+        "width": "40%",
+        "align": "left",
+        "displayName": "Optional Field Heading"
+      },
+      {
+        "field": "OEFF0YR",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Effective Date Year"
+      },
+      {
+        "field": "OEFF0MO",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Effective Date Month"
+      },
+      {
+        "field": "OEFF0DA",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Effective Date"
+      },
+      {
+        "field": "OEXP0YR",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Expiration Date Year"
+      },
+      {
+        "field": "OEXP0MO",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Expiration Date Month"
+      },
+      {
+        "field": "OEXP0DA",
+        "visible": "false",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Expiration Date"
+      }
+    ],
+    "title": "Additional Interest Selection List"
+  }
+}

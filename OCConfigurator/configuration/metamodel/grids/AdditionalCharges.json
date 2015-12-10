@@ -1,0 +1,106 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "DESCRIPTION",
+        "displayName": "Charge Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "CHARGETYPE",
+        "displayName": "Charge Type",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "USEFACTOR",
+        "displayName": "Amount/Percentage",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "TOTPREM",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource" : {
+    "pagesize" : "20",
+    "SQL" : "Select B.DESCRIPTION, PREMTYPE, USEFACTOR, TOTPREM, A.CHARGETYPE, TRANS0STAT, COVSEQ, TRANSEQ From BASPADCH A Inner Join TBPP201 B On A.CHARGETYPE = B.CHARGETYPE Where LOCATION = @loc@ AND MASTERCO  = @mco@ AND  SYMBOL = @sym@ AND POLICYNO = @polno@ AND  MODULE = @mod@ AND Exists (Select 1 From BASPADCH C Where LOCATION = @loc@ AND  MASTERCO  = @mco@ AND SYMBOL = @sym@ AND POLICYNO = @polno@  AND MODULE = @mod@ AND A.CHARGETYPE = C.CHARGETYPE AND A.COVSEQ = C.COVSEQ Group By C.CHARGETYPE,  C.COVSEQ Having  A.TRANSEQ = MAX(C.TRANSEQ)) Order by COVSEQ",
+    "filename" : "BASPADCH A, TBPP201 B, BASPADCH C",
+    "type" : "SQL",
+    "params": 
+      {
+        "loc": [
+          {
+			"type":"KEY",
+            "startIndex": "1",
+            "endIndex": "3",
+            "order": "1"
+          }
+        ],
+        "mco": [
+          {
+		  "type":"KEY",
+            "startIndex": "3",
+            "endIndex": "5",
+            "order": "1"
+          }
+        ],
+        "sym": [
+          {
+		  "type":"KEY",
+            "startIndex": "5",
+            "endIndex": "8",
+            "order": "1"
+          }
+        ],
+        "polno": [
+          {
+		  "type":"KEY",
+            "startIndex": "8",
+            "endIndex": "15",
+            "order": "1"
+          }
+        ],
+        "mod": [
+          {
+		  "type":"KEY",
+            "startIndex": "15",
+            "endIndex": "17",
+            "order": "1"
+          }
+        ]
+      }
+  }
+}
+
+
+
+
+
+
+
