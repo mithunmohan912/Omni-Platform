@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.camel.Header;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.util.URISupport;
 import org.apache.log4j.Logger;
 
 import com.csc.eip.bo.Message;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Message Translator
@@ -47,6 +48,20 @@ public class MessageTranslator {
 		crawlMessage(any, pattern, replacement);
 
 		return message;
+	}
+
+	public String replacePatternOnExchange(String oldBody, @Header("pattern") String pattern,
+			@Header("replacement") String replacement) throws JsonParseException, JsonMappingException, IOException {
+		log.info("here");
+		log.info(pattern);
+		log.info(replacement);
+		//log.info("REQUEST FOR TRANSFORMATION----" + oldBody);
+		ObjectMapper oldMapper = new ObjectMapper();
+		Message oldParent = oldMapper.readValue(oldBody, Message.class);
+		crawlMessage(oldParent.getAny(), pattern, replacement);
+		oldBody = oldMapper.writeValueAsString(oldParent);
+		//log.info("RESPONSE FROM TRANSFORMATION----" + oldBody);
+		return oldBody;
 	}
 
 	public String writeMessage(String camelHttpQuery) throws URISyntaxException {
