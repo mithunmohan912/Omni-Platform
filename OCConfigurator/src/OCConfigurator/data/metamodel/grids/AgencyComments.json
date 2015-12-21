@@ -1,0 +1,180 @@
+{
+  "gridMetaData": {
+    "title": "Agency Comments",
+    "rowAction": {
+      "rowFunction": "selectAction",
+      "options": [
+        {
+          "id": "POINT_AGENCY_DIARY_COMMENTS",
+          "target": "jsp/POINT_AGENCY_DIARY_COMMENTS.jsp",
+          "value": "CH",
+          "description": "Change",
+          "reqcode": "BASAGCMTCHGRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "22",
+              "end": "29"
+            },
+            {
+              "type": "ROW",
+              "value": "ENTRYDATE",
+              "format": "cyymmdd",
+              "formatType": "date",
+              "length": "7",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "SEQNO"
+            }
+          ]
+        },
+        {
+          "id": "POINT_AGENCY_DIARY_COMMENTS",
+          "target": "jsp/POINT_AGENCY_DIARY_COMMENTS.jsp",
+          "value": "IN",
+          "description": "Inquire",
+          "reqcode": "BASAGCMTINQRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "22",
+              "end": "29"
+            },
+            {
+              "type": "ROW",
+              "value": "ENTRYDATE",
+              "format": "cyymmdd",
+              "formatType": "date",
+              "length": "7",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "SEQNO"
+            }
+          ]
+        },
+        {
+          "id": "POINT_AGENCY_DIARY_COMMENTS",
+          "target": "jsp/POINT_AGENCY_DIARY_COMMENTS.jsp",
+          "value": "DL",
+          "description": "Delete",
+          "reqcode": "BASAGCMTDLTRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "22",
+              "end": "29"
+            },
+            {
+              "type": "ROW",
+              "value": "ENTRYDATE",
+              "format": "cyymmdd",
+              "formatType": "date",
+              "length": "7",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "SEQNO"
+            }
+          ]
+        }
+      ]
+    },
+    "operation": {
+      "selectfield": "select",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "element": [
+      {
+        "field": "button",
+        "displayName": "Actions",
+        "cellTemplate": "ux/template/row_action_template.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "ENTRYID",
+        "displayName": "Requester",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "COM0DEST",
+        "displayName": "Destination",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "ENTRYDATE",
+        "displayName": "Date",
+        "type": "TEXT",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "SEQNO",
+        "displayName": "Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "PRINTIND",
+        "displayName": "Printed",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      }
+    ],
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT ENTRYID,COM0DEST,ENTRYDATE,SEQNO,PRINTIND from PMSPAGCMT where AGTNBR='0000002' Order by ENTRYID DESC",
+    "pagesize": "10",
+    "filename": "GRIDSQLLIST",
+    "params": {
+      "BC_KEY_LOCATION_COMPANY": [
+        {
+          "type": "VALUE",
+          "length": "2",
+          "fill": "0"
+        }
+      ],
+      "BC_KEY_MASTER_COMPANY": [
+        {
+          "type": "VALUE",
+          "length": "2",
+          "fill": "0"
+        }
+      ],
+      "BC_RISK_STATE": [
+        {
+          "type": "VALUE",
+          "length": "30",
+          "fill": " "
+        }
+      ]
+    }
+  }
+}

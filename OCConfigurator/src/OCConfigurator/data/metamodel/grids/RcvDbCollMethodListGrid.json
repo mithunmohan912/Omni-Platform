@@ -1,0 +1,63 @@
+{
+"dataSource" : {
+    "SP" : "BASSYSGRID(@querystr@)",
+    "type" : "SP",
+    "params": {
+      "querystr": [
+	{
+          "type": "VALUE",
+          "value": "BASRCVL0040"
+        },
+	    {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "16"  
+        },
+        {
+          "name": "I8_COLLECTION_MTD_SEQ",
+          "length": "2",
+          "fill": "0"
+        }
+	   
+	]
+     }
+  },
+  "gridMetaData": {
+    "title": "Collection Method",
+     "operation": {
+      "jsfunction": "selectValue"
+    },
+    "element": [
+              {
+                "field": "WSTRANCODE",
+                "type": "text",
+                "fieldspan": "2",
+                "displayName": "Trans Code"
+              },
+              {
+                "field": "WSNXTNOTCODE",
+                "type": "text",
+                "fieldspan": "2",
+                "displayName": "Next Notice Code"
+              },
+              {
+                "field": "WSCOLLMETH",
+                "type": "text",
+                "fieldspan": "2",
+                "displayName": "Collection Method"
+              },
+              {
+                "field": "WSREVBILIND",
+                "type": "text",
+                "fieldspan": "2",
+                "displayName": "Send revised Bill Ind"
+              },
+              {
+                "field": "WSDISPNXTBIL",
+                "type": "text",
+                "fieldspan": "2",
+                "displayName": "Displacement from next Inst Bill"
+              }
+            ]
+          }
+}

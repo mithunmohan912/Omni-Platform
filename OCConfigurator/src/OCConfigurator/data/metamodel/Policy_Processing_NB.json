@@ -1,0 +1,597 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Policy_Information",
+                     "title":  "Application Information - New Business",
+                     "subtitle":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "title":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "page":  "Policy_Processing_NB",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "required",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "Policy_Processing_NB",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "5",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "required":  "required",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "page":  "Policy_Processing_NB",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "required":  "required",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EFFECTIVE_DATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Effective Date",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "placeholder":  "Enter Date",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_AGENCY_NO",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Agency No / Name",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NUMBER",
+                                                                                                             "page":  "Policy_Processing_NB",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "required":  "required",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "No",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NAME",
+                                                                                                             "page":  "Policy_Processing_NB",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "required":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "10",
+                                                                                                             "placeholder":  "Name",
+                                                                                                             "screenId":  "Agent_Search",
+                                                                                                             "linkelements":  {
+                                                                                                                                  "BC_AGENT_NUMBER":  "AGNMNBR",
+                                                                                                                                  "BC_AGENT_NAME":  "ACNMNAME1"
+                                                                                                                              },
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Policy State",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "support":  "true",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Line of Business",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "support":  "true",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Issue Description",
+                                                                                    "required":  "required",
+                                                                                    "disabled":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  " ",
+                                                                                                        "description":  ""
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "M",
+                                                                                                        "description":  "Manually Rated"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "Computer Rated"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Policy Company",
+                                                                                    "required":  "required",
+                                                                                    "disabled":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "support":  "true",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TRANSSEQ",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "138",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ISSUE_CODE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "133",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "132",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TYPE_ACTIVITY",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "134",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_CUR_REC_SET_STATUS",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "135",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "136",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SET_TYPE_NUMBER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "137",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_HIERARCHY_SWITCH",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "145",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_RENEWAL_POLICY_KEY",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "146",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "123",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMENDMENT_NUMBER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "117",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSTALLMENT_TERM",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "116",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_NUMBER_OF_INSTALLMENTS",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "118",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ENTERED_DATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "119",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_CANCELLATION_DATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "120",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PRINTED_STATEMENT",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "121",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_VARIATION",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "122",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TYPE_ACTIVITY",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "128",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAYBY_MODE_DESC",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "129",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEW_PAYBY_DESC",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "130",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_TRANSACTION_TYPE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "131",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_DEFAULT_LA_URL",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "106",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TEMP_SPECIAL_USE_C",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "105",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "62",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_BASIC_CONTRACT",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "49",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "63",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "64",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "65",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "66",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_PANEL_MODE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "102",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TEMPHASHDATA",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "100",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SECURITY_INDIC",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "101",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_SYMBOL",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "115",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_NUMBER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "109",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_MODULE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "108",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REVIEW_CODE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "110",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MVR_REPORT_YEAR",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "111",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_GRADE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "112",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_UNDERWRITER",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "113",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMENDED",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "114",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_EFFECTIVE_DATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "124",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SYSTEM_DATE_OVERRIDE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "125",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SECURITY",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "126",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ACCTG_DATE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "false",
+                                                                                    "order":  "127",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "Policy_Processing_NB",
+                                                                                    "type":  "hidden",
+                                                                                    "required":  "true",
+                                                                                    "order":  "99",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

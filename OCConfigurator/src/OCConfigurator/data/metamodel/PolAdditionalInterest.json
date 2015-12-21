@@ -1,0 +1,762 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "PolAdditionalInterest",
+                     "title":  "Additional Interest Detail",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_ADDLINT_KEY_USE_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Interest Type",
+                                                                                    "fieldspan":  "6",
+                                                                                    "required":  "required",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ADDLINT_KEY_USE_CODE_DESC",
+                                                                                                             "page":  "PolAdditionalInterest",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "24",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  10,
+                                                                                                             "buttonid":  "ID_AddInt_Search",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_USE_LOCATION",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Interest Location",
+                                                                                    "required":  "required",
+                                                                                    "order":  "3",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "5",
+                                                                                    "fieldspan":  2,
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_SEQUENCE_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Interest Sequence",
+                                                                                    "order":  "4",
+                                                                                    "regexp":  "^[0-9A-Z]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "5",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  8,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_ADDLINT_NAME",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Name",
+                                                                                    "fieldspan":  "6",
+                                                                                    "required":  "required",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ADDLINT_NAME",
+                                                                                                             "page":  "PolAdditionalInterest",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "5",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "30",
+                                                                                                             "minlength":  "1",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  10,
+                                                                                                             "buttonid":  "ID_PushbuttonSearch",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_ADDRESS_LINE_1",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Optional",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_ADDRESS_LINE_2",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Address",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "1",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_CITY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "City",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "28",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_STATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "select",
+                                                                                    "label":  "State",
+                                                                                    "order":  "10",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_ZIP_CODE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Postal Code",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "5",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_EFFECTIVE_DATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "date",
+                                                                                    "support":  "true",
+                                                                                    "label":  "Effective Date",
+                                                                                    "order":  "12",
+                                                                                    "mask":  "mmddyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ACCTG_DATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "date",
+                                                                                    "support":  "true",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "order":  "13",
+                                                                                    "mask":  "mmddyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SSN_NO",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "FEIN",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "inline",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "helptext":  "Federal Employer Identification Number",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_LOAN_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Loan Number",
+                                                                                    "order":  "15",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "25",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  5,
+                                                                                    "size":  11,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TAX_ID",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "text",
+                                                                                    "order":  "16",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "11",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  6,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "label":  "Tax ID",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_ADDLINT_DESCRIPTION_LINE_5",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Broker Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ADDLINT_DESCRIPTION_LINE_5",
+                                                                                                             "page":  "PolAdditionalInterest",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "5",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "30",
+                                                                                                             "minlength":  "1",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  10,
+                                                                                                             "buttonid":  "ID_UseCodeSearch",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "A_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TEMPHASHDATA",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_CUR_REC_SET_STATUS",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SET_TYPE_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SYSTEM_DATE_OVERRIDE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_ADDINT_LIST_INDIC",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_USE_CODE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_MASTER_COMPANY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_INT_TYPE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_SYMBOL",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_MODULE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_USE_CODE_DESC",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_INT_UNIQUE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_POLICY_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION_COMPANY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AUXILLARY_KEY_ATTRIBUTES",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_ID_12",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_SYMBOL",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "21",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_POLICY_NUMBER",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "22",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_MODULE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_KEY_USE_CODE",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "order":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  1,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ADDLINT_USE_CODE_OPT_HEADING",
+                                                                                    "page":  "PolAdditionalInterest",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "helptext":  "",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

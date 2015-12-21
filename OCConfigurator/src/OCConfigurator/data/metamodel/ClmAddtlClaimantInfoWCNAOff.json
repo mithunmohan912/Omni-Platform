@@ -1,0 +1,1061 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ClmAddtlClaimantInfoWCNAOff",
+                     "title":  "Additional Claimant Information",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_SSN",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Social Security Number",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "5",
+                                                                                    "mask":  "NNN-NN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_SEX",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Gender",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DATE_OF_BIRTH",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Birth",
+                                                                                    "required":  "required",
+                                                                                    "order":  "11",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_MARITAL_STATUS",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Marital Status",
+                                                                                    "required":  "required",
+                                                                                    "order":  "13",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_NUMBER_OF_DEP",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Number of Dependents",
+                                                                                    "order":  "14",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "3",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DATE_OF_DEATH",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Death",
+                                                                                    "order":  "15",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_CLMT_WCADDL_CLASS_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Class Code",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CLMT_WCADDL_CLASS_CODE",
+                                                                                                             "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "16",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "6",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Class Code Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_CLASS_CODE_SEARCH",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_SIC_CODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "number",
+                                                                                    "label":  "SIC Code",
+                                                                                    "order":  "18",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "6",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DATE_OF_HIRE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Hire",
+                                                                                    "order":  "19",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_OCCUPATION_CODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Occupation Code",
+                                                                                    "order":  "21",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_OCCUPATION",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Occupation Description",
+                                                                                    "order":  "22",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_EMPLOYMENT_STAT",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Employment Status",
+                                                                                    "required":  "required",
+                                                                                    "order":  "24",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_EMPLOYER_TAX_ID",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Employer Tax ID",
+                                                                                    "order":  "25",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_EMP_PAYROLL_IND",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Employer Payroll",
+                                                                                    "order":  "26",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_INJURY_POSTAL_CD",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Injury Postal Code",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_INJURY_POSTAL_CD_EXTN",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "-",
+                                                                                    "order":  "28",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_JURISDICTION_ST",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Jurisdiction State",
+                                                                                    "required":  "required",
+                                                                                    "order":  "31",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_FRAUD_CLAIM_IND",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Fraudulent Claim",
+                                                                                    "order":  "32",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DEDUCTIBLE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Deductible",
+                                                                                    "required":  "required",
+                                                                                    "order":  "34",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_SURGERY_IND",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Surgery",
+                                                                                    "order":  "35",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_CONTROVERTED",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Controverted",
+                                                                                    "order":  "36",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DEDUCTIBLE_CODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Deductible Description",
+                                                                                    "required":  "required",
+                                                                                    "order":  "43",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_MANAGED_CARE_IND",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Managed Care",
+                                                                                    "required":  "required",
+                                                                                    "order":  "45",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_INJURY_CODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Injury  Description",
+                                                                                    "required":  "required",
+                                                                                    "order":  "47",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LEGALLY_REP",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Legally Represented",
+                                                                                    "order":  "50",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_ATTORNEY",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "text",
+                                                                                    "label":  "By Whom",
+                                                                                    "order":  "51",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DATE_RPTED_EMP",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Reported to Employer",
+                                                                                    "required":  "required",
+                                                                                    "order":  "54",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LAST_DATE_WORKED",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Last Day Worked",
+                                                                                    "order":  "55",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_DATE_RET_TO_WORK",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Returned to Work",
+                                                                                    "order":  "56",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LOSS_COND_ACT",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Act",
+                                                                                    "order":  "59",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LOSS_COND_LOSS",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Type of Loss",
+                                                                                    "order":  "61",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LOSS_COND_REC",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Type of Recovery",
+                                                                                    "order":  "63",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LOSS_COND_COV",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Type of Claim",
+                                                                                    "order":  "65",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_LOSS_COND_SETT",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Type of Settlement",
+                                                                                    "order":  "67",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_BENEFITS_UNEMP",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Unemployment",
+                                                                                    "order":  "70",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_BENEFITS_SPEC_FUND",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Special Funds",
+                                                                                    "order":  "72",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_BENEFITS_SSEC",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Social Security",
+                                                                                    "order":  "74",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_BENEFITS_PENSION",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Pension",
+                                                                                    "order":  "76",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WCADDL_BENEFITS_OTHER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Other",
+                                                                                    "order":  "78",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_CLMT_WCADDL_LOSS_CMT1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Notes",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CLMT_WCADDL_LOSS_CMT1",
+                                                                                                             "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "79",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "64",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_WCADDL_LOSS_CMT2",
+                                                                                                             "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "80",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "78",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  4,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_WCADDL_LOSS_CMT3",
+                                                                                                             "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "81",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "78",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  4,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_CLAIMS",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_CATEGORY",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIMANT_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLCMT_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_LNAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MODULE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_SUB_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_DIR_TRN_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_ADJUSTOR_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENCY_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TAX_ID",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIM_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLM_ENTRY_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_COV_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_FNAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "ClmAddtlClaimantInfoWCNAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

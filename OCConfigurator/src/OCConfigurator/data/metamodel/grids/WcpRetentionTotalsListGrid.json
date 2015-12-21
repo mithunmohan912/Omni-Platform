@@ -1,0 +1,81 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "SP" : "BASSDIVRET(@query@)",
+    "type" : "SP",
+    "params":
+				{
+					"query":[
+								{
+									"name":"strPOL",
+									"type":"KEY",
+									"startIndex":"1",
+									"endIndex":"17",
+									"order":"1"
+								},
+								{
+									"name":"strPOL",
+									"type":"KEY",
+									"startIndex":"94",
+									"endIndex":"96",
+									"order":"1"
+								}
+					
+					]
+				}
+			
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "REPORT-DATE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Report Date"
+    }, {
+      "field" : "SETTLE-DATE",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "center",
+      "displayName" : "Settlement Date"
+    }, {
+      "field" : "STAND-PREM",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Standard Premium"
+    }, {
+      "field" : "NORM-PREM",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Normal Premium"
+    }, {
+      "field" : "LOSS-RATIO",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Loss Ratio"
+    }, {
+      "field" : "CLAIMS-INCURRED",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Claim Incurred"
+    }, {
+      "field" : "TOTAL-DIVIDEND",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Dividend Payable"
+    }, {
+      "field" : "DIVIDEND-PAID",
+      "visible" : "true",
+      "width" : "10%",
+      "align" : "right",
+      "displayName" : "Dividend Paid"
+    } ],
+    "title" : "Retention Totals"
+  }
+}

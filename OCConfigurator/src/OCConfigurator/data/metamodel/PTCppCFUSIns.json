@@ -1,0 +1,590 @@
+{
+    "metadata":  {
+                     "groupid":  "CPP",
+                     "formid":  "Insurance_Line",
+                     "title":  "Commercial Fire Ins Line",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_RECORD_STATUS",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Status",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "4",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_INSLINE_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_SYMBOL",
+                                                                                                             "page":  "PTCppCFUSIns",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "PTCppCFUSIns",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "7",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_MODULE",
+                                                                                                             "page":  "PTCppCFUSIns",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "8",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_INSURANCE_LINE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insurance Line",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATEBOOK_RATEFILE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "text",
+                                                                                    "label":  "RateBook",
+                                                                                    "order":  "13",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATE_PREMIUM",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Premium",
+                                                                                    "order":  "15",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_1",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Building Limit",
+                                                                                    "order":  "19",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_8",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Pers Property Limit",
+                                                                                    "order":  "21",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_3",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Building/Pers Property Limit",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_4",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Stock Limit",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_5",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Business Income Limit",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_6",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Extra Expense Limit",
+                                                                                    "order":  "29",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_7",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Builder\u0027s Risk Limit",
+                                                                                    "order":  "31",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_10",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Special Class Rate Limit",
+                                                                                    "order":  "33",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_CODE_1",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Coinsurance",
+                                                                                    "required":  "required",
+                                                                                    "order":  "35",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_1",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reporting Indicator",
+                                                                                    "required":  "required",
+                                                                                    "order":  "37",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_9",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Mold Limit",
+                                                                                    "required":  "required",
+                                                                                    "order":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_NUMBER_3",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Premises Or Location",
+                                                                                    "order":  "42",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_CODE_3",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Bus Inc/ Extra Exp Num Days",
+                                                                                    "order":  "44",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_CODE_4",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Bus Inc/Extra Exp Cov Type",
+                                                                                    "order":  "46",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_6",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Cert Acts Of Terrorism",
+                                                                                    "order":  "47",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_16",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Amend Pollutants",
+                                                                                    "required":  "required",
+                                                                                    "order":  "48",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_4",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Extd Mold on All",
+                                                                                    "order":  "49",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_12",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Excess FDSC Limit",
+                                                                                    "order":  "50",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_INSLINE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_POLICY_NUMBER",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_SYMBOL",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_MASTER_COMPANY",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_RECORD_STATUS",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_MODULE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_INSURANCE_LINE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "PTCppCFUSIns",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

@@ -1,0 +1,257 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "WcpDWC13ClaimsEntry",
+                     "title":  "DWC13 Processing",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_KEY_CLAIM_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Claim Number",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_CLAIM_NUMBER",
+                                                                                                             "page":  "WcpDWC13ClaimsEntry",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "12",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Claim Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_SEARCH_BUTTON",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DWC_REPORT_OPTION",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Type of Report",
+                                                                                    "required":  "required",
+                                                                                    "order":  "7",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "1",
+                                                                                                        "description":  "Initial"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "2",
+                                                                                                        "description":  "Annual"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "3",
+                                                                                                        "description":  "Final"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DWC_COMPENSATION",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Full Salary in Lieu of Compensation",
+                                                                                    "required":  "required",
+                                                                                    "order":  "9",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_DWC_SALARY_END_DATE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Salary End Date",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "DWC_SALARY_END_DATE",
+                                                                                                             "page":  "WcpDWC13ClaimsEntry",
+                                                                                                             "type":  "date",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "11",
+                                                                                                             "mask":  "mm/dd/yy",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_PRINT_BUTTON",
+                                                                                                             "page":  "WcpDWC13ClaimsEntry",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Print",
+                                                                                                             "order":  "12",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "DoDWCProcess(\u0027WCVCLDWC13RRq\u0027);",
+                                                                                                             "size":  5,
+                                                                                                             "buttonid":  "ID_PRINT_BUTTON",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_CLAIMS",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE1",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE5",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE3",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE2",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIM_NUMBER",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "WcpDWC13ClaimsEntry",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

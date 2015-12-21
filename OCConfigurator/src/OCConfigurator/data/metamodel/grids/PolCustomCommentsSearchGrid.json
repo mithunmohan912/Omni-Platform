@@ -1,0 +1,125 @@
+{
+  "gridMetaData": {
+    "title": "Custom Comments",
+    "rowAction": {
+      "rowFunction": "selectAction",
+      "options": [
+        {
+          "id": "POLICY_COMMENTS",
+          "value": "ADD",
+          "description": "Add",
+          "reqcode": "CPPCOMMTADDRq",
+          "target": "jsp/POLICY_COMMENTS.jsp",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "0",
+              "end": ""
+            }
+          ]
+        }
+      ]
+    },
+    "element": [
+      {
+        "field": "button",
+        "displayName": "Actions",
+        "cellTemplate": "ux/template/row_action_template.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "C1",
+        "displayName": "Sequence",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "COM0DEST",
+        "displayName": "Destination",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "RSN0SUSP",
+        "displayName": "Reason",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "COM0DESC",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "35%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT CAST (DISPSEQ AS VARCHAR(3)) ,COM0DEST, RSN0SUSP, COM0DESC FROM TBDIARY WHERE RSN0SUSP = 'SP' and COM0DEST  NOT IN (SELECT COM0DEST FROM PMSP0300 where LOCATION =@loc@ and  MASTER0CO =@mco@ and SYMBOL =@sym@  and POLICY0NUM =@polno@ and MODULE =@mod@ and RSN0SUSP = 'SP')",
+    "pagesize": "10",
+    "filename": "GRIDSQLLIST",
+    "params": {
+      "loc": [
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        }
+      ],
+      "mco": [
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "1"
+        }
+      ],
+      "sym": [
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "1"
+        }
+      ],
+      "polno": [
+        {
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "1"
+        }
+      ],
+      "mod": [
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "1"
+        }
+      ]
+    }
+  }
+}

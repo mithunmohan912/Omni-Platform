@@ -1,0 +1,1635 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "CppQQGLQuickQuote1NAOff",
+                     "title":  "Quick Quote Number Entry",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_BC_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Quote Number",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "minlength":  "1",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "5",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "1",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "minlength":  "1",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Quote State",
+                                                                                    "order":  "8",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "IN",
+                                                                                                        "description":  "Indiana"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "SC",
+                                                                                                        "description":  "South Carolina"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EFFECTIVE_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Quote Effective Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "10",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_AGENT_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Agency Number / Name",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NUMBER",
+                                                                                                             "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "12",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "7",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NAME",
+                                                                                                             "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "13",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Agent_Search_Button",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_MASTER_COMPANY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SET_TYPE_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SECURITY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_9",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MRS_QUICK_QUOTE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXCESS_OF_CLAIM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CUSTOMER_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_SYMBOL",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMEND_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_COMPANY_LINE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_NUMBER_OF_INSTALLMENTS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_CHECKBOX",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_STATE_DESCRIPTION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_TABLE_TYPE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATEBOOK_RATEFILE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_6",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_POLICY_MODULE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAY_BY_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_GC_EXPOSURE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TEMPHASHDATA",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_ITEM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_STATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_LOB",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_7",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_HISTORY_OPTION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSTALLMENT_TERM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_COVER_CLASS_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_USER_INDICATOR_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_PRODUCT",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_LOC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_8",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KIND_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_6",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_FACTOR_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COVERAGE_RATEBOOK_RATEFILE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_COVER_CLASS_DESCRIPTION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NEW_AUTONUM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_STATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_ID_02",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_7",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_COVER_CLASS_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_SEARCH_CLASS_CODE_COVERAGE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_TRANSACTION_TYPE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_CANCELLATION_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_FINAL_AUDIT",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_CITY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_FACTOR_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COVERAGE_KEY_INSURANCE_LINE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_C_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ORIGINAL_INCEPTION_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_B_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMEND_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MODE_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_TOTAL_PREMIUM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BRANCH",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_POLICY_DESCRIPTION_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_STATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SYSTEM_DATE_OVERRIDE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_A_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATUS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TRANSSEQ",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_UNDERWRITER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MVR_REPORT_YEAR",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REVIEW_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMENDMENT_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_2",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_COVER_CLASS_DESCRIPTION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_EXPOSURE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TYPE_ACTIVITY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_EFFECTIVE_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_10",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_A",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SEARCH_CLASS_CODE_COVERAGE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_NUMBER_OF_LOCATIONS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_INSLINE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_MCO",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_11",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_B",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_MODE_CODE_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_DIRECT_ASSUMED",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_DATE_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ISSUE_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_12",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_6",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TYPE_ACTIVITY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ZIP_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_C",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_SYMBOL",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CHECK_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMENDED",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_PAY_BY_PLAN",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_VARIATION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AUDIT_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_TERRITORY",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_GC_USER_CODE_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_BASIC_CONTRACT",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SECURITY_INDIC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "NEXT_SCREEN",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_7",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMEND_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAYBY_MODE_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_GRADE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ENTERED_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PROFIT_CENTER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_6",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_GC_COVER_CLASS_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_PANEL_MODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_PCO",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_2",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_8",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_02",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CASH_WITH_APPLICATION",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAYBY_CODE_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAY_BY_PLAN",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_EXPOSURE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_USER_CODE_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_GC_USER_CODE_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_CHECKBOX",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_CUR_REC_SET_STATUS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ACCTG_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_9",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_03",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_MODULE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_POLICY_NUMBER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEW_PAYBY_DESC",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SORT_NAME",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EXPIRATION_DATE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_16",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_1",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_DATE_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_8",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZZ_COVERAGE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATE_PREMIUM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_FACTOR_4",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_MODE_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_PAY_BY_CODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PRODUCER",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_INDICATOR_2",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_10",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GC_USER_CODE_9",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_COVERAGE_RATE_PREMIUM",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LIQ_GC_USER_CODE_3",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "EBL_GC_USER_CODE_5",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "CppQQGLQuickQuote1NAOff",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

@@ -1,0 +1,118 @@
+{
+  "dataSource": {
+    "pagesize": "25",
+    "SQL": "SELECT RSN0SUSP,SUSP0DATE,COM0SEQ,COM0REQ0BY,COM0DEST,COMMSG1,COMMSG2,COMMSG3 FROM PMSP0300 WHERE LOCATION = @loc@  AND MASTER0CO = @mco@ AND SYMBOL = @sym@ AND POLICY0NUM = @polno@ AND MODULE = @mod@",
+    "filename": "PMSP0300",
+    "type": "SQL",
+    "maxKeySize": "20",
+    "params": {
+      "loc": [
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        }
+      ],
+      "mco": [
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "1"
+        }
+      ],
+      "sym": [
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "1"
+        }
+      ],
+      "polno": [
+        {
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "1"
+        }
+      ],
+      "mod": [
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "1"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        }
+      ],
+      "rowactionfunction": "PolCommentsListAction",
+      "listfunction":"GenericInquireFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "RSN0SUSP",
+        "visible": "true",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Reason Suspended"
+      },
+      {
+        "field": "SUSP0DATE",
+        "visible": "true",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Suspend Date"
+      },
+      {
+        "field": "COM0SEQ",
+        "visible": "true",
+        "width": "10%",
+        "align": "center",
+        "displayName": "Sequence"
+      },
+      {
+        "field": "COM0REQ0BY",
+        "visible": "true",
+        "width": "13%",
+        "align": "left",
+        "displayName": "Requester"
+      },
+      {
+        "field": "COM0DEST",
+        "visible": "true",
+        "width": "13%",
+        "align": "center",
+        "displayName": "Destination"
+      },
+      {
+        "field": "COMMSG1",
+        "visible": "true",
+        "width": "35%",
+        "align": "left",
+        "displayName": "Comments"
+      }
+    ],
+    "title": "Comments List"
+  }
+}

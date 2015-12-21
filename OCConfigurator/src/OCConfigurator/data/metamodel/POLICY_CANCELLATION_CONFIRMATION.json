@@ -1,0 +1,233 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Basic_Contract",
+                     "title":  "Policy Cancellation Confirmation",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_BC_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "5",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EFFECTIVE_DATE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "8",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EXPIRATION_DATE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Expiration Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "10",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_PROC_LDA_RENEWAL_MODULE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Next policy module",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "13",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Submit_Button",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Cancel Next Module",
+                                                                                                             "order":  "14",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "cancelNextModule();",
+                                                                                                             "size":  10,
+                                                                                                             "buttonid":  "ID_Submit_Button",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_POLICY_COMPANY",
+                                                                                                             "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "18",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "minlength":  "2",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_MASTER_COMPANY",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "POLICY_CANCELLATION_CONFIRMATION",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

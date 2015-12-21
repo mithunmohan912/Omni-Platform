@@ -1,0 +1,1269 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Basic_Contract",
+                     "title":  "Application Information      Quotes",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "6",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_BC_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Quote Number",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "68",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "69",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "70",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3,
+                                                                                    "required":  "required"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EFFECTIVE_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Quote Effective Date",
+                                                                                    "order":  "3",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_EXPIRATION_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Quote Expiration Date",
+                                                                                    "order":  "4",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_AGENT_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Agency Number / Name",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NUMBER",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "5",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "7",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "required":  "required",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_AGENT_NAME",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "71",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Agent_Search_Button",
+                                                                                                             "required":  "false",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  2,
+                                                                                    "required":  "required"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_CURRENCY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Policy Currency",
+                                                                                    "order":  "164",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_COMMON_DESC_STATE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Quote State",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "COMMON_DESC_STATE",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "72",
+                                                                                                             "support":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Search_State_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "label":  "Term Effective Date",
+                                                                                    "labelspan":  "8",
+                                                                                    "fieldspan":  10,
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "date",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "SC_CODE",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "USRENTRYFIELD",
+                                                                                                           "value":  ""
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "PRINTIND",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "REQUIRED_PT",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "INDD",
+                                                                                                           "value":  ""
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "ERRORCD",
+                                                                                                           "value":  ""
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "size":  10,
+                                                                                    "name":  "BC_TERM_EFFECTIVE_DATE",
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "label":  "Term Expiration Date",
+                                                                                    "labelspan":  "8",
+                                                                                    "fieldspan":  10,
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "date",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "SC_CODE",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "USRENTRYFIELD",
+                                                                                                           "value":  ""
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "PRINTIND",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "REQUIRED_PT",
+                                                                                                           "value":  " "
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "INDD",
+                                                                                                           "value":  ""
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "name":  "ERRORCD",
+                                                                                                           "value":  ""
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "size":  10,
+                                                                                    "name":  "BC_TERM_EXPIRATION_DATE",
+                                                                                    "required":  "required",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_LINE_OF_BUSINESS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Line Of Business",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "73",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE_DESC",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Issue Description",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "74",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_COMPANY_LINE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Company Line",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "1",
+                                                                                    "minlength":  "1",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BRANCH",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Branch",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "2",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PROFIT_CENTER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Profit Center",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "3",
+                                                                                    "minlength":  "3",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PRODUCER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Producer",
+                                                                                    "order":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_A",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "BC_SPECIAL_USE_A_DESC",
+                                                                                    "labeltype":  "variable",
+                                                                                    "order":  "18",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Policy Company",
+                                                                                    "order":  "13",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "2",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KIND_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Direct/Assumed",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "14",
+                                                                                    "maxlength":  "1",
+                                                                                    "minlength":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_B",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "BC_SPECIAL_USE_B_DESC",
+                                                                                    "labeltype":  "variable",
+                                                                                    "order":  "19",
+                                                                                    "maxlength":  "7",
+                                                                                    "minlength":  "0",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_CUSTOMER_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "searchtext",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  "10",
+                                                                                    "order":  "15",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "10",
+                                                                                    "title":  "Search",
+                                                                                    "size":  12,
+                                                                                    "autoformat":  "true",
+                                                                                    "buttonid":  "ID_BC_Customer_Number_Search",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SPECIAL_USE_C",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "BC_SPECIAL_USE_C_DESC",
+                                                                                    "labeltype":  "variable",
+                                                                                    "order":  "20",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AUDIT_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Audit Frequency",
+                                                                                    "order":  "17",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     },
+                                     {
+                                         "sectionsize":  "6",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Insured",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "79",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_BC_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "required":  "required"
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1,
+                                                                                    "required":  "required"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_SORT_NAME",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Sort Name",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "3",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_02",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Optional/Name/Address",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "80",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_03",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Address",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "81",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "required":  "required"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_INSURED_ADDRESS_CITY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City/State/Postal Code",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_INSURED_ADDRESS_CITY",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "82",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "required":  "required"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_INSURED_ADDRESS_STATE",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "83",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "required":  "required"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_ZIP_CODE",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "mask",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "84",
+                                                                                                             "mask":  "#####-####",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "required":  "required"
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3,
+                                                                                    "required":  "required"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_TOTAL_PREMIUM",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Premium",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "85",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BC_PAY_BY_PLAN",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Pay Plan",
+                                                                                    "order":  "21",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "required":  "required",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_PAY_BY_PLAN",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Renewal Pay Plan",
+                                                                                    "order":  "22",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "required":  "required",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_RENEWAL_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Renewal Of Policy",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_RENEWAL_SYMBOL",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "28",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "minlength":  "2",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  4,
+                                                                                                             "autoformat":  "true"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_RENEWAL_POLICY_NUMBER",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "29",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "7",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "autoformat":  "true"
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEWAL_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Renewal Option",
+                                                                                    "order":  "23",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "1",
+                                                                                    "minlength":  "1",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_REASON_AMEND_DIGIT1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason Amended",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DESC",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "98",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Reason_Amend_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Multiple_Reason_Amend_Button",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Reason Amend Comments",
+                                                                                                             "order":  "28",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "doMulReasonAmendSearch();",
+                                                                                                             "size":  4,
+                                                                                                             "buttonid":  "ID_Multiple_Reason_Amend_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ]
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BC_REASON_AMEND_DIGIT1",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Reason Amended",
+                                                                                    "fieldspan":  "10",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "24",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "25",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "26",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DESC",
+                                                                                                             "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "78",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Reason_Amend_Search_Button"
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BUSINESS_SEGMENT",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Business Segment",
+                                                                                    "order":  "136",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_BUSINESS_UNIT",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Business Unit",
+                                                                                    "order":  "138",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CORP_PROFIT_CENTER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Corp. Profit Center",
+                                                                                    "order":  "140",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_TRACK_SWITCH",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RENEWAL_MODULE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TYPE_ACTIVITY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_CUR_REC_SET_STATUS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SET_TYPE_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_HIERARCHY_SWITCH",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_RENEWAL_POLICY_KEY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_IS_WCV_POLICY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_BASSYS1700_RW_SWITCH",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AMENDMENT_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSTALLMENT_TERM",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_NUMBER_OF_INSTALLMENTS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ENTERED_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_CANCELLATION_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PRINTED_STATEMENT",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN1",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN2",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_RSN3",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_VARIATION",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_SYMBOL",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LATEST_POLICY_MODULE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REVIEW_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_MVR_REPORT_YEAR",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_GRADE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_UNDERWRITER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_EFFECTIVE_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SYSTEM_DATE_OVERRIDE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_SECURITY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_BASIC_CONTRACT",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ISSUE_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RISK_STATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TYPE_ACTIVITY",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TEMPHASHDATA",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SECURITY_INDIC",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TEMP_SPECIAL_USE_C",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_QUOT_DAYS",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_TERM_EXP_DATE_IND",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_REASON_AMENDED",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CASH_WITH_APPLICATION",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CHECK_NUMBER",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_PAYBY_MODE_DESC",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_RENEW_PAYBY_DESC",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_TRANSACTION_TYPE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ACCTG_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TRANSSEQ",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_LDA_ISSUE_CODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TERM_EFFECTIVE_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Term Effective Date",
+                                                                                    "order":  "148",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_TERM_EXPIRATION_DATE",
+                                                                                    "page":  "APPLICATION_INFORMATION_QUOTES",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "Term Expiration Date",
+                                                                                    "order":  "150",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ]
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

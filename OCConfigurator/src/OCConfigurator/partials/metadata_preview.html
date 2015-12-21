@@ -1,0 +1,24 @@
+<div class="span11" ng-controller="MetaModelUpdateJSON" style="margin-left:120px;">
+    <h2>View Meta data</h2>
+
+    <ul class="nav nav-tabs">
+        <li ng-click="pretifyJSON()" ><a href="#json" data-toggle="tab">JSON</a></li>
+        <li><a href="#messages" data-toggle="tab">Settings and Messages</a></li>
+    </ul>
+
+    <div class="tab-content g-container screen-tabs">
+      
+        <div class="tab-pane" id="messages">CANVAS settings and messages will be created and administered here</div>
+        <div  class="tab-pane" id="json" >
+            <h2>Data:</h2>
+            <pre>
+           		{{prettyJSON}}
+           	</pre>
+        </div>
+    </div>
+    <br>
+   
+   
+    <button class="btn btn-default" ng-click="PublishMetaData()">Publish </button>
+    <button  class="btn btn-default" ng-click="UpdateMetaModelJSONCamel()">Save </button>
+</div>

@@ -1,0 +1,102 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "SP" : "BASRCVL011(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "2"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        },
+	{
+          "type": "KEY",
+          "startIndex": "16",
+          "endIndex": "30"
+        }
+      ]
+    },
+    "type" : "SP"
+  },
+  "gridMetaData" : {
+    "operation" : {
+      "jsfunction" : "showRcvInstallmentDetails"
+    },
+    "element" : [ {
+      "field" : "WSINSTNBR",
+      "visible" : "true",
+      "width" : "5%",
+      "align" : "center",
+      "displayName" : "Inst"
+    }, {
+      "field" : "WSTRANCODE",
+      "visible" : "true",
+      "width" : "5%",
+      "align" : "center",
+      "displayName" : "      "
+    }, {
+      "field" : "WSTRANDESC",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Transaction"
+    }, {
+      "field" : "WSEFFDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Trans Effective"
+    }, {
+      "field" : "WSACTDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Activity Date"
+    }, {
+      "field" : "WSPOLPREMAMT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "displayName" : "Policy Premium"
+    }, {
+      "field" : "WSINSPREMAMT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "displayName" : "Installment Premium"
+    }, {
+      "field" : "WSINSCOMMAMT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "displayName" : "Commission Amount"
+    }, {
+      "field" : "WSINSTSEQ",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "right",
+      "displayName" : "SeqNum"
+    } ],
+    "title" : "Premiums Posted Detail"
+  }
+}

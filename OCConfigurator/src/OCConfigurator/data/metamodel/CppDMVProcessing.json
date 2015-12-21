@@ -1,0 +1,853 @@
+{
+    "metadata":  {
+                     "groupid":  "PERSONAL_AUTO",
+                     "formid":  "CppDMVProcessing",
+                     "title":  "DMV Manual Submission",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_PA_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "PA_KEY_SYMBOL",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "74",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "PA_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "75",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "PA_KEY_MODULE",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "76",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "77",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_USER_CODE_1",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Tracking Number",
+                                                                                    "order":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "20",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "54",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_USER_CODE_5",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reporting State",
+                                                                                    "required":  "required",
+                                                                                    "order":  "2",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Line of Business",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "78",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_LICENSE_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "date",
+                                                                                    "label":  "DMV Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "3",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_USER_CODE_6",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "select",
+                                                                                    "label":  "DMV Transaction Code",
+                                                                                    "required":  "required",
+                                                                                    "order":  "4",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_DRVDTL_FULLNAME_1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Individual or Business",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "DRVDTL_FULLNAME_1",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "select",
+                                                                                                             "order":  "5",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "I",
+                                                                                                                                 "description":  "I"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "value":  "O",
+                                                                                                                                 "description":  "O"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  9,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "A_PA_SHOW_ALL_RECORDS",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "checkbox",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DRVDTL_LAST_NAME",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Last/Business Name",
+                                                                                    "required":  "required",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "35",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_FIRST_NAME",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "First Name",
+                                                                                    "required":  "required",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_MIDDLE_INITIAL",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Middle Name",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "25",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_SUFFIX_NAME",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Suffix",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_ADDRESS_LINE_1",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Address",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_ADDRESS_LINE_2",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Optional",
+                                                                                    "order":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_STATE_1",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "select",
+                                                                                    "label":  "State",
+                                                                                    "order":  "13",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_CITY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "City",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_ZIP_CODE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Postal Code",
+                                                                                    "order":  "15",
+                                                                                    "mask":  "#####-####",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "11",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PA_KEY_DRIVER_ID",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Insured Driver #",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "57",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_LICENSE_STATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "select",
+                                                                                    "label":  "License State",
+                                                                                    "order":  "18",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_DRVDTL_LICENSE_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "FEIN Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "DRVDTL_LICENSE_NUMBER",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "19",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "20",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DRVDTL_FEIN_NUMBER",
+                                                                                                             "page":  "CppDMVProcessing",
+                                                                                                             "type":  "mask",
+                                                                                                             "order":  "20",
+                                                                                                             "mask":  "##-#######",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "10",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_DATE_OF_BIRTH",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Birth",
+                                                                                    "order":  "21",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DRVDTL_SEX_1",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Sex",
+                                                                                    "order":  "22",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "M",
+                                                                                                        "description":  "Male"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "F",
+                                                                                                        "description":  "Female"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PA_KEY_UNIT_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Vehicle Unit #",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "63",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNIT_RATE_STATE_UNIT",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Vehicle Reg State",
+                                                                                    "order":  "25",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_PA_DROP_RECORD_INDICATOR",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Drop Indicator",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "66",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_PA_DROP_RECORD_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Drop Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "68",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNIT_YEAR_MAKE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Vehicle Year",
+                                                                                    "order":  "26",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNIT_MAKE_DESCRIPTION",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Make/Model",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNIT_USER_INDICATOR_1",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "VIN",
+                                                                                    "order":  "28",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "17",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "UNIT_SERIAL_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Vehicle Plate Number",
+                                                                                    "order":  "29",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SECURITY_INDIC",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_MASTER_COMPANY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_DRIVER_CODE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_PRODUCT",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_DRIVER_CODE_SEQUENCE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_POLICY_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_MASTER_COMPANY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_DRIVER_ID",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_COVERAGE_SEQUENCE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_SYMBOL",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_INSURANCE_LINE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_RECORD_STATUS",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_RISK_LOCATION_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_MODULE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_COVERAGE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_UNIT_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PA_KEY_RISK_SUBLOCATION_NUMBER",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "CppDMVProcessing",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

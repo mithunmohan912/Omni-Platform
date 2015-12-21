@@ -1,0 +1,612 @@
+{
+    "metadata":  {
+                     "groupid":  "CPP",
+                     "formid":  "Insurance_Line",
+                     "title":  "Insurance Line Details",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_RECORD_STATUS",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Status",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "25",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_INSLINE_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_SYMBOL",
+                                                                                                             "page":  "InsuranceLine_BP_Details_MI",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "28",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "InsuranceLine_BP_Details_MI",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "29",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "INSLINE_KEY_MODULE",
+                                                                                                             "page":  "InsuranceLine_BP_Details_MI",
+                                                                                                             "type":  "number",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "30",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_INSURANCE_LINE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insurance Line",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "31",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATEBOOK_RATEFILE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Ratebook",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "34",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "A_INSLINE_RATE_PREMIUM",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Premium",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "36",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_12",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Per Occurrence",
+                                                                                    "required":  "required",
+                                                                                    "order":  "1",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_10",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Aggregate PRODCO",
+                                                                                    "required":  "required",
+                                                                                    "order":  "2",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_11",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Aggregate PREMOP",
+                                                                                    "required":  "required",
+                                                                                    "order":  "3",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_1",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Abuse Exclusion",
+                                                                                    "order":  "4",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_13",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Medical Expense Amt",
+                                                                                    "order":  "5",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_3",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Pers and Adv Injury EXCL",
+                                                                                    "order":  "6",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_7",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Food Cont Limit",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_9",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Advertising Exp Limit",
+                                                                                    "order":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_4",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Damage to Premises",
+                                                                                    "order":  "9",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_1",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Building Limit",
+                                                                                    "order":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_8",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Personal Property Limit",
+                                                                                    "order":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_3",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Bldg / BPP Limit",
+                                                                                    "order":  "12",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_5",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Audit Frequency",
+                                                                                    "order":  "13",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_4",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Audit Type",
+                                                                                    "order":  "14",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_IND_12",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "PD Deductible Type",
+                                                                                    "order":  "15",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_CODE_12",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "select",
+                                                                                    "label":  "PD Deductible",
+                                                                                    "order":  "16",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_6",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Number of Employees",
+                                                                                    "order":  "17",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_USER_DOLLAR_5",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Number Full Time",
+                                                                                    "order":  "18",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INS_FR_COV_AMOUNT",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Number Part Time",
+                                                                                    "order":  "19",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_INSLINE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_POLICY_NUMBER",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_SYMBOL",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_MASTER_COMPANY",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_RECORD_STATUS",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_MODULE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_INSURANCE_LINE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INSLINE_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "InsuranceLine_BP_Details_MI",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

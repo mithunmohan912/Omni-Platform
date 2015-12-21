@@ -1,0 +1,48 @@
+{
+  "dataSource" : {
+    "pagesize" : "10",
+   "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASWC12T01"
+        },
+	{
+	  "name":"KEY_LOCATION"
+	},
+	{
+	  "name":"KEY_MCO"
+	},
+	{
+	  "name":"KEY_POLICY_SYMBOL"
+	},
+	{
+	  "name":"KEY_POLICY_NUMBER"
+	},
+	{
+	  "name":"KEY_POLICY_MODULE"
+	},
+	{
+	  "name":"KEY_STATE_NUMBER"
+	}
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : {
+      "jsfunction" : "selectValue"
+    },
+    "element": [
+      {
+      "field" : "BIACCIDENT",
+      "visible" : "true",
+      "width" : "100%",
+      "align" : "center",
+      "displayName" : "Bodily Injury Accident"
+      }
+    ],
+    "title" : "FELA Increased Limits Selection List"
+  }
+}

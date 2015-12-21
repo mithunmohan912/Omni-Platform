@@ -1,0 +1,902 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ClmAddtlClaimantInfoGL",
+                     "title":  "Additional Claimant Information",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CL_TYPE_OF_CLAIM_DESC",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Claim Type",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "55",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CL_DATE_OF_LOSS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Loss Date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "60",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_CL_EXAMINER_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Examiner",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CL_EXAMINER_CODE",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "58",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CL_EXAMINER_NAME",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "57",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  10,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_SSN",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Social Security Number",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "68",
+                                                                                    "mask":  "NNN-NN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_SEX",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Gender",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "66",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_AGE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Age At DOL",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "67",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_CLMT_VEHICLE_ACCIDENT_DESC1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Accident Description",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CLMT_VEHICLE_ACCIDENT_DESC1",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "3",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "50",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_VEHICLE_ACCIDENT_DESC2",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "50",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_VEHICLE_CONTACT",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Contact Person",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_DATE_OF_BIRTH",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Of Birth",
+                                                                                    "order":  "7",
+                                                                                    "mask":  "mm/dd/yyyy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_VEHICLE_CONTACT_ADDR",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Address",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_CLMT_VEHICLE_CONTACT_CITY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City / State",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CLMT_VEHICLE_CONTACT_CITY",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "11",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "28",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  7,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_VEHICLE_CONTACT_STATE",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "select",
+                                                                                                             "order":  "12",
+                                                                                                             "support":  "true",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  4,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_VEHICLE_CONTACT_ZIP",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Postal Code",
+                                                                                    "order":  "14",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_VEHICLE_CONTACT_ZIP_EXTN",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "-",
+                                                                                    "order":  "15",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_CIB",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Report to Central Index Bureau",
+                                                                                    "order":  "16",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_HOME_PHONE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Home",
+                                                                                    "order":  "17",
+                                                                                    "mask":  "NNN-NNN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WORK_PHONE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Work",
+                                                                                    "order":  "18",
+                                                                                    "mask":  "NNN-NNN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WORK_PHONE_NUMBER_EXTN",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Ext",
+                                                                                    "order":  "19",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_FAX_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Fax",
+                                                                                    "order":  "20",
+                                                                                    "mask":  "NNN-NNN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_EMAIL_ADDRESS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "E-mail Address",
+                                                                                    "order":  "21",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "50",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_DATE_CONTACTED",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Contacted",
+                                                                                    "order":  "24",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_LITIGATION",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Lawsuit",
+                                                                                    "order":  "25",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_WAGE_LOSS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Wage Loss",
+                                                                                    "order":  "26",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_OCCUPATION",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Occupation Description",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_EMPLOYER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Employer",
+                                                                                    "order":  "28",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_INJURY",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Injury Description",
+                                                                                    "order":  "30",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_MEDICAL_PROVIDER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Medical Provider",
+                                                                                    "order":  "32",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_CLMT_ATTORNEY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Attorney",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "CLMT_ATTORNEY",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "38",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "30",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_ADDL_SPECUSE_LIT_1",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "46",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_ADDL_SPECUSE_1",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "42",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "50",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_ADDL_SPECUSE_LIT_2",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "47",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "CLMT_ADDL_SPECUSE_2",
+                                                                                                             "page":  "ClmAddtlClaimantInfoGL",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "43",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "50",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_ATTORNEY_PHONE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "mask",
+                                                                                    "label":  "Phone",
+                                                                                    "order":  "39",
+                                                                                    "mask":  "NNN-NNN-NNNN",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMT_ATTORNEY_PHONE_EXTN",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Ext",
+                                                                                    "order":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "4",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_CLAIMS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE1",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CLMNT_DATE_OF_BIRTH",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  1,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  11,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_CATEGORY",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIMANT_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLCMT_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_LNAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MODULE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_SUB_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_DIR_TRN_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_ADJUSTOR_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENCY_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TAX_ID",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIM_NUMBER",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLM_ENTRY_DATE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_COV_SEQ",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_FNAME",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "ClmAddtlClaimantInfoGL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}
