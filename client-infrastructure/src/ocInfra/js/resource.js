@@ -48,3 +48,31 @@ dataFactory.patch = function (urlBase,obj) {
  return dataFactory;
 
 }]);
+
+
+    //quote factory
+
+    app.factory('quotefactory', ['$http','dataFactory','$rootScope','$log',function($http,dataFactory,$rootScope,log) {
+
+    var quotefactory = {};
+   
+     quotefactory.getquote = function (url) {
+        if(url=== undefined){
+
+         var uri=$rootScope.screenId;
+          url = $rootScope.HostURL + uri;
+          console.log('current screen id' + uri);
+          log.info('derived URL!!!' + url);
+ }
+
+ 
+        dataFactory.options(url).success(function(){
+                log.info("global options called");        
+        
+     });
+        
+    };
+
+ return quotefactory;
+
+}]);
