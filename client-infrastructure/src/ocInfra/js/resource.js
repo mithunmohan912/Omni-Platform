@@ -67,7 +67,7 @@ dataFactory.patch = function (urlBase,obj) {
 
  
         dataFactory.options(url).success(function(){
-                log.info("global options called");        
+                log.info('global options called');        
         
      });
         
