@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope, $routeParams, $location, MetaData, HttpService, dataFactory ) {
+function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $location, MetaData, HttpService, dataFactory) {
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
 	$scope.disableNext = false;
@@ -35,6 +35,7 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 		$rootScope.screenId = reqParm;
 	}
 
+    $scope.quotefactory = $injector.get('quotefactory');
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
@@ -86,11 +87,17 @@ function ScreenController($http, $scope, $rootScope, $routeParams, $location, Me
 			'Content-Type' : 'application/json'
             };
 			
-		 if (url !== undefined) {	
+		 if (url !== undefined) {
+		  
 		   HttpService.options(url,$scope);
            HttpService.get(url,headers,$scope);
 		 }
-	};
+		 else{
+		 	
+		 	$scope.quotefactory.getquote(url);	
+		 }
+
+			};
 	
 	$scope.loadMetaData();
 	$rootScope.isPrev = false;
