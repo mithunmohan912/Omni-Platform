@@ -1,0 +1,59 @@
+{
+  "dataSource": {
+    "pagesize": "10",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+	"query" : [
+			{
+				"type" : "VALUE",
+				"value" : "BASNAIS01 "
+			},
+			{
+				"name" : "NAICSCODE",
+				"length" : "6",
+				"fill" : " "
+			},
+			{
+				"name" : "NAICSSEQ",
+				"length" : "3",
+				"fill" : " "
+			},
+			{
+				"name" : "NAICSDESC",
+				"length" : "30",
+				"fill" : " "
+			}
+		  ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "jsfunction": "selectValue"
+    },
+    "buttons": [],
+    "element": [
+      {
+        "field": "OUTNAICSCODE",
+        "visible": "true",
+        "width": "20%",
+        "align": "center",
+        "displayName": "NAICS Code"
+      },
+      {
+        "field": "OUTNAICSSEQ",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Sequence"
+      },
+      {
+        "field": "OUTNAICSDESC",
+        "visible": "true",
+        "width": "60%",
+        "align": "left",
+        "displayName": "Description"
+      }
+    ]
+  }
+}

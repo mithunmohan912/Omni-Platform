@@ -1,0 +1,51 @@
+{
+  "gridMetaData": {
+    "title": "Reason Amended Code List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "REASAMND3K",
+        "displayName": "Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "20%"
+      },
+      {
+        "field": "REASAMNDLT",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "75%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectValue",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT REASAMND3K,REASAMNDLT FROM TBREAS3 WHERE REASAMND3K LIKE '%' +  @REASAMND3K@ + '%' ",
+    "filename": "TBREAS3",
+    "pagesize": "15",
+    "params": {
+      "REASAMND3K": [
+        {
+          "name": "BC_REASON_AMEND_DIGIT1"
+        },
+        {
+          "name": "BC_REASON_AMEND_DIGIT2"
+        },
+        {
+          "name": "BC_REASON_AMEND_DIGIT3"
+        }
+      ]
+    }
+  }
+}

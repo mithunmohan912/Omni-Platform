@@ -1,0 +1,63 @@
+{
+  "dataSource" : {
+    "pagesize" : "999",
+    "SP" : "BASRCVL008(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "18"
+        }
+      ]
+    },
+    "type" : "SP"
+  },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSACTDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Bill Date "
+    }, {
+      "field" : "WSDUEDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Due Date"
+    }, {
+      "field" : "WSACTDESC",
+      "visible" : "true",
+      "width" : "35%",
+      "align" : "left",
+      "displayName" : "Notice"
+    }, {
+      "field" : "WSACTAMOUNT",
+      "visible" : "true",
+      "width" : "25%",
+      "align" : "right",
+      "displayName" : "Billed Amount"
+    }, {
+      "field" : "WSLOB",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : "LOB"
+    }, {
+      "field" : "WSRUNDATE",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Run Date"
+    }, {
+      "field" : "WSCUSTNBR",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "center",
+      "displayName" : "Customer No"
+    } ],
+    "title" : "Notice List"
+  }
+}

@@ -1,0 +1,11 @@
+<form>
+	<div class="gridHeader">
+		<span style="float: left;"><b>{{gridMetaData.title}}</b></span>
+		<i class=" iconMaximize  pull-right anchor-pointer" ng-click="openModal('maxmizeGrid')"  ></i>
+		
+		<input class="search-query pull-right" placeholder="Search" style="display:{{gridMetaData.enableSearching}}" type="text" ng-model="filterOptions.filterText" />
+		
+	</div>
+
+	<div id="{{field.name}}" class="gridStyle" ng-grid="gridOptions"></div> 
+</form>

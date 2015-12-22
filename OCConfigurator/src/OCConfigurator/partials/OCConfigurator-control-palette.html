@@ -1,0 +1,1055 @@
+<div id="fl_menu" ng-controller="LeftControlPalette">
+
+	<accordion close-others="true"> <accordion-group
+		heading="Control Palette">
+
+	<div ng-repeat="objAcc in accordions">
+		<ng-switch on="objAcc.type">
+		<div ng-switch-when="buttonGroup">
+			<div class="btn-group-vertical">
+				<button ng-repeat="control in objAcc.controls" type="button"
+					id="{{control.id}}"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" draggable class="selectorField btn btn-default"   
+					style="z-index: 999;">
+					<i class="{{control.iClass}}"></i> {{control.name}}
+				</button>
+			</div>
+		</div>
+		</ng-switch>
+	</div>
+
+	</accordion-group> <accordion-group heading="Properties">
+	<div id="fieldProperty" class="" style="display: block; margin: -14px;">
+		<div style="overflow-y: scroll;">
+
+			<ul class="nav nav-tabs nav-stacked property-list">
+				<div ng-repeat="objAcc in accordions">
+					<ng-switch on="objAcc.type">
+					<div ng-switch-when="htmlControls">
+						<li id="ViewLevelProperties">
+							<div ng-repeat="control in objAcc.controls">
+								<ng-switch on="control.propName"> <!-- <div ng-switch-default class="input">
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>
+									<ng-switch on="control.htmlType"> <input
+										type="text" ng-switch-when="text" class="property-input" /> <input
+										type="checkbox" ng-switch-when="checkbox"
+										class="property-input" /> <select ng-switch-when="select"
+										class="property-input">
+										<option selected="selected"
+											ng-repeat="option in control.options"
+											value="{{option.value}}">{{option.description}}</option>
+									</select> </ng-switch>
+								</div> -->
+								<div ng-switch-when="title" class="input">
+									<label for="title" class="property-label"
+										 ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>  <input
+										type="text" id="title" ng-required ng-model="mainView.title"
+										ng-click="updatePageProp()" class="property-input">
+								</div>
+								<div ng-switch-when="groupid" class="input">
+									<label for="groupid" class="property-label"
+										 ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>  <input
+										ng-click="updatePageProp()" type="text" id="groupid"
+										ng-required ng-model="mainView.groupid" class="property-input">
+								</div>
+								<div ng-switch-when="formid" class="input">
+									<label for="formid" class="property-label"
+										 ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>  <input
+										ng-click="updatePageProp()" type="text" id="formid"
+										ng-model="mainView.formid" class="property-input" ng-required>
+								</div>
+								<div ng-switch-when="subtitle" class="input">
+									<label for="subtitle" class="property-label"
+										 ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>  <input
+										type="text" id="subtitle" ng-required
+										ng-model="mainView.subtitle" ng-click="updatePageProp()"
+										class="property-input">
+								</div>
+								<div ng-switch-when="viewType" class="input">
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> <input id="ViewSelectedtype" type="text"
+										class="input-medium" auto-complete ui-items="allElementTypes" ng-model="SelectedViewType" ng-change="setAttr()" />
+								</div>
+								</ng-switch>
+							</div>
+						</li>
+						<li id="GroupElementLevelProperties" style="display: none;">
+							<div ng-repeat="control in objAcc.controls">
+								<ng-switch on="control.propName"> <!-- 	<div ng-switch-default class="input">
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>
+									<ng-switch on="control.htmlType"> <input
+										type="text" ng-switch-when="text" class="property-input" /> <input
+										type="checkbox" ng-switch-when="checkbox"
+										class="property-input" /> <select ng-switch-when="select"
+										class="property-input">
+										<option selected="selected"
+											ng-repeat="option in control.options"
+											value="{{option.value}}">{{option.description}}</option>
+									</select> </ng-switch>
+								</div> -->
+								<div ng-switch-when="page" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}
+										</label>  
+										<input type="text" id="newField-page"
+											ng-model="newField.page" class="property-input" ng-required
+											typeahead="page for page in pages | filter:$viewValue | limitTo:8" 
+											typeahead-on-select="setPage(newField)" ng-change="setPage(newField)" />
+									</fieldset>
+									<fieldset ng-switch-when="grouptext">
+										<label for="newField-page" class="property-label"
+											title="The ALR page on which the attribute resides.">Group
+											Name:</label>  <input type="text" id="newField-page"
+											ng-model="newField.page" class="property-input" ng-required>
+									</fieldset>
+									</ng-switch>
+								</div>
+								<div ng-switch-when="name" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}
+											&nbsp;&nbsp;&nbsp;&nbsp;<i title="Add New"
+											class="icon-plus icon-large property-icon"
+											ng-click="addNewAttr('add',newField)" />&nbsp;<i
+											id="editAttrI1" title="Edit this Attribute"
+											class="icon-edit icon-large property-icon"
+											ng-click="addNewAttr('edit',newField)" />
+										</label>  <input type="text" id="newField-name"
+											ng-model="newField.name" class="property-input" ng-required
+											typeahead="attr for attr in attrs | filter:$viewValue | limitTo:8"
+											ng-change="UpdateElementProp(newField)">
+									</fieldset>
+									<fieldset ng-switch-when="grouptext">
+										<label for="newField-name" class="property-label"
+											title="This is the Name assigned to control group.">Group
+											Name:</label>  <input type="text" id="newField-name"
+											ng-model="newField.name" class="property-input" ng-required>
+									</fieldset>
+									</ng-switch>
+								</div>
+								<!-- <div ng-switch-when="regexp" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<input type="text" id="newField-regex"
+											ng-model="newField.regexp" class="property-input-re"
+											ng-required> <i
+											class="icon-check icon-large property-icon"
+											title="Validate regular exp." style="cursor: pointer;"
+											ng-click="open(newField)"></i>
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div> -->
+								<div ng-switch-when="required" class="input" >
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+									<ng-switch on="control.htmlType"> <select
+										ng-switch-when="select" id="newField-required"
+										ng-model="newField.required" class="property-input"
+										ng-required>
+										<option value="false" selected="selected">false</option>
+										<option value="required">true</option>
+									</select> <!-- <input ng-switch-when="checkbox" type="checkbox"
+										ng-model="newField.required" ng-true-value="required"
+										ng-false-value="false" style="margin-top: 0px" /> -->
+										<div class="toggleswitch">
+										  	<input id="ts"  type="checkbox" ng-model="newField.required" ng-true-value="required"
+																toggle="yes" ng-false-value="false" ng-change="makeGroupMandatory(newField)" />
+										   <label for="ts">Check-me</label>
+										 </div>
+										
+										 
+									</ng-switch>
+								</div>
+								
+								<div ng-switch-when="maxlength" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<input type="number" min="1" max="40" ng-model="newField.maxlength" 
+										class="property-input-small" ng-pattern="/.*/">
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div>
+								
+								<div ng-switch-when="label" class="input">
+									<ng-switch on="newField.parentField"">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<input type="text" ng-required ng-model="newField.label"
+										class="property-input">
+									</fieldset>
+									<fieldset ng-switch-when="SubField"></fieldset>
+									</ng-switch>	
+								</div>
+								<div ng-switch-when="type" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<select id="newField-type" ng-model="newField.type"
+											ng-required ng-change="changeControlType(newField, this)"
+											class="property-input">
+											<option value="autocomplete">Auto Complete Text</option>
+											<option value="button">Button</option>
+											<option value="checkboxes">Checkboxes</option>
+											<option value="date">Date</option>
+											<option value="select">Drop Menu (Select)</option>
+											<option value="email">Email</option>
+											<option value="header">Heading</option>
+											<option value="hidden">Hidden</option>
+											<option value="label">Label</option>
+											<option value="literal">Literal</option>
+											<option value="money">Money</option>
+											<option value="multiple">Multi-Select</option>
+											<option value="number">Number</option>
+											<option value="textarea">Paragraph(s)</option>
+											<option value="phone">Phone</option>
+											<option value="radio">Radio Buttons</option>
+											<option value="searchtext">Search Text</option>
+											<option value="text" selected="selected">Text</option>
+											<option value="checkbox">Toggle (Checkbox)</option>
+											<option value="url">Url</option>
+										</select>
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div>
+								<div ng-switch-when="placeholder" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-when="text">
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<input type="text" id="newField-placeholder"
+											ng-model="newField.placeholder" class="property-input"
+											ng-required>
+									</fieldset>
+									</ng-switch>
+								</div>
+								<div ng-switch-when="disabled" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<ng-switch on="control.htmlType"> <select
+											ng-switch-when="select" ng-model="newField.disabled"
+											class="property-input" ng-required>
+											<option value="false" selected="selected">false</option>
+											<option value="true">true</option>
+										</select> <!-- <input ng-switch-when="checkbox" style="margin-top: 0px"
+											type="checkbox" ng-model="newField.disabled"
+											ng-true-value="true" ng-false-value="false" /> -->
+											
+										<div class="toggleswitch">
+										  	<input id="ts11"  type="checkbox" ng-model="newField.disabled" ng-true-value="true"
+															toggle="yes" ng-false-value="false" />
+										   <label for="ts11">Check-me</label>
+										 </div>	 
+										</ng-switch>
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div>
+								<div ng-switch-when="helptext" class="input">
+									<ng-switch on="newField.parentField"">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+									<!-- <input id="helpCheckbox" style="margin-top: 0px"
+										type="checkbox" ng-model="newField.help"
+										ng-true-value="inline" ng-false-value="none"
+										ng-change="hideHelp()" /> -->
+										
+									<div class="toggleswitch">
+									  	<input id="ts1"  type="checkbox" ng-model="newField.help" ng-true-value="inline"
+														toggle="yes" ng-change="hideHelp()" ng-false-value="none" />
+									   <label for="ts1">Check-me</label>
+									 </div>	
+									
+									<textarea placeholder="Help Text here." rows="2"
+										id="helptextArea" cols="1" style="display: {{newField.help}}"
+										class="input-medium helptext" ng-model="newField.helptext"></textarea>	
+										
+									</fieldset>
+									<fieldset ng-switch-when="SubField"></fieldset>
+									</ng-switch>	
+								</div>
+								<div ng-switch-when="support" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<!-- <input type="checkbox" style="margin-top: 0px"
+											ng-model="newField.support" ng-true-value="true"
+											ng-false-value="false" /> -->
+										<div class="toggleswitch">
+										  	<input id="ts2"  type="checkbox" ng-model="newField.support" ng-true-value="true"
+															toggle="yes" ng-false-value="false" />
+										   <label for="ts2">Check-me</label>
+										 </div>	
+										
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div>
+								<div ng-switch-when="autoformat" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<!-- <input type="checkbox" style="margin-top: 0px"
+											ng-model="newField.autoformat" ng-true-value="true"
+											ng-false-value="false" /> -->
+										<div class="toggleswitch">
+										  	<input id="ts4"  type="checkbox" ng-model="newField.autoformat" ng-true-value="true"
+															toggle="yes" ng-false-value="false" />
+										   <label for="ts4">Check-me</label>
+										 </div>	
+									</fieldset>
+									<fieldset ng-switch-when="grouptext"></fieldset>
+									</ng-switch>
+								</div>
+								
+								<div ng-switch-when="size" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-when="grouptext">
+											
+									</fieldset>
+									<fieldset ng-switch-default>
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<div style="width:85%;" ui-slider="{slide: sliderDrag}" min="0" max="12" step="1" ng-model="newField.size"></div>
+									</fieldset>		
+									</ng-switch>
+								</div>
+								
+								
+								<div ng-switch-when="fieldspan" class="input">
+								<ng-switch on="newField.parentField">
+									<fieldset  ng-switch-default>
+										
+									</fieldset>	
+									<fieldset ng-switch-when="Field">
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+									<!-- <input type="number" ng-model="newField.fieldspan"
+										ng-pattern="/*/" min="1" max="12" class="property-input-small"> -->
+										 
+									<div style="width:85%;" ui-slider="{slide: sliderDrag}"  min="0" max="12" step="1" ng-model="newField.fieldspan"></div>
+									</fieldset>
+									
+									</ng-switch>
+								</div>
+								
+								
+								
+								<div ng-switch-when="controlCount" class="input">
+									<ng-switch on="typeSwitch(newField.type)">
+									<fieldset ng-switch-when="grouptext">
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label>
+										<input type="number" min="2" max="12" 
+											id="fieldcount" ng-model="newField.controlCount"
+											class="property-input-small" ng-required
+											ng-change="updateGroupControl(newField, this)">
+										
+									</fieldset>
+									</ng-switch>
+								</div>
+								</ng-switch>
+							</div> <ng-switch on="typeSwitch(newField.type)">								
+							<fieldset ng-switch-when="multiple">
+
+								<legend>
+									<!-- <button class="btn btn-default" ng-click="addOption()">Add Option</button> -->
+									<i class="icon-plus-sign-alt property-icon"
+										style="cursor: pointer;" ng-click="addOption()"></i>
+								</legend>
+								<div class="newOption"
+									ng-repeat="option in newField.options | orderBy:order">
+									<strong>Option:</strong>
+									<!-- <button class="btn" ng-click="splice(option, newField.options)">Remove</button> -->
+									<i class="icon-minus-sign-alt property-icon"
+										ng-click="splice(option, newField.options)"
+										style="cursor: pointer;"></i> <label class="property-label">
+										Name: <input type="text" ng-model="option.description"
+										ng-required class="property-input">
+									</label> <label class="property-label"> Value: <input
+										type="text" ng-model="option.value" class="property-input">
+									</label> <label class="property-label"> Order: <input
+										type="number" min="1" max="12" ng-model="option.order"
+										class="property-input-small">
+									</label>
+								</div>
+							</fieldset>
+							
+							<fieldset ng-switch-when="select">
+								<label class="property-label" title="Select Column">Options:
+								&nbsp;&nbsp;&nbsp;&nbsp;<i title="Add Options"
+											class="icon-plus icon-large property-icon"
+											ng-click="addOption('select')" />&nbsp;<i
+											title="Delete Selected Option"
+											class="icon-minus icon-large property-icon"
+											ng-click="splice(option, newField.options)" /></label>
+								<select id="selectField" onChange="SelectOptions();"
+									class="property-input" ng-required>
+									<option ng-repeat="option in newField.options"
+										value="{{option.value}}">{{option.description}}</option>
+								</select>
+								
+								
+								<div class="subpropertydiv">
+									<div class="titlebox" style="padding: 0px;">Option Properties</div>
+									<div class="input">
+										<label for="sectionsize" class="property-label">Name:</label>
+										<input type="text" id="field" ng-model="newField.selectedoption.description"
+											class="property-input" ng-required>
+									</div>
+									<div class="input">
+										<label for="sectionsize" class="property-label">Value:</label>
+										<input type="text" id="field" ng-model="newField.selectedoption.value"
+											class="property-input" ng-required>
+									</div>
+									<div class="input">
+										<label for="sectionsize" class="property-label">Order:</label>
+										<input type="text" id="field" ng-model="newField.selectedoption.order"
+											class="property-input" ng-required>
+									</div>
+								</div>
+								
+							</fieldset>
+							
+							
+
+							<fieldset ng-switch-when="autocomplete">
+
+								<legend>
+									<!-- <button class="btn btn-default" ng-click="addOption()">Add Option</button> -->
+									<i class="icon-plus-sign-alt property-icon"
+										style="cursor: pointer;" ng-click="addAutoCompleteOption()"></i>
+								</legend>
+								<strong>Values:</strong>
+								<div class="newOption" ng-repeat="option in newField.options">
+
+
+									<i class="icon-minus-sign-alt property-icon"
+										ng-click="splice(option, newField.options)"
+										style="cursor: pointer;"></i> <input type="text"
+										ng-model="option.description" ng-required
+										class="property-input">
+
+								</div>
+							</fieldset>
+
+							<span ng-switch-when="checkbox"></span> <span
+								ng-switch-when="header"></span> </ng-switch>
+						</li>
+
+						<li id="GridLevelProperties" style="display: none;">
+							<div ng-repeat="control in objAcc.controls">
+								<ng-switch on="control.propName">
+
+								<div ng-switch-when="fieldspan" class="input">
+									<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+									<input type="number" min="1" max="12"
+										ng-model="newField.fieldspan" ng-pattern="/\$[A-Za-z][_0-9a-zA-Z]*/"
+										class="property-input-small">
+								</div>
+
+								<div ng-switch-when="name" class="input">
+									<label for="newField-name" class="property-label"
+										title="This is the Name assigned to Grid.">Grid Name:</label><i rel="popover" data-trigger="hover" class="icon-info-sign helpText" style="cursor:pointer;display:inline;" popover="This is the Name assigned to Grid."  popover-placement="bottom" />
+									<input type="text" ng-model="gridColumnColl.gridName"
+										class="property-input" ng-required>
+								</div>
+								</ng-switch>
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Title:</label> 
+								<input type="text" id="newField-name" ng-model="newField.griddata.title"
+										class="property-input" ng-required />
+								
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Draggable:</label> <!-- <select
+									id="newField-visibility" ng-model="newField.element.visible"
+									ng-required class="property-input">
+									<option value="true" selected="selected">True</option>
+									<option value="false">False</option>
+								</select> -->
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.draggability" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts5"  type="checkbox" ng-model="newField.griddata.draggability" 
+													toggle="yes"  />
+								   <label for="ts5">Check-me</label>
+								 </div>	
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Resizable:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.resizableColumn" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts6"  type="checkbox" ng-model="newField.griddata.resizableColumn" 
+													toggle="yes"  />
+								   <label for="ts6">Check-me</label>
+								 </div>
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Sorting:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.enableSorting" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts7"  type="checkbox" ng-model="newField.griddata.enableSorting" 
+													toggle="yes"  />
+								   <label for="ts7">Check-me</label>
+								 </div>
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Searching:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.enableSorting" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts13"  type="checkbox" ng-model="newField.griddata.enableSearching" 
+													toggle="yes" ng-true-value="block" ng-false-value="none"  />
+								   <label for="ts13">Check-me</label>
+								 </div>
+							</div>
+							
+							<!-- <div class="input">
+								<label class="property-label" title="">Filtering:</label>
+								<input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.enableFiltering" />
+								
+							</div> -->
+							
+							<div class="input">
+								<label class="property-label" title="">Pinnable:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.pinnableColumn" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts8"  type="checkbox" ng-model="newField.griddata.pinnableColumn" 
+													toggle="yes"  />
+								   <label for="ts8">Check-me</label>
+								 </div>
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Column Menu:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.showColumnMenu" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts9"  type="checkbox" ng-model="newField.griddata.showColumnMenu" 
+													toggle="yes" />
+								   <label for="ts9">Check-me</label>
+								 </div>
+							</div>
+							
+							<div class="input">
+								<label class="property-label" title="">Paging:</label>
+								<!-- <input type="checkbox" style="margin-top:0px" ng-model="newField.griddata.enablePaging" /> -->
+								<div class="toggleswitch">
+								  	<input id="ts10"  type="checkbox" ng-model="newField.griddata.enablePaging" 
+													toggle="yes" />
+								   <label for="ts10">Check-me</label>
+								 </div>
+							</div>
+							
+							<div class="subpropertydiv" style="display: {{newField.griddata.enablePaging}}">
+								<div class="titlebox" style="padding: 0px;">Paging Options</div>
+								
+								<div class="input">
+									<label class="property-label" title="">Page Size:</label>
+									<input type="text" id="newField-name" ng-model="newField.griddata.pageSize"
+										class="property-input" ng-required>
+									
+								</div>	
+								
+							</div>
+
+							<div>
+								<label class="property-label" title="Select Column">Columns:
+								&nbsp;&nbsp;&nbsp;&nbsp;<i title="Add New Grid Column"
+											class="icon-plus icon-large property-icon"
+											ng-click="addGridColumn()" />&nbsp;<i
+											title="Delete Grid Column"
+											class="icon-minus icon-large property-icon"
+											ng-click="spliceGridColumn(newField.element.displayName)" /></label>
+								<select id="newField-grid" onChange="onColumnClick();"
+									class="property-input-re" ng-required>
+									<option ng-repeat="columns in gridColumnDefs"
+										value="{{columns.displayName}}">{{columns.displayName}}</option>
+								</select>
+							</div>
+
+							<div class="subpropertydiv">
+								<div class="titlebox" style="padding: 0px;">Column
+									Properties</div>
+
+
+
+								<div class="input">
+									<label for="sectionsize" class="property-label">Field:</label>
+									<input type="text" id="field" ng-model="newField.element.field"
+										class="property-input" ng-required>
+								</div>
+
+								<div class="input">
+									<label class="property-label" title="">Visible:</label>
+									
+									<!-- <input type="checkbox" style="margin-top: 0px"
+										ng-model="newField.element.visible" /> -->
+										
+									<div class="toggleswitch">
+									  	<input id="ts12"  type="checkbox" ng-model="newField.element.visible" 
+														toggle="yes"  />
+									   <label for="ts12">Check-me</label>
+									 </div>
+
+								</div>
+
+								<div class="input">
+									<label class="property-label" title="">Align:</label> <select
+										id="newField-align" ng-model="newField.element.align"
+										ng-required class="property-input">
+										<option value="left" selected="selected">Left</option>
+										<option value="center">Center</option>
+										<option value="right">Right</option>
+									</select>
+								</div>
+
+								<div class="input">
+									<label class="property-label" title="">Type:</label> <select
+										id="newField-columntype" ng-model="newField.element.type"
+										ng-required class="property-input">
+										<option value="autocomplete">Auto Complete Text</option>
+											<option value="button">Button</option>
+											<option value="checkboxes">Checkboxes</option>
+											<option value="date">Date</option>
+											<option value="select">Drop Menu (Select)</option>
+											<option value="email">Email</option>
+											<option value="header">Heading</option>
+											<option value="hidden">Hidden</option>
+											<option value="label">Label</option>
+											<option value="literal">Literal</option>
+											<option value="money">Money</option>
+											<option value="multiple">Multi-Select</option>
+											<option value="number">Number</option>
+											<option value="textarea">Paragraph(s)</option>
+											<option value="phone">Phone</option>
+											<option value="radio">Radio Buttons</option>
+											<option value="searchtext">Search Text</option>
+											<option value="text" selected="selected">Text</option>
+											<option value="checkbox">Toggle (Checkbox)</option>
+											<option value="url">Url</option>
+									</select>
+								</div>
+
+								<div class="input">
+									<label for="displayName" class="property-label">Display
+										Name:</label> <input type="text" id="displayName"
+										ng-model="newField.element.displayName" class="property-input"
+										ng-required>
+								</div>
+
+								<div class="input">
+									<label class="property-label" title="">Editable:</label> <select
+										id="newField-editable" ng-model="newField.element.editable"
+										ng-required class="property-input">
+										<option value="true" selected="selected">True</option>
+										<option value="false">False</option>
+									</select>
+								</div>
+								<!-- <div class="input">
+								<label class="property-label" title="">Width:</label>
+								<input type="number" ng-model="newField.element.width"
+										ng-pattern="/*/" class="property-input-small">
+							</div> -->
+
+								<div class="input">
+									<label for="columnWidth" class="property-label">Width(%):</label>
+									<input type="number" id="columnWidth" ng-change="addWidthPercentage();"
+										ng-model="newField.columnWidth" class="property-input-small"
+										ng-required ng-pattern="/\$[A-Za-z][_0-9a-zA-Z]*/" min="0" max="40">
+								</div>
+
+							</div>
+
+
+						</li>
+
+						<li id="SectionLevelProperties" style="display: none;">
+							<div class="input">
+								<label for="sectionsize" class="property-label">Section
+									Column Size:</label> <input type="text" id="sectionsize"
+									ng-model="newSection.sectionsize" class="property-input"
+									ng-required>
+							</div>
+						</li>
+						<li id="SubSectionLevelProperties" style="display: none;">
+							<div class="input">
+								<label for="subsectiontitle" class="property-label">Sub-Section
+									Title:</label> <input type="text" id="subsectiontitle"
+									ng-model="newSubSection.subsectiontitle" class="property-input"
+									ng-required>
+							</div>
+						</li>
+
+						<li id="HiddenFieldProperties" style="display: none;">
+							<div class="input">
+								<label for="newField-page" class="property-label"
+									title="The ALR page on which the attribute resides.">Page:
+								</label>  <input type="text" id="newField-page" ng-model="newField.page"
+									class="property-input" ng-required
+									typeahead="page for page in pages | filter:$viewValue | limitTo:8" 
+									typeahead-on-select="setPage(newField)" ng-change="setPage(newField)">
+							</div>
+							<div class="input">
+								<label for="newField-name" class="property-label"
+									title="This is the Attribute ID of the selected control.">Attribute:
+									&nbsp;&nbsp;&nbsp;&nbsp;<i title="Add New"
+									class="icon-plus icon-large property-icon"
+									ng-click="addNewAttr('add',newField)" />&nbsp;<i
+									id="editAttrI1" title="Edit this Attribute"
+									class="icon-edit icon-large property-icon"
+									ng-click="addNewAttr('edit',newField)" />
+								</label>  <input type="text" id="newField-name" ng-model="newField.name"
+									class="property-input" ng-required 
+									typeahead="attr for attr in attrs | filter:$viewValue | limitTo:8"
+									ng-change="UpdateElementProp(newField)">
+							</div>
+							<div class="input">
+								<label class="property-label" title="">Field Type:</label>  <select
+									id="newField-type" ng-model="newField.type" ng-required
+									class="property-input">
+									<!-- <option value="label">Label</option>
+									<option value="literal">Literal</option> -->
+									<option value="hidden">Hidden</option>
+									<option value="text" selected="selected">Text</option>
+									<!-- <option value="radio">Radio Buttons</option>
+									<option value="select">Drop Menu (Select)</option>
+									<option value="multiple">Multi-Select</option>
+									<option value="checkbox">Toggle (Checkbox)</option>
+									<option value="checkboxes">Checkboxes</option>
+									<option value="textarea">Paragraph(s)</option>
+									<option value="date">Date</option>
+									<option value="number">Number</option>
+									<option value="money">Money</option>
+									<option value="url">Url</option>
+									<option value="phone">Phone</option>
+									<option value="email">Email</option>
+									<option value="header">Heading</option>
+									<option value="searchtext">Search Text</option>
+									<option value="button">Button</option> -->
+									
+								</select>
+							</div>
+						</li>
+
+
+						<!-- <div ng-repeat="(key, value) in newField" class="input"> 
+
+					<label class="property-label"
+						ng-init="objDispArr=SetDescription(objAcc.id,newField,key);newvalue=value">{{objDispArr.proplabel}}</label>
+					<ng-switch on="objDispArr">
+					<div ng-switch-default>
+						<ng-switch on="objDispArr.function">
+						<div ng-switch-default>
+							<ng-switch on="objDispArr.htmlType">
+							<div ng-switch-when="text">
+								<input type="text"
+									ng-change="moveValue(newField, key, newvalue)"
+									ng-model="newvalue" class="property-input" />
+							</div>
+							<div ng-switch-when="select">
+								<select ng-change="moveValue(newField, key, newvalue)"
+									ng-model="newvalue" class="property-input">
+									<option selected="selected"
+										ng-repeat="option in objDispArr.options"
+										value="{{option.value}}">{{option.description}}</option>
+								</select>
+							</div>
+							<div ng-switch-when="checkbox">
+								<input type="checkbox"
+									ng-change="moveValue(newField, key, newvalue)"
+									ng-model="newvalue" ng-true-value="true" ng-false-value="false"
+									class="property-input">
+							</div>
+							<div ng-switch-when="number">
+								<input type="number"
+									ng-change="moveValue(newField, key, newvalue)"
+									ng-model="newvalue" ng-pattern="/*/"
+									class="property-input-small">
+							</div>
+							</ng-switch>
+						</div>
+						</ng-switch>
+					</div>
+					<div ng-switch-when="nomatch">
+						<input type="hidden" />
+					</div>
+					</ng-switch>
+				</div>-->
+
+					</div>
+					</ng-switch>
+				</div>
+
+			</ul>
+		</div>
+		<!--/.well -->
+
+	</div>
+	</accordion-group>  <accordion-group heading="Advance Properties">
+	<div ng-repeat="objAcc in accordions">
+	<!-- advance properties are iterated on function value from control jsn -->
+		<ng-switch on="objAcc.type">
+		<div ng-switch-when="advancedControls">
+			<ul class="nav nav-tabs nav-stacked property-list">
+				<li id="GroupLevelAdvanceProperties" style="display: none;">
+					<div ng-repeat="control in objAcc.controls">
+						<ng-switch on="control.function">
+						<div ng-switch-default class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<ng-switch on="control.htmlType"> <input type="text"
+								ng-switch-when="text" class="property-input" /> <input
+								type="checkbox" style="margin-top: 0px"
+								ng-switch-when="checkbox" class="property-input" /> <select
+								ng-switch-when="select" class="property-input">
+								<option selected="selected"
+									ng-repeat="option in control.options" value="{{option.value}}">{{option.description}}</option>
+							</select> </ng-switch>
+						</div>
+							<div ng-switch-when="regexp" class="input">
+								
+									
+										<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+										<input type="text" id="newField-regex"
+											ng-model="newField.regexp" class="property-input-re"
+											ng-required> <i
+											class="icon-check icon-large property-icon"
+											title="Validate regular exp." style="cursor: pointer;"
+											ng-click="open(newField)"></i>
+									
+								
+								
+								</div> 
+						<div ng-switch-when="supportType" class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<select id="newField-supportType" ng-model="supportType"
+								class="property-input-re"
+								ng-change="setDataSupport(newField,'1');" ng-required>
+								<option selected="selected" value=""></option>
+								<option value="generic">Generic</option>
+								<option value="query">Query</option>
+							</select> <i id="editQueryLookup1"
+								class="icon-edit icon-large property-icon"
+								title="Specify Look up or Query for data source."
+								style="cursor: pointer;" ng-click="open(newField, 'dataSource')"></i>
+						</div>
+
+						<div ng-switch-when="stateclassitem" id="stateGroup">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<select class="property-input" id="stateclassitemSel"
+								ng-model="stateclassitem"
+								ng-change="toggleStateClass(this,'group',newField)">
+								<option selected="selected" value=""></option>
+								<option value="S">State</option>
+								<option value="C">Class</option>
+							</select>
+						</div>
+
+						<div ng-switch-when="defaultto" id="defaultGroup">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<select id="stclcd" class="property-input" ng-model="defaultToG"
+								ng-change="setDefaultTo(this,'group',newField)"
+								style="display: none;">
+								<option ng-repeat="cd in stateclasscd" value="{{cd}}">{{cd}}</option>
+							</select> <input type="text" id="stclcdtext" ng-model="defaultToG"
+								class="property-input" style="display: none;"
+								ng-change="setDefaultTo(this,'element',newField)">
+						</div>
+
+						<div ng-switch-when="GroupPrintIndG">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<select class="property-input" id="GroupPrintIndGSel"
+								ng-model="GroupPrintIndG"
+								ng-change="setPrintInd(this,newField,'group')">
+								<option selected="selected"	value=""></option>
+								<option value="A">If Blank, Don't Print</option>
+								<option value="R">Replace Data</option>
+								<option value="N">If N, Don't Print</option>
+								<option value="O">If 1, Don't Print</option>
+								<option value="R">Replace Name with Literal</option>
+								<option value="T">Replace Name & Data</option>
+								<option value="Y">Print</option>
+								<option value="Z">If 0, Don't Print</option>
+							</select>
+						</div>
+						<div ng-switch-when="GroupRqPTG" id="RqPTGroup">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<select class="property-input" id="GroupRqPTGSel"
+								ng-model="GroupRqPTG" ng-change="setRqPT(this,newField,'group')">
+								<option selected="selected"	value=""></option>
+								<option value="A">Req Quotes & Policy Issue</option>
+								<option value="R">Req Only on Policy Issue</option>
+							</select>
+						</div>
+
+						<div ng-switch-when="defaultValue" class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" 
+								ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<input type="text" id="newField-defaultValue"
+								ng-model="newField.defaultValue" class="property-input" ng-required>
+						</div> 
+						<div ng-switch-when="reference" class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" 
+								ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<input type="text" id="newField-reference"
+								ng-model="newField.reference" class="property-input" ng-required
+								typeahead-append-to-body="true"
+								typeahead="control for control in getVisibleControlNames() | filter:$viewValue | limitTo:8" />
+						</div> 
+						</ng-switch>
+					</div>
+				</li>
+				<li id="HiddenFieldAdvanceProperties" style="display: none;">
+					<div ng-repeat="control in objAcc.controls">
+						<ng-switch on="control.function">
+						<div ng-switch-when="defaultValue" class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" 
+								ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<input type="text" id="newField-defaultValue"
+								ng-model="newField.defaultValue" class="property-input" ng-required>
+						</div> 
+						<div ng-switch-when="reference" class="input">
+							<label class="property-label"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" 
+								ng-mouseleave="hideHintPopup('canvashintdiv')" >{{control.proplabel}}</label> 
+							<input type="text" id="newField-reference"
+								ng-model="newField.reference" class="property-input" ng-required
+								typeahead-append-to-body="true"
+								typeahead="control for control in getVisibleControlNames() | filter:$viewValue | limitTo:8" />
+						</div> 
+						</ng-switch>
+					</div>
+				</li>
+				<li id="ViewLevelAdvanceProperties">
+					<div class="input" ng-repeat="mainProp in mainViewProp">
+						<label for="{{mainProp.name}}" class="property-label">{{mainProp.description}}</label> 
+						<ng-switch on="mainProp.type"> <input
+							ng-switch-default ng-click="updatePageProp()" type="checkbox"
+							style="margin-top: 0px" id="{{mainProp.name}}"
+							ng-model="mainProp.value" class="property-input" ng-required />
+						<input ng-switch-when="hidden" type="hidden" /> <input
+							ng-pattern="/\$[A-Za-z][_0-9a-zA-Z]*/" ng-switch-when="number" min="0"
+							ng-click="updatePageProp()" type="number" id="{{mainProp.name}}"
+							ng-model="mainProp.value" maxlength="{{mainProp.length}}"
+							class="property-input-re" ng-required /> </ng-switch>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		</ng-switch>
+
+	</div>
+	</accordion-group>
+	<accordion-group heading="User Security">
+	<div class="subpropertydiv">
+		<div class="titlebox" style="padding: 0px;">User Rules:<i title="Add New Rule"
+			class="icon-plus icon-large property-icon"
+			ng-click="addNewACLRule(newField)" /></div>
+			<div ng-repeat="accRulesElement in accControlElementdata" class="subpropertydiv">
+			<div class="titlebox" style="padding: 0px;">Rule:<i title="Add New Rule"
+			class="icon-minus-sign-alt icon-medium property-icon"
+			ng-click="deleteACLRule(newField,$index)" /></div>
+			  <div class="input">
+		         <label class="property-label" title="">User Group:</label>
+					 <select id="usergroupSel" class="property-input" ng-model="accRulesElement.usergroup" 
+					  ng-options="usergroup.groupName as usergroup.groupName for usergroup in usergroups" ng-change="updateACLRule(newField)">											
+						</select>									
+									</div>
+									<div class="input">
+										<label class="property-label" title="">Field Masking:</label>
+										<select id="usermaskingSel" class="property-input" ng-model="accRulesElement.mask" ng-change="updateACLRule(newField)">
+											<option  value=""></option>
+											<option  value="0">Remove Mask</option>										
+											<option  value="2">Invisible</option>
+											<option  value="4">Disable</option>
+											<option  value="8">Hidden and Encrypted</option>
+									</select>									
+									</div>	
+								
+		</div>						
+	 </div>
+	</accordion-group>
+	
+	 <!-- <accordion-group heading="Customized Controls">
+	<div ng-repeat="objAcc in accordions">
+		<ng-switch on="objAcc.type">
+		<div ng-switch-when="customButtonGroup">
+			<div class="btn-group-vertical">
+				<button ng-repeat="control in objAcc.controls" type="button"
+					id="{{control.id}}" draggable class="selectorField btn btn-default"
+					style="z-index: 9999;"  ng-mouseenter="showHintPopup('canvashintdiv',$event,'{{control.hint}}')" ng-mouseleave="hideHintPopup('canvashintdiv')" >
+					<i class="{{control.iClass}}"></i> {{control.name}}
+				</button>
+			</div>
+		</div>
+		</ng-switch>
+	</div>
+	</accordion-group> --> </accordion>
+	<script type="text/ng-template" id="VerifyRegularExp.html">
+        <div class="modal-header">
+            <h3>{{modalHeaderText}}</h3>
+        </div>
+    	<div id="modalbodyVR" style="display:{{displayVR}}">      
+  		<div class="modal-body" style="overflow:hidden" >
+            <div class="input">
+				<label class="property-label">Regular Expression:</label> 
+				<input type="textarea" ng-model="regularExpression" id="regExp" ng-required ng-change="removeIcon()">
+				<i class="icon-external-link icon-large" ng-click="buildRegEX()" style="cursor:pointer;" title="Regular Expression Builder."></i>
+			</div>
+			<div class="input">
+				<label class="property-label">Test Value:</label> 
+				<input type="textarea" id="regExpVal" ng-required>
+			</div>            
+        </div>
+     	<div class="modal-footer">
+			<i id="success" style="display:none; margin:0px;" class="span1 icon-thumbs-up icon-large">Success</i>
+			<i id="fail" style="display:none; margin:0px;" class="span1 icon-thumbs-down icon-large">Fail</i>
+			<i id="warning" style="display:none; margin:0px;" class="span1 icon-warning-sign icon-large">Invalid Regular Expression</i>
+			<button class="btn btn-default" ng-click="verify()">Verify</button>
+            <button class="btn btn-default" ng-click="ok()">OK</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+		</div>
+		<div id="modalbodyDS" style="display:{{displayDS}}">
+        <div class="modal-body" style="overflow:hidden">
+            <div><label class="property-label" style="cursor:pointer;display:inline" title="This field needs to be bound with data.">{{labelDS}}</label> <i rel="popover" data-trigger="hover" class="icon-info-sign" style="cursor:pointer;display:inline" popover="{{dynamicHelpPopover}}" popover-title="{{dynamicHelpPopoverTitle}}" popover-placement="right" /></div>
+			<div style="display:{{displayQuery}}">
+ 			<textarea onfocus="trigSuggest({{attrs}});" id="inputbox" style="width:500px;"  rows="3" cols="100" placeholder="Enter the value to create restriction" ng-model="FieldQuery" ></textarea>
+			</div>
+ 		<div class="gridHeader" style="display:{{displaySupportGrid}}">
+			<input placeholder="Filter" ux-disabled="false" type="text" ng-model="filterOptions.filterText" />
+		</div>
+		<div class="supportgridStyle" ng-grid="supportgridOptions" style="overflow:hidden;display:{{displaySupportGrid}}"></div>
+        <div style="display:{{displaySupportErr}}">
+  				<div ng-repeat="rowObj in errorDataString.Row">
+   				<span class="badge">{{rowObj.value}}</span>
+				{{rowObj.description}}   
+  				</div>
+		</div> 
+        <ul class="list-group" style="display:{{displayAttrText}}">
+  				<li class="list-group-item" ng-repeat="keyG in attrGrabJson" >
+   				<span class="badge">{{keyG}}</span>
+				<span> value:<input type="text" id="{{keyG}}" class="input-medium" style="width:100px"/></span>  
+  				</li>
+		</ul>   
+                   
+        <input type="text" style="display:{{displayLookup}};width:450px;" ng-model="Fieldlookup" auto-complete="off" ui-items="attrs" class="property-input" ng-required> </input>
+						           
+        </div>
+		<div class="modal-footer">			
+            <button class="btn btn-default" ng-click="saveMultipleSupportRestriction();" style="display:{{displayQuery}}">Apply Mask</button>
+			<button class="btn btn-default" ng-click="previewData()" style="display:{{displayQuery}}">Preview Data</button>
+			<button class="btn btn-default" ng-click="saveSupportRestriction('');" ng-show="queryType!='SQL'" >Apply Mask</button>
+			<button class="btn btn-default" ng-click="saveSupportRestriction('');" ng-show="queryType!='SQL'" >Apply Mask</button>
+            <button class="btn btn-default" ng-click="okDS()">OK</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+   		</div>
+    </script>
+</div>
+
+
+

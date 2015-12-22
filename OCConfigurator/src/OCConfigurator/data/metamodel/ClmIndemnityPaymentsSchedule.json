@@ -1,0 +1,976 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ClmIndemnityPaymentsSchedule",
+                     "title":  "Indemnity Payments Schedule",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GEN_UNIT_DESCRIPTION",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Unit",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_GEN_MAJ_PERIL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Coverage",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "GEN_MAJ_PERIL",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "9",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "GEN_COV_DESCRIPTION",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "10",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  9,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CL_DATE_OF_LOSS",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Of Loss",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "7",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_GEN_CAUSE_OF_LOSS",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Cause of Loss",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "GEN_CAUSE_OF_LOSS",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "12",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "GEN_CAUSE_OF_LOSS_DESC",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "13",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  9,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_CURRENT_RESERVE_AMT",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Current Reserves",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "72",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_GEN_VENDOR",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Adjuster",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "GEN_VENDOR",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "15",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  3,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "GEN_ADJUSTOR_NAME",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "16",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  9,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FINL_RESERVE_PAYMENT_AMT",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Reserves Remaining",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "74",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GEN_RESERVE_SUB_CAT_DESC",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Subcategory",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "77",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FINL_TOTAL_PAYMENT_AMT",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Total To Be Paid",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "79",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "INDM_PAYEE_AGE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Payee Age",
+                                                                                    "required":  "required",
+                                                                                    "order":  "19",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_YEARS_EMPLD",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Years/Months Employed",
+                                                                                    "required":  "required",
+                                                                                    "order":  "21",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_MONTHS_EMPLD",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "number",
+                                                                                    "label":  "/",
+                                                                                    "required":  "required",
+                                                                                    "order":  "23",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_WEEKLYWAGE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Weekly Wages",
+                                                                                    "required":  "required",
+                                                                                    "order":  "25",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_OTHER_WEEKLYWAGE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Other Weekly Wages",
+                                                                                    "order":  "27",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_POST_INJURYWAGE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Post Injury Wage",
+                                                                                    "order":  "29",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_DTE_DISAB",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Disability Began",
+                                                                                    "required":  "required",
+                                                                                    "order":  "30",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_DTE_MAX_MED",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date of Maximum Medical Improvement",
+                                                                                    "order":  "31",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_WAGE_METHOD",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Method Used",
+                                                                                    "required":  "required",
+                                                                                    "order":  "32",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_IMPAIR_PCNT",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Percent of Impairment",
+                                                                                    "order":  "34",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "3",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_INDM_PAYMNTFREQ",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Payment Frequency",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INDM_PAYMNTFREQ",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "select",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "38",
+                                                                                                             "support":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "options":  [
+                                                                                                                             {
+                                                                                                                                 "value":  "B",
+                                                                                                                                 "description":  "Biweekly"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "value":  "M",
+                                                                                                                                 "description":  "Monthly"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "value":  "W",
+                                                                                                                                 "description":  "Weekly"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  4,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Calculate_Rate",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Calculate Payment/Rate",
+                                                                                                             "order":  "39",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "doClmIndemnityRates();",
+                                                                                                             "size":  7,
+                                                                                                             "buttonid":  "ID_Calculate_Rate",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_INDM_INJY_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Benefit Type",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INDM_INJY_CODE",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "42",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "DRFT_PAYEPHRASE",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "75",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  12,
+                                                                                                             "buttonid":  "ID_Benefit_Type_Search_Button",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_PAYMNTRATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Weekly Payment Rate",
+                                                                                    "required":  "required",
+                                                                                    "order":  "45",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_ADJ_PAYMNTRATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Adjusted Payment Rate",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "68",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_PAYMENTS",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Payments Remaining",
+                                                                                    "required":  "required",
+                                                                                    "order":  "47",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "3",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_DAILY_RATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Daily Rate",
+                                                                                    "order":  "48",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_START_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Benefit Start Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "52",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_STOP_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Benefit End Date",
+                                                                                    "order":  "53",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "INDM_NXTPAY_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Next Pay Date",
+                                                                                    "order":  "54",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_INDM_START_RANGE_DTE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Date Range",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INDM_START_RANGE_DTE",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "69",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "INDM_END_RANGE_DTE",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "70",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  5,
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_INDM_REASON",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason for End  of Benefit",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "INDM_REASON",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "text",
+                                                                                                             "order":  "55",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "50",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  8,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Submit_Button",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Continue",
+                                                                                                             "order":  "61",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "doClmSetProc1();",
+                                                                                                             "size":  2,
+                                                                                                             "buttonid":  "ID_Submit_Button",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_InjuryCodeButton",
+                                                                                                             "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                                             "type":  "button",
+                                                                                                             "label":  "Benefit History",
+                                                                                                             "order":  "62",
+                                                                                                             "placeholder":  "",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "action":  "doClmBenefitInjury();",
+                                                                                                             "size":  3,
+                                                                                                             "buttonid":  "ID_InjuryCodeButton",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GEN_UNIT",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DB_BEAN_CLAIMS",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SPEC_USE1",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NAME",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_CATEGORY",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIMANT_SEQ",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLCMT_SEQ",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_LNAME",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MODULE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_CLIENT_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_RESERVE_SUB_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_DIR_TRN_SEQ",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_ADJUSTOR_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENCY_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_SEQ",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_ADDRESS_SEQUENCE_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TAX_ID",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLAIM_NUMBER",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CLM_ENTRY_DATE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_COV_SEQ",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_TRANSACTION_STATUS",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICYHOLDER_FNAME",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "ClmIndemnityPaymentsSchedule",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

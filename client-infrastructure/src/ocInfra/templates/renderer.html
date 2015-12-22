@@ -5,18 +5,20 @@
         <div class="form-group wizardMargin" ng-repeat="workflowGrp in metadata[screenId].workflowGrp">
             <div ng-include src="config.templates.workflow"></div>
         </div>
-        <div class="spacer"></div>
+        
         <!-- top button group section -->
         <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metadata[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
         
-        <div quick-ng-repeat="section in metadata[screenId].sections" class=" col-xs-6 col-md-6" quick-repeat-list="metadata[screenId].sections">
+        <div quick-ng-repeat="section in metadata[screenId].sections"  quick-repeat-list="metadata[screenId].sections">
 
+           
             <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
-                <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid">
+                <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid tab-content">
                 </div>
             </div>
+            
             <div ng-if="section.$ref === undefined || section.$ref === ''">
                 <div ng-include="'sectionRenderer.html'">
                 </div>
@@ -35,7 +37,7 @@
     <div class="form-group marginbottom0px">
         <div ng-include src="config.templates.header"></div>
     </div>
-<h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
+    <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
     <div class="hr_margin"><hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true"><hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true"></div> 
 
     <div ng-if="section.modaledit !== true" class="{{section.heightClass}}">
@@ -146,7 +148,7 @@
         </div>
     </div>
 </script>
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div id="no-more-tables">
             <table class="col-md-12 table-bordered table-striped table-condensed cf">
@@ -290,4 +292,4 @@
         </div>
     </div>
 </div>
-
+ -->

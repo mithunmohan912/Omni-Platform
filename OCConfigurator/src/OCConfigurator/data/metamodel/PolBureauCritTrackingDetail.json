@@ -1,0 +1,806 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "PolBureauCritTrackingDetail",
+                     "title":  "Bureau Crit Tracking Detail",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_KEY_SYMBOL",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  12,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_SYMBOL",
+                                                                                                             "page":  "PolBureauCritTrackingDetail",
+                                                                                                             "type":  "text",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "4",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  1,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_POLICY_NO",
+                                                                                                             "page":  "PolBureauCritTrackingDetail",
+                                                                                                             "type":  "number",
+                                                                                                             "required":  "required",
+                                                                                                             "order":  "5",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  2,
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_MODULE",
+                                                                                                             "page":  "PolBureauCritTrackingDetail",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "order":  "6",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  1,
+                                                                                                             "buttonid":  "ID_B_SEARCH_BUTTON",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_REQUEST_ADD_USR",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Entered By",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "9",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_BUREAU_ID",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Bureau",
+                                                                                    "required":  "required",
+                                                                                    "order":  "11",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_BATCH_NUMBER",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Batch Number",
+                                                                                    "required":  "required",
+                                                                                    "order":  "13",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "5",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRITNUM",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Crit Number",
+                                                                                    "required":  "required",
+                                                                                    "order":  "15",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "12",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "autoformat":  "true",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_FINE_AMT",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Fine Amt",
+                                                                                    "order":  "17",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "18",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_FINE_DUE_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Fine Due Date",
+                                                                                    "order":  "19",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_FINE_PAY_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Fine Paid Date",
+                                                                                    "order":  "21",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRIT_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Crit Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "23",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CUSTOMER_RCV_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Customer Received Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "25",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_OPERATIONS_RCV_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Operations Received Date",
+                                                                                    "required":  "required",
+                                                                                    "order":  "27",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_PENDING_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Pending Date",
+                                                                                    "order":  "29",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_PEND_RESOLVE_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Pending Resolved Date",
+                                                                                    "order":  "31",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRIT_RESOLVE_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Crit Resolved Date",
+                                                                                    "order":  "33",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  9,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRIT_RETRANS_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Retransmit Date",
+                                                                                    "order":  "35",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRIT_REASON1",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reason 1 for Crit",
+                                                                                    "required":  "required",
+                                                                                    "order":  "37",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_CRIT_REASON2",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reason 2 for Crit",
+                                                                                    "order":  "39",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_SOURCE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Crit Source",
+                                                                                    "required":  "required",
+                                                                                    "order":  "41",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "I",
+                                                                                                        "description":  "Internal"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "E",
+                                                                                                        "description":  "External"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_REFER_TO",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Referred To",
+                                                                                    "order":  "43",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_RESOLVED_BY",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Resolved By",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "45",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_VOID_REASON",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Void Comment",
+                                                                                    "order":  "53",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_VOIDED_DATE",
+                                                                                    "label":  "Voided Date",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "date",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "57",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  4,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_VOIDED_BY",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Voided By",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "55",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_BT_OPS_COMMENT1",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Operational Comments",
+                                                                                    "fieldspan":  12,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BT_OPS_COMMENT1",
+                                                                                                             "page":  "PolBureauCritTrackingDetail",
+                                                                                                             "type":  "textarea",
+                                                                                                             "order":  "47",
+                                                                                                             "placeholder":  "",
+                                                                                                             "maxlength":  "30",
+                                                                                                             "minlength":  "0",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "size":  6,
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  1
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ID_B_BACK_BUTTON",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Return",
+                                                                                    "disabled":  "false",
+                                                                                    "order":  "55",
+                                                                                    "fieldspan":  "4",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_LDA_RECORD_IND",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_REQUEST_ADD_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_REQUEST_ADD_TIME",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_REQUEST_ADD_TIME",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_REQUEST_ADD_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_CO",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MODULE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NO",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_OPS_COMMENT2",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "order":  "48",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BT_COMMENT3",
+                                                                                    "page":  "PolBureauCritTrackingDetail",
+                                                                                    "type":  "hidden",
+                                                                                    "order":  "49",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "30",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

@@ -1,0 +1,244 @@
+{
+  "dataSource": {
+    "pagesize": "10",
+    "SP": "BASSYSGRID(@query@)",
+    "type": "SP",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASEDDBI01"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "20",
+          "endIndex": "22"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "31",
+          "endIndex": "33"
+        },
+        {
+          "name": "actType"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "title": "Endorsement Details",
+    "rowAction": {
+      "rowFunction": "selectAction",
+      "options": [
+        {
+          "id": "PolEndorsementdetailtxt",
+          "target": "jsp/PolEndorsementdetailtxt.jsp",
+          "value": "CH",
+          "description": "Change",
+          "reqcode": "POLENDTXCHGRq",
+          "keyParams": [
+            {
+              "type": "ROW",
+              "value": "OLOCATION"
+            },
+            {
+              "type": "ROW",
+              "value": "OMASTER"
+            },
+            {
+              "type": "ROW",
+              "value": "OSYMBOL",
+	      "length":"3",
+	      "fill":" "
+            },
+            {
+              "type": "ROW",
+              "value": "OPOLICYNO"
+            },
+            {
+              "type": "ROW",
+              "value": "OMODULE"
+            },
+            {
+              "type": "ROW",
+              "value": "OENDSEQNBR",
+              "length": "4",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "OENDEFFDATE",
+	      "format":"cyymmdd",
+	      "formatType":"date",
+              "length": "7",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "OACTTYPE"
+            }
+          ]
+        },
+        {
+          "id": "PolEndorsementdetailtxt",
+          "target": "jsp/PolEndorsementdetailtxt.jsp",
+          "value": "IN",
+          "description": "Inquire",
+          "reqcode": "POLENDTXINQRq",
+          "keyParams": [
+            {
+              "type": "ROW",
+              "value": "OLOCATION"
+            },
+            {
+              "type": "ROW",
+              "value": "OMASTER"
+            },
+            {
+              "type": "ROW",
+              "value": "OSYMBOL",
+	      "length":"3",
+	      "fill":" "
+            },
+            {
+              "type": "ROW",
+              "value": "OPOLICYNO"
+            },
+            {
+              "type": "ROW",
+              "value": "OMODULE"
+            },
+            {
+              "type": "ROW",
+              "value": "OENDSEQNBR",
+              "length": "4",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "OENDEFFDATE",
+	      "format":"cyymmdd",
+	      "formatType":"date",
+              "length": "7",
+              "fill": "0"
+            },
+            {
+              "type": "ROW",
+              "value": "OACTTYPE"
+            }
+          ]
+        }
+      ]
+    },
+    "operation": {
+     "selectfield":"select",
+     "jsfunction":"",
+     "options":""			
+    },
+    "element": [
+      {
+        "field": "button",
+        "displayName": "Actions",
+        "cellTemplate": "ux/template/row_action_template.html",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "OENDSEQNBR",
+        "visible": true,
+        "width": "15%",
+        "align": "center",
+        "displayName": "Sequence "
+      },
+      {
+        "field": "OENDEFFDATE",
+        "visible": true,
+        "width": "15%",
+        "align": "center",
+        "displayName": "Endorsement Date"
+      },
+      {
+        "field": "OPOLICYNO",
+        "visible": false,
+        "align": "center",
+        "displayName": "Policy Number "
+      },
+      {
+        "field": "OSYMBOL",
+        "visible": false,
+        "align": "center",
+        "displayName": "Symbol "
+      },
+      {
+        "field": "OMODULE",
+        "visible": false,
+        "align": "center",
+        "displayName": "Module "
+      },
+      {
+        "field": "OLOCATION",
+        "visible": false,
+        "align": "center",
+        "displayName": "Location Company "
+      },
+      {
+        "field": "OMASTER",
+        "visible": false,
+        "align": "center",
+        "displayName": "Master Company "
+      },
+      {
+        "field": "OACTTYPE",
+        "visible": false,
+        "align": "center",
+        "displayName": "Activity Type "
+      },
+      {
+        "field": "OENDCHG",
+        "visible": false,
+        "align": "center",
+        "displayName": "Change "
+      },
+      {
+        "field": "OENDDIS",
+        "visible": false,
+        "align": "center",
+        "displayName": "Display "
+      },
+      {
+        "field": "OENDTEXT",
+        "visible": true,
+        "width": "60%",
+        "align": "left",
+        "displayName": "Endorsement Detail"
+      }
+    ]
+  }
+}

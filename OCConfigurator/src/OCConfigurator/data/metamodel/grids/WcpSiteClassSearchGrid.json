@@ -1,0 +1,88 @@
+{
+  "dataSource" : {
+    "pagesize" : "10",
+    "SP" : "BASSYSGRID(@query@)",
+    "type" : "SP",
+    "params": {
+      "query": [
+        {
+			"name": "VALUE",
+			"type":"VALUE",
+			"value": "BASWC04T01",
+			"order": "1"
+		},
+		{
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "1",
+			"endIndex": "3",
+			"order": "2"
+		},
+		{
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "3",
+			"endIndex": "5",
+			"order": "3"
+        },
+        {
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "5",
+			"endIndex": "8",
+			"order": "4"
+        },
+        {
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "8",
+			"endIndex": "15",
+			"order": "5"
+        },
+        {
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "15",
+			"endIndex": "17",
+			"order": "6"
+		},
+		{
+			"name": "KEY",
+			"type":"KEY",
+			"startIndex": "94",
+			"endIndex": "96",
+			"order": "7"
+		}
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : {
+      "jsfunction" : "selectClass"
+    },
+    "element": [
+      {
+      "field" : "OUTCLASS",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Class"
+      },
+      {
+      "field" : "OUTSEQ",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Sequence"
+      },
+      {
+      "field" : "OUTDESC",
+      "visible" : "true",
+      "width" : "60%",
+      "align" : "left",
+      "displayName" : "Description"
+      }
+    ],
+    "title" : "Class Code Selection List"
+  }
+}

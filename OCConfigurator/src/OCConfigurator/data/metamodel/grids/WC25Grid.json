@@ -1,0 +1,211 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "OUTMODTYPE",
+        "displayName": "Modifier Type",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "OUTDESC",
+        "displayName": "Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "OUTRATEOP",
+        "displayName": "Rate Option",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "7%"
+      },
+      {
+        "field": "OUTWCSTATUS",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "6%"
+      },
+      {
+        "field": "OUTDELETEINDIC",
+        "displayName": "Delete Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTENDEFFDATE",
+        "displayName": "Effective Date",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "OUTRATE",
+        "displayName": "ARD Factor",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "OUTRATE2",
+        "displayName": "ARD+12 Factor",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "OUTFLATAMT",
+        "displayName": "Flat Amount",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTSYMBOL",
+        "displayName": "Symbol",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTPOLICYNO",
+        "displayName": "PolicyNo",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTMODULE",
+        "displayName": "Module",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTSTATEDESC",
+        "displayName": "LOB",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      },
+      {
+        "field": "OUTLOBDESC",
+        "displayName": "Desc",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "10%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Restore",
+          "value": "RE"
+        }
+      ],
+      "rowactionfunction": "WC25GridAction",
+      "listfunction": "WC25GridFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASWC27T01(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "229",
+    "params": {
+      "query": [
+        {
+          "name": "policyLOC",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "policyLOC",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "policySymbol",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "policyNumber",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "policyModule",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "policystateno",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "96",
+          "order": "6"
+        }
+      ]
+    }
+  }
+}

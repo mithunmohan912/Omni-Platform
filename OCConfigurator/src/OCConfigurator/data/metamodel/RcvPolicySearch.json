@@ -1,0 +1,310 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Policy_Search",
+                     "title":  "Receivables Policy Search",
+                     "gridid":  "FindPolicyForActionGrid",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Key",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LASTNAME",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Business Name/Last Name",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "60",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LASTNAMEBW",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "hidden",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FIRSTNAME",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "First Name",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FIRSTNAMEBW",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "hidden",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City/State/Postal Code",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "ADD0LINE04",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "5",
+                                                                                                             "maxlength":  "28",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "STATE",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "1",
+                                                                                                             "label":  "State",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ZIP0POST",
+                                                                                                             "page":  "RcvPolicySearch",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Postal Code",
+                                                                                                             "size":  "4",
+                                                                                                             "maxlength":  "10",
+                                                                                                             "placeholder":  "",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LINE0BUS",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "hidden",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SSN",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Social Security Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TELEPHONE",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Phone Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "32",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CUST0NO",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUPNO",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Group Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AGENCY",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Agent Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "pay0code",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Payby Code",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "mode0code",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Mode Code",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DISPLAYMCO",
+                                                                                    "page":  "RcvPolicySearch",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Display All MCO\u0027s",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  "3",
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "labelSearch":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Policy_Search_Reset_Button",
+                                                                                                             "gridId":  "RcvPolicySearchGrid",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PolicySearch",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Policy Search",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "RcvPolicySearchGrid"
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

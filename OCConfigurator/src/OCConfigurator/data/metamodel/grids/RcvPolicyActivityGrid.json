@@ -1,0 +1,135 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "element": [
+      {
+        "field": "D2AKDT",
+        "displayName": "Activity Date",
+	"cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "D2CJDT",
+        "displayName": "Tran Eff Date",	
+	"cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "D2BHNB",
+        "displayName": "Inst",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "D2B7ST",
+        "displayName": "Type Activity",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "D2B8ST",
+        "displayName": "Trans Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "D2CAVA",
+        "displayName": "Policy Premium Amt",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "D2B9VA",
+        "displayName": "Inst Premium Amt",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "D2CBVA",
+        "displayName": "Billed Amt",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "D2CCVA",
+        "displayName": "Inst Pd Amt",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      }
+    ],
+    "operation": {     
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "filename": "PMSP1200",
+    "SQL": "Select D2AKDT,D2CJDT,D2BHNB,D2B7ST,D2B8ST,D2CAVA,D2B9VA,D2CBVA,D2CCVA from RCD2CPP WHERE D2POLSYM =@sym@ and D2POLNO =@polno@ AND D2POLMOD =@mod@ and D2ABCD=@mco@ and D2AACD =@loc@  and D2B7ST &lt;&gt; 'TIME' Order by D2BHNB ASC,D2BINB",	
+    "params": {
+      "sym": [
+        {
+          "type": "KEY",
+	  "startIndex": "5",
+          "endIndex": "8"
+        }
+      ],
+      "polno": [
+        {
+          "type": "KEY",
+	  "startIndex": "8",
+          "endIndex": "15"
+        }
+      ],
+      "mod": [
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        }
+      ],
+      "mco": [
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        }
+      ],
+      "loc": [
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        }
+      ]
+    }
+  }
+}

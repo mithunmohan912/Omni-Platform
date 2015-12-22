@@ -1,0 +1,124 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "element": [
+      {
+        "field": "SARUNIT",
+        "displayName": "Unit",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "SARSEQNO",
+        "displayName": "Cov Seq",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "TRANSDTE",
+        "displayName": "Tran Eff Date",
+	"cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "ENTRYDTE",
+        "displayName": "Entry Date",
+	"cellTemplate": "ux/template/DateTemplate.html",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "TYPEACT",
+        "displayName": "Transaction",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": false,
+        "width": "15%"
+      },
+      {
+        "field": "SARPREM",
+        "displayName": "Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "17%"
+      },
+      {
+        "field": "COMMAMT",
+        "displayName": "Commission $",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "17%"
+      }
+    ],
+    "operation": {     
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SQL",
+    "filename": "PMSP1200",
+    "SQL": "Select SARUNIT,SARSEQNO,TRANSDTE,ENTRYDTE,TYPEACT,SARPREM,COMMAMT from PMSPSA15 WHERE SYMBOL =@sym@ and POLICY0NUM =@polno@ AND MODULE =@mod@ and MASTER0CO=@mco@ and LOCATION =@loc@",		
+    "params": {
+      "sym": [
+        {
+          "type": "KEY",
+	  "startIndex": "5",
+          "endIndex": "8"
+        }
+      ],
+      "polno": [
+        {
+          "type": "KEY",
+	  "startIndex": "8",
+          "endIndex": "15"
+        }
+      ],
+      "mod": [
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        }
+      ],
+      "mco": [
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        }
+      ],
+      "loc": [
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        }
+      ],
+      "site": [
+        {
+          "type": "KEY",
+          "startIndex": "96",
+          "endIndex": "101"
+        }
+      ]
+    }
+  }
+}

@@ -10,7 +10,13 @@
 	<bean id="OCIntegration" class="com.csc.eip.pattern.MessageTranslator" />
 	
 	<!-- Custom Aggregation Strategy -->
-	<bean id="aggregationStrategy" class="com.csc.eip.strategy.CollectionAggregationStrategy" />
+	<bean id="aggregationStrategy" class="com.csc.eip.strategy.CollectionAggregationStrategy">
+		<property name="mergeItemsString" value="${MERGE_ITEMS_INTO_ARRAY}" />
+		<property name="addUpItemsString" value="${ADD_UP_ITEMS}" />
+		<property name="paramsListString" value="${PARAM_LIST}" />
+		<property name="removeFromParentString" value="${REMOVE_FROM_PARENT}" />
+		<property name="addTheseItemsFromOptionsString" value="${ADD_ITEMS_FROM_OPTIONS}" />
+	</bean>
 
 	<!-- Publish/Subscribe Channel -->
 	<bean id="Publish" class="com.csc.eip.pattern.PublishSubscribe">
@@ -52,11 +58,13 @@
 
 		<rest>
 			<description>AGGREGATION INTEGRATION PATTERN</description>
-			<get uri="/OCIntegration" produces="application/json" outType="com.csc.eip.bo.Message">
+			<get uri="/OCIntegration" produces="application/json">
 				<description>Aggregate the response from two or more rest services</description>
 				<route>
-					<removeHeaders pattern="CamelHttp*"></removeHeaders>
-					<enrich uri="direct:serviceAggregate" />
+					<pipeline>
+						<removeHeaders pattern="CamelHttp*" excludePattern="pattern|replacement|URIS"></removeHeaders>
+						<enrich uri="direct:serviceAggregate" />
+					</pipeline>
 				</route>
 			</get>
 		</rest>

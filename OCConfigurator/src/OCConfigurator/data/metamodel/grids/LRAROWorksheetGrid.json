@@ -1,0 +1,191 @@
+{
+  "gridMetaData": {
+    "gridType": "editAndSelectGrid",
+    "title": "LRARO Worksheet",
+    "element": [
+      {
+        "field": "STATEMODTYPE",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "STATENAME",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "State",
+        "editable": "true",
+        "width": "10%"
+      },
+      {
+        "field": "KEYWCVCLASSADJUSTFACTOR",
+        "visible": true,
+        "align": "center",
+        "type": "decimal",
+        "enableCellEdit": false,
+        "displayName": "LRARO Class Premium Adjusment Factor",
+        "editable": "true",
+        "width": "28%",
+        "maxlength": "13",
+        "decimalLen": "10",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "STATECODE",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "TFRATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Terrorism Filed Rate",
+        "width": "17%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "KEYWCVFORTERRRATEOVERR",
+        "visible": true,
+        "align": "center",
+        "type": "decimal",
+        "enableCellEdit": false,
+        "displayName": "Terrorism Override",
+        "width": "18%",
+        "maxlength": "13",
+        "decimalLen": "10",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "FUNCNAME",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "CATTFRATE",
+        "visible": true,
+        "enableCellEdit": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "CAT O/T Acts of  Terr. Filed Rate",
+        "width": "24%",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "KEYWCVDOMTERRRATEOVERR",
+        "visible": "true",
+        "align": "center",
+        "type": "decimal",
+        "enableCellEdit": false,
+        "displayName": "CAT O/T Acts of Terr. Override",
+        "width": "24%",
+        "maxlength": "13",
+        "decimalLen": "10",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "headerCellTemplate": "ux/template/HeaderTemplate.html"
+      },
+      {
+        "field": "CLASSCODE",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "SWITCHSTATENAME",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "SWITCHVALUE",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "STATUS",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "ENDEFFDATE",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "RATEOP",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      },
+      {
+        "field": "OPSEQ",
+        "visible": false,
+        "align": "center",
+        "displayName": ""
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": " BASWC26I02(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "20",
+          "endIndex": "22"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "43",
+          "endIndex": "50"
+        }
+      ]
+    }
+  }
+}

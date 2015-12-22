@@ -1,0 +1,162 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "RcvDBPmtAdjustmentSearchFrame",
+                     "title":  "Payment Adjustment Search",
+                     "gridid":  "RcvDBPmtAdjustmentSearchFrameGrid",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "WSCHECKNUM",
+                                                                                    "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Check Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "maxlength":  "8",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "6",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSPOLORCUST",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Key",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "SYMBOL",
+                                                                                                             "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "POLICY0NUM",
+                                                                                                             "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "4",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "MODULE",
+                                                                                                             "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CUST0NO",
+                                                                                    "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "6",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSDATEENT",
+                                                                                    "page":  "RcvDBPmtAdjustmentSearchFrame",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Date Entered",
+                                                                                    "fieldspan":  6,
+                                                                                    "placeholder":  "Enter Date",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+                                                                                                       {
+                                                                                                           "name":  "indicator",
+                                                                                                           "value":  "update"
+                                                                                                       }
+                                                                                                   ],
+                                                                                    "size":  7,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "labelSearch":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "type":  "search_button",
+                                                                                                             "size":  "3",
+                                                                                                             "nameReset":  "ID_Policy_Search_Reset_Button",
+                                                                                                             "gridId":  "RcvDBPmtAdjustmentSearchFrameGrid",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "Payment Adjustment Search",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "Payment Adjustment Search",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "RcvDBPmtAdjustmentSearchFrameGrid"
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

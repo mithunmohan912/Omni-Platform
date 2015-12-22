@@ -1,0 +1,472 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "CheckEndorsementDate",
+                     "title":  "Endorsement Date Entry",
+                     "subtitle":  "",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "title":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_SYMBOL",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  "3",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_POLICY_NUMBER",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "5",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "6",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_KEY_MODULE",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Effective Date",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "placeholder":  "Enter Date",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_INSURED_ADDRESS_LINE_01",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  "10",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Policy Expiration Date",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_ZEROENIND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Zero Premium Endorsement",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  12,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ENDORSEMENT_EFFECTIVE_DATE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Effective Date",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  6,
+                                                                                    "placeholder":  "Enter Date",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  4,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AMEND_CODE",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Reason Amended",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT1",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT2",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DIGIT3",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "text",
+                                                                                                             "regexp":  "",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "1",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "BC_REASON_AMEND_DESC",
+                                                                                                             "page":  "CheckEndorsementDate",
+                                                                                                             "type":  "searchtext",
+                                                                                                             "disabled":  "true",
+                                                                                                             "order":  "94",
+                                                                                                             "placeholder":  "",
+                                                                                                             "required":  "required",
+                                                                                                             "fieldspan":  "6",
+                                                                                                             "title":  "Search",
+                                                                                                             "size":  9,
+                                                                                                             "buttonid":  "ID_Reason_Amend_Search_Button",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "defaultValue":  "",
+                                                                                                             "reference":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  4
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_POLICY_OP_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "radio",
+                                                                                    "label":  "Print Policy on Output (Y/N)",
+                                                                                    "order":  "95",
+                                                                                    "support":  "false",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "fieldspan":  12,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_NON_RENEWAL_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Endorsement for Non Renewal",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  12,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_INSURED_NAME_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Insured\u0027s Name",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  4,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_INSURED_MAILING_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Insured\u0027s Mailing Address",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  5,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_CHANGE_EXPOSURE_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Change Exposure",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  3,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_ADD_COVERAGE_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Add Coverage",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  4,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_DELETE_COVERAGE_IND",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Delete Coverage",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  4,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PIF_ENDORSE_TEXT",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "textarea",
+                                                                                    "label":  "Policy Comment",
+                                                                                    "required":  "required",
+                                                                                    "fieldspan":  "12",
+                                                                                    "placeholder":  "Enter Comments",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "size":  12,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "MAXDATE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "OOSESW",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "MAXDATEBYAMENDNO",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "LAST_END_DATE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "STATE_DESC",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ZERO_PREMIUM_ENDORSEMENT",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TBEND01_FLAG",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AUDIT0CODE",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TBWC30_LOB_COUNT",
+                                                                                    "page":  "CheckEndorsementDate",
+                                                                                    "type":  "hidden",
+                                                                                    "support":  "true",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

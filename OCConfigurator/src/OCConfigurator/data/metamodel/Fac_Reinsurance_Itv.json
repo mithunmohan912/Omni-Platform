@@ -1,0 +1,700 @@
+{
+    "metadata":  {
+                     "groupid":  "REINSURANCE",
+                     "formid":  "Fac_Reinsurance_Itv",
+                     "title":  "Facultative Reinsurance Intervention",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ITV_REINS_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reinsurance Company",
+                                                                                    "order":  "12",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_EFFECTIVE_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Effective Date",
+                                                                                    "order":  "14",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  4,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_RECO_BROKER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Reinsurance Account",
+                                                                                    "order":  "16",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+
+                                                                                                ],
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_EXPIRATION_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "order":  "18",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  4,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_CERTIFICATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Certificate",
+                                                                                    "required":  "required",
+                                                                                    "order":  "20",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_CANCEL_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "date",
+                                                                                    "label":  "New Expiration Date",
+                                                                                    "order":  "22",
+                                                                                    "mask":  "mm/dd/yy",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  4,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete",
+                                                                "title":  "Facultative"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PROC_LDA_TYPE_ACTIVITY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "checkbox",
+                                                                                    "label":  "Override Default Rate",
+                                                                                    "order":  "24",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "order":  0,
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "type":  "spacer",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none"
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_PREM_RATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Premium Rate",
+                                                                                    "order":  "26",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  3,
+                                                                                    "decimal":  "5",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_LOSS_RATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Loss Rate",
+                                                                                    "order":  "28",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "9",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  3,
+                                                                                    "decimal":  "5",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_COMM_PERCENT",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Commission Rate",
+                                                                                    "order":  "30",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "7",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  3,
+                                                                                    "decimal":  "3",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ],
+                                                                "indicator":  "delete",
+                                                                "title":  "Premium Rate"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "ITV_UNIT_NUMBER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Unit",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "33",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_SUBLINE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Subline",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "35",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_SA_SPECIAL_USE_A",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Special Use",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "37",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_MAJOR_PERIL",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Major Peril",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "39",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CLASS_CODE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Class",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "41",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_ANNUAL_STATEMENT",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Annual Statement Line",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "43",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_TYPE_BUREAU",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Type Bureau",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "45",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_PRODUCT_LINE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Product",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "47",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_STATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "text",
+                                                                                    "label":  "State",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "49",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  4,
+                                                                                    "size":  10,
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ],
+                                                                "title":  "Business Definition"
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "DB_BEAN_REINSURANCE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EXPIRATION_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CONTRACT",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_MASTER_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_EFFECTIVE_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_EFFECTIVE_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_ITV_SEQUENCE_NUMBER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_POLICY_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_AGENT_NUMBER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CLASS_CODE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_NUMBER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_SYMBOL",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_MASTER_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_STATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_MODULE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_PRODUCT_LINE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_SUBLINE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_LINE_OF_BUSINESS",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_CONTRACT_EFF_DATE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "BC_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_LOCATION_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_MASTER_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "3",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  2,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "4",
+                                                                                    "support":  "true",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  10,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_SYMBOL",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  3,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ITV_KEY_POLICY_NUMBER",
+                                                                                    "page":  "Fac_Reinsurance_Itv",
+                                                                                    "type":  "hidden",
+                                                                                    "disabled":  "true",
+                                                                                    "order":  "7",
+                                                                                    "placeholder":  "",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  5,
+                                                                                    "parentField":  "SubField",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "defaultValue":  "",
+                                                                                    "reference":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}
