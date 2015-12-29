@@ -21,3 +21,5 @@ Fork this Repository to your Bitbucket Account then :
     $ cd OCConfigurator
     $ npm start
 ```
+### OCConfigurator is available on AWS.
+To use the OCConfigurator on AWS [click here](http://ec2-54-77-27-13.eu-west-1.compute.amazonaws.com/ocinfra/OCConfigurator)
