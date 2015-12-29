@@ -7,7 +7,7 @@ app.factory("CanvasMetaModel", function($resource, $rootScope){
 		resource :function(screenId){
 		var sliceURIParam = $rootScope.listURI.GetMetaModelURI;
 		sliceURIParam = sliceURIParam.replace("/{name}","");
-		var url = $rootScope.listURI.ApplicationURL + sliceURIParam + '/' +screenId; //REST API url
+		var url = 'data' + sliceURIParam + '/' +screenId + '.json' //REST API url
 			return $resource(url);
 		}
 	};
