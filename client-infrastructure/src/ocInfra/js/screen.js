@@ -8,7 +8,18 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $location, MetaData, HttpService, dataFactory) {
+function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory) {
+	    
+  
+
+
+	    $scope.showErr = function () {
+       
+        growl.addErrorMessage('<b>Error:</b> Uh oh!');
+        growl.addInfoMessage('Im  a info message');
+        growl.addWarnMessage('Im  a warn message');
+        growl.addSuccessMessage('Im  a success message');
+    };
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
 	$scope.disableNext = false;
