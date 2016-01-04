@@ -66,10 +66,10 @@ dataFactory.patch = function (urlBase,obj) {
  }
 
  
-        dataFactory.options(url).success(function(){
-                log.info('global options called');        
+       // dataFactory.options(url).success(function(){
+//log.info('global options called');        
         
-     });
+//});
         
     };
 
