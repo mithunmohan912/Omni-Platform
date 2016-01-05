@@ -46,11 +46,12 @@ function PreviewCtrl($scope, $routeParams, $browser,
 
 // Controller for the main partial, rootScope is injected as this partial needs
 function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
-		$rootScope, $browser, $timeout) {
+		$rootScope, CanvasMetaModel, $browser, $timeout) {
 
 	$scope.isCollapsed = false;
 	$scope.fields = {};
 	$rootScope.m = [];
+	$scope.m = [];
 	$scope.newField = {};
 	$scope.newSection = {};
 	$scope.mainView = {};
@@ -75,17 +76,24 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 	$rootScope.AddNew = "false";
 	$rootScope.openModal();
 	var selectedAttr;
-	if ($routeParams.KEY == null) {
-		//Ankit
-		$http.get('data/metamodel/' + $routeParams.screenId + '.json').success(function(Data) {
-			$scope.m = Data
-			$rootScope.metamodel = Data
-			$rootScope.m = $scope.m;
-		});
-		
-		/* var CanvasmetaData = CanvasMetaModel.resource($routeParams.screenId); 
+	if ($routeParams.KEY == null) {		
+		/*var CanvasmetaData = CanvasMetaModel.resource($routeParams.screenId); 
 		$scope.m = CanvasmetaData.query();
-		$rootScope.metamodel = CanvasmetaData.query();*/
+		$rootScope.metamodel = CanvasmetaData.query();
+		$rootScope.m = CanvasmetaData.query();*/
+		
+		var url = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?q={"metadata.formid":"PolAddtlAppInfo"}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
+
+		$http.get(url)
+			.success(function(data) {
+				var temp = data[0].metadata;
+				var output = [];
+				output.push(temp);
+				$scope.m = output;
+				$rootScope.metamodel = $scope.m;
+				$rootScope.m = $scope.m;
+				$rootScope.mongoId = data[0]._id.$oid;
+			});
 		
 			 
 		if ($routeParams.ElementType != undefined){		
@@ -121,7 +129,7 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 				$scope.attrsJson = data.ShortNameDefinition.ShortNameDefs.ShortNameDef;
 			});*/
 	} else {
-		//Ankit	
+			
 		$http.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL
 			+ $rootScope.listURI.GetAttributesFullServiceURI
 			+ '/' + $rootScope.screenId + '/screen')
@@ -129,7 +137,7 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 			if (data.ShortNameDef) { $scope.attrsJson = data.ShortNameDef; }
 		});
 	}
-//Ankit
+
 	//Retrieve and store the list of pages
 	$http.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetMetaModelListURI)
 		.success(function(data) {
@@ -1030,8 +1038,8 @@ function HomeCtrl($http, $scope, $rootScope) {
 					function(data) {
 						$rootScope.listURI = data;
 
-						$http
-								.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetMetaModelListURI)  //Ankit
+						/*$http
+								.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetMetaModelListURI)
 								.success(
 										function(dataJson) {
 
@@ -1039,6 +1047,21 @@ function HomeCtrl($http, $scope, $rootScope) {
 											for ( var i in dataJson) {
 
 												$scope.allJsonList[index++] = dataJson[i];
+
+											}
+											;
+
+										});*/
+			var url = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?f={"metadata.formid" :1}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
+
+						$http.get(url)
+								.success(
+										function(dataJson) {
+
+											var index = 0;
+											for ( var i in dataJson) {
+
+												$scope.allJsonList[index++] = dataJson[i].metadata.formid;
 
 											}
 											;
@@ -1242,7 +1265,7 @@ function LeftControlPalette($scope, $http,$rootScope) {
 	$rootScope.getPageControls = function(pageName) {
 		//Check our cache of promises
 		if ($rootScope.pagePromises[pageName] === undefined) {
-			$rootScope.pagePromises[pageName] = $http.get( 'data/metamodel/' + pageName + '.json') //Ankit
+			$rootScope.pagePromises[pageName] = $http.get( 'data/metamodel/' + pageName + '.json') 
 				.then(function(response) {
 					if (!response.data.exception) {
 						//Store the properties file keys for later use
@@ -1427,7 +1450,7 @@ function LeftControlPalette($scope, $http,$rootScope) {
 											}
 										});
 					});
-	//Ankit
+	
 	$http
 	.get(
 			$rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetListScreensServiceJSONURI)
@@ -1801,7 +1824,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 		}
 		var sliceURIParam = $rootScope.listURI.GetMetaModelURI;
 		sliceURIParam = sliceURIParam.replace("/{name}","");
-		//Ankit
+		
 		/*var urlstr = $rootScope.listURI.ApplicationURL + sliceURIParam + '/' + $rootScope.screenId;*/
 		var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';
 		//Ensure that all foreign pages are synced
@@ -1933,7 +1956,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 					}// subsection
 				}// section
 			}// metadata
-			var SupportInfoError = false;
+			/*var SupportInfoError = false;
 		
 			for ( var secCounter = 0; secCounter < $rootScope.m[0].section.length; secCounter++) {
 				var section = $rootScope.m[0].section[secCounter];
@@ -1984,9 +2007,9 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 				}// subsection
 			}// section
 				
-		}// metadat
+		}*/// metadat
 		
-		/*$scope.submitMeta(Publish,fullMMJson,TrackerText);*/
+		$scope.submitMeta(Publish,fullMMJson,TrackerText);
 		
 		});
 		});
@@ -2005,25 +2028,23 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 			return returnToken;
 	};
 	
-	/*$scope.submitMeta = function(Publish,fullMMJson,TrackerText){
+	$scope.submitMeta = function(Publish,fullMMJson,TrackerText){
 		// name_old and label_old.		
 		
 		if ($rootScope.AddNew == "true"){
 			$rootScope.screenId = $rootScope.NewName; 
 		}		
 		
-		var finalIObj = [ {
-			"metadata" : $rootScope.m[0]
-		}, {
+		var finalIObj = {
 			"metadata" : fullMMJson
-		} ]; // this JSON should be of the format
+		}; // this JSON should be of the format
 		
-		$http(
-				{
+		/*$http(
+				{ 
 					method : 'POST',
 					url : $rootScope.listURI.ApplicationURL
 							+ $rootScope.listURI.RetrieveMetaModelDBServiceURI + '/'
-							+ $rootScope.screenId,
+							+ $rootScope.screenId
 					data : finalIObj,					
 					params : {
 						location : $rootScope.location,
@@ -2039,7 +2060,12 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 						Remarks : TrackerText,
 						Publish : Publish
 					}
-				}).success(function(data) {
+				}).success(function(data) {*/
+			/*var url = 'data/metamodel/' + $rootScope.screenId + '.json';*/
+
+			var url = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel/' + $rootScope.mongoId
+			+ '?apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev'
+			$http.put(url,finalIObj).success(function(data) {	
 			$rootScope.metamodel[0] = angular.copy(fullMMJson);
 			//$rootScope.closeModal();
 			showMessage('Changes are saved', '40' );
@@ -2053,7 +2079,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 			$("#SuccessIcon").css("display", "none");
 			$("#ErrorIcon").css("display", "block");
 		});
-	};*/
+	};
 
 	$scope.stateCodes = [];
 	$scope.classCodes = [];
@@ -2063,7 +2089,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 	.success(
 			function(data) {
 				$rootScope.listURI = data;
-	//Ankit
+	
 		$http
 			.get($rootScope.listURI.ApiURL + 
 					$rootScope.listURI.ApplicationURL
@@ -3425,7 +3451,7 @@ function RevisionCtrl($scope, $rootScope, $http, $modalInstance, diffOrHistory, 
 	$scope.getLatest = function(){
 		var sliceURIParam = $rootScope.listURI.GetMetaModelURI;
 		sliceURIParam = sliceURIParam.replace("/{name}","");
-		//Ankit
+		
 		/*var urlstr = $rootScope.listURI.ApplicationURL + sliceURIParam + '/' + $rootScope.screenId;*/
 		var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';
 		$http({

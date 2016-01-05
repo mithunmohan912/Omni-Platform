@@ -13,7 +13,7 @@ module.exports = {
                                                     'src/app-clientmanagement/app/**/*.js',  
                                                     'src/app-clientmanagement/assets/css/*.css',
                                                     'src/app-clientmanagement/ocInfra/js/ocInfra.js', 
-                                                    'src/app-clientmanagement/ocInfra/css/ocInfra.css'
+                                                    'src/ocInfra/css/*.css'
             ],
             'src/app-kitchensink/index.html': ['src/app-kitchensink/js/*.js',
                                                     'src/app-kitchensink/js/**/*.js',
@@ -21,7 +21,7 @@ module.exports = {
                                                     'src/app-kitchensink/app/**/*.js',  
                                                     'src/app-kitchensink/assets/css/*.css',
                                                     'src/app-kitchensink/ocInfra/js/ocInfra.js', 
-                                                    'src/app-kitchensink/ocInfra/css/ocInfra.css'
+                                                    'src/ocInfra/css/*.css'
             ],
             'src/app-miniquote/index.html': ['src/app-miniquote/js/*.js',
                                              'src/app-miniquote/js/**/*.js',
@@ -29,7 +29,7 @@ module.exports = {
                                              'src/app-miniquote/app/**/*.js',  
                                              'src/app-miniquote/assets/css/*.css',
                                              'src/app-miniquote/ocInfra/js/ocInfra.js', 
-                                             'src/app-miniquote/ocInfra/css/ocInfra.css'
+                                             'src/ocInfra/css/*.css'
             ],
             'src/app-weather/index.html': ['src/app-weather/js/*.js',
                                            'src/app-weather/js/**/*.js',
@@ -37,7 +37,7 @@ module.exports = {
                                            'src/app-weather/app/**/*.js', 
                                            'src/app-weather/assets/css/*.css',
                                            'src/app-weather/ocInfra/js/ocInfra.js', 
-                                           'src/app-weather/ocInfra/css/ocInfra.css'
+                                           'src/ocInfra/css/*.css'
             ]
         }
 

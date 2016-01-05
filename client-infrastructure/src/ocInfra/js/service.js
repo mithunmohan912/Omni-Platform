@@ -1,6 +1,6 @@
 'use strict';
 /*
-global app,showMessage 
+global app 
 */
 /*
 exported checkVisibility
@@ -67,7 +67,7 @@ app.service('OCRoles', function($resource, $rootScope, $location) {
 });
 
 
-app.service('HttpService', function($http,DataMappingService) {
+app.service('HttpService', function($http,DataMappingService,growl) {
     this.options = function( url,$rootScope) {
      $http(
 			{
@@ -131,12 +131,17 @@ app.service('HttpService', function($http,DataMappingService) {
 				headers: headers,
 				data: payLoad
 			}).success(function(data){
+                
+
+
 			 if (data) {
 				 var resource=objectName.charAt(0).toUpperCase() + objectName.substring(1);
+				 console.log(resource);
 				 if(method==='PATCH'){
-					  showMessage(resource+' Updated successfully');
+					  growl.addSuccessMessage(data.message);
 				 } else{
-					  showMessage(resource+' Added successfully');
+					  growl.addSuccessMessage(data.message);
+					  
 				 }
 				
 			 }

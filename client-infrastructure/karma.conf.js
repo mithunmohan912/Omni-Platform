@@ -39,6 +39,7 @@ module.exports = function(config) {
             'src/vendors/modernizr/modernizr.js',
             'src/vendors/quick-ng-repeat/quick-ng-repeat.js',
             'src/vendors/jquery-validation/dist/jquery.validate.js',
+             'src/vendors/angular-growl/build/angular-growl.js',
 			'src/ocInfra/js/*.js',
             'tests/unit/*.js'
 
