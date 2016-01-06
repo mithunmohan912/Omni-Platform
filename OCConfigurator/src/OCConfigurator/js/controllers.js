@@ -82,7 +82,8 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 		$rootScope.metamodel = CanvasmetaData.query();
 		$rootScope.m = CanvasmetaData.query();*/
 		
-		var url = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?q={"metadata.formid":"PolAddtlAppInfo"}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
+		var url = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?q={"metadata.formid":"' + 
+		$routeParams.screenId + '"}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
 
 		$http.get(url)
 			.success(function(data) {
@@ -139,10 +140,10 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 	}
 
 	//Retrieve and store the list of pages
-	$http.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetMetaModelListURI)
+	/*$http.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetMetaModelListURI)
 		.success(function(data) {
 			$scope.pages = data;
-		});
+		});*/
 	
 	
 	$scope.oldDefaultTo = "";
@@ -1057,15 +1058,10 @@ function HomeCtrl($http, $scope, $rootScope) {
 						$http.get(url)
 								.success(
 										function(dataJson) {
-
 											var index = 0;
 											for ( var i in dataJson) {
-
 												$scope.allJsonList[index++] = dataJson[i].metadata.formid;
-
-											}
-											;
-
+											};
 										});
 						
 						});
@@ -1826,7 +1822,9 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 		sliceURIParam = sliceURIParam.replace("/{name}","");
 		
 		/*var urlstr = $rootScope.listURI.ApplicationURL + sliceURIParam + '/' + $rootScope.screenId;*/
-		var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';
+		/*var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';*/ 
+		var urlstr = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?q={"metadata.formid":"' + 
+		$rootScope.screenId + '"}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
 		//Ensure that all foreign pages are synced
 		$scope.syncForeignControls();
 		var propertiesProcess = $rootScope.getAllPageProperties();
@@ -1852,7 +1850,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 				    }
 				    });*/
 		    var leftmeta = angular.toJson($rootScope.metamodel[0]) ;
-		    var rightmeta = angular.toJson(latestRev.metadata);
+		    var rightmeta = angular.toJson(latestRev[0].metadata);
 		    var delta;
 		    //var delta = instance.diff(leftmeta,rightmeta);
 		    if (delta != undefined){
@@ -2033,6 +2031,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 		
 		if ($rootScope.AddNew == "true"){
 			$rootScope.screenId = $rootScope.NewName; 
+			$rootScope.mongoId = ((((Math.random()).toString()).replace("0.", $rootScope.NewName)));
 		}		
 		
 		var finalIObj = {
@@ -3453,13 +3452,15 @@ function RevisionCtrl($scope, $rootScope, $http, $modalInstance, diffOrHistory, 
 		sliceURIParam = sliceURIParam.replace("/{name}","");
 		
 		/*var urlstr = $rootScope.listURI.ApplicationURL + sliceURIParam + '/' + $rootScope.screenId;*/
-		var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';
+		/*var urlstr = 'data' + sliceURIParam + '/' + $rootScope.screenId +'.json';*/
+		var urlstr = 'https://api.mongolab.com/api/1/databases/occonfigurator/collections/metamodel?q={"metadata.formid":"' + 
+		$rootScope.screenId + '"}&apiKey=aOhCWamNCNv2U6oh929Cz5c3qoNthnev';
 		$http({
 			method : 'GET',
 			url : urlstr
 			}).success(function(latestRev) {
-				$scope.$parent.m[0] = angular.fromJson(latestRev.metadata);
-				var latestmeta = angular.copy(angular.fromJson(latestRev.metadata));
+				$scope.$parent.m[0] = angular.fromJson(latestRev[0].metadata);
+				var latestmeta = angular.copy(angular.fromJson(latestRev[0].metadata));
 				$scope.$parent.metamodel[0] = latestmeta;
 				$modalInstance.dismiss('cancel');
 			});
