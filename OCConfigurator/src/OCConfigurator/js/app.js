@@ -6,7 +6,7 @@
  * Declare app and router
  */
 
-var app = angular.module('ux', ['ui.slider','ui.bootstrap','ngGrid','ngResource']). 
+var app = angular.module('OCConfigurator', ['ui.slider','ui.bootstrap','ngGrid','ngResource']). 
     config(['$routeProvider', function($routeProvider) {
       	$routeProvider.       
         when('/home', {templateUrl: 'partials/home.html', controller: HomeCtrl}). 

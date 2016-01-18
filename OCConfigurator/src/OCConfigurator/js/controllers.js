@@ -987,9 +987,9 @@ function CanvasCtrl($scope, $routeParams, $resource, $http, sharedProperties,
 	
 }
 
-function HomeCtrl($http, $scope, $rootScope) {
+function HomeCtrl($http, $scope, $rootScope, $modal) {
 
-	$scope.title = 'UX PointIn';
+	$scope.title = 'OCConfigurator';
 	$scope.allJsonList = [];
 	$scope.allElementTypes = [];
 	/*$scope.GridMetaDataList = [];*/
@@ -1011,7 +1011,7 @@ function HomeCtrl($http, $scope, $rootScope) {
 	$("#themeSwitcher").css("display", "none");
 	$("#saveGrids").css("display", "none");
 	$("#gridJSONEditor").css("display", "none");
-	//Function to display the Express processing Popup
+	//Function to display the Express processing Popup	
 	function showExpressProcessingPopover(appName){
 
 		var EPContainerDiv = $('#' + appName);
@@ -1127,7 +1127,7 @@ function MetaModelUpdateJSON($scope, $routeParams, $http, $rootScope) {
 
 }
 
-function LeftControlPalette($scope, $http,$rootScope) {
+function LeftControlPalette($scope, $http,$rootScope,dataFactory) {
 	$scope.allElementTypes = [];
 	$scope.SelectedViewType;
 	$scope.SelectedUserGroup;	
@@ -1261,7 +1261,7 @@ function LeftControlPalette($scope, $http,$rootScope) {
 	$rootScope.getPageControls = function(pageName) {
 		//Check our cache of promises
 		if ($rootScope.pagePromises[pageName] === undefined) {
-			$rootScope.pagePromises[pageName] = $http.get( 'data/metamodel/' + pageName + '.json') 
+			$rootScope.pagePromises[pageName] = $http.get( 'data/metamodel/' + pageName + '.json')
 				.then(function(response) {
 					if (!response.data.exception) {
 						//Store the properties file keys for later use
@@ -1463,6 +1463,48 @@ function LeftControlPalette($scope, $http,$rootScope) {
 				;
 			
 			});
+	var rootUrl = 'http://20.33.40.152:10104/csc/insurance';
+	var url = rootUrl + '/schemas';
+	var resourceId;
+	dataFactory.getData(url).success(function(data){
+		var resourceList = [];
+		var resourceJsonObj = {};
+		for (var i=0; i<data._links.item.length; i++) {
+			if (data._links.item[i].href !== null) {
+				resourceJsonObj.name = ((data._links.item[i].href).replace('http://20.33.40.152:10104/csc/insurance/schemas/',''));
+				resourceList[i] = JSON.parse(JSON.stringify(resourceJsonObj));
+			};
+		};
+		for ( var objAc = 0; objAc < $scope.accordions.length; objAc++) {
+			if ($scope.accordions[objAc].controls === undefined) {
+				$scope.accordions[objAc].controls = JSON.parse(JSON.stringify(resourceList));
+				resourceId = objAc;
+				break;
+			}
+		}
+		
+	});
+
+	$scope.selectResource = function (resourceName) {
+		for ( var objAc = 0; objAc < $scope.accordions[resourceId].controls.length; objAc++) {
+			if ($scope.accordions[resourceId].controls[objAc] === resourceName) {
+				var elementId = objAc
+				url = rootUrl + '/' + $scope.accordions[resourceId].controls[elementId].name;
+				break;
+			}
+		}
+		if ($scope.accordions[resourceId].controls[elementId].schemaList === undefined) {
+				dataFactory.options(url).success(function(data){
+				for (var i=0; i<data.links.length; i++) {
+					if (data.links[i].method === 'POST' && data.links[i].rel === 'create' ) {
+						$scope.accordions[resourceId].controls[elementId].schemaList =  JSON.parse(JSON.stringify(
+																						data.links[i].schema));
+						break;
+						};
+					};	
+				});
+		}			
+	};
 	// for moving the value back to metamodel
 	$scope.moveValue = function(obj, key, newvalue) {
 		if (key == 'required' && newvalue == 'true') {
@@ -2155,7 +2197,7 @@ function HandleClick($scope, sharedProperties, $rootScope, $routeParams, $http,
 		StateClassValue = ctrl.stateclassitem;
 		
 
-		var updscCodeInd = {};
+		var updscCodeInd = 
 
 		updscCodeInd.name = "SC_CODE";
 		updscCodeInd.value = StateClassValue;
