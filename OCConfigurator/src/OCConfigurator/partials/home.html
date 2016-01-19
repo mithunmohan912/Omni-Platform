@@ -12,11 +12,6 @@
 							<div ng-switch-default>
 								<div class="homeIconContainerDiv"></div>
 							</div>
-							<div ng-switch-when="converter">
-								<a href="#/conversionTool">
-									<div class="homeIconContainerDiv" style="height: 80px"></div>
-								</a>
-							</div>
 							<div ng-switch-when="editor">
 								<div class="EPContainerDiv" targetDiv="editorPre"
 									showwidget='no'>
@@ -44,29 +39,6 @@
 
 									</div>
 									<div style="height:80px" ng-click="showExpProcessingPopup('editorPre'); ">
-										<div class="iconExpressProcessing iconExpressProcessing_Canvas" ></div>
-									</div>
-								</div>
-
-							</div>
-							<div ng-switch-when="import">
-								<div class="EPContainerDiv" targetDiv="showImportOptions"
-									showwidget='no'>
-									<div class="ux_bubble_autocomplete" style="visibility: hidden"
-										id="showImportOptions">
-										<div class="ux_EP_bubble_pointer_icon_border"></div>
-										<div class="ux_EP_bubble_pointer_icon"></div>
-										<div class="ux_expressprocessing_header"></div>
-										<br/>
-											<a href="#/import/meta" >Import Metamodels</a>
-											<br/>
-											<br/>
-											<a href="#/import/support">Import Support Properties</a>
-										<br/>
-										<br/>
-
-									</div>
-									<div style="height:80px" ng-click="showExpProcessingPopup('showImportOptions'); ">
 										<div class="iconExpressProcessing iconExpressProcessing_Canvas" ></div>
 									</div>
 								</div>
