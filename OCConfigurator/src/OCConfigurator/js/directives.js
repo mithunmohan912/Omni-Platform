@@ -129,6 +129,15 @@ app.directive('draggable', function($document) {
 				        draggedObject = null;
 				        draggedScope = null;
 					}
+					else if(ui.draggable.attr('id') == "addElement"){
+						outDrag.css("overflow", "");
+						var newField = { label: ui.draggable.attr('fieldLabel'), labelspan: '8', fieldspan: '6', type: ui.draggable.attr('fieldType'),
+						properties:angular.element(this).scope().properties };						
+						angular.element(this).scope().subsections.element.push(newField);
+						angular.element(this).scope().$apply();
+						undoChangesTrack(angular.element(this).scope().m, "Add New Field", angular.element("html").scope());
+						$(this.lastElementChild).find('input').click();
+					}
 					$(".droppedFields").removeClass("ui-state-hover");
 			        $(".droppedSubSections").removeClass("ui-state-hover");
 			        $(".droppedSections").removeClass("ui-state-hover");

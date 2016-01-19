@@ -1,6 +1,33 @@
 <div id="fl_menu" ng-controller="LeftControlPalette">
 
 	<accordion close-others="true"> <accordion-group
+		heading="Add New Item" ngClick = >
+
+	<div ng-repeat="objAcc in accordions">
+		<ng-switch on="objAcc.type"> 
+		<div ng-switch-when="apiControls">
+			<div ng-repeat="control in objAcc.controls" >
+				<li class="dropdown btn-group-vertical btn-group-vertical-block">
+     			<button  class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown"  
+     			ng-click="selectResource(control)" type="button" 
+     			class="dropdown-toggle open" data-toggle="dropdown" style="z-index: 999;"> 
+     			<span class="icon-plus-sign"></span>
+				{{control.name}}
+               	</button>
+               	<ul class="dropdown-menu forAnimate" style="position:relative">
+               		<li ng-repeat="(key,value) in control.schemaList.properties" class="btn-group-vertical btn-group-vertical-block" >
+   						<button draggable class="selectorField btn btn-default btn-block" id="addElement" fieldLabel="{{key}}"
+   						fieldType="{{value.type}}"
+   						>{{key}}</button>
+         			</li>
+         		</ul>
+            </li>
+        	</div>
+		</div>
+		</ng-switch>
+	</div>
+	</accordion-group>
+	<accordion close-others="true"> <accordion-group
 		heading="Control Palette">
 
 	<div ng-repeat="objAcc in accordions">

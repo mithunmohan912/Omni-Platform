@@ -8,10 +8,8 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory) {
-	    
-  
-
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory) {
+	   
 
 	    $scope.showErr = function () {
        
@@ -20,6 +18,7 @@ function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $lo
         growl.addWarnMessage('Im  a warn message');
         growl.addSuccessMessage('Im  a success message');
     };
+    
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
 	$scope.disableNext = false;
@@ -46,7 +45,7 @@ function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $lo
 		$rootScope.screenId = reqParm;
 	}
 
-    $scope.quotefactory = $injector.get('quotefactory');
+  
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
@@ -105,22 +104,48 @@ function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $lo
 		 }
 		 else{
 		 	
-		 	$scope.quotefactory.getquote(url);	
+		 
 		 }
 
 			};
 	
 	$scope.loadMetaData();
+
+	// Dynamic Injection of Factory
+
+	$scope.Injectfactory=function(){
+
+		$scope.factoryname=$scope.screenId+'factory';
+
+          try{
+          
+         $scope.factory = $injector.get($scope.factoryname);
+        
+        console.log('Injector has '+$scope.factoryname+' service!');
+       
+    
+        }catch(e){
+
+         console.log('Injector does not have '+$scope.factoryname+' service!');
+        }
+
+            
+
+	};
+	
+	$scope.Injectfactory();
+
 	$rootScope.isPrev = false;
 	
 	$scope.loadOptionData = function() {
 		 var url = $rootScope.resourceHref;
 		 if (url === undefined) {	
-				url = $rootScope.HostURL;
+				url = $rootScope.HostURL+$scope.screenId;
 		 }
-		  HttpService.options(url,$rootScope);
+		  //HttpService.options(url,$rootScope);
 	};
-	
+
+
 	$scope.loadOptionData();
    
 		
@@ -160,7 +185,12 @@ function ScreenController($http, $scope, $rootScope, $injector,$routeParams, $lo
 			// Option processing		
 		   HttpService.addUpdate(method,url,headers,payLoad,objectName);
 			
+		}else if(action === 'get'){
+			 url = $rootScope.HostURL+$scope.screenId;
+			 
+			 $scope.factory.get(url);
 		}
+
     };
 	
 	  $scope.deleteRow = function(row) {
