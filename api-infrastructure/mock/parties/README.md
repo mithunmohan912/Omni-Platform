@@ -11,7 +11,7 @@
 					*define(path, method, function)*
 	2. The name of second file will be generated from the *base path* of yaml spec. This file will have the implementation of each function defined in main.js. Per the business requirement, the logic of in each functions should be modified by user.
 
-	[Refer the example of parties api](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/fe0bd6ecb1ce162d5a71e6a6aa51ba55fbbaea08/src/app-clientmanagement/docs/api-sandbox-src/?at=master)
+	[Refer the example of parties api](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/6368b59e497fc9a936b7582f236455790b87c15b/api-infrastructure/mock/parties/?at=master)
 
 5. Console tab can be used to view the incoming request and response.
 
@@ -19,10 +19,10 @@
 
 #### To include hypermedia support
 
-1. Include [hypermedia.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/1c330f5cbdc11055708cee15223d6e456067b291/src/app-clientmanagement/docs/api-sandbox-src/hypermedia.js?at=master&fileviewer=file-view-default) in your sandbox code.
+1. Include [hypermedia.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/6368b59e497fc9a936b7582f236455790b87c15b/api-infrastructure/mock/parties/hypermedia.js?at=master) in your sandbox code.
 
 2. Use hypermedia by using the file as below 
 		*var hypermedia = require("hypermedia.js");* 
 		use the fuction *hypermedia.hypermediaSchema()*
 
-3. Refer example [entities.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/1c330f5cbdc11055708cee15223d6e456067b291/src/app-clientmanagement/docs/api-sandbox-src/entities.js?at=master&fileviewer=file-view-default)
+3. Refer example [entities.js](https://bitbucket.org/cscdev/omnichannel-infrastructure/src/6368b59e497fc9a936b7582f236455790b87c15b/api-infrastructure/mock/parties/entities.js?at=master)
