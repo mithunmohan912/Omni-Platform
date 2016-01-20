@@ -86,7 +86,7 @@ module.exports = {
       src: ['css/*.css']
      },
      {
-      expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'src/app-weather/ocInfra/' ,
       src: ['assets/**']
      },
@@ -110,7 +110,7 @@ module.exports = {
       src: ['css/*.css']
      },
      {
-      expand: true , cwd:'src/' , flatten: false,  filter: 'isFile',
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'src/app-miniquote/ocInfra/' ,
       src: ['assets/**']
      },
