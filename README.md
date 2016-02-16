@@ -6,6 +6,12 @@ Omnichannel-Infrastructure  [![Build Status](http://ec2-54-72-70-139.eu-west-1.c
 ###Quick Start
 ---
 
+If you already have node, check which version installed in your computer, the code will not work on any version older than 0.12.0
+
+ ```
+ $ node --version
+ ```
+
 Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/).
 
 Install grunt using below command
@@ -93,6 +99,22 @@ If you like to build a deployable Artifact and run it in your own http server. S
 
 This command will simply annotate all the js files present in ocInfra directory , minify annotated js and css files , recreate dist folder with new changes and also updated corresponding reference apps directories with new code. 
 
+####Run galen
+---
+
+First you need to install galen
+
+ ```
+ $ npm install -g galenframework-cli
+  ``` 
+
+  To run galen script for app-clientmanagement, open tests folder on galen and run this command
+   
+   ```
+  $ galen test loginPage.test.js --htmlreport reports
+   ```
+   
+  
 ###Contributions
 ---
 
