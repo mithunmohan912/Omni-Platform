@@ -15,8 +15,8 @@ public class MessageAggregator {
 		String sor1 = (String) params.get("uri1");
 		String sor2 = (String) params.get("uri2");
 
-		log.info("messageTranslator::aggregatePattern::uri1=" + sor1);
-		log.info("messageTranslator::aggregatePattern::uri2=" + sor2);
+		log.info("aggregatePattern::uri1=" + sor1);
+		log.info("aggregatePattern::uri2=" + sor2);
 
 		return "\"" + sor1 + "\",\"" + sor2 + "\"";
 	}
