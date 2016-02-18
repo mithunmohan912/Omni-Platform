@@ -18,6 +18,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.glassfish.jersey.jettison.JettisonFeature;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MessageTranslatorTest {
@@ -68,6 +69,7 @@ public class MessageTranslatorTest {
 	}
 
 	@Test
+	@Ignore
 	public void testTransformUrls() {
 		testTransformUrls(TEXTURED_API, CLEAN_API);
 	}
