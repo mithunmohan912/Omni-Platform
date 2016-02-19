@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ import com.csc.eip.util.Constants;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class CollectionAggregationStrategy implements AggregationStrategy {
 
 	static Logger log = Logger.getLogger(CollectionAggregationStrategy.class.getName());
@@ -25,46 +27,6 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 	String paramsListString = null;
 	String removeFromParentString = null;
 	String addTheseItemsFromOptionsString = null;
-
-	public String getMergeItemsString() {
-		return mergeItemsString;
-	}
-
-	public void setMergeItemsString(String mergeItemsString) {
-		this.mergeItemsString = mergeItemsString;
-	}
-
-	public String getAddUpItemsString() {
-		return addUpItemsString;
-	}
-
-	public void setAddUpItemsString(String addUpItemsString) {
-		this.addUpItemsString = addUpItemsString;
-	}
-
-	public String getParamsListString() {
-		return paramsListString;
-	}
-
-	public void setParamsListString(String paramsListString) {
-		this.paramsListString = paramsListString;
-	}
-
-	public String getRemoveFromParentString() {
-		return removeFromParentString;
-	}
-
-	public void setRemoveFromParentString(String removeFromParentString) {
-		this.removeFromParentString = removeFromParentString;
-	}
-
-	public String getAddTheseItemsFromOptionsString() {
-		return addTheseItemsFromOptionsString;
-	}
-
-	public void setAddTheseItemsFromOptionsString(String addTheseItemsFromOptionsString) {
-		this.addTheseItemsFromOptionsString = addTheseItemsFromOptionsString;
-	}
 
 	ArrayList<String> mergeItemsIntoArray = null;
 	ArrayList<String> addUpItems = null;
@@ -123,54 +85,45 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 					Arrays.asList(addTheseItemsFromOptionsString.split(Constants.COMMA_DELIMITER)));
 		}
 	}
+	
 	public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
-		log.info("Collection Aggregation Strategy-------------");
 		initialize();
 		if (oldExchange == null) {
+			log.debug("oldExchange: null");
+			String newBody = newExchange.getIn().getBody(String.class);
+			log.debug("newExchange.body: " + newBody);
+			newExchange.getOut().setBody(newBody);
 			return newExchange;
 		}
-
 		String oldBody = oldExchange.getIn().getBody(String.class);
-		log.info("OLD EXCHANGE--- " + oldBody);
+		log.debug("oldExchange.body: " + oldBody);
 		String newBody = newExchange.getIn().getBody(String.class);
-		log.info("NEW EXCHANGE--- " + newBody);
+		log.debug("newExchange.body: " + newBody);
 		try {
 			ObjectMapper oldMapper = new ObjectMapper();
-			Message oldParent = oldMapper.readValue(oldBody, Message.class);
-
+			Message oldMessage = oldMapper.readValue(oldBody, Message.class);
 			ObjectMapper newMapper = new ObjectMapper();
-			Message newParent = newMapper.readValue(newBody, Message.class);
-
-			crawlMessage(oldParent.getAny(), newParent.getAny());
-			oldBody = oldMapper.writeValueAsString(oldParent);
-			//log.info("RESPONSE BODY-------------" + oldBody);
+			Message newMessage = newMapper.readValue(newBody, Message.class);
+			crawlMessage(oldMessage.getAny(), newMessage.getAny());
+			oldExchange.getOut().setBody(oldMessage.getAny());
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		oldExchange.getOut().setBody(oldBody);
-
 		return oldExchange;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void crawlMessage(Map<String, Object> oldAny, Map<String, Object> newAny) throws JSONException {
-
 		for (Iterator<String> it = oldAny.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			Object oldObject = oldAny.get(key);
 			Object newObject = newAny.get(key);
-			// log.info("old object----" + oldObject);
-			// log.info("new object----" + newObject);
-			// log.info("key----" + key);
 			if (oldObject == null && newObject == null) {
 				continue;
 			}
@@ -178,7 +131,6 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 				continue;
 			} else if (oldObject.getClass().equals(LinkedHashMap.class)
 					&& newObject.getClass().equals(LinkedHashMap.class)) {
-
 				if (mergeItemsIntoArray.contains(key)) {
 					ArrayList<Object> array = new ArrayList<Object>();
 					array.add(oldObject);
@@ -196,23 +148,19 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 				continue;
 			}
 		}
-
 	}
 
 	public void crawlMessage(String parentKey, Map<String, Object> oldMap, Map<String, Object> newMap)
 			throws JSONException {
-		// log.info("Key----" + parentKey);
 		for (Iterator<String> it = oldMap.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			Object oldObject = oldMap.get(key);
 			Object newObject = newMap.get(key);
-			// log.info("object---" + oldObject);
 			if (oldObject == null && newObject == null) {
 				continue;
 			}
 			if (oldObject.getClass().equals(String.class) && newObject.getClass().equals(String.class)) {
 				for (String prefix : paramsList) {
-					// log.info("prefix---" + prefix);
 					oldObject = addUpLengths(prefix + Constants.EQUAL_TO, (String) oldObject, (String) newObject);
 				}
 				oldMap.put(key, oldObject);
@@ -222,7 +170,6 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 	}
 
 	private String addUpLengths(String prefix, String oldObject, String newObject) {
-		// log.info("Called");
 		int indexNum1 = oldObject.indexOf(prefix) + prefix.length();
 		int length1 = oldObject.length();
 		int indexNum2 = newObject.indexOf(prefix) + prefix.length();
@@ -242,13 +189,11 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 		return oldObject;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void crawlMessage(String parentKey, ArrayList<Object> oldAny, ArrayList<Object> newAny) {
-		// log.info("Arryay list processing--------------------------");
 		if (removeFromParentArray.contains(parentKey)) {
 			for (int i = newAny.size() - 1; i >= 0; i--) {
 				Object newObj = newAny.get(i);
-				// log.info(newObj);
-				// log.info(newObj.getClass());
 				if (newObj.getClass().equals(LinkedHashMap.class) && newObj.getClass().equals(LinkedHashMap.class)) {
 					if (removeMessage((Map<String, Object>) newObj)) {
 						newAny.remove(i);
@@ -260,7 +205,6 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 	}
 
 	public boolean removeMessage(Map<String, Object> newObject) {
-
 		for (Iterator<String> it = newObject.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			if (addTheseItemsFromOptions.contains(key)) {
@@ -269,4 +213,45 @@ public class CollectionAggregationStrategy implements AggregationStrategy {
 		}
 		return true;
 	}
+	
+	public String getMergeItemsString() {
+		return mergeItemsString;
+	}
+
+	public void setMergeItemsString(String mergeItemsString) {
+		this.mergeItemsString = mergeItemsString;
+	}
+
+	public String getAddUpItemsString() {
+		return addUpItemsString;
+	}
+
+	public void setAddUpItemsString(String addUpItemsString) {
+		this.addUpItemsString = addUpItemsString;
+	}
+
+	public String getParamsListString() {
+		return paramsListString;
+	}
+
+	public void setParamsListString(String paramsListString) {
+		this.paramsListString = paramsListString;
+	}
+
+	public String getRemoveFromParentString() {
+		return removeFromParentString;
+	}
+
+	public void setRemoveFromParentString(String removeFromParentString) {
+		this.removeFromParentString = removeFromParentString;
+	}
+
+	public String getAddTheseItemsFromOptionsString() {
+		return addTheseItemsFromOptionsString;
+	}
+
+	public void setAddTheseItemsFromOptionsString(String addTheseItemsFromOptionsString) {
+		this.addTheseItemsFromOptionsString = addTheseItemsFromOptionsString;
+	}
+
 }

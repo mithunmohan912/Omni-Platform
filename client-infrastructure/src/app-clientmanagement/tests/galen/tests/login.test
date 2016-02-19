@@ -1,0 +1,14 @@
+@@set
+    desktop         1024x768
+    smallDesktop    800x600
+    ipad            768x1024
+    domain          http://localhost:8080/app-clientmanagement/#/
+
+Login page on desktop
+    ${domain} ${desktop}
+    	check   ../specs/loginpage.gspec
+    	run ../pages/LoginPage.js
+    	run ../pages/LandingPage.js
+        check   ../specs/landingpage.gspec
+        run ../pages/PartiesPage.js
+        check   ../specs/partiespage.gspec

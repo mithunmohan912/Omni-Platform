@@ -9,7 +9,7 @@ _mvn install_
 * Download and copy the jetty-runner.jar file on the same folder as application WAR.
 * Open command prompt and set the current working directory to the above folder location (where WAR and JAR has been placed).
 * Run the following command - 
-_java -jar jetty-runner.jar OCIntegration.war_
+_java -jar jetty-runner.jar ocintegration.war_
 
 **To run a test on the project**
 * Use Postman to invoke the rest service.
@@ -21,7 +21,7 @@ For URI transformation (Clean API to Textured API and vice versa), we have built
 *Test Steps*
 
 	1. Select the "POST" method/verb.
-	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
+	2. Add the url _http://localhost:8080/ocintegration/messageTranslator_.
 	3. Add the JSON Message in which you want to transform the URL.
 	4. Also specify the "pattern" and "replacement" in header for the request.
 	5. Submit the request by clicking on the "Send" button beside URL.
@@ -36,7 +36,7 @@ The [Aggregator](http://camel.apache.org/aggregator.html) Integration pattern fr
 *Test Steps*
 
 	1. Select the "GET" method/verb.
-	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration_.
+	2. Add the url _http://localhost:8080/ocintegration/aggregator_.
 	3. Add the header "URIS" to the request and in value, add the comma separated list of the rest service URIs.
 	4. Submit the request by clicking on the "Send" button beside URL.
 
@@ -49,7 +49,7 @@ Camel supports the [Publish Subscribe Channel](http://camel.apache.org/publish-s
 *Test Steps*
 
 	1. Select the "POST" method/verb.
-	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Publish_.
+	2. Add the url _http://localhost:8080/ocintegration/publish_.
 	3. Add the header "activity" to the request and in value, add the activity (Activity1, Activity2 or Activity3).
 	4. Add some message in the body payload that you would want to be posted to the queue.
 	5. Submit the request by clicking on the "Send" button beside URL.
@@ -63,7 +63,7 @@ Camel supports the [Pipes and Filters](http://camel.apache.org/pipes-and-filters
 *Test Steps*
 
 	1. Select the "POST" method/verb.
-	2. Add the url _http://localhost:8080/OCIntegration/OCIntegration/Pipeline_.
+	2. Add the url _http://localhost:8080/ocintegration/pipeline_.
 	3. Add the "pattern" and "replacement" in header for the request.
 	4. Add the header "activity" to the request and in value, add the activity (Activity1, Activity2 or Activity3).
 	5. Add some message in the body payload that you would want to process.
