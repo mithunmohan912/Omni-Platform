@@ -1,14 +1,12 @@
-@@set
-    desktop         1024x768
-    smallDesktop    800x600
-    ipad            768x1024
-    domain          http://localhost:8080/app-clientmanagement/#/
+@@ import config.test
 
-Login page on desktop
-    ${domain} ${desktop}
-    	check   ../specs/loginpage.gspec
-    	run ../pages/LoginPage.js
-    	run ../pages/LandingPage.js
-        check   ../specs/landingpage.gspec
-        run ../pages/PartiesPage.js
-        check   ../specs/partiespage.gspec
+@@ Parameterized using devices
+Home page on ${deviceName} device in ${browser} browser
+		selenium ${browser}  ${domain}   ${size}
+			check   ../specs/loginpage.gspec --include ${tags}
+			run ../pages/LoginPage.js
+			run ../pages/LandingPage.js '{screenSize:"${deviceName}"}'
+			check   ../specs/landingpage.gspec --include ${tags}
+			run ../pages/PartiesPage.js
+			check   ../specs/partiespage.gspec --include ${tags}
+			

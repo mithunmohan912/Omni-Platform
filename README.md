@@ -111,7 +111,7 @@ First you need to install galen
   To run galen script for app-clientmanagement, open tests folder on galen and run this command
    
    ```
-  $ galen test loginPage.test.js --htmlreport reports
+  $ galen test login.test --htmlreport reports
    ```
    
   
