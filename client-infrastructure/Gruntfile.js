@@ -24,5 +24,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('minifyJS', ['ngAnnotate','uglify']);
 
 	grunt.registerTask('minifyCSS', ['cssmin']);
+	
+	grunt.registerTask('build4m', ['copy4m']);
+	
+	grunt.registerTask('buildMobilePkg', ['clean:mobile','copy:dist_mobile','replace:replace_mobile']);
 
 };
