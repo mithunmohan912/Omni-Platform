@@ -129,9 +129,17 @@ module.exports = {
          to: ''
       },
 	  {
-      	 from: '<link rel="stylesheet" href="ocInfra/css/tab-style.css">',
-         to: ''
+      	 from: 'tab-style.css',
+         to: 'ocInfra.min.css'
       },
 	  ]
    },
+   replace_mobile_appjs: {
+   src: ['mobile/app-miniquote/app/app.js'],
+   		 overwrite: true,                
+  	     replacements: [{
+      	 from: '..\/vendors\/angular-i18n\/angular-locale_{{locale}}.js',
+         to: '..\/app-miniquote\/vendors\/angular-i18n\/angular-locale_{{locale}}.js'
+      }]
+	}
 };
