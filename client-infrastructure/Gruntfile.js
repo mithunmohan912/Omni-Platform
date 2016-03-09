@@ -27,6 +27,6 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('build4m', ['copy4m']);
 	
-	grunt.registerTask('buildMobilePkg', ['clean:mobile','copy:dist_mobile','replace:replace_mobile']);
+	grunt.registerTask('buildMobilePkg', ['clean:mobile','copy:dist_mobile','replace:replace_mobile','replace:replace_mobile_appjs']);
 
 };
