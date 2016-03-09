@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData) {
 	   
 
 	    $scope.showErr = function () {
@@ -51,6 +51,20 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         $rootScope.product_id = product_id;
         $location.path(url);
     };
+
+    
+
+    $scope.loadTableMetadata = function(section) {
+       
+        $scope.field={};
+
+    	console.log('@@@@@@@@'+section);
+        TableMetaData.load(section.name, function(tableMetaData) {
+        	console.log('tableMetaData' + tableMetaData);
+            $scope.field.tableMetaData = tableMetaData;           
+        });
+    };
+	
 	
 	
 	$rootScope.navigate = function(url, product_id) {
@@ -115,11 +129,39 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	$scope.Injectfactory=function(){
 
+		if($scope.screenId !== 'dashboard'){
+			 var objMap= $rootScope.screenToResourceMap;
+
+
+		//$rootscope.screenToResourceMap;
+		//var screenId = $scope.screenId;
+
+		 $rootScope.resourceId = objMap.get($scope.screenId);
+		
+		console.log('resource id---'+$rootScope.resourceId);
+		
+		$scope.factoryname=$rootScope.resourceId+'factory';
+
+	}else{
 		$scope.factoryname=$scope.screenId+'factory';
 
+	}
+		//resource id - quotes
+		//screen id - quotesSearch (quotes+search) and quotesCreate (quotes + create)
+    
           try{
           
          $scope.factory = $injector.get($scope.factoryname);
+         
+         $scope.factory.init().then(function(data) {
+          $scope.displayed= data;
+          console.log(data);
+          
+
+        });
+
+                   
+         
         
         console.log('Injector has '+$scope.factoryname+' service!');
        
@@ -158,8 +200,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			}; 
 		var params = {};		
         if(action==='search'){
-			url = $rootScope.HostURL;
-			// Option processing
+        	var map =  $rootScope.optionsMap;
+        	url  = map.get(action);
+
+        	console.log('#######' + url);
+        	
+        	// Option processing
 			optionsProcessor($rootScope,$scope,reqParm, params,action,url);	 
 			// Option processing		
 		
@@ -181,14 +227,26 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			var payLoad = {};
 			objectName=reqParm.replace('Detail','');
 			// Option processing
-			optionsProcessor($rootScope,$scope,reqParm, params,action,url,payLoad,objectName);	
+			//optionsProcessor($rootScope,$scope,reqParm, params,action,url,payLoad,objectName);	
 			// Option processing		
-		   HttpService.addUpdate(method,url,headers,payLoad,objectName);
+		   //HttpService.addUpdate(method,url,headers,payLoad,objectName);
+		   url = $rootScope.HostURL+$scope.screenId;
+		   $scope.factory.add(url,payLoad);
+
 			
 		}else if(action === 'get'){
 			 url = $rootScope.HostURL+$scope.screenId;
 			 
 			 $scope.factory.get(url);
+		}
+		else if(action === 'delete'){
+			 url = $rootScope.HostURL+'quotes';
+			 dataFactory.delete(url,subsections.id).success(function(data){
+
+            growl.addSuccessMessage(data.message);
+}); 
+			
+			 
 		}
 
     };

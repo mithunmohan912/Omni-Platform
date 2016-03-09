@@ -4,16 +4,37 @@ global app
 */
   
 
-  //quote factory
+  //resource -quotes factory
  app.factory('quotesfactory', ['$http','dataFactory','$rootScope','$log','growl',function($http,dataFactory,$rootScope,log,growl) {
+
    
 
     var quotesfactory = {};
 
-    quotesfactory.init=function(){
+    quotesfactory.init=function(){   
+     // var linksarray=[];
+      var url = $rootScope.HostURL + $rootScope.resourceId;
+      var optiondataobj;
+      dataFactory.options(url).success(function(data){
 
-      var uri=$rootScope.screenId;
-         var url = $rootScope.HostURL + uri;
+     var optionsMap= new Map();
+     optiondataobj = data._options;
+     var optionsArray= [];
+
+     angular.forEach(optiondataobj, function(ref) {
+       
+        var key=  ref.rel;
+        var value = ref.href;
+        //var schema = ref.schema;
+        optionsArray[value]=ref;
+        optionsMap.set(key, value);
+      }); 
+      $rootScope.optionData = optionsArray;
+      $rootScope.optionsMap = optionsMap;
+         
+   });
+
+       
 
       
 
@@ -42,7 +63,6 @@ return dataFactory.getData(url).success(function(data){
     };
 
 
-
     quotesfactory.add=function(url,payLoad){
       
      return dataFactory.insert(url,payLoad).success(function(data){
@@ -53,38 +73,4 @@ return dataFactory.getData(url).success(function(data){
 
     };
  return quotesfactory;
-}]);
-
-
-app.factory('dashboardfactory', ['$http','dataFactory','$rootScope','$log','growl',function($http,dataFactory,$rootScope,log,growl) {
-   growl.addSuccessMessage('hi');
-   
-
-  var objMap = new Map();
-  objMap.set('quotessearch','quotes');
-  objMap.set('quotescreate','quotes');
-  //[{'quotessearch': 'quotes' } , {'quotescreate' : 'quotes'}];
-  
-$rootScope.screenToResourceMap = objMap;
-  
-  
-
-    var dashboardfactory = {};
-
-    dashboardfactory.init=function(){
-
-      
-        var url1 = $rootScope.HostURL + 'quotes';
-
-     return dataFactory.getData(url1).success(function(){
-       //$scope.displayed= data;
-       
-       
-          });
-
-    };
-  
-     
-   
- return dashboardfactory;
 }]);

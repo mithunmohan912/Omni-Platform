@@ -1,4 +1,4 @@
-<table st-safe-src="stTableList" st-table="displayed" class="table table-striped">
+<table  class="table table-striped" ng-init="loadTableMetadata(section)">
     <thead>
         <tr>
             <th style="width:{{column.width}} "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
@@ -10,15 +10,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-hide="showResult">
+        <!-- <tr ng-hide="showResult">
             <td colspan="5"><span>{{locale["Data_not _found"]}}.</span></td>
-        </tr>
-        <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
+        </tr> -->
+        
+        <tr ng-repeat="row in displayed | filter:searchText">
 
             <td style="cursor:pointer;" ng-repeat="column in field.tableMetaData.element" ng-click="selectItem(row,field.tableMetaData.actionurl);">
+           
                 <ng-switch on="column.type">
-                    <span ng-switch-when="label">    
-                        {{row[column.field][column.columnField]}}
+                    <span ng-switch-when="label"> 
+                     
+                     {{row[column.field][column.columnField]}}{{column.displayName}}
 					</span>
 				
                     <span ng-switch-when="icon" class="list_icon"><span class="{{column.field}}"></span></span>
@@ -40,7 +43,7 @@
 
                     <span ng-repeat="option in column.options">
 						<a>
-							<i class="{{option.icon}} actionIcon" ng-click="doActionItem(option.value, row, field.name,field.tableMetaData.actionurl);"><span class="iconText">{{locale[option.description]}}</span></i>
+							<i class="{{option.icon}} actionIcon" ng-click="doaction(option.value, row, option.value,field.tableMetaData.actionurl);"><span class="iconText">{{locale[option.description]}}</span></i>
                     </a>
                     </span>
                     </ul>
@@ -52,7 +55,7 @@
     <tfoot>
         <tr>
             <td colspan="8" class="text-center">
-                <div st-items-by-page="5" st-pagination="" st-template="ocInfra/templates/stpaging.html">
+                <div st-items-by-page="5"  st-template="ocInfra/templates/stpaging.html">
                 </div>
             </td>
         </tr>

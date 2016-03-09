@@ -3,11 +3,16 @@
 global app
 */
 
+  
+
     app.factory('dataFactory', ['$http', function($http) {
 
     var dataFactory = {};
 
+   
+
     dataFactory.getData = function (urlBase) {
+        console.log('datafactory');
         return $http.get(urlBase);
     };
 
@@ -29,16 +34,25 @@ global app
     };
 
      dataFactory.options=function(urlBase){
-   return $http(
+        console.log('datafactory!!!');
+  
+
+  var obj =   $http(
             {
-                method : 'OPTIONS',
+                method : 'GET',
                 url : urlBase,
             }
-        );    
+        );   
+
+
+    console.log('Inresource.js'+obj);
+    return obj;
    
 };
 
 dataFactory.patch = function (urlBase,obj) {
+
+
         return $http.patch(urlBase + '/' + obj.id, obj);
     };
 

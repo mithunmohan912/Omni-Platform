@@ -8,8 +8,10 @@ function optionsProcessor($rootScope,$scope, reqParm,params,action,url,payLoad,o
 
 	 if(action==='search'){
 		var searchOption= [];	
+		var optionsDat = $rootScope.optionData[url];
+		console.log('datacall of url'+optionsDat);
 		if($rootScope.optionData!==undefined && $rootScope.optionData[url]!== undefined) {
-		angular.forEach($rootScope.optionData[url], function(value){
+		angular.forEach($rootScope.optionData,function(value){
 
 		if(value.rel==='search'){
 				searchOption.push(value);

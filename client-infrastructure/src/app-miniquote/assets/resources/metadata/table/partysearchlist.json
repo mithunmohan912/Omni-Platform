@@ -1,58 +1,109 @@
 {
     "tableMetaData": {
         "id": "partysearchlist",
-        "title": "Party Search List",
+        "title": "Quote Search List",
         "searching": true,
-		"actionurl": "/screen/partiesDetail",
+        "name":"quoteList",
+        "actionurl": "/screen/quotesearch",
         "element": [
-         	{
-                "field": "parties",
-				"columnField": "firstName",
-                "displayName": "_FIRSTNAME",
+            {
+                "quoteField": "quote_risk:risk_type",
+                "contractField": "quote_risk:risk_type",
+                "displayName": "_PRODUCT_TYPE",
+                "type": "icon",
+                "visible": true,
+                "width": "5%"
+            },
+            {
+                "quoteField": "quote:identifier",
+                "contractField": "contract:number",
+                "displayName": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote_owner:name",
+                "contractField": "person:last_name",
+                "displayName": "_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote:contract_start_date",
+                "contractField": "contract:start_date",
+                "displayName": "_Effective_Date",
+                "type": "date",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote:distributor_id",                
+                "displayName": "_DISTRIBUTOR_ID",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote:description",                
+                "displayName": "_DESCRIPTION",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "15%"
             },
             {
-                "field": "parties",
-                "columnField": "lastName",
-                "displayName": "_LASTNAME",
+                "quoteField": "quote_risk:display_id",
+                "contractField": "insured_risk:display_id",
+                "displayName": "_RISK_DATA",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "15%"
             },
             {
-                "field": "parties",
-                "columnField": "dob",
-                "displayName": "_DOB",
+                "quoteField": "quote:product_id",
+                "contractField": "contract:product_identifier",
+                "displayName": "_PRODUCT_ID",
                 "type": "label",
                 "align": "left",
                 "visible": true,
-                "width": "15%"
+                "width": "10%"
             },
-           {
-                "displayName": "",
+            {
                 "type": "dropdown",
                 "align": "left",
                 "visible": true,
-                "width": "300px",
+                "width": "10%",
                 "options": [
                     {
-                        "value": "edit",
-                        "description": "_EDIT",
-                        "icon": "fa fa-edit"
+                        "value": "copy",
+                        "title": "_COPY",
+                        "icon": "fa fa-edit",
+                        "visibleflag": "allowCopyQuote"
                     },
                     {
                         "value": "delete",
-                        "description": "_DELETE",
-                        "icon": "fa fa-trash-o"
+                        "icon": "fa fa-trash",
+                        "title": "_DELETE"
                     }
                 ]
             }
-			
-			
-        ]
+        ],
+        "iconList": 
+            {
+                "MC011": "flaticon-car95", 
+                "MD005": "flaticon-delivery50", 
+                "MA002": "flaticon-motorbike", 
+                "MC002": "flaticon-single17", 
+                "IN005": "flaticon-home168", 
+                "AX009": "flaticon-adults"
+            }
+        
     }
 }
