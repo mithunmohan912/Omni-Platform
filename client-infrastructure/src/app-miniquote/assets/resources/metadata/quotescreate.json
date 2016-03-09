@@ -51,19 +51,7 @@
                 "max": 99999,
                 "min": 0
               },
-                            {
-                "name": "quote_van:fuel",
-                "type": "select",
-                "label": "_FUEL",
-                "columnsize": "6"
-              },
-              {
-                "name": "quote_van:ext_type",
-                "type": "select",
-                "label": "_CATEGORY",
-                "columnsize": "6",
-                "required": "required"
-              },
+                            
               {
                 "name": "quote_van:ext_pva_belgium_number",
                 "type": "autocomplete",
@@ -184,85 +172,6 @@
             "visible": true
           },
           {
-            "subtitle": "_VEHICLE_USAGE",
-            "name": "vehicle_usage",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "required": "required",
-            "elementgroup": [
-              {
-                "name": "quote_van:usage",
-                "type": "select",
-                "label": "_USAGE",
-                "required": "required",
-                "columnsize": "6"
-              },
-              {
-                "name": "quote_van:ext_current_kilometers",
-                "type": "number",
-                "label": "_CURRENT_KILOMETERS",
-                "columnsize": "6",
-                "min": 0,
-                "max": 9999999,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:ext_safety_features",
-                "type": "select",
-                "label": "_SAFETY_FEATURES",
-                "required": "required",
-                "columnsize": "6"
-              }
-            ]
-          },
-          {
-            "subtitle": "",
-            "name": "vehicle_usage",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "required": "required",
-            "elementgroup": [
-              {
-                "name": "quote_van:ext_omnium_type",
-                "type": "select",
-                "label": "_TYPE_OMNIUM",
-                "columnsize": "6"
-              },
-              {
-                "name": "quote_van:ext_insured_type",
-                "type": "select",
-                "label": "_VALUE_INSURED_TYPE",
-                "columnsize": "6",
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:ext_special_activity",
-                "type": "select",
-                "label": "_SPECIAL_ACTIVITY",
-                "columnsize": "6"
-              },
-              {
-                "name": "quote_van:ext_old_timer",
-                "type": "toggle",
-                "label": "_OLD_TIMER",
-                "columnsize": "6",
-                "required": "required"
-              }
-            ]
-          },
-          {
             "subtitle": "_BLANK_LABLE",
             "name": "blank_label",
             "columnsize": 12,
@@ -317,6 +226,14 @@
               }
             ]
           },
+          {
+                        "name": "submit",
+                        "type": "buttonSmall",
+                        "label": "_SUBMIT",
+                      "action":"submit",
+                        "visible": true,
+                        "columnsize": "12"
+                },
           {
             "subtitle": "_BLANK_LABLE",
             "name": "blank_label",
