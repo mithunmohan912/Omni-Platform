@@ -20,13 +20,39 @@ public class MessageTranslator {
 
 	static Logger log = Logger.getLogger(MessageTranslator.class.getName());
 
-	public static final String PATTERN = "Pattern";
-	public static final String REPLACEMENT = "Replacement";
-	Pattern patternRegex;
-	String replacement;
-
+	public static final String HEADER_PATTERN				= "Pattern";
+	public static final String HEADER_REPLACEMENT			= "Replacement";
+	
 	public MessageTranslator() {
 	}
+
+//	/**
+//	 * Replaces all pattern matches in a JSON message
+//	 *
+//	 * @param message
+//	 * 
+//	 * @throws URISyntaxException
+//	 */
+//	public String replacePatternHeader(String message, 
+//			@Header(HEADER_PATTERN) String regex, 
+//			@Header(HEADER_REPLACEMENT) String replacement) throws URISyntaxException {
+//
+//		log.debug("replacePattern::message=" + message);
+//		log.debug("replacePattern::Pattern=" + regex);
+//		log.debug("replacePattern::Replacement=" + replacement);
+//		
+//		Pattern pattern = Pattern.compile(regex);
+//		
+//		Matcher matcher = pattern.matcher(message);
+//		message = matcher.replaceAll(replacement);
+//
+//		log.debug("replacePattern::message=" + message);
+//
+//		return message;
+//	}
+
+	Pattern patternRegex;
+	String replacement;
 
 	/**
 	 * Replaces all pattern matches in a JSON message
@@ -35,16 +61,19 @@ public class MessageTranslator {
 	 * 
 	 * @throws URISyntaxException
 	 */
-	public Message replacePattern(Message message, @Header(PATTERN) String pattern,
-			@Header(REPLACEMENT) String replacement) throws URISyntaxException {
+	public Message replacePattern(Message message, 
+			@Header(HEADER_PATTERN) String pattern, 
+			@Header(HEADER_REPLACEMENT) String replacement) throws URISyntaxException {
 
 		Map<String, Object> any = message.getAny();
 
 		log.debug("replacePattern::message=" + any.toString());
-		log.debug("replacePattern::pattern=" + pattern);
-		log.debug("replacePattern::replacement=" + replacement);
+		log.debug("replacePattern::Pattern=" + pattern);
+		log.debug("replacePattern::Replacement=" + replacement);
+		
 		patternRegex = Pattern.compile(pattern);
 		this.replacement = replacement;
+		
 		crawlMessage(any);
 
 		log.debug("replacePattern::message=" + message.getAny().toString());
