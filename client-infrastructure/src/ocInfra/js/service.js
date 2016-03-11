@@ -119,7 +119,10 @@ app.service('HttpService', function($http,DataMappingService,growl) {
 		).success(function(data){
 			 if (data) {
 				    $scope.data=data;
+				    console.log('DataMappingService'+DataMappingService);
+				    if(DataMappingService !== undefined){
 					DataMappingService.map($scope);
+				}
 			 }
 		});
     };

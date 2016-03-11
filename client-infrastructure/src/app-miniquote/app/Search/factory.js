@@ -13,32 +13,23 @@ global app
     quotesfactory.init=function(){
 
       var uri=$rootScope.screenId;
-         var url = $rootScope.HostURL + uri;
-
-      
-
-
-
-return dataFactory.getData(url).success(function(data){
-       
-       
-       log.info('global options called'+data); 
-          });
+      var url = $rootScope.HostURL + uri;
+      return dataFactory.getData(url).success(function(data){
+        log.info('global options called'+data); 
+      });
 
     };
   
-     quotesfactory.get = function (url) {
-        if(url=== undefined){
-
-         var uri=$rootScope.screenId;
-          url = $rootScope.HostURL + uri;
-          console.log('current screen id' + uri);
-          log.info('derived URL!!!' + url);
-                              }
+    quotesfactory.get = function (url) {
+      if(url=== undefined){
+        var uri=$rootScope.screenId;
+        url = $rootScope.HostURL + uri;
+        console.log('current screen id' + uri);
+        log.info('derived URL!!!' + url);
+      }
       return dataFactory.getData(url).success(function(){
-       log.info('global options called'); 
-            });
-        
+        log.info('global options called'); 
+      });
     };
 
 
@@ -57,17 +48,7 @@ return dataFactory.getData(url).success(function(data){
 
 
 app.factory('dashboardfactory', ['$http','dataFactory','$rootScope','$log','growl',function($http,dataFactory,$rootScope,log,growl) {
-   growl.addSuccessMessage('hi');
-   
-
-  var objMap = new Map();
-  objMap.set('quotessearch','quotes');
-  objMap.set('quotescreate','quotes');
-  //[{'quotessearch': 'quotes' } , {'quotescreate' : 'quotes'}];
-  
-$rootScope.screenToResourceMap = objMap;
-  
-  
+   growl.addSuccessMessage('hi');  
 
     var dashboardfactory = {};
 
