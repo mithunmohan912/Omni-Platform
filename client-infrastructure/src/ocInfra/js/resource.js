@@ -12,12 +12,22 @@ global app
    
 
     dataFactory.getData = function (urlBase) {
-        console.log('datafactory');
+        //console.log('datafactory');
         return $http.get(urlBase);
     };
 
-    dataFactory.search = function (urlBase,id) {
-        return $http.get(urlBase + '/' + id);
+    dataFactory.search = function (urlBase,method,params,headers) {
+        var obj =   $http(
+            {
+                method : method,
+                url : urlBase,
+                params : params,
+                headers : headers
+            }
+        );   
+
+        //console.log('Inresource.js'+obj);
+        return obj;
     };
 
     dataFactory.insert = function (urlBase,obj) {
@@ -33,24 +43,20 @@ global app
         return $http.delete(urlBase + '/' + id);
     };
 
-     dataFactory.options=function(urlBase){
-        console.log('datafactory!!!');
-  
-
-  var obj =   $http(
+    dataFactory.options=function(urlBase){
+        //console.log('datafactory!!!');
+        var obj =   $http(
             {
                 method : 'GET',
                 url : urlBase,
             }
         );   
 
+        //console.log('Inresource.js'+obj);
+        return obj;
+    };
 
-    console.log('Inresource.js'+obj);
-    return obj;
-   
-};
-
-dataFactory.patch = function (urlBase,obj) {
+    dataFactory.patch = function (urlBase,obj) {
 
 
         return $http.patch(urlBase + '/' + obj.id, obj);

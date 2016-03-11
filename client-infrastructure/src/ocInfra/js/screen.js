@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular,optionsProcessor
+global angular
 */
 
 /*
@@ -44,8 +44,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		reqParm = $routeParams.screenId;
 		$rootScope.screenId = reqParm;
 	}
-
-  
+      
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
@@ -58,9 +57,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
        
         $scope.field={};
 
-    	console.log('@@@@@@@@'+section);
+    	//console.log('@@@@@@@@'+section);
         TableMetaData.load(section.name, function(tableMetaData) {
-        	console.log('tableMetaData' + tableMetaData);
+        	//console.log('tableMetaData' + tableMetaData);
             $scope.field.tableMetaData = tableMetaData;           
         });
     };
@@ -95,12 +94,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		MetaData.load($scope, (exist ? reqParm[0] : reqParm), seedPayLoad);
 		if(seedPayLoad){
 			$scope.loadData();
+
 		}
 	};
 
-	$scope.loadData = function () {	
+	$scope.loadData = function () {
+
 		 if($rootScope.isPrev){
-				console.log($rootScope.allData);
+				//console.log($rootScope.allData);
 				$scope.data = angular.copy($rootScope.allData);
 				$scope.disableNext = false;
 				return true;
@@ -128,128 +129,68 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	// Dynamic Injection of Factory
 
 	$scope.Injectfactory=function(){
-
-		if($scope.screenId !== 'dashboard'){
-			 var objMap= $rootScope.screenToResourceMap;
-
-
-		//$rootscope.screenToResourceMap;
-		//var screenId = $scope.screenId;
-
-		 $rootScope.resourceId = objMap.get($scope.screenId);
-		
-		console.log('resource id---'+$rootScope.resourceId);
-		
-		$scope.factoryname=$rootScope.resourceId+'factory';
-
-	}else{
+		//Any screen related processing can be added to the screen factory and 
+		//the code below can be used for injecting the custom screen factory
 		$scope.factoryname=$scope.screenId+'factory';
-
-	}
-		//resource id - quotes
-		//screen id - quotesSearch (quotes+search) and quotesCreate (quotes + create)
-    
-          try{
-          
-         $scope.factory = $injector.get($scope.factoryname);
-         
-         $scope.factory.init().then(function(data) {
-          $scope.displayed= data;
-          console.log(data);
-          
-
-        });
-
-                   
-         
-        
-        console.log('Injector has '+$scope.factoryname+' service!');
-       
-    
+        try{
+			$scope.factory = $injector.get($scope.factoryname);    
+	        //console.log('Injector has '+$scope.factoryname+' service!');
         }catch(e){
-
-         console.log('Injector does not have '+$scope.factoryname+' service!');
+        	console.log('Injector does not have '+$scope.factoryname+' service!');
         }
-
-            
-
 	};
 	
-	$scope.Injectfactory();
+	//Any screen related processing can be injected through the below method call
+	//$scope.Injectfactory();
 
 	$rootScope.isPrev = false;
+
+	
+	
+
+
 	
 	$scope.loadOptionData = function() {
 		 var url = $rootScope.resourceHref;
 		 if (url === undefined) {	
 				url = $rootScope.HostURL+$scope.screenId;
 		 }
-		  //HttpService.options(url,$rootScope);
+		 
 	};
 
 
 	$scope.loadOptionData();
-   
-		
+
+	$scope.stTableList =[];
+   $scope.displayed =[];
+   $scope.showResult = true;
 	$scope.doaction = function(method, subsections, action, actionURL) {
 		var url;
-		var objectName;
-		var headers= {
-			'Accept' : 'application/json, text/plain, */*',
-            'Content-Type' : 'application/json, text/plain, */*'
-			}; 
-		var params = {};		
-        if(action==='search'){
-        	var map =  $rootScope.optionsMap;
-        	url  = map.get(action);
+		var screenId = $rootScope.screenId;
 
-        	console.log('#######' + url);
-        	
-        	// Option processing
-			optionsProcessor($rootScope,$scope,reqParm, params,action,url);	 
-			// Option processing		
-		
-			var listDispScope = angular.element($('.table-striped')).scope();
-			HttpService.search(url,headers,params,listDispScope);
-			$scope.listDispScope=listDispScope;
-        } else  if(action==='add'){
-			 $rootScope.resourceHref=undefined;
-			 $rootScope.navigate(actionURL);
-		} else  if(action==='submit'){
-		   var addResource=false;
-		   method='PATCH';
-		   url = $rootScope.resourceHref;
-		   if (url === undefined) {
-			    addResource=true;
-				 method='POST';
-				url = $rootScope.HostURL;
-			}
-			var payLoad = {};
-			objectName=reqParm.replace('Detail','');
-			// Option processing
-			//optionsProcessor($rootScope,$scope,reqParm, params,action,url,payLoad,objectName);	
-			// Option processing		
-		   //HttpService.addUpdate(method,url,headers,payLoad,objectName);
-		   url = $rootScope.HostURL+$scope.screenId;
-		   $scope.factory.add(url,payLoad);
-
-			
-		}else if(action === 'get'){
-			 url = $rootScope.HostURL+$scope.screenId;
-			 
+		if(action === 'get'){
+			 url = $rootScope.HostURL+screenId;
 			 $scope.factory.get(url);
 		}
 		else if(action === 'delete'){
 			 url = $rootScope.HostURL+'quotes';
-			 dataFactory.delete(url,subsections.id).success(function(data){
+			dataFactory.delete(url,subsections.id).success(function(data){
+            	growl.addSuccessMessage(data.message);
+			});
+		}
+		else if(action==='add'){
+			 $rootScope.resourceHref=undefined;
+			 $rootScope.navigate(actionURL);
+		} 
+		else if(action==='search'){
 
-            growl.addSuccessMessage(data.message);
-}); 
+            //growl.addSuccessMessage(data.message);
+}
 			
 			 
-		}
+		};
 
-    };
+    
 	
 	  $scope.deleteRow = function(row) {
         var listDispScope = angular.element($('.table-striped')).scope();
