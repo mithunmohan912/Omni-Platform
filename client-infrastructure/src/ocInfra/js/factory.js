@@ -21,71 +21,76 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             } else {
                 setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess);
             }
-            //console.log('Metadata----'+m.metadata);
             loadOptionsDataForMetadata(m, scope, screenId,dataFactory);
         }, function() {
             $rootScope.showIcon = false;
             showMessage($rootScope.appConfig.timeoutMsg);
             return;
         });
-        //console.log('LOADED METADATA');
-
     };
 
-    this.actionHandling=function($scope, screenId, action, dataFactory, payLoad){
-    
-    var metaModel = $scope.metadata[screenId];
-    //console.log('Meta Model---'+metaModel);
-    //Retrieve resource list from the meta model
-    var resourcelist = metaModel.resourcelist;
-    //console.log('Resource List---'+resourcelist);
 
+    this.actionHandling=function($scope, screenId, action, dataFactory){
+    //Retrieve the meta-model for the given screen Id from the scope
+    var metaModel = $scope.metadata[screenId];
+    
+    //Retrieve the resource list from the meta-model
+    var resourcelist = metaModel.resourcelist;
+
+    //Create the headers for the request
     var headers= {
         'Accept' : 'application/json, text/plain, */*',
         'Content-Type' : 'application/json, text/plain, */*'
     };
 
+
     if(resourcelist !== undefined && resourcelist.length > 0){
-    //Iterate through the resource list of meta model
+    //Iterate through the resource list for the meta model
         angular.forEach(resourcelist, function(resource) {
-            //console.log('Resource---'+resource);
+            //Retrieve the optionsMap for the resource
             var optionsMapForResource = $scope.optionsMap[resource];
+            //Retrieve the options object for the given action from the resource optionsMap
             var options = optionsMapForResource.get(action);
+
+            //Retrieve the URL, Http Method and Schema from the options object
             var url = options.url;
             var httpmethod = options.httpmethod;
             var schema = options.schema;
+            console.log('SCREEN ACTION-'+action);
+            console.log('Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+            var params={};
+            //Set the params data from the screen per the schema object for the given action (from the options object)
+            params = setData($scope, schema, params);
+            
+            if(httpmethod==='GET'){    
+                //Call the get method on the Data Factory with the URL, Http Method, and parameters
+                dataFactory.get(url,params,headers).success(function(data){
 
-            //console.log('HTTP Method---'+httpmethod);
-            //console.log('URL---'+url);
-
-            if(httpmethod==='GET'){
-                var params = {};
-                params = setData($scope, schema, params);
-                //console.log('Search Parameters---'+ params);
-                dataFactory.search(url,httpmethod,params,headers).success(function(data){
+                    //Load the results into the search results table
                     var listDispScope = angular.element($('.table-striped')).scope(); 
                     if(data._links.item){
-                        //console.log('displayed');
-                        $scope.displayed = data._links.item;
                         listDispScope.stTableList=data._links.item;
-                        $scope.showResult=true;
                         listDispScope.showResult = true;
                     }else{
                         listDispScope.stTableList = [];
                         listDispScope.showResult = false;
-                    }        
+                    }
+
                 });
+
             } else if(httpmethod==='POST'){
-                //Work to do...
-                payLoad = setData($scope, schema, payLoad);
-                //console.log('Payload Parameters---'+ payLoad);
-            }       
-        });
+                //Call the post method on the Data Factory with the URL, Http Method, and parameters
+                dataFactory.post(url,params,headers).success(function(data){
+                if (data) {
+                    console.log(data.message);
+                }
+            });
+            }
+    });
     }
 };
-    return this;
+return this;
 });
-
 
 function loadOptionsDataForMetadata(m, scope, screenId,dataFactory){
 
@@ -95,12 +100,12 @@ function loadOptionsDataForMetadata(m, scope, screenId,dataFactory){
 
         //Retrieve resource list from the meta model
         var resourcelist = metaModel.resourcelist;
-        //console.log('Resource List---'+resourcelist);
 
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
                 //Formulate the URL for the options call
+                console.log('RESOURCE : '+resource);
                 var url = scope.HostURL + resource;
                 //var optiondataobj = {};
                 //Fetch the options map for the given resource
@@ -125,10 +130,12 @@ function loadOptionsDataForMetadata(m, scope, screenId,dataFactory){
                             object.url = ref.href;
                             object.httpmethod = ref.method;
                             object.schema = ref.schema;
-                            //console.log('Options---'+object.action +' '+ object.url +' '+object.httpmethod);
+                            console.log('ACTION : '+object.action);
+                            console.log('HTTP METHOD : ' +object.httpmethod);
+                            console.log('URL : '+object.url);
+                            console.log('SCHEMA : '+object.schema);
                             optionsMapForResource.set(object.action, object);
                         }); 
-                        //console.log(optionsMapForResource);
                         scope.optionsMap[resource] = optionsMapForResource;
                     });
                 }
@@ -174,39 +181,37 @@ function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad,
     if (onSuccess) {
         onSuccess(m.metadata);
     }
-
 }
 
-
-
-
 function setData($scope, schema, object){
-    angular.forEach(schema.properties, function(val, key){         
-        
+    angular.forEach(schema.properties, function(val, key){  
             var value = $scope.data[key];
             if(value === null || value === undefined || value === '' || value === 'undefined'){
 
             }else{
+                var format = val.format;
+                if(format !== undefined && format==='date'){
+                    //Format the date in to yyyy/mm/dd format
+                    value = formatIntoDate(value);
+                }
+                console.log(key +' : '+value);
                 object[key] = value;
             }
     });
     return object;
 }
 
+function formatIntoDate(value){
+   return value.getFullYear() + '/' + (value.getMonth()+1) + '/' + value.getDate();
+}
+
 app.factory('TableMetaData', function($resource) {
-
     this.load = function(tableId, onSuccess) {
-        //$rootScope.tableMetaData = {};
         $resource('assets/resources/metadata/table/' + tableId + '.json').get(function(m) {
-
-            //$rootScope.tableMetaData = m.tableMetaData;
-
             if (onSuccess) {
                 onSuccess(m.tableMetaData);
             }
-
         }, function() {
-
             return;
         });
     };
