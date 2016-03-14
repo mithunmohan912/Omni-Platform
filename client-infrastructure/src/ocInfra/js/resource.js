@@ -3,30 +3,34 @@
 global app
 */
 
-  
 
     app.factory('dataFactory', ['$http', function($http) {
 
     var dataFactory = {};
 
-   
-
     dataFactory.getData = function (urlBase) {
-        //console.log('datafactory');
         return $http.get(urlBase);
     };
 
-    dataFactory.search = function (urlBase,method,params,headers) {
+    dataFactory.get = function (urlBase,params,headers) {
         var obj =   $http(
             {
-                method : method,
+                method : 'GET',
                 url : urlBase,
                 params : params,
                 headers : headers
             }
         );   
+        return obj;
+    };
 
-        //console.log('Inresource.js'+obj);
+    dataFactory.post = function (urlBase,params,headers) {
+       var obj = $http({
+                method: 'POST',
+                url: urlBase,
+                headers: headers,
+                data: params
+            });
         return obj;
     };
 
@@ -44,15 +48,12 @@ global app
     };
 
     dataFactory.options=function(urlBase){
-        //console.log('datafactory!!!');
         var obj =   $http(
             {
                 method : 'GET',
                 url : urlBase,
             }
         );   
-
-        //console.log('Inresource.js'+obj);
         return obj;
     };
 
@@ -65,6 +66,3 @@ global app
  return dataFactory;
 
 }]);
-
-
-  

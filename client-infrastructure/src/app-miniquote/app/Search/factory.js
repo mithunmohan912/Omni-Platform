@@ -11,7 +11,6 @@ global app
     var quotesfactory = {};
 
     quotesfactory.init=function(){
-
       var uri=$rootScope.screenId;
       var url = $rootScope.HostURL + uri;
       return dataFactory.getData(url).success(function(data){
@@ -31,8 +30,6 @@ global app
         log.info('global options called'); 
       });
     };
-
-
 
     quotesfactory.add=function(url,payLoad){
       

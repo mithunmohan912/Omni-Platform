@@ -10,6 +10,9 @@ exported ScreenController
 var screenname;
 function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData) {
 	   
+     //console.log('hello');
+
+   
 
 	    $scope.showErr = function () {
        
@@ -18,6 +21,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         growl.addWarnMessage('Im  a warn message');
         growl.addSuccessMessage('Im  a success message');
     };
+
+
     
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
@@ -128,24 +133,22 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	// Dynamic Injection of Factory
 
-	$scope.Injectfactory=function(){
-		//Any screen related processing can be added to the screen factory and 
-		//the code below can be used for injecting the custom screen factory
+	$scope.Injectfactory=function(){	
 		$scope.factoryname=$scope.screenId+'factory';
+
         try{
-			$scope.factory = $injector.get($scope.factoryname);    
+          
+	        $scope.factory = $injector.get($scope.factoryname);
 	        //console.log('Injector has '+$scope.factoryname+' service!');
         }catch(e){
-        	console.log('Injector does not have '+$scope.factoryname+' service!');
+         console.log('Injector does not have '+$scope.factoryname+' service!');
         }
 	};
 	
-	//Any screen related processing can be injected through the below method call
 	//$scope.Injectfactory();
 
 	$rootScope.isPrev = false;
 
-	
 	
 
 
@@ -161,9 +164,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	$scope.loadOptionData();
 
-	$scope.stTableList =[];
-   $scope.displayed =[];
-   $scope.showResult = true;
 	$scope.doaction = function(method, subsections, action, actionURL) {
 		var url;
 		var screenId = $rootScope.screenId;
@@ -182,15 +182,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			 $rootScope.resourceHref=undefined;
 			 $rootScope.navigate(actionURL);
 		} 
-		else if(action==='search'){
-
-            //growl.addSuccessMessage(data.message);
-}
-			
-			 
-		};
-
-    
+		else {
+			MetaData.actionHandling($scope, screenId, action, dataFactory);			
+        }
+    };
 	
 	  $scope.deleteRow = function(row) {
         var listDispScope = angular.element($('.table-striped')).scope();
@@ -231,9 +226,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 
           
-$scope.selecttab=function(step1){
-
-            
+$scope.selecttab=function(step1){           
         $rootScope.step = step1;
     };
  
