@@ -1,5 +1,5 @@
 'use strict';
-/*global OCController,LoginController*/
+/*global ScreenController,LoginController*/
 
 /*
 exported showHostErrorMessage
@@ -17,7 +17,7 @@ $routeProvider.
        templateUrl: function(){
            return 'ocInfra/templates/screen.html';
         }, 
-          controller: OCController
+          controller: ScreenController
      }).
     when('/', {
         templateUrl: function() {
