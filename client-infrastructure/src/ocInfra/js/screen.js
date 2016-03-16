@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular,optionsProcessor
+global angular
 */
 
 /*
@@ -8,8 +8,11 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData) {
 	   
+     //console.log('hello');
+
+   
 
 	    $scope.showErr = function () {
        
@@ -18,6 +21,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         growl.addWarnMessage('Im  a warn message');
         growl.addSuccessMessage('Im  a success message');
     };
+
+
     
 	screenname  = 'Omnichannel';
 	$rootScope.showHeader = true;
@@ -44,13 +49,26 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		reqParm = $routeParams.screenId;
 		$rootScope.screenId = reqParm;
 	}
-
-  
+      
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
+
+    
+
+    $scope.loadTableMetadata = function(section) {
+       
+        $scope.field={};
+
+    	//console.log('@@@@@@@@'+section);
+        TableMetaData.load(section.name, function(tableMetaData) {
+        	//console.log('tableMetaData' + tableMetaData);
+            $scope.field.tableMetaData = tableMetaData;           
+        });
+    };
+	
 	
 	
 	$rootScope.navigate = function(url, product_id) {
@@ -81,12 +99,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		MetaData.load($scope, (exist ? reqParm[0] : reqParm), seedPayLoad);
 		if(seedPayLoad){
 			$scope.loadData();
+
 		}
 	};
 
-	$scope.loadData = function () {	
+	$scope.loadData = function () {
+
 		 if($rootScope.isPrev){
-				console.log($rootScope.allData);
+				//console.log($rootScope.allData);
 				$scope.data = angular.copy($rootScope.allData);
 				$scope.disableNext = false;
 				return true;
@@ -113,84 +133,58 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	// Dynamic Injection of Factory
 
-	$scope.Injectfactory=function(){
-
+	$scope.Injectfactory=function(){	
 		$scope.factoryname=$scope.screenId+'factory';
 
-          try{
+        try{
           
-         $scope.factory = $injector.get($scope.factoryname);
-        
-        console.log('Injector has '+$scope.factoryname+' service!');
-       
-    
+	        $scope.factory = $injector.get($scope.factoryname);
+	        //console.log('Injector has '+$scope.factoryname+' service!');
         }catch(e){
-
          console.log('Injector does not have '+$scope.factoryname+' service!');
         }
-
-            
-
 	};
 	
-	$scope.Injectfactory();
+	//$scope.Injectfactory();
 
 	$rootScope.isPrev = false;
+
+	
+
+
 	
 	$scope.loadOptionData = function() {
 		 var url = $rootScope.resourceHref;
 		 if (url === undefined) {	
 				url = $rootScope.HostURL+$scope.screenId;
 		 }
-		  //HttpService.options(url,$rootScope);
+		 
 	};
 
 
 	$scope.loadOptionData();
-   
-		
+
 	$scope.doaction = function(method, subsections, action, actionURL) {
 		var url;
-		var objectName;
-		var headers= {
-			'Accept' : 'application/json, text/plain, */*',
-            'Content-Type' : 'application/json, text/plain, */*'
-			}; 
-		var params = {};		
-        if(action==='search'){
-			url = $rootScope.HostURL;
-			// Option processing
-			optionsProcessor($rootScope,$scope,reqParm, params,action,url);	 
-			// Option processing		
-		
-			var listDispScope = angular.element($('.table-striped')).scope();
-			HttpService.search(url,headers,params,listDispScope);
-			$scope.listDispScope=listDispScope;
-        } else  if(action==='add'){
-			 $rootScope.resourceHref=undefined;
-			 $rootScope.navigate(actionURL);
-		} else  if(action==='submit'){
-		   var addResource=false;
-		   method='PATCH';
-		   url = $rootScope.resourceHref;
-		   if (url === undefined) {
-			    addResource=true;
-				 method='POST';
-				url = $rootScope.HostURL;
-			}
-			var payLoad = {};
-			objectName=reqParm.replace('Detail','');
-			// Option processing
-			optionsProcessor($rootScope,$scope,reqParm, params,action,url,payLoad,objectName);	
-			// Option processing		
-		   HttpService.addUpdate(method,url,headers,payLoad,objectName);
-			
-		}else if(action === 'get'){
-			 url = $rootScope.HostURL+$scope.screenId;
-			 
+		var screenId = $rootScope.screenId;
+
+		if(action === 'get'){
+			 url = $rootScope.HostURL+screenId;
 			 $scope.factory.get(url);
 		}
-
+		else if(action === 'delete'){
+			 url = $rootScope.HostURL+'quotes';
+			dataFactory.delete(url,subsections.id).success(function(data){
+            	growl.addSuccessMessage(data.message);
+			});
+		}
+		else if(action==='add'){
+			 $rootScope.resourceHref=undefined;
+			 $rootScope.navigate(actionURL);
+		} 
+		else {
+			MetaData.actionHandling($scope, screenId, action, dataFactory);			
+        }
     };
 	
 	  $scope.deleteRow = function(row) {
@@ -232,9 +226,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 
           
-$scope.selecttab=function(step1){
-
-            
+$scope.selecttab=function(step1){           
         $rootScope.step = step1;
     };
  

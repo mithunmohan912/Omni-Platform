@@ -1,10 +1,11 @@
 var device = arg.screenSize;
+var url = arg.url;
 
 this.LandingPage = $page("Landing page", {
   logo: "div.oc-logo", // Resource Management
   
   load: function () {
-    this.open("http://localhost:8080/app-clientmanagement/#/dashboard");
+    this.open(url+"dashboard");
     return this.waitForIt();
   },
   clickButton: function () {
@@ -13,7 +14,7 @@ this.LandingPage = $page("Landing page", {
   },
   clickRecMgmnt: function () {
     //this.RecMgmnt.click();
-	driver.findElement(By.id("_RESOURCE_MANAGEMENT")).click();
+	driver.findElement(By.id("_QUOTE")).click();
       
   },
     clickParties: function () {
