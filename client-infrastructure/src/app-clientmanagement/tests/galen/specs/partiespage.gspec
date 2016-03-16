@@ -7,9 +7,24 @@
   add               id      add
     
 = form =
-    firstName:
-       near firstName_label 5 to 20px right
-    lastName:
-       near lastName_label 5 to 20px right
-    search:
-       above add 0 to 10 px
+	@on desktop
+		firstName:
+			near firstName_label 5 to 20px right
+		lastName:
+			near lastName_label 5 to 20px right
+		search:
+			above add 0 to 10 px
+	@on mobile
+		firstName_label:
+			above firstName 5 to 20px
+		lastName_label:
+			above lastName 5 to 20px
+		search:
+			above add 0 to 10 px
+	@on tablet
+		firstName_label:
+			above firstName 5 to 15px
+		lastName_label:
+			above lastName 5 to 15px
+		search:
+			above add 0 to 10 px

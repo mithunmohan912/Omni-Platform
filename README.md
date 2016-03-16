@@ -111,9 +111,20 @@ First you need to install galen
   To run galen script for app-clientmanagement, open tests folder on galen and run this command
    
    ```
-  $ galen test loginPage.test.js --htmlreport reports
+  $ galen test login.test --htmlreport reports
    ```
-   
+
+####Package miniquote app for mobile
+
+To run mobile package task use this command
+
+   ```
+grunt buildMobilePkg
+   ```
+
+This task will copy only the required files from vendors folder and change the path in index.html to match the change in the folder location
+This task will copy the files to mobile folder at this location:
+sprint#\omnichannel-infrastructure\client-infrastructure\mobile
   
 ###Contributions
 ---

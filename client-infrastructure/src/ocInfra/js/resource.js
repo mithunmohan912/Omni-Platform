@@ -3,6 +3,7 @@
 global app
 */
 
+
     app.factory('dataFactory', ['$http', function($http) {
 
     var dataFactory = {};
@@ -11,8 +12,26 @@ global app
         return $http.get(urlBase);
     };
 
-    dataFactory.search = function (urlBase,id) {
-        return $http.get(urlBase + '/' + id);
+    dataFactory.get = function (urlBase,params,headers) {
+        var obj =   $http(
+            {
+                method : 'GET',
+                url : urlBase,
+                params : params,
+                headers : headers
+            }
+        );   
+        return obj;
+    };
+
+    dataFactory.post = function (urlBase,params,headers) {
+       var obj = $http({
+                method: 'POST',
+                url: urlBase,
+                headers: headers,
+                data: params
+            });
+        return obj;
     };
 
     dataFactory.insert = function (urlBase,obj) {
@@ -28,23 +47,22 @@ global app
         return $http.delete(urlBase + '/' + id);
     };
 
-     dataFactory.options=function(urlBase){
-   return $http(
+    dataFactory.options=function(urlBase){
+        var obj =   $http(
             {
-                method : 'OPTIONS',
+                method : 'GET',
                 url : urlBase,
             }
-        );    
-   
-};
+        );   
+        return obj;
+    };
 
-dataFactory.patch = function (urlBase,obj) {
+    dataFactory.patch = function (urlBase,obj) {
+
+
         return $http.patch(urlBase + '/' + obj.id, obj);
     };
 
  return dataFactory;
 
 }]);
-
-
-  

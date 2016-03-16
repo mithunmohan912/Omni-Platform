@@ -8,5 +8,6 @@ module.exports = {
   clientmanagement : ['src/app-clientmanagement/ocInfra'],
   kitchensink : ['src/app-kitchensink/ocInfra'],
   weather : ['src/app-weather/ocInfra'],
-  miniquote : ['src/app-miniquote/ocInfra']
+  miniquote : ['src/app-miniquote/ocInfra'],
+  mobile : ['mobile']
 };
