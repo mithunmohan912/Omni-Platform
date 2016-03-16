@@ -9,15 +9,16 @@ exported showHostErrorMessage
 var app = angular.module('miniQuote', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
     $routeProvider.
-    when('/screen/:screenId', {
-        templateUrl: function() {
-            return 'ocInfra/templates/screen.html';
+    when('/:regionId/screen/:screenId', {
+        templateUrl: function(route) {
+            console.log('Route Region id---'+route.regionId);
+            return 'app/views/regions/' + route.regionId + '/screen.html';
         },
         controller: ScreenController
     }).
-    when('/screen/:screenId/:newTransaction', {
-        templateUrl: function() {
-            return 'ocInfra/templates/screen.html';
+    when('/:regionId/screen/:screenId/:newTransaction', {
+        templateUrl: function(route) {
+            return 'app/views/regions/' + route.regionId + '/screen.html';
         },
         controller: ScreenController
     });

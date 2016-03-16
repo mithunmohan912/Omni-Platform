@@ -29,8 +29,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	$scope.disableNext = false;
 	var seedPayLoad = {};
 	$scope.rulesDataList = [];
-	var reqParm = null;
-	var exist = false;
+	var reqParmScreen = null;
+	var reqParmRegion = null;
+	var screenExist = false;
+	var regionExist = false;
 	$scope.data = {};
 	$scope.remove = 'ban-circle';
 	$scope.removestyle = 'red';	
@@ -40,14 +42,25 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         yearRange: '1900:2030',
     };
 	$rootScope.typeahead =[];
-	
+
+	if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
+	if ($routeParams.regionId.indexOf(':') !== -1) {
+		reqParmRegion = $routeParams.regionId.split(':');
+		$rootScope.regionId = reqParmRegion[1];
+		regionExist = true;
+	}else{
+		reqParmRegion = $routeParams.regionId;
+		$rootScope.regionId = reqParmRegion;
+	}
+	}
+
 	if ($routeParams.screenId.indexOf(':') !== -1) {
-		reqParm = $routeParams.screenId.split(':');
-		$rootScope.screenId = reqParm[1];
-		exist = true;
+		reqParmScreen = $routeParams.screenId.split(':');
+		$rootScope.screenId = reqParmScreen[1];
+		screenExist = true;
 	} else {
-		reqParm = $routeParams.screenId;
-		$rootScope.screenId = reqParm;
+		reqParmScreen = $routeParams.screenId;
+		$rootScope.screenId = reqParmScreen;
 	}
       
 	
@@ -96,10 +109,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	
 	$scope.loadMetaData = function() {
 		$rootScope.metadata = {};
-		MetaData.load($scope, (exist ? reqParm[0] : reqParm), seedPayLoad);
+		MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), seedPayLoad);
 		if(seedPayLoad){
 			$scope.loadData();
-
 		}
 	};
 
@@ -167,7 +179,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	$scope.doaction = function(method, subsections, action, actionURL) {
 		var url;
 		var screenId = $rootScope.screenId;
-
+		var regionId = $rootScope.regionId;
 		if(action === 'get'){
 			 url = $rootScope.HostURL+screenId;
 			 $scope.factory.get(url);
@@ -183,7 +195,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			 $rootScope.navigate(actionURL);
 		} 
 		else {
-			MetaData.actionHandling($scope, screenId, action, dataFactory);			
+			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
         }
     };
 	
