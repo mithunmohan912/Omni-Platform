@@ -12,8 +12,15 @@ exported ScreenController
 app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, dataFactory) {
 
     this.load = function(scope, regionId, screenId, supportPayLoad, actionPayLoad, onSuccess) {
+        var path;
         scope.regionId = regionId;
-        $resource('assets/resources/metadata/' + screenId + '.json').get(function(m) {
+        if(regionId){
+             path='assets/resources/metadata/regions/'+regionId+'/'+ screenId + '.json';
+        }
+        else{
+            path='assets/resources/metadata/'+ screenId + '.json';
+        }
+        $resource(path).get(function(m) {
             scope.screenId = screenId;
             $rootScope.title = m.metadata.title;
 
