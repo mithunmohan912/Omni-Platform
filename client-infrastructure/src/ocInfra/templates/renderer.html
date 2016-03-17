@@ -34,7 +34,7 @@
 </form>
 <script type="text/ng-template" id="sectionRenderer.html">
     <!-- Header section -->
-    <div class="form-group marginbottom0px">
+    <div class="">
         <div ng-include src="config.templates.header"></div>
     </div>
     <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
@@ -44,7 +44,7 @@
         <div ng-include src="'nonaccordionsection.html'"></div>
     </div>
     
-        <div class="col-xs-12 col-md-12 hidden-lg hidden-md"  ng-if="section.showButton === true" >
+        <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true" >
           <div class="" data-toggle="modal" data-target="#modalquote{{section.name}}" ng-click="addEmptySection(section, $event)" ng-style="{'height': section.height, 'width': section.width}" 
             class="text-center ">
             <a  class="thumbnail text-center">
