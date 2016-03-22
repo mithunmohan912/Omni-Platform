@@ -66,13 +66,13 @@
 		<property name="privateUriPrefix" value="http://ec2-54-153-183-136.ap-southeast-2.compute.amazonaws.com:80/runtime-web/omni/service"/>
 		<property name="proxyUriPrefix" value="/integral"/>
 	</bean>
-	<!--
+
 	<bean id="apiProxyRouterOmniChannelMiniQuotePoint" class="com.csc.eip.route.ApiProxyRouter">
 		<property name="publicUriPrefix" value="https://devgateway.api.csc.com/insurance/omnichannel/miniquote/point"/>
-		<property name="privateUriPrefix" value="http://20.999.999.999:9999/csc/insurance"/>
+		<property name="privateUriPrefix" value="http://208.43.105.244:7070/ux-point-api"/>
 		<property name="proxyUriPrefix" value="/point"/>
 	</bean>
-	-->
+
 		
 	<camelContext id="camelContext" streamCache="true"
 		xmlns="http://camel.apache.org/schema/spring">
@@ -86,9 +86,8 @@
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuoteAia"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuoteFoo"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuoteIntegral"/>
-		<!--
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuotePoint"/>
-		-->
+
 					
 		<restConfiguration component="servlet" host="localhost" bindingMode="json">
 			<dataFormatProperty key="prettyPrint" value="true" />
