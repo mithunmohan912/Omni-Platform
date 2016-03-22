@@ -45,10 +45,10 @@
     </div>
     
         <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true" >
-          <div class="" data-toggle="modal" data-target="#modalquote{{section.name}}" ng-click="addEmptySection(section, $event)" ng-style="{'height': section.height, 'width': section.width}" 
+          <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
-              <span class="{{section.icon}}"></span>{{locale[section.label]}}
+              <span class="{{section.icon}}"></span>{{locale[section.labelDisplay]}}
             </a>
           </div>
         </div>

@@ -144,7 +144,13 @@ function loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory){
                             console.log('HTTP METHOD : ' +object.httpmethod);
                             console.log('URL : '+object.url);
                             console.log('SCHEMA : '+object.schema);
-                            optionsMapForResource.set(object.action, object);
+                            //optionsMapForResource.set(object.action, object);
+                            if(optionsMapForResource.get(object.action) !== undefined){
+                                optionsMapForResource.set(object.action+'1', object);    
+                            }else{
+                                optionsMapForResource.set(object.action, object);    
+                            } 
+
                         }); 
                         scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                     });
