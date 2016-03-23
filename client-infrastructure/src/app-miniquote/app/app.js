@@ -1,6 +1,6 @@
 'use strict';
 
-/*global ScreenController,CKEDITOR*/
+/*global ScreenController,AnonymousController,LoginController,CKEDITOR*/
 /*
 exported showHostErrorMessage
 */
@@ -9,37 +9,55 @@ exported showHostErrorMessage
 var app = angular.module('miniQuote', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
     $routeProvider.
+    when('/', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        controller: AnonymousController
+    }).
+    when('/login', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        controller: LoginController
+    }).
     when('/:regionId/screen/:screenId', {
+        
         templateUrl: function(route) {
             console.log('Route Region id---'+route.regionId);
-            return 'app/views/regions/' + route.regionId + '/screen.html';
+          return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
     }).
     when('/:regionId/screen/:screenId/:newTransaction', {
-        templateUrl: function(route) {
-            return 'app/views/regions/' + route.regionId + '/screen.html';
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
     });
-	
+    
     tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
-	 
+     
     
 }]);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
-	
-	
+    
+    
    $rootScope.$on('$locationChangeStart', function () {
-	 
-	 if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
-            $location.url('/');
+     var screenId = $rootScope.screenId;
+     if($rootScope.screenId === undefined){
+        $location.url('/');
+     } else if (screenId === 'anonymous'){
+        console.log($rootScope);
+            if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+            $location.url($rootScope.nextURL);
        }
-   });	
-	//persist few objects at app level
-	$rootScope.routeParams = {};
-	$rootScope.user = {};
+   }
+   });  
+    //persist few objects at app level
+    $rootScope.routeParams = {};
+    $rootScope.user = {};
     $rootScope.loader = {
         loading: false
     };
@@ -59,7 +77,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
         $rootScope.locale = data;
         tmhDynamicLocale.set($rootScope.newlocale);
     }, function() {});
-	
+    
 });
 
     app.directive('ckEditor', [function () {
