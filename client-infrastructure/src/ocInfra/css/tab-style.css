@@ -534,6 +534,8 @@ padding-bottom: 0;
         padding-left: 50%; 
         white-space: normal;
         text-align:left;
+        width: 100% !important;
+        padding-top: 10px;
     }
  
     #no-more-tables td:before { 
@@ -553,9 +555,12 @@ padding-bottom: 0;
     Label the data
     */
     #no-more-tables td:before { content: attr(data-title); }
+
+    .table-striped > tbody > tr:nth-of-type(odd) {background-color: #f9f9f9;}
+
+
+.hr_margin {margin-left: 0px;margin-right: 0px;}
+.sectionlabel {margin-left: 0px !important;}
+tfoot { display: block;}
 }
 
-/* temp css */
-#_AUTO_QUOTE_EU, #_HOME_QUOTE_US, #_HOME_QUOTE_EU{
-    display: none;
-}
