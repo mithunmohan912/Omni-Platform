@@ -12,7 +12,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	   
      //console.log('hello');
 
-   
+    $rootScope.enumData = {};
+    $rootScope.optionsMap = [];
+    $scope.checkRegionId = $rootScope.regionId;
 
 	    $scope.showErr = function () {
        
@@ -69,7 +71,54 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         $location.path(url);
     };
 
-    
+    $scope.getEnums = function(field) {
+        if ($rootScope && $rootScope.enumData && $rootScope.enumData[field.name]) {
+            return $rootScope.enumData[field.name];
+        } else if (field.options) {
+            return field.options;
+        }
+    };
+
+	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
+	// for integral system
+    if ($rootScope.regionId == 'asia') {
+        $scope.checkRegionId = $rootScope.regionId;
+        var url = $rootScope.HostURL+'quotes';
+        url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
+        dataFactory.getData(url).success(function(data){
+            angular.forEach(data._options.links, function(value, key){
+                if(value.rel == 'create'){
+                    angular.forEach(value.schema.properties, function(value, key){
+                        if(value.enum) {
+                            processEnumeration($rootScope, value.enum, key);
+                        }
+                    });
+                }
+            });
+        });
+    };
+
+    var processEnumeration = function($rootScope, enumValue, key) {
+        var enumeration={};
+        var contractKey = null;
+        if (enumValue){
+            enumeration[key]=processOptionsResult(enumValue);
+            angular.extend($rootScope.enumData, enumeration);
+        }else{
+            enumeration[key]=$rootScope.enumData[key];
+        }
+        enumeration[contractKey]=enumeration[key];
+        angular.extend($rootScope.enumData, enumeration);
+    };
+
+
+    var processOptionsResult = function(enumArray){
+        var processedArray = [];
+        angular.forEach(enumArray, function(value){
+            processedArray.push({'value':value,'description':value});
+        });
+        return processedArray;
+    };
 
     $scope.loadTableMetadata = function(section) {
        

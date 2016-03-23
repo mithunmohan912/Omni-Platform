@@ -23,22 +23,25 @@
   <!-- endinjector -->
 </head>
   <body  hidemessage>
-  <div ng-include="'ocInfra/templates/homeheader.html'" />
-        </div>
-      <div ng-include="'ocInfra/templates/footer.html'" />
-        </div>
-        <div class="header-margin-wide"></div>
-        <!-- loading... -->
-        <div class="loading" ng-show="loader.loading">
-            <h3>
-      <span class="label label-default">
-        Processing ..<i class="fa fa-spinner fa-spin"></i>
-      </span>
-    </h3>
-        </div>
+    <div ng-include="'ocInfra/templates/homeheader.html'" >
+    </div>
+    <div ng-include="'ocInfra/templates/footer.html'" >
+    </div>
+    <div class="header-margin-wide"></div>
+    <!-- loading... -->
+    <div class="loading" ng-show="loader.loading">
+        <h3>
+          <span class="label label-default">
+            Processing ..<i class="fa fa-spinner fa-spin"></i>
+          </span>
+        </h3>
+    </div>
  
     <div class="container-fluid">
       <div ng-view autoscroll="true"></div>
+    </div>
+
+    <div ng-include="'ocInfra/templates/errorDialog.html'" >
     </div>
   <!-- bower_injector:js -->
   <script src="../vendors/modernizr/modernizr.js"></script>

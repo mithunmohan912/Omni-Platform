@@ -7,32 +7,26 @@
         "name": "AddHomeQuote",
         "sections": [
             {
-                "$ref": "quoteInfo",
-                "name": "Quote Info",
-                "renderAsTab":true,
-                "step": 1
-            },
-            {
                 "$ref":"ownerInfo",
                 "name": "Owner Info",
                 "renderAsTab": true,
-                "step": 2
+                "step": 1
             },
             {
                 "$ref":"riskInfo",
                 "name": "Risk Info",
                 "renderAsTab": true,
-                "step": 3
+                "step": 2
             },
             {
                 "$ref": "additionalInfo",
                 "name": "Additional Info",
                 "renderAsTab": true,
-                "step": 4
+                "step": 3
             }
         ] 
     },
     "include":[
-        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo"
+        "ownerInfo", "riskInfo", "additionalInfo"
     ]
 }
