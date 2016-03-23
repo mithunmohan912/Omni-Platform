@@ -81,13 +81,13 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
 	// for integral system
-    if ($rootScope.regionId == 'asia') {
+    if ($rootScope.regionId === 'asia') {
         $scope.checkRegionId = $rootScope.regionId;
         var url = $rootScope.HostURL+'quotes';
         url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
         dataFactory.getData(url).success(function(data){
-            angular.forEach(data._options.links, function(value, key){
-                if(value.rel == 'create'){
+            angular.forEach(data._options.links, function(value){
+                if(value.rel === 'create'){
                     angular.forEach(value.schema.properties, function(value, key){
                         if(value.enum) {
                             processEnumeration($rootScope, value.enum, key);
@@ -96,7 +96,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 }
             });
         });
-    };
+    }
 
     var processEnumeration = function($rootScope, enumValue, key) {
         var enumeration={};
