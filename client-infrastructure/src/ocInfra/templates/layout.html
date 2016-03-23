@@ -110,10 +110,11 @@
             </ng-switch>
             <ng-switch on="subfield.type">
                 <div class="col-md-{{subfield.columnsize}} margin_BTM_15px" ng-switch-when="select" style="margin-left: 3px;">
-                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" style="width:103%" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name)">
+                   <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" style="width:103%" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name)">
                         
-                    </select>
-                </div>
+                    </select> 
+
+                     </div>
             </ng-switch>
         </div>
     </div>
@@ -172,9 +173,13 @@
                     <input type="email" id="{{field.name}}" name="{{subfield.name}}" maxlength="{{subfield.maxlength}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name)">
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="select">
-                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name);getListData(data[subfield.name],subfield.name)">
+                    <!-- <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name);getListData(data[subfield.name],subfield.name)">
                         
-                    </select>
+                    </select> -->
+                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in subfield.enumdata " ng-change="validateEachSection(subfield.name)">
+            
+        </select>
+
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="money">
                     <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" to-currency amount="data[field.name]">

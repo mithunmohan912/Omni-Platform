@@ -66,10 +66,22 @@
                                 "columnsize": 6,
                                 "enumdata": [
                                     {
-                                        "value": "IN005",
-                                        "description": "_HOME"
+                                        "value": "MC011",
+                                        "description": "_CAR"
+                                    },
+                                    {
+                                        "value": "MD005",
+                                        "description": "_VAN"
+                                    },
+                                    {
+                                        "value": "MA002",
+                                        "description": "_MOPED"
+                                    },
+                                    {
+                                        "value": "MC002",
+                                        "description": "_MOTORCYCLE"
                                     }
-                                ] 
+                                ]
                             },
                             {
                                 "name": "quote:start_date",
@@ -117,56 +129,43 @@
                         "visible": "true",
                         "elementgroup": [                        
                              {
-                                "name":"quote_home:box_number",
+                                "name":"quote_automobile:ext_model",
                                 "type":"text",
-                                "label":"_BOX_NUMBER",
+                                "label":"_EXT_MODEL",
                                 "columnsize":6
-                            },
-                           {
-                                "name":"quote_home:city",
-                                "type":"text",
-                                "label":"_CITY",
-                                "columnsize":6
-                            },
-                            {
-                                "name": "quote_home:postal_code",
-                                "type": "text",
-                                "label": "_POSTAL_CODE",
-                                "visible": "true",
-                                "columnsize": 6
-                            }
-                        
+                            }                        
                         ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                           {
+                                "name":"quote_automobile:make",
+                                "type":"text",
+                                "label":"_MAKE",
+                                "columnsize":6
+                            }
+                            ]
                     },{
                         "subtitle": "",
                         "name": "",
                         "columnsize": 4,
                         "type": "columngroup",
                         "visible": "true",
-                        "elementgroup": [                        
-                             {
-                                "name":"quote_home:street_name",
-                                "type":"text",
-                                "label":"_STREET_NAME",
-                                "columnsize":6
-                            },
-                           {
-                                "name":"quote_home:street_number",
-                                "type":"text",
-                                "label":"_STREET_NUMBER",
-                                "columnsize":6
+                        "elementgroup": [
+                            {
+                                "name": "quote_automobile:registration_number",
+                                "type": "text",
+                                "label": "_REGISTRATION_NUMBER",
+                                "visible": "true",
+                                "columnsize": 6
                             }
-                        
-                        ]
+                            ]
                     },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 12,
-                        "type": "columngroup",
-                        "visible": "true"
-                    },
-                    
                     {
                         "name": "search",
                         "type": "buttonSmall",
