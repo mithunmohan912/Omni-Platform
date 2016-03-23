@@ -16,12 +16,23 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         });
     };
 
-   
+   $scope.checkShow = function(opt) {
+        if (opt.visibleflag === undefined) {
+            return true;
+        }
+        
+        if ( $rootScope.config[opt.visibleflag] === undefined || $rootScope.config[opt.visibleflag] === true) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $scope.doActionItem = function(actionType, item, tableName,url) {
        
         var field;
         if (actionType === 'edit') {
-         $rootScope.resourceHref = item._link.self.href;
+         $rootScope.resourceHref = item.href;
 		 $rootScope.navigate(url);
         } else if (actionType === 'delete') {
             field = angular.element($('#' + tableName)).scope().field;

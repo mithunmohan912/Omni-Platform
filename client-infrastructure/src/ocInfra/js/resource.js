@@ -57,12 +57,15 @@ global app
         return obj;
     };
 
-    dataFactory.patch = function (urlBase,obj) {
-
-
-        return $http.patch(urlBase + '/' + obj.id, obj);
+    dataFactory.patch = function (urlBase,params,headers) {
+        var obj = $http({
+                method: 'PATCH',
+                url: urlBase,
+                headers: headers,
+                data: params
+            });
+        return obj;
     };
-
  return dataFactory;
 
 }]);
