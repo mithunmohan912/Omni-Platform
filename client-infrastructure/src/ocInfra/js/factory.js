@@ -274,7 +274,9 @@ function setData($scope, schema, object){
                     //Format the date in to yyyy/mm/dd format
                     value = formatIntoDate(value);
                 }
-				if(typeof value === 'object') value = value.value;
+				if(typeof value === 'object') {
+                    value = value.value;
+                }
                 console.log(key +' : '+value);
                 object[key] = value;
             }
@@ -283,7 +285,9 @@ function setData($scope, schema, object){
 }
 
 function formatIntoDate(value){
-   if(typeof value === 'string') return value;
+    if(typeof value === 'string') {
+        return value;
+    }
    return value.getFullYear() + '/' + (value.getMonth()+1) + '/' + value.getDate();
 }
 
