@@ -5,6 +5,8 @@
 exported showHostErrorMessage
 */
 
+
+
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','growlProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,growlProvider) {
 
@@ -13,33 +15,40 @@ growlProvider.globalEnableHtml(true);
 growlProvider.onlyUniqueMessages(true);
 
 $routeProvider.
+   when('/', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        
+        controller: LoginController
+    }).
+   when('/login', {
+        templateUrl: function() {
+            return 'ocInfra/templates/screen.html';
+        },
+        controller: LoginController
+    }).
    when('/:screenId', {
        templateUrl: function(){
            return 'ocInfra/templates/screen.html';
         }, 
           controller: ScreenController
-     }).
-    when('/', {
-        templateUrl: function() {
-            return 'ocInfra/templates/screen.html';
-        },
-        controller: LoginController
-    });
-  	
+     });
+    
     tmhDynamicLocaleProvider.localeLocationPattern('vendors/angular-i18n/angular-locale_{{locale}}.js');
-	 
+   
     
 }]);
 
 app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
-	
+  
    $rootScope.$on('$locationChangeStart', function () {
-	 
-	 if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+   
+   if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
             $location.url('/');
        }
-   });	
-	 $rootScope.showHeader = false;
+   });  
+   $rootScope.showHeader = false;
    OCInfraConfig.load();
 });
 

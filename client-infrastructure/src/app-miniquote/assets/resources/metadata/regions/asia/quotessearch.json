@@ -20,30 +20,6 @@
                         "visible": "true",
                         "elementgroup": [
                             {
-                                "name": "quote-identifier",
-                                "type": "text",
-                                "label": "_QUOTE_NUMBER",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 30
-                            },
-                            {
-                                "name": "quote-distributor-id",
-                                "type": "text",
-                                "label": "_QUOTE_DISTRIBUTOR_ID",
-                                "visible": "true",
-                                "columnsize": 6
-                            }
-                            ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
-                            {
                                 "name": "quote-product-id",
                                 "type": "text",
                                 "label": "_PRODUCT_ID",
@@ -56,7 +32,8 @@
                                 "visible": "true",
                                 "columnsize": 6
                             }
-                        ]
+                            
+                            ]
                     },
                     {
                         "subtitle": "",
@@ -65,19 +42,39 @@
                         "type": "columngroup",
                         "visible": "true",
                         "elementgroup": [
-                            {
+                             {
                                 "name": "quote-owner-name",
                                 "type": "text",
-                                "label": "_QUOTE_OWNER_NAME",
+                                "label": "_RISK_HOLDER",
+                                "visible": "true",
                                 "columnsize": 6
+                            },
+                            {
+                                "name": "quote-identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
                             }
                         ]
                     },
                     {
-                        "text": "_ADDITIONAL_INFO",
-                        "name": "searchriskdetails",
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
                         "visible": "true",
-                        "type": "view"
+                        "elementgroup": [                        
+                             {
+                                "name": "quote-distributor-id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "visible": "true",
+                                "columnsize": 6
+                            }                        
+                        
+                        ]
                     },
                     {
                         "name": "search",
