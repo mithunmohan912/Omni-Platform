@@ -68,8 +68,11 @@
         </select>
         <select ng-if="checkRegionId == 'asia'"  id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value for enum in getEnums(field) track by enum.value" ng-change="validateEachSection(field.name)">
         </select>
-    </div>	<div ng-switch-when="buttonSmall" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+    </div>	
+    <div ng-switch-when="buttonSmall" style="text-align: center;" ng-show="field.visible">
+            <div class="col-md-{{field.columnsize}} col-xs-6">
                 <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+            </div>
     </div>
     <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
                 <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId);showErr()">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
