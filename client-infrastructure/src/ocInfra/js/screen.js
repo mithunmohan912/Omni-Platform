@@ -174,13 +174,17 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			}
          var url = $rootScope.resourceHref;
 		
-	     var headers = {
-			'Content-Type' : 'application/json'
-            };
+	    var headers = { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    };
+
+	    if($rootScope.regionId === 'eu')
+	        headers['NSP_USERID'] = 'gtmoni';
 			
 		 if (url !== undefined) {
 		  
-		   HttpService.options(url,$scope);
+		   HttpService.options(url, headers, $scope);
            HttpService.get(url,headers,$scope);
 		 }
 		 else{

@@ -44,7 +44,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     
     //Retrieve the resource list from the meta-model
     var resourcelist = metaModel.resourcelist;
+    var headers = { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    };
 
+    if($rootScope.regionId === 'eu')
+        headers['NSP_USERID'] = 'gtmoni';
 
     if(resourcelist !== undefined && resourcelist.length > 0){
     //Iterate through the resource list for the meta model
@@ -54,11 +60,18 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
             
             if(optionsMapForResource === undefined){
-                var url = $rootScope.HostURL+'quotes';
+                var url;
+                if($rootScope.resourceHref) {
+                    url = $rootScope.resourceHref;
+                }
+                else {
+                    url = $rootScope.HostURL+'quotes';
+                }
+
                 url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
                 optionsMapForResource = new Map();
                 //Options call for the resources in the meta model.
-                dataFactory.options(url).success(function(data){
+                dataFactory.options(url, headers).success(function(data){
 
                     //Fetch the options response
                     var optiondataobj = data._options.links;
@@ -84,11 +97,11 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
 						}
                     });
 
-                    httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action);
+                    httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope);
 
                 });
             } else {
-                httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action);
+                httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope);
             }
     });
     }
@@ -96,7 +109,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
 return this;
 });
 
-function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action){
+function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope){
     //Retrieve the options object for the given action from the resource optionsMap
     var options = optionsMapForResource.get(action);
 
@@ -104,6 +117,13 @@ function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action)
         'Accept': 'application/json',
         'Content-Type': 'application/json' 
     };
+
+    if($rootScope.user.name && $scope.regionId === 'asia'){
+        headers.username = $rootScope.user.name;
+    }
+
+    if($scope.regionId === 'eu')
+        headers['NSP_USERID'] = 'gtmoni';
 
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
@@ -160,6 +180,14 @@ function loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory, $r
             resourcelist = metaModel.resourcelist;
         }
 
+        var headers = { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        };
+
+        if($rootScope.regionId === 'eu')
+            headers['NSP_USERID'] = 'gtmoni';
+
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -184,7 +212,7 @@ function loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory, $r
                 if(optionsMapForResource === undefined){
                     optionsMapForResource = new Map();
                     //Options call for the resources in the meta model.
-                    dataFactory.options(newURL).success(function(data){
+                    dataFactory.options(newURL, headers).success(function(data){
 
                         //Fetch the options response
                         var optiondataobj = data._options.links;

@@ -47,11 +47,12 @@ global app
         return $http.delete(urlBase + '/' + id);
     };
 
-    dataFactory.options=function(urlBase){
+    dataFactory.options=function(urlBase, headers){
         var obj =   $http(
             {
                 method : 'GET',
                 url : urlBase,
+                headers : headers
             }
         );   
         return obj;
