@@ -19,7 +19,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
             return FieldService.checkVisibility(field, $scope);    
      };
     $rootScope.showHeader = false;	
-    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId) {
+    $scope.doaction = function(method, subsections, action, actionURL) {
         //console.log('doaction----' +nextScreenId);
         if(method === 'navigate'){
             $rootScope.nextURL = actionURL;

@@ -49,8 +49,9 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         'Content-Type': 'application/json' 
     };
 
-    if($rootScope.regionId === 'eu')
-        headers['NSP_USERID'] = 'gtmoni';
+    if($rootScope.regionId === 'eu'){
+        headers.NSP_USERID = 'gtmoni';
+    }
 
     if(resourcelist !== undefined && resourcelist.length > 0){
     //Iterate through the resource list for the meta model
@@ -122,8 +123,9 @@ function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action,
         headers.username = $rootScope.user.name;
     }
 
-    if($scope.regionId === 'eu')
-        headers['NSP_USERID'] = 'gtmoni';
+    if($scope.regionId === 'eu'){
+        headers.NSP_USERID = 'gtmoni';
+    }
 
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
@@ -154,15 +156,13 @@ function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action,
         //Call the post method on the Data Factory with the URL, Http Method, and parameters
         dataFactory.post(url,params,headers).success(function(data){
             if (data) {
-                showMessage('Successfully');
-                console.log(data.message);
+                showMessage('Successfully' + ' ' + data['quote-identifier']);
             }
         });
     } else if(httpmethod==='PATCH'){
         dataFactory.patch(url,params,headers).success(function(data){
             if (data) {
-                showMessage('Successfully');
-                console.log(data.message);
+                showMessage('Successfully' + ' ' + data['quote-identifier']);
             }
         });
     }
@@ -185,8 +185,9 @@ function loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory, $r
             'Content-Type': 'application/json' 
         };
 
-        if($rootScope.regionId === 'eu')
-            headers['NSP_USERID'] = 'gtmoni';
+        if($rootScope.regionId === 'eu'){
+            headers.NSP_USERID = 'gtmoni';
+        }
 
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
