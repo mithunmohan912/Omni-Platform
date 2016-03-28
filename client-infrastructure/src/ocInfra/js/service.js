@@ -68,11 +68,12 @@ app.service('OCRoles', function($resource, $rootScope, $location) {
 
 
 app.service('HttpService', function($http,DataMappingService,growl) {
-    this.options = function( url,$rootScope) {
+    this.options = function( url, headers, $rootScope) {
      $http(
 			{
 				method : 'OPTIONS',
 				url : url,
+				headers: headers
 			}
 		).success(function(data){
 			 angular.forEach(data, function(value){
