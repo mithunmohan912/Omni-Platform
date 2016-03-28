@@ -179,8 +179,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	        'Content-Type': 'application/json' 
 	    };
 
-	    if($rootScope.regionId === 'eu')
-	        headers['NSP_USERID'] = 'gtmoni';
+	    if($rootScope.regionId === 'eu'){
+	    	headers.NSP_USERID = 'gtmoni';
+	    }
+	        
 			
 		 if (url !== undefined) {
 		  
