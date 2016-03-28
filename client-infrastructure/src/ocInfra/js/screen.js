@@ -244,6 +244,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	$scope.loadOptionData();
 
 	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId) {
+		console.log(nextScreenId);
 		var url;
 		var screenId = $rootScope.screenId;
 		var regionId = $rootScope.regionId;
