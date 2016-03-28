@@ -156,15 +156,13 @@ function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action,
         //Call the post method on the Data Factory with the URL, Http Method, and parameters
         dataFactory.post(url,params,headers).success(function(data){
             if (data) {
-                showMessage('Successfully');
-                console.log(data.message);
+                showMessage('Successfully' + ' ' + data['quote-identifier']);
             }
         });
     } else if(httpmethod==='PATCH'){
         dataFactory.patch(url,params,headers).success(function(data){
             if (data) {
-                showMessage('Successfully');
-                console.log(data.message);
+                showMessage('Successfully' + ' ' + data['quote-identifier']);
             }
         });
     }

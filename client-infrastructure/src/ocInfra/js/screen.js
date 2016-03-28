@@ -65,6 +65,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		$rootScope.screenId = reqParmScreen;
 	}
       
+    // reset data after edited and back to search screen
+    if($routeParams.screenId.includes('search')){
+        $rootScope.resourceHref = undefined;
+    }
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
@@ -79,13 +83,21 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
+	var headers = { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    };
+
+    if($rootScope.user.name && $scope.regionId === 'asia'){
+        headers.username = $rootScope.user.name;
+    }
 	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
 	// for integral system
     if ($rootScope.regionId === 'asia') {
         $scope.checkRegionId = $rootScope.regionId;
         var url = $rootScope.HostURL+'quotes';
         url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
-        dataFactory.getData(url).success(function(data){
+        dataFactory.options(url, headers).success(function(data){
             angular.forEach(data._options.links, function(value){
                 if(value.rel === 'create'){
                     angular.forEach(value.schema.properties, function(value, key){
