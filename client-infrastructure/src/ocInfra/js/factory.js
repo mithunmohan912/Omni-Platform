@@ -317,7 +317,7 @@ function formatIntoDate(value){
     if(typeof value === 'string') {
         return value;
     }
-   return value.getFullYear() + '/' + (value.getMonth()+1) + '/' + value.getDate();
+   return value.getFullYear() + '-' + (('0' + (value.getMonth() + 1)).slice(-2)) + '-' + ('0' + value.getDate()).slice(-2);
 }
 
 app.factory('TableMetaData', function($resource, $rootScope) {
