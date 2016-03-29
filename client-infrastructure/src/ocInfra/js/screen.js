@@ -66,7 +66,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	}
       
     // reset data after edited and back to search screen
-    if($routeParams.screenId.includes('search')){
+    if($routeParams.screenId.indexOf('search') !== -1){
         $rootScope.resourceHref = undefined;
     }
 	
