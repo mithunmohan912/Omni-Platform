@@ -47,22 +47,26 @@ global app
         return $http.delete(urlBase + '/' + id);
     };
 
-    dataFactory.options=function(urlBase){
+    dataFactory.options=function(urlBase, headers){
         var obj =   $http(
             {
                 method : 'GET',
                 url : urlBase,
+                headers : headers
             }
         );   
         return obj;
     };
 
-    dataFactory.patch = function (urlBase,obj) {
-
-
-        return $http.patch(urlBase + '/' + obj.id, obj);
+    dataFactory.patch = function (urlBase,params,headers) {
+        var obj = $http({
+                method: 'PATCH',
+                url: urlBase,
+                headers: headers,
+                data: params
+            });
+        return obj;
     };
-
  return dataFactory;
 
 }]);

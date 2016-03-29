@@ -1,0 +1,50 @@
+{
+    "metadata": {
+        "formid": "login",
+        "title": "",
+        "name": "login",
+        "sections": [
+            {
+                "title": "_ANONYMOUS_USER_SCREEN",
+                "name": "loginModal",
+                "category": "modal",
+                "division": "loginDiv",
+                "logodir": true,
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 12,
+                        "type": "columngroup",    
+                        "visible": true,
+                        "required": "required",
+                        "elementgroup": [
+                                 {
+                                    "name": "_ASIA_AUTO_QS",
+                                    "type": "buttonSmall",
+                                    "label": "_ASIA_AUTO_QS",
+                                    "icon": "flaticon-adults",
+                                    "method":"navigate",
+                                    "columnsize": 12,
+                                    "actionurl": "/asia/screen/quotescreate",
+                                    "visible": "true"
+                                  },
+                                  {
+                                    "name": "login",
+                                    "type": "buttonSmall",
+                                    "method":"navigate",
+                                    "label": "_SIGNIN",
+                                    "visible": true,
+                                    "columnsize": 12,
+                                    "actionurl": "/login",
+                                    "nextScreenId": "login"
+                                }
+                                 
+                            ]
+                    }
+                    
+                ]
+            }
+        ]
+    }
+}
