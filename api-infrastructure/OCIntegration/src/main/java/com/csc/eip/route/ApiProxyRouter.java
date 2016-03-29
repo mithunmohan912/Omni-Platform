@@ -25,6 +25,7 @@ public class ApiProxyRouter extends RouteBuilder {
 
 	private String publicUriPrefix;
 	private String privateUriPrefix;
+	private String privateUriPrefixHttp4;
 	private String proxyUriPrefix;
 	private Map<String,String> customHeaders;
 	
@@ -38,27 +39,26 @@ public class ApiProxyRouter extends RouteBuilder {
         	.log("${header.CamelServletContextPath} route started")
         	//.log("headers:${headers}")
         	
-        	.choice()
-	        	.when(simple("${in.header.CamelHttpMethod} =~ 'POST' || ${in.header.CamelHttpMethod} =~ 'PATCH' || ${in.header.CamelHttpMethod} =~ 'PUT'"))
-		        	// content based router: HTTP Method POST/PATCH/PUT"
-		        	// translate request message
-		        	.log("translate request message")
-				    .process(new Processor() {
-				    	public void process(Exchange exchange) throws Exception {
-				    		Series<Header> headers = new Series<Header>(Header.class);
-				    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, publicUriPrefix));
-				    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, privateUriPrefix));
-				    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
-				    	}
-				    })
-		        	//.log("headers:${headers}")
-		        	.to("restlet:http://localhost:8080/messageTranslator?restletMethod=post")
-				    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
-		        .end()
+//        	.choice()
+//	        	.when(simple("${in.header.CamelHttpMethod} =~ 'POST' || ${in.header.CamelHttpMethod} =~ 'PATCH' || ${in.header.CamelHttpMethod} =~ 'PUT'"))
+//		        	// content based router: HTTP Method POST/PATCH/PUT"
+//		        	// translate request message
+//		        	.log("translate request message")
+//				    .process(new Processor() {
+//				    	public void process(Exchange exchange) throws Exception {
+//				    		Series<Header> headers = new Series<Header>(Header.class);
+//				    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, publicUriPrefix));
+//				    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, privateUriPrefix));
+//				    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
+//				    	}
+//				    })
+//		        	//.log("headers:${headers}")
+//		        	.to("restlet:http://localhost:8080/messageTranslator?restletMethod=post")
+//				    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
+//		        .end()
 		        
 		    // proxy
 		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy started")
-		    .setHeader("Accept").constant("application/json")
 		    // set SoR custom headers
 		    .process(new Processor() {
 		    	public void process(Exchange exchange) throws Exception {
@@ -71,7 +71,7 @@ public class ApiProxyRouter extends RouteBuilder {
 		    	}
 		    })
 		    // call SoR proxy API
-        	.to(privateUriPrefix + "?bridgeEndpoint=true&throwExceptionOnFailure=false")
+        	.to(privateUriPrefixHttp4 + "?bridgeEndpoint=true&throwExceptionOnFailure=false")
         	// remove SoR custom headers
 		    .process(new Processor() {
 		    	public void process(Exchange exchange) throws Exception {
@@ -176,6 +176,14 @@ public class ApiProxyRouter extends RouteBuilder {
 
 	public void setPrivateUriPrefix(String privateUriPrefix) {
 		this.privateUriPrefix = privateUriPrefix;
+	}
+
+	public String getPrivateUriPrefixHttp4() {
+		return privateUriPrefixHttp4;
+	}
+
+	public void setPrivateUriPrefixHttp4(String privateUriPrefixHttp4) {
+		this.privateUriPrefixHttp4 = privateUriPrefixHttp4;
 	}
 
 	public String getProxyUriPrefix() {
