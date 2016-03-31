@@ -1,249 +1,38 @@
 {
     "metadata": {
-        "formid": "Quote",
-        "title": "",
-        "name": "Quote",
+        "formid": "AddHomeQuote",
+        "title": "_ADD_HOME_QUOTE",
+        "resourcelist": "", 
+        "category":"tabs",
+        "name": "AddHomeQuote",
         "sections": [
             {
-                "title": "_QUOTE",
-                "name": "Sample",
-                "category": "nonaccordion",
-               "elements": [
-          {
-            "name": "vanlist",
-            "type": "quotetable",
-            "label": "",
-            "visible": true,
-            "columnsize": 12
-          },
-          {
-            "subtitle": "_MODEL_INFO",
-            "name": "model_info",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "required": "required",
-            "elementgroup": [
-              {
-                "name": "quote_van:make",
-                "capitalize": true,
-                "type": "autocomplete",
-                "label": "_MAKE",
-                "required": "required",
-                "columnsize": "6",
-                "maxlength": 30
-              },
-              {
-                "name": "quote_van:ext_model",
-                "capitalize": true,
-                "type": "autocomplete",
-                "label": "_MODEL",
-                "required": "required",
-                "columnsize": "6",
-                "maxlength": 60
-              },
-              {
-                "name": "quote_van:power",
-                "type": "number",
-                "label": "_HORSE_POWER",
-                "required": "required",
-                "columnsize": "6",
-                "max": 99999,
-                "min": 0
-              },
-                            
-              {
-                "name": "quote_van:ext_pva_belgium_number",
-                "type": "autocomplete",
-                "label": "_PVA_BELGIUM_NO",
-                "columnsize": "6",
-                "maxlength": 6,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:ext_pva_euro_number",
-                "type": "autocomplete",
-                "label": "_PVA_EURO_NO",
-                "columnsize": "6",
-                "maxlength": 22,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "subtitle": "",
-            "name": "model_info",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "required": "required",
-            "elementgroup": [
-              {
-                "name": "quote_van:serial_number",
-                "type": "text",
-                "label": "_SERIAL_NUMBER",
-                "columnsize": "6",
-                "maxlength": 17,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:seats_positions",
-                "type": "number",
-                "label": "_NO_OF_SEATS",
-                "columnsize": "6",
-                "max": 99,
-                "min": 0,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:registration_number",
-                "type": "text",
-                "label": "_REGISTRATION_NO",
-                "columnsize": 6,
-                "maxlength": 9,
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              },
-              {
-                "name": "quote_van:ext_cabrio",
-                "type": "toggle",
-                "label": "_CONVERTIBLE",
-                "columnsize": "3",
-                "required": "required",
-                "inputError": true
-              },
-              {
-                "name": "quote_van:ext_sport",
-                "type": "toggle",
-                "label": "_SPORT",
-                "columnsize": "3",
-                "required": "required"
-              },
-              {
-                "name": "quote_van:ext_jeep",
-                "type": "toggle",
-                "label": "_JEEP",
-                "columnsize": "3"
-              },
-              {
-                "name": "quote_van:ext_average_mileage",
-                "type": "toggle",
-                "label": "_AVERAGE_MILEAGE",
-                "columnsize": "3",
-                "visibleWhen": {
-                  "expression": {
-                    "field": "minimalinformation",
-                    "value": false
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "subtitle": "_BLANK_LABLE",
-            "name": "blank_label",
-            "columnsize": 12,
-            "height": "1px",
-            "type": "separator",
-            "visible": true
-          },
-          {
-            "subtitle": "_BLANK_LABLE",
-            "name": "blank_label",
-            "columnsize": 12,
-            "height": "1px",
-            "type": "separator",
-            "visible": true
-          },
-          {
-            "subtitle": "_COVERAGE_RELATED_INFORMATION",
-            "name": "coverage_related_info",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "elementgroup": [
-              {
-                "name": "quote_van:first_use_date",
-                "mask": "dd/mm/yy",
-                "type": "date",
-                "label": "_FIRST_CIRCULATION_DATE",
-                "columnsize": "6"
-              },
-              {
-                "name": "quote_van:ext_purchase_date",
-                "mask": "dd/mm/yy",
-                "type": "date",
-                "label": "_PURCHASE_DATE",
-                "columnsize": "6"
-              }
-            ]
-          },
-          {
-            "subtitle": "",
-            "name": "coverage_related_info",
-            "columnsize": 6,
-            "type": "columngroup",
-            "visible": true,
-            "elementgroup": [
-              {
-                "name": "quote_van:insured_value",
-                "type": "number",
-                "label": "_OMNIUM_VARIABLE_VALUR_INSURED",
-                "visible": true,
-                "columnsize": "6",
-                "max": 1000000000000000,
-                "min": 0
-              },
-                            {
-                "name": "quote_van:ext_leasing",
-                "type": "select",
-                "label": "_LEASING",
-                "columnsize": "6"
-              }
-            ]
-          },
-          {
-                        "name": "submit",
-                        "type": "buttonSmall",
-                        "label": "_SUBMIT",
-                      "action":"submit",
-                        "visible": true,
-                        "columnsize": "12"
-                },
-          {
-            "subtitle": "_BLANK_LABLE",
-            "name": "blank_label",
-            "columnsize": 12,
-            "height": "30px",
-            "type": "separator",
-            "visible": true
-          }
-        ]
+                "$ref": "quoteInfo",
+                "name": "Quote Info",
+                "renderAsTab":true,
+                "step": 1
+            },
+            {
+                "$ref":"ownerInfo",
+                "name": "Owner Info",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+                "$ref":"riskInfo",
+                "name": "Risk Info",
+                "renderAsTab": true,
+                "step": 3
+            },
+            {
+                "$ref": "additionalInfo",
+                "name": "Additional Info",
+                "renderAsTab": true,
+                "step": 4
             }
         ] 
-    }
+    },
+    "include":[
+        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo"
+    ]
 }

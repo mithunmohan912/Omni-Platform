@@ -4,7 +4,7 @@
             "appTitle": "Omni Channel",
             "mainCSS": "base",
             "hostName": "AIA",
-            "hostURL": "https://devgateway.api.csc.com/insurance/omnichannel/miniquote/aia/",
+            "hostURL": "https://devgateway.api.csc.com/insurance/omnichannel/miniquote/:regionId/",
             "cleanAPIURL": "",
 			"singleSignOn": false,
 			"sessionSSOPrefix": "",
@@ -13,6 +13,7 @@
 			"printMode":"xml",
             "dateMask":"99/99/9999",
             "dateFormat":"dd/mm/yy",
+            "regionToSoR" : {"asia" : "integral", "us" : "point", "eu" : "aia" },
             "backgroundColor": {
                            "csc": "#FFFE9F"
             },

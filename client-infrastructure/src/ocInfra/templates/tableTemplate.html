@@ -58,7 +58,7 @@
                     <span ng-switch-when="dropdown">
                         <span ng-repeat="option in column.options">
                             <a title="{{locale[option.title]}}" ng-show="checkShow(option)">
-                                <span class="{{option.icon}} actionIcon tableicons" ng-click="doActionItem(option.value, row, field.name);"><span class="iconText">{{locale[option.description]}}</span></span>
+                                <span class="{{option.icon}} actionIcon tableicons" ng-click="doActionItem(option.value, row, field.name, option.actionurl);"><span class="iconText">{{locale[option.description]}}</span></span>
                         </a>
                         </span>
                     </span>
@@ -69,7 +69,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="16" class="text-center">
+            <td colspan="16" class="text-center" style="text-align: center;padding-left:0px">
                 <div st-items-by-page="5" st-pagination="" st-template="ocinfra/templates/stpaging.html">
                 </div>
             </td>

@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "formid": "AddHomeQuote",
+        "title": "_ADD_HOME_QUOTE",
+        "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "name": "AddHomeQuote",
+        "sections": [
+            {
+                "$ref":"ownerInfo",
+                "name": "Owner Info",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref":"riskInfo",
+                "name": "Risk Info",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+                "$ref": "additionalInfo",
+                "name": "Additional Info",
+                "renderAsTab": true,
+                "step": 3
+            }
+        ] 
+    },
+    "include":[
+        "ownerInfo", "riskInfo", "additionalInfo"
+    ]
+}
