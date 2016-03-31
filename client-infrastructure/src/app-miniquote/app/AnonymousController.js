@@ -7,11 +7,7 @@ exported AnonymousController
 
 function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
     $rootScope.screenId = 'anonymous';
-    console.log('anonymous');
     var metadataLocation = $rootScope.metadataPath;
-    //'assets/resources/metadata/';
-    //$rootScope.metadataPath;
-    console.log(metadataLocation);
     OCMetadata.load($scope,metadataLocation);
 
 
@@ -20,12 +16,8 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
      };
     $rootScope.showHeader = false;	
     $scope.doaction = function(method, subsections, action, actionURL) {
-        //console.log('doaction----' +nextScreenId);
         if(method === 'navigate'){
             $rootScope.nextURL = actionURL;
-            console.log('login metho---'+actionURL);
-            //$rootScope.screenId = 'login';
-           // OCMetadata.load($scope, metadataLocation);
             $rootScope.navigate(actionURL);
         } else if(method === 'asiaQuoteScreen'){
 
