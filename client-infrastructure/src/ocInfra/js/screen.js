@@ -12,7 +12,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	   
      //console.log('hello');
 
-   
+    $rootScope.enumData = {};
+    $rootScope.optionsMap = [];
+    $scope.checkRegionId = $rootScope.regionId;
 
 	    $scope.showErr = function () {
        
@@ -29,8 +31,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	$scope.disableNext = false;
 	var seedPayLoad = {};
 	$scope.rulesDataList = [];
-	var reqParm = null;
-	var exist = false;
+	var reqParmScreen = null;
+	var reqParmRegion = null;
+	var screenExist = false;
+	var regionExist = false;
 	$scope.data = {};
 	$scope.remove = 'ban-circle';
 	$scope.removestyle = 'red';	
@@ -40,23 +44,95 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         yearRange: '1900:2030',
     };
 	$rootScope.typeahead =[];
-	
+
+	if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
+	if ($routeParams.regionId.indexOf(':') !== -1) {
+		reqParmRegion = $routeParams.regionId.split(':');
+		$rootScope.regionId = reqParmRegion[1];
+		regionExist = true;
+	}else{
+		reqParmRegion = $routeParams.regionId;
+		$rootScope.regionId = reqParmRegion;
+	}
+	}
+
 	if ($routeParams.screenId.indexOf(':') !== -1) {
-		reqParm = $routeParams.screenId.split(':');
-		$rootScope.screenId = reqParm[1];
-		exist = true;
+		reqParmScreen = $routeParams.screenId.split(':');
+		$rootScope.screenId = reqParmScreen[1];
+		screenExist = true;
 	} else {
-		reqParm = $routeParams.screenId;
-		$rootScope.screenId = reqParm;
+		reqParmScreen = $routeParams.screenId;
+		$rootScope.screenId = reqParmScreen;
 	}
       
+    // reset data after edited and back to search screen
+    if($routeParams.screenId.indexOf('search') !== -1){
+        $rootScope.resourceHref = undefined;
+    }
 	
 	$rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
 
-    
+    $scope.getEnums = function(field) {
+        if ($rootScope && $rootScope.enumData && $rootScope.enumData[field.name]) {
+            return $rootScope.enumData[field.name];
+        } else if (field.options) {
+            return field.options;
+        }
+    };
+
+	var headers = { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-IBM-Client-Id': 'f9220738-65e5-432d-9b8f-05e8357d1a61',
+        'X-IBM-Client-Secret': 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI'     
+    };
+
+    if($rootScope.user.name){
+        headers.username = $rootScope.user.name;
+    }
+	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
+	// for integral system
+    if ($rootScope.regionId === 'asia') {
+        $scope.checkRegionId = $rootScope.regionId;
+        var url = $rootScope.HostURL+'quotes';
+        url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
+        dataFactory.options(url, headers).success(function(data){
+            angular.forEach(data._options.links, function(value){
+                if(value.rel === 'create'){
+                    angular.forEach(value.schema.properties, function(value, key){
+                        if(value.enum) {
+                            processEnumeration($rootScope, value.enum, key);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    var processEnumeration = function($rootScope, enumValue, key) {
+        var enumeration={};
+        var contractKey = null;
+        if (enumValue){
+            enumeration[key]=processOptionsResult(enumValue);
+            angular.extend($rootScope.enumData, enumeration);
+        }else{
+            enumeration[key]=$rootScope.enumData[key];
+        }
+        enumeration[contractKey]=enumeration[key];
+        angular.extend($rootScope.enumData, enumeration);
+    };
+
+
+    var processOptionsResult = function(enumArray){
+        var processedArray = [];
+        angular.forEach(enumArray, function(value){
+            processedArray.push({'value':value,'description':value});
+        });
+        return processedArray;
+    };
 
     $scope.loadTableMetadata = function(section) {
        
@@ -96,10 +172,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	
 	$scope.loadMetaData = function() {
 		$rootScope.metadata = {};
-		MetaData.load($scope, (exist ? reqParm[0] : reqParm), seedPayLoad);
+		MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), seedPayLoad);
 		if(seedPayLoad){
 			$scope.loadData();
-
 		}
 	};
 
@@ -113,13 +188,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			}
          var url = $rootScope.resourceHref;
 		
-	     var headers = {
-			'Content-Type' : 'application/json'
-            };
+	    var headers = { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    };
+
+	    if($rootScope.regionId === 'eu'){
+	    	headers.NSP_USERID = 'gtmoni';
+	    }
+	        
 			
 		 if (url !== undefined) {
 		  
-		   HttpService.options(url,$scope);
+		   HttpService.options(url, headers, $scope);
            HttpService.get(url,headers,$scope);
 		 }
 		 else{
@@ -164,10 +245,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	$scope.loadOptionData();
 
-	$scope.doaction = function(method, subsections, action, actionURL) {
+	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId) {
+		console.log(nextScreenId);
 		var url;
 		var screenId = $rootScope.screenId;
-
+		var regionId = $rootScope.regionId;
 		if(action === 'get'){
 			 url = $rootScope.HostURL+screenId;
 			 $scope.factory.get(url);
@@ -183,7 +265,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			 $rootScope.navigate(actionURL);
 		} 
 		else {
-			MetaData.actionHandling($scope, screenId, action, dataFactory);			
+			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
         }
     };
 	

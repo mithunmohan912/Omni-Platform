@@ -34,21 +34,24 @@
 </form>
 <script type="text/ng-template" id="sectionRenderer.html">
     <!-- Header section -->
-    <div class="form-group marginbottom0px">
+    <div class="">
         <div ng-include src="config.templates.header"></div>
     </div>
     <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
-    <div class="hr_margin"><hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true"><hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true"></div> 
+    <div class="hr_margin">
+        <hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true">
+        <hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true">
+    </div> 
 
     <div ng-if="section.modaledit !== true" class="{{section.heightClass}}">
         <div ng-include src="'nonaccordionsection.html'"></div>
     </div>
     
-        <div class="col-xs-12 col-md-12 hidden-lg hidden-md"  ng-if="section.showButton === true" >
-          <div class="" data-toggle="modal" data-target="#modalquote{{section.name}}" ng-click="addEmptySection(section, $event)" ng-style="{'height': section.height, 'width': section.width}" 
+        <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true" >
+          <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
-              <span class="{{section.icon}}"></span>{{locale[section.label]}}
+              <span class="{{section.icon}}"></span>{{locale[section.labelDisplay]}}
             </a>
           </div>
         </div>

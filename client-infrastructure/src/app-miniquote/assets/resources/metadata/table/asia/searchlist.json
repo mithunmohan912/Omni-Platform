@@ -1,0 +1,99 @@
+{
+    "tableMetaData": {
+        "id": "searchlist",
+        "title": "Quote Search List",
+        "searching": true,
+        "name":"quoteList",
+        "actionurl": "/screen/quotessearch",
+        "element": [
+            {
+                "quoteField": "quote-product-id",
+                "displayName": "_PRODUCT_ID",
+                "type": "label",
+                "align": "center",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote-owner-name",
+                "displayName": "_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote-type",
+                "displayName": "_QUOTE_TYPE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"   
+            },
+            {
+                "quoteField": "quote-distributor-id",                
+                "displayName": "_DISTRIBUTOR_ID",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote-risk-display-Id",
+                "displayName": "_RISK_DATA",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "15%"
+            },
+            {
+                "quoteField": "quote-start-date",
+                "displayName": "_Effective_Date",
+                "type": "date",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "quote-identifier",
+                "displayName": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "type": "dropdown",
+                "align": "left",
+                "visible": true,
+                "width": "10%",
+                "space":"nowrap",
+                "options": [
+                    {
+                        "value": "copy",
+                        "title": "_COPY",
+                        "icon": "fa fa-copy",
+                        "visibleflag": "allowCopyQuote"
+                    },
+                    {
+                        "value": "edit",
+                        "icon": "fa fa-edit",
+                        "title": "_EDIT",
+                        "actionurl": "asia/screen/quotescreate"
+                    }
+                ]
+            }
+        ],
+        "iconList": 
+            {
+                "MC011": "flaticon-auto", 
+                "MD005": "flaticon-auto", 
+                "MA002": "flaticon-auto", 
+                "MC002": "flaticon-auto", 
+                "IN005": "flaticon-home", 
+                "AX009": "flaticon-auto" 
+
+            }
+        
+    }
+}

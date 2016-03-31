@@ -1,0 +1,140 @@
+{
+    "metadata": {
+        "formid": "quotesearch",
+        "resourcelist": ["quotes"], 
+        "title": "_SAVED_ITEMS",
+        "name": "quote",
+    "workflowGrp": [{"nav":"false"}],
+    "mainTabs": "false",
+        "sections": [
+            {
+                "title": "_HOME_QUOTE_US_SEARCH",
+                "name": "quote_search",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                            {
+                                "name": "contract:number",
+                                "type": "text",
+                                "label": "_CONTRACT",
+                                "visible": "true",
+                                "columnsize": 6
+                            },
+                            {
+                                "name": "quote:description",
+                                "type": "text",
+                                "label": "_DESCRIPTION",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
+                            },
+                            {
+                                "name": "quote:distributor_id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                            ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                            {
+                                "name": "quote:identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
+                            },
+                            {
+                                "name": "quote:product_id",
+                                "type": "text",
+                                "label": "_PRODUCT_ID",
+                                "columnsize": 6
+                            },
+                            {
+                                "name": "quote:start_date",
+                                "type": "date",
+                                "label": "_Effective_Date",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                        ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [                        
+                             {
+                                "name":"quote:status",
+                                "type":"text",
+                                "label":"_QUOTE_STATUS",
+                                "columnsize":6
+                            },
+                           {
+                                "name":"quote:type",
+                                "type":"text",
+                                "label":"_QUOTE_TYPE",
+                                "columnsize":6
+                            },
+                            {
+                                "name": "quote_owner:name",
+                                "type": "text",
+                                "label": "_RISK_HOLDER",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                        
+                        ]
+                    },
+                    {
+                        "text": "_ADDITIONAL_INFO",
+                        "name": "searchriskdetails",
+                        "visible": "true",
+                        "type": "view"
+                    },
+                    {
+                        "name": "search",
+                        "type": "buttonSmall",
+                        "label": "_SEARCH",
+                        "action":"search",
+                        "visible": "true",
+                        "columnsize": "8"
+                    },
+                    {
+                        "name": "create",
+                        "type": "buttonSmall",
+                        "label": "_CREATE_QUOTE",
+                        "actionurl": "/us/screen/quotescreate",
+                        "visible": "true",
+                        "action":"add",
+                        "columnsize": "4"
+                    },
+                    {
+                        "name": "searchlist",
+                        "type": "table",
+                        "label": "",
+                        "isTab": "false",
+                        "visible": "true",
+                        "columnsize": 12
+                    }
+                ]
+            }
+        ]
+    }
+}
