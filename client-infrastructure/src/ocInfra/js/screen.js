@@ -85,10 +85,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	var headers = { 
         'Accept': 'application/json',
-        'Content-Type': 'application/json' 
+        'Content-Type': 'application/json',
+        'X-IBM-Client-Id': 'f9220738-65e5-432d-9b8f-05e8357d1a61',
+        'X-IBM-Client-Secret': 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI'     
     };
 
-    if($rootScope.user.name && $scope.regionId === 'asia'){
+    if($rootScope.user.name){
         headers.username = $rootScope.user.name;
     }
 	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
