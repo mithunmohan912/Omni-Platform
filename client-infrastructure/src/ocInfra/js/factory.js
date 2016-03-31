@@ -55,7 +55,7 @@ this.actionHandling=function($scope, regionId, screenId, action, dataFactory){
                 var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
             
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope);
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope);
                     optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
                 }
                  if(optionsMapForResource !== undefined){
@@ -258,19 +258,35 @@ function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad,
 }
 
 function setData($scope, schema, object){
-    angular.forEach(schema.properties, function(val, key){  
-            var value = $scope.data[key];
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
 
+    angular.forEach(schema.properties, function(val, key){  
+            
+            var value = $scope.data[key];
+            var type = val.type;
+            
+            if(type !== undefined && type==='static'){
+                value = val.value;
+            }
+
+            if(value === null || value === undefined || value === '' || value === 'undefined'){
+                //continue
             }else{
+    
                 var format = val.format;
+    
                 if(format !== undefined && format==='date'){
                     //Format the date in to yyyy/mm/dd format
                     value = formatIntoDate(value);
                 }
-				if(typeof value === 'object') {
-                    value = value.value;
-                }
+    
+                if(typeof value === 'object') {
+                    if(value.key !== undefined){
+                        value = value.key;
+                    }else{
+                        value = value.value;
+                    }
+                } 
+    
                 console.log(key +' : '+value);
                 object[key] = value;
             }
