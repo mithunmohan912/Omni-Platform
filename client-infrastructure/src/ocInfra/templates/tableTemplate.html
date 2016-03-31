@@ -10,10 +10,10 @@
     <table st-safe-src="stTableList" st-table="displayed" class="col-md-12 table-bordered table-striped table-condensed cf">
     <thead class="cf">
         <tr>
-            <th ng-attr-style="width:{{column.width}} "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
+            <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
         </tr>
         <tr ng-show="field.tableMetaData.searching">
-            <th ng-attr-style="width:{{column.width}} "  colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
+            <th ng-attr-style="width:{{column.width}}; text-align:{{column.align}};"  colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
                 <!--input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" /-->
                 <input ng-if="screenId === 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_TXFRITEMS_PAGE"]}} type="search" />
                 <input ng-if="screenId !== 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" />
@@ -27,7 +27,7 @@
         </tr>
         <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
 
-            <td ng-attr-style="width:{{column.width}}; align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
+            <td ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
                 <ng-switch on="column.type">
                     <!-- Label -->
                     <span ng-switch-when="label">{{row.summary[column.quoteField]}} {{row.summary[column.contractField]}}</span>
