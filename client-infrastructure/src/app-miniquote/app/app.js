@@ -23,8 +23,7 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
     }).
     when('/:regionId/screen/:screenId', {
         
-        templateUrl: function(route) {
-            console.log('Route Region id---'+route.regionId);
+        templateUrl: function() {
           return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
@@ -49,7 +48,6 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
      if($rootScope.screenId === undefined){
         $location.url('/');
      } else if (screenId === 'anonymous'){
-        console.log($rootScope);
             if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
             $location.url($rootScope.nextURL);
        }
