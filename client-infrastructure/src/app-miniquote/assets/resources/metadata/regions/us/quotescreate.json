@@ -7,32 +7,39 @@
         "name": "AddHomeQuote",
         "sections": [
             {
-                "$ref": "quoteInfo",
-                "name": "Quote Info",
-                "renderAsTab":true,
+                "$ref":"applicantInfo",
+                "name": "Applicant Info",
+                "renderAsTab": true,
                 "step": 1
             },
             {
-                "$ref":"ownerInfo",
-                "name": "Owner Info",
+                "$ref":"policyInfo",
+                "name": "Policy Info",
                 "renderAsTab": true,
                 "step": 2
             },
             {
-                "$ref":"riskInfo",
-                "name": "Risk Info",
+                "$ref": "generalInfo",
+                "name": "General Info",
                 "renderAsTab": true,
                 "step": 3
             },
             {
-                "$ref": "additionalInfo",
-                "name": "Additional Info",
+                "$ref": "coverageInfo",
+                "name": "Coverage Info",
                 "renderAsTab": true,
                 "step": 4
             }
+            , {
+              
+              "$ref": "submit",
+              "step":4
+
+              
+           } 
         ] 
     },
     "include":[
-        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo"
+        "applicantInfo", "policyInfo", "generalInfo","coverageInfo","submit"
     ]
 }
