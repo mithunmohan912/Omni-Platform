@@ -83,25 +83,23 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-	var headers = { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-IBM-Client-Id': 'f9220738-65e5-432d-9b8f-05e8357d1a61',
-        'X-IBM-Client-Secret': 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI'     
-    };
+	MetaData.setHeaders($rootScope);
 
-    if($rootScope.user.name){
-        headers.username = $rootScope.user.name;
+    function loadEnumerationByTab(){
+    	if($rootScope.resourceHref && $rootScope.currRel){
+		    var url = $rootScope.resourceHref + '/' +  $rootScope.currRel + 's';
+		    dataFactory.options(url, $rootScope.headers).success(function(data){
+		    	var urlDetail = data._links.item.href;
+			    executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+		    });
+		    
+		}
     }
-	// Currently, aia system hardcode in json => so we must check system to getEnums() from backend
-	// for integral system
-    if ($rootScope.regionId === 'asia') {
-        $scope.checkRegionId = $rootScope.regionId;
-        var url = $rootScope.HostURL+'quotes';
-        url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
-        dataFactory.options(url, headers).success(function(data){
+
+    function executeEnumerationFromBackEnd(url, headers, action){
+    	dataFactory.options(url, headers).success(function(data){
             angular.forEach(data._options.links, function(value){
-                if(value.rel === 'create'){
+                if(value.rel === action){
                     angular.forEach(value.schema.properties, function(value, key){
                         if(value.enum) {
                             processEnumeration($rootScope, value.enum, key);
@@ -129,7 +127,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     var processOptionsResult = function(enumArray){
         var processedArray = [];
         angular.forEach(enumArray, function(value){
-            processedArray.push({'value':value,'description':value});
+            processedArray.push(value);
         });
         return processedArray;
     };
@@ -180,35 +178,20 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	$scope.loadData = function () {
 
-		 if($rootScope.isPrev){
-				//console.log($rootScope.allData);
-				$scope.data = angular.copy($rootScope.allData);
-				$scope.disableNext = false;
-				return true;
-			}
-         var url = $rootScope.resourceHref;
-		
-	    var headers = { 
-	        'Accept': 'application/json',
-	        'Content-Type': 'application/json' 
-	    };
-
-	    if($rootScope.regionId === 'eu'){
-	    	headers.NSP_USERID = 'gtmoni';
-	    }
-	        
+		if($rootScope.isPrev){
+			//console.log($rootScope.allData);
+			$scope.data = angular.copy($rootScope.allData);
+			$scope.disableNext = false;
+			return true;
+		}
+        var url = $rootScope.resourceHref;
 			
-		 if (url !== undefined) {
-		  
-		   HttpService.options(url, headers, $scope);
-           HttpService.get(url,headers,$scope);
-		 }
-		 else{
-		 	
-		 
-		 }
+		if (url !== undefined) {
+		   HttpService.options(url, $rootScope.headers, $scope);
+           HttpService.get(url,$rootScope.headers,$scope);
+		}
 
-			};
+	};
 	
 	$scope.loadMetaData();
 
@@ -261,9 +244,26 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			});
 		}
 		else if(action==='add'){
-			 $rootScope.resourceHref=undefined;
-			 $rootScope.navigate(actionURL);
-		} 
+            $rootScope.navigate(actionURL);
+            new Promise(function(resolve) {
+                MetaData.actionHandling($scope, regionId, screenId, 'create', dataFactory,resolve);
+            }).then(function(){
+                loadEnumerationByTab();
+            }); 
+		}
+        else if(action==='calculate'){
+        	new Promise(function(resolve) {
+                MetaData.editHandling($scope, regionId, screenId, action, dataFactory, 'risk', resolve);
+            }).then(function(){
+                var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
+                $rootScope.headers.flag = 'compute';
+                var params = {};
+                dataFactory.post(url,params,$rootScope.headers).success(function(data){
+                    $scope.data = data;
+                    console.log('Compute successfully !!');
+                });
+            });  
+        }
 		else {
 			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
         }
@@ -288,12 +288,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         $scope.next();
     };
 	
-	 $scope.next = function() {
-	 };
+	$scope.next = function() {
+	};
 	 
-	  $rootScope.step=1;
+	$rootScope.step=1;
 
-	   $scope.getenumdata=function(){ 
+	$scope.getenumdata=function(){ 
        
 	   	var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
         
@@ -304,12 +304,79 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
      	
      });
 
- };
-
-
-          
-$scope.selecttab=function(step1){           
-        $rootScope.step = step1;
     };
+
+    $scope.preStep = 1;
+    $scope.preRel = undefined;
+    $rootScope.currRel = undefined;
+
+    function loadRelationshipByStep(step){
+        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        angular.forEach(list, function(tabObj){
+            if(step === tabObj.step){
+                $rootScope.currRel = tabObj.rel;
+            } 
+        });
+    }
+    new Promise(function(resolve) {
+        MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), seedPayLoad, undefined, undefined, resolve);
+    }).then(function(){
+        loadRelationshipByStep($scope.preStep);
+    }); 
+
+    $scope.selecttab=function(step1, rel){
+		var screenId = $rootScope.screenId;
+		var regionId = $rootScope.regionId;
+        $rootScope.step = step1;
+        $rootScope.currRel = rel;
+
+		new Promise(function(resolve) {  
+		   	// patch for previous tab
+			if($rootScope.step !== $scope.preStep) {
+                loadRelationshipByStep($scope.preStep);
+                if($scope.currRel === 'self') {
+                    MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory,resolve);
+                } else {
+                    MetaData.editHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel,resolve);
+                }
+                $scope.preStep = $rootScope.step;
+                loadRelationshipByStep($scope.preStep);
+	        }
+		}).then(function(){
+		  
+			// load data for tab click
+	        if($rootScope.currRel !== undefined){
+	            $scope.loadDataByTab($rootScope.currRel);
+	        } else {
+	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
+	            executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+	        }
+
+		});  
+
+    };
+
+
+	$scope.loadDataByTab = function (tab) {
+
+	    var url = $rootScope.resourceHref;
+
+		if (url !== undefined) {
+			dataFactory.options(url, $rootScope.headers).success(function(data){
+	            //Fetch the links response
+	            var tabUrl = data._links['quote:quote_' + tab + '_list'].href;
+
+	            dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
+
+	                var detailTabUrl = data._links.item.href;
+
+	                HttpService.get(detailTabUrl, $rootScope.headers, $scope);
+
+	                executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
+	            });
+	        });
+		}
+
+	};
  
 }

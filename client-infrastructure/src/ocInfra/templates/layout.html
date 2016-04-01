@@ -42,7 +42,7 @@
         <input autocomplete="off" type="text" maxlength="{{field.maxlength}}" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name)" ng-blur="enableField(field.name)" typeahead="obj as obj for obj in getListData($viewValue,field.name)" typeahead-on-select='onSelectPart($item, field.name)'>
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="money">
-        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" to-currency amount="data[field.name]">
+        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" to-currency amount="data[field.name]" ng-disabled="{{field.disabled}}">
     </div>
 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabel">
@@ -51,10 +51,10 @@
 
 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="number">
-        <input type="number" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" min="{{field.min}}" max="{{field.max}}" class="form-control input-md" ng-value="data[field.name]" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
+        <input type="number" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" min="{{field.min}}" max="{{field.max}}" class="form-control input-md" ng-value="data[field.name]" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" ng-disabled="{{field.disabled}}">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="date">
-        <input id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md calendarIcon" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}">
+        <input id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md calendarIcon" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}" ng-disabled="{{field.disabled}}">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="textarea">
         <textarea ng-model="data[field.name]" class="form-control input-md" label="{{field.instructions}}" id="{{field.name}}" name="{{field.name}}" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" placeholder="{{field.placeholder}}">{{field.value}}</textarea>
@@ -65,13 +65,10 @@
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="email">
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
-    <!-- Currently, aia system hardcode in json => so we must check system to getEnums() from backend for integral system -->
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
-        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata track by enum.value" ng-change="validateEachSection(field.name)">
+        <select id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum for enum in getEnums(field) track by enum" ng-change="validateEachSection(field.name)" ng-disabled="{{field.disabled}}">
         </select>
-        <select ng-if="checkRegionId == 'asia'"  id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value for enum in getEnums(field) track by enum.value" ng-change="validateEachSection(field.name)">
-        </select>
-    </div>	
+    </div>      
     <div ng-switch-when="buttonSmall" style="text-align: center;" ng-show="field.visible">
             <div class="col-md-{{field.columnsize}} col-xs-6">
                 <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)">{{(locale[field.label]?locale[field.label] : field.label)}}</button>

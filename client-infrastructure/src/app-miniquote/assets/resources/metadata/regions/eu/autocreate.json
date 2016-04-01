@@ -1,209 +1,33 @@
 {
     "metadata": {
         "formid": "AddAutoQuote",
-        "title": "",
+        "title": "_ADD_AUTO_QUOTE",
         "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "viewAs": "menu",
         "name": "AddAutoQuote",
         "sections": [
             {
-                "title": "_QUOTE_INFO",
-                "name": "quote_info",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "name": "quote:annual_cost",
-                        "type": "text",
-                        "label": "_QUOTE_ANNUAL_COST",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:description",
-                        "type": "text",
-                        "label": "_QUOTE_DESCRIPTION",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:distributor_id",
-                        "type": "text",
-                        "label": "_QUOTE_DISTRIBUTOR_ID",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:contract_start_date",
-                        "mask": "dd/mm/yy",
-                        "type": "date",
-                        "label": "_START_DATE_OF_THE_CONTRACT",
-                        "columnsize": 3,
-                        "required": "required",
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:ext_group_contract_type",
-                        "type": "select",
-                        "label": "_QUOTE_EXT_GROUP_CONTRACT_TYPE",
-                        "required": "required",
-                        "columnsize": 3,
-                        "enumdata":[
-                            {
-                                "value" : "Elit3"
-                            },
-                            {
-                                "value" : "None"
-                            },
-                            {
-                                "value" : "Trigone"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "quote:product_id",
-                        "type": "text",
-                        "label": "_QUOTE_PRODUCT_ID",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:ext_cost_without_reduction",
-                        "type": "text",
-                        "label": "_QUOTE_EXT_COST_WITHOUT_REDUCTION",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:ext_number_claim_history",
-                        "type": "text",
-                        "label": "_QUOTE_EXT_NUMBER_CLAIM_HISTORY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:frequency",
-                        "type": "select",
-                        "label": "_QUOTE_FREQUENCY",
-                        "columnsize": 3,
-                        "maxlength": 30
-                    },
-                    {
-                        "name": "quote:identifier",
-                        "type": "text",
-                        "label": "_QUOTE_IDENTIFIER",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:language",
-                        "type": "select",
-                        "label": "_QUOTE_LANGUAGE",
-                        "required": "required",
-                        "columnsize": 3,
-                        "enumdata":[
-                            {
-                                "value" : "Dutch"
-                            },
-                            {
-                                "value" : "French"
-                            },
-                            {
-                                "value" : "German"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "quote:offer",
-                        "type": "text",
-                        "label": "_QUOTE_OFFER",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:period_cost",
-                        "type": "text",
-                        "label": "_QUOTE_PERIOD_COST",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:start_date",
-                        "mask": "dd/mm/yy",
-                        "type": "date",
-                        "label": "_START_DATE",
-                        "columnsize": 3,
-                        "required": "required",
-                        "patchOnBlur": true
-                    },
-                    {
-                        "name": "quote:status",
-                        "type": "select",
-                        "label": "_QUOTE_STATUS",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "enumdata":[
-                            {
-                                "value" : "in_force"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "quote:type",
-                        "type": "select",
-                        "label": "_QUOTE_TYPE",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "enumdata":[
-                            {
-                                "value" : "amendment"
-                            },
-                            {
-                                "value" : "new"
-                            }
-                        ]
-                    }
-                ]
+                "$ref": "quoteInfo",
+                "name": "Quote Info",
+                "renderAsTab":true,
+                "step": 1
             },
             {
-                "title": "",
-                "name": "quote_info",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "name": "submit1",
-                        "type": "buttonSmall",
-                        "label": "_SUBMIT",
-                        "action":"create",
-                        "visible": true,
-                        "columnsize": "12"
-                    }
-                ]
+                "$ref":"ownerInfo",
+                "name": "Owner Info",
+                "renderAsTab": true,
+                "step": 2
             },
             {
-                "title": "",
-                "name": "quote_info",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "name": "update",
-                        "type": "buttonSmall",
-                        "label": "_UPDATE",
-                        "action":"update",
-                        "visible": true,
-                        "columnsize": "12"
-                    }
-                ]
+                "$ref":"autoRiskInfo",
+                "name": "Risk Info",
+                "renderAsTab": true,
+                "step": 3
             }
         ] 
-    }
+    },
+    "include":[
+        "quoteInfo", "ownerInfo", "autoRiskInfo"
+    ]
 }

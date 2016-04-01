@@ -10,23 +10,33 @@
                 "$ref":"ownerInfo",
                 "name": "Owner Info",
                 "renderAsTab": true,
+                "rel" : "owner",
                 "step": 1
             },
             {
                 "$ref":"riskInfo",
                 "name": "Risk Info",
                 "renderAsTab": true,
+                "rel" : "risk",
                 "step": 2
             },
             {
                 "$ref": "additionalInfo",
                 "name": "Additional Info",
                 "renderAsTab": true,
+                "rel" : "risk",
                 "step": 3
+            },
+            {
+                "$ref": "premiumInfo",
+                "name": "Premium Info",
+                "renderAsTab": true,
+                "rel" : "undefined",
+                "step": 4
             }
         ] 
     },
     "include":[
-        "ownerInfo", "riskInfo", "additionalInfo"
+        "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
     ]
 }
