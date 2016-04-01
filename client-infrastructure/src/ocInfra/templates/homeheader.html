@@ -26,9 +26,8 @@
       </ul>
 
       <div ng-if="metadata[screenId].viewAs === 'menu'" >
-      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">
-        <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
-        
+      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">      
+      <!-- <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>  -->
         <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
