@@ -253,14 +253,15 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
         else if(action==='calculate'){
         	new Promise(function(resolve) {
-                MetaData.editHandling($scope, regionId, screenId, action, dataFactory, 'risk', resolve);
+                MetaData.editHandling($scope, regionId, screenId, 'update', dataFactory, 'risk', resolve);
             }).then(function(){
                 var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
-                $rootScope.headers.flag = 'compute';
                 var params = {};
                 dataFactory.post(url,params,$rootScope.headers).success(function(data){
-                    $scope.data = data;
-                    console.log('Compute successfully !!');
+                    dataFactory.get(data.messages.context,params,$rootScope.headers).success(function(data){
+                        $scope.data = data;
+                        console.log('Compute successfully !!');
+                    });
                 });
             });  
         }
