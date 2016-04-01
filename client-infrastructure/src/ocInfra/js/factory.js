@@ -52,18 +52,19 @@ this.actionHandling=function($scope, regionId, screenId, action, dataFactory){
             angular.forEach(resourcelist, function(resource) {
                 var keyForOptionsMap = regionId +':'+resource;
                 //Retrieve the optionsMap for the resource
+                if($scope.optionsMap === undefined){
+                    $scope.optionsMap = [];
+                }
+                
                 var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
-            
+                console.log('SCREEN ACTION-'+action);
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope);
-                    optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
-                }
-                 if(optionsMapForResource !== undefined){
-                    //Retrieve the options object for the given action from the resource optionsMap
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action);
+                }else{
                     var options = optionsMapForResource.get(action);
-                    console.log('SCREEN ACTION-'+action);
-                    httpMethodToBackEnd($scope, options, dataFactory, $rootScope);
+                    httpMethodToBackEnd($scope, dataFactory, $rootScope, options);   
                 }
+                 
             });
         }
     };
@@ -72,6 +73,7 @@ this.actionHandling=function($scope, regionId, screenId, action, dataFactory){
 
 function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
         //Read metadata from the root scope
+        var action;
         var metaModel = scope.metadata[screenId];
 
         //Retrieve resource list from the meta model
@@ -81,11 +83,12 @@ function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
         }
 
         if(resourcelist !== undefined && resourcelist.length > 0){
-            loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope);
+            loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action);
         }
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope){
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action){
+
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -152,13 +155,18 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                             }
                     }); 
                         scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                        if(action !== undefined){
+                            var options = optionsMapForResource.get(action);
+                            httpMethodToBackEnd(scope, dataFactory, $rootScope, options);
+                        }
                     });
                 }
         });
     }
+    return 'success';
 }
 
-function httpMethodToBackEnd($scope, options, dataFactory, $rootScope){
+function httpMethodToBackEnd($scope, dataFactory, $rootScope, options){
 
     var headers = {
         'Accept': 'application/json',
@@ -258,19 +266,35 @@ function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad,
 }
 
 function setData($scope, schema, object){
-    angular.forEach(schema.properties, function(val, key){  
-            var value = $scope.data[key];
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
 
+    angular.forEach(schema.properties, function(val, key){  
+            
+            var value = $scope.data[key];
+            var type = val.type;
+            
+            if(type !== undefined && type==='static'){
+                value = val.value;
+            }
+
+            if(value === null || value === undefined || value === '' || value === 'undefined'){
+                //continue
             }else{
+    
                 var format = val.format;
+    
                 if(format !== undefined && format==='date'){
                     //Format the date in to yyyy/mm/dd format
                     value = formatIntoDate(value);
                 }
-				if(typeof value === 'object') {
-                    value = value.value;
-                }
+    
+                if(typeof value === 'object') {
+                    if(value.key !== undefined){
+                        value = value.key;
+                    }else{
+                        value = value.value;
+                    }
+                } 
+    
                 console.log(key +' : '+value);
                 object[key] = value;
             }

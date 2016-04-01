@@ -30,7 +30,7 @@ module.exports = {
                                              'src/app-miniquote/assets/css/*.css',
                                              'src/app-miniquote/ocInfra/js/ocInfra.js',
                                              'src/ocInfra/css/*.css',
-                                             'src/ocInfra/assets/icomoon/style.css'
+                                             'src/ocInfra/css/Omni_Iconfont/font/flaticon.css'
 
             ],
             'src/app-weather/index.html': ['src/app-weather/js/*.js',
