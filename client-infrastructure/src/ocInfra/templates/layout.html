@@ -2,7 +2,7 @@
     <ng-switch on="field.required">
         <div ng-switch-when="required" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup'" class="margin_BTM_15px whiteSpaceNowrap">
             <label class="col-md-{{field.columnsize}} " for="{{field.name}}">
-                 {{(locale[field.label]?locale[field.label] : field.label)}} <span class="requiredmark">*</span>
+                <span class="requiredmark">*</span>  {{(locale[field.label]?locale[field.label] : field.label)}} 
             </label>
         </div>
         <div ng-switch-default class="margin_BTM_15px whiteSpaceNowrap" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup' && field.type != 'view'">
@@ -109,7 +109,7 @@
             <ng-switch on="subfield.required">
                 <div ng-switch-when="required" class="margin_BTM_15px" style="margin-left: -15px">
                     <label class="col-md-{{subfield.columnsize}} " for="{{subfield.name}}">
-                         {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}} <span class="requiredmark">*</span>
+                         <span class="requiredmark">*</span>  {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
                     </label>
                 </div>
                 <div ng-switch-default class="margin_BTM_15px" style="margin-left: -15px">
@@ -129,13 +129,13 @@
         </div>
     </div>
     <div class="col-md-{{field.columnsize}} " ng-switch-when="columngroup" ng-show="field.visible">
-        <h5>{{locale[field.subtitle]}}&nbsp;</h5>
+        <h5 ng-if="field.subtitle">{{locale[field.subtitle]}}&nbsp;</h5>
         <div ng-repeat="subfield in field.elementgroup" ng-show="checkvisible(subfield)" class="row">
             <ng-switch on="subfield.type">
                 <ng-switch on="subfield.required">
                     <div ng-switch-when="required" ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
                         <label class="col-md-{{subfield.columnsize}} " for="{{subfield.name}}">
-                             {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}} <span class="requiredmark">*</span>
+                             <span class="requiredmark">*</span>  {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
                         </label>
                     </div>
                     <div ng-switch-default ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
