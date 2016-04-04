@@ -25,10 +25,10 @@
         <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      <div ng-if="metadata[screenId].viewAs === 'menu'" >
-      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">      
-      <!-- <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>  -->
-        <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
+      <div ng-if="mainmenu.viewAs === 'menu'" >
+      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right" id="mainMenu">      
+      <li style="margin-right:-50px;z-index:9999" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
+        <li class="dropdown" ng-repeat="application in mainmenu.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
