@@ -1,0 +1,106 @@
+{
+    "metadata": {
+        "formid": "Sample",
+        "title": "",
+        "name": "Sample",
+        "sections": [
+            {
+                "title": "_POLICYINFO",
+                "name": "Policy Information",
+                "category": "nonaccordion",
+                "elements": [
+                  
+                        {
+                        "name": "quote-insured|1-party-addr-state",
+                        "type": "usselect",
+                        "label": "_STATE",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata":[
+                        {
+                             "key":"SC",
+                             "value" : "SC",
+                             "description" : "_SOUTH_CAROLINA"
+                             }
+                             ]
+                    },
+                    {
+                        "name": "quote-persPolicy-contractTerm-effDt",
+                        "type": "date",
+                        "label": "_EFFECTIVE_DATE",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 2
+                    },
+                    {
+                        "name": "quote-persPolicy-polTermMon",
+                        "type": "usselect",
+                        "label": "_POLICY_PERIOD",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                 {
+                                    "key":"0",
+                                    "value": "0",
+                                    "description": "_ODD_TERM"
+                                },
+                                {
+                                    "key":"12",
+                                    "value":  "12",
+                                    "description":  "_12_MON"
+                                },
+                                {
+                                    "key":"3",
+                                    "value": "3",
+                                    "description": "_3_MON"
+                                },
+                                {
+                                    "key":"6",
+                                    "value": "6",
+                                    "description": "_6_MON"
+                                }
+                            ]
+                    },
+                    {
+                        "name": "quote-persPolicy-contractTerm-expDt",
+                        "type": "date",
+                        "label": "_EXPIRATION_DATE",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 2
+                    },
+                    {
+                        "name": "quote-persPolicy-paymentOpt-paymentPlan",
+                        "type": "usselect",
+                        "label": "_PAYMENT_PLAN",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"A0",
+                                    "value":  "A0",
+                                    "description":  "_A0_INS_TEMP"
+                                },
+                                {
+                                    "key":"A2",
+                                    "value":  "A2",
+                                    "description":  "_SEMI_ANNUAL"
+                                },
+                                {
+                                    "key":"A1",
+                                    "value": "A1",
+                                    "description": "_A1_INS_TEMP"
+                                }
+                            ]
+                    }
+                    ]
+                    }
+        ] 
+    }
+}

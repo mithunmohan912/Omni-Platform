@@ -25,6 +25,9 @@
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox">
         <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'yes'" ng-false-value="'no'">
     </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox1">
+        <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'Y'" ng-false-value="'N'" ng-init="data[field.name] = 'N'">
+    </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="typeahead">
 
         <input autocomplete="off" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" typeahead="c for c in typeahead[field.name] | filter:$viewValue | limitTo:10" typeahead-min-length='' typeahead-on-select='onSelectPart($item, $model, $label)' typeahead-template-url="customTemplate.html">
@@ -63,8 +66,12 @@
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
     <!-- Currently, aia system hardcode in json => so we must check system to getEnums() from backend for integral system -->
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="usselect">
+        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata " ng-change="validateEachSection(field.name)">
+        </select>
+    </div> 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
-        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value for enum in field.enumdata track by enum.value" ng-change="validateEachSection(field.name)">
+        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata track by enum.value" ng-change="validateEachSection(field.name)">
         </select>
         <select ng-if="checkRegionId == 'asia'"  id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value for enum in getEnums(field) track by enum.value" ng-change="validateEachSection(field.name)">
         </select>

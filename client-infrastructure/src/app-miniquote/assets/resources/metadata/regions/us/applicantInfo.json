@@ -1,0 +1,92 @@
+{
+    "metadata": {
+        "formid": "Sample",
+        "title": "",
+        "name": "Sample",
+        "sections": [
+            {
+                "title": "_APPLICANT",
+                "name": "Applicant Information",
+                "category": "nonaccordion",
+                "elements": [
+                  {
+                        "name": "quote-persPolicy-policyNumber",
+                        "type": "text",
+                        "label": "_QUOTENUMBER",
+                        "visible": true,
+                         "required": "required",
+                        "columnsize": 2
+                        
+                    },
+                    {
+                        "name": "quote-persPolicy-locmcopco",
+                        "type": "usselect",
+                        "label": "_COMPANY",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 2,
+                        "enumdata":[
+                            {
+                             "key" : "000505",
+                             "value" : "000505",
+                             "description" : "_PT_HO"
+                             }
+                             ]
+                    },
+                     {
+                        "name": "quote-persPolicy-contState",
+                        "type": "usselect",
+                        "label": "_PRIMARY_STATE",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 2,
+                        "enumdata":[
+                        {
+                             "key":"SC",
+                             "value" : "SC",
+                             "description" : "_SOUTH_CAROLINA"
+                             }
+                             ]
+                    },
+
+                     {
+                        "name": "quote-insured|1-party-nameInfo-personName-givenName",
+                        "type": "text",
+                        "label": "_FIRST_NAME",
+                        "visible": true,
+                         "required": "required",
+                        "columnsize": 2
+                        
+                    },
+                     {
+                        "name": "applicant.middle",
+                        "type": "text",
+                        "label": "_MIDDLE",
+                        "visible": true,
+                        "columnsize": 2
+                        
+                    },
+                     {
+                        "name": "quote-insured|1-party-nameInfo-personName-surName",
+                        "type": "text",
+                        "label": "_LAST_NAME",
+                        "visible": true,
+                         "required": "required",
+                        "columnsize": 2
+                        
+                    },
+                     {
+                        "name": "applicant.suffix",
+                        "type": "text",
+                        "label": "_SUFFIX",
+                        "visible": true,
+                        "columnsize": 2
+                        
+                    }
+                ]
+
+
+            }
+        ] 
+    }
+}
