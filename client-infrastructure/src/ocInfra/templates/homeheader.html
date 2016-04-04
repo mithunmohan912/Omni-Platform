@@ -21,8 +21,8 @@
       <ul class="nav navbar-nav navbar-right " >
         <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a></li>
         <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{locale["_ENGLISH"]}}</a></li>
-        <li class="broker"><span>{{user.name}}</span> 
-        <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
+        <li ng-show="isAuthSuccess" class="broker"><span>{{user.name}}</span> 
+        <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
       <div ng-if="metadata[screenId].viewAs === 'menu'" >

@@ -63,6 +63,7 @@
                                 "name": "quote:product_id",
                                 "type": "select",
                                 "label": "_PRODUCT_ID",
+                                "default": "MC011",
                                 "columnsize": 6,
                                 "enumdata": [
                                     {
@@ -127,6 +128,21 @@
                         "columnsize": 4,
                         "type": "columngroup",
                         "visible": "true",
+                        "elementgroup": [
+                           {
+                                "name":"quote_automobile:make",
+                                "type":"text",
+                                "label":"_MAKE",
+                                "columnsize":6
+                            }
+                            ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
                         "elementgroup": [                        
                              {
                                 "name":"quote_automobile:ext_model",
@@ -137,20 +153,6 @@
                         ]
                     },
                     {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
-                           {
-                                "name":"quote_automobile:make",
-                                "type":"text",
-                                "label":"_MAKE",
-                                "columnsize":6
-                            }
-                            ]
-                    },{
                         "subtitle": "",
                         "name": "",
                         "columnsize": 4,
