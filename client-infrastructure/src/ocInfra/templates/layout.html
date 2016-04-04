@@ -45,6 +45,14 @@
         <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" to-currency amount="data[field.name]" ng-disabled="{{field.disabled}}">
     </div>
 
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="label">
+        <span class="ng-binding">{{data[field.name]}}</span>
+    </div>
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelUS">
+        <span class="ng-binding">{{data[field.name] |  currency:"$"}}</span>
+    </div>
+
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabel">
         <span class="ng-binding tbbgcolor1">{{data[field.name] |  currency:"&euro;"}}</span>
     </div>

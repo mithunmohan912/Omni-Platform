@@ -155,6 +155,69 @@ app.service('HttpService', function($http,DataMappingService,growl) {
     return this;
 });
 
+app.service('EnumerationService', function($rootScope, dataFactory){
+
+    var self = this;
+
+    self.loadEnumerationByTab = function (){
+        if($rootScope.resourceHref && $rootScope.currRel){
+            var key;
+            if($rootScope.currRel.indexOf('risk') !== - 1){
+                key = 'risks';
+            } else if($rootScope.currRel.indexOf('owner') !== - 1){
+                key = 'owners';
+            }
+            if(key !== undefined) {
+                var url = $rootScope.resourceHref + '/' + key;
+                dataFactory.options(url, $rootScope.headers).success(function(data){
+                    var urlDetail = data._links.item.href;
+                    self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+                });
+            }
+        }
+    };
+
+    self.executeEnumerationFromBackEnd = function (url, headers, action){
+        dataFactory.options(url, headers).success(function(data){
+            angular.forEach(data._options.links, function(value){
+                if(value.rel === action){
+                    angular.forEach(value.schema.properties, function(value, key){
+                        if(value.enum) {
+                            processEnumeration($rootScope, value.enum, key);
+                        }
+                    });
+                }
+            });
+        });
+    };
+
+    var processEnumeration = function($rootScope, enumValue, key) {
+        var enumeration={};
+        var contractKey = null;
+        if (enumValue){
+            enumeration[key]=processOptionsResult(enumValue);
+            angular.extend($rootScope.enumData, enumeration);
+        }else{
+            enumeration[key]=$rootScope.enumData[key];
+        }
+        enumeration[contractKey]=enumeration[key];
+        angular.extend($rootScope.enumData, enumeration);
+    };
+
+
+    var processOptionsResult = function(enumArray){
+        var processedArray = [];
+        angular.forEach(enumArray, function(value){
+            processedArray.push(value);
+        });
+        return processedArray;
+    };
+
+    return self;
+
+});
+
+
 
 
 

@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData, EnumerationService) {
 	   
      //console.log('hello');
 
@@ -84,60 +84,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
 	MetaData.setHeaders($rootScope);
-
-    function loadEnumerationByTab(){
-    	if($rootScope.resourceHref && $rootScope.currRel){
-            var key;
-            if($rootScope.currRel.indexOf('risk') !== - 1){
-                key = 'risks';
-            } else if($rootScope.currRel.indexOf('owner') !== - 1){
-                key = 'owners';
-            }
-            if(key !== undefined) {
-    		    var url = $rootScope.resourceHref + '/' + key;
-    		    dataFactory.options(url, $rootScope.headers).success(function(data){
-    		    	var urlDetail = data._links.item.href;
-    			    executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
-    		    });
-		    }
-		}
-    }
-
-    function executeEnumerationFromBackEnd(url, headers, action){
-    	dataFactory.options(url, headers).success(function(data){
-            angular.forEach(data._options.links, function(value){
-                if(value.rel === action){
-                    angular.forEach(value.schema.properties, function(value, key){
-                        if(value.enum) {
-                            processEnumeration($rootScope, value.enum, key);
-                        }
-                    });
-                }
-            });
-        });
-    }
-
-    var processEnumeration = function($rootScope, enumValue, key) {
-        var enumeration={};
-        var contractKey = null;
-        if (enumValue){
-            enumeration[key]=processOptionsResult(enumValue);
-            angular.extend($rootScope.enumData, enumeration);
-        }else{
-            enumeration[key]=$rootScope.enumData[key];
-        }
-        enumeration[contractKey]=enumeration[key];
-        angular.extend($rootScope.enumData, enumeration);
-    };
-
-
-    var processOptionsResult = function(enumArray){
-        var processedArray = [];
-        angular.forEach(enumArray, function(value){
-            processedArray.push(value);
-        });
-        return processedArray;
-    };
 
     $scope.loadTableMetadata = function(section) {
        
@@ -255,7 +201,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             new Promise(function(resolve) {
                 MetaData.actionHandling($scope, regionId, screenId, 'create', dataFactory, undefined, resolve);
             }).then(function(){
-                loadEnumerationByTab();
+                EnumerationService.loadEnumerationByTab();
             }); 
 		}
         else if(action==='calculate'){
@@ -330,6 +276,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), seedPayLoad, undefined, undefined, resolve);
     }).then(function(){
         loadRelationshipByStep($scope.preStep);
+        EnumerationService.loadEnumerationByTab();
+        // load data for tab click
+        if($rootScope.currRel !== 'undefined'){
+            $scope.loadDataByTab($rootScope.currRel);
+        } else {
+            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
+            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+        }
     }); 
 
     $scope.selecttab=function(step1, rel){
@@ -343,9 +297,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                 loadRelationshipByStep($scope.preStep);
                 MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
-                $scope.preStep = $rootScope.step;
-                loadRelationshipByStep($scope.preStep);
-	        }
+	        } else {
+                HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
+            }
+            $scope.preStep = $rootScope.step;
+            loadRelationshipByStep($scope.preStep);
 		}).then(function(){
 		  
 			// load data for tab click
@@ -353,12 +309,13 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	            $scope.loadDataByTab($rootScope.currRel);
 	        } else {
 	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
-	            executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+	            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
 	        }
 
 		});  
 
     };
+
 
 
 
@@ -377,7 +334,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	                HttpService.get(detailTabUrl, $rootScope.headers, $scope);
 
-	                executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
+	                EnumerationService.executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
 	            });
 	        });
 		}
