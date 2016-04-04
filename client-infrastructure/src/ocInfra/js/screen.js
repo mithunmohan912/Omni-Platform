@@ -346,7 +346,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}).then(function(){
 		  
 			// load data for tab click
-	        if($rootScope.currRel !== undefined){
+	        if($rootScope.currRel !== 'undefined'){
 	            $scope.loadDataByTab($rootScope.currRel);
 	        } else {
 	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
