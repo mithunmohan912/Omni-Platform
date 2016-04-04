@@ -10,23 +10,33 @@
                 "$ref":"ownerInfo",
                 "name": "Owner Info",
                 "renderAsTab": true,
+                "link" : "quote:quote_owner_list", 
                 "step": 1
             },
             {
                 "$ref":"riskInfo",
                 "name": "Risk Info",
                 "renderAsTab": true,
+                "link" : "quote:quote_risk_list",
                 "step": 2
             },
             {
                 "$ref": "additionalInfo",
                 "name": "Additional Info",
                 "renderAsTab": true,
+                "link" : "quote:quote_risk_list",
                 "step": 3
+            },
+            {
+                "$ref": "premiumInfo",
+                "name": "Premium Info",
+                "renderAsTab": true,
+                "link" : "undefined",
+                "step": 4
             }
         ] 
     },
     "include":[
-        "ownerInfo", "riskInfo", "additionalInfo"
+        "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
     ]
 }
