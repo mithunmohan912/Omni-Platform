@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -22,6 +23,9 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         }
         $resource(path).get(function(m) {
             scope.screenId = screenId;
+            if(screenId==='dashboard'){
+                $rootScope.mainmenu=m.metadata;
+            }
             $rootScope.title = m.metadata.title;
 
             if (m.include && m.include.length > 0) {
@@ -235,9 +239,11 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
     //Set the params data from the screen per the schema object for the given action (from the options object)
     params = setData($scope, schema, params);
 
-    if(httpmethod==='GET'){    
+    if(httpmethod==='GET'){
+    $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
         dataFactory.get(url,params,$rootScope.headers).success(function(data){
+            $rootScope.loader.loading=false;
             //Load the results into the search results table
             var listDispScope = angular.element($('.table-striped')).scope(); 
             if(data._links.item){
@@ -249,20 +255,24 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         });
     } else if(httpmethod==='POST'){
+        $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
                 $rootScope.resourceHref = data._links.self.href;
                 console.log('Quote ID:' + data['quote-doc-id']);
                 showMessage('Successfully created !!');
+                $rootScope.loader.loading=false;
                 if(resolve) {
                     resolve();
                 }
             }
         });
     } else if(httpmethod==='PATCH'){
+        $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         dataFactory.patch(url,params,$rootScope.headers).success(function(data){
+            $rootScope.loader.loading=false;
             if (data) {
                 if(resolve) {
                     resolve();
