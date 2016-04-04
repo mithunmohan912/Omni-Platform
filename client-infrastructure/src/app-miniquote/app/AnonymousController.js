@@ -9,7 +9,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
     $rootScope.screenId = 'anonymous';
     var metadataLocation = $rootScope.metadataPath;
     OCMetadata.load($scope,metadataLocation);
-
+    $rootScope.isAuthSuccess = false;
 
     $scope.checkvisible = function(field) {
             return FieldService.checkVisibility(field, $scope);    
