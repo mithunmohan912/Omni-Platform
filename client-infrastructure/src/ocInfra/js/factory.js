@@ -41,7 +41,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
 
-    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, resolve){
+    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metadata[screenId];
     
@@ -59,55 +59,18 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 
                 var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
                 console.log('SCREEN ACTION-'+action);
+                // make sure alway update OptionsData when update by tab
+                if(action === 'update' && tab !== undefined){
+                    optionsMapForResource = undefined;
+                }
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action);
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);   
                 }
                  
             });
-        }
-    };
-
-    this.editHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve){
-        //Retrieve the meta-model for the given screen Id from the scope
-        var metaModel = $scope.metadata[screenId];
-        
-        //Retrieve the resource list from the meta-model
-        var resourcelist = metaModel.resourcelist;
-
-        if(resourcelist !== undefined && resourcelist.length > 0){
-        //Iterate through the resource list for the meta model
-            angular.forEach(resourcelist, function(resource) {
-                console.log('RESOURCE : '+resource);
-                // get url of item edit
-                var url = $rootScope.resourceHref;
-                var optionsMapForResource = new Map();
-                //Options call for the resources in the meta model.
-                dataFactory.options(url, $rootScope.headers).success(function(data){
-
-                    //Fetch the links response
-                    var tabUrl = data._links['quote:quote_' + tab + '_list'].href;
-                    //var optionsArray= [];
-                    //If the map has not been populated
-
-                    dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
-
-                        var detailTabUrl = data._links.item.href;
-
-                        dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
-
-                            var optiondataobj = data._options.links;
-            
-                            setOptionsMapForResource(optiondataobj, optionsMapForResource);
-                            var options = optionsMapForResource.get(action);
-                            httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);  
-
-                        });
-                    });
-                });
-        });
         }
     };
 
@@ -142,7 +105,7 @@ function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
         }
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action){
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, resolve){
 
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
@@ -173,21 +136,64 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                 }
 
                 var optionsMapForResource = scope.optionsMap[keyForOptionsMap];
+                // make sure alway update OptionsData when update by tab
+                if(action === 'update' && tab !== undefined){
+                    optionsMapForResource = undefined;
+                }
 
                 if(optionsMapForResource === undefined){
                     optionsMapForResource = new Map();
                     
                     //Options call for the resources in the meta model.
                     dataFactory.options(newURL, $rootScope.headers).success(function(data){
-                    //Fetch the options response
+                        //Fetch the options response
                         var optiondataobj = data._options.links;
+                        var options;
+                        if(tab !== undefined) {
+                            //Fetch the links response
+                            var tabObj = data._links[tab];
 
-                        setOptionsMapForResource(optiondataobj, optionsMapForResource);
+                            if(tabObj !== undefined){
 
-                        scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                        if(action !== undefined){
-                            var options = optionsMapForResource.get(action);
-                            httpMethodToBackEnd(scope, dataFactory, $rootScope, options);
+                                var tabUrl = tabObj.href;
+
+                                dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
+
+                                    var detailTabUrl = data._links.item.href;
+
+                                    dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
+
+                                        optiondataobj = data._options.links;
+
+                                        setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                                        scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                                        if(action !== undefined){
+                                            options = optionsMapForResource.get(action);
+                                            httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                        }
+
+                                    });
+                                });
+                            } else {
+
+                                setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                                scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                                if(action !== undefined){
+                                    options = optionsMapForResource.get(action);
+                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                }
+                            }
+                        }  else {
+
+                            setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                            scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                            if(action !== undefined){
+                                options = optionsMapForResource.get(action);
+                                httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                            }
                         }
                     });
                 }

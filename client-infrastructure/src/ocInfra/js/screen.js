@@ -87,12 +87,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     function loadEnumerationByTab(){
     	if($rootScope.resourceHref && $rootScope.currRel){
-		    var url = $rootScope.resourceHref + '/' +  $rootScope.currRel + 's';
-		    dataFactory.options(url, $rootScope.headers).success(function(data){
-		    	var urlDetail = data._links.item.href;
-			    executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
-		    });
-		    
+            var key;
+            if($rootScope.currRel.indexOf('risk') !== - 1){
+                key = 'risks';
+            } else if($rootScope.currRel.indexOf('owner') !== - 1){
+                key = 'owners';
+            }
+            if(key !== undefined) {
+    		    var url = $rootScope.resourceHref + '/' + key;
+    		    dataFactory.options(url, $rootScope.headers).success(function(data){
+    		    	var urlDetail = data._links.item.href;
+    			    executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+    		    });
+		    }
 		}
     }
 
@@ -246,14 +253,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		else if(action==='add'){
             $rootScope.navigate(actionURL);
             new Promise(function(resolve) {
-                MetaData.actionHandling($scope, regionId, screenId, 'create', dataFactory,resolve);
+                MetaData.actionHandling($scope, regionId, screenId, 'create', dataFactory, undefined, resolve);
             }).then(function(){
                 loadEnumerationByTab();
             }); 
 		}
         else if(action==='calculate'){
         	new Promise(function(resolve) {
-                MetaData.editHandling($scope, regionId, screenId, 'update', dataFactory, 'risk', resolve);
+                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, 'quote:quote_risk_list', resolve);
             }).then(function(){
                 var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
                 var params = {};
@@ -315,7 +322,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var list = $rootScope.metadata[$rootScope.screenId].sections;
         angular.forEach(list, function(tabObj){
             if(step === tabObj.step){
-                $rootScope.currRel = tabObj.rel;
+                $rootScope.currRel = tabObj.link;
             } 
         });
     }
@@ -333,13 +340,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 		new Promise(function(resolve) {  
 		   	// patch for previous tab
-			if($rootScope.step !== $scope.preStep) {
+			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                 loadRelationshipByStep($scope.preStep);
-                if($scope.currRel === 'self') {
-                    MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory,resolve);
-                } else {
-                    MetaData.editHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel,resolve);
-                }
+                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
                 $scope.preStep = $rootScope.step;
                 loadRelationshipByStep($scope.preStep);
 	        }
@@ -358,6 +361,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
 
+
 	$scope.loadDataByTab = function (tab) {
 
 	    var url = $rootScope.resourceHref;
@@ -365,7 +369,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		if (url !== undefined) {
 			dataFactory.options(url, $rootScope.headers).success(function(data){
 	            //Fetch the links response
-	            var tabUrl = data._links['quote:quote_' + tab + '_list'].href;
+	            var tabUrl = data._links[tab].href;
 
 	            dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
 

@@ -1,7 +1,7 @@
 <div class="tabbable boxed parentTabs" ng-if="metadata[screenId].category=='tabs'">
 	<ul class="nav nav-tabs">
 		<li class="active" quick-ng-repeat="field in metadata[screenId].sections" quick-repeat-list="field in metadata[screenId].sections" >
-			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.rel)">{{field.name}}</a>
+			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)">{{field.name}}</a>
 		</li>
 </ul>
 
