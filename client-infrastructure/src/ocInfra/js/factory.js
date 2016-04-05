@@ -174,7 +174,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                                         scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                         if(action !== undefined){
                                             options = optionsMapForResource.get(action);
+                                            if(options !== undefined){
                                             httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                            }
                                         }
 
                                     });
@@ -186,7 +188,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                                 scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                 if(action !== undefined){
                                     options = optionsMapForResource.get(action);
+                                    if(options !== undefined){
                                     httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    }
                                 }
                             }
                         }  else {
@@ -196,7 +200,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
+                                if(options !== undefined){
                                 httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                }
                             }
                         }
                     });
