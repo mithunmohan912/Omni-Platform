@@ -91,12 +91,46 @@
                 "width": "10%",
                 "space":"nowrap",
                 "options": [
-                    
                     {
                         "value": "edit",
                         "icon": "fa fa-edit",
                         "title": "_EDIT",
-                        "actionurl": "/eu/screen/quotescreate"
+                        "actionurl": "/eu/screen/quotescreate",
+                        "visibleWhen": {
+                            "expression": {
+                                "operator": "OR",
+                                "conditions": [
+                                    {
+                                        "field": "quote:product_id",
+                                        "value": "MC011"
+                                    },
+                                    {
+                                        "field": "quote:product_id",
+                                        "value": "MD005"
+                                    },
+                                    {
+                                        "field": "quote:product_id",
+                                        "value": "MA002"
+                                    },
+                                    {
+                                        "field": "quote:product_id",
+                                        "value": "MC002"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "value": "edit",
+                        "icon": "fa fa-edit",
+                        "title": "_EDIT",
+                        "actionurl": "/eu/screen/autocreate",
+                        "visibleWhen": {
+                            "expression": {
+                                "field": "quote:product_id",
+                                "value": "IN005"
+                            }
+                        }
                     }
                 ]
             }

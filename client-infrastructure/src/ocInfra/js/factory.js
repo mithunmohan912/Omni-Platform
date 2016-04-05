@@ -261,12 +261,25 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
         //Call the post method on the Data Factory
         dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
-                $rootScope.resourceHref = data._links.self.href;
-                console.log('Quote ID:' + data['quote-doc-id']);
-                showMessage('Successfully created !!');
-                $rootScope.loader.loading=false;
-                if(resolve) {
-                    resolve();
+                // AIA system doesn't return detail quote
+                // so current  we harcode to continue flow
+                if($rootScope.regionId === 'eu'){
+                    // if HO Quote else Automobile
+                    if(data.messages.message.indexOf('IN005') !== -1) {
+                        $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYNdN';
+                    } else {
+                        $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYOwM';
+                    }
+                    $rootScope.loader.loading=false;
+                    if(resolve) {
+                        resolve();
+                    }
+                } else {
+                    $rootScope.resourceHref = data._links.self.href;
+                    $rootScope.loader.loading=false;
+                    if(resolve) {
+                        resolve();
+                    }
                 }
             }
         }).error(function(data){

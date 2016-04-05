@@ -5,7 +5,7 @@
 exported AnonymousController
 */
 
-function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
+function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata, MetaData, EnumerationService, dataFactory) {
     $rootScope.screenId = 'anonymous';
     var metadataLocation = $rootScope.metadataPath;
     OCMetadata.load($scope,metadataLocation);
@@ -16,11 +16,23 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
      };
     $rootScope.showHeader = false;	
     $scope.doaction = function(method, subsections, action, actionURL) {
-        if(method === 'navigate'){
+        if(method === 'login'){
             $rootScope.nextURL = actionURL;
             $rootScope.navigate(actionURL);
-        } else if(method === 'asiaQuoteScreen'){
-
+        } else if(method === 'navigate'){
+            $rootScope.nextURL = actionURL;
+            $rootScope.navigate(actionURL);
+            // if create anonymous quotes => regionId doesn't value.
+            // Need to set value to create empty quote
+            if($rootScope.regionId === undefined){
+                var arr = actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
+            new Promise(function(resolve) {
+                MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', dataFactory, undefined, resolve);
+            }).then(function(){
+                EnumerationService.loadEnumerationByTab();
+            }); 
         }
     };
 

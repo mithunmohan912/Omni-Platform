@@ -9,7 +9,7 @@
             {
                 "$ref": "quoteInfo",
                 "name": "_QUOTE_INFO_TAB",
-                "link" : "self",
+                "link" : "itself",
                 "renderAsTab":true,
                 "step": 1
             },
@@ -33,10 +33,17 @@
                 "link" : "quote:quote_risk_list",
                 "renderAsTab": true,
                 "step": 4
+            },
+            {
+                "$ref": "premiumInfo",
+                "name": "Premium Info",
+                "renderAsTab": true,
+                "link" : "undefined",
+                "step": 5
             }
         ] 
     },
     "include":[
-        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo"
+        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
     ]
 }
