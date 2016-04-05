@@ -45,6 +45,14 @@
         <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" to-currency amount="data[field.name]" ng-disabled="{{field.disabled}}">
     </div>
 
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="label">
+        <span class="ng-binding">{{data[field.name]}}</span>
+    </div>
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelUS">
+        <span class="ng-binding">{{data[field.name] |  currency:"$"}}</span>
+    </div>
+
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabel">
         <span class="ng-binding tbbgcolor1">{{data[field.name] |  currency:"&euro;"}}</span>
     </div>
@@ -66,7 +74,7 @@
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="usselect">
-        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata track by enum.value" ng-change="validateEachSection(field.name)">
+        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata" ng-change="validateEachSection(field.name)">
         </select>
     </div> 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
@@ -157,7 +165,7 @@
                     <input type="checkbox" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-change="validateEachSection(subfield.name)" ng-true-value="'yes'" ng-false-value="'no'">
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="text">
-                    <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
+                    <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="thtext">
                     <input typeahead-min-length="3" autocomplete="off" type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" is-typeahed="{{subfield.typeahead}}" typeahead="obj as obj.title for obj in getNamesList($viewValue,subfield.typeahead,subfield.name)" typeahead-on-select='onSelectPart($item, subfield.name)'>
