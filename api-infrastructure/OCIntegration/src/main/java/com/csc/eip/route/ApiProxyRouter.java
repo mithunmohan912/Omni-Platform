@@ -1,27 +1,19 @@
 package com.csc.eip.route;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.restlet.data.Header;
-import org.restlet.engine.header.HeaderConstants;
-import org.restlet.util.Series;
 
-import com.csc.eip.pattern.MessageTranslator;
+import com.csc.eip.processor.ProxyPostProcessor;
+import com.csc.eip.processor.ProxyPreProcessor;
+import com.csc.eip.processor.RequestMessageProcessor;
+import com.csc.eip.processor.ResponseHeadersProcessor;
+import com.csc.eip.processor.ResponseMessageProcessor;
 
 /**
  * Proxy HTTP Service for SoR REST API
  */
 public class ApiProxyRouter extends RouteBuilder {
-
-	public static final String HEADER_LINK					= "Link";
-	public static final String HEADER_CONTENT_LOCATION		= "Content-Location";
-	public static final String HEADER_BODY					= "EIP_Body";
 
 	private String publicUriPrefix;
 	private String privateUriPrefix;
@@ -32,132 +24,57 @@ public class ApiProxyRouter extends RouteBuilder {
 	@Override
     public void configure() throws Exception {
 		
-        //MessageTranslatorProcessor messageTranslatorProcessor = new MessageTranslatorProcessor();
-        
+		RequestMessageProcessor requestMessageProcessor = new RequestMessageProcessor();
+		requestMessageProcessor.setRegex(publicUriPrefix);
+		requestMessageProcessor.setReplacement(privateUriPrefix);
+
+		ProxyPreProcessor proxyPreProcessor = new ProxyPreProcessor();
+		proxyPreProcessor.setCustomHeaders(customHeaders);
+
+		ProxyPostProcessor proxyPostProcessor = new ProxyPostProcessor();
+		proxyPostProcessor.setCustomHeaders(customHeaders);
+
+		ResponseHeadersProcessor responseHeadersProcessor = new ResponseHeadersProcessor();
+		responseHeadersProcessor.setRegex(privateUriPrefix);
+		responseHeadersProcessor.setReplacement(publicUriPrefix);
+
+		ResponseMessageProcessor responseMessageProcessor = new ResponseMessageProcessor();
+		responseMessageProcessor.setRegex(privateUriPrefix);
+		responseMessageProcessor.setReplacement(publicUriPrefix);
+
         from("servlet:proxy" + proxyUriPrefix + "?matchOnUriPrefix=true")
         
-        	.log("${header.CamelServletContextPath} route started")
+        	.log("${header.CamelServletContextPath} route")
         	//.log("headers:${headers}")
         	
 //        	.choice()
 //	        	.when(simple("${in.header.CamelHttpMethod} =~ 'POST' || ${in.header.CamelHttpMethod} =~ 'PATCH' || ${in.header.CamelHttpMethod} =~ 'PUT'"))
 //		        	// content based router: HTTP Method POST/PATCH/PUT"
 //		        	// translate request message
-//		        	.log("translate request message")
-//				    .process(new Processor() {
-//				    	public void process(Exchange exchange) throws Exception {
-//				    		Series<Header> headers = new Series<Header>(Header.class);
-//				    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, publicUriPrefix));
-//				    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, privateUriPrefix));
-//				    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
-//				    	}
-//				    })
-//		        	//.log("headers:${headers}")
-//		        	.to("restlet:http://localhost:8080/messageTranslator?restletMethod=post")
-//				    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
+//	        		.process(requestMessageProcessor)
 //		        .end()
 		        
 		    // proxy
-		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy started")
-		    // set SoR custom headers
-		    .process(new Processor() {
-		    	public void process(Exchange exchange) throws Exception {
-		    		if (customHeaders != null) {
-			    		for (Iterator<Entry<String,String>> it=customHeaders.entrySet().iterator(); it.hasNext(); ) {
-			    			Entry<String,String> entry = it.next();
-				    		exchange.getIn().setHeader(entry.getKey(), entry.getValue());
-			    		}
-		    		}
-		    	}
-		    })
-		    // call SoR proxy API
+		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy")
+		    .process(proxyPreProcessor)
+		    .log("proxy process")
+		    .log("privateUriPrefixHttp4: " + privateUriPrefixHttp4)
         	.to(privateUriPrefixHttp4 + "?bridgeEndpoint=true&throwExceptionOnFailure=false")
-        	// remove SoR custom headers
-		    .process(new Processor() {
-		    	public void process(Exchange exchange) throws Exception {
-		    		if (customHeaders != null) {
-			    		for (Iterator<Entry<String,String>> it=customHeaders.entrySet().iterator(); it.hasNext(); ) {
-			    			Entry<String,String> entry = it.next();
-				    		exchange.getIn().removeHeader(entry.getKey());
-			    		}
-		    		}
-		    	}
-		    })
+        	.process(proxyPostProcessor)
 		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy ended")
 		    
-		    .choice()
-		    	.when(simple("${in.header.Link} != null"))
-		        	// content based router: Link header exists
-		    		.removeHeader(HEADER_LINK)
-//		        	// translate Link header
-//		        	.log("translate Link header")
-//				    .process(new Processor() {
-//				    	public void process(Exchange exchange) throws Exception {
-//				    		Series<Header> headers = new Series<Header>(Header.class);
-//				    		@SuppressWarnings("unchecked")
-//							ArrayList<String> header = (ArrayList<String>) exchange.getIn().getHeader(HEADER_LINK);
-//				    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, privateUriPrefix));
-//				    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, publicUriPrefix));
-//				    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
-//				    		exchange.getIn().setHeader(HEADER_BODY, exchange.getIn().getBody());
-//				    		exchange.getIn().setBody(header);
-//				    	}
-//				    })
-//		        	.to("restlet:http://localhost:8080/messageTranslatorHeader?restletMethod=post")
-//				    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
-//				    .process(new Processor() {
-//				    	public void process(Exchange exchange) throws Exception {
-//				    		exchange.getIn().setHeader(HEADER_LINK, exchange.getIn().getBody());
-//				    		exchange.getIn().setBody(exchange.getIn().getHeader(HEADER_BODY));
-//				    		exchange.getIn().removeHeader(HEADER_BODY);
-//				    	}
-//				    })
-//				.end()
-					
-//		    .choice()
-//		    	.when(simple("${in.header.Content-Location} != null"))
-//		        	// content based router: Content-Location header exists
-//		    		//.removeHeader(HEADER_CONTENT_LOCATION)
-//		        	// translate Content-Location header
-//		        	.log("translate Content-Location header")
-//				    .process(new Processor() {
-//				    	public void process(Exchange exchange) throws Exception {
-//				    		Series<Header> headers = new Series<Header>(Header.class);
-//				    		@SuppressWarnings("unchecked")
-//							ArrayList<String> header = (ArrayList<String>) exchange.getIn().getHeader(HEADER_CONTENT_LOCATION);
-//				    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, privateUriPrefix));
-//				    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, publicUriPrefix));
-//				    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
-//				    		exchange.getIn().setHeader(HEADER_BODY, exchange.getIn().getBody());
-//				    		exchange.getIn().setBody(header);
-//				    	}
-//				    })
-//		        	.to("restlet:http://localhost:8080/messageTranslatorHeader?restletMethod=post")
-//				    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
-//				    .process(new Processor() {
-//				    	public void process(Exchange exchange) throws Exception {
-//				    		exchange.getIn().setHeader(HEADER_CONTENT_LOCATION, exchange.getIn().getBody());
-//				    		exchange.getIn().setBody(exchange.getIn().getHeader(HEADER_BODY));
-//				    		exchange.getIn().removeHeader(HEADER_BODY);
-//				    	}
-//				    })
-//				.end()
-					
+		    // translate response headers
+		    .process(responseHeadersProcessor)
+		    					
         	// translate response message
-        	.log("translate response message")
-		    .process(new Processor() {
-		    	public void process(Exchange exchange) throws Exception {
-		    		Series<Header> headers = new Series<Header>(Header.class);
-		    		headers.add(new Header(MessageTranslator.HEADER_PATTERN, privateUriPrefix));
-		    		headers.add(new Header(MessageTranslator.HEADER_REPLACEMENT, publicUriPrefix));
-		    		exchange.getIn().setHeader(HeaderConstants.ATTRIBUTE_HEADERS, headers);
-		    	}
-		    })
-        	//.log("headers:${headers}")
-        	.to("restlet:http://localhost:8080/messageTranslator?restletMethod=post")
-		    .removeHeader(HeaderConstants.ATTRIBUTE_HEADERS)
-        	//.log("headers:${headers}")
+		    .convertBodyTo(String.class)
+		    .process(responseMessageProcessor)
 		    
+		    // set CORS headers
+		    .setHeader("Access-Control-Allow-Methods").constant("GET, POST, HEAD, OPTIONS, PATCH, PUT, DELETE")
+		    .setHeader("Access-Control-Allow-Headers").constant("Origin, X-Requested-With, Content-Type, Accept, userName")
+		    
+        	//.log("headers:${headers}")
         	.log("${header.CamelServletContextPath} route ended");
         
     }
