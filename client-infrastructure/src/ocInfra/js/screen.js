@@ -320,7 +320,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	            $scope.loadDataByTab($rootScope.currRel);
 	        } else {
 	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
-	            executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+	            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
 	        }
 
 		});  
