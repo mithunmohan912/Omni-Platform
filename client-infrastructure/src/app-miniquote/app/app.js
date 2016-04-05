@@ -37,7 +37,7 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
 
     tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
 
-    $httpProvider.interceptors.push(function($q, $rootScope, $location, $timeout) {
+    $httpProvider.interceptors.push(function($q, $rootScope) {
 
         return {
             'request': function(config) {
