@@ -12,13 +12,6 @@
         <tr>
             <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
         </tr>
-        <tr ng-show="field.tableMetaData.searching">
-            <th ng-attr-style="width:{{column.width}}; text-align:{{column.align}};"  colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
-                <!--input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" /-->
-                <input ng-if="screenId === 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_TXFRITEMS_PAGE"]}} type="search" />
-                <input ng-if="screenId !== 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" />
-            </th>
-        </tr>
     </thead>
 
     <tbody>
