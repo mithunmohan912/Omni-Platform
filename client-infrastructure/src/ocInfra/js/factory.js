@@ -280,7 +280,9 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     if(resolve) {
                         resolve();
                     }
-                } else {
+                }if($rootScope.regionId === 'us'){
+                  showMessage('Created Successfully !!');
+                }  else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
