@@ -253,6 +253,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                 listDispScope.stTableList = [];
                 listDispScope.showResult = false;
             }
+        }).error(function(data){
+            $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -267,6 +269,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     resolve();
                 }
             }
+        }).error(function(data){
+            $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
@@ -278,6 +282,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     resolve();
                 }
             }
+        }).error(function(data){
+            $rootScope.loader.loading=false;
         });
     }
 }
