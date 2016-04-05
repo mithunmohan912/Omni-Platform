@@ -51,6 +51,10 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
             if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
             $location.url($rootScope.nextURL);
        }
+   } else {
+     if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+        $location.url('/');
+     }
    }
    });  
     //persist few objects at app level
