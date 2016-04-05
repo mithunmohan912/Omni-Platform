@@ -33,8 +33,6 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
             }).then(function(){
                 EnumerationService.loadEnumerationByTab();
             }); 
-        } else if(method === 'asiaQuoteScreen'){
-
         }
     };
 

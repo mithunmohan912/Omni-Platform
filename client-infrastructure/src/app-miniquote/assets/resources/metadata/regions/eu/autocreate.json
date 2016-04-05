@@ -9,25 +9,35 @@
         "sections": [
             {
                 "$ref": "quoteInfo",
-                "name": "Quote Info",
+                "name": "_QUOTE_INFO_TAB",
                 "renderAsTab":true,
+                "link" : "itself",
                 "step": 1
             },
             {
                 "$ref":"ownerInfo",
-                "name": "Owner Info",
+                "name": "_OWNER_INFO_TAB",
+                "link" : "quote:quote_owner_list",
                 "renderAsTab": true,
                 "step": 2
             },
             {
                 "$ref":"autoRiskInfo",
-                "name": "Risk Info",
+                "name": "_RISK_INFO_TAB",
+                "link" : "quote:quote_risk_list",
                 "renderAsTab": true,
                 "step": 3
+            },
+            {
+                "$ref": "premiumInfo",
+                "name": "Premium Info",
+                "renderAsTab": true,
+                "link" : "undefined",
+                "step": 4
             }
-        ] 
+        ]
     },
     "include":[
-        "quoteInfo", "ownerInfo", "autoRiskInfo"
+        "quoteInfo", "ownerInfo", "autoRiskInfo", "premiumInfo"
     ]
 }

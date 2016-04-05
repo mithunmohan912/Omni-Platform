@@ -213,7 +213,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 dataFactory.post(url,params,$rootScope.headers).success(function(data){
                 	var urlDetail;
                 	if(Array.isArray(data.messages)){
-                		urlDetail = data.messages[1].message[0];
+                		// get last element of array
+                		urlDetail = data.messages[data.messages.length - 1].message[0];
                 	} else {
                 		urlDetail = data.messages.context;
                 	}
