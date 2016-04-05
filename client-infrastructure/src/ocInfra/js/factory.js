@@ -48,7 +48,18 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metadata[screenId];
-    
+        
+        //Add new values to $scope.data
+        //incase the data is Date the code will select current data and reforamt 
+        if(metaModel.defaultValue !== undefined){
+            angular.forEach(metaModel.defaultValue, function(resource) {
+                if(resource.value === 'Date'){
+                    resource.value = formatIntoDate(new Date());
+                }
+                $scope.data[resource.field] = resource.value;
+            });
+        }
+
         //Retrieve the resource list from the meta-model
         var resourcelist = metaModel.resourcelist;
 
@@ -80,7 +91,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
 
     this.setHeaders = function($rootScope){
         $rootScope.headers = { 
-            'Accept': 'application/json',
+            'Accept': 'application/vnd.hal+json, application/json',
             'Content-Type': 'application/json',
             'x-IBM-Client-id' : 'f9220738-65e5-432d-9b8f-05e8357d1a61',
             'x-IBM-Client-Secret' : 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI' 
@@ -271,18 +282,19 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                 // so current  we harcode to continue flow
                 if($rootScope.regionId === 'eu'){
                     // if HO Quote else Automobile
-                    if(data.messages.message.indexOf('IN005') !== -1) {
+                    /* if(data.messages.message.indexOf('IN005') !== -1) {
                         $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYNdN';
                     } else {
                         $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYOwM';
-                    }
+                    } */
+                    $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
                         resolve();
                     }
-                }if($rootScope.regionId === 'us'){
+                }else if($rootScope.regionId === 'us'){
                   showMessage('Created Successfully !!');
-                }  else {
+                }else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
