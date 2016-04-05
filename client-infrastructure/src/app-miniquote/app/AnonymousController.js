@@ -22,6 +22,12 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
         } else if(method === 'navigate'){
             $rootScope.nextURL = actionURL;
             $rootScope.navigate(actionURL);
+            // if create anonymous quotes => regionId doesn't value.
+            // Need to set value to create empty quote
+            if($rootScope.regionId === undefined){
+                var arr = actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
             new Promise(function(resolve) {
                 MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', dataFactory, undefined, resolve);
             }).then(function(){

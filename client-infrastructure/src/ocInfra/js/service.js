@@ -161,17 +161,16 @@ app.service('EnumerationService', function($rootScope, dataFactory){
 
     self.loadEnumerationByTab = function (){
         if($rootScope.resourceHref && $rootScope.currRel){
-            var key;
-            if($rootScope.currRel.indexOf('risk') !== - 1){
-                key = 'risks';
-            } else if($rootScope.currRel.indexOf('owner') !== - 1){
-                key = 'owners';
-            }
-            if(key !== undefined) {
-                var url = $rootScope.resourceHref + '/' + key;
-                dataFactory.options(url, $rootScope.headers).success(function(data){
-                    var urlDetail = data._links.item.href;
-                    self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+            if($rootScope.currRel === 'itself'){
+                var urlDetail = $rootScope.resourceHref;
+                self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+            } else {
+                dataFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+                    var url = data._links[$rootScope.currRel].href;
+                    dataFactory.options(url, $rootScope.headers).success(function(data){
+                        var urlDetail = data._links.item.href;
+                        self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+                    });
                 });
             }
         }

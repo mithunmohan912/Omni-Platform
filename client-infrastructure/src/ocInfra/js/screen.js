@@ -146,7 +146,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	};
 	
-	$scope.loadMetaData();
+	//$scope.loadMetaData();
 
 	// Dynamic Injection of Factory
 
@@ -211,7 +211,13 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
                 var params = {};
                 dataFactory.post(url,params,$rootScope.headers).success(function(data){
-                    dataFactory.get(data.messages.context,params,$rootScope.headers).success(function(data){
+                	var urlDetail;
+                	if(Array.isArray(data.messages)){
+                		urlDetail = data.messages[1].message[0];
+                	} else {
+                		urlDetail = data.messages.context;
+                	}
+                	dataFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
                         $scope.data = data;
                         console.log('Compute successfully !!');
                     });
@@ -278,13 +284,13 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
-        if($rootScope.currRel !== 'undefined'){
+        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself'){
             $scope.loadDataByTab($rootScope.currRel);
         } else {
             HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
         }
-    }); 
+    });
 
     $scope.selecttab=function(step1, rel){
 		var screenId = $rootScope.screenId;
@@ -305,7 +311,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}).then(function(){
 		  
 			// load data for tab click
-	        if($rootScope.currRel !== 'undefined'){
+	        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself'){
 	            $scope.loadDataByTab($rootScope.currRel);
 	        } else {
 	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
