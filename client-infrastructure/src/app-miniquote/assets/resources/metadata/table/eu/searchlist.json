@@ -88,7 +88,6 @@
                 "type": "dropdown",
                 "align": "left",
                 "visible": true,
-                "displayName": "_ACTION",
                 "width": "10%",
                 "space":"nowrap",
                 "options": [
@@ -96,7 +95,7 @@
                         "value": "edit",
                         "icon": "fa fa-edit",
                         "title": "_EDIT",
-                        "actionurl": "/eu/screen/quotescreate",
+                        "actionurl": "/eu/screen/autocreate",
                         "visibleWhen": {
                             "expression": {
                                 "operator": "OR",
@@ -120,6 +119,18 @@
                                 ]
                             }
                         }
+                    },
+                    {
+                        "value": "edit",
+                        "icon": "fa fa-edit",
+                        "title": "_EDIT",
+                        "actionurl": "/eu/screen/quotescreate",
+                        "visibleWhen": {
+                            "expression": {
+                                "field": "quote:product_id",
+                                "value": "IN005"
+                            }
+                        }
                     }
                 ]
             }
@@ -131,7 +142,9 @@
                 "MA002": "flaticon-auto", 
                 "MC002": "flaticon-auto", 
                 "IN005": "flaticon-home", 
-                "AX009": "flaticon-auto" 
+                "AX009": "flaticon-auto"  
+
             }
+        
     }
 }
