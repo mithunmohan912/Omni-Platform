@@ -37,6 +37,9 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         } else if (actionType === 'delete') {
             field = angular.element($('#' + tableName)).scope().field;
             $scope.deleteRow(item, field);
+        } else if (actionType === 'inquire') {
+            $rootScope.resourceHref = item.href;
+            $rootScope.navigate(url);
         }
     };
 	
