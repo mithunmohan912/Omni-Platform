@@ -219,7 +219,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                     });
                 }).error(function(){
-                    showMessage("Calculation Failed");
+                    showMessage('Calculation Failed');
                 });
             });  
         }
