@@ -174,7 +174,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                                         scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                         if(action !== undefined){
                                             options = optionsMapForResource.get(action);
+                                            if(options !== undefined){
                                             httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                            }
                                         }
 
                                     });
@@ -186,7 +188,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                                 scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                 if(action !== undefined){
                                     options = optionsMapForResource.get(action);
+                                    if(options !== undefined){
                                     httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    }
                                 }
                             }
                         }  else {
@@ -196,7 +200,9 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
+                                if(options !== undefined){
                                 httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                }
                             }
                         }
                     });
@@ -253,6 +259,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                 listDispScope.stTableList = [];
                 listDispScope.showResult = false;
             }
+        }).error(function(){
+            $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -272,7 +280,9 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     if(resolve) {
                         resolve();
                     }
-                } else {
+                }if($rootScope.regionId === 'us'){
+                  showMessage('Created Successfully !!');
+                }  else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
@@ -280,6 +290,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     }
                 }
             }
+        }).error(function(){
+            $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
@@ -291,6 +303,8 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     resolve();
                 }
             }
+        }).error(function(){
+            $rootScope.loader.loading=false;
         });
     }
 }

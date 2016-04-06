@@ -225,6 +225,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 });
             });  
         }
+        else if(action==='navigate'){
+        	$rootScope.resourceHref = undefined;
+            $rootScope.navigate(actionURL);
+		}
 		else {
 			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
         }
@@ -285,7 +289,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
-        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself'){
+        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
             $scope.loadDataByTab($rootScope.currRel);
         } else {
             HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
@@ -293,26 +297,26 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     });
 
-    $scope.selecttab=function(step1, rel){
+   $scope.selecttab=function(step1, rel){
 		var screenId = $rootScope.screenId;
 		var regionId = $rootScope.regionId;
         $rootScope.step = step1;
         $rootScope.currRel = rel;
 
+        if(regionId !=='us'){
 		new Promise(function(resolve) {  
+			
 		   	// patch for previous tab
 			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                 loadRelationshipByStep($scope.preStep);
                 MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
-	        } else {
-                HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
-            }
-            $scope.preStep = $rootScope.step;
-            loadRelationshipByStep($scope.preStep);
+                $scope.preStep = $rootScope.step;
+                loadRelationshipByStep($scope.preStep);
+	        }
 		}).then(function(){
 		  
 			// load data for tab click
-	        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself'){
+	        if($rootScope.currRel !== 'undefined'){
 	            $scope.loadDataByTab($rootScope.currRel);
 	        } else {
 	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
@@ -320,6 +324,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	        }
 
 		});  
+	}
 
     };
 
