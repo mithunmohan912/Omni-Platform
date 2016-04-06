@@ -51,7 +51,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         
         //Add new values to $scope.data
         //incase the data is Date the code will select current data and reforamt 
-        if(metaModel.defaultValue !== undefined){
+        if(metaModel.defaultValue !== undefined && action ==='create'){
             angular.forEach(metaModel.defaultValue, function(resource) {
                 if(resource.value === 'Date'){
                     resource.value = formatIntoDate(new Date());
