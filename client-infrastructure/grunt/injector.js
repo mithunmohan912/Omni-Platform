@@ -30,7 +30,7 @@ module.exports = {
                                              'src/app-miniquote/assets/css/*.css',
                                              'src/app-miniquote/ocInfra/js/ocInfra.js',
                                              'src/ocInfra/css/*.css',
-                                             'src/ocInfra/css/Generic_Iconfont/font/flaticon.css',
+                                             'src/ocInfra/css/Generic_Iconfont/font/generic_flaticon.css',
                                              'src/ocInfra/css/Omni_Iconfont/font/flaticon.css'
                                              
 
