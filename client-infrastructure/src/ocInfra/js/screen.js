@@ -218,6 +218,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         $scope.preStep = $rootScope.step;
                         EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                     });
+                }).error(function(){
+                    showMessage("Calculation Failed");
                 });
             });  
         }
