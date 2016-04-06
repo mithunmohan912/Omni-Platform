@@ -272,6 +272,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         }).error(function(){
             $rootScope.loader.loading=false;
+            showMessage('Get Data Failed');
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -303,6 +304,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         }).error(function(){
             $rootScope.loader.loading=false;
+            showMessage('Patch Data Failed');
         });
     }
 }
