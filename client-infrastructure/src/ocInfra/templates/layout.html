@@ -49,6 +49,10 @@
         <span class="ng-binding">{{data[field.name]}}</span>
     </div>
 
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelAsia">
+        <span class="ng-binding">{{data[field.name] |  currency}}</span>
+    </div>
+
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelUS">
         <span class="ng-binding">{{data[field.name] |  currency:"$"}}</span>
     </div>

@@ -216,6 +216,46 @@ app.service('EnumerationService', function($rootScope, dataFactory){
 
 });
 
+app.service('CheckVisibleService', function(){
+
+    this.checkVisible = function(field, $scope) {
+        if (field.visibleWhen) {
+            var response = evaluateExpression(field.visibleWhen.expression, $scope);
+            return response;
+        }    
+        return true;
+    };
+
+    function evaluateExpression(expression, $scope) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && evaluateExpression(val, $scope);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || evaluateExpression(val, $scope);
+                    }
+                });
+            }
+        } else //Base case
+        {
+            response = $scope.data[expression.field] === expression.value;
+        }
+        return response;
+    }
+
+    return this;
+
+});
+
+
 
 
 
