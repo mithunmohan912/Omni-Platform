@@ -378,7 +378,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         if(emptyField.length > 0){
             emptyField.forEach(function(key) {
                 var label = $scope.translateKeyToLabelByTab(key);
-                message += $rootScope.locale[label] + ' are required <br />';
+                message += $rootScope.locale[label] + ' is required <br />';
             });
             showMessage(message);
             return false;

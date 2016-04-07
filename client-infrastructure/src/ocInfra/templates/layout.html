@@ -48,10 +48,10 @@
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="label">
         <span class="ng-binding">{{data[field.name]}}</span>
     </div>
-
+    <!-- Because asia system return all premium and currency -->
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelAsia">
-        <span class="ng-binding">{{data[field.name] |  currency}}</span>
-    </div>
+        <span class="ng-binding">{{(data[field.name].split(" ")[0] |  currency) + ' ' + data[field.name].split(" ")[1]}}</span>
+    </div> 
 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelUS">
         <span class="ng-binding">{{data[field.name] |  currency:"$"}}</span>
