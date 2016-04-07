@@ -363,7 +363,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var message = '';
 
         angular.forEach($scope.data, function(value, key){
-             if(value !== '' && value !== undefined && key !== '_links' && key !== '_options'){
+             if(value !== '' && value !== undefined && key !== '_links' && key !== '_options' && value !== null){
                 dataField.push(key);
              }
         });
