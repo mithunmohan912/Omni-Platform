@@ -236,7 +236,7 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
         console.log('SCHEMA : '+object.schema);
         //optionsMapForResource.set(object.action, object);
         if(optionsMapForResource.get(object.action) !== undefined){
-            optionsMapForResource.set(object.action+'1', object);    
+            optionsMapForResource.set(object.action, object);    
         }else{
             optionsMapForResource.set(object.action, object);    
         }
