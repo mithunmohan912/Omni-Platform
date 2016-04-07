@@ -44,10 +44,10 @@
                     <span ng-switch-when="linklabel">
                         <ng-switch on="column.action">
                             <span ng-switch-when="Edit">
-                                <a style="cursor:pointer;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
                             </span>
                         <span ng-switch-when="Delete">
-                                <a style="cursor:pointer;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
                             </span>
                         </ng-switch>
                     </span>
@@ -67,7 +67,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="16" class="text-center" style="text-align: center;padding-left:0px">
+            <td colspan="16" class="text-right" style="padding-left:0px">
                 <div st-items-by-page="5" st-pagination="" st-template="ocInfra/templates/stpaging.html">
                 </div>
             </td>
