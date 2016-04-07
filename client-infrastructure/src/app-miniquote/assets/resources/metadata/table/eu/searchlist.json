@@ -16,14 +16,6 @@
                 "width": "5%"
             },
             {
-                "quoteField": "quote:type",
-                "displayName": "_QUOTE_TYPE",
-                "type": "label",
-                "align": "left",
-                "visible": true,
-                "width": "5%"   
-            },
-            {
                 "quoteField": "quote:identifier",
                 "contractField": "contract:number",
                 "displayName": "_NUMBER",
@@ -96,7 +88,7 @@
                         "value": "edit",
                         "icon": "fa fa-edit",
                         "title": "_EDIT",
-                        "actionurl": "/eu/screen/quotescreate",
+                        "actionurl": "/eu/screen/autocreate",
                         "visibleWhen": {
                             "expression": {
                                 "operator": "OR",
@@ -120,6 +112,18 @@
                                 ]
                             }
                         }
+                    },
+                    {
+                        "value": "edit",
+                        "icon": "fa fa-edit",
+                        "title": "_EDIT",
+                        "actionurl": "/eu/screen/quotescreate",
+                        "visibleWhen": {
+                            "expression": {
+                                "field": "quote:product_id",
+                                "value": "IN005"
+                            }
+                        }
                     }
                 ]
             }
@@ -131,7 +135,9 @@
                 "MA002": "flaticon-auto", 
                 "MC002": "flaticon-auto", 
                 "IN005": "flaticon-home", 
-                "AX009": "flaticon-auto" 
+                "AX009": "flaticon-auto"  
+
             }
+        
     }
 }

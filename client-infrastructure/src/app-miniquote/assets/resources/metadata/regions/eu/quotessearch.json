@@ -69,7 +69,7 @@
                             {
                                 "name": "quote:product_id",
                                 "type": "select",
-                                "label": "_PRODUCT_ID",
+                                "label": "_PRODUCT",
                                 "default": "IN005",
                                 "columnsize": 6,
                                 "enumdata": [
@@ -102,11 +102,22 @@
                                 "columnsize":6
                             },
                            {
-                                "name":"quote:type",
-                                "type":"text",
-                                "label":"_QUOTE_TYPE",
-                                "columnsize":6
+                                "name": "quote:type",
+                                "type": "select",
+                                "label": "_QUOTE_TYPE",
+                                "columnsize": 6,
+                                "enumdata": [
+                                    {
+                                        "value": "new",
+                                        "description": "_NEW"
+                                    },
+                                    {
+                                        "value": "amendment",
+                                        "description": "_AMENDMENT"
+                                    }
+                                ] 
                             },
+                           
                             {
                                 "name": "quote_owner:name",
                                 "type": "text",

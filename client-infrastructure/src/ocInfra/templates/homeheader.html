@@ -26,7 +26,7 @@
       </ul>
 
       <div ng-if="mainmenu.viewAs === 'menu'" >
-      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right" id="mainMenu">      
+      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu">      
       <li style="margin-right:-50px;z-index:9999" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
         <li class="dropdown" ng-repeat="application in mainmenu.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">

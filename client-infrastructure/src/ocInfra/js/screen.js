@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular
+global angular, showMessage
 */
 
 /*
@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData, EnumerationService) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, HttpService, dataFactory, TableMetaData, EnumerationService, CheckVisibleService) {
 	   
      //console.log('hello');
 
@@ -107,19 +107,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	{
 		if(field.visibleWhen)
 		{
-			var response = evaluateExpression(field.visibleWhen.expression);
-			
-			return response;
+			return CheckVisibleService.checkVisible(field, $scope);
 		}
 		return true;
 	};
-
-	function evaluateExpression(expression)
-	{    var response = true;
-		response = $scope.data[expression.field] === expression.value;
-		
-		return response;
-	}
 	
 	$scope.loadMetaData = function() {
 		$rootScope.metadata = {};
@@ -221,7 +212,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 	dataFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
                         $scope.data = data;
                         console.log('Compute successfully !!');
+                        // go to next tab to see premium
+                        $rootScope.step = $rootScope.step + 1;
+                        loadRelationshipByStep($rootScope.step);
+                        $scope.preStep = $rootScope.step;
+                        EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                     });
+                }).error(function(){
+                    showMessage('Calculation Failed');
                 });
             });  
         }
@@ -274,12 +272,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.preStep = 1;
     $scope.preRel = undefined;
     $rootScope.currRel = undefined;
+    $rootScope.currName = undefined;
 
     function loadRelationshipByStep(step){
         var list = $rootScope.metadata[$rootScope.screenId].sections;
         angular.forEach(list, function(tabObj){
             if(step === tabObj.step){
                 $rootScope.currRel = tabObj.link;
+                $rootScope.currName = tabObj.$ref;
             } 
         });
     }
@@ -297,34 +297,37 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     });
 
-   $scope.selecttab=function(step1, rel){
-		var screenId = $rootScope.screenId;
-		var regionId = $rootScope.regionId;
-        $rootScope.step = step1;
-        $rootScope.currRel = rel;
+    $scope.selecttab=function(step1, rel){
+    	var screenId = $rootScope.screenId;
+        var regionId = $rootScope.regionId;
 
         if(regionId !=='us'){
-		new Promise(function(resolve) {  
-			
-		   	// patch for previous tab
-			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
-                loadRelationshipByStep($scope.preStep);
-                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
-                $scope.preStep = $rootScope.step;
-                loadRelationshipByStep($scope.preStep);
-	        }
-		}).then(function(){
-		  
-			// load data for tab click
-	        if($rootScope.currRel !== 'undefined'){
-	            $scope.loadDataByTab($rootScope.currRel);
-	        } else {
-	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
-	            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-	        }
+            if($scope.isValid()){
+                $rootScope.step = step1;
+                $rootScope.currRel = rel;
 
-		});  
-	}
+        		new Promise(function(resolve) {
+        		   	// patch for previous tab
+        			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
+                        loadRelationshipByStep($scope.preStep);
+                        MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
+                        $scope.preStep = $rootScope.step;
+                        loadRelationshipByStep($scope.preStep);
+        	        }
+        		}).then(function(){
+        			// load data for tab click
+        	        if($rootScope.currRel !== 'undefined'){
+        	            $scope.loadDataByTab($rootScope.currRel);
+        	        } else {
+        	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
+        	            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+        	        }
+
+        		});
+            }
+	    } else {
+            $rootScope.step = step1;
+        }
 
     };
 
@@ -352,5 +355,64 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
 
 	};
+
+	$scope.isValid = function(){
+        var dataField = [];
+        var mandatoryField = $scope.loadmandatoryField();
+        var emptyField = [];
+        var message = '';
+
+        angular.forEach($scope.data, function(value, key){
+             if(value !== '' && value !== undefined && key !== '_links' && key !== '_options' && value !== null){
+                dataField.push(key);
+             }
+        });
+
+        mandatoryField.forEach(function(entry) {
+            if($.inArray(entry, dataField) === -1){                    
+                console.log(entry);
+                emptyField.push(entry);
+            }
+        });
+
+        if(emptyField.length > 0){
+            emptyField.forEach(function(key) {
+                var label = $scope.translateKeyToLabelByTab(key);
+                message += $rootScope.locale[label] + ' is required <br />';
+            });
+            showMessage(message);
+            return false;
+        }
+
+        return true;
+    };
+
+    $scope.loadmandatoryField = function(){
+    	var mandatoryField = [];
+    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
+    	for(var i = 0; i < arrparent.length; i++){
+    		var arr = arrparent[i].elements;
+    		for(var j = 0; j < arr.length; j++){
+	    		var object = arr[j];
+	    		if(object.required !== undefined && object.required === 'required'){
+	    			mandatoryField.push(object.name);
+	    		}
+	    	}
+    	}
+    	return mandatoryField;
+    };
+
+    $scope.translateKeyToLabelByTab = function(key){
+    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
+    	for(var i = 0; i < arrparent.length; i++){
+    		var arr = arrparent[i].elements;
+    		for(var j = 0; j < arr.length; j++){
+	    		var object = arr[j];
+	    		if(object.name === key){
+	    			return object.label;
+	    		}
+	    	}
+    	}
+    };
  
 }

@@ -1,9 +1,9 @@
 <div>
     <div class="col-md-12">
-<div name="table-header" class="row"  ng-if="screenId === 'landingPage'">
+<div name="table-header" class="row">
     <label class="pull-left">{{locale["_RESULTS"]}} :{{stTableList.length}}</label>
-    <label class="pull-right"><a class="source_sans-bold" ng-click="navigate(field.tableMetaData.actionurl, field.tableMetaData.name);">
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>{{locale["_ADVANCED_SEARCH"]}} </a></label>
+    <!-- <label class="pull-right"><a class="source_sans-bold" ng-click="navigate(field.tableMetaData.actionurl, field.tableMetaData.name);">
+-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>{{locale["_ADVANCED_SEARCH"]}} </a></label> -->
 </div>
 </div>
 <div name="table" id="no-more-tables">
@@ -11,6 +11,11 @@
     <thead class="cf">
         <tr>
             <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
+        </tr>
+        <tr ng-show="field.tableMetaData.searching">
+            <th colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
+                <input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_RESULTS"]}} type="search" />
+            </th>
         </tr>
     </thead>
 
@@ -39,10 +44,10 @@
                     <span ng-switch-when="linklabel">
                         <ng-switch on="column.action">
                             <span ng-switch-when="Edit">
-                                <a style="cursor:pointer;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
                             </span>
                         <span ng-switch-when="Delete">
-                                <a style="cursor:pointer;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
                             </span>
                         </ng-switch>
                     </span>
@@ -62,7 +67,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="16" class="text-center" style="text-align: center;padding-left:0px">
+            <td colspan="16" class="text-right" style="padding-left:0px">
                 <div st-items-by-page="5" st-pagination="" st-template="ocInfra/templates/stpaging.html">
                 </div>
             </td>

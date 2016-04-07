@@ -272,29 +272,16 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         }).error(function(){
             $rootScope.loader.loading=false;
+            showMessage('Get Data Failed');
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
-                // AIA system doesn't return detail quote
-                // so current  we harcode to continue flow
-                if($rootScope.regionId === 'eu'){
-                    // if HO Quote else Automobile
-                    /* if(data.messages.message.indexOf('IN005') !== -1) {
-                        $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYNdN';
-                    } else {
-                        $rootScope.resourceHref = $rootScope.HostURL.replace(':regionId','aia') + 'quotes/ID-mrMxYOwM';
-                    } */
-                    $rootScope.resourceHref = data._links.self.href;
-                    $rootScope.loader.loading=false;
-                    if(resolve) {
-                        resolve();
-                    }
-                }else if($rootScope.regionId === 'us'){
+                if($rootScope.regionId === 'us'){
                   showMessage('Created Successfully !!');
-                }else {
+                } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
@@ -317,6 +304,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         }).error(function(){
             $rootScope.loader.loading=false;
+            showMessage('Patch Data Failed');
         });
     }
 }
