@@ -16,16 +16,16 @@
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="checkbox">
         <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)">
     </div>
-    <div class="col-md-{{field.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px;">
+    <div class="col-md-{{field.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
         <div class="btn-group">
             <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="false" uncheckable>NO</label>
             <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="true" uncheckable>YES</label>
         </div>
     </div>
-    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox">
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox" style="text-align:left">
         <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'yes'" ng-false-value="'no'">
     </div>
-    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox1">
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox1" style="text-align:left">
         <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'Y'" ng-false-value="'N'" ng-init="data[field.name] = 'N'">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="typeahead">
@@ -159,7 +159,7 @@
 
                     <input type="checkbox" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-change="validateEachSection(subfield.name)">
                 </div>
-                <div class="col-md-{{subfield.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px;">
+                <div class="col-md-{{subfield.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
                     <div class="btn-group">
                         <label class="btn btn-default" name="{{subfield.name}}" id="{{subfield.name}}" ng-click="validateEachSection(subfield.name)" ng-model="data[subfield.name]" btn-radio="false" uncheckable>NO</label>
                         <label class="btn btn-default" name="{{subfield.name}}" id="{{subfield.name}}" ng-click="validateEachSection(subfield.name)" ng-model="data[subfield.name]" btn-radio="true" uncheckable>YES</label>
