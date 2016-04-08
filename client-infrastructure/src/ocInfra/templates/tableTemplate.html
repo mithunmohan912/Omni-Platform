@@ -9,13 +9,13 @@
 <div name="table" id="no-more-tables">
     <table st-safe-src="stTableList" st-table="displayed" class="col-md-12 table-bordered table-striped table-condensed cf">
     <thead class="cf">
-        <tr>
-            <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
-        </tr>
         <tr ng-show="field.tableMetaData.searching">
             <th colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
                 <input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_RESULTS"]}} type="search" />
             </th>
+        </tr>
+        <tr>
+            <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
         </tr>
     </thead>
 
