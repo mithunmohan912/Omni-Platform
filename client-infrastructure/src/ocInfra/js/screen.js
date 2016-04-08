@@ -301,7 +301,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     	var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
 
-        if(regionId !=='us'){
+        
             if($scope.isValid()){
                 $rootScope.step = step1;
                 $rootScope.currRel = rel;
@@ -310,7 +310,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         		   	// patch for previous tab
         			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                         loadRelationshipByStep($scope.preStep);
+                        if(regionId !=='us'){
                         MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
+                      }
                         $scope.preStep = $rootScope.step;
                         loadRelationshipByStep($scope.preStep);
         	        }
@@ -325,9 +327,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
         		});
             }
-	    } else {
-            $rootScope.step = step1;
-        }
+	    
 
     };
 
