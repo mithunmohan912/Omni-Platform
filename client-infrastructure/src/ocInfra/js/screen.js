@@ -291,7 +291,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
             $scope.loadDataByTab($rootScope.currRel);
-        } else {
+        } else if($rootScope.resourceHref !== undefined) {
             HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
         }
