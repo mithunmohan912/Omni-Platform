@@ -55,7 +55,11 @@
           <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
-              <span class="{{section.icon}}"></span>{{locale[section.labelDisplay]}}
+            <div class="text-center">
+              <span class="{{section.icon}}"></span>
+              <span class="flag {{section.iconflags}}"></span>
+              <div class="text-center">{{locale[section.labelDisplay]}}</div>
+            </div>
             </a>
           </div>
         </div>
