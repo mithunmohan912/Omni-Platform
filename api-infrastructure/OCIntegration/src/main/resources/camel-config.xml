@@ -39,11 +39,22 @@
 
 	<bean id="serviceRouter" class="com.csc.eip.route.ServiceRouter"/>
 
+	<!-- SSLContextParameters for AIA -->
+	<camel:sslContextParameters id="sslContextParametersAia">	
+		<camel:keyManagers keyPassword="">
+			<camel:keyStore resource="C:\api-infra-install\aia\crt\omni-demo-client.p12" password="" type="pkcs12"/>
+		</camel:keyManagers>		
+	</camel:sslContextParameters>
+
+	<bean id="https4-aia" class="org.apache.camel.component.http4.HttpComponent">
+	   <property name="sslContextParameters" ref="sslContextParametersAia"/>
+	</bean>
+	
 	<!-- API Proxy Routers -->
 	<bean id="apiProxyRouterOmniChannelMiniQuoteAia" class="com.csc.eip.route.ApiProxyRouter">
 		<property name="publicUriPrefix" value="https://devgateway.api.csc.com/insurance/omnichannel/miniquote/aia"/>
 		<property name="privateUriPrefix" value="https://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
-		<property name="privateUriPrefixHttp4" value="https4://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
+		<property name="privateUriPrefixHttp4" value="https4-aia://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
 		<property name="proxyUriPrefix" value="/aia"/>
 		<property name="customHeaders">
 			<map>
@@ -55,7 +66,7 @@
 	<bean id="apiProxyRouterOmniChannelMiniQuoteFoo" class="com.csc.eip.route.ApiProxyRouter">
 		<property name="publicUriPrefix" value="https://devgateway.api.csc.com/insurance/omnichannel/miniquote/foo"/>
 		<property name="privateUriPrefix" value="https://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
-		<property name="privateUriPrefixHttp4" value="https4://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
+		<property name="privateUriPrefixHttp4" value="https4-aia://ec2-52-17-9-134.eu-west-1.compute.amazonaws.com/csc/insurance"/>
 		<property name="proxyUriPrefix" value="/foo"/>
 		<property name="customHeaders">
 			<map>
@@ -111,25 +122,6 @@
 			</post>
 		</rest>
 		
-		<!--
-		<rest>
-			<description>Header Translator Pattern</description>
-			<post uri="/messageTranslatorHeader" 
-				consumes="application/json" 
-				produces="application/json" >
-				<description>Replace all pattern matches in a Header</description>
-				<route>
-					<log message="/messageTranslatorHeader route started"/>
-					<log message="Pattern: ${header.Pattern}"/>
-					<log message="Replacement: ${header.Replacement}"/>
-					<convertBodyTo type="java.lang.String"/>
-					<to uri="bean:messageTranslator?method=replacePatternHeader(${body}, ${header.Pattern}, ${header.Replacement})" />
-					<log message="/messageTranslatorHeader route ended"/>
-				</route>
-			</post>
-		</rest>
-		-->
-		
 		<rest>
 			<description>Aggregator Pattern</description>
 			<get uri="/aggregator" 
@@ -147,6 +139,7 @@
 			</get>
 		</rest>
 
+		<!--	
 		<rest>
 			<description>Publish Subscribe Channel Pattern</description>
 			<post uri="/publish" produces="application/json"
@@ -174,6 +167,7 @@
 				</route>
 			</post>
 		</rest>
+		-->
 
 		<route>
 			<from uri="direct:serviceAggregate" />
