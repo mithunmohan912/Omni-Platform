@@ -280,7 +280,14 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
         dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
                 if($rootScope.regionId === 'us'){
-                  showMessage('Created Successfully !!');
+                     if(data._links.self.premium !== '0.00'){
+                     $scope.data['quote:identifier']=data._links.self.quoteNumber;
+                     $scope.data['quote:annual_cost'] =data._links.self.premium;
+                     showMessage('Created Successfully');
+                     }
+                     else{
+                        showMessage('Create Operation Failed');
+                     }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
