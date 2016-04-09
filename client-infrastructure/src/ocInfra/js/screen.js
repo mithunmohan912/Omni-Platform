@@ -291,7 +291,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
             $scope.loadDataByTab($rootScope.currRel);
-        } else {
+        } else if($rootScope.resourceHref !== undefined) {
             HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
         }
@@ -301,7 +301,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     	var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
 
-        if(regionId !=='us'){
+        
             if($scope.isValid()){
                 $rootScope.step = step1;
                 $rootScope.currRel = rel;
@@ -310,7 +310,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         		   	// patch for previous tab
         			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                         loadRelationshipByStep($scope.preStep);
+                        if(regionId !=='us'){
                         MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
+                      }
                         $scope.preStep = $rootScope.step;
                         loadRelationshipByStep($scope.preStep);
         	        }
@@ -325,9 +327,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
         		});
             }
-	    } else {
-            $rootScope.step = step1;
-        }
+	    
 
     };
 
@@ -363,7 +363,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var message = '';
 
         angular.forEach($scope.data, function(value, key){
-             if(value !== '' && value !== undefined && key !== '_links' && key !== '_options'){
+             if(value !== '' && value !== undefined && key !== '_links' && key !== '_options' && value !== null){
                 dataField.push(key);
              }
         });

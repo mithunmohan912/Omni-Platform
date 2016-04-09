@@ -5,6 +5,7 @@
         "hidetitle": false,
         "resourcelist": ["quotes"], 
         "category":"tabs",
+        "createButton": false,
         "name": "AddHomeQuote",
         "sections": [
             {
@@ -30,17 +31,23 @@
                 "name": "_COVERAGE_INFO",
                 "renderAsTab": true,
                 "step": 4
-            }
-            , {
+            },
+             {
               
               "$ref": "submit",
               "step":4
 
               
-           } 
+           }, 
+            {
+                "$ref": "premiumInfo",
+                "name": "_PREMIUM_INFO",
+                "renderAsTab": true,
+                "step": 5
+            }
         ] 
     },
     "include":[
-        "applicantInfo", "policyInfo", "generalInfo","coverageInfo","submit"
+        "applicantInfo", "policyInfo", "generalInfo","coverageInfo","submit","premiumInfo"
     ]
 }

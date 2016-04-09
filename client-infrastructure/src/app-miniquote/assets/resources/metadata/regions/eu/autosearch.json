@@ -5,14 +5,23 @@
         "title": "_SAVED_ITEMS",
         "name": "quote",
         "viewAs": "menu",
+        "createButton": true,
         "defaultValue": [
             {
                 "field": "quote:contract_start_date",
                 "value": "Date"
             }
         ],
-    "workflowGrp": [{"nav":"false"}],
-    "mainTabs": "false",
+        "workflowGrp": [{"nav":"false"}],
+        "mainTabs": "false",
+         "button":{
+            "icon" : "",
+            "label": "_CREATE_QUOTE",
+            "action": "add",
+            "actionurl": "/eu/screen/autocreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"
+        },
         "sections": [
             {
                 "title": "_AUTO_QUOTE_EU_SEARCH",
@@ -192,16 +201,7 @@
                         "label": "_SEARCH",
                         "action":"search",
                         "visible": "true",
-                        "columnsize": "6"
-                    },
-                    {
-                        "name": "create",
-                        "type": "buttonSmall",
-                        "label": "_CREATE_QUOTE",
-                        "actionurl": "/eu/screen/autocreate",
-                        "visible": "true",
-                        "action":"add",
-                        "columnsize": "6"
+                        "columnsize": "12"
                     },
                     {
                         "name": "searchlist",

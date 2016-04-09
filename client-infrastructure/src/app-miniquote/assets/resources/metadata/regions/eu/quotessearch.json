@@ -5,6 +5,15 @@
         "title": "_SAVED_ITEMS",
         "name": "quote",
         "viewAs": "menu",
+        "createButton": true,
+        "button":{
+            "icon" : "",
+            "method" :"", 
+            "action": "add",
+            "actionurl": "/eu/screen/quotescreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"                       
+        },
         "defaultValue": [
             {
                 "field": "quote:contract_start_date",
@@ -192,16 +201,7 @@
                         "label": "_SEARCH",
                         "action":"search",
                         "visible": "true",
-                        "columnsize": "6"
-                    },
-                    {
-                        "name": "create",
-                        "type": "buttonSmall",
-                        "label": "_CREATE_QUOTE",
-                        "actionurl": "/eu/screen/quotescreate",
-                        "visible": "true",
-                        "action":"add",
-                        "columnsize": "6"
+                        "columnsize": "12"
                     },
                     {
                         "name": "searchlist",

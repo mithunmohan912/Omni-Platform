@@ -4,8 +4,17 @@
         "resourcelist": ["quotes"], 
         "title": "_SAVED_ITEMS",
         "name": "quote",
-    "workflowGrp": [{"nav":"false"}],
-    "mainTabs": "false",
+        "workflowGrp": [{"nav":"false"}],
+        "mainTabs": "false",
+        "createButton": true,
+        "button":{
+            "icon" : "",
+            "method" :"", 
+            "action": "add",
+            "actionurl": "/asia/screen/quotescreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"
+        },
         "sections": [
             {
                 "title": "_AUTO_QUOTE_ASIA_SEARCH",
@@ -82,16 +91,7 @@
                         "label": "_SEARCH",
                         "action":"search",
                         "visible": "true",
-                        "columnsize": "8"
-                    },
-                    {
-                        "name": "create",
-                        "type": "buttonSmall",
-                        "label": "_CREATE_QUOTE",
-                        "actionurl": "/asia/screen/quotescreate",
-                        "visible": "true",
-                        "action":"add",
-                        "columnsize": "4"
+                        "columnsize": "12"
                     },
                     {
                         "name": "searchlist",

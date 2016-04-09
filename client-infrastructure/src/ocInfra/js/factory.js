@@ -236,7 +236,7 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
         console.log('SCHEMA : '+object.schema);
         //optionsMapForResource.set(object.action, object);
         if(optionsMapForResource.get(object.action) !== undefined){
-            optionsMapForResource.set(object.action+'1', object);    
+            optionsMapForResource.set(object.action, object);    
         }else{
             optionsMapForResource.set(object.action, object);    
         }
@@ -280,13 +280,21 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
         dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
                 if($rootScope.regionId === 'us'){
-                  showMessage('Created Successfully !!');
+                     if(data._links.self.premium !== '0.00'){
+                     $scope.data['quote:identifier']=data._links.self.quoteNumber;
+                     $scope.data['quote:annual_cost'] =data._links.self.premium;
+                     showMessage('Created Successfully');
+                     }
+                     else{
+                        showMessage('Create Operation Failed');
+                     }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
                     if(resolve) {
                         resolve();
                     }
+                    showMessage('Quote ' + (data['quote-identifier'] !== undefined ? data['quote-identifier'] +' is created successfully' : (data['quote:identifier'] !== undefined ) ? data['quote:identifier'] +' is created successfully'  : ''));
                 }
             }
         }).error(function(){
