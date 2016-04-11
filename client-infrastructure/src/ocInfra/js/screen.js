@@ -219,7 +219,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
         else if(action==='calculate'){
         	new Promise(function(resolve) {
-                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, 'quote:quote_risk_list', resolve);
+                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $rootScope.currRel, resolve);
             }).then(function(){
                 var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
                 var params = {};
