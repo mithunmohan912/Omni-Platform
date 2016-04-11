@@ -1,0 +1,87 @@
+{
+    "tableMetaData": {
+        "id": "searchlist",
+        "title": "Quote Search List",
+        "searching": true,
+        "name":"quoteList",
+        "actionurl": "/screen/quotessearch",
+        "element": [
+            {
+                "quoteField": "policyStatus",
+                "displayName": "_QUOTE_STATUS",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"   
+            },
+            {
+                "quoteField": "policyNumber",
+                "contractField": "contract:number",
+                "displayName": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "lastName",
+                "contractField": "person:last_name",
+                "displayName": "_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "effectiveDate",
+                "contractField": "contract:start_date",
+                "displayName": "_Effective_Date",
+                "type": "date",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "addressLine4",                
+                "displayName": "_CITY",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "state",                
+                "displayName": "_STATE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "15%"
+            },
+            {
+                "type": "dropdown",
+                "align": "left",
+                "visible": true,
+                "displayName": "_INQUIRE",
+                "width": "10%",
+                "options": [
+                    {
+                        "value": "inquire",
+                        "icon": "glyphicon glyphicon-question-sign",
+                        "title": "_INQUIRE",
+                        "actionurl": "/us/screen/hoquoteinquire"
+                    }
+                ]
+            }
+        ],
+        "iconList": 
+            {
+                "MC011": "flaticon-car95", 
+                "MD005": "flaticon-delivery50", 
+                "MA002": "flaticon-motorbike", 
+                "MC002": "flaticon-single17", 
+                "IN005": "flaticon-home168", 
+                "AX009": "flaticon-adults"
+            }
+        
+    }
+}

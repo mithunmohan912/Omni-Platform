@@ -1,7 +1,12 @@
 <div class="tabbable boxed parentTabs" ng-if="metadata[screenId].category=='tabs'">
+	<h3 class="sectionlabel" id="label_{{metadata[screenId].name}}" ng-if="metadata[screenId].hidetitle !== true">{{locale[metadata[screenId].title]}}</h3>
+    <div class="hr_margin">
+        <hr class="onl_hrOr_1" ng-if="metadata[screenId].title && metadata[screenId].hidetitle !== true">
+        <hr class="onl_hrOr_2" ng-if="metadata[screenId].title && metadata[screenId].hidetitle !== true">
+    </div> 
 	<ul class="nav nav-tabs">
-		<li class="active" quick-ng-repeat="field in metadata[screenId].sections" quick-repeat-list="field in metadata[screenId].sections" >
-			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step)">{{field.name}}</a>
+		<li ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metadata[screenId].sections" quick-repeat-list="field in metadata[screenId].sections" >
+			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)">{{(locale[field.name]?locale[field.name] : field.name)}}</a>
 		</li>
 </ul>
 

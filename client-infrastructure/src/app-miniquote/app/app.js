@@ -22,9 +22,8 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
         controller: LoginController
     }).
     when('/:regionId/screen/:screenId', {
-        
-        templateUrl: function(route) {
-            console.log('Route Region id---'+route.regionId);
+
+        templateUrl: function() {
           return 'ocInfra/templates/screen.html';
         },
         controller: ScreenController
@@ -35,26 +34,48 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
         },
         controller: ScreenController
     });
-    
+
     tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
-     
-    
+
+    $httpProvider.interceptors.push(function($q, $rootScope) {
+
+        return {
+            'request': function(config) {
+                $rootScope.loader.loading = true;
+                return config || $q.when(config);
+            },
+            'response': function(response) {
+
+                $rootScope.loader.loading = false;
+                return response || $q.when(response);
+            },
+
+            'responseError': function(rejection) {
+
+                $rootScope.loader.loading = false;
+                return $q.reject(rejection);
+            }
+        };
+    });
 }]);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
-    
-    
+
+
    $rootScope.$on('$locationChangeStart', function () {
      var screenId = $rootScope.screenId;
      if($rootScope.screenId === undefined){
         $location.url('/');
      } else if (screenId === 'anonymous'){
-        console.log($rootScope);
             if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
             $location.url($rootScope.nextURL);
        }
+   } else {
+     if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+        $location.url('/');
+     }
    }
-   });  
+   });
     //persist few objects at app level
     $rootScope.routeParams = {};
     $rootScope.user = {};
@@ -62,7 +83,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
         loading: false
     };
     $rootScope.showHeader = false;
-   
+
        // default locale
     $rootScope.newlocale = 'en-gb';
     $rootScope.locale = {};
@@ -77,7 +98,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
         $rootScope.locale = data;
         tmhDynamicLocale.set($rootScope.newlocale);
     }, function() {});
-    
+
 });
 
     app.directive('ckEditor', [function () {
@@ -88,12 +109,12 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
                 var isReady = false;
                 var data = [];
                 var ck = CKEDITOR.replace(elm[0]);
-                
+
                 function setData() {
                     if (!data.length) {
                         return;
                     }
-                    
+
                     var d = data.splice(0, 1);
                     ck.setData(d[0] || '<span></span>', function () {
                         setData();
@@ -106,7 +127,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
                         setData();
                     }
                 });
-                
+
                 elm.bind('$destroy', function () {
                     ck.destroy(false);
                 });
@@ -136,7 +157,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
                         }
                     };
                 }
-                
+
             }
         };
     }]);

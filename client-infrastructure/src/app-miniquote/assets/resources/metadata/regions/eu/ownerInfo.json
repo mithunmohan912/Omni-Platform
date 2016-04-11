@@ -6,7 +6,7 @@
         "name": "ownerInfo",
         "sections": [
             {
-                "title": "_OWNER_INFO",
+                
                 "name": "owner_info",
                 "category": "nonaccordion",
                 "elements":   [
@@ -44,7 +44,8 @@
                     },
                     {
                         "name": "quote_owner:name",
-                        "type": "text",
+                        "type": "thtext",
+                        "typeaheadField": "person:last_name",
                         "label": "_LASTNAME",
                         "columnsize": 3,
                         "typeahead": "true",
@@ -52,7 +53,8 @@
                     },
                     {
                         "name": "quote_owner:first_name",
-                        "type": "text",
+                        "type": "thtext",
+                        "typeaheadField": "person:first_name",
                         "label": "_FIRSTNAME",
                         "columnsize": 3,
                         "typeahead": "true",
@@ -85,7 +87,7 @@
                         "name": "quote_owner:street_name",
                         "type": "text",
                         "label": "_STREET_NAME",
-                        "maxlength": 8,
+                        "maxlength": 30,
                         "columnsize": 3
                     },
                     {
@@ -104,7 +106,31 @@
                         "maxlength": 80
                     }
                 ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
             }
-        ] 
+        ]
     }
 }

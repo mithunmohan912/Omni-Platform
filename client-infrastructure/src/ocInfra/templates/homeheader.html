@@ -21,15 +21,17 @@
       <ul class="nav navbar-nav navbar-right " >
         <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a></li>
         <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{locale["_ENGLISH"]}}</a></li>
-        <li class="broker"><span>{{user.name}}</span> 
-        <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
+        <li class="language"><a href ng-click="setLocate('fr-fr')" ng-class="(newlocale === 'fr-fr') ? 'languageActive' : ''">{{locale["_FRENCH"]}}</a></li>
+        <li ng-show="isAuthSuccess" class="broker"><span>{{user.name}}</span> 
+        <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      <div ng-if="metadata[screenId].viewAs === 'menu'" >
-      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">
-        <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
-        
-        <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
+      <div>
+      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu">      
+      <li style="margin-right:-50px;z-index:9999" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
+           <a style="margin-right:45px;"ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
+      </li>
+        <li class="dropdown" ng-repeat="application in mainmenu.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">

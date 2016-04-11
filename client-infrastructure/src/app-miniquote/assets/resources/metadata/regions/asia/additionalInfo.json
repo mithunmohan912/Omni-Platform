@@ -6,7 +6,6 @@
         "name": "additionalInfo",
         "sections": [
             {
-                "title": "_ADDITIONAL_INFO",
                 "name": "additional_info",
                 "category": "nonaccordion",
                 "elements": [
@@ -15,19 +14,22 @@
                         "type": "text",
                         "label": "_QUOTE_ADDITIONAL_PREMIUM",
                         "visible": true,
-                        "columnsize": 3
+                        "columnsize": 3,
+                        "required": "required"
                     },
                     {
                         "name": "quote-additional-cover",
                         "type": "select",
                         "label": "_QUOTE_ADDITIONAL_COVER",
-                        "columnsize": 3
+                        "columnsize": 3,
+                        "required": "required"
                     },
                     {
                         "name": "quote-additional-limit",
                         "type": "text",
                         "label": "_QUOTE_ADDITIONAL_LIMIT",
-                        "columnsize": 3
+                        "columnsize": 3,
+                        "required": "required"
                     }
                 ]
             },
@@ -37,23 +39,24 @@
                 "category": "nonaccordion",
                 "elements": [
                     {
-                        "name": "submit1",
+                        "name": "previous1",
                         "type": "buttonSmall",
-                        "label": "_SUBMIT",
-                        "action":"create",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
                         "visible": true,
-                        "columnsize": "6"
+                        "columnsize": "6",
+                        "style" : "float : left;"
                     },
                     {
                         "name": "submit1",
                         "type": "buttonSmall",
-                        "label": "_EDIT",
-                        "action":"update",
+                        "label": "_CALCULATEPREMIUM",
+                        "action":"calculate",
                         "visible": true,
                         "columnsize": "6"
                     }
                 ]
             }
-        ] 
+        ]
     }
 }

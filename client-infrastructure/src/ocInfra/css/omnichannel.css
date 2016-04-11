@@ -18,10 +18,10 @@
   -ms-user-select: none;
   user-select: none;
   color: #fff;
-    background-color: #007EFF;
-    border-color: #007EFF;
-    text-transform: capitalize;
-    border-radius: 0px
+  background-color: #0096bb;
+  border-color: #0096bb;
+  text-transform: capitalize;
+  border-radius: 0px
 }
 .btn:focus, .oc-btn:focus, .btn.focus, .focus.oc-btn, .btn:active:focus, .oc-btn:active:focus, .btn:active.focus, .oc-btn:active.focus, .btn.active:focus, .active.oc-btn:focus, .btn.active.focus, .active.focus.oc-btn {
   outline: thin dotted;
@@ -31,6 +31,7 @@
 .btn:hover, .oc-btn:hover, .btn:focus, .oc-btn:focus, .btn.focus, .focus.oc-btn {
   color: #fff;
   text-decoration: none;
+  background-color: #83b7d1;
 }
 .btn:active, .oc-btn:active, .btn.active, .active.oc-btn {
   outline: 0;
@@ -260,7 +261,6 @@ legend {
 label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
   font-weight: bold;
 }
 
@@ -1863,7 +1863,7 @@ width: 15%;
     background: url("");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-color: #005B7F;
+    background-color: #dfdfdf;
 
 }
 
@@ -1879,7 +1879,7 @@ body {
     background-color: #fff;
 }
 
-h3{color: #094fa3;font-size: 16px;}
+h3{color: #555555;font-size: 20pt;}
 
 .list-buttons>li { display: inline-block; padding: 5px;}
 .list-buttons>li> button{background-color: #F7F7F7;color: #094fa3; font-family: 'source_sans_prosemibold';}
@@ -1892,9 +1892,15 @@ h3{color: #094fa3;font-size: 16px;}
 .landing-page-tab>.nav-tabs > li.active > a:hover{background-color: transparent;border:0PX;}
 .landing-page-tab>.nav-tabs > li> a:hover{background-color: transparent;}
 
-.right-links>li> a {color: #094fa3; font-family: 'source_sans_prosemibold';}
-.right-links>li> a>span.glyphicon, a>span.glyphicon {font-size: 10px;color:#1E4374; padding-right: 4px;}
+.right-links>li> a {color: #094fa3;font-family: 'source_sans_proregular'}
+.right-links>li> a>span.glyphicon, a>span.glyphicon {font-size: 10px;color:#0096bb; padding-right: 4px;}
 .source_sans-bold {}
+.thumbnail{margin-top: 10px;padding: 0px;font-weight: bold;border-radius: 0 !important; border-color: #0096bb}
+a.thumbnail span.glyphicon.flaticon-auto {font-size: 80px;}
+a:hover span.glyphicon {color: #cceaf1}
+
+a:hover, a:focus {color: #0096bb;}
+a {color: #0096bb;text-decoration: none;}
 
 
 .complete {
@@ -1913,9 +1919,14 @@ h3{color: #094fa3;font-size: 16px;}
     background-size: 100% 100%;
     }
 .tableicons{
-    color: #007EFF;
+    color: #d59b20 !important;
     padding: 0px 5px 0px 0px;
-    font-size: 18px;
+    font-size: 18px !important;
+    text-decoration: none;
+    text-align: center !important;
+}
+a.tableicons{
+    text-decoration: none;
 }
 
 table tr>td {
@@ -1946,7 +1957,7 @@ border-bottom: 1px solid #d7d7d7;
     width: 100%;
     text-align: center;}
 a.thumbnail span.glyphicon {
-   font-size: 45px;
+   font-size: 60px;
     width: 100%;
     text-align: center;
 }
@@ -1957,5 +1968,48 @@ a.thumbnail span.glyphicon {
 }*/
 
 }
+@media only screen and (min-width:780px) and (max-width:1024px) {
+.oc-logo {margin-top: 12px;}
+.sectionlabel {margin-left: 12px !important;}
+.sectionlabel {margin-left: 0px !important;color: #0096bb;}
+.hr_margin {margin-left: 0px !important;margin-right: 0px !important; }
+}
+
+.form-horizontal{margin-bottom: 60px;}
+
+.pagination {
+    margin: 5px 0;
+}
+@media only screen and (min-width:1030px) {
+.sectionlabel{
+    margin-left: 20px !important;
+    color: #0096bb;
+    }
+}
+label {display: inline-flex !important;min-height:2px; }
+#Inside City_label{height: 20px;}
+
+.flag{
+  z-index: 99999;
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-top: -61px;
+    margin-left: 55px;
+    position: absolute;
+}
+.usa{background-image: url("../assets/images/flags/usaNew.png") !important;margin-top: -52px;margin-left: 52px;}
+.uk{background-image: url("../assets/images/flags/ukNew.png") !important;}
+.malaysia{background-image: url("../assets/images/flags/malaysia.png") !important;}
+.eu{background-image: url("../assets/images/flags/european.jpg") !important;margin-top: -52px;}
+.eu1{background-image: url("../assets/images/flags/european.jpg") !important;margin-top: -46px;margin-left: 52px;}
 
 
+}
+
+@media only screen and (min-width: 790px) and (max-width: 1024px) {
+.header-margin-wide {
+    margin: 10px 0px 0px 0px;
+}
+  
