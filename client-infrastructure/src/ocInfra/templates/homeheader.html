@@ -26,7 +26,7 @@
         <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      <div ng-if="mainmenu.viewAs === 'menu'" >
+      <div>
       <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu">      
       <li style="margin-right:-50px;z-index:9999" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
         <li class="dropdown" ng-repeat="application in mainmenu.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'">
