@@ -1,38 +1,53 @@
 {
     "metadata": {
         "formid": "AddHomeQuote",
-        "title": "_ADD_HOME_QUOTE",
+        "title": "_HOME_QUOTE_US_CREATE",
+        "hidetitle": false,
         "resourcelist": ["quotes"], 
         "category":"tabs",
+        "createButton": false,
         "name": "AddHomeQuote",
         "sections": [
             {
-                "$ref": "quoteInfo",
-                "name": "Quote Info",
-                "renderAsTab":true,
+                "$ref":"applicantInfo",
+                "name": "_APPLICANT_INFO",
+                "renderAsTab": true,
                 "step": 1
             },
             {
-                "$ref":"ownerInfo",
-                "name": "Owner Info",
+                "$ref":"policyInfo",
+                "name": "_POLICY_INFO",
                 "renderAsTab": true,
                 "step": 2
             },
             {
-                "$ref":"riskInfo",
-                "name": "Risk Info",
+                "$ref": "generalInfo",
+                "name": "_GENERAL_INFO",
                 "renderAsTab": true,
                 "step": 3
             },
             {
-                "$ref": "additionalInfo",
-                "name": "Additional Info",
+                "$ref": "coverageInfo",
+                "name": "_COVERAGE_INFO",
                 "renderAsTab": true,
                 "step": 4
+            },
+             {
+              
+              "$ref": "submit",
+              "step":4
+
+              
+           }, 
+            {
+                "$ref": "premiumInfo",
+                "name": "_PREMIUM_INFO",
+                "renderAsTab": true,
+                "step": 5
             }
         ] 
     },
     "include":[
-        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo"
+        "applicantInfo", "policyInfo", "generalInfo","coverageInfo","submit","premiumInfo"
     ]
 }

@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -11,7 +12,7 @@ exported ScreenController
 
 app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, dataFactory) {
 
-    this.load = function(scope, regionId, screenId, supportPayLoad, actionPayLoad, onSuccess) {
+    this.load = function(scope, regionId, screenId, supportPayLoad, actionPayLoad, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
         if(regionId){
@@ -22,14 +23,20 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         }
         $resource(path).get(function(m) {
             scope.screenId = screenId;
+            if(screenId==='dashboard'){
+                $rootScope.mainmenu=m.metadata;
+            }
             $rootScope.title = m.metadata.title;
 
             if (m.include && m.include.length > 0) {
-                loadReferencedMetaModels(scope, m, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId);
+                loadReferencedMetaModels(scope, m, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
                 setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess);
             }
-            loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory, $rootScope);
+            
+            loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope);
+
+            
         }, function() {
             $rootScope.showIcon = false;
             showMessage($rootScope.appConfig.timeoutMsg);
@@ -38,108 +45,222 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
 
-    this.actionHandling=function($scope, regionId, screenId, action, dataFactory){
-    //Retrieve the meta-model for the given screen Id from the scope
-    var metaModel = $scope.metadata[screenId];
-    
-    //Retrieve the resource list from the meta-model
-    var resourcelist = metaModel.resourcelist;
-    var headers = { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json' 
+    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve){
+        //Retrieve the meta-model for the given screen Id from the scope
+        var metaModel = $scope.metadata[screenId];
+        
+        //Add new values to $scope.data
+        //incase the data is Date the code will select current data and reforamt 
+        if(metaModel.defaultValue !== undefined && action ==='create'){
+            angular.forEach(metaModel.defaultValue, function(resource) {
+                if(resource.value === 'Date'){
+                    resource.value = formatIntoDate(new Date());
+                }
+                $scope.data[resource.field] = resource.value;
+            });
+        }
+
+        //Retrieve the resource list from the meta-model
+        var resourcelist = metaModel.resourcelist;
+
+        if(resourcelist !== undefined && resourcelist.length > 0){
+            //Iterate through the resource list for the meta model
+            angular.forEach(resourcelist, function(resource) {
+                var keyForOptionsMap = regionId +':'+resource;
+                //Retrieve the optionsMap for the resource
+                if($scope.optionsMap === undefined){
+                    $scope.optionsMap = [];
+                }
+                
+                var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
+                console.log('SCREEN ACTION-'+action);
+                // make sure alway update OptionsData when update by tab
+                if(action === 'update' && tab !== undefined){
+                    optionsMapForResource = undefined;
+                }
+                if(optionsMapForResource === undefined){
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, resolve);
+                }else{
+                    var options = optionsMapForResource.get(action);
+                    httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);   
+                }
+                 
+            });
+        }
     };
 
-    if($rootScope.regionId === 'eu'){
-        headers.NSP_USERID = 'gtmoni';
-    }
+    this.setHeaders = function($rootScope){
+        $rootScope.headers = { 
+            'Accept': 'application/vnd.hal+json, application/json',
+            'Content-Type': 'application/json',
+            'x-IBM-Client-id' : 'f9220738-65e5-432d-9b8f-05e8357d1a61',
+            'x-IBM-Client-Secret' : 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI' 
+        };
 
-    if(resourcelist !== undefined && resourcelist.length > 0){
-    //Iterate through the resource list for the meta model
-        angular.forEach(resourcelist, function(resource) {
-            var keyForOptionsMap = regionId +':'+resource;
-            //Retrieve the optionsMap for the resource
-            var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
-            
-            if(optionsMapForResource === undefined){
-                var url;
+        if($rootScope.user && $rootScope.user.name){
+            $rootScope.headers.username = $rootScope.user.name;
+        }
+    };
+    return this;
+});
+
+function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
+        //Read metadata from the root scope
+        var action;
+        var metaModel = scope.metadata[screenId];
+
+        //Retrieve resource list from the meta model
+        var resourcelist;
+        if(metaModel !== undefined){
+            resourcelist = metaModel.resourcelist;
+        }
+
+        if(resourcelist !== undefined && resourcelist.length > 0){
+            loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action);
+        }
+}
+
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, resolve){
+
+        if(resourcelist !== undefined && resourcelist.length > 0){
+            //Iterate through the resource list of meta model
+            angular.forEach(resourcelist, function(resource) {
+                
+                console.log('RESOURCE : '+resource);
+
+                //Formulate the URL for the options call
+                var url;                
                 if($rootScope.resourceHref) {
                     url = $rootScope.resourceHref;
                 }
                 else {
-                    url = $rootScope.HostURL+'quotes';
+                    url = scope.HostURL + resource;
+                }
+                //Retrieve regionToSORMap from the rootScope
+                var regionToSORMap = scope.regionToSoR;
+                //Retrieve the application name for the given region Id
+                var applName = regionToSORMap[regionId];
+                //Replace the regionId with application name in the URL
+                var newURL = url.replace(':regionId',applName);
+                //Formulate the key for storing the options map for the given resource on the region
+                var keyForOptionsMap = regionId +':'+resource;
+                //Fetch the options map for the given resource
+
+                if(scope.optionsMap === undefined){
+                    scope.optionsMap = [];
                 }
 
-                url = url.replace(':regionId', $rootScope.regionToSoR[$rootScope.regionId]);
-                optionsMapForResource = new Map();
-                //Options call for the resources in the meta model.
-                dataFactory.options(url, headers).success(function(data){
+                var optionsMapForResource = scope.optionsMap[keyForOptionsMap];
+                // make sure alway update OptionsData when update by tab
+                if(action === 'update' && tab !== undefined){
+                    optionsMapForResource = undefined;
+                }
 
-                    //Fetch the options response
-                    var optiondataobj = data._options.links;
-                    //var optionsArray= [];
-                    //If the map has not been populated
-            
-                    angular.forEach(optiondataobj, function(ref) {
+                if(optionsMapForResource === undefined){
+                    optionsMapForResource = new Map();
                     
-                        var object = {};
-                        object.action = ref.rel;
-                        object.url = ref.href;
-                        object.httpmethod = ref.method;
-                        object.schema = ref.schema;
-                        console.log('ACTION : '+object.action);
-                        console.log('HTTP METHOD : ' +object.httpmethod);
-                        console.log('URL : '+object.url);
-                        console.log('SCHEMA : '+object.schema);
-                        //optionsMapForResource.set(object.action, object);
-						if(optionsMapForResource.get(object.action) !== undefined){
-							optionsMapForResource.set(object.action+'1', object);    
-						}else{
-							optionsMapForResource.set(object.action, object);    
-						}
+                    //Options call for the resources in the meta model.
+                    dataFactory.options(newURL, $rootScope.headers).success(function(data){
+                        //Fetch the options response
+                        var optiondataobj = data._options.links;
+                        var options;
+                        if(tab !== undefined) {
+                            //Fetch the links response
+                            var tabObj = data._links[tab];
+
+                            if(tabObj !== undefined){
+
+                                var tabUrl = tabObj.href;
+
+                                dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
+
+                                    var detailTabUrl = data._links.item.href;
+
+                                    dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
+
+                                        optiondataobj = data._options.links;
+
+                                        setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                                        scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                                        if(action !== undefined){
+                                            options = optionsMapForResource.get(action);
+                                            if(options !== undefined){
+                                            httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                            }
+                                        }
+
+                                    });
+                                });
+                            } else {
+
+                                setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                                scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                                if(action !== undefined){
+                                    options = optionsMapForResource.get(action);
+                                    if(options !== undefined){
+                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    }
+                                }
+                            }
+                        }  else {
+
+                            setOptionsMapForResource(optiondataobj, optionsMapForResource);
+
+                            scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                            if(action !== undefined){
+                                options = optionsMapForResource.get(action);
+                                if(options !== undefined){
+                                httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                }
+                            }
+                        }
                     });
+                }
+            });
+        }
+    return 'success';
+}
 
-                    httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope);
-
-                });
-            } else {
-                httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope);
-            }
+function setOptionsMapForResource(optiondataobj, optionsMapForResource){
+    angular.forEach(optiondataobj, function(ref) {            
+        var object = {};
+        object.action = ref.rel;
+        object.url = ref.href;
+        object.httpmethod = ref.method;
+        object.schema = ref.schema;
+        console.log('ACTION : '+object.action);
+        console.log('HTTP METHOD : ' +object.httpmethod);
+        console.log('URL : '+object.url);
+        console.log('SCHEMA : '+object.schema);
+        //optionsMapForResource.set(object.action, object);
+        if(optionsMapForResource.get(object.action) !== undefined){
+            optionsMapForResource.set(object.action, object);    
+        }else{
+            optionsMapForResource.set(object.action, object);    
+        }
     });
-    }
-};
-return this;
-});
+}
 
-function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action, $rootScope){
-    //Retrieve the options object for the given action from the resource optionsMap
-    var options = optionsMapForResource.get(action);
+function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
 
-    var headers = { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json' 
-    };
-
-    if($rootScope.user.name && $scope.regionId === 'asia'){
-        headers.username = $rootScope.user.name;
-    }
-
-    if($scope.regionId === 'eu'){
-        headers.NSP_USERID = 'gtmoni';
-    }
 
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
     var httpmethod = options.httpmethod;
     var schema = options.schema;
-    console.log('SCREEN ACTION-'+action);
     console.log('Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
     params = setData($scope, schema, params);
-    if(httpmethod==='GET'){    
+
+    if(httpmethod==='GET'){
+    $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        /*dataFactory.get(url + '?_num=100',params,headers).success(function(data){*/
-        dataFactory.get(url,params,headers).success(function(data){
+        dataFactory.get(url,params,$rootScope.headers).success(function(data){
+            $rootScope.loader.loading=false;
             //Load the results into the search results table
             var listDispScope = angular.element($('.table-striped')).scope(); 
             if(data._links.item){
@@ -149,103 +270,54 @@ function httpMethodToBackEnd($scope, optionsMapForResource, dataFactory, action,
                 listDispScope.stTableList = [];
                 listDispScope.showResult = false;
             }
-
+        }).error(function(){
+            $rootScope.loader.loading=false;
+            showMessage('Get Data Failed');
         });
-
     } else if(httpmethod==='POST'){
-        //Call the post method on the Data Factory with the URL, Http Method, and parameters
-        dataFactory.post(url,params,headers).success(function(data){
+        $rootScope.loader.loading=true;
+        //Call the post method on the Data Factory
+        dataFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
-                showMessage('Successfully' + ' ' + data['quote-identifier']);
+                if($rootScope.regionId === 'us'){
+                     if(data._links.self.premium !== '0.00'){
+                     $scope.data['quote:identifier']=data._links.self.quoteNumber;
+                     $scope.data['quote:annual_cost'] =data._links.self.premium;
+                     showMessage('Created Successfully');
+                     }
+                     else{
+                        showMessage('Create Operation Failed');
+                     }  
+                } else {
+                    $rootScope.resourceHref = data._links.self.href;
+                    $rootScope.loader.loading=false;
+                    if(resolve) {
+                        resolve();
+                    }
+                    showMessage('Quote ' + (data['quote-identifier'] !== undefined ? data['quote-identifier'] +' is created successfully' : (data['quote:identifier'] !== undefined ) ? data['quote:identifier'] +' is created successfully'  : ''));
+                }
             }
+        }).error(function(){
+            $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
-        dataFactory.patch(url,params,headers).success(function(data){
+        $rootScope.loader.loading=true;
+        //Call the patch method on the Data Factory
+        dataFactory.patch(url,params,$rootScope.headers).success(function(data){
+            $rootScope.loader.loading=false;
             if (data) {
-                showMessage('Successfully' + ' ' + data['quote-identifier']);
+                if(resolve) {
+                    resolve();
+                }
             }
+        }).error(function(){
+            $rootScope.loader.loading=false;
+            showMessage('Patch Data Failed');
         });
     }
 }
 
-function loadOptionsDataForMetadata(m, scope, regionId, screenId,dataFactory, $rootScope){
-
-        //Read metadata from the root scope
-        var metaModel = scope.metadata[screenId];
-        //console.log('Meta Model---'+metaModel);
-
-        //Retrieve resource list from the meta model
-        var resourcelist;
-        if(metaModel !== undefined){
-            resourcelist = metaModel.resourcelist;
-        }
-
-        var headers = { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        };
-
-        if($rootScope.regionId === 'eu'){
-            headers.NSP_USERID = 'gtmoni';
-        }
-
-        if(resourcelist !== undefined && resourcelist.length > 0){
-            //Iterate through the resource list of meta model
-            angular.forEach(resourcelist, function(resource) {
-                //Formulate the URL for the options call
-                console.log('RESOURCE : '+resource);
-                var url;
-                if($rootScope.resourceHref) {
-                    url = $rootScope.resourceHref;
-                }
-                else {
-                    url = scope.HostURL + resource;
-                }
-                var regionToSORMap = scope.regionToSoR;
-                var applName = regionToSORMap[regionId];
-                var newURL = url.replace(':regionId',applName);
-                var keyForOptionsMap = regionId +':'+resource;
-                //Fetch the options map for the given resource
-                if(scope.optionsMap === undefined){
-                    scope.optionsMap = [];
-                }
-                var optionsMapForResource = scope.optionsMap[keyForOptionsMap];
-                if(optionsMapForResource === undefined){
-                    optionsMapForResource = new Map();
-                    //Options call for the resources in the meta model.
-                    dataFactory.options(newURL, headers).success(function(data){
-
-                        //Fetch the options response
-                        var optiondataobj = data._options.links;
-                        //var optionsArray= [];
-                        //If the map has not been populated
-                
-                        angular.forEach(optiondataobj, function(ref) {
-                        
-                            var object = {};
-                            object.action = ref.rel;
-                            object.url = ref.href;
-                            object.httpmethod = ref.method;
-                            object.schema = ref.schema;
-                            console.log('ACTION : '+object.action);
-                            console.log('HTTP METHOD : ' +object.httpmethod);
-                            console.log('URL : '+object.url);
-                            console.log('SCHEMA : '+object.schema);
-                            //optionsMapForResource.set(object.action, object);
-                            if(optionsMapForResource.get(object.action) !== undefined){
-                                optionsMapForResource.set(object.action+'1', object);    
-                            }else{
-                                optionsMapForResource.set(object.action, object);    
-                            }
-                        }); 
-                        scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                    });
-                }
-        });
-    }
-    }
-
-function loadReferencedMetaModels(scope, metaModel, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId) {
+function loadReferencedMetaModels(scope, metaModel, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve) {
     var promises = [];
     var path;
     if(regionId){
@@ -264,12 +336,11 @@ function loadReferencedMetaModels(scope, metaModel, screenId, supportPayLoad, ac
         }).$promise);
     });
     $q.all(promises).then(function() {
-        setScreenData($rootScope, scope, metaModel, screenId, $browser, supportPayLoad, onSuccess);
+        setScreenData($rootScope, scope, metaModel, screenId, $browser, supportPayLoad, onSuccess, resolve);
     });
 }
 
-function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess) {
-    //console.log('set screen data---'+m.metadata);
+function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess, resolve) {
     var metadata = m.metadata;
     var resourcelist = metadata.resourcelist;
     
@@ -290,22 +361,41 @@ function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad,
     if (onSuccess) {
         onSuccess(m.metadata);
     }
+    if(resolve){
+        resolve();
+    }
 }
 
 function setData($scope, schema, object){
-    angular.forEach(schema.properties, function(val, key){  
-            var value = $scope.data[key];
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
 
+    angular.forEach(schema.properties, function(val, key){  
+            
+            var value = $scope.data[key];
+            var type = val.type;
+            
+            if(type !== undefined && type==='static'){
+                value = val.value;
+            }
+
+            if(value === null || value === undefined || value === '' || value === 'undefined'){
+                //continue
             }else{
+    
                 var format = val.format;
+    
                 if(format !== undefined && format==='date'){
                     //Format the date in to yyyy/mm/dd format
                     value = formatIntoDate(value);
                 }
-				if(typeof value === 'object') {
-                    value = value.value;
-                }
+    
+                if(typeof value === 'object') {
+                    if(value.key !== undefined){
+                        value = value.key;
+                    }else{
+                        value = value.value;
+                    }
+                } 
+    
                 console.log(key +' : '+value);
                 object[key] = value;
             }

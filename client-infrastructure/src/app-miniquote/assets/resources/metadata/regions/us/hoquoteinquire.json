@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "formid": "InquireHomeQuote",
+        "title": "_INQUIRE_HOME_QUOTE",
+        "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "name": "InquireHomeQuote",
+        "sections": [
+            {
+                "$ref":"inqpolicyInfo",
+                "name": "_POLICY",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref":"inqlocationInfo",
+                "name": "_LOCATION",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+                "$ref": "inqcoverageInfo",
+                "name": "_COVERAGE",
+                "renderAsTab": true,
+                "step": 3
+            }
+        ] 
+    },
+    "include":[
+        "inqpolicyInfo", "inqlocationInfo", "inqcoverageInfo"
+    ]
+}

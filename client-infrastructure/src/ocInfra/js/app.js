@@ -19,7 +19,6 @@ $routeProvider.
         templateUrl: function() {
             return 'ocInfra/templates/screen.html';
         },
-        
         controller: LoginController
     }).
    when('/login', {
