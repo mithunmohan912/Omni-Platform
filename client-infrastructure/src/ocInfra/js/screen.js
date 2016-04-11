@@ -13,6 +13,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
      //console.log('hello');
 
     $rootScope.enumData = {};
+    $rootScope.typeaheadData = {};
     $rootScope.optionsMap = [];
     $scope.checkRegionId = $rootScope.regionId;
 
@@ -80,6 +81,27 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             return $rootScope.enumData[field.name];
         } else if (field.options) {
             return field.options;
+        }
+    };
+
+    $scope.getNamesList = function(viewValue, typeahead, fieldName){
+        
+        if(typeahead){
+            var url = $rootScope.HostURL + 'persons?' + fieldName + '=' + viewValue;
+            var regionToSORMap = $rootScope.regionToSoR;
+            var applName = regionToSORMap[$rootScope.regionId];
+            url = url.replace(':regionId',applName);
+            dataFactory.options(url, $rootScope.headers).success(function(data){
+                $rootScope.typeaheadData[fieldName] = [];
+                $scope.typeaheadData[fieldName] = [];
+                angular.forEach(data._links.item, function(value){
+                    if(value.summary[fieldName]){
+                        $rootScope.typeaheadData[fieldName].push(value.summary[fieldName]);
+                    }
+                });
+                $scope.typeaheadData[fieldName] = $rootScope.typeaheadData[fieldName];
+            });
+                    
         }
     };
 

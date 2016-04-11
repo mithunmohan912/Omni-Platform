@@ -293,8 +293,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                     $rootScope.loader.loading=false;
                     if(resolve) {
                         resolve();
-                    }
-                    showMessage('Quote ' + (data['quote-identifier'] !== undefined ? data['quote-identifier'] +' is created successfully' : (data['quote:identifier'] !== undefined ) ? data['quote:identifier'] +' is created successfully'  : ''));
+                    }                    
                 }
             }
         }).error(function(){
