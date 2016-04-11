@@ -227,12 +227,32 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         	$rootScope.resourceHref = undefined;
             $rootScope.navigate(actionURL);
 		}
+        else if(action==='nextTab'){
+            var nextStep = $rootScope.step + 1;
+            var nextLink = $scope.getRelationshipOfNavigateStep(nextStep);
+            $scope.selecttab(nextStep, nextLink);
+        }
+        else if(action==='previousTab'){
+            var preStep = $rootScope.step - 1;
+            var preLink = $scope.getRelationshipOfNavigateStep(preStep);
+            $scope.selecttab(preStep, preLink);
+        }
 		else {
 			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
         }
     };
-	
-	  $scope.deleteRow = function(row) {
+
+    $scope.getRelationshipOfNavigateStep = function(step){
+        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        for(var i = 0; i < list.length; i++){
+            var tabObj = list[i];
+            if(step === tabObj.step){
+                return tabObj.link;
+            }
+        }
+    };
+
+	$scope.deleteRow = function(row) {
         var listDispScope = angular.element($('.table-striped')).scope();
 		var url = row._link.self.href;
 		var id='';
@@ -297,38 +317,35 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     });
 
-    $scope.selecttab=function(step1, rel){
-    	var screenId = $rootScope.screenId;
+    $scope.selecttab = function(step1, rel) {
+        var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
 
-        
-            if($scope.isValid()){
-                $rootScope.step = step1;
-                $rootScope.currRel = rel;
+        if ($scope.isValid()) {
+            $rootScope.step = step1;
+            $rootScope.currRel = rel;
 
-        		new Promise(function(resolve) {
-        		   	// patch for previous tab
-        			if($rootScope.step !== $scope.preStep && rel !== 'undefined') {
-                        loadRelationshipByStep($scope.preStep);
-                        if(regionId !=='us'){
+            new Promise(function(resolve) {
+                // patch for previous tab
+                if ($rootScope.step !== $scope.preStep && rel !== 'undefined') {
+                    loadRelationshipByStep($scope.preStep);
+                    if (regionId !== 'us') {
                         MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
-                      }
-                        $scope.preStep = $rootScope.step;
-                        loadRelationshipByStep($scope.preStep);
-        	        }
-        		}).then(function(){
-        			// load data for tab click
-        	        if($rootScope.currRel !== 'undefined'){
-        	            $scope.loadDataByTab($rootScope.currRel);
-        	        } else {
-        	            HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
-        	            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-        	        }
+                    }
+                    $scope.preStep = $rootScope.step;
+                    loadRelationshipByStep($scope.preStep);
+                }
+            }).then(function() {
+                // load data for tab click
+                if ($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself') {
+                    $scope.loadDataByTab($rootScope.currRel);
+                } else {
+                    HttpService.get($rootScope.resourceHref, $rootScope.headers, $scope);
+                    EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                }
 
-        		});
-            }
-	    
-
+            });
+        }
     };
 
 
