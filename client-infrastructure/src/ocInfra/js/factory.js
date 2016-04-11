@@ -283,7 +283,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                        showMessage('Quote ' + $scope.data['quote:identifier'] +' is created successfully');
+                        //showMessage('Quote ' + $scope.data['quote:identifier'] +' is created successfully');
                      }
                      else{
                         showMessage('Create Operation Failed');
