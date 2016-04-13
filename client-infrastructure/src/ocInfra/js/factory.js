@@ -23,9 +23,6 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         }
         $resource(path).get(function(m) {
             scope.screenId = screenId;
-            if(screenId==='dashboard'){
-                $rootScope.mainmenu=m.metadata;
-            }
             $rootScope.title = m.metadata.title;
 
             if (m.include && m.include.length > 0) {
