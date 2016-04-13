@@ -25,7 +25,7 @@
         </tr>
         <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
 
-            <td ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
+            <td class="iconTable" ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
                 <ng-switch on="column.type">
                     <!-- Label -->
                     <span ng-switch-when="label">{{row.summary[column.quoteField]}} {{row.summary[column.contractField]}}</span>
@@ -68,7 +68,7 @@
     <tfoot>
         <tr>
             <td colspan="16" class="text-right" style="padding-left:0px">
-                <div st-items-by-page="5" st-pagination="" st-template="ocInfra/templates/stpaging.html">
+                <div st-items-by-page="5" class="pag-right" st-pagination="" st-template="ocInfra/templates/stpaging.html">
                 </div>
             </td>
         </tr>
