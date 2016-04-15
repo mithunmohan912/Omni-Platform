@@ -11,7 +11,25 @@
 	    <a href ng-click="navigate('/dashboard')" >
       <div class="oc-navbar-brand oc-logo" href="#"></div>
     </a>
- 
+    <!--
+       <span ng-show="regionId=='asia' && screenId!=='dashboard'">
+        <span class="bannerFlag malaysia"></span>
+        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-auto"></span></span>
+      </span>
+
+       <span ng-show="regionId=='us'&& screenId!=='dashboard'">
+        <span class="bannerFlag usa"></span>
+        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-home"></span></span>
+      </span>
+
+      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='autocreate' || screenId == 'autosearch')">
+        <span class="bannerFlag eu-flag"></span>
+        <span class="bannerTitle">CSC Assurance <span class="bannerIcon flaticon-auto"></span></span>
+      </span>
+      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='quotessearch' || screenId == 'quotescreate')">
+        <span class="bannerFlag eu"></span>
+        <span class="bannerTitle">CSC Insurance<span class="bannerIcon flaticon-home"></span></span>
+      </span> -->
 
     </div>
     
@@ -28,10 +46,10 @@
 
       <div>
       <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu">      
-      <li style="margin-right:-50px;z-index:9999" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
-           <a style="margin-right:45px;"ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
+      <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
+           <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
       </li>
-        <li class="dropdown" ng-repeat="application in mainmenu.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+        <li class="dropdown" ng-repeat="application in headermetadata.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">

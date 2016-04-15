@@ -521,7 +521,7 @@ padding-bottom: 0;
     #no-more-tables td { 
         /* Behave  like a "row" */
         border: none;
-        border-bottom: 1px solid #eee; 
+        border-bottom: 1px solid #ccc; 
         position: relative;
         padding-left: 50%; 
         white-space: normal;
@@ -574,16 +574,6 @@ tfoot { display: block;}
 
     }
 }
-ul#mainMenu li:nth-child(3)  {  
-background-color: transparent !important;
-
-}
-ul#mainMenu li:nth-child(4)  {  
-background-color: transparent !important;
-}
-ul#mainMenu li:nth-child(2)  {  
-background-color: transparent !important;
-}
 
 a:active, a:hover {
     outline: 0;
@@ -595,3 +585,38 @@ background-color: #e7e7e7 ;
 .table-striped > tbody > tr:nth-of-type(even) {background-color: #ececec;}
 table.table-striped th{white-space: nowrap;}
 table.table-striped td{text-transform: capitalize;}
+.bannerTitle{
+    display: inline-block;
+    font-size: 25px;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.bannerIcon{
+    display: block;
+    margin: 0px;
+    font-size: 40px;
+    margin-top: -15px;
+}
+.bannerFlag{
+    position: relative;
+    margin: 7px;
+    height: 48px;
+    width: 48px;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+@media only screen and (min-width:768px) and (max-width: 1024px)  {
+    .oc-logo{ margin-top: 12px}
+}
+@media only screen and (min-width:768px) and (max-width: 768px)  {
+    .pag-right{text-align: right;padding-bottom: 40px;margin-top: -15px;}
+    .iconTable{ text-align: left !important;}
+    #no-more-tables td {padding-left: 25%;}
+}
+
+.usa-flag{background-image: url("../assets/images/flags/usaNew.png") !important;}
+.malaysia-flag{background-image: url("../assets/images/flags/malaysia.png") !important;}
+.eu-flag{background-image: url("../assets/images/flags/european.png") !important;}
+
+
