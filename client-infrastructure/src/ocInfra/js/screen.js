@@ -194,61 +194,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	$scope.loadOptionData();
 
-	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId) {
+	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
 		console.log(nextScreenId);
-		var url;
 		var screenId = $rootScope.screenId;
 		var regionId = $rootScope.regionId;
-		if(action === 'get'){
-			 url = $rootScope.HostURL+screenId;
-			 $scope.factory.get(url);
-		}
-		else if(action === 'delete'){
-			 url = $rootScope.HostURL+'quotes';
-			dataFactory.delete(url,subsections.id).success(function(data){
-            	growl.addSuccessMessage(data.message);
-			});
-		}
-		else if(action==='add'){
+		if(action==='navigate'){
+            $rootScope.resourceHref = undefined;
             $rootScope.navigate(actionURL);
-            new Promise(function(resolve) {
-                MetaData.actionHandling($scope, regionId, screenId, 'create', dataFactory, undefined, resolve);
-            }).then(function(){
-                EnumerationService.loadEnumerationByTab();
-            }); 
-		}
-        else if(action==='calculate'){
-        	new Promise(function(resolve) {
-                MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $rootScope.currRel, resolve);
-            }).then(function(){
-                var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
-                var params = {};
-                dataFactory.post(url,params,$rootScope.headers).success(function(data){
-                	var urlDetail;
-                	if(Array.isArray(data.messages)){
-                		// get last element of array
-                		urlDetail = data.messages[data.messages.length - 1].message[0];
-                	} else {
-                		urlDetail = data.messages.context;
-                	}
-                	dataFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
-                        $scope.data = data;
-                        console.log('Compute successfully !!');
-                        // go to next tab to see premium
-                        $rootScope.step = $rootScope.step + 1;
-                        loadRelationshipByStep($rootScope.step);
-                        $scope.preStep = $rootScope.step;
-                        EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-                    });
-                }).error(function(){
-                    showMessage('Calculation Failed');
-                });
-            });  
         }
-        else if(action==='navigate'){
-        	$rootScope.resourceHref = undefined;
-            $rootScope.navigate(actionURL);
-		}
         else if(action==='nextTab'){
             var nextStep = $rootScope.step + 1;
             var nextLink = $scope.getRelationshipOfNavigateStep(nextStep);
@@ -258,9 +211,40 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preStep = $rootScope.step - 1;
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
-        }
-		else {
-			MetaData.actionHandling($scope, regionId, screenId, action, dataFactory);			
+        } else {
+            if(actionURL !== undefined){
+                $rootScope.navigate(actionURL);    
+            }
+            new Promise(function(resolve) {
+                MetaData.actionHandling($scope, regionId, screenId, action, dataFactory, tab, resolve);
+            }).then(function(){
+                    if(tab !== undefined){
+                        var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
+                        var params = {};
+                        dataFactory.post(url,params,$rootScope.headers).success(function(data){
+                            var urlDetail;
+                            if(Array.isArray(data.messages)){
+                                // get last element of array
+                                urlDetail = data.messages[data.messages.length - 1].message[0];
+                            } else {
+                                urlDetail = data.messages.context;
+                            }
+                            dataFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
+                            $scope.data = data;
+                            console.log('Compute successfully !!');
+                            // go to next tab to see premium
+                            $rootScope.step = $rootScope.step + 1;
+                            loadRelationshipByStep($rootScope.step);
+                            $scope.preStep = $rootScope.step;
+                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                        });
+                    }).error(function(){
+                        showMessage('Calculation Failed');
+                    });
+                }else{
+                    EnumerationService.loadEnumerationByTab();
+                }
+            });		
         }
     };
 
