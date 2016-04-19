@@ -31,10 +31,8 @@ module.exports = {
                                              'src/app-miniquote/ocInfra/js/ocInfra.js',
                                              'src/ocInfra/css/*.css',
                                              'src/ocInfra/css/Generic_Iconfont/font/generic_flaticon.css',
+                                             'src/app-miniquote/ocInfra/css/ocInfra.min.css',
                                              'src/ocInfra/css/Omni_Iconfont/font/flaticon.css'
-                                             
-
-
             ],
             'src/app-weather/index.html': ['src/app-weather/js/*.js',
                                            'src/app-weather/js/**/*.js',
