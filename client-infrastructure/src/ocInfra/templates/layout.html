@@ -87,14 +87,14 @@
     </div>      
     <div ng-switch-when="buttonSmall" style="text-align: center;" ng-show="field.visible">
             <div class="col-md-{{field.columnsize}} col-xs-{{field.columnsizexs}}">
-                <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+                <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab)" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
             </div>
     </div>
     <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
-                <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId);showErr()" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+                <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab);showErr()" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>
     <div ng-switch-when="buttonXs" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
-                <button id="{{field.name}}" class="oc-btn oc-btn-xs {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId)"style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+                <button id="{{field.name}}" class="oc-btn oc-btn-xs {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab)"style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>
 
 
@@ -204,13 +204,13 @@
                     <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" to-currency amount="data[field.name]">
                 </div>
                <div ng-switch-when="buttonSmall" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div ng-switch-when="buttonLarge" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="oc-btn oc-btn-large {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-large {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div ng-switch-when="buttonXs" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="oc-btn oc-btn-xs {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-xs {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div class="col-md-{{subfield.columnsize}} " ng-switch-when="password">
                     <input type="password" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">

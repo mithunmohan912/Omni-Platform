@@ -42,18 +42,20 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
 
-    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve){
+    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, resolve, subsections){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metadata[screenId];
         
         //Add new values to $scope.data
         //incase the data is Date the code will select current data and reforamt 
-        if(metaModel.defaultValue !== undefined && action ==='create'){
+        if(metaModel.defaultValue !== undefined){
             angular.forEach(metaModel.defaultValue, function(resource) {
-                if(resource.value === 'Date'){
-                    resource.value = formatIntoDate(new Date());
+                if(action ===resource.action){
+                    if(resource.value === 'Date'){
+                        resource.value = formatIntoDate(new Date());    
+                    }
+                    $scope.data[resource.field] = resource.value;
                 }
-                $scope.data[resource.field] = resource.value;
             });
         }
 
@@ -70,18 +72,18 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
                 
                 var optionsMapForResource = $scope.optionsMap[keyForOptionsMap];
-                console.log('SCREEN ACTION-'+action);
                 // make sure alway update OptionsData when update by tab
                 if(action === 'update' && tab !== undefined){
                     optionsMapForResource = undefined;
                 }
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, resolve);
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, resolve, subsections);
                 }else{
                     var options = optionsMapForResource.get(action);
-                    httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);   
+                    if(options !== undefined){
+                        httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, subsections);       
+                    }
                 }
-                 
             });
         }
     };
@@ -117,7 +119,7 @@ function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
         }
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, resolve){
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, resolve, subsections){
 
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
@@ -158,58 +160,48 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                     
                     //Options call for the resources in the meta model.
                     dataFactory.options(newURL, $rootScope.headers).success(function(data){
-                        //Fetch the options response
-                        var optiondataobj = data._options.links;
-                        var options;
-                        if(tab !== undefined) {
-                            //Fetch the links response
-                            var tabObj = data._links[tab];
+                    //Fetch the options response
+                    var optiondataobj = data._options.links;
+                    var options;
+                    if(tab !== undefined) {
+                        //Fetch the links response
+                        var tabObj = data._links[tab];
 
-                            if(tabObj !== undefined){
+                        if(tabObj !== undefined){
 
-                                var tabUrl = tabObj.href;
+                            var tabUrl = tabObj.href;
 
-                                dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
-
-                                    var detailTabUrl = data._links.item.href;
-
-                                    dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
-
-                                        optiondataobj = data._options.links;
-
-                                        setOptionsMapForResource(optiondataobj, optionsMapForResource);
-
-                                        scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                                        if(action !== undefined){
-                                            options = optionsMapForResource.get(action);
-                                            if(options !== undefined){
-                                            httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
-                                            }
-                                        }
-
-                                    });
-                                });
-                            } else {
-
-                                setOptionsMapForResource(optiondataobj, optionsMapForResource);
-
-                                scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                                if(action !== undefined){
-                                    options = optionsMapForResource.get(action);
-                                    if(options !== undefined){
-                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                            dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
+                                var detailTabUrl = data._links.item.href;
+                                dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
+                                    optiondataobj = data._options.links;
+                                    setOptionsMapForResource(optiondataobj, optionsMapForResource);
+                                    scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                                    if(action !== undefined){
+                                       options = optionsMapForResource.get(action);
+                                       if(options !== undefined){
+                                           httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve, subsections);
+                                       }
                                     }
-                                }
-                            }
-                        }  else {
-
+                                });
+                            });
+                        } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
-
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve, subsections);
+                                }
+                            }
+                        }
+                        } else {
+                            setOptionsMapForResource(optiondataobj, optionsMapForResource);
+                            scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
+                            if(action !== undefined){
+                                options = optionsMapForResource.get(action);
+                                if(options !== undefined){
+                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve, subsections);
                                 }
                             }
                         }
@@ -240,7 +232,7 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
-function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
+function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, subsections){
 
 
     //Retrieve the URL, Http Method and Schema from the options object
@@ -259,17 +251,19 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
         dataFactory.get(url,params,$rootScope.headers).success(function(data){
             $rootScope.loader.loading=false;
             //Load the results into the search results table
-            var listDispScope = angular.element($('.table-striped')).scope(); 
-            if(data._links.item){
-                listDispScope.stTableList=data._links.item;
-                listDispScope.showResult = true;
-            }else{
-                listDispScope.stTableList = [];
-                listDispScope.showResult = false;
+            if(options.action==='search'){
+                var listDispScope = angular.element($('.table-striped')).scope(); 
+                if(data._links.item){
+                    listDispScope.stTableList=data._links.item;
+                    listDispScope.showResult = true;
+                }else{
+                    listDispScope.stTableList = [];
+                    listDispScope.showResult = false;
+                }    
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage('Get Data Failed');
+            showMessage($rootScope.locale['GET_OPERATION_FAILED']);
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -283,7 +277,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
                         //showMessage('Quote ' + $scope.data['quote:identifier'] +' is created successfully');
                      }
                      else{
-                        showMessage('Create Operation Failed');
+                        showMessage($rootScope.locale['CREATE_OPERATION_FAILED']);
                      }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
@@ -308,7 +302,11 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage('Patch Data Failed');
+            showMessage($rootScope.locale['PATCH_OPERATION_FAILED']);
+        });
+    } else if(httpmethod==='DELETE'){
+        dataFactory.delete(url,subsections.id).success(function(data){
+            showMessage(data.message);
         });
     }
 }
