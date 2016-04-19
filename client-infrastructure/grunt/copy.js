@@ -423,6 +423,11 @@ module.exports = {
       dest: 'mobile/app-miniquote/' ,
       src: ['vendors/select2/select2-spinner.gif']
      },
+    {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['ocInfra/css/**/*']
+     },
 	 {
       expand: true , cwd:'src/' , flatten: false,
       dest: 'mobile/app-miniquote/' ,
