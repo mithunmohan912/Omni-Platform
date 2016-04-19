@@ -51,8 +51,8 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         if(metaModel.defaultValue !== undefined){
             angular.forEach(metaModel.defaultValue, function(resource) {
                 if(action ===resource.action){
-                if(resource.value === 'Date'){
-                    resource.value = formatIntoDate(new Date());
+                    if(resource.value === 'Date'){
+                        resource.value = formatIntoDate(new Date());    
                     }
                     $scope.data[resource.field] = resource.value;
                 }
@@ -84,7 +84,6 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                         httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, subsections);       
                     }
                 }
-                 
             });
         }
     };
@@ -198,7 +197,6 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                         }
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
-
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
@@ -265,7 +263,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, 
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage('Get Data Failed');
+            showMessage($rootScope.locale['GET_OPERATION_FAILED']);
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -279,7 +277,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, 
                         //showMessage('Quote ' + $scope.data['quote:identifier'] +' is created successfully');
                      }
                      else{
-                        showMessage('Create Operation Failed');
+                        showMessage($rootScope.locale['CREATE_OPERATION_FAILED']);
                      }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
@@ -304,7 +302,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve, 
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage('Patch Data Failed');
+            showMessage($rootScope.locale['PATCH_OPERATION_FAILED']);
         });
     } else if(httpmethod==='DELETE'){
         dataFactory.delete(url,subsections.id).success(function(data){

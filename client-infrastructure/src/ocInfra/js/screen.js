@@ -239,7 +239,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                         });
                     }).error(function(){
-                        showMessage('Calculation Failed');
+                        showMessage($rootScope.locale['CALC_PREMIUM_OP_FAILED']);
                     });
                 }else{
                     EnumerationService.loadEnumerationByTab();
@@ -401,7 +401,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         if(emptyField.length > 0){
             emptyField.forEach(function(key) {
                 var label = $scope.translateKeyToLabelByTab(key);
-                message += $rootScope.locale[label] + ' is required <br />';
+                message += $rootScope.locale[label] + $rootScope.locale['IS_REQD'] + '<br />';
             });
             showMessage(message);
             return false;
