@@ -195,7 +195,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	$scope.loadOptionData();
 
 	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
-		console.log(nextScreenId);
+
+       console.log(nextScreenId);
 		var screenId = $rootScope.screenId;
 		var regionId = $rootScope.regionId;
 		if(action==='navigate'){
@@ -216,7 +217,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 $rootScope.navigate(actionURL);    
             }
             new Promise(function(resolve) {
-                MetaData.actionHandling($scope, regionId, screenId, action, dataFactory, tab, resolve);
+                var optionFlag = false;
+                MetaData.actionHandling($scope, regionId, screenId, action, dataFactory, tab, optionFlag, resolve);
             }).then(function(){
                     if(tab !== undefined){
                         var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
@@ -239,7 +241,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                         });
                     }).error(function(){
-                        showMessage($rootScope.locale['CALC_PREMIUM_OP_FAILED']);
+                        showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                     });
                 }else{
                     EnumerationService.loadEnumerationByTab();
@@ -257,21 +259,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
         }
     };
-
-	$scope.deleteRow = function(row) {
-        var listDispScope = angular.element($('.table-striped')).scope();
-		var url = row._link.self.href;
-		var id='';
-         dataFactory.delete(url,id);
-	     var index=0;
-		 angular.forEach(listDispScope.stTableList, function(item){
-           if(item.$$hashKey===row.$$hashKey){
-             listDispScope.stTableList.splice(index);	
-            }
-           index=index+1;
-		});	
-      };
-	  
+  
 	  
 	$rootScope.next = function() {
         $scope.next();
@@ -336,7 +324,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 if ($rootScope.step !== $scope.preStep && rel !== 'undefined') {
                     loadRelationshipByStep($scope.preStep);
                     if (regionId !== 'us') {
-                        MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, resolve);
+                        var optionFlag = true;
+                        MetaData.actionHandling($scope, regionId, screenId, 'update', dataFactory, $scope.currRel, optionFlag, resolve);
                     }
                     $scope.preStep = $rootScope.step;
                     loadRelationshipByStep($scope.preStep);
@@ -401,7 +390,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         if(emptyField.length > 0){
             emptyField.forEach(function(key) {
                 var label = $scope.translateKeyToLabelByTab(key);
-                message += $rootScope.locale[label] + $rootScope.locale['IS_REQD'] + '<br />';
+                message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
             showMessage(message);
             return false;

@@ -20,7 +20,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        showMessage($rootScope.locale['INVALID_CREDENTIALS']);
+                        showMessage($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
@@ -40,7 +40,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     if (data && data.exception) {
                         showMessage(data.exception.message, '30');
                     } else {
-                        showMessage($rootScope.locale['GENERAL_ERROR']);
+                        showMessage($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                
