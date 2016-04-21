@@ -123,7 +123,6 @@ function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
 }
 
 function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, optionFlag, resolve){
-
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -139,6 +138,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                 else {
                     url = scope.HostURL + resource;
                 }
+                console.log('OPTIONS CALL ON : '+url);
                 //Retrieve regionToSORMap from the rootScope
                 var regionToSORMap = scope.regionToSoR;
                 //Retrieve the application name for the given region Id
@@ -306,11 +306,11 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
-        
         dataFactory.deleteRecord(url,$rootScope.headers).success(function(data){
-            showMessage(data.messages.message+' - '+url);
+            angular.forEach(data.messages, function(value){
+                showMessage(value.message);    
+            });
         });
-        
     }
 }
 
