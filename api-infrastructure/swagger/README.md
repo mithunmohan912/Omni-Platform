@@ -4,6 +4,7 @@ Swagger Specs Files
 ###Quick Start
 
 Swagger editor available on AWS server : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/swagger-editor/#/
+
 Steps to open API spec files: 
 ```
 $ git clone https://bitbucket.org/<your-bitbucket-id>/omnichannel-infrastructure.git
@@ -18,7 +19,7 @@ Click Open
 ================================
 
 ###List of files
-
+```
 SWG-APIsforbasicoperationsofClientsonPOINT.json
 SWG-APIsforbasicoperationsofparties.json
 SWG-DomainModel.json
@@ -43,3 +44,4 @@ SWG-SwaggerPetstore(Simple).json
 SWG-TwitterRESTAPI.json
 SWG-UberAPI.json
 SWG-_enteryourtitle_.json
+```
