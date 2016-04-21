@@ -47,6 +47,17 @@ global app
         return $http.delete(urlBase + '/' + id);
     };
 
+    dataFactory.deleteRecord = function (url, headers) {
+        
+        var obj = $http({
+            method : 'DELETE',
+            url : url,
+            headers : headers
+        });
+
+        return obj;
+    };
+
     dataFactory.options=function(urlBase, headers){
         var obj =   $http(
             {
