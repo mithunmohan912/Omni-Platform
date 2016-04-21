@@ -31,7 +31,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess);
             }
             
-            loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope);
+            loadOptions(scope, screenId, regionId, $rootScope, dataFactory);
 
             
         }, function() {
@@ -78,13 +78,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
 
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, optionFlag, resolve);
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
                         httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);       
                     } else{
-                        loadOptionsDataForMetadata(resourcelist, $scope, regionId, dataFactory, $rootScope, action, tab, optionFlag, resolve);
+                        loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve);
                     }
                 }
             });
@@ -106,23 +106,25 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     return this;
 });
 
-function loadOptions(m, scope, regionId, screenId,dataFactory, $rootScope){
+function loadOptions(scope, screenId, regionId, $rootScope, dataFactory){
+    if(screenId !== undefined){
         //Read metadata from the root scope
-        var action;
         var metaModel = scope.metadata[screenId];
 
-        //Retrieve resource list from the meta model
-        var resourcelist;
         if(metaModel !== undefined){
-            resourcelist = metaModel.resourcelist;
-        }
-
-        if(resourcelist !== undefined && resourcelist.length > 0){
-            loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action);
-        }
+            //Retrieve resource list from the meta model
+            var resourcelist = metaModel.resourcelist;
+            if(resourcelist !== undefined && resourcelist.length > 0){
+                loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, dataFactory);
+            }
+        }    
+    }
+        
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, $rootScope, action, tab, optionFlag, resolve){
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve){
+        
+        console.log('regionID--------'+regionId);
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -130,21 +132,22 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, dataFactory, 
                 console.log('RESOURCE : '+resource);
 
                 //Formulate the URL for the options call
-                var url;  
-                
+                var url;
+                var newURL;
                 if($rootScope.resourceHref) {
-                    url = $rootScope.resourceHref;
+                    newURL = $rootScope.resourceHref;
                 }
                 else {
                     url = scope.HostURL + resource;
+                    //Retrieve regionToSORMap from the rootScope
+                    var regionToSORMap = scope.regionToSoR;
+                    //Retrieve the application name for the given region Id
+                    var applName = regionToSORMap[regionId];
+                    //Replace the regionId with application name in the URL
+                    newURL = url.replace(':regionId',applName);
                 }
-                console.log('OPTIONS CALL ON : '+url);
-                //Retrieve regionToSORMap from the rootScope
-                var regionToSORMap = scope.regionToSoR;
-                //Retrieve the application name for the given region Id
-                var applName = regionToSORMap[regionId];
-                //Replace the regionId with application name in the URL
-                var newURL = url.replace(':regionId',applName);
+
+                console.log('OPTIONS CALL ON : '+newURL);
                 //Formulate the key for storing the options map for the given resource on the region
                 var keyForOptionsMap = regionId +':'+resource;
                 //Fetch the options map for the given resource
