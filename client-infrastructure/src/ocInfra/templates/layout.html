@@ -90,6 +90,11 @@
                 <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab)" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
             </div>
     </div>
+                <div ng-switch-when="tourstep" class="col-md-{{field.columnsize}}" style="text-align: center;" >
+                      <div tour-step backdrop="true" order="{{field.order}}" title="{{field.title}}" content="{{field.tourcontent}}" placement="{{field.position}}" autoscroll="true"></div>
+
+                </div>
+                
     <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
                 <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab);showErr()" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
     </div>
@@ -206,6 +211,14 @@
                <div ng-switch-when="buttonSmall" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
                 <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
+                <div ng-switch-when="tourButton" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="tour.restart(true)">Start tour</button>
+                </div>
+                <div ng-switch-when="tourstep" class="col-md-{{subfield.columnsize}}" style="text-align: center;" >
+                <div tour-step backdrop="true" order="{{subfield.order}}" title="{{subfield.title}}" content="{{subfield.tourcontent}}" placement="{{subfield.position}}" autoscroll="true"></div>
+
+                </div>
+                
                 <div ng-switch-when="buttonLarge" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
                 <button id="{{subfield.name}}" class="oc-btn oc-btn-large {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
