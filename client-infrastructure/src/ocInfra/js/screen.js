@@ -213,7 +213,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
-            
+            if(tab === undefined){
+                $rootScope.resourceHref = undefined;
+            }
             if(actionURL !== undefined){
                 $rootScope.navigate(actionURL);    
             }
@@ -247,6 +249,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 }else{
                     EnumerationService.loadEnumerationByTab();
                 }
+
             });		
         }
     };
