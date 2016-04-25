@@ -213,7 +213,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
-            $rootScope.resourceHref = undefined;
+            
             if(actionURL !== undefined){
                 $rootScope.navigate(actionURL);    
             }
