@@ -1,8 +1,8 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" ng-if="showHeader" ng-controller="HeaderController" >
   <div class="container">
-  	<p style="margin-top:10px;">{{locale["_COPYRIGHT"]}}</p>
+  	<p style="margin-top:10px;">{{locale["_COPYRIGHT"]}}
+  	<button class="btn btn-primary" style="float:right" ng-click="tour.restart(true)">Start Tour</button>
+  	</p>
   </div>
-  <div class="col-lg-4 col-md-5 col-sm-6">
-            <button class="btn btn-lg btn-primary" ng-click="tour.restart(true)">Start Tour</button>
-        </div>
+  
