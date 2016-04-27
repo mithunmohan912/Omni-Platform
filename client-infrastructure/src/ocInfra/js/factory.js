@@ -254,11 +254,11 @@ function httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resol
                 if(data._links.item){
                     $scope.stTableList = data._links.item;
                     $scope.displayed = data._links.item;
-                    $scope.showResult = true;
+                    $scope.stTableList.showResult = true;
                 }else{
                     $scope.stTableList = [];
                     $scope.displayed = [];
-                    $scope.showResult = false;
+                    $scope.stTableList.showResult = false;
                 }    
             }
         }).error(function(){

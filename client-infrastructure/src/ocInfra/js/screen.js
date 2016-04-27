@@ -155,6 +155,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 	};
 
 	$scope.loadOptionData();
+    
+    $scope.stTableList = [];
+    $scope.displayed = [];
+    $scope.stTableList.showResult = true;
 
 	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
 
