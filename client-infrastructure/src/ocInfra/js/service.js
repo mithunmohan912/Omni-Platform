@@ -67,93 +67,107 @@ app.service('OCRoles', function($resource, $rootScope, $location) {
 });
 
 
-app.service('HttpService', function($http,DataMappingService,growl) {
-    this.options = function( url, headers, $rootScope) {
-     $http(
-			{
-				method : 'OPTIONS',
-				url : url,
-				headers: headers
-			}
-		).success(function(data){
-			 angular.forEach(data, function(value){
-				if(Array.isArray(value)) {
-					if ($rootScope.optionData === undefined) {
-						$rootScope.optionData=[];
-					}
-					$rootScope.optionData[url]= value;
-				}
-				
-				// Set links and desc in scope
-				
-			});
-			 
-		});
+app.service('EnumerationService', function($rootScope, resourceFactory){
+
+    var self = this;
+
+    self.loadEnumerationByTab = function (){
+        if($rootScope.resourceHref && $rootScope.currRel){
+            if($rootScope.currRel === 'itself'){
+                var urlDetail = $rootScope.resourceHref;
+                self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+            } else {
+                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+                    var url = data._links[$rootScope.currRel].href;
+                    resourceFactory.options(url, $rootScope.headers).success(function(data){
+                        var urlDetail = data._links.item.href;
+                        self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+                    });
+                });
+            }
+        }
     };
-	
-	this.search = function( url,headers,params,listDispScope) {
-     $http(
-			{
-				method : 'GET',
-				url: url,
-                headers: headers,
-                params: params
-			}
-		).success(function(data){
-			 if (data.item) {
-                    listDispScope.stTableList = data.item;
-                    listDispScope.showResult = true;
-                } else {
-                    listDispScope.stTableList = [];
-                    listDispScope.showResult = false;
+
+    self.executeEnumerationFromBackEnd = function (url, headers, action){
+        resourceFactory.options(url, headers).success(function(data){
+            angular.forEach(data._options.links, function(value){
+                if(value.rel === action){
+                    angular.forEach(value.schema.properties, function(value, key){
+                        if(value.enum) {
+                            processEnumeration($rootScope, value.enum, key);
+                        }
+                    });
                 }
-		});
+            });
+        });
     };
-	
-	this.get = function( url,headers, $scope) {
-     $http(
-			{
-				method : 'GET',
-				url: url,
-                headers: headers,
-			}
-		).success(function(data){
-			 if (data) {
-				    $scope.data=data;
-				    console.log('DataMappingService'+DataMappingService);
-				    if(DataMappingService !== undefined){
-					DataMappingService.map($scope);
-				}
-			 }
-		});
+
+    var processEnumeration = function($rootScope, enumValue, key) {
+        var enumeration={};
+        var contractKey = null;
+        if (enumValue){
+            enumeration[key]=processOptionsResult(enumValue);
+            angular.extend($rootScope.enumData, enumeration);
+        }else{
+            enumeration[key]=$rootScope.enumData[key];
+        }
+        enumeration[contractKey]=enumeration[key];
+        angular.extend($rootScope.enumData, enumeration);
     };
-	
-	this.addUpdate = function( method, url,headers, payLoad,objectName) {
-    $http({
-				method: method,
-				url: url,
-				headers: headers,
-				data: payLoad
-			}).success(function(data){
-                
 
 
-			 if (data) {
-				 var resource=objectName.charAt(0).toUpperCase() + objectName.substring(1);
-				 console.log(resource);
-				 if(method==='PATCH'){
-					  growl.addSuccessMessage(data.message);
-				 } else{
-					  growl.addSuccessMessage(data.message);
-					  
-				 }
-				
-			 }
-			});
+    var processOptionsResult = function(enumArray){
+        var processedArray = [];
+        angular.forEach(enumArray, function(value){
+            processedArray.push(value);
+        });
+        return processedArray;
     };
-	
-    return this;
+
+    return self;
+
 });
+
+app.service('CheckVisibleService', function(){
+
+    this.checkVisible = function(field, $scope) {
+        if (field.visibleWhen) {
+            var response = evaluateExpression(field.visibleWhen.expression, $scope);
+            return response;
+        }    
+        return true;
+    };
+
+    function evaluateExpression(expression, $scope) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && evaluateExpression(val, $scope);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || evaluateExpression(val, $scope);
+                    }
+                });
+            }
+        } else //Base case
+        {
+            response = $scope.data[expression.field] === expression.value;
+        }
+        return response;
+    }
+
+    return this;
+
+});
+
+
 
 
 

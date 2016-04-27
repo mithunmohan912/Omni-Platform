@@ -5,30 +5,35 @@
 exported AnonymousController
 */
 
-function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
+function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata, MetaData, EnumerationService, resourceFactory) {
     $rootScope.screenId = 'anonymous';
-    console.log('anonymous');
     var metadataLocation = $rootScope.metadataPath;
-    //'assets/resources/metadata/';
-    //$rootScope.metadataPath;
-    console.log(metadataLocation);
     OCMetadata.load($scope,metadataLocation);
-
+    $rootScope.isAuthSuccess = false;
+    MetaData.setHeaders($rootScope);
 
     $scope.checkvisible = function(field) {
             return FieldService.checkVisibility(field, $scope);    
      };
     $rootScope.showHeader = false;	
     $scope.doaction = function(method, subsections, action, actionURL) {
-        //console.log('doaction----' +nextScreenId);
-        if(method === 'navigate'){
+        if(method === 'login'){
             $rootScope.nextURL = actionURL;
-            console.log('login metho---'+actionURL);
-            //$rootScope.screenId = 'login';
-           // OCMetadata.load($scope, metadataLocation);
             $rootScope.navigate(actionURL);
-        } else if(method === 'asiaQuoteScreen'){
-
+        } else if(method === 'navigate'){
+            $rootScope.nextURL = actionURL;
+            $rootScope.navigate(actionURL);
+            // if create anonymous quotes => regionId doesn't value.
+            // Need to set value to create empty quote
+            if($rootScope.regionId === undefined){
+                var arr = actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
+            new Promise(function(resolve) {
+                MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, resolve);
+            }).then(function(){
+                EnumerationService.loadEnumerationByTab();
+            }); 
         }
     };
 
@@ -41,7 +46,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
-                showMessage('Network is not available', '30');
+                showMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
             } else {
 				LoginSrv.runLogin($scope, nextScreenId);
             }

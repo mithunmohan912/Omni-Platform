@@ -4,7 +4,7 @@
 global app
 */
 
-app.controller('TableController', function($browser, $scope, $rootScope, TableMetaData,$location) {
+app.controller('TableController', function($browser, $scope, $rootScope, TableMetaData, MetaData, resourceFactory, $location, CheckVisibleService) {
 
     $scope.showResult = true;
     $scope.riskDataSet = [];
@@ -17,26 +17,34 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
     };
 
    $scope.checkShow = function(opt) {
+        if (opt.visibleWhen) {
+            return CheckVisibleService.checkVisible(opt, $scope);
+        }
+
         if (opt.visibleflag === undefined) {
             return true;
         }
-        
+
         if ( $rootScope.config[opt.visibleflag] === undefined || $rootScope.config[opt.visibleflag] === true) {
             return true;
         } else {
             return false;
         }
+
     };
 
-    $scope.doActionItem = function(actionType, item, tableName,url) {
+    $scope.doActionItem = function(action, item, tableName,url) {
        
-        var field;
-        if (actionType === 'edit') {
-         $rootScope.resourceHref = item.href;
-		 $rootScope.navigate(url);
-        } else if (actionType === 'delete') {
-            field = angular.element($('#' + tableName)).scope().field;
-            $scope.deleteRow(item, field);
+        var screenId = $rootScope.screenId;
+        var regionId = $rootScope.regionId;
+        $rootScope.resourceHref = item.href;
+        
+        var optionFlag = true;
+        
+        MetaData.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
+
+        if (url !== undefined) {
+            $rootScope.navigate(url);
         }
     };
 	

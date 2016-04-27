@@ -25,7 +25,7 @@ function LoginController($scope, $rootScope, $location, $cookieStore, $http, $re
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
-                showMessage('Network is not available', '30');
+                showMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
             } else {
 				LoginSrv.runLogin($scope, nextScreenId);
             }

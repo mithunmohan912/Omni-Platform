@@ -4,15 +4,15 @@ global app
 */
 
 
-    app.factory('dataFactory', ['$http', function($http) {
+    app.factory('resourceFactory', ['$http', function($http) {
 
-    var dataFactory = {};
+    var resourceFactory = {};
 
-    dataFactory.getData = function (urlBase) {
+    resourceFactory.getData = function (urlBase) {
         return $http.get(urlBase);
     };
 
-    dataFactory.get = function (urlBase,params,headers) {
+    resourceFactory.get = function (urlBase,params,headers) {
         var obj =   $http(
             {
                 method : 'GET',
@@ -24,8 +24,8 @@ global app
         return obj;
     };
 
-    dataFactory.post = function (urlBase,params,headers) {
-       var obj = $http({
+    resourceFactory.post = function (urlBase,params,headers) {
+        var obj = $http({
                 method: 'POST',
                 url: urlBase,
                 headers: headers,
@@ -34,20 +34,24 @@ global app
         return obj;
     };
 
-    dataFactory.insert = function (urlBase,obj) {
-
+    resourceFactory.insert = function (urlBase,obj) {
         return $http.post(urlBase, obj);
     };
 
-    dataFactory.update = function (urlBase,obj) {
+    resourceFactory.update = function (urlBase,obj) {
         return $http.put(urlBase + '/' + obj.id, obj);
     };
 
-    dataFactory.delete = function (urlBase,id) {
-        return $http.delete(urlBase + '/' + id);
+    resourceFactory.delete = function (url, headers) {
+        var obj = $http({
+            method : 'DELETE',
+            url : url,
+            headers : headers
+        });
+        return obj;
     };
 
-    dataFactory.options=function(urlBase, headers){
+    resourceFactory.options=function(urlBase, headers){
         var obj =   $http(
             {
                 method : 'GET',
@@ -58,7 +62,7 @@ global app
         return obj;
     };
 
-    dataFactory.patch = function (urlBase,params,headers) {
+    resourceFactory.patch = function (urlBase,params,headers) {
         var obj = $http({
                 method: 'PATCH',
                 url: urlBase,
@@ -67,6 +71,6 @@ global app
             });
         return obj;
     };
- return dataFactory;
+ return resourceFactory;
 
 }]);

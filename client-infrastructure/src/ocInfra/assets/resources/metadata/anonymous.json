@@ -1,6 +1,7 @@
 {
     "metadata": {
         "formid": "login",
+        "resourcelist": ["quotes"], 
         "title": "",
         "name": "login",
         "sections": [
@@ -30,15 +31,42 @@
                                     "visible": "true"
                                   },
                                   {
+                                    "order": "0",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"Anonymous Login",
+                                     "tourcontent":"Click here to create auto quote for aisa region without login.",
+                                     "position":"right"
+
+                                },
+                                                               
+                                  {
                                     "name": "login",
                                     "type": "buttonSmall",
-                                    "method":"navigate",
+                                    "method":"login",
                                     "label": "_SIGNIN",
                                     "visible": true,
                                     "columnsize": 12,
                                     "actionurl": "/login",
                                     "nextScreenId": "login"
+                                },
+                                {
+                                    "order": "1",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"Login",
+                                     "tourcontent":"Click here to Login.",
+                                     "position":"right"
+
+                                },
+                                {
+                                    "name": "starttour",
+                                    "type": "tourButton",
+                                    "method":"starttour",
+                                     "visible": true,
+                                    "columnsize": 12                                    
                                 }
+                                
                                  
                             ]
                     }

@@ -5,11 +5,32 @@
         "title": "_SAVED_ITEMS",
         "name": "quote",
         "viewAs": "menu",
+        "createButton": true,
+        "button":{
+            "icon" : "",
+            "method" :"", 
+            "action": "create",
+            "actionurl": "/eu/screen/quotescreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"                       
+        },
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            }
+        ],
     "workflowGrp": [{"nav":"false"}],
     "mainTabs": "false",
         "sections": [
             {
-                "title": "_SAVED_ITEMS",
+                "title": "_HOME_QUOTE_EU_SEARCH",
                 "name": "quote_search",
                 "category": "nonaccordion",
                 "elements": [
@@ -62,7 +83,8 @@
                             {
                                 "name": "quote:product_id",
                                 "type": "select",
-                                "label": "_PRODUCT_ID",
+                                "label": "_PRODUCT",
+                                "default": "IN005",
                                 "columnsize": 6,
                                 "enumdata": [
                                     {
@@ -72,9 +94,9 @@
                                 ] 
                             },
                             {
-                                "name": "quote:start_date",
+                                "name": "quote:contract_start_date",
                                 "type": "date",
-                                "label": "_Effective_Date",
+                                "label": "_START_DATE_OF_THE_CONTRACT",
                                 "visible": "true",
                                 "columnsize": 6
                             }
@@ -94,11 +116,22 @@
                                 "columnsize":6
                             },
                            {
-                                "name":"quote:type",
-                                "type":"text",
-                                "label":"_QUOTE_TYPE",
-                                "columnsize":6
+                                "name": "quote:type",
+                                "type": "select",
+                                "label": "_QUOTE_TYPE",
+                                "columnsize": 6,
+                                "enumdata": [
+                                    {
+                                        "value": "new",
+                                        "description": "_NEW"
+                                    },
+                                    {
+                                        "value": "amendment",
+                                        "description": "_AMENDMENT"
+                                    }
+                                ] 
                             },
+                           
                             {
                                 "name": "quote_owner:name",
                                 "type": "text",
@@ -173,16 +206,7 @@
                         "label": "_SEARCH",
                         "action":"search",
                         "visible": "true",
-                        "columnsize": "6"
-                    },
-                    {
-                        "name": "create",
-                        "type": "buttonSmall",
-                        "label": "_CREATE_QUOTE",
-                        "actionurl": "/eu/screen/quotescreate",
-                        "visible": "true",
-                        "action":"add",
-                        "columnsize": "6"
+                        "columnsize": "12"
                     },
                     {
                         "name": "searchlist",

@@ -37,8 +37,15 @@
     <div class="">
         <div ng-include src="config.templates.header"></div>
     </div>
-    <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
-    <div class="hr_margin"><hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true"><hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true"></div> 
+    <div>
+    <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}
+    <button ng-if="metadata[screenId].createButton" style="float:right;" id="{{metadata[screenId].button.name}}" class="oc-btn oc-btn-small {{metadata[screenId].button.icon}}" ng-click="doaction(metadata[screenId].button.method, section, metadata[screenId].button.action,metadata[screenId].button.actionurl,metadata[screenId].button.nextScreenId)">{{(locale[metadata[screenId].button.label]?locale[metadata[screenId].button.label] : metadata[screenId].button.label)}}
+    </button></h3>
+    </div>
+    <div class="hr_margin">
+        <hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true">
+        <hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true">
+    </div> 
 
     <div ng-if="section.modaledit !== true" class="{{section.heightClass}}">
         <div ng-include src="'nonaccordionsection.html'"></div>
@@ -48,7 +55,11 @@
           <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
-              <span class="{{section.icon}}"></span>{{locale[section.labelDisplay]}}
+            <div class="text-center">
+              <span class="{{section.icon}}"></span>
+              
+              <div class="text-center">{{locale[section.labelDisplay]}}  <span class="flag {{section.iconflags}}"></span></div>
+            </div>
             </a>
           </div>
         </div>
@@ -119,7 +130,8 @@
                         <div class="oc-modal-header border-none">
                             <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
                             <h3 class="text-left">{{locale[section.title]}}</h3>
-                            <hr class="onl_hrOr_1"><hr class="onl_hrOr_2">
+                            <hr ng-if="screenId!=='anonymous'"class="onl_hrOr_1"><hr ng-if="screenId!=='anonymous'" class="onl_hrOr_2">
+                            <hr ng-if="screenId=='anonymous'" class="onl_hrOr_2" style="width:100%">
                         </div>
 
                         <div class="modal-body">
