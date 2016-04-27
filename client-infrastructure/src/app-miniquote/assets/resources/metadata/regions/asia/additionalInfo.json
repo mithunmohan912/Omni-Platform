@@ -6,7 +6,6 @@
         "name": "additionalInfo",
         "sections": [
             {
-               
                 "name": "additional_info",
                 "category": "nonaccordion",
                 "elements": [
@@ -40,15 +39,25 @@
                 "category": "nonaccordion",
                 "elements": [
                     {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
                         "name": "submit1",
                         "type": "buttonSmall",
-                        "label": "_CALCULATE",
-                        "action":"calculate",
+                        "label": "_CALCULATEPREMIUM",
+                        "action":"update",
+                        "tab": "quote:quote_risk_list",
                         "visible": true,
-                        "columnsize": "12"
+                        "columnsize": "6"
                     }
                 ]
             }
-        ] 
+        ]
     }
 }

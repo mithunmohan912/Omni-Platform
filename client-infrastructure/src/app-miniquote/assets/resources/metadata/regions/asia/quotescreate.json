@@ -2,43 +2,76 @@
     "metadata": {
         "formid": "AddHomeQuote",
         "title": "_AUTO_QUOTE_ASIA_CREATE",
-        "resourcelist": ["quotes"], 
-        "category":"tabs",
+        "resourcelist": ["quotes"],
+        "category": "tabs",
         "hidetitle": false,
         "createButton": false,
         "name": "AddHomeQuote",
-        "sections": [
-            {
-                "$ref":"ownerInfo",
+        "sections": [{
+                "$ref": "ownerInfo",
+                "type": "tab",
                 "name": "_OWNER_INFO_TAB",
                 "renderAsTab": true,
-                "link" : "quote:quote_owner_list", 
+                "link": "quote:quote_owner_list",
                 "step": 1
             },
             {
-                "$ref":"riskInfo",
+                "$ref": "riskInfo",
+                "type": "tab",
                 "name": "_RISK_INFO_TAB",
                 "renderAsTab": true,
-                "link" : "quote:quote_risk_list",
+                "link": "quote:quote_risk_list",
                 "step": 2
+            }, {
+                "order": "1",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "Risk Info",
+                "tourcontent": "Click here to move to riskInfo after filling mandatory fields.",
+                "position": "top"
+
             },
+
             {
                 "$ref": "additionalInfo",
+                "type": "tab",
                 "name": "_ADDITIONAL_INFO_TAB",
                 "renderAsTab": true,
-                "link" : "quote:quote_risk_list",
+                "link": "quote:quote_risk_list",
                 "step": 3
+            }, {
+                "order": "2",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "Additional Info",
+                "tourcontent": "Click here to move to Risk Info after filling mandatory fields.",
+                "position": "top"
+
             },
+
             {
                 "$ref": "premiumInfo",
+                "type": "tab",
                 "name": "_PREMIUM_INFO_TAB",
                 "renderAsTab": true,
-                "link" : "undefined",
+                "link": "undefined",
                 "step": 4
+            }, {
+                "order": "3",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "Premium Info",
+                "tourcontent": "Click here to move to Premium Info after filling mandatory fields.",
+                "position": "top"
+
             }
-        ] 
+
+        ]
     },
-    "include":[
+    "include": [
         "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
     ]
 }

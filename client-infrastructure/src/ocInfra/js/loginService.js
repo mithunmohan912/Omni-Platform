@@ -20,7 +20,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        showMessage('Check Username or Password, incorrect Credentials !');
+                        showMessage($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
@@ -40,7 +40,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     if (data && data.exception) {
                         showMessage(data.exception.message, '30');
                     } else {
-                        showMessage('Unable to connect the server. Please check your internet connection or contact system admin.');
+                        showMessage($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                

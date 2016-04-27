@@ -9,7 +9,13 @@
         "defaultValue": [
             {
                 "field": "quote:contract_start_date",
-                "value": "Date"
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
             }
         ],
         "workflowGrp": [{"nav":"false"}],
@@ -17,7 +23,7 @@
          "button":{
             "icon" : "",
             "label": "_CREATE_QUOTE",
-            "action": "add",
+            "action": "create",
             "actionurl": "/eu/screen/autocreate",
             "name": "create",
             "label": "_CREATE_QUOTE"
@@ -55,7 +61,6 @@
                                 "type": "text",
                                 "label": "_DISTRIBUTOR_ID",
                                 "visible": "true",
-                                "default": "gtmoni",
                                 "columnsize": 6
                             }
                             ]

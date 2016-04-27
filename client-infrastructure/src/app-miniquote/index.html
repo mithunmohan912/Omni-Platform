@@ -15,20 +15,25 @@
   <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="../vendors/open-sans/css/open-sans.css">
   <link rel="stylesheet" href="../vendors/select2/select2.css">
+  <link rel="stylesheet" href="../vendors/bootstrap-tour/build/css/bootstrap-tour.css">
+  <link rel="stylesheet" href="../vendors/bootstrap-tour/build/css/bootstrap-tour-standalone.css">
   <!-- endbower_injector -->
   <!-- injector:css -->
   <link rel="stylesheet" href="../ocInfra/css/custom-style.css">
   <link rel="stylesheet" href="../ocInfra/css/omnichannel.css">
   <link rel="stylesheet" href="../ocInfra/css/style.css">
   <link rel="stylesheet" href="../ocInfra/css/tab-style.css">
-  <link rel="stylesheet" href="../ocInfra/css/Generic_Iconfont/font/generic_flaticon.css">
+  <link rel="stylesheet" href="ocInfra/css/ocInfra.min.css">
   <link rel="stylesheet" href="../ocInfra/css/Omni_Iconfont/font/flaticon.css">
   <!-- endinjector -->
 </head>
-  <body  hidemessage>
+
+  <body  hidemessage tour storage="false">
+
     <div ng-include="'ocInfra/templates/homeheader.html'" >
     </div>
     <div ng-include="'ocInfra/templates/footer.html'" >
+    
     </div>
     <div class="header-margin-wide"></div>
     <!-- loading... -->
@@ -41,9 +46,13 @@
     </div>
  
     <div class="container-fluid">
-      <div ng-view autoscroll="true"></div>
+    
+      <div  ng-view ></div>
+
+
     </div>
 
+    
     <div ng-include="'ocInfra/templates/errorDialog.html'" >
     </div>
   <!-- bower_injector:js -->
@@ -75,6 +84,8 @@
   <script src="../vendors/select2/select2.js"></script>
   <script src="../vendors/ckeditor/ckeditor.js"></script>
   <script src="../vendors/angular-growl/build/angular-growl.js"></script>
+  <script src="../vendors/bootstrap-tour/build/js/bootstrap-tour.js"></script>
+  <script src="../vendors/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
   <!-- endbower_injector -->
   <!-- injector:js -->
   <script src="app/AnonymousController.js"></script>
