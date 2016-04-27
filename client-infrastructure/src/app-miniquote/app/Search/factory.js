@@ -5,7 +5,7 @@ global app
   
 
   //quote factory
- app.factory('quotesfactory', ['$http','dataFactory','$rootScope','$log','growl',function($http,dataFactory,$rootScope,log,growl) {
+ app.factory('quotesfactory', ['$http','resourceFactory','$rootScope','$log','growl',function($http,resourceFactory,$rootScope,log,growl) {
    
 
     var quotesfactory = {};
@@ -13,7 +13,7 @@ global app
     quotesfactory.init=function(){
       var uri=$rootScope.screenId;
       var url = $rootScope.HostURL + uri;
-      return dataFactory.getData(url).success(function(data){
+      return resourceFactory.getData(url).success(function(data){
         log.info('global options called'+data); 
       });
 
@@ -26,14 +26,14 @@ global app
         console.log('current screen id' + uri);
         log.info('derived URL!!!' + url);
       }
-      return dataFactory.getData(url).success(function(){
+      return resourceFactory.getData(url).success(function(){
         log.info('global options called'); 
       });
     };
 
     quotesfactory.add=function(url,payLoad){
       
-     return dataFactory.insert(url,payLoad).success(function(data){
+     return resourceFactory.insert(url,payLoad).success(function(data){
        
        growl.addSuccessMessage(data.message);
         });
@@ -44,7 +44,7 @@ global app
 }]);
 
 
-app.factory('dashboardfactory', ['$http','dataFactory','$rootScope','$log','growl',function($http,dataFactory,$rootScope,log,growl) {
+app.factory('dashboardfactory', ['$http','resourceFactory','$rootScope','$log','growl',function($http,resourceFactory,$rootScope,log,growl) {
    growl.addSuccessMessage('hi');  
 
     var dashboardfactory = {};
@@ -54,7 +54,7 @@ app.factory('dashboardfactory', ['$http','dataFactory','$rootScope','$log','grow
       
         var url1 = $rootScope.HostURL + 'quotes';
 
-     return dataFactory.getData(url1).success(function(){
+     return resourceFactory.getData(url1).success(function(){
        //$scope.displayed= data;
        
        
