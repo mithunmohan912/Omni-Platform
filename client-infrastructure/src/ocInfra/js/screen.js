@@ -187,7 +187,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
             new Promise(function(resolve) {
                 var optionFlag = false;
-                MetaData.actionHandling($scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
+                MetaData.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
             }).then(function(){
                     if(tab !== undefined){
                         var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
@@ -293,7 +293,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                     loadRelationshipByStep($scope.preStep);
                     if (regionId !== 'us') {
                         var optionFlag = true;
-                        MetaData.actionHandling($scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
+                        MetaData.actionHandling(undefined, $scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
                     }
                     $scope.preStep = $rootScope.step;
                     loadRelationshipByStep($scope.preStep);

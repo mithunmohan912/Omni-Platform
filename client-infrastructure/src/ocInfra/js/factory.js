@@ -39,7 +39,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
 
-    this.actionHandling=function($scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
+    this.actionHandling=function(item, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metadata[screenId];
         
@@ -75,13 +75,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
 
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                    loadOptionsDataForMetadata(item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
-                        httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resolve);       
+                        httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options, resolve);       
                     } else{
-                        loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                        loadOptionsDataForMetadata(item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
                 }
             });
@@ -112,13 +112,13 @@ function loadOptions(scope, screenId, regionId, $rootScope, resourceFactory){
             //Retrieve resource list from the meta model
             var resourcelist = metaModel.resourcelist;
             if(resourcelist !== undefined && resourcelist.length > 0){
-                loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, resourceFactory);
+                loadOptionsDataForMetadata(undefined, resourcelist, scope, regionId, $rootScope, resourceFactory);
             }
         }    
     }
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
+function loadOptionsDataForMetadata(item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
@@ -182,7 +182,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, r
                                     if(action !== undefined){
                                        options = optionsMapForResource.get(action);
                                        if(options !== undefined){
-                                           httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
+                                           httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
                                        }
                                     }
                                 });
@@ -193,7 +193,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, r
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -203,7 +203,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, r
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -232,8 +232,7 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
-function httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resolve){
-
+function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
     var httpmethod = options.httpmethod;
@@ -306,6 +305,16 @@ function httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resol
         });
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(data){
+            if(data.outcome === 'success'){  
+                var index=0;
+                angular.forEach($scope.stTableList, function(field){
+                    if(item.$$hashKey===field.$$hashKey){
+                        $scope.stTableList.splice(index, 1);    
+                    } else{
+                        index=index+1;     
+                    }
+                });
+            }
             angular.forEach(data.messages, function(value){
                 showMessage(value.message);    
             });

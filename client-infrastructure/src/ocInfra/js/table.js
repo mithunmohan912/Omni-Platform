@@ -40,23 +40,11 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         $rootScope.resourceHref = item.href;
         
         var optionFlag = true;
-        MetaData.actionHandling($scope, regionId, screenId, action, resourceFactory, optionFlag); 
+        
+        MetaData.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
 
         if (url !== undefined) {
             $rootScope.navigate(url);
-        }
-
-        if (action === 'delete') {    
-           var listDispScope = angular.element($('.table-striped')).scope();
-           var index=0;
-           angular.forEach(listDispScope.stTableList, function(field){
-            if(item.$$hashKey===field.$$hashKey){
-               listDispScope.stTableList.splice(index, 1);    
-            } else{
-               index=index+1;     
-            }
-            }); 
-
         }
     };
 	
