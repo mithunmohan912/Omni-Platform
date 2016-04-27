@@ -10,9 +10,9 @@ global app, showMessage
 exported ScreenController
 */
 
-app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, dataFactory) {
+app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, resourceFactory) {
 
-    this.load = function(scope, regionId, screenId, supportPayLoad, actionPayLoad, onSuccess, resolve) {
+    this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
         if(regionId){
@@ -26,14 +26,11 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             $rootScope.title = m.metadata.title;
 
             if (m.include && m.include.length > 0) {
-                loadReferencedMetaModels(scope, m, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
+                loadReferencedMetaModels(scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
-                setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess);
+                setScreenData($rootScope, scope, m, screenId, $browser, onSuccess);
             }
-            
-            loadOptions(scope, screenId, regionId, $rootScope, dataFactory);
-
-            
+            loadOptions(scope, screenId, regionId, $rootScope, resourceFactory);
         }, function() {
             $rootScope.showIcon = false;
             showMessage($rootScope.appConfig.timeoutMsg);
@@ -42,7 +39,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
 
-    this.actionHandling=function($scope, regionId, screenId, action, dataFactory, tab, optionFlag, resolve){
+    this.actionHandling=function($scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metadata[screenId];
         
@@ -78,13 +75,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
 
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve);
+                    loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
-                        httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve);       
+                        httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resolve);       
                     } else{
-                        loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve);
+                        loadOptionsDataForMetadata(resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
                 }
             });
@@ -106,7 +103,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     return this;
 });
 
-function loadOptions(scope, screenId, regionId, $rootScope, dataFactory){
+function loadOptions(scope, screenId, regionId, $rootScope, resourceFactory){
     if(screenId !== undefined){
         //Read metadata from the root scope
         var metaModel = scope.metadata[screenId];
@@ -115,16 +112,14 @@ function loadOptions(scope, screenId, regionId, $rootScope, dataFactory){
             //Retrieve resource list from the meta model
             var resourcelist = metaModel.resourcelist;
             if(resourcelist !== undefined && resourcelist.length > 0){
-                loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, dataFactory);
+                loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, resourceFactory);
             }
         }    
     }
-        
 }
 
-function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, dataFactory, action, tab, optionFlag, resolve){
+function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         
-        console.log('regionID--------'+regionId);
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -166,7 +161,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, d
                     optionsMapForResource = new Map();
                 }
                     //Options call for the resources in the meta model.
-                    dataFactory.options(newURL, $rootScope.headers).success(function(data){
+                    resourceFactory.options(newURL, $rootScope.headers).success(function(data){
                     //Fetch the options response
                     var optiondataobj = data._options.links;
                     var options;
@@ -178,16 +173,16 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, d
 
                             var tabUrl = tabObj.href;
 
-                            dataFactory.options(tabUrl, $rootScope.headers).success(function(data){
+                            resourceFactory.options(tabUrl, $rootScope.headers).success(function(data){
                                 var detailTabUrl = data._links.item.href;
-                                dataFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
+                                resourceFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
                                     optiondataobj = data._options.links;
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                     if(action !== undefined){
                                        options = optionsMapForResource.get(action);
                                        if(options !== undefined){
-                                           httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                           httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
                                        }
                                     }
                                 });
@@ -198,7 +193,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, d
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -208,7 +203,7 @@ function loadOptionsDataForMetadata(resourcelist, scope, regionId, $rootScope, d
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(scope, dataFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -237,7 +232,7 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
-function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
+function httpMethodToBackEnd($scope, resourceFactory, $rootScope, options, resolve){
 
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
@@ -250,19 +245,20 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
     params = setData($scope, schema, params);
 
     if(httpmethod==='GET'){
-    $rootScope.loader.loading=true;    
+        $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        dataFactory.get(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.get(url,params,$rootScope.headers).success(function(data){
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
-                var listDispScope = angular.element($('.table-striped')).scope(); 
                 if(data._links.item){
-                    listDispScope.stTableList=data._links.item;
-                    listDispScope.showResult = true;
+                    $scope.stTableList = data._links.item;
+                    $scope.displayed = data._links.item;
+                    $scope.showResult = true;
                 }else{
-                    listDispScope.stTableList = [];
-                    listDispScope.showResult = false;
+                    $scope.stTableList = [];
+                    $scope.displayed = [];
+                    $scope.showResult = false;
                 }    
             }
         }).error(function(){
@@ -272,7 +268,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
-        dataFactory.post(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
                 if($rootScope.regionId === 'us'){
                      if(data._links.self.quoteNumber !== undefined){
@@ -297,7 +293,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
-        dataFactory.patch(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
             $rootScope.loader.loading=false;
             if (data) {
                 if(resolve) {
@@ -309,7 +305,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
             showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
-        dataFactory.deleteRecord(url,$rootScope.headers).success(function(data){
+        resourceFactory.delete(url,$rootScope.headers).success(function(data){
             angular.forEach(data.messages, function(value){
                 showMessage(value.message);    
             });
@@ -317,7 +313,7 @@ function httpMethodToBackEnd($scope, dataFactory, $rootScope, options, resolve){
     }
 }
 
-function loadReferencedMetaModels(scope, metaModel, screenId, supportPayLoad, actionPayLoad, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve) {
+function loadReferencedMetaModels(scope, metaModel, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve) {
     var promises = [];
     var path;
     if(regionId){
@@ -336,11 +332,11 @@ function loadReferencedMetaModels(scope, metaModel, screenId, supportPayLoad, ac
         }).$promise);
     });
     $q.all(promises).then(function() {
-        setScreenData($rootScope, scope, metaModel, screenId, $browser, supportPayLoad, onSuccess, resolve);
+        setScreenData($rootScope, scope, metaModel, screenId, $browser, onSuccess, resolve);
     });
 }
 
-function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad, onSuccess, resolve) {
+function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, resolve) {
     var metadata = m.metadata;
     var resourcelist = metadata.resourcelist;
     
@@ -358,9 +354,7 @@ function setScreenData($rootScope, scope, m, screenId, $browser, supportPayLoad,
 
     });
 
-    if (onSuccess) {
-        onSuccess(m.metadata);
-    }
+    onSuccess(m.metadata);
     if(resolve){
         resolve();
     }
@@ -415,9 +409,7 @@ function formatIntoDate(value){
 app.factory('TableMetaData', function($resource, $rootScope) {
     this.load = function(tableId, onSuccess) {
         $resource('assets/resources/metadata/table/' + $rootScope.regionId +'/' + tableId + '.json').get(function(m) {
-            if (onSuccess) {
-                onSuccess(m.tableMetaData);
-            }
+            onSuccess(m.tableMetaData);
         }, function() {
             return;
         });

@@ -4,7 +4,7 @@
 global app
 */
 
-app.controller('TableController', function($browser, $scope, $rootScope, TableMetaData, MetaData, dataFactory, $location, CheckVisibleService) {
+app.controller('TableController', function($browser, $scope, $rootScope, TableMetaData, MetaData, resourceFactory, $location, CheckVisibleService) {
 
     $scope.showResult = true;
     $scope.riskDataSet = [];
@@ -40,7 +40,7 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         $rootScope.resourceHref = item.href;
         
         var optionFlag = true;
-        MetaData.actionHandling($scope, regionId, screenId, action, dataFactory, optionFlag); 
+        MetaData.actionHandling($scope, regionId, screenId, action, resourceFactory, optionFlag); 
 
         if (url !== undefined) {
             $rootScope.navigate(url);
