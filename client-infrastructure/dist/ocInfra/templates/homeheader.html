@@ -8,26 +8,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <div class="oc-navbar-brand oc-logo" href="#"></div>
+	    <a href ng-click="navigate('/dashboard')" >
+      <div class="oc-navbar-brand oc-logo" href="#"></div>
+    </a>
+ 
 
     </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <ul class="nav navbar-nav navbar-right" >
+      <ul class="nav navbar-nav navbar-right " >
         <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a></li>
         <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{locale["_ENGLISH"]}}</a></li>
         <li class="broker"><span>{{user.name}}</span> 
         <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      
-      <ul class="nav navbar-nav navbar-right" style="clear:right" ng-repeat="section in dashboard">
-        <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>
-        
-        <li class="dropdown" ng-repeat="application in section.sections">
-         <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+      <div ng-if="metadata[screenId].viewAs === 'menu'" >
+      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">      
+      <!-- <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>  -->
+        <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
+         <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
            </span>
@@ -42,7 +44,7 @@
 
 
          </ul>
-
+       </div>  
        </div>
      </div>
    </nav>

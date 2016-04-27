@@ -5,8 +5,29 @@
         "title": "_SAVED_ITEMS",
         "name": "quote",
         "viewAs": "menu",
-    "workflowGrp": [{"nav":"false"}],
-    "mainTabs": "false",
+        "createButton": true,
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            }
+        ],
+        "workflowGrp": [{"nav":"false"}],
+        "mainTabs": "false",
+         "button":{
+            "icon" : "",
+            "label": "_CREATE_QUOTE",
+            "action": "create",
+            "actionurl": "/eu/screen/autocreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"
+        },
         "sections": [
             {
                 "title": "_AUTO_QUOTE_EU_SEARCH",
@@ -62,7 +83,8 @@
                             {
                                 "name": "quote:product_id",
                                 "type": "select",
-                                "label": "_PRODUCT_ID",
+                                "label": "_PRODUCT",
+                                "default": "MC011",
                                 "columnsize": 6,
                                 "enumdata": [
                                     {
@@ -106,11 +128,22 @@
                                 "columnsize":6
                             },
                            {
-                                "name":"quote:type",
-                                "type":"text",
-                                "label":"_QUOTE_TYPE",
-                                "columnsize":6
+                                "name": "quote:type",
+                                "type": "select",
+                                "label": "_QUOTE_TYPE",
+                                "columnsize": 6,
+                                "enumdata": [
+                                    {
+                                        "value": "new",
+                                        "description": "_NEW"
+                                    },
+                                    {
+                                        "value": "amendment",
+                                        "description": "_AMENDMENT"
+                                    }
+                                ] 
                             },
+                           
                             {
                                 "name": "quote_owner:name",
                                 "type": "text",
@@ -120,6 +153,21 @@
                             }
                         
                         ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                           {
+                                "name":"quote_automobile:make",
+                                "type":"text",
+                                "label":"_MAKE",
+                                "columnsize":6
+                            }
+                            ]
                     },
                     {
                         "subtitle": "",
@@ -143,20 +191,6 @@
                         "type": "columngroup",
                         "visible": "true",
                         "elementgroup": [
-                           {
-                                "name":"quote_automobile:make",
-                                "type":"text",
-                                "label":"_MAKE",
-                                "columnsize":6
-                            }
-                            ]
-                    },{
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
                             {
                                 "name": "quote_automobile:registration_number",
                                 "type": "text",
@@ -172,16 +206,7 @@
                         "label": "_SEARCH",
                         "action":"search",
                         "visible": "true",
-                        "columnsize": "6"
-                    },
-                    {
-                        "name": "create",
-                        "type": "buttonSmall",
-                        "label": "_CREATE_QUOTE",
-                        "actionurl": "/eu/screen/quotescreate",
-                        "visible": "true",
-                        "action":"add",
-                        "columnsize": "6"
+                        "columnsize": "12"
                     },
                     {
                         "name": "searchlist",

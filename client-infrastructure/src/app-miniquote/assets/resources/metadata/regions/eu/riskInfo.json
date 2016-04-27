@@ -2,11 +2,10 @@
     "metadata": {
         "formid": "riskInfo",
         "title": "",
-        "resourcelist": "", 
+        "resourcelist": "",
         "name": "riskInfo",
         "sections": [
             {
-                "title": "_RISK_INFO",
                 "name": "risk_info",
                 "category": "nonaccordion",
                 "elements":   [
@@ -111,7 +110,6 @@
                         "type": "select",
                         "label": "_HOME_TYPE",
                         "columnsize": 3,
-                        "required": "required",
                         "enumdata":[
                             {
                                 "value" : "Ancien bâtiment d'exploitation"
@@ -371,7 +369,31 @@
                         "navigation": "horizontaltabbing"
                     }
                 ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
             }
-        ] 
+        ]
     }
 }

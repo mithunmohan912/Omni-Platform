@@ -120,18 +120,10 @@ module.exports = {
       	 from: 'src/date.min.js',
          to: 'src/date.js'
       },
-	  {
-      	 from: '<link rel="stylesheet" href="ocInfra/css/custom-style.css">',
-         to: ''
-      },
-	  {
-      	 from: '<link rel="stylesheet" href="ocInfra/css/omnichannel.css">',
-         to: ''
-      },
-	  {
-      	 from: 'tab-style.css',
-         to: 'ocInfra.min.css'
-      },
+      {
+          from: 'AnonymousController.min.js',
+         to: 'AnonymousController.js'
+      }
 	  ]
    },
    replace_mobile_appjs: {
