@@ -8,8 +8,6 @@ To run and test the Release version of the code , please use this URL : http://e
 
 To run and test the Dev version of the code, please use this URL : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote
 
-Note: Current sprint number is 16
-
 ###Quick Start
 ---
 
