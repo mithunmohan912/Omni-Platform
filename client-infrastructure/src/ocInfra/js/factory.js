@@ -89,12 +89,16 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     };
 
     this.setHeaders = function($rootScope){
-        $rootScope.headers = { 
+        $rootScope.headers = {
             'Accept': 'application/vnd.hal+json, application/json',
-            'Content-Type': 'application/json',
-            'x-IBM-Client-id' : 'f9220738-65e5-432d-9b8f-05e8357d1a61',
-            'x-IBM-Client-Secret' : 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI' 
+            'Content-Type': 'application/json'
         };
+
+        if($rootScope.config.IBM){
+            for(var key in $rootScope.config.IBM){
+                $rootScope.headers[key] = $rootScope.config.IBM[key];
+            }
+        }
 
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
