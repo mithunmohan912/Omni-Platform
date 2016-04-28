@@ -1,6 +1,8 @@
 Omnichannel-Infrastructure  
 * Release Server build status [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Release-Infra)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Release-Infra/)
+
 * Dev Server build status [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Dev-Infra)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/job/OC-Dev-Infra/)
+
 ================================
 
 > A full-featured User Interface written in Angular for Omnichannel Solutions 
