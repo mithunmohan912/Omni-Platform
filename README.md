@@ -3,6 +3,11 @@ Omnichannel-Infrastructure  [![Build Status](http://ec2-52-17-234-115.eu-west-1.
 
 > A full-featured User Interface written in Angular for Omnichannel Solutions 
 
+###Live Demo
+To run and test the Release version of the code , please use this URL : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/release/app-miniquote
+
+To run and test the Dev version of the code, please use this URL : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote
+
 ###Quick Start
 ---
 
