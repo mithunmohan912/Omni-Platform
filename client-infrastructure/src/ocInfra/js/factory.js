@@ -94,9 +94,9 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             'Content-Type': 'application/json'
         };
 
-        if($rootScope.config.IBM){
-            for(var key in $rootScope.config.IBM){
-                $rootScope.headers[key] = $rootScope.config.IBM[key];
+        if($rootScope.config.securityHeaders){
+            for(var key in $rootScope.config.securityHeaders){
+                $rootScope.headers[key] = $rootScope.config.securityHeaders[key];
             }
         }
 
