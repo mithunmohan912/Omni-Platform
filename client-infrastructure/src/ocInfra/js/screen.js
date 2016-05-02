@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular, showMessage
+global angular
 */
 
 /*
@@ -106,7 +106,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         $scope.field={};
 
         TableMetaData.load(section.name, function(tableMetaData) {
-        	//console.log('tableMetaData' + tableMetaData);
             $scope.field.tableMetaData = tableMetaData;           
         });
     };
@@ -210,7 +209,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                         });
                     }).error(function(){
-                        showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        growl.addErrorMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                     });
                 }else{
                     EnumerationService.loadEnumerationByTab();
@@ -367,7 +367,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 var label = $scope.translateKeyToLabelByTab(key);
                 message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
-            showMessage(message);
+            //showMessage(message);
+            growl.addErrorMessage(message);
             return false;
         }
 
