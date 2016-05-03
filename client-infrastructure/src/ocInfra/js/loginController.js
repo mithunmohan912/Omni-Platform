@@ -1,5 +1,5 @@
 'use strict';
-/*global validateLogin,showMessage*/
+/*global validateLogin,growl*/
 
 /*
 exported LoginController
@@ -25,7 +25,7 @@ function LoginController($scope, $rootScope, $location, $cookieStore, $http, $re
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
-                showMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
+                growl.addErrorMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
             } else {
 				LoginSrv.runLogin($scope, nextScreenId);
             }

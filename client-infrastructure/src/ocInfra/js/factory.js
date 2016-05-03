@@ -3,14 +3,14 @@
 
 
 /*
-global app, showMessage
+global app
 */
 
 /*
 exported ScreenController
 */
 
-app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, resourceFactory) {
+app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
 
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
@@ -26,14 +26,15 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             $rootScope.title = m.metadata.title;
 
             if (m.include && m.include.length > 0) {
-                loadReferencedMetaModels(scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
+                loadReferencedMetaModels(growl, scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
                 setScreenData($rootScope, scope, m, screenId, $browser, onSuccess);
             }
-            loadOptions(scope, screenId, regionId, $rootScope, resourceFactory);
+            loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory);
         }, function() {
             $rootScope.showIcon = false;
-            showMessage($rootScope.appConfig.timeoutMsg);
+            //showMessage($rootScope.appConfig.timeoutMsg);
+            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
             return;
         });
     };
@@ -75,13 +76,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
 
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                    loadOptionsDataForMetadata(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
-                        httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options, resolve);       
+                        httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve);       
                     } else{
-                        loadOptionsDataForMetadata(item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                        loadOptionsDataForMetadata(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
                 }
             });
@@ -103,7 +104,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
     return this;
 });
 
-function loadOptions(scope, screenId, regionId, $rootScope, resourceFactory){
+function loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory){
     if(screenId !== undefined){
         //Read metadata from the root scope
         var metaModel = scope.metadata[screenId];
@@ -112,14 +113,13 @@ function loadOptions(scope, screenId, regionId, $rootScope, resourceFactory){
             //Retrieve resource list from the meta model
             var resourcelist = metaModel.resourcelist;
             if(resourcelist !== undefined && resourcelist.length > 0){
-                loadOptionsDataForMetadata(undefined, resourcelist, scope, regionId, $rootScope, resourceFactory);
+                loadOptionsDataForMetadata(growl, undefined, resourcelist, scope, regionId, $rootScope, resourceFactory);
             }
         }    
     }
 }
 
-function loadOptionsDataForMetadata(item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
-        
+function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -182,7 +182,7 @@ function loadOptionsDataForMetadata(item, resourcelist, scope, regionId, $rootSc
                                     if(action !== undefined){
                                        options = optionsMapForResource.get(action);
                                        if(options !== undefined){
-                                           httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
+                                           httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
                                        }
                                     }
                                 });
@@ -193,7 +193,7 @@ function loadOptionsDataForMetadata(item, resourcelist, scope, regionId, $rootSc
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -203,7 +203,7 @@ function loadOptionsDataForMetadata(item, resourcelist, scope, regionId, $rootSc
                             if(action !== undefined){
                                 options = optionsMapForResource.get(action);
                                 if(options !== undefined){
-                                    httpMethodToBackEnd(item, scope, resourceFactory, $rootScope, options, resolve);
+                                    httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
                                 }
                             }
                         }
@@ -232,12 +232,12 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
-function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options, resolve){
+function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
     var httpmethod = options.httpmethod;
     var schema = options.schema;
-    console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+    // console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
 
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -262,7 +262,8 @@ function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options,
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage($rootScope.locale.GET_OPERATION_FAILED);
+            //showMessage($rootScope.locale.GET_OPERATION_FAILED);
+            growl.addErrorMessage($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -273,10 +274,10 @@ function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options,
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                        //showMessage('Quote ' + $scope.data['quote:identifier'] +' is created successfully');
                      }
                      else{
-                        showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
+                        //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
+                        growl.addErrorMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
@@ -301,7 +302,8 @@ function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options,
             }
         }).error(function(){
             $rootScope.loader.loading=false;
-            showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
+            //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
+            growl.addErrorMessage($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(data){
@@ -316,13 +318,14 @@ function httpMethodToBackEnd(item, $scope, resourceFactory, $rootScope, options,
                 });
             }
             angular.forEach(data.messages, function(value){
-                showMessage(value.message);    
+                //showMessage(value.message);    
+                growl.addErrorMessage(value.message);
             });
         });
     }
 }
 
-function loadReferencedMetaModels(scope, metaModel, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve) {
+function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve) {
     var promises = [];
     var path;
     if(regionId){
@@ -336,7 +339,8 @@ function loadReferencedMetaModels(scope, metaModel, screenId, onSuccess, $resour
             $rootScope.metadata[value] = m.metadata;
         }, function() {
             $rootScope.showIcon = false;
-            showMessage($rootScope.appConfig.timeoutMsg);
+            //showMessage($rootScope.appConfig.timeoutMsg);
+            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
             return;
         }).$promise);
     });

@@ -29,12 +29,13 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
                 var arr = actionURL.split('/');
                 $rootScope.regionId = arr[1];
             }
+            if($rootScope.regionId!=='us'){
             new Promise(function(resolve) {
                 MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, resolve);
             }).then(function(){
                 EnumerationService.loadEnumerationByTab();
             }); 
-        }
+        }}
     };
 
     $rootScope.navigate = function(actionURL) {

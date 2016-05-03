@@ -1,8 +1,8 @@
 'use strict';
 /*
-global app,showMessage 
+global app 
 */
-app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale){	
+app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale, growl){	
     this.runLogin = function($scope,nextScreenId) {
 				$rootScope.showIcon = true;
 				 $http({
@@ -20,7 +20,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        showMessage($rootScope.locale.INVALID_CREDENTIALS);
+                        growl.addErrorMessage($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
@@ -38,9 +38,9 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
-                        showMessage(data.exception.message, '30');
+                        growl.addErrorMessage(data.exception.message, '30');
                     } else {
-                        showMessage($rootScope.locale.GENERAL_ERROR);
+                        growl.addErrorMessage($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                
