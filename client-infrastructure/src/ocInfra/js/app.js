@@ -43,7 +43,7 @@ app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
    $rootScope.$on('$locationChangeStart', function () {
    
-   if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+   if (sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url('/');
        }
    });  
