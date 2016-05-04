@@ -24,9 +24,8 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                         return false;
                     }
                     $rootScope.user = user;
-                    sessionStorage.distributorId = user.distributor_id;
+                    
                     sessionStorage.username = user.name;
-                    sessionStorage.Authentication = user.token;
                     var defaultLocale = user.personalizationData.locale;
                     $rootScope.newlocale = defaultLocale;
                     $resource('ocInfra/assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
