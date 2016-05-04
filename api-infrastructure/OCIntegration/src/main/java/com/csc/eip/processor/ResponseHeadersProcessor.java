@@ -15,6 +15,13 @@ public class ResponseHeadersProcessor implements Processor {
 	public static final String HEADER_LOCATION				= "Location";
 	public static final String HEADER_CONTENT_LOCATION		= "Content-Location";
 
+	public static final String HEADER_CORS_ALLOW_ORIGIN		= "Access-Control-Allow-Origin";
+	public static final String HEADER_CORS_ALLOW_HEADERS	= "Access-Control-Allow-Headers";
+
+	public static final String HEADER_USERNAME				= "Username";
+	public static final String HEADER_IBM_CLIENT_ID			= "X-IBM-Client-Id";
+	public static final String HEADER_IBM_CLIENT_SECRET		= "X-IBM-Client-Secret";
+
 	static Logger log = Logger.getLogger(ResponseHeadersProcessor.class.getName());
 
 	private String regex;
@@ -29,6 +36,12 @@ public class ResponseHeadersProcessor implements Processor {
 		translateHeaderStr(exchange, pattern, HEADER_LOCATION);
 		translateHeaderStr(exchange, pattern, HEADER_CONTENT_LOCATION);	
 
+		defaultHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*");
+		
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_USERNAME);
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_ID);
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_SECRET);
+		
 		postprocess();
 	}
 
@@ -87,6 +100,27 @@ public class ResponseHeadersProcessor implements Processor {
 			log.debug("new" + header + ": " + newHeader.toString());
 			exchange.getIn().setHeader(header, newHeader);
 			log.debug("translate " + header + " header (arrayList) ended");
+		}
+	}
+
+	private void defaultHeader(Exchange exchange, String header, String value) {
+		String oldHeader = (String) exchange.getIn().getHeader(header);
+		if (oldHeader == null) {
+			log.info("default " + header + " header: " + value);
+			exchange.getIn().setHeader(header, value);
+			log.debug("default " + header + " header ended");
+		}
+	}
+
+	private void updateHeaderAddElement(Exchange exchange, String header, String element) {
+		String oldHeader = (String) exchange.getIn().getHeader(header);
+		if ((oldHeader != null) && (!oldHeader.toUpperCase().contains(element.toUpperCase()))) {
+			log.info("update " + header + " header add element: " + element);
+			log.debug("old" + header + ": " + oldHeader);
+			String newHeader = oldHeader + "," + element;
+			log.debug("new" + newHeader + ": " + newHeader);
+			exchange.getIn().setHeader(header, newHeader);
+			log.debug("update " + header + " header ended");
 		}
 	}
 
