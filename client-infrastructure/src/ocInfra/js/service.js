@@ -67,95 +67,7 @@ app.service('OCRoles', function($resource, $rootScope, $location) {
 });
 
 
-app.service('HttpService', function($http,DataMappingService,growl) {
-    this.options = function( url, headers, $rootScope) {
-     $http(
-			{
-				method : 'OPTIONS',
-				url : url,
-				headers: headers
-			}
-		).success(function(data){
-			 angular.forEach(data, function(value){
-				if(Array.isArray(value)) {
-					if ($rootScope.optionData === undefined) {
-						$rootScope.optionData=[];
-					}
-					$rootScope.optionData[url]= value;
-				}
-				
-				// Set links and desc in scope
-				
-			});
-			 
-		});
-    };
-	
-	this.search = function( url,headers,params,listDispScope) {
-     $http(
-			{
-				method : 'GET',
-				url: url,
-                headers: headers,
-                params: params
-			}
-		).success(function(data){
-			 if (data.item) {
-                    listDispScope.stTableList = data.item;
-                    listDispScope.showResult = true;
-                } else {
-                    listDispScope.stTableList = [];
-                    listDispScope.showResult = false;
-                }
-		});
-    };
-	
-	this.get = function( url,headers, $scope) {
-     $http(
-			{
-				method : 'GET',
-				url: url,
-                headers: headers,
-			}
-		).success(function(data){
-			 if (data) {
-				    $scope.data=data;
-				    console.log('DataMappingService'+DataMappingService);
-				    if(DataMappingService !== undefined){
-					DataMappingService.map($scope);
-				}
-			 }
-		});
-    };
-	
-	this.addUpdate = function( method, url,headers, payLoad,objectName) {
-    $http({
-				method: method,
-				url: url,
-				headers: headers,
-				data: payLoad
-			}).success(function(data){
-                
-
-
-			 if (data) {
-				 var resource=objectName.charAt(0).toUpperCase() + objectName.substring(1);
-				 console.log(resource);
-				 if(method==='PATCH'){
-					  growl.addSuccessMessage(data.message);
-				 } else{
-					  growl.addSuccessMessage(data.message);
-					  
-				 }
-				
-			 }
-			});
-    };
-	
-    return this;
-});
-
-app.service('EnumerationService', function($rootScope, dataFactory){
+app.service('EnumerationService', function($rootScope, resourceFactory){
 
     var self = this;
 
@@ -165,9 +77,9 @@ app.service('EnumerationService', function($rootScope, dataFactory){
                 var urlDetail = $rootScope.resourceHref;
                 self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
             } else {
-                dataFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
                     var url = data._links[$rootScope.currRel].href;
-                    dataFactory.options(url, $rootScope.headers).success(function(data){
+                    resourceFactory.options(url, $rootScope.headers).success(function(data){
                         var urlDetail = data._links.item.href;
                         self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
                     });
@@ -177,7 +89,7 @@ app.service('EnumerationService', function($rootScope, dataFactory){
     };
 
     self.executeEnumerationFromBackEnd = function (url, headers, action){
-        dataFactory.options(url, headers).success(function(data){
+        resourceFactory.options(url, headers).success(function(data){
             angular.forEach(data._options.links, function(value){
                 if(value.rel === action){
                     angular.forEach(value.schema.properties, function(value, key){

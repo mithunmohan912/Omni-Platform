@@ -42,7 +42,7 @@
     <button ng-if="metadata[screenId].createButton" style="float:right;" id="{{metadata[screenId].button.name}}" class="oc-btn oc-btn-small {{metadata[screenId].button.icon}}" ng-click="doaction(metadata[screenId].button.method, section, metadata[screenId].button.action,metadata[screenId].button.actionurl,metadata[screenId].button.nextScreenId)">{{(locale[metadata[screenId].button.label]?locale[metadata[screenId].button.label] : metadata[screenId].button.label)}}
     </button></h3>
     </div>
-    <div class="hr_margin">
+    <div class="hr_margin" ng-if="section.title && section.hidetitle !== true">
         <hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true">
         <hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true">
     </div> 

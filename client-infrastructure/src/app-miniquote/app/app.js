@@ -68,18 +68,20 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
    $rootScope.$on('$locationChangeStart', function () {
      var screenId = $rootScope.screenId;
+
      if($rootScope.screenId === undefined){
         $location.url('/');
      } else if (screenId === 'anonymous'){
-            if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+             if(sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url($rootScope.nextURL);
-       }
+        }
    } else {
-     if($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+     if(sessionStorage.username === null || sessionStorage.username === undefined) {
         $location.url('/');
      }
    }
    });
+   
     //persist few objects at app level
     $rootScope.routeParams = {};
     $rootScope.user = {};
