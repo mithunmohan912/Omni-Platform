@@ -25,7 +25,7 @@ function LoginController($scope, $rootScope, $location, $cookieStore, $http, $re
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
-                growl.addErrorMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
+                growl.error($rootScope.locale.NETWORK_UNAVAILABLE, '30');
             } else {
 				LoginSrv.runLogin($scope, nextScreenId);
             }
