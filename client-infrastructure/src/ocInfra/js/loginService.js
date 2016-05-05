@@ -20,7 +20,7 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        growl.addErrorMessage($rootScope.locale.INVALID_CREDENTIALS);
+                        growl.error($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
@@ -36,9 +36,9 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
-                        growl.addErrorMessage(data.exception.message, '30');
+                        growl.error(data.exception.message, '30');
                     } else {
-                        growl.addErrorMessage($rootScope.locale.GENERAL_ERROR);
+                        growl.error($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                

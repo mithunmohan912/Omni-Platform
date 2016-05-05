@@ -34,7 +34,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
-            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
+            growl.error($rootScope.appConfig.timeoutMsg);
             return;
         });
     };
@@ -263,7 +263,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.GET_OPERATION_FAILED);
-            growl.addErrorMessage($rootScope.locale.GET_OPERATION_FAILED);
+            growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -277,7 +277,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                      }
                      else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
-                        growl.addErrorMessage($rootScope.locale.CREATE_OPERATION_FAILED);
+                        growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
@@ -303,7 +303,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
-            growl.addErrorMessage($rootScope.locale.PATCH_OPERATION_FAILED);
+            growl.error($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(data){
@@ -316,11 +316,14 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                         index=index+1;     
                     }
                 });
+                angular.forEach(data.messages, function(value){
+                    growl.success(value.message);
+                });
+            }else{
+                angular.forEach(data.messages, function(value){
+                    growl.error(value.message);
+                });
             }
-            angular.forEach(data.messages, function(value){
-                //showMessage(value.message);    
-                growl.addErrorMessage(value.message);
-            });
         });
     }
 }
@@ -340,7 +343,7 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
-            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
+            growl.error($rootScope.appConfig.timeoutMsg);
             return;
         }).$promise);
     });

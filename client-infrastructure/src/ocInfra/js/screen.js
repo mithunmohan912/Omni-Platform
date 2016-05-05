@@ -16,10 +16,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.checkRegionId = $rootScope.regionId;
 
     $scope.showErr = function () {       
-        growl.addErrorMessage('<b>Error:</b> Uh oh!');
-        growl.addInfoMessage('Im  a info message');
-        growl.addWarnMessage('Im  a warn message');
-        growl.addSuccessMessage('Im  a success message');
+        growl.error('<b>Error:</b> Uh oh!');
+        growl.info('Im  a info message');
+        growl.warn('Im  a warn message');
+        growl.success('Im  a success message');
     };
    
 	screenname  = 'OmniChannel';
@@ -210,7 +210,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         });
                     }).error(function(){
                         //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                        growl.addErrorMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                     });
                 }else{
                     EnumerationService.loadEnumerationByTab();
@@ -368,7 +368,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
             //showMessage(message);
-            growl.addErrorMessage(message);
+            growl.error(message);
             return false;
         }
 
