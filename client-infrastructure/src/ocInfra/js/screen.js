@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, resourceFactory, TableMetaData, EnumerationService, CheckVisibleService) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService) {
 
     $rootScope.enumData = {};
     $rootScope.typeaheadData = {};
@@ -99,14 +99,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-	MetaData.setHeaders($rootScope);
+	MetaModel.setHeaders($rootScope);
 
     $scope.loadTableMetadata = function(section) {
        
         $scope.field={};
 
-        TableMetaData.load(section.name, function(tableMetaData) {
-            $scope.field.tableMetaData = tableMetaData;           
+        TableMetaModel.load(section.name, function(tableMetaModel) {
+            $scope.field.tableMetaModel = tableMetaModel;           
         });
     };
 	
@@ -124,9 +124,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		return true;
 	};
 	
-	$scope.loadMetaData = function() {
-		$rootScope.metadata = {};
-		MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
+	$scope.loadMetaModel = function() {
+		$rootScope.metamodel = {};
+		MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
 	};
 
 	// Dynamic Injection of Factory
@@ -186,7 +186,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
             new Promise(function(resolve) {
                 var optionFlag = false;
-                MetaData.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
+                MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
             }).then(function(){
                     if(tab !== undefined){
                         var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
@@ -221,7 +221,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.getRelationshipOfNavigateStep = function(step){
-        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        var list = $rootScope.metamodel[$rootScope.screenId].sections;
         for(var i = 0; i < list.length; i++){
             var tabObj = list[i];
             if(step === tabObj.step){
@@ -252,7 +252,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.currName = undefined;
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        var list = $rootScope.metamodel[$rootScope.screenId].sections;
         angular.forEach(list, function(tabObj){
             if(step === tabObj.step){
                 $rootScope.currRel = tabObj.link;
@@ -261,8 +261,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         });
     }
     new Promise(function(resolve) {
-        MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
+        MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
     }).then(function(){
+    
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
@@ -293,7 +294,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                     loadRelationshipByStep($scope.preStep);
                     if (regionId !== 'us') {
                         var optionFlag = true;
-                        MetaData.actionHandling(undefined, $scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
+                        MetaModel.actionHandling(undefined, $scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
                     }
                     $scope.preStep = $rootScope.step;
                     loadRelationshipByStep($scope.preStep);
@@ -377,7 +378,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.loadmandatoryField = function(){
     	var mandatoryField = [];
-    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
+    	var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
     	for(var i = 0; i < arrparent.length; i++){
     		var arr = arrparent[i].elements;
     		for(var j = 0; j < arr.length; j++){
@@ -391,7 +392,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.translateKeyToLabelByTab = function(key){
-    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
+    	var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
     	for(var i = 0; i < arrparent.length; i++){
     		var arr = arrparent[i].elements;
     		for(var j = 0; j < arr.length; j++){
