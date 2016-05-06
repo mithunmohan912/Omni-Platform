@@ -102,13 +102,13 @@
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuoteIntegral"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelMiniQuotePoint"/>
 					
-		<restConfiguration component="servlet" host="localhost" bindingMode="json">
+		<restConfiguration component="jetty" host="0.0.0.0" port="8888" bindingMode="json">
 			<dataFormatProperty key="prettyPrint" value="true" />
 		</restConfiguration>
 
 		<rest>
 			<description>Message Translator Pattern</description>
-			<post uri="/messageTranslator" 
+			<post uri="/ocintegration/messageTranslator" 
 				consumes="application/json" type="com.csc.eip.bo.Message" 
 				produces="application/json" outType="com.csc.eip.bo.Message">
 				<description>Replace all pattern matches in a JSON message</description>
@@ -124,7 +124,7 @@
 		
 		<rest>
 			<description>Aggregator Pattern</description>
-			<get uri="/aggregator" 
+			<get uri="/ocintegration/aggregator" 
 				produces="application/json" outType="com.csc.eip.bo.Message">
 				<description>Combine the responses from multiple APIs into a single message</description>
 				<route>

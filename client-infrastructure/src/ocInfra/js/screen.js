@@ -1,6 +1,6 @@
 'use strict';
 /*
-global angular, showMessage
+global angular
 */
 
 /*
@@ -16,10 +16,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.checkRegionId = $rootScope.regionId;
 
     $scope.showErr = function () {       
-        growl.addErrorMessage('<b>Error:</b> Uh oh!');
-        growl.addInfoMessage('Im  a info message');
-        growl.addWarnMessage('Im  a warn message');
-        growl.addSuccessMessage('Im  a success message');
+        growl.error('<b>Error:</b> Uh oh!');
+        growl.info('Im  a info message');
+        growl.warn('Im  a warn message');
+        growl.success('Im  a success message');
     };
    
 	screenname  = 'OmniChannel';
@@ -106,7 +106,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         $scope.field={};
 
         TableMetaData.load(section.name, function(tableMetaData) {
-        	//console.log('tableMetaData' + tableMetaData);
             $scope.field.tableMetaData = tableMetaData;           
         });
     };
@@ -227,7 +226,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
                                         });
                                     }).error(function(){
-                                        showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        				growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                                     });
                                 });
                             });
@@ -386,7 +386,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 var label = $scope.translateKeyToLabelByTab(key);
                 message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
-            showMessage(message);
+            //showMessage(message);
+            growl.error(message);
             return false;
         }
 
