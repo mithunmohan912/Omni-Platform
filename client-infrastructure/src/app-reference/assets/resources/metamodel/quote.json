@@ -1,0 +1,294 @@
+{
+    "metamodel": {
+        "sections": [
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "icon": "fa-save",
+                                "tooltip": "Save quote",
+                                "action": "saveQuote"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "action": "next"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "row": 1,
+                "colspan": 9,
+                "properties": []
+            },
+            {
+                "row": 1,
+                "colspan": 1,
+                "properties": [
+                    {
+                        "id": "showMinimalInformation",
+                        "label": "_MINIMAL_INFORMATION",
+                        "type": "checkbox",
+                        "uiInput": true,
+                        "value": true,
+                        "scope": true
+                    }
+                ]
+            },
+            {
+                "title":"Quote Data",
+                "underline": true,
+                "properties": [
+                    {
+                        "id": "quote:product_id",
+                        "label": "_PRODUCT_TYPE",
+                        "type": "text",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:description",
+                        "label": "_DESCRIPTION",
+                        "type": "textarea",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:distributor_id",
+                        "label": "_DISTRIBUTOR_ID",
+                        "type": "text",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote:language",
+                        "label": "_LANGUAGE",
+                        "type": "select",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote:contract_start_date",
+                        "label": "_START_DATE",
+                        "type": "date",
+                        "row": 4,
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote:status",
+                        "label": "_STATUS",
+                        "type": "text",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote:identifier",
+                        "label": "_IDENTIFIER",
+                        "type": "text",
+                        "row": 3
+                    },
+                    {
+                        "id": "quote:type",
+                        "label": "_TYPE",
+                        "type": "select",
+                        "row": 3,
+                        "visibleWhen": {
+                            "expression": {
+                                "field": "showMinimalInformation",
+                                "value": false
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "title":"Interested parties",
+                "underline": true,
+                "properties": [
+                    {
+                        "id": ["quote:quote_owner_list", "quote_risk:quote_risk_owner_list", "quote_automobile:quote_driver_list"],
+                        "type": "table",
+                        "metadata": "quote_interested_parties",
+                        "row": 2,
+                        "column": 1
+                    }
+                ]
+            },
+            {
+                "title":"Risks",
+                "underline": true,
+                "properties": [
+                    {
+                        "id": "quote:quote_risk_list",
+                        "type": "table",
+                        "metamodel": "quote_risk_list",
+                        "row": 3,
+                        "column": 1
+                    }
+                ]
+            },
+            {
+                "title": "Additional information",
+                "underline": true,
+                "properties": []
+            },
+            {
+                "row": 3,
+                "colspan": 4,
+                "properties": [
+                    {
+                        "type": "subtitle",
+                        "label": "_CLAIMS_HISTORY"
+                    },
+                    {
+                        "id": "quote_automobile:ext_official_claims",
+                        "type": "toggle",
+                        "label": "_OFFICIAL_CLAIMS",
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote_automobile:ext_victim_claims_number",
+                        "type": "number",
+                        "label": "_VICTIM_CLAIMS",
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote_automobile:ext_responsible_claims_number",
+                        "type": "number",
+                        "label": "_RESPONSIBLE_CLAIMS",
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote_automobile:ext_shared_claims_number",
+                        "type": "number",
+                        "label": "_SHARED_CLAIMS",
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote_automobile:ext_to_determine_claims_number",
+                        "type": "number",
+                        "label": "_CLAIMS_NUMBER",
+                        "patchOnBlur": true
+                    }
+                ]
+            },
+            {
+                "row": 3,
+                "colspan": 8,
+                "properties": [
+                    {
+                        "type": "subtitle",
+                        "label": "_BONUS_MALUS",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote_automobile:ext_degree_r_c",
+                        "type": "number",
+                        "label": "_BM_LIABILITY",
+                        "row": 2,
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_contract_one",
+                        "type": "number",
+                        "label": "_REF_1",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_contract_two",
+                        "type": "number",
+                        "label": "_REF_2",
+                        "row": 5
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_contract_three",
+                        "type": "number",
+                        "label": "_REF_3",
+                        "row": 6
+                    },
+                    {
+                        "id": "quote_automobile:ext_bonus_malus_type",
+                        "type": "select",
+                        "label": "_BM_TYPE",
+                        "row": 3,
+                        "patchOnBlur": true,
+                        "updateMode": "change"
+                    },
+                    {
+                        "id": "quote_automobile:ext_joker",
+                        "type": "toggle",
+                        "label": "_JOKER",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_bm_one",
+                        "type": "number",
+                        "label": "_BM_1",
+                        "row": 3
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_bm_two",
+                        "type": "number",
+                        "label": "_BM_2",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote_automobile:ext_ref_bm_three",
+                        "type": "number",
+                        "label": "_BM_3",
+                        "row": 5
+                    },
+                    {
+                        "id": "quote_automobile:ext_calculated_bonus_malus",
+                        "type": "number",
+                        "label": "_BM_CALCULATED",
+                        "row": 6
+                    }
+                ]
+            }
+        ],
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_owner_list",
+                    "quote:quote_risk_list"
+            ],
+            "quote_owner": [
+                    "quote_owner:person_link",
+                    "quote_owner:organization_link"
+            ],
+            "person": [
+                    "person:postal_address_list",
+                    "person:e_mail_address_list"
+            ],
+            "organization": [
+                    "organization:postal_address_list",
+                    "organization:e_mail_address_list"
+            ],
+            "quote_risk": [
+                    "quote_risk:quote_risk_owner_list",
+                    "quote_automobile:quote_driver_list",
+                    "quote_van:quote_driver_list",
+                    "quote_motorcycle:quote_driver_list"
+            ],
+            "risk_owner": [
+                    "risk_owner:person_link",
+                    "risk_owner:organization_link"
+            ],        
+            "quote_driver": [
+                    "quote_driver:person_link",
+                    "quote_driver:organization_link"
+            ]
+        }
+    }
+}
