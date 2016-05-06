@@ -1,0 +1,242 @@
+<ng-switch on="field.type">
+    <ng-switch on="field.required">
+        <div ng-switch-when="required" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup'" class="margin_BTM_15px whiteSpaceNowrap">
+            <label class="col-md-{{field.columnsize}} " for="{{field.name}}">
+                <span class="requiredmark">*</span>  {{(locale[field.label]?locale[field.label] : field.label)}} 
+            </label>
+        </div>
+        <div ng-switch-default class="margin_BTM_15px whiteSpaceNowrap" ng-if="field.type != 'columngroup' && field.type != 'single' && field.type != 'buttonSmall' && field.type != 'buttonLarge' && field.type != 'buttonXs' && field.type != 'checkboxgroup' && field.type != 'view'">
+            <label class="col-md-{{field.columnsize}} {{field.class}} " for="{{field.name}}" id="{{field.name}}_label">
+                <span class="padding12px"></span>{{(locale[field.label]?locale[field.label] : field.label)}}
+            </label>
+        </div>
+    </ng-switch>
+</ng-switch>
+<ng-switch on="field.type">
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="checkbox">
+        <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)">
+    </div>
+    <div class="col-md-{{field.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
+        <div class="btn-group">
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="false" uncheckable>NO</label>
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="true" uncheckable>YES</label>
+        </div>
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox" style="text-align:left">
+        <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'yes'" ng-false-value="'no'">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox1" style="text-align:left">
+        <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-change="validateEachSection(field.name)" ng-true-value="'Y'" ng-false-value="'N'" ng-init="data[field.name] = 'N'">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="typeahead">
+
+        <input autocomplete="off" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" typeahead="c for c in typeahead[field.name] | filter:$viewValue | limitTo:10" typeahead-min-length='' typeahead-on-select='onSelectPart($item, $model, $label)' typeahead-template-url="customTemplate.html">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="text">
+        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name)">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="thtext">
+        <input typeahead-min-length="" autocomplete="on" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == true}}" ng-disabled="{{field.disabled}}" ng-change="getNamesList(data[field.name],field.typeahead,field.typeaheadField)" typeahead="c for c in typeaheadData[field.typeaheadField] | filter:$viewValue | limitTo:10" typeahead-wait-ms=2000 typeahead-on-select='onSelectPart($item, field.name)' typeahead-template-url="customTemplate.html">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="autocomplete">
+        <input autocomplete="off" type="text" maxlength="{{field.maxlength}}" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name)" ng-blur="enableField(field.name)" typeahead="obj as obj for obj in getListData($viewValue,field.name)" typeahead-on-select='onSelectPart($item, field.name)'>
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="money">
+        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" to-currency amount="data[field.name]" ng-disabled="{{field.disabled}}">
+    </div>
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="label" style="text-align:left">
+        <span class="ng-binding">{{data[field.name]}}</span>
+    </div>
+    <!-- Because asia system return all premium and currency -->
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelAsia" style="text-align:left">
+        <span class="ng-binding">{{(data[field.name].split(" ")[0] |  currency: "") + ' ' + data[field.name].split(" ")[1]}}</span>
+    </div> 
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabelUS" style="text-align:left">
+        <span class="ng-binding">{{data[field.name] |  currency:"$"}}</span>
+    </div>
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="costLabel" style="text-align:left">
+        <span class="ng-binding tbbgcolor1">{{data[field.name] |  currency:"&euro;"}}</span>
+    </div>
+
+
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="number">
+        <input type="number" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" min="{{field.min}}" max="{{field.max}}" class="form-control input-md" ng-value="data[field.name]" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" ng-disabled="{{field.disabled}}">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="date">
+        <input id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md calendarIcon" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}" ng-disabled="{{field.disabled}}">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="textarea">
+        <textarea ng-model="data[field.name]" class="form-control input-md" label="{{field.instructions}}" id="{{field.name}}" name="{{field.name}}" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)" placeholder="{{field.placeholder}}">{{field.value}}</textarea>
+    </div>
+    <div class="col-md-{{field.columnsize}}" ng-switch-when="richtext">
+    <textarea class="ck-editor" ng-model="data[field.name]"></textarea>
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="email">
+        <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
+    </div>
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="usselect">
+        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata" ng-change="validateEachSection(field.name)">
+        </select>
+    </div> 
+    <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
+        <select id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" ng-init="data[field.name]=field.default" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum for enum in getEnums(field) track by enum" ng-change="validateEachSection(field.name)" ng-disabled="{{field.disabled}}">
+        </select>
+    </div>      
+    <div ng-switch-when="buttonSmall" style="text-align: center;" ng-show="field.visible">
+            <div class="col-md-{{field.columnsize}} col-xs-{{field.columnsizexs}}">
+                <button id="{{field.name}}" class="oc-btn oc-btn-small {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab)" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+            </div>
+    </div>
+                <div ng-switch-when="tourstep" class="col-md-{{field.columnsize}}" style="text-align: center;" >
+                      <div tour-step backdrop="true" order="{{field.order}}" title="{{field.title}}" content="{{field.tourcontent}}" placement="{{field.position}}" autoscroll="true"></div>
+
+                </div>
+                
+    <div ng-switch-when="buttonLarge" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="oc-btn oc-btn-large {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab);showErr()" style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+    </div>
+    <div ng-switch-when="buttonXs" class="col-md-{{field.columnsize}} " style="text-align: center;" ng-show="field.visible">
+                <button id="{{field.name}}" class="oc-btn oc-btn-xs {{field.icon}}" ng-click="doaction(field.method, section,field.action,field.actionurl,field.nextScreenId,field.tab)"style="{{field.style}}">{{(locale[field.label]?locale[field.label] : field.label)}}</button>
+    </div>
+
+
+    <div ng-switch-when="table" id="{{field.name}}" class="col-md-{{field.columnsize}}" ng-controller='TableController'>
+        <ng-include src="config.templates.table"></ng-include>
+    </div>
+    <div ng-switch-when="view" id="{{field.name}}">
+        <ng-include src="config.templates[field.name]"></ng-include>
+    </div>
+
+    <div ng-switch-when="checkboxgroup" class="col-md-{{field.columnsize}} col-xs-{{field.xscolumnsize}} whiteSpaceNowrap" style="text-align: right">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]"> {{locale[field.label]}}
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-{{field.columnsize}}" ng-switch-when="single" ng-show="checkvisible(field)">
+        <div ng-repeat="subfield in field.singlegroup" ng-show="checkvisible(subfield)">
+            <ng-switch on="subfield.required">
+                <div ng-switch-when="required" class="margin_BTM_15px" style="margin-left: -15px">
+                    <label class="col-md-{{subfield.columnsize}} " for="{{subfield.name}}">
+                         <span class="requiredmark">*</span>  {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
+                    </label>
+                </div>
+                <div ng-switch-default class="margin_BTM_15px" style="margin-left: -15px">
+                    <label class="col-md-{{subfield.columnsize}} {{subfield.class}}" for="{{subfield.name}}" id="{{subfield.name}}_label">
+                        <span class="padding12px"></span>{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
+                    </label>
+                </div>
+            </ng-switch>
+            <ng-switch on="subfield.type">
+                <div class="col-md-{{subfield.columnsize}} margin_BTM_15px" ng-switch-when="select" style="margin-left: 3px;">
+                   <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" class="form-control input-md" style="width:103%" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name)">
+                        
+                    </select> 
+
+                     </div>
+            </ng-switch>
+        </div>
+    </div>
+    <div class="col-md-{{field.columnsize}} " ng-switch-when="columngroup" ng-show="field.visible">
+        <h5 ng-if="field.subtitle">{{locale[field.subtitle]}}&nbsp;</h5>
+        <div ng-repeat="subfield in field.elementgroup" ng-show="checkvisible(subfield)" class="row">
+            <ng-switch on="subfield.type">
+                <ng-switch on="subfield.required">
+                    <div ng-switch-when="required" ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
+                        <label class="col-md-{{subfield.columnsize}} " for="{{subfield.name}}">
+                             <span class="requiredmark">*</span>  {{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
+                        </label>
+                    </div>
+                    <div ng-switch-default ng-if="subfield.type != 'buttonSmall' && subfield.type != 'buttonLarge' &&subfield.type != 'buttonXs'">
+                        <label class="col-md-{{subfield.columnsize}} {{subfield.class}}" for="{{subfield.name}}" id="{{subfield.name}}_label">
+                            <span class="padding12px"></span>{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}
+                        </label>
+                    </div>
+                </ng-switch>
+            </ng-switch>
+            <ng-switch on="subfield.type">
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="checkbox">
+
+                    <input type="checkbox" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-change="validateEachSection(subfield.name)">
+                </div>
+                <div class="col-md-{{subfield.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
+                    <div class="btn-group">
+                        <label class="btn btn-default" name="{{subfield.name}}" id="{{subfield.name}}" ng-click="validateEachSection(subfield.name)" ng-model="data[subfield.name]" btn-radio="false" uncheckable>NO</label>
+                        <label class="btn btn-default" name="{{subfield.name}}" id="{{subfield.name}}" ng-click="validateEachSection(subfield.name)" ng-model="data[subfield.name]" btn-radio="true" uncheckable>YES</label>
+                    </div>
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="litcheckbox">
+                    <input type="checkbox" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-change="validateEachSection(subfield.name)" ng-true-value="'yes'" ng-false-value="'no'">
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="text">
+                    <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="thtext">
+                    <input typeahead-min-length="3" autocomplete="off" type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" is-typeahed="{{subfield.typeahead}}" typeahead="obj as obj.title for obj in getNamesList($viewValue,subfield.typeahead,subfield.name)" typeahead-on-select='onSelectPart($item, subfield.name)'>
+                </div>
+                <div class="col-md-{{subfield.columnsize}}" ng-switch-when="autocomplete">
+                    <input autocomplete="off" type="text" maxlength="{{subfield.maxlength}}" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" ng-blur="enableField(subfield.name)" typeahead="obj as obj for obj in getListData($viewValue,subfield.name)" typeahead-on-select='onSelectPart($item, subfield.name)'>
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="number">
+                    <input type="number" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" min="{{subfield.min}}" max="{{subfield.max}}" class="form-control input-md" ng-value="data[subfield.name]" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
+                </div>
+                <div class="col-md-{{subfield.columnsize}}  " ng-switch-when="date">
+                    <input id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md calendarIcon" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name)"  ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}">
+                </div>
+
+                <div ng-switch-when="table" id="{{subfield.name}}" class="col-md-{{subfield.columnsize}}" ng-controller='TableController'>
+                    <ng-include src="config.templates.table"></ng-include>
+                </div>
+
+                <div class="col-md-{{subfield.columnsize}}  " ng-switch-when="email">
+                    <input type="email" id="{{field.name}}" name="{{subfield.name}}" maxlength="{{subfield.maxlength}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name)">
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="select">
+                    <!-- <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name);getListData(data[subfield.name],subfield.name)">
+                        
+                    </select> -->
+                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in subfield.enumdata " ng-change="validateEachSection(subfield.name)">
+            
+        </select>
+
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="money">
+                    <input type="text" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)" to-currency amount="data[field.name]">
+                </div>
+               <div ng-switch-when="buttonSmall" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                </div>
+                <div ng-switch-when="tourButton" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="tour.restart(true)">{{locale["_START_TOUR"]}}</button>
+                </div>
+                <div ng-switch-when="tourstep" class="col-md-{{subfield.columnsize}}" style="text-align: center;" >
+                <div tour-step backdrop="true" order="{{subfield.order}}" title="{{subfield.title}}" content="{{subfield.tourcontent}}" placement="{{subfield.position}}" autoscroll="true"></div>
+
+                </div>
+                
+                <div ng-switch-when="buttonLarge" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-large {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                </div>
+                <div ng-switch-when="buttonXs" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-xs {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
+                </div>
+                <div class="col-md-{{subfield.columnsize}} " ng-switch-when="password">
+                    <input type="password" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" maxlength="{{subfield.maxlength}}" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
+                </div>
+            </ng-switch>
+        </div>
+    </div>
+</ng-switch>
+
+
+
+<script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+</script>
