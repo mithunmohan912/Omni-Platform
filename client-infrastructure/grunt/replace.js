@@ -127,7 +127,7 @@ module.exports = {
       {
           from: 'angular-growl.css',
          to: 'angular-growl.min.css'
-         angular-growl.js
+        
       },
       {
           from: 'angular-growl.js',
