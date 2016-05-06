@@ -40,6 +40,14 @@ module.exports = {
                                            'src/app-weather/assets/css/*.css',
                                            'src/app-weather/ocInfra/js/ocInfra.js', 
                                            'src/ocInfra/css/*.css'
+            ],
+            'src/app-refenrence/index.html': ['src/app-refenrence/js/*.js',
+                                           'src/app-refenrence/js/**/*.js',
+                                           'src/app-refenrence/app/*.js',
+                                           'src/app-refenrence/app/**/*.js', 
+                                           'src/app-refenrence/assets/css/*.css',
+                                           'src/app-refenrence/ocInfra/js/ocInfra.js', 
+                                           'src/ocInfra/css/*.css'
             ]
         }
 
@@ -56,6 +64,7 @@ module.exports = {
             'src/app-miniquote/index.html': ['bower.json'],
             'src/app-weather/index.html': ['bower.json'],
             'src/app-kitchensink/index.html': ['bower.json'],
+            'src/app-reference/index.html': ['bower.json']
         }
     }
 };
