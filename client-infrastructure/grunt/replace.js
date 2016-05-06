@@ -123,6 +123,16 @@ module.exports = {
       {
           from: 'AnonymousController.min.js',
          to: 'AnonymousController.js'
+      },
+      {
+          from: 'angular-growl.css',
+         to: 'angular-growl.min.css'
+         angular-growl.js
+      },
+      {
+          from: 'angular-growl.js',
+         to: 'angular-growl.min.js'
+         
       }
 	  ]
    },
