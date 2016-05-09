@@ -9,7 +9,7 @@
 			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)">{{(locale[field.name]?locale[field.name] : field.name)}}</a>
 			<div ng-if="field.type=='tourstep'">
 			<div  class="col-md-{{field.columnsize}}" style="text-align: center;" >
-                <div  tour-step backdrop="true" order="{{field.order}}" title="{{field.title}}" content="{{field.tourcontent}}" placement="{{field.position}}" autoscroll="true"></div>
+                <div  tour-step backdrop="true" order="{{field.order}}" title="{{(locale[field.title]?locale[field.title] : field.title)}}" content="{{(locale[field.tourcontent]?locale[field.tourcontent] : field.tourcontent)}}" placement="{{field.position}}" autoscroll="true"></div>
 
                 </div>
                 </div>
