@@ -138,7 +138,7 @@ sprint#\omnichannel-infrastructure\client-infrastructure\mobile
 ###Contributions
 ---
 
-We understand its your day to day job to implement code and Contribute to this project repository. 
+We understand its your day to day job to implement code and Contribute to this project repository
 
 There are some ground rules set up to Contribute. Please follow instructions posted [here](https://drive.google.com/open?id=1ogAgtSQm53Op5e92nevyGM-KyoPgtzI5hoA4W6ZiisU&authuser=0)
 
