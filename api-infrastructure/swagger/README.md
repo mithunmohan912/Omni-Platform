@@ -1,9 +1,10 @@
 Swagger Specs Files
 ================================
+* Swagger Editor build status [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Swagger-Editor)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Swagger-Editor/)
 
 ###Quick Start
 
-Swagger editor available on AWS server : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/swagger-editor/#/
+Swagger editor available on AWS server : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/tool/swagger-editor/#/
 
 Steps to open API spec files: 
 ```
