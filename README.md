@@ -79,7 +79,7 @@ Simply Type
 
 Karma + Jasmine Unit Test cases are placed and implemented in folder `unit/tests`
 
-To run Unit Test Cases , Simply Type
+To run Unit Test Cases , Simply Type.
 
  ```
  $ grunt test
