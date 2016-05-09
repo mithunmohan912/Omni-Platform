@@ -1,8 +1,8 @@
 'use strict';
 /*
-global app,showMessage 
+global app 
 */
-app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale){	
+app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OCRoles, tmhDynamicLocale, growl){	
     this.runLogin = function($scope,nextScreenId) {
 				$rootScope.showIcon = true;
 				 $http({
@@ -20,14 +20,12 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        showMessage($rootScope.locale.INVALID_CREDENTIALS);
+                        growl.error($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
-                    localStorage.username = user.name;
-                    localStorage.distributorId = user.distributor_id;
-                    $cookieStore.put('userid',localStorage.username);
-                    localStorage.Authentication = user.token;
+                    
+                    sessionStorage.username = user.name;
                     var defaultLocale = user.personalizationData.locale;
                     $rootScope.newlocale = defaultLocale;
                     $resource('ocInfra/assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
@@ -38,9 +36,9 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
-                        showMessage(data.exception.message, '30');
+                        growl.error(data.exception.message, '30');
                     } else {
-                        showMessage($rootScope.locale.GENERAL_ERROR);
+                        growl.error($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                
