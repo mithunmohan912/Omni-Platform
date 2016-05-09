@@ -623,3 +623,40 @@ table.table-striped td{text-transform: capitalize;}
 .eu-flag{background-image: url("../assets/images/flags/european.png") !important;}
 
 
+@media (min-width: 768px) {
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 0px;
+    border-top: 1px solid #ccc;
+    }
+ .panActive {
+    border-top: 2px solid #5bc0de !important;
+    background-color: #fff;
+    }
+.panActive > .panel-heading {
+    background-color: #fff !important;
+}
+.panActive > .panel-heading > .panel-title{
+    background-color: #fff !important;
+    color: #5bc0de;
+   font-family: "source_sans_proregular",Helvetica,Arial,sans-serif;
+}
+.panel-group .panel + .panel {
+    margin-top: 0px;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #999;
+    font-family: "source_sans_proregular",Helvetica,Arial,sans-serif;
+}
+span.glyphicon.glyphicon-minus{
+    float: right;
+    color: red;
+    }
+span.glyphicon.glyphicon-ok{
+    float: right;
+    color: green;
+    }
+}
