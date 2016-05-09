@@ -184,39 +184,58 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             if(actionURL !== undefined){
                 $rootScope.navigate(actionURL);    
             }
+            var nameTab;
+            if(tab !== undefined && Array.isArray(tab)){
+                nameTab = tab[0];
+            }
             new Promise(function(resolve) {
                 var optionFlag = false;
-                MetaData.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
+                MetaData.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
             }).then(function(){
-                    if(tab !== undefined){
-                        var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
-                        var params = {};
-                        resourceFactory.post(url,params,$rootScope.headers).success(function(data){
-                            var urlDetail;
-                            if(Array.isArray(data.messages)){
-                                // get last element of array
-                                urlDetail = data.messages[data.messages.length - 1].message[0];
-                            } else {
-                                urlDetail = data.messages.context;
-                            }
-                            resourceFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
-                            $scope.data = data;
-                            console.log('Compute successfully !!');
-                            // go to next tab to see premium
-                            $rootScope.step = $rootScope.step + 1;
-                            loadRelationshipByStep($rootScope.step);
-                            $scope.preStep = $rootScope.step;
-                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                if(tab !== undefined){
+                        //var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
+                        resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+                            var urlOperations = data._links[tab[1]].href;
+                            resourceFactory.options(urlOperations, $rootScope.headers).success(function(data){
+                                var urlCalculation;
+                                var item = data._links.item;
+                                if(Array.isArray(item)){
+                                    // get first element of array
+                                    urlCalculation = item[0].href;
+                                } else {
+                                    urlCalculation = item.href;
+                                }
+                                resourceFactory.options(urlCalculation, $rootScope.headers).success(function(data){
+                                    var urlExecute = data._links[tab[2]].href;
+                                    var params = {};
+                                    resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(data){
+                                        var urlDetail;
+                                        if(Array.isArray(data.messages)){
+                                            // get last element of array
+                                            urlDetail = data.messages[data.messages.length - 1].message[0];
+                                        } else {
+                                            urlDetail = data.messages.context;
+                                        }
+                                        resourceFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
+                                            $scope.data = data;
+                                            console.log('Compute successfully !!');
+                                            // go to next tab to see premium
+                                            $rootScope.step = $rootScope.step + 1;
+                                            loadRelationshipByStep($rootScope.step);
+                                            $scope.preStep = $rootScope.step;
+                                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                                        });
+                                    }).error(function(){
+                                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        				growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                    });
+                                });
+                            });
                         });
-                    }).error(function(){
-                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                    });
                 }else{
                     EnumerationService.loadEnumerationByTab();
                 }
-
-            });		
+            });
         }
     };
 
