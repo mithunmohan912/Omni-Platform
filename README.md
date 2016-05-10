@@ -1,7 +1,16 @@
-Omnichannel-Infrastructure  [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Dev-Infra)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/job/OC-Dev-Infra/)
+Omnichannel-Infrastructure  
+* Release Server build status [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Release-Infra)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Release-Infra/)
+
+* Dev Server build status [![Build Status](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=OC-Dev-Infra)](http://ec2-52-17-234-115.eu-west-1.compute.amazonaws.com:8080/job/OC-Dev-Infra/)
+
 ================================
 
 > A full-featured User Interface written in Angular for Omnichannel Solutions 
+
+###Live Demo
+To run and test the Release version of the code , please use this URL : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/release/app-miniquote
+
+To run and test the Dev version of the code, please use this URL : http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote
 
 ###Quick Start
 ---
@@ -12,7 +21,7 @@ If you already have node, check which version installed in your computer, the co
  $ node --version
  ```
 
-Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/).
+Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/)
 
 Install grunt using below command
  
@@ -129,7 +138,7 @@ sprint#\omnichannel-infrastructure\client-infrastructure\mobile
 ###Contributions
 ---
 
-We understand its your day to day job to implement code and Contribute to this project repository . 
+We understand its your day to day job to implement code and Contribute to this project repository
 
 There are some ground rules set up to Contribute. Please follow instructions posted [here](https://drive.google.com/open?id=1ogAgtSQm53Op5e92nevyGM-KyoPgtzI5hoA4W6ZiisU&authuser=0)
 

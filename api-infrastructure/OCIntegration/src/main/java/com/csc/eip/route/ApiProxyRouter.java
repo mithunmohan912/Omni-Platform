@@ -42,7 +42,7 @@ public class ApiProxyRouter extends RouteBuilder {
 		responseMessageProcessor.setRegex(privateUriPrefix);
 		responseMessageProcessor.setReplacement(publicUriPrefix);
 
-        from("servlet:proxy" + proxyUriPrefix + "?matchOnUriPrefix=true")
+        from("jetty:http://0.0.0.0:8888/ocintegration/proxy" + proxyUriPrefix + "?matchOnUriPrefix=true")
         
         	.log("${header.CamelServletContextPath} route")
         	//.log("headers:${headers}")
@@ -65,15 +65,14 @@ public class ApiProxyRouter extends RouteBuilder {
 		    
 		    // translate response headers
 		    .process(responseHeadersProcessor)
-		    					
-        	// translate response message
-		    .convertBodyTo(String.class)
-		    .process(responseMessageProcessor)
 		    
-		    // set CORS headers
-		    .setHeader("Access-Control-Allow-Methods").constant("GET, POST, HEAD, OPTIONS, PATCH, PUT, DELETE")
-		    .setHeader("Access-Control-Allow-Headers").constant("Origin, X-Requested-With, Content-Type, Accept, userName")
-		    
+		    .choice()
+		    	.when(simple("${in.body} != null"))
+			    	// translate response message
+				    .convertBodyTo(String.class)
+				    .process(responseMessageProcessor)
+				.end()
+		    	    
         	//.log("headers:${headers}")
         	.log("${header.CamelServletContextPath} route ended");
         

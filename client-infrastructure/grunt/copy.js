@@ -433,6 +433,36 @@ module.exports = {
       dest: 'mobile/app-miniquote/' ,
       src: ['vendors/select2/select2x2.png']
      },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/bootstrap-tour/build/css/bootstrap-tour-standalone.css']
+     },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/bootstrap-tour/build/css/bootstrap-tour.css']
+     },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js']
+     },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/bootstrap-tour/build/js/bootstrap-tour.min.js']
+     },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/angular-growl-v2/build/angular-growl.min.js']
+     },
+     {
+      expand: true , cwd:'src/' , flatten: false,
+      dest: 'mobile/app-miniquote/' ,
+      src: ['vendors/angular-growl-v2/build/angular-growl.min.css']
+     },
    ]
   },
 };

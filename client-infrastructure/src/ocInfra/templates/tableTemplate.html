@@ -1,7 +1,7 @@
 <div>
     <div class="col-md-12">
 <div name="table-header" class="row">
-    <label class="pull-left">{{locale["_RESULTS"]}} :{{stTableList.length}}</label>
+    <label class="pull-left">{{locale["_RESULTS"]}} :  {{stTableList.length}}</label>
     <!-- <label class="pull-right"><a class="source_sans-bold" ng-click="navigate(field.tableMetaData.actionurl, field.tableMetaData.name);">
 -    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>{{locale["_ADVANCED_SEARCH"]}} </a></label> -->
 </div>
@@ -20,10 +20,10 @@
     </thead>
 
     <tbody>
-        <tr ng-hide="showResult">
+        <tr ng-hide="stTableList.showResult">
             <td colspan="5"><span>{{locale["_Quote_data_not _found"]}}.</span></td>
         </tr>
-        <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
+        <tr ng-repeat="row in displayed | filter:searchText" ng-show="stTableList.showResult">
 
             <td class="iconTable" ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
                 <ng-switch on="column.type">
