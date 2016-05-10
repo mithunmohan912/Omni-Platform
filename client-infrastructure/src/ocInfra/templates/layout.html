@@ -212,10 +212,10 @@
                 <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="doaction(subfield.method, subsection,subfield.action,subfield.actionurl,subfield.nextScreenId,subfield.tab)">{{(locale[subfield.label]?locale[subfield.label] : subfield.label)}}</button>
                 </div>
                 <div ng-switch-when="tourButton" class="col-md-{{subfield.columnsize}}" style="text-align: center;" ng-show="field.visible">
-                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="tour.restart(true)">Start tour</button>
+                <button id="{{subfield.name}}" class="oc-btn oc-btn-sm {{subfield.icon}}" ng-click="tour.restart(true)">{{locale["_START_TOUR"]}}</button>
                 </div>
                 <div ng-switch-when="tourstep" class="col-md-{{subfield.columnsize}}" style="text-align: center;" >
-                <div tour-step backdrop="true" order="{{subfield.order}}" title="{{subfield.title}}" content="{{subfield.tourcontent}}" placement="{{subfield.position}}" autoscroll="true"></div>
+                <div tour-step backdrop="true" order="{{subfield.order}}" title="{{(locale[subfield.title]?locale[subfield.title] : subfield.title)}}" content="{{(locale[subfield.tourcontent]?locale[subfield.tourcontent] : subfield.tourcontent)}}" placement="{{subfield.position}}" autoscroll="true"></div>
 
                 </div>
                 

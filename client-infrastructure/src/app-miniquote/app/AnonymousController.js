@@ -5,7 +5,7 @@
 exported AnonymousController
 */
 
-function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata, MetaData, EnumerationService, dataFactory) {
+function AnonymousController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata, MetaData, EnumerationService, resourceFactory) {
     $rootScope.screenId = 'anonymous';
     var metadataLocation = $rootScope.metadataPath;
     OCMetadata.load($scope,metadataLocation);
@@ -29,12 +29,13 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
                 var arr = actionURL.split('/');
                 $rootScope.regionId = arr[1];
             }
+            if($rootScope.regionId!=='us'){
             new Promise(function(resolve) {
-                MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', dataFactory, undefined, resolve);
+                MetaData.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, false, resolve);
             }).then(function(){
                 EnumerationService.loadEnumerationByTab();
             }); 
-        }
+        }}
     };
 
     $rootScope.navigate = function(actionURL) {

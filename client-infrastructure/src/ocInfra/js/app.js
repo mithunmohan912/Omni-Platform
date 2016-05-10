@@ -10,8 +10,8 @@ exported showHostErrorMessage
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','growlProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,growlProvider) {
 
-growlProvider.globalTimeToLive(3000);
-growlProvider.globalEnableHtml(true);
+growlProvider.globalTimeToLive(30000);
+growlProvider.globalDisableCountDown(true);
 growlProvider.onlyUniqueMessages(true);
 
 $routeProvider.
@@ -43,7 +43,7 @@ app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
    $rootScope.$on('$locationChangeStart', function () {
    
-   if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+   if (sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url('/');
        }
    });  
