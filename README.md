@@ -21,7 +21,7 @@ If you already have node, check which version installed in your computer, the co
  $ node --version
  ```
 
-Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/).
+Install [Node.js Version 0.12.0](https://nodejs.org/download/release/v0.12.0/)
 
 Install grunt using below command
  

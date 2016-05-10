@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: Metamodel Specification
   title: Metamodel Specification
-  version: 1.5.0
+  version: 1.6.0
 basePath: /api
 paths:
   /metamodel:
@@ -11,15 +11,18 @@ paths:
         "200":
           description: model model response
           schema:
-            type: object
-            $ref: "#/definitions/MetaData"
+            type: array
+            items:
+              - $ref: "#/definitions/MetaData"
+              - $ref: "#/definitions/include"
 definitions:
+# MetaData Starts
   MetaData:
     required:
       - title
       - name
       - formid
-      - groupid
+      - resourcelist
       - sections
     properties:
       title:
@@ -28,10 +31,24 @@ definitions:
         type: string
       formid:
         type: string
-      $ref:
+      resourcelist:
         type: string
       groupid:
         type: string
+      category:
+        type: string
+        enum:
+          - tabs
+      viewAs:
+        type: string
+        enum:
+          - menu
+      hidetitle:
+        type: boolean
+        default: false
+      createButton:
+        type: boolean
+        default: false
       sections:
         type: array
         items:
@@ -40,11 +57,13 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/WorkFlowGrp"
+# MetaData Ends
+# Section Starts: Part of MetaData
   Section:
     type: object
     required:
+      - name
       - category
-      - columnsize      
     properties:
       title:
         type: string
@@ -57,8 +76,6 @@ definitions:
           - accordion
           - table
           - covtable
-      $ref:
-        type: string    
       columnsize:
         type: integer
         enum:
@@ -77,22 +94,25 @@ definitions:
       searching:
         type: boolean
         default: false
+      renderAsTab:
+        type: boolean
+        default: false
+      link:
+        type: string
+      step:
+        type: integer
       visible:
         type: boolean
         default: true
-	    header:
+      header:
         type: object
         properties:
           elements:
             type: array
             items:
-              oneOf:
-                - 
-                  $ref: "#/definitions/InputFieldDefinition"
-                - 
-                  $ref: "#/definitions/SelectFieldDefinition"
-                - 
-                  $ref: "#/definitions/ButtonDefinition"
+              - $ref: "#/definitions/InputFieldDefinition"
+              - $ref: "#/definitions/SelectFieldDefinition"
+              - $ref: "#/definitions/ButtonDefinition"
       sections:
         type: array
         items:
@@ -100,13 +120,11 @@ definitions:
       elements:
         type: array
         items:
-          oneOf:
-            - 
-              $ref: "#/definitions/InputFieldDefinition"
-            - 
-              $ref: "#/definitions/SelectFieldDefinition"
-            - 
-              $ref: "#/definitions/ButtonDefinition"
+          - $ref: "#/definitions/InputFieldDefinition"
+          - $ref: "#/definitions/SelectFieldDefinition"
+          - $ref: "#/definitions/ButtonDefinition"
+# Section Ends
+# WorkFlowGrp Starts: Part of MetaData
   WorkFlowGrp:
     type: object
     properties:
@@ -114,6 +132,8 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/FlowGrp"
+# WorkFlowGrp Ends
+# InputFieldDefinition Starts: Part of Section
   InputFieldDefinition:
     type: object
     required:
@@ -137,8 +157,11 @@ definitions:
           - money
           - checkboxgroup
           - richtext
+          - autocomplete
       label:
         type: string    
+      typewait:
+        type: integer
       columnsize:
         type: integer
         enum:
@@ -169,14 +192,25 @@ definitions:
         default: false
       typeahead:
         type: boolean
-        default: false  
+        default: false
+      mask:
+        type: string
+      patchOnBlur:
+        type: boolean
+        default: false
+      style:
+        type: string
+      tabNavigation:
+        type: string
+# InputFieldDefinition Ends
+# SelectFieldDefinition Starts: Part of Section
   SelectFieldDefinition:
     type: object
     required:
       - name
       - type
       - label
-      - options
+      - enumdata
       - columnsize
     properties:
       name:
@@ -188,10 +222,9 @@ definitions:
           - dropdown
       label:
         type: string 
-      options:
+      enumdata:
         type: array
         items:
-          title: Option
           $ref: "#/definitions/OptionDefinition"  
       columnsize:
         type: integer
@@ -214,6 +247,10 @@ definitions:
       visible:
         type: boolean
         default: true
+      style:
+        type: string
+# SelectFieldDefinition Ends
+# OptionDefinition Starts: Part of SelectFieldDefinition
   OptionDefinition:
     type: object
     required:
@@ -224,6 +261,8 @@ definitions:
         type: string
       value:
         type: string
+# OptionDefinition Ends
+# ButtonDefinition Starts: Part of Section
   ButtonDefinition:
     type: object
     required:
@@ -238,7 +277,8 @@ definitions:
         type: string
         enum:
           - button
-		      - link
+          - link
+          - buttonSmall
       label:
         type: string
       columnsize:
@@ -256,12 +296,16 @@ definitions:
           - 10
           - 11
           - 12
-	    icon:
-		    type: string
-      actionurl:
+      icon:
+        type: string
+      action:
         type: string
       onclick:
         type: string
+      style:
+        type: string
+# ButtonDefinition Ends
+# FlowGrp Starts: Part of WorkFlowGrp
   FlowGrp:
     type: object
     required:
@@ -301,3 +345,14 @@ definitions:
           - 10
           - 11
           - 12
+# FlowGrp Ends
+# Include Starts
+  include:
+    type: array
+    items:
+      $ref: "#/definitions/TabNames"
+# Include Ends
+# TabNames Starts: Part of Include
+  TabNames:
+    type: string
+# TabNames Ends

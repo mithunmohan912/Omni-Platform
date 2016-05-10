@@ -31,7 +31,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
             }
             if($rootScope.regionId!=='us'){
             new Promise(function(resolve) {
-                MetaData.actionHandling($scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, resolve);
+                MetaData.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, false, resolve);
             }).then(function(){
                 EnumerationService.loadEnumerationByTab();
             }); 
