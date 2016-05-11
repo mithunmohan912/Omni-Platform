@@ -1,4 +1,3 @@
-
 'use strict';
 
 
@@ -123,6 +122,15 @@ function loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFacto
     }
 }
 
+function sanitizeSchema(fieldName, options){
+    angular.forEach(options.schema.properties, function(val, key) {
+        if (key !== fieldName) {
+            delete options.schema.properties[key];
+        }
+    });
+    return options;
+}
+
 function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
@@ -133,6 +141,11 @@ function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, 
                 //Formulate the URL for the options call
                 var url;
                 var newURL;
+                var patchFieldName;
+                if(scope.patchFieldName){
+                    patchFieldName = scope.patchFieldName;
+                }
+
                 if($rootScope.resourceHref) {
                     newURL = $rootScope.resourceHref;
                 }
@@ -184,10 +197,16 @@ function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, 
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                     if(action !== undefined){
-                                       options = optionsMapForResource.get(action);
-                                       if(options !== undefined){
-                                           httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
-                                       }
+                                        options = optionsMapForResource.get(action);
+                                        if(options !== undefined && patchFieldName !== undefined){
+                                            options = sanitizeSchema(patchFieldName, options);
+                                            httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                        }
+                                        else{
+                                            if(resolve) {
+                                                resolve();
+                                            }  
+                                        }
                                     }
                                 });
                             });
