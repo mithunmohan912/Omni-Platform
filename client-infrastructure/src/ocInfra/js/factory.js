@@ -255,6 +255,15 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
+function convertToArray(data) {
+    if(data !== undefined && data.length === undefined){
+        var array = [];
+        array.push(data);
+        return array;
+    }
+    return data;
+}
+
 function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
@@ -274,7 +283,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             //Load the results into the search results table
             if(options.action==='search'){
                 if(data._links.item){
-                    $scope.stTableList = data._links.item;
+                    $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
                 }else{
