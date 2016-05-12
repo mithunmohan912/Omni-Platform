@@ -33,6 +33,14 @@ module.exports = {
          to: '..\/vendors'
       }]
    },
+   replace_reference: {
+       src: ['src/app-reference/index.html'],
+          overwrite: true,                
+        replacements: [{
+          from: '.\/vendors',
+         to: '..\/vendors'
+      }]
+   },
    replace_mobile: {
  	 	 src: ['mobile/app-miniquote/index.html'],
    		 overwrite: true,                
