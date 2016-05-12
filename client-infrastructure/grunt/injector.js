@@ -41,12 +41,12 @@ module.exports = {
                                            'src/app-weather/ocInfra/js/ocInfra.js', 
                                            'src/ocInfra/css/*.css'
             ],
-            'src/app-refenrence/index.html': ['src/app-refenrence/js/*.js',
-                                           'src/app-refenrence/js/**/*.js',
-                                           'src/app-refenrence/app/*.js',
-                                           'src/app-refenrence/app/**/*.js', 
-                                           'src/app-refenrence/assets/css/*.css',
-                                           'src/app-refenrence/ocInfra/js/ocInfra.js', 
+            'src/app-reference/index.html': ['src/app-reference/js/*.js',
+                                           'src/app-reference/js/**/*.js',
+                                           'src/app-reference/app/*.js',
+                                           'src/app-reference/app/**/*.js', 
+                                           'src/app-reference/assets/css/*.css',
+                                           'src/app-reference/ocInfra/js/ocInfra.js', 
                                            'src/ocInfra/css/*.css'
             ]
         }
