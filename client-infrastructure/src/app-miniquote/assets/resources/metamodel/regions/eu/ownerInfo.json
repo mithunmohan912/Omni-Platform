@@ -1,0 +1,138 @@
+{
+    "metamodel": {
+        "formid": "ownerInfo",
+        "title": "",
+        "resourcelist": "", 
+        "name": "ownerInfo",
+        "sections": [
+            {
+                
+                "name": "owner_info",
+                "category": "nonaccordion",
+                "elements":   [
+                    {
+                        "name": "quote_owner:type",
+                        "type": "select",
+                        "label": "_PERSONAL_ENTITY",
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Person"
+                            },
+                            {
+                                "value" : "Organisation"
+                            }
+                        ],
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:person_title",
+                        "type": "select",
+                        "label": "_LEGAL_ACTIVITY_CLASS",
+                        "enumdata":[
+                            {
+                                "value" : "Mr"
+                            },
+                            {
+                                "value" : "Mrs"
+                            },
+                            {
+                                "value" : "Not Applicable"
+                            }
+                        ],
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:name",
+                        "type": "thtext",
+                        "typeaheadField": "person:last_name",
+                        "label": "_LASTNAME",
+                        "columnsize": 3,
+                        "typeahead": "true",
+                        "maxlength": 40
+                    },
+                    {
+                        "name": "quote_owner:first_name",
+                        "type": "thtext",
+                        "typeaheadField": "person:first_name",
+                        "label": "_FIRSTNAME",
+                        "columnsize": 3,
+                        "typeahead": "true",
+                        "maxlength": 40
+                    },
+                    {
+                        "name": "quote_owner:birth_date",
+                        "mask": "dd/mm/yy",
+                        "type": "date",
+                        "label": "_DOB",
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:city",
+                        "type": "autocomplete",
+                        "label": "_CITY",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "typewait": 1000
+                    },
+                    {
+                        "name": "quote_owner:street_number",
+                        "type": "text",
+                        "label": "_STREET_NUMBER",
+                        "maxlength": 8,
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:street_name",
+                        "type": "text",
+                        "label": "_STREET_NAME",
+                        "maxlength": 30,
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:postal_code",
+                        "type": "thtext",
+                        "typeaheadField": "person:postal_code",
+                        "typeahead": "true",
+                        "label": "_BOX_NUMBER",
+                        "maxlength": 8,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_owner:email",
+                        "type": "email",
+                        "label": "_EMAIL",
+                        "columnsize": 3,
+                        "maxlength": 80
+                    }
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ]
+    }
+}

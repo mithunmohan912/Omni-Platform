@@ -1,0 +1,223 @@
+{
+    "metamodel": {
+        "formid": "quotesearch",
+        "resourcelist": ["quotes"], 
+        "title": "_SAVED_ITEMS",
+        "name": "quote",
+        "viewAs": "menu",
+        "createButton": true,
+        "button":{
+            "icon" : "",
+            "method" :"", 
+            "action": "create",
+            "actionurl": "/eu/screen/quotescreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"                       
+        },
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            }
+        ],
+    "workflowGrp": [{"nav":"false"}],
+    "mainTabs": "false",
+        "sections": [
+            {
+                "title": "_HOME_QUOTE_EU_SEARCH",
+                "name": "quote_search",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                            {
+                                "name": "contract:number",
+                                "type": "text",
+                                "label": "_CONTRACT",
+                                "visible": "true",
+                                "columnsize": 6
+                            },
+                            {
+                                "name": "quote:description",
+                                "type": "text",
+                                "label": "_DESCRIPTION",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
+                            },
+                            {
+                                "name": "quote:distributor_id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                            ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                            {
+                                "name": "quote:identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
+                            },
+                            {
+                                "name": "quote:product_id",
+                                "type": "select",
+                                "label": "_PRODUCT",
+                                "default": "IN005",
+                                "columnsize": 6,
+                                "enumdata": [
+                                    {
+                                        "value": "IN005",
+                                        "description": "_HOME"
+                                    }
+                                ] 
+                            },
+                            {
+                                "name": "quote:contract_start_date",
+                                "type": "date",
+                                "label": "_START_DATE_OF_THE_CONTRACT",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                        ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [                        
+                             {
+                                "name":"quote:status",
+                                "type":"text",
+                                "label":"_QUOTE_STATUS",
+                                "columnsize":6
+                            },
+                           {
+                                "name": "quote:type",
+                                "type": "select",
+                                "label": "_QUOTE_TYPE",
+                                "columnsize": 6,
+                                "enumdata": [
+                                    {
+                                        "value": "new",
+                                        "description": "_NEW"
+                                    },
+                                    {
+                                        "value": "amendment",
+                                        "description": "_AMENDMENT"
+                                    }
+                                ] 
+                            },
+                           
+                            {
+                                "name": "quote_owner:name",
+                                "type": "text",
+                                "label": "_RISK_HOLDER",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                        
+                        ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [                        
+                             {
+                                "name":"quote_home:box_number",
+                                "type":"text",
+                                "label":"_BOX_NUMBER",
+                                "columnsize":6
+                            },
+                           {
+                                "name":"quote_home:city",
+                                "type":"text",
+                                "label":"_CITY",
+                                "columnsize":6
+                            },
+                            {
+                                "name": "quote_home:postal_code",
+                                "type": "text",
+                                "label": "_POSTAL_CODE",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                        
+                        ]
+                    },{
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [                        
+                             {
+                                "name":"quote_home:street_name",
+                                "type":"text",
+                                "label":"_STREET_NAME",
+                                "columnsize":6
+                            },
+                           {
+                                "name":"quote_home:street_number",
+                                "type":"text",
+                                "label":"_STREET_NUMBER",
+                                "columnsize":6
+                            }
+                        
+                        ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 12,
+                        "type": "columngroup",
+                        "visible": "true"
+                    },
+                    
+                    {
+                        "name": "search",
+                        "type": "buttonSmall",
+                        "label": "_SEARCH",
+                        "action":"search",
+                        "visible": "true",
+                        "columnsize": "12"
+                    },
+                    {
+                        "name": "searchlist",
+                        "type": "table",
+                        "label": "",
+                        "isTab": "false",
+                        "visible": "true",
+                        "columnsize": 12
+                    }
+                ]
+            }
+        ]
+    }
+}

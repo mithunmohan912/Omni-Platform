@@ -1,0 +1,77 @@
+{
+    "metamodel": {
+        "formid": "AddHomeQuote",
+        "title": "_AUTO_QUOTE_ASIA_CREATE",
+        "resourcelist": ["quotes"],
+        "category": "tabs",
+        "hidetitle": false,
+        "createButton": false,
+        "name": "AddHomeQuote",
+        "sections": [{
+                "$ref": "ownerInfo",
+                "type": "tab",
+                "name": "_OWNER_INFO_TAB",
+                "renderAsTab": true,
+                "link": "quote:quote_owner_list",
+                "step": 1
+            },
+            {
+                "$ref": "riskInfo",
+                "type": "tab",
+                "name": "_RISK_INFO_TAB",
+                "renderAsTab": true,
+                "link": "quote:quote_risk_list",
+                "step": 2
+            }, {
+                "order": "1",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "_RISK_INFO_TAB",
+                "tourcontent": "_RISK_INFO_TAB_CONTENT",
+                "position": "top"
+
+            },
+
+            {
+                "$ref": "additionalInfo",
+                "type": "tab",
+                "name": "_ADDITIONAL_INFO_TAB",
+                "renderAsTab": true,
+                "link": "quote:quote_risk_list",
+                "step": 3
+            }, {
+                "order": "2",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "_ADDITIONAL_INFO_TAB",
+                "tourcontent": "_ADDITIONAL_INFO_TAB_CONTENT",
+                "position": "top"
+
+            },
+
+            {
+                "$ref": "premiumInfo",
+                "type": "tab",
+                "name": "_PREMIUM_INFO_TAB",
+                "renderAsTab": true,
+                "link": "undefined",
+                "step": 4
+            }, {
+                "order": "3",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "_PREMIUM_INFO_TAB",
+                "tourcontent": "_PREMIUM_INFO_TAB_CONTENT",
+                "position": "top"
+
+            }
+
+        ]
+    },
+    "include": [
+        "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
+    ]
+}

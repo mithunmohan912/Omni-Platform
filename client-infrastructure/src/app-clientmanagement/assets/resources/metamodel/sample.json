@@ -1,0 +1,126 @@
+{
+    "metamodel": {
+        "formid": "Sample",
+        "title": "",
+        "name": "Sample",
+        "sections": [
+            {
+                "title": "_SAMPLE",
+                "name": "Sample",
+                "category": "nonaccordion",
+                "elements": [
+                  
+                    {
+                        "name": "sample.text",
+                        "type": "text",
+                        "label": "Text",
+                        "visible": true,
+						"required": "required",
+                        "columnsize": 5
+                    },
+                     {
+                        "name": "sample.textarea",
+                        "type": "textarea",
+                        "label": "Textarea",
+                        "visible": true,
+                        "columnsize": 5
+                    }, 
+					 {
+                        "name": "sample.toggle",
+                        "type": "toggle",
+                        "label": "Toggle",
+                        "visible": true,
+						"required": "required",
+                        "columnsize": 5
+                    },
+					
+					{
+                        "name": "sample.number",
+                        "type": "number",
+                        "label": "Number",
+                        "visible": true,
+						"required": "required",
+                        "columnsize": 5,
+                        "min":3,
+                        "max":10
+                    },
+                    {
+                        "name": "sample.autocomplete",
+                        "type": "autocomplete",
+                        "label": "Autocomplete",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 5,
+                        "min":3,
+                        "max":10
+                    },
+                      {
+                        "name": "sample.date",
+                        "type": "date",
+                        "label": "Date",
+                        "visible": true,
+						"required": "required",
+                        "columnsize": 5
+                    },
+                    {
+                                "name": "sample.select",
+                                "type": "select",
+                                "label": "Select",
+                                "columnsize": 5,
+                                "typeahead": "true",
+                                "maxlength": 80,
+                                "visibleWhen": {
+                                    "expression": {
+                                        "operator": "AND",
+                                        "conditions": [
+                                            {
+                                                "field": "minimalinformation",
+                                                "value": false
+                                            },
+                                            {
+                                                "field": "contract_risk_owner:type",
+                                                "value": "person"
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                             {
+                        "name": "sample.buttonSmall",
+                        "type": "buttonSmall",
+                        "label": "Button Small",
+                        "visible": true,
+                        "columnsize": 12
+                    }, {
+                        "name": "sample.buttonLarge",
+                        "type": "buttonLarge",
+                        "label": "Button Large",
+                        "visible": true,
+                        "columnsize": 12
+                    }, {
+                        "name": "sample.buttonXs",
+                        "type": "buttonXs",
+                        "label": "Button Extra Small",
+                        "visible": true,
+                        "columnsize": 12
+                    },
+                            {
+                        "name": "sample.litcheckbox",
+                        "type": "litcheckbox",
+                        "label": "CheckBox",
+                        "visible": true,
+                         "columnsize": 5
+                    },
+                    {
+                        "name": "submit",
+                        "type": "buttonSmall",
+                        "label": "_SUBMIT",
+                        "action":"submit",
+                        "visible": true,
+                        "columnsize": "12"
+                }
+                ]
+            }
+        ] 
+    }
+}

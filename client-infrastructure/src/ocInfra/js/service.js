@@ -10,7 +10,7 @@ app.service('OCInfraConfig', function($resource, $rootScope){
     	$rootScope.infraConfig = {};
         $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
 			$rootScope.infraConfig = data.config.base;
-			$rootScope.metadataPath = data.config.base.templates.metaData;
+			$rootScope.metamodelPath = data.config.base.templates.metaModel;
 			angular.forEach($rootScope.infraConfig.properties, function(key) {
                     if (key.name === 'language') {
                         $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
@@ -37,14 +37,14 @@ app.service ('FieldService', function() {
 });    
 
 app.service ('OCMetadata', function($rootScope, $resource) {
-	this.load = function(scope,metadataLocation) { 
+	this.load = function(scope,metamodelLocation) { 
 		var screenId = $rootScope.screenId;
-		var metadataName = metadataLocation + screenId + '.json';
-    	$rootScope.metadata = {};
+		var metamodelName = metamodelLocation + screenId + '.json';
+    	$rootScope.metamodel = {};
     	scope.data = {};
-    	$resource(metadataName).get(function(data) {
-        	$rootScope.metadata[screenId] = data.metadata;
-        	$rootScope.title = data.metadata.title;
+    	$resource(metamodelName).get(function(data) {
+        	$rootScope.metamodel[screenId] = data.metamodel;
+        	$rootScope.title = data.metamodel.title;
         	scope.screenId = screenId;
     	});
     };	

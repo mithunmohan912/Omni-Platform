@@ -17,8 +17,8 @@ function OCController($scope, $rootScope, $routeParams, $location, $http, $resou
         reqParm = $routeParams.screenId;
         $rootScope.screenId = reqParm;
     }
-    var metadataLocation = $rootScope.config.templates.metaData;
-    OCMetadata.load($scope,metadataLocation);
+    var metamodelLocation = $rootScope.config.templates.metaModel;
+    OCMetadata.load($scope,metamodelLocation);
     $scope.checkvisible = function(field) {
             return FieldService.checkVisibility(field, $scope);    
      };
@@ -558,8 +558,8 @@ exported showHostErrorMessage
 var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','growlProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,growlProvider) {
 
-growlProvider.globalTimeToLive(3000);
-growlProvider.globalEnableHtml(true);
+growlProvider.globalTimeToLive(30000);
+growlProvider.globalDisableCountDown(true);
 growlProvider.onlyUniqueMessages(true);
 
 $routeProvider.
@@ -590,10 +590,10 @@ $routeProvider.
 app.run(['$rootScope', '$location', '$cookieStore', 'OCInfraConfig', function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
    $rootScope.$on('$locationChangeStart', function () {
-   /*
-   if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+   
+   if (sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url('/');
-       }*/
+       }
    });  
    $rootScope.showHeader = false;
    OCInfraConfig.load();
@@ -624,137 +624,6 @@ function showHostErrorMessage(message, severity) {
     $('#errorPopup').show();
 }
 
-'use strict';
-
-/*
-	global angular
-*/
-
-angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '$q', function(MetaModel, $resource, $q/*$filter, $resource, MetaModel, resourceFactory*/){
-
-	return {
-		restrict: 'E',
-		scope: {
-			metamodel: '=',
-			resourceUrl: '='
-		},
-		link: function($scope){
-			$scope.$watchGroup(['metamodel', 'resourceUrl'], function(newValue, oldValue){
-				if(newValue[0] && newValue[1]){
-					var path = 'assets/resources/metamodel/'+ newValue[0] + '.json';
-					$resource(path).get(function(data) {
-						_init(data.metamodel);
-			        });
-				}
-			});
-
-			function _init(metamodelObject){
-				$scope.metamodelObject = metamodelObject;
-				$scope.resultSet = {};
-
-				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-				
-				$scope.$watchCollection('resultSet', function(newValue, oldValue){
-					if(newValue){
-						$scope.resourcesToBind = {};
-						for(var resource in newValue){
-							$scope.resourcesToBind[newValue[resource].identifier] = newValue[resource];
-						}
-
-						for(var resource in $scope.resourcesToBind){
-							$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};
-							for(var i = 0; i < $scope.metamodelObject.sections.length; i++){
-								for(var j = 0; j < $scope.metamodelObject.sections[i].properties.length; j++){
-									if($scope.metamodelObject.sections[i].properties[j].id in $scope.resourcesToBind[resource].properties){
-										$scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id] = $scope.resourcesToBind[resource].properties[$scope.metamodelObject.sections[i].properties[j].id];
-									}
-								}
-							}
-						}
-					}
-				});
-				
-				
-			}
-		},
-		templateUrl: 'src/ocInfra/templates/components/renderer.html'
-	};
-}]);
-'use strict';
-
-/*
-	global angular
-*/
-
-angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource', '$location', '$injector', function(MetaModel, $resource, $location, $injector){
-	return {
-		restrict: 'E',
-		scope: {
-			metamodel: '=',
-			resourceUrl: '='
-		},
-		link: function($scope){
-
-			$scope.$watchGroup(['metamodel', 'resourceUrl'], function(newValue, oldValue){
-				if(newValue[0] && newValue[1]){
-					var path = 'assets/resources/metamodel/'+ newValue[0] + '.json';
-					$resource(path).get(function(data) {
-						_init(data.tableMetaModel);
-			        });
-				}
-			});
-
-			function _init(metamodelObject){
-				$scope.resultSet = {};
-				$scope.metamodelObject = metamodelObject;
-				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-
-				$scope.$watchCollection('resultSet', function(newValue, oldValue){
-					if(newValue){
-						$scope.items = [];
-						newValue[$scope.resourceUrl].items.forEach(function(item){
-							$scope.items.push(newValue[item.href]);
-						});
-					}
-				});
-
-				
-				$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
-				$scope.actionFactory = $injector.get($scope.screenFactoryName);
-			}
-
-
-			$scope.execute = function(action, displayedItem, field) {
-				if(!action.method){
-					if($scope.metamodelObject['buttonMethod'] && action.buttonAction){
-						$scope.actionFactory[$scope.metamodelObject['buttonMethod']](displayedItem, field);
-					} else {
-						$scope[action.value](displayedItem, field);
-					}
-				} else {
-					$scope.actionFactory[action.method](displayedItem, field);
-				}
-			};
-
-			$scope.isValidStatus = function(displayeditem){
- 				
- 			};
-
- 			// FIXME TODO: Possibly needed if there are different modes (same collection, different items, i.e: automobile, trailer, etc)
- 			$scope.isCreateable = function(index, modePost) {
-
-			};
-
-			$scope.isVisible = function(column) {
-				// FIXME TODO: Visibility to hide columns on UI fields probably
-				return true;
-			};
-
-
-		},
-		templateUrl: 'src/ocInfra/templates/components/table.html'
-	};
-}]);
 'use strict';
 
 /*
@@ -799,7 +668,7 @@ exported ScreenController
 */
 
 app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$q', 'resourceFactory', 'growl', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
-    var self = this;
+    
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
@@ -822,7 +691,7 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
-            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
+            growl.error($rootScope.appConfig.timeoutMsg);
             return;
         });
     };
@@ -878,261 +747,21 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
     };
 
     this.setHeaders = function($rootScope){
-        $rootScope.headers = { 
+        $rootScope.headers = {
             'Accept': 'application/vnd.hal+json, application/json',
-            'Content-Type': 'application/json',
-            'x-IBM-Client-id' : 'f9220738-65e5-432d-9b8f-05e8357d1a61',
-            'x-IBM-Client-Secret' : 'gT1lS3aV8yS1iS3lY3kB7bL8pH0cH6nJ6yT4jH1aQ6pL8aR6hI' 
+            'Content-Type': 'application/json'
         };
+
+        if($rootScope.config.securityHeaders){
+            for(var key in $rootScope.config.securityHeaders){
+                $rootScope.headers[key] = $rootScope.config.securityHeaders[key];
+            }
+        }
 
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
-
-        $rootScope.headers = null;
     };
-    
-    /*============================================= Helper methods for components =============================================*/
-    /*
-        This function is in charge of analyzing the metamodel object and create an array with all the urls (resource 
-        dependencies) that must be queried based on a $http response.
-        Entry parameters:
-            - responseData: Success $http response data object.
-            - metamodel: Object representing the UI metamodel.
-        Output:
-            - An array containing all the resource urls that must be retrieved.
-    */
-    function _extractBusinessDependencies(responseData, metamodel){
-        if(!metamodel){
-            console.warn('No metamodel object to extract business dependencies');
-            return [];
-        } else if(!metamodel.businessObject){
-            return [];
-        }
-
-        var dependencies = [];
-        var keySet = [];
-
-        // Process http response to know which is the main key of the entity
-        for(var property in responseData){
-            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                var propertyKey = property.split(':')[0];
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
-            }
-        }
-
-        // If our business object specifies a dependency for the key obtained before, we extract those links to query them
-        keySet.forEach(function(objectKey){
-            if(objectKey in metamodel.businessObject){
-                metamodel.businessObject[objectKey].forEach(function(businessDependency){
-                    if(businessDependency in responseData._links){
-                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-                    }
-                });
-            }
-        });
-
-        return dependencies;
-    }
-
-    /*
-        Based on a valid (success) data http response (data object contained in $http response) this function 
-        creates and returns an object (map) where the keys are the names of the properties and the values are 
-        objects containing the following information:
-            - metamodel: Object representing the metamodel specified by the backend, such as maximum lengths.
-            - value: Value of the property.
-            - required: Boolean that indicates whether or not this property is required.
-            - editable: Boolean that indicates whether or not this property is editable.
-            - self: String URL of the entity this property belongs to.
-            - consistent: Boolean representing the status (valid or not) of this property in the backend.
-            - statusMessages: Object containing 3 arrays, one for every type of severity message (information, 
-              warning, error), and the counter that indicates how many errors and warnings we have to deal with.
-        Entry parameters:
-            - responseData: Success $http response data object.
-        Output:
-            - Object containing the processed properties.
-    */
-    function _processProperties(responseData){
-        var propertiesObject = {};
-
-        if(responseData && responseData._options && responseData._embedded){
-            // First get the PATCH and self links to use them later
-            var updateCRUD;
-            var resourceURL;
-
-            responseData._options.links.forEach(function(crud){
-                if(crud.rel === 'update'){
-                    updateCRUD = crud;
-                }
-            });
-
-
-            for(var link in responseData._links){
-                 if(responseData._links[link].rel === 'self'){
-                    resourceURL = responseData._links[link].href;
-                }
-            };
-
-            // Process the entity properties
-            for(var property in responseData._options.properties){
-                if(responseData._options.properties[property].format !== 'uri'){
-                    propertiesObject[property] = {};
-                    propertiesObject[property].metamodel = responseData._options.properties[property];
-                    propertiesObject[property].value = responseData[property];
-                    propertiesObject[property].self = resourceURL;
-                    propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
-                    propertiesObject[property].editable = (updateCRUD !== undefined && (property in updateCRUD.schema.properties));
-                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
-                    propertiesObject[property].consistent = true;
-                }
-            }
-
-            // Process status of the properties (based on status_report coming from backend)
-            for(var i = 0; i < responseData._embedded.length; i++) {
-                if(responseData._embedded[i].rel.indexOf('status_report') >= 0){
-                    for(var j = 0; j < responseData._embedded[i].data.messages.length; j++){
-                        var item = responseData._embedded[i].data.messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        return propertiesObject;
-    }
-
-    function _extractItemDependencies(responseData, summaryData){
-        var itemDependencies = [];
-
-        if(responseData && responseData._links){
-            for(var linkKey in responseData._links){
-                if(linkKey === 'item'){
-                    var items = responseData._links[linkKey];
-                    
-                    if(!Array.isArray(items)){
-                        items = [items];
-                    }
-
-                    for(var j = 0; j < items.length; j++){
-                        var item = items[j];
-                        itemDependencies.push({ href: item.href, title: item.title });
-                        if(item.summary){
-                            // By calling _processResponse without arguments we get the 'skeleton' for a resource
-                            summaryData[item.href] = _processResponse();
-                            for(var property in item.summary){
-                                summaryData[item.href].properties[property] = { value: item.summary[property] };
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return itemDependencies;
-    }
-
-    function _processResponse(responseData, metamodel, summaryData){
-        var resource = {
-            'dependencies':[],
-            'properties': {},
-            'items': [],
-            'deletable': false,
-            'patchable': false,
-            'creatable': false
-        };
-        
-        if(responseData && responseData._links && responseData._options){
-            resource['href'] = responseData._links.self.href;
-            resource['up'] = responseData._links.up.href;
-
-            resource.properties = _processProperties(responseData);
-            resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
-            resource.items = _extractItemDependencies(responseData, summaryData);
-
-            // Process CRUD operations to check whether or not we can PATCH, DELETE...
-            responseData._options.links.forEach(function(apiOperation){
-                if(apiOperation.rel === 'update'){
-                    resource.patchable = true;
-                } else if(apiOperation.rel === 'delete'){
-                    resource.deletable = true;
-                } else if(apiOperation.rel === 'create'){
-                    resource.creatable = true;
-                }
-            });
-        }
-
-        return resource;
-    };
-
-
-    /*============================================= END Helper methods for components =============================================*/
-
-    /*============================================= Component methods =============================================*/
-    /*
-        This function queries the backend with the given URL and all the URLs found in the business object
-        configuration specified in the metamodel object.
-        Entry parameters:
-            - rootURL -> URL of the resource to get
-            - metamodel -> Metamodel object
-            - resultSet -> Object where the retrieved resources will be inserted
-        Output:
-            - None. It will insert the results in the third parameter.
-    */
-    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName){
-        // Entry validation
-        if(!resultSet){
-            return;
-        }
-
-        var responseGET = resourceFactory.get(rootURL);
-        // Maybe we get a promise, maybe the cached response
-        if(responseGET.then){
-            responseGET.then(function success(httpResponse){
-                var responseData = httpResponse.data || httpResponse;
-                var summaryData = {};
-
-                // Add the resource to the result set
-                resultSet[rootURL] = _processResponse(responseData, metamodel, summaryData);
-                resultSet[rootURL].identifier = rootURL.substring(rootURL.lastIndexOf('/')+1);
-                resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
-                resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
-
-                // Analyze business dependencies in order to extract them
-                resultSet[rootURL].dependencies.forEach(function(url){
-                    self.prepareToRender(url.href, metamodel, resultSet, url.resource);
-                });
-
-                // Shall we stick with the summaries or shall we retrieve the whole item ??
-                if(metamodel.collectionsToProcess && metamodel.collectionsToProcess.indexOf(resultSet[rootURL].identifier) >= 0){
-                    resultSet[rootURL].items.forEach(function(url){
-                        self.prepareToRender(url.href, metamodel, resultSet);
-                    });
-                } else {
-                    for(var resourceURL in summaryData){
-                        resultSet[resourceURL] = summaryData[resourceURL];
-                        resultSet[resourceURL].identifier = resourceURL.substring(resourceURL.lastIndexOf('/')+1);
-                        resultSet[resourceURL].href = resourceURL;
-                    }
-                }
-            }, function error(errorResponse){
-                // FIXME TODO: Do something useful if required, for now just logging
-                console.error(errorResponse);
-                throw errorResponse;
-            });
-        }
-    };
-    /*============================================= END Component methods =============================================*/
-
     return this;
 }]);
 
@@ -1295,7 +924,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.GET_OPERATION_FAILED);
-            growl.addErrorMessage($rootScope.locale.GET_OPERATION_FAILED);
+            growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
         $rootScope.loader.loading=true;
@@ -1309,7 +938,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                      }
                      else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
-                        growl.addErrorMessage($rootScope.locale.CREATE_OPERATION_FAILED);
+                        growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
@@ -1335,7 +964,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
-            growl.addErrorMessage($rootScope.locale.PATCH_OPERATION_FAILED);
+            growl.error($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(data){
@@ -1348,11 +977,14 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                         index=index+1;     
                     }
                 });
+                angular.forEach(data.messages, function(value){
+                    growl.success(value.message);
+                });
+            }else{
+                angular.forEach(data.messages, function(value){
+                    growl.error(value.message);
+                });
             }
-            angular.forEach(data.messages, function(value){
-                //showMessage(value.message);    
-                growl.addErrorMessage(value.message);
-            });
         });
     }
 }
@@ -1372,7 +1004,7 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
-            growl.addErrorMessage($rootScope.appConfig.timeoutMsg);
+            growl.error($rootScope.appConfig.timeoutMsg);
             return;
         }).$promise);
     });
@@ -1390,11 +1022,11 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
             scope.metamodel[resource] = m.metamodel;    
         });
     }
-    scope.metamodel = scope.metamodel || {};
+    $rootScope.metamodel = scope.metamodel = scope.metamodel || {};
     scope.metamodel[screenId] = m.metamodel;
 
     $browser.notifyWhenNoOutstandingRequests(function() {
-        //changeMandatoryColor($rootScope);
+        changeMandatoryColor($rootScope);
         $rootScope.$apply();
 
     });
@@ -1505,9 +1137,9 @@ app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location'
 
     };
 
-    $resource('assets/resources/metadata/header.json').get(function(data) {
+    $resource('assets/resources/metamodel/header.json').get(function(data) {
 
-        $rootScope.headermetadata = data.metadata;
+        $rootScope.headermetamodel = data.metamodel;
     }, function() {});
 
 }]);
@@ -1521,8 +1153,8 @@ exported LoginController
 
 function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
     $rootScope.screenId = 'login';
-    var metadataLocation = $rootScope.metadataPath;
-    OCMetadata.load($scope,metadataLocation);
+    var metamodelLocation = $rootScope.metamodelPath;
+    OCMetadata.load($scope,metamodelLocation);
 
 
     $scope.checkvisible = function(field) {
@@ -1539,7 +1171,7 @@ function LoginController($scope, $rootScope, $location, $cookieStore, $http, $re
 	 validateLogin(FormID); 
 	  if ($('#' + FormID).valid()) {
             if (!navigator.onLine) {
-                growl.addErrorMessage($rootScope.locale.NETWORK_UNAVAILABLE, '30');
+                growl.error($rootScope.locale.NETWORK_UNAVAILABLE, '30');
             } else {
 				LoginSrv.runLogin($scope, nextScreenId);
             }
@@ -1573,14 +1205,12 @@ app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OC
                     });
 
                     if (!$rootScope.isAuthSuccess) {
-                        growl.addErrorMessage($rootScope.locale.INVALID_CREDENTIALS);
+                        growl.error($rootScope.locale.INVALID_CREDENTIALS);
                         return false;
                     }
                     $rootScope.user = user;
-                    localStorage.username = user.name;
-                    localStorage.distributorId = user.distributor_id;
-                    $cookieStore.put('userid',localStorage.username);
-                    localStorage.Authentication = user.token;
+                    
+                    sessionStorage.username = user.name;
                     var defaultLocale = user.personalizationData.locale;
                     $rootScope.newlocale = defaultLocale;
                     $resource('ocInfra/assets/resources/i18n/' + $rootScope.newlocale + '.json').get(function(data) {
@@ -1591,9 +1221,9 @@ app.service('LoginSrv', ['$rootScope', '$resource', '$cookieStore', '$http', 'OC
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
-                        growl.addErrorMessage(data.exception.message, '30');
+                        growl.error(data.exception.message, '30');
                     } else {
-                        growl.addErrorMessage($rootScope.locale.GENERAL_ERROR);
+                        growl.error($rootScope.locale.GENERAL_ERROR);
                     }
                 });
                
@@ -1622,161 +1252,75 @@ app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resour
 global app
 */
 
-app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $rootScope, $q) {
 
-    var resourceDirectory = {};
+    app.factory('resourceFactory', ['$http', function($http) {
 
-    function _get(url, params, headers) {
-        var promise;
-        if (!resourceDirectory[url]) {
-            promise = $http({
-                    method : 'GET',
-                    url : url,
-                    data : params,
-                    headers : headers
-            });
-            if (promise.then) {
-                promise.then(function(response) {
-                    resourceDirectory[url] = response.data;
-                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+    var resourceFactory = {};
 
-                }, function(error) {
-                    console.error(error);
-                    throw error;
-                });   
+    resourceFactory.getData = function (urlBase) {
+        return $http.get(urlBase);
+    };
+
+    resourceFactory.get = function (urlBase,params,headers) {
+        var obj =   $http(
+            {
+                method : 'GET',
+                url : urlBase,
+                params : params,
+                headers : headers
             }
-        } else {
-            promise = $q(function(resolve) {
-                resolve(resourceDirectory[url]);
-            });
-            promise.success = function(callback) {
-                var _success = callback;
-                promise.then(_success, null);
-                return promise;
-            };
-            promise.error = function(callback) {
-                var _error = callback;
-                promise.then(null, _error);
-                return promise;
-            };
-        }
-        return promise;
-    }
+        );   
+        return obj;
+    };
 
-    function _refresh(url, params, headers) {
-        resourceDirectory[url] = null;
-        return _get(url, params, headers);
-    }
-
-    function _post(url, params, headers) {
-        var promise = $http({
+    resourceFactory.post = function (urlBase,params,headers) {
+        var obj = $http({
                 method: 'POST',
-                url: url,
+                url: urlBase,
                 headers: headers,
                 data: params
-        });
-        if (promise.then) {
-            promise.then(function(response) {
-                resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+            });
+        return obj;
+    };
 
-            }, function(error) {
-                console.error(error);
-                throw error;
-            });   
-        }
-        return promise;
-    }
+    resourceFactory.insert = function (urlBase,obj) {
+        return $http.post(urlBase, obj);
+    };
 
-    function _delete(url, headers) {
-        var promise = $http({
+    resourceFactory.update = function (urlBase,obj) {
+        return $http.put(urlBase + '/' + obj.id, obj);
+    };
+
+    resourceFactory.delete = function (url, headers) {
+        var obj = $http({
             method : 'DELETE',
-            ul : url,
+            url : url,
             headers : headers
         });
-        if (promise.then) {
-            promise.then(function(response) {
-                resourceDirectory[url] = null;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
-
-            }, function(error) {
-                console.error(error);
-                throw error;
-            });   
-        }
-        return promise;
-    }
-
-    function _patch(url,params,headers) {
-        var promise = $http({
-                method: 'PATCH',
-                url: url,
-                headers: headers,
-                data: params
-        });
-        if (promise.then) {
-            promise.then(function(response) {
-                resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
-
-            }, function(error) {
-                console.error(error);
-                throw error;
-            }); 
-        } 
-        return promise;
-    }
-
-    function _execute(url, params, headers, method) {
-        var promise = $http({
-                method: method,
-                url: url,
-                headers: headers,
-                data: params
-        });
-        if (promise.then) {
-            promise.then(function(response) {
-                resourceDirectory[url] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
-
-            }, function(error) {
-                console.error(error);
-                throw error;
-            }); 
-        } 
-        return promise;
-
-    }
-
-    return {
-        'get': _get,
-        'refresh': _refresh,
-        'post': _post,
-        'delete' : _delete,
-        'patch': _patch,
-        'execute': _execute,
-
-        'getData' : function (urlBase) {
-            return $http.get(urlBase);
-        },
-        'insert' : function (urlBase,obj) {
-            return $http.post(urlBase, obj);
-        },
-
-        'update' : function (urlBase,obj) {
-            return $http.put(urlBase + '/' + obj.id, obj);
-        },
-        'options' : function(urlBase, headers){
-            var obj =   $http(
-                {
-                    method : 'GET',
-                    url : urlBase,
-                    headers : headers
-                }
-            );   
-            return obj;
-        }
+        return obj;
     };
+
+    resourceFactory.options=function(urlBase, headers){
+        var obj =   $http(
+            {
+                method : 'GET',
+                url : urlBase,
+                headers : headers
+            }
+        );   
+        return obj;
+    };
+
+    resourceFactory.patch = function (urlBase,params,headers) {
+        var obj = $http({
+                method: 'PATCH',
+                url: urlBase,
+                headers: headers,
+                data: params
+            });
+        return obj;
+    };
+ return resourceFactory;
 
 }]);
 'use strict';
@@ -1797,10 +1341,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.checkRegionId = $rootScope.regionId;
 
     $scope.showErr = function () {       
-        growl.addErrorMessage('<b>Error:</b> Uh oh!');
-        growl.addInfoMessage('Im  a info message');
-        growl.addWarnMessage('Im  a warn message');
-        growl.addSuccessMessage('Im  a success message');
+        growl.error('<b>Error:</b> Uh oh!');
+        growl.info('Im  a info message');
+        growl.warn('Im  a warn message');
+        growl.success('Im  a success message');
     };
    
 	screenname  = 'OmniChannel';
@@ -1965,39 +1509,58 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             if(actionURL !== undefined){
                 $rootScope.navigate(actionURL);    
             }
+            var nameTab;
+            if(tab !== undefined && Array.isArray(tab)){
+                nameTab = tab[0];
+            }
             new Promise(function(resolve) {
                 var optionFlag = false;
-                MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve);
+                MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
             }).then(function(){
-                    if(tab !== undefined){
-                        var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
-                        var params = {};
-                        resourceFactory.post(url,params,$rootScope.headers).success(function(data){
-                            var urlDetail;
-                            if(Array.isArray(data.messages)){
-                                // get last element of array
-                                urlDetail = data.messages[data.messages.length - 1].message[0];
-                            } else {
-                                urlDetail = data.messages.context;
-                            }
-                            resourceFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
-                            $scope.data = data;
-                            console.log('Compute successfully !!');
-                            // go to next tab to see premium
-                            $rootScope.step = $rootScope.step + 1;
-                            loadRelationshipByStep($rootScope.step);
-                            $scope.preStep = $rootScope.step;
-                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                if(tab !== undefined){
+                        //var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
+                        resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+                            var urlOperations = data._links[tab[1]].href;
+                            resourceFactory.options(urlOperations, $rootScope.headers).success(function(data){
+                                var urlCalculation;
+                                var item = data._links.item;
+                                if(Array.isArray(item)){
+                                    // get first element of array
+                                    urlCalculation = item[0].href;
+                                } else {
+                                    urlCalculation = item.href;
+                                }
+                                resourceFactory.options(urlCalculation, $rootScope.headers).success(function(data){
+                                    var urlExecute = data._links[tab[2]].href;
+                                    var params = {};
+                                    resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(data){
+                                        var urlDetail;
+                                        if(Array.isArray(data.messages)){
+                                            // get last element of array
+                                            urlDetail = data.messages[data.messages.length - 1].message[0];
+                                        } else {
+                                            urlDetail = data.messages.context;
+                                        }
+                                        resourceFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
+                                            $scope.data = data;
+                                            console.log('Compute successfully !!');
+                                            // go to next tab to see premium
+                                            $rootScope.step = $rootScope.step + 1;
+                                            loadRelationshipByStep($rootScope.step);
+                                            $scope.preStep = $rootScope.step;
+                                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                                        });
+                                    }).error(function(){
+                                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                        				growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                    });
+                                });
+                            });
                         });
-                    }).error(function(){
-                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                        growl.addErrorMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                    });
                 }else{
                     EnumerationService.loadEnumerationByTab();
                 }
-
-            });		
+            });
         }
     };
 
@@ -2044,11 +1607,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     new Promise(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
     }).then(function(){
-        if($location.path().split('/screen/')[1].split('/')[0] === 'dashboard'){
-            $rootScope.resourceHref = $rootScope.config.hostURL + 'quotes?_inquiry=ci_saved_items';
-        }
-        $scope.resourceUrl = $rootScope.resourceHref;
-    /*
+    
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
@@ -2062,7 +1621,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 }
             });
             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-        }*/
+        }
     });
 
     $scope.selecttab = function(step1, rel) {
@@ -2154,7 +1713,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
             //showMessage(message);
-            growl.addErrorMessage(message);
+            growl.error(message);
             return false;
         }
 
@@ -2201,7 +1760,7 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
     	$rootScope.infraConfig = {};
         $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
 			$rootScope.infraConfig = data.config.base;
-			$rootScope.metadataPath = data.config.base.templates.metaData;
+			$rootScope.metamodelPath = data.config.base.templates.metaModel;
 			angular.forEach($rootScope.infraConfig.properties, function(key) {
                     if (key.name === 'language') {
                         $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
@@ -2228,14 +1787,14 @@ app.service ('FieldService', function() {
 });    
 
 app.service ('OCMetadata', ['$rootScope', '$resource', function($rootScope, $resource) {
-	this.load = function(scope,metadataLocation) { 
+	this.load = function(scope,metamodelLocation) { 
 		var screenId = $rootScope.screenId;
-		var metadataName = metadataLocation + screenId + '.json';
-    	$rootScope.metadata = {};
+		var metamodelName = metamodelLocation + screenId + '.json';
+    	$rootScope.metamodel = {};
     	scope.data = {};
-    	$resource(metadataName).get(function(data) {
-        	$rootScope.metadata[screenId] = data.metadata;
-        	$rootScope.title = data.metadata.title;
+    	$resource(metamodelName).get(function(data) {
+        	$rootScope.metamodel[screenId] = data.metamodel;
+        	$rootScope.title = data.metamodel.title;
         	scope.screenId = screenId;
     	});
     };	
@@ -2371,14 +1930,14 @@ app.service('CheckVisibleService', function(){
 global app
 */
 
-app.controller('TableController', ['$browser', '$scope', '$rootScope', 'TableMetaData', 'MetaData', 'resourceFactory', '$location', 'CheckVisibleService', function($browser, $scope, $rootScope, TableMetaData, MetaData, resourceFactory, $location, CheckVisibleService) {
+app.controller('TableController', ['$browser', '$scope', '$rootScope', 'TableMetaModel', 'MetaModel', 'resourceFactory', '$location', 'CheckVisibleService', function($browser, $scope, $rootScope, TableMetaModel, MetaModel, resourceFactory, $location, CheckVisibleService) {
 
     $scope.showResult = true;
     $scope.riskDataSet = [];
     $rootScope.rowCollection = {};
 
     $scope.loadTableMetadata = function() {
-        TableMetaData.load($scope.field.name, function(tableMetaData) {
+        TableMetaModel.load($scope.field.name, function(tableMetaData) {
             $scope.field.tableMetaData = tableMetaData;           
         });
     };
@@ -2408,7 +1967,7 @@ app.controller('TableController', ['$browser', '$scope', '$rootScope', 'TableMet
         
         var optionFlag = true;
         
-        MetaData.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
+        MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
 
         if (url !== undefined) {
             $rootScope.navigate(url);

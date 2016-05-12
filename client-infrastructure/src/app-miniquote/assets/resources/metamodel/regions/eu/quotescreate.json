@@ -1,0 +1,52 @@
+{
+    "metamodel": {
+        "formid": "AddHomeQuote",
+        "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "hidetitle": false,
+        "title": "_HOME_QUOTE_EU_CREATE",
+        "viewAs": "menu",
+        "createButton": false,
+        "name": "AddHomeQuote",
+        "sections": [
+            {
+                "$ref": "quoteInfo",
+                "name": "_QUOTE_INFO_TAB",
+                "link" : "itself",
+                "renderAsTab":true,
+                "step": 1
+            },
+            {
+                "$ref":"ownerInfo",
+                "name": "_OWNER_INFO_TAB",
+                "link" : "quote:quote_owner_list",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+                "$ref":"riskInfo",
+                "name": "_RISK_INFO_TAB",
+                "link" : "quote:quote_risk_list",
+                "renderAsTab": true,
+                "step": 3
+            },
+            {
+                "$ref": "additionalInfo",
+                "name": "_ADDITIONAL_INFO_TAB",
+                "link" : "quote:quote_risk_list",
+                "renderAsTab": true,
+                "step": 4
+            },
+            {
+                "$ref": "premiumInfo",
+                "name": "_PREMIUM_INFO_TAB",
+                "renderAsTab": true,
+                "link" : "undefined",
+                "step": 5
+            }
+        ] 
+    },
+    "include":[
+        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
+    ]
+}

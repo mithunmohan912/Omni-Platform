@@ -15,8 +15,8 @@ function OCController($scope, $rootScope, $routeParams, $location, $http, $resou
         reqParm = $routeParams.screenId;
         $rootScope.screenId = reqParm;
     }
-    var metadataLocation = $rootScope.config.templates.metaData;
-    OCMetadata.load($scope,metadataLocation);
+    var metamodelLocation = $rootScope.config.templates.metaModel;
+    OCMetadata.load($scope,metamodelLocation);
     $scope.checkvisible = function(field) {
             return FieldService.checkVisibility(field, $scope);    
      };
