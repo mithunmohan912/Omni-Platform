@@ -94,12 +94,6 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             'Content-Type': 'application/json'
         };
 
-        if($rootScope.config.securityHeaders){
-            for(var key in $rootScope.config.securityHeaders){
-                $rootScope.headers[key] = $rootScope.config.securityHeaders[key];
-            }
-        }
-
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
