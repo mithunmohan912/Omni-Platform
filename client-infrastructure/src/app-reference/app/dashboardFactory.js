@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	global app
+global app
 */
 
 app.factory('dashboardFactory', function($rootScope){
