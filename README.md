@@ -135,7 +135,7 @@ This task will copy only the required files from vendors folder and change the p
 This task will copy the files to mobile folder at this location:
 sprint#\omnichannel-infrastructure\client-infrastructure\mobile
   
-###Contributions
+###Contributions.
 ---
 
 We understand its your day to day job to implement code and Contribute to this project repository
