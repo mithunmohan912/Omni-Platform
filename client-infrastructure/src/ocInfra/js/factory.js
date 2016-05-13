@@ -263,7 +263,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
     var url = options.url;
     var httpmethod = options.httpmethod;
     var schema = options.schema;
-    // console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+    console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
 
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -365,7 +365,7 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
     }
     angular.forEach(metaModel.include, function(value) {
         promises.push($resource(path + value + '.json').get(function(m) {
-            $rootScope.metamodel[value] = m.metaModel;
+            $rootScope.metamodel[value] = m.metamodel;
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
