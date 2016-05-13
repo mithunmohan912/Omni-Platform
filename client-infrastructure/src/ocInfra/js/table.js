@@ -4,14 +4,14 @@
 global app
 */
 
-app.controller('TableController', function($browser, $scope, $rootScope, TableMetaData, MetaData, resourceFactory, $location, CheckVisibleService) {
+app.controller('TableController', function($browser, $scope, $rootScope, TableMetaModel, MetaModel, resourceFactory, $location, CheckVisibleService) {
 
     $scope.showResult = true;
     $scope.riskDataSet = [];
     $rootScope.rowCollection = {};
 
     $scope.loadTableMetadata = function() {
-        TableMetaData.load($scope.field.name, function(tableMetaData) {
+        TableMetaModel.load($scope.field.name, function(tableMetaData) {
             $scope.field.tableMetaData = tableMetaData;           
         });
     };
@@ -41,7 +41,7 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         
         var optionFlag = true;
         
-        MetaData.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
+        MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
 
         if (url !== undefined) {
             $rootScope.navigate(url);

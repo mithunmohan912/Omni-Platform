@@ -1,21 +1,21 @@
 <div ng-include src="config.templates.mainTabsTemplate"></div>
-<form class="form-horizontal" id="{{metadata[screenId].formid}}" ng-submit="save(data)" novalidate>
+<form class="form-horizontal" id="{{metamodel[screenId].formid}}" ng-submit="save(data)" novalidate>
     <div>
         <!-- Work flow Section -->
-        <div class="form-group wizardMargin" ng-repeat="workflowGrp in metadata[screenId].workflowGrp">
+        <div class="form-group wizardMargin" ng-repeat="workflowGrp in metamodel[screenId].workflowGrp">
             <div ng-include src="config.templates.workflow"></div>
         </div>
          <div growl></div>
         <!-- top button group section -->
-        <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metadata[screenId].buttonGrp">
+        <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metamodel[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
         
-        <div quick-ng-repeat="section in metadata[screenId].sections"  quick-repeat-list="metadata[screenId].sections">
+        <div quick-ng-repeat="section in metamodel[screenId].sections"  quick-repeat-list="metamodel[screenId].sections">
 
            
             <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
-                <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid tab-content">
+                <div ng-repeat="section in metamodel[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid tab-content">
                 </div>
             </div>
             
@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- bottom button group section -->
-        <div class="form-group wizardMargin" ng-repeat="section in metadata[screenId].buttonGrp">
+        <div class="form-group wizardMargin" ng-repeat="section in metamodel[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
     </div>
@@ -39,7 +39,7 @@
     </div>
     <div>
     <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}
-    <button ng-if="metadata[screenId].createButton" style="float:right;" id="{{metadata[screenId].button.name}}" class="oc-btn oc-btn-small {{metadata[screenId].button.icon}}" ng-click="doaction(metadata[screenId].button.method, section, metadata[screenId].button.action,metadata[screenId].button.actionurl,metadata[screenId].button.nextScreenId)">{{(locale[metadata[screenId].button.label]?locale[metadata[screenId].button.label] : metadata[screenId].button.label)}}
+    <button ng-if="metamodel[screenId].createButton" style="float:right;" id="{{metamodel[screenId].button.name}}" class="oc-btn oc-btn-small {{metamodel[screenId].button.icon}}" ng-click="doaction(metamodel[screenId].button.method, section, metamodel[screenId].button.action,metamodel[screenId].button.actionurl,metamodel[screenId].button.nextScreenId)">{{(locale[metamodel[screenId].button.label]?locale[metamodel[screenId].button.label] : metamodel[screenId].button.label)}}
     </button></h3>
     </div>
     <div class="hr_margin" ng-if="section.title && section.hidetitle !== true">
@@ -91,7 +91,7 @@
                     <div ng-switch-when="nonaccordion" class="form-group marginbottom0px col-md-{{subsection.columnsize}}">
                         <div quick-ng-repeat="field in subsection.elements" quick-repeat-list="subsection.elements" class="col-md-{{field.columnsize}}" ng-show="checkvisible(field)">
                             <div ng-if="field.$ref !== ''">
-                                <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                                     <div ng-include src="config.templates.layout"></div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
             <div class="form-group marginbottom0px col-md-{{section.columnsize}}">
                 <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
                     <div ng-if="field.$ref !== ''">
-                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                        <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                             <div ng-include src="config.templates.layout"></div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                         <div class="modal-body">
                                 <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
                                     <div ng-if="field.$ref !== ''">
-                                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                        <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                                             <div ng-include src="config.templates.layout"></div>
                                         </div>
                                     </div>
