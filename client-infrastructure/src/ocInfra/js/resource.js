@@ -3,12 +3,11 @@
 global app
 */
 
+app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $rootScope, $q) {
 
-    app.factory('resourceFactory', ['$http','$rootScope',function($http,$rootScope) {
+    var resourceDirectory = {};
 
-    var resourceFactory = {};
-
-    function addApiGatewayApiKeys(params) {
+    function _addApiGatewayApiKeys(params) {
         if (params === undefined) {
             params = {};
         }
@@ -20,78 +19,165 @@ global app
         return params;
     }
 
-    resourceFactory.getData = function (urlBase) {
-        return $http.get(urlBase);
-    };
+    function _get(url, params, headers) {
+        params = _addApiGatewayApiKeys(params);
+        var promise;
+        if (!resourceDirectory[url]) {
+            promise = $http({
+                    method : 'GET',
+                    url : url,
+                    params : params,
+                    headers : headers
+            });
+            if (promise.then) {
+                promise.then(function(response) {
+                    resourceDirectory[url] = response.data;
+                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
-    resourceFactory.get = function (urlBase,params,headers) {
-        params = addApiGatewayApiKeys(params);
-        var obj =   $http(
-            {
-                method : 'GET',
-                url : urlBase,
-                params : params,
-                headers : headers
+                }, function(error) {
+                    console.error(error);
+                    throw error;
+                });   
             }
-        );   
-        return obj;
-    };
+        } else {
+            promise = $q(function(resolve) {
+                resolve(resourceDirectory[url]);
+            });
+            promise.success = function(callback) {
+                var _success = callback;
+                promise.then(_success, null);
+                return promise;
+            };
+            promise.error = function(callback) {
+                var _error = callback;
+                promise.then(null, _error);
+                return promise;
+            };
+        }
+        return promise;
+    }
 
-    resourceFactory.post = function (urlBase,data,headers) {
-        var params = addApiGatewayApiKeys({});
-        var obj = $http({
+    function _refresh(url, params, headers) {
+        resourceDirectory[url] = null;
+        return _get(url, params, headers);
+    }
+
+    function _post(url, data, headers) {
+        var params = _addApiGatewayApiKeys({});
+        var promise = $http({
                 method: 'POST',
-                url: urlBase,
+                url: url,
                 headers: headers,
                 params: params,
                 data: data
-            });
-        return obj;
-    };
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = response.data;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
-    // resourceFactory.insert = function (urlBase,obj) {
-    //     return $http.post(urlBase, obj);
-    // };
+            }, function(error) {
+                console.error(error);
+                throw error;
+            });   
+        }
+        return promise;
+    }
 
-    // resourceFactory.update = function (urlBase,obj) {
-    //     return $http.put(urlBase + '/' + obj.id, obj);
-    // };
-
-    resourceFactory.delete = function (url, headers) {
-        var params = addApiGatewayApiKeys({});        
-        var obj = $http({
+    function _delete(url, headers) {
+        var params = _addApiGatewayApiKeys({});
+        var promise = $http({
             method : 'DELETE',
             url : url,
             headers : headers,
-            params : params
+            params: params
         });
-        return obj;
-    };
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = null;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
-    resourceFactory.options = function(urlBase, headers){
-        var params = addApiGatewayApiKeys({});        
-        var obj =   $http(
-            {
-                method : 'GET',
-                url : urlBase,
-                headers : headers,
-                params : params
-            }
-        );   
-        return obj;
-    };
+            }, function(error) {
+                console.error(error);
+                throw error;
+            });   
+        }
+        return promise;
+    }
 
-    resourceFactory.patch = function (urlBase,data,headers) {
-        var params = addApiGatewayApiKeys({});        
-        var obj = $http({
+    function _patch(url,data,headers) {
+        var params = addApiGatewayApiKeys({});
+        var promise = $http({
                 method: 'PATCH',
-                url: urlBase,
+                url: url,
                 headers: headers,
                 params: params,
                 data: data
-            });
-        return obj;
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = response.data;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+
+            }, function(error) {
+                console.error(error);
+                throw error;
+            }); 
+        } 
+        return promise;
+    }
+
+    function _execute(url, params, headers, method) {
+        var promise = $http({
+                method: method,
+                url: url,
+                headers: headers,
+                data: params
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+
+            }, function(error) {
+                console.error(error);
+                throw error;
+            }); 
+        } 
+        return promise;
+
+    }
+
+    return {
+        'get': _get,
+        'refresh': _refresh,
+        'post': _post,
+        'delete' : _delete,
+        'patch': _patch,
+        'execute': _execute,
+
+        'getData' : function (urlBase) {
+            return $http.get(urlBase);
+        },
+        'insert' : function (urlBase,obj) {
+            return $http.post(urlBase, obj);
+        },
+
+        'update' : function (urlBase,obj) {
+            return $http.put(urlBase + '/' + obj.id, obj);
+        },
+        'options' : function(urlBase, headers){
+            var params = addApiGatewayApiKeys({});
+            var obj =   $http(
+                {
+                    method : 'GET',
+                    url : urlBase,
+                    headers : headers,
+                    params: params
+                }
+            );   
+            return obj;
+        }
     };
- return resourceFactory;
 
 }]);
