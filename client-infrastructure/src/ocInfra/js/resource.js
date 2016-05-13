@@ -106,7 +106,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     }
 
     function _patch(url,data,headers) {
-        var params = addApiGatewayApiKeys({});
+        var params = _addApiGatewayApiKeys({});
         var promise = $http({
                 method: 'PATCH',
                 url: url,
@@ -167,7 +167,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             return $http.put(urlBase + '/' + obj.id, obj);
         },
         'options' : function(urlBase, headers){
-            var params = addApiGatewayApiKeys({});
+            var params = _addApiGatewayApiKeys({});
             var obj =   $http(
                 {
                     method : 'GET',
