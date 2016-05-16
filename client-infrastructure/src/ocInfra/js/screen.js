@@ -116,23 +116,18 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.checkvisible = function(field)
-    {
-        if(field.visibleWhen)
-        {
-            return CheckVisibleService.checkVisible(field, $scope);
-        }
-        return true;
-    };
-    
-    $scope.loadMetaData = function() {
-        $rootScope.metamodel = {};
-        MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
-    };
+	{
+		if(field.visibleWhen)
+		{
+			return CheckVisibleService.checkVisible(field, $scope);
+		}
+		return true;
+	};
 
-    // Dynamic Injection of Factory
+	// Dynamic Injection of Factory
 
-    $scope.Injectfactory=function(){    
-        $scope.factoryname=$scope.screenId+'factory';
+	$scope.Injectfactory=function(){	
+		$scope.factoryname=$scope.screenId+'factory';
 
         try{
           
