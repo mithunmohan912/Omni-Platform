@@ -1,0 +1,27 @@
+@@ set 
+    url          http://localhost:8080/app-miniquote/#/
+    
+@@ parameterized
+    | browser  	 |
+    | firefox    |
+    | phantomjs  |
+    | ie         |
+
+@@ parameterized
+    | deviceName           | tags        | size     |
+    | Mobile Portrait      | mobile      | 411x731  |
+    | Tablet Portrait      | tablet      | 768x1024 |
+    | Mobile Landscape     | tablet      | 731x411  |
+    | Tablet Landscape     | desktop     | 1024x768 | 
+    | Desktop      		   | desktop     | 1336x768 |
+
+Landing page on ${deviceName} in browser ${browser}
+    selenium ${browser} ${url} ${size}
+        wait 10s
+    	check Specs/FirstPage.gspec --include "${tags}"
+    	run Pages/FirstPage.js
+    	wait 10s
+    	check Specs/LoginPage.gspec --include "${tags}"
+        run Pages/LoginPage.js
+        wait 5s
+        check Specs/LoginPage.gspec --include "${tags}"
