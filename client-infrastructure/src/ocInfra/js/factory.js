@@ -10,6 +10,7 @@ exported ScreenController
 */
 
 app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
+    var self = this;
     
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
@@ -180,7 +181,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                  if(responseData._links[link].rel === 'self'){
                     resourceURL = responseData._links[link].href;
                 }
-            };
+            }
 
             // Process the entity properties
             for(var property in responseData._options.properties){
@@ -284,8 +285,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         };
         
         if(responseData && responseData._links && responseData._options){
-            resource['href'] = responseData._links.self.href;
-            resource['up'] = responseData._links.up.href;
+            resource.href = responseData._links.self.href;
+            resource.up = responseData._links.up.href;
 
             resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
@@ -304,7 +305,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         }
 
         return resource;
-    };
+    }
 
 
     /*============================================= END Helper methods for components =============================================*/

@@ -13,7 +13,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			resourceUrl: '='
 		},
 		link: function($scope){
-			$scope.$watch('metamodel', function(newValue, oldValue){
+			$scope.$watch('metamodel', function(newValue){
 				if(newValue){
 					var path = 'assets/resources/metamodel/'+ newValue + '.json';
 					$resource(path).get(function(data) {
@@ -34,11 +34,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 				
-				$scope.$watchCollection('resultSet', function(newValue, oldValue){
+				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
 						$scope.resourcesToBind = {};
-						for(var resource in newValue){
-							$scope.resourcesToBind[newValue[resource].identifier] = newValue[resource];
+						for(var url in newValue){
+							$scope.resourcesToBind[newValue[url].identifier] = newValue[url];
 						}
 
 						for(var resource in $scope.resourcesToBind){

@@ -13,7 +13,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		},
 		link: function($scope){
 
-			$scope.$watch('metamodel', function(newValue, oldValue){
+			$scope.$watch('metamodel', function(newValue){
 				if(newValue){
 					var path = 'assets/resources/metamodel/'+ newValue + '.json';
 					$resource(path).get(function(data) {
@@ -30,7 +30,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 
-				$scope.$watchCollection('resultSet', function(newValue, oldValue){
+				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
 						$scope.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
@@ -44,15 +44,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
 				} catch(e) {
-					console.log($scope.screenFactoryName + "not found");
+					console.log($scope.screenFactoryName + ' not found');
 				}
 			}
 
 
 			$scope.execute = function(action, displayedItem, field) {
 				if(!action.method){
-					if($scope.metamodelObject['buttonMethod'] && action.buttonAction){
-						$scope.actionFactory[$scope.metamodelObject['buttonMethod']](displayedItem, field);
+					if($scope.metamodelObject.buttonMethod && action.buttonAction){
+						$scope.actionFactory[$scope.metamodelObject.buttonMethod](displayedItem, field);
 					} else {
 						$scope[action.value](displayedItem, field);
 					}
@@ -61,16 +61,19 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-			$scope.isValidStatus = function(displayeditem){
+			//$scope.isValidStatus = function(displayeditem){
+			$scope.isValidStatus = function(){
  				
  			};
 
  			// FIXME TODO: Possibly needed if there are different modes (same collection, different items, i.e: automobile, trailer, etc)
- 			$scope.isCreateable = function(index, modePost) {
+ 			//$scope.isCreateable = function(index, modePost) {
+ 			$scope.isCreateable = function() {
 
 			};
 
-			$scope.isVisible = function(column) {
+			//$scope.isVisible = function(column) {
+			$scope.isVisible = function() {
 				// FIXME TODO: Visibility to hide columns on UI fields probably
 				return true;
 			};
