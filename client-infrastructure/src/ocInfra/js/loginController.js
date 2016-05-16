@@ -7,8 +7,8 @@ exported LoginController
 
 function LoginController($scope, $rootScope, $location, $cookieStore, $http, $resource, OCRoles, tmhDynamicLocale,LoginSrv,FieldService,OCInfraConfig,OCMetadata) {
     $rootScope.screenId = 'login';
-    var metadataLocation = $rootScope.metadataPath;
-    OCMetadata.load($scope,metadataLocation);
+    var metamodelLocation = $rootScope.metamodelPath;
+    OCMetadata.load($scope,metamodelLocation);
 
 
     $scope.checkvisible = function(field) {

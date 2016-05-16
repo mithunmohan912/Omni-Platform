@@ -1,4 +1,3 @@
-
 'use strict';
 
 
@@ -10,25 +9,25 @@ global app
 exported ScreenController
 */
 
-app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
-
+app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
+    
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
         if(regionId){
-             path='assets/resources/metadata/regions/'+regionId+'/'+ screenId + '.json';
+             path='assets/resources/metamodel/regions/'+regionId+'/'+ screenId + '.json';
         }
         else{
-            path='assets/resources/metadata/'+ screenId + '.json';
+            path='assets/resources/metamodel/'+ screenId + '.json';
         }
         $resource(path).get(function(m) {
             scope.screenId = screenId;
-            $rootScope.title = m.metadata.title;
+            $rootScope.title = m.metamodel.title;
 
             if (m.include && m.include.length > 0) {
                 loadReferencedMetaModels(growl, scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
-                setScreenData($rootScope, scope, m, screenId, $browser, onSuccess);
+                setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, resolve);
             }
             loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory);
         }, function() {
@@ -42,7 +41,7 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
 
     this.actionHandling=function(item, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
-        var metaModel = $scope.metadata[screenId];
+        var metaModel = $scope.metamodel[screenId];
         
         //Add new values to $scope.data
         //incase the data is Date the code will select current data and reforamt 
@@ -76,13 +75,13 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
                 }
 
                 if(optionsMapForResource === undefined){
-                    loadOptionsDataForMetadata(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                    loadOptionsDataForMetamodel(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                 }else{
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
                         httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve);       
                     } else{
-                        loadOptionsDataForMetadata(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
+                        loadOptionsDataForMetamodel(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
                 }
             });
@@ -95,12 +94,6 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
             'Content-Type': 'application/json'
         };
 
-        if($rootScope.config.securityHeaders){
-            for(var key in $rootScope.config.securityHeaders){
-                $rootScope.headers[key] = $rootScope.config.securityHeaders[key];
-            }
-        }
-
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
@@ -110,20 +103,29 @@ app.factory('MetaData', function($resource, $rootScope, $location, $browser, $q,
 
 function loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory){
     if(screenId !== undefined){
-        //Read metadata from the root scope
-        var metaModel = scope.metadata[screenId];
+        //Read metamodel from the root scope
+        var metaModel = scope.metamodel[screenId];
 
         if(metaModel !== undefined){
             //Retrieve resource list from the meta model
             var resourcelist = metaModel.resourcelist;
             if(resourcelist !== undefined && resourcelist.length > 0){
-                loadOptionsDataForMetadata(growl, undefined, resourcelist, scope, regionId, $rootScope, resourceFactory);
+                loadOptionsDataForMetamodel(growl, undefined, resourcelist, scope, regionId, $rootScope, resourceFactory);
             }
         }    
     }
 }
 
-function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
+function sanitizeSchema(fieldName, options){
+    angular.forEach(options.schema.properties, function(val, key) {
+        if (key !== fieldName) {
+            delete options.schema.properties[key];
+        }
+    });
+    return options;
+}
+
+function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
             angular.forEach(resourcelist, function(resource) {
@@ -133,6 +135,11 @@ function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, 
                 //Formulate the URL for the options call
                 var url;
                 var newURL;
+                var patchFieldName;
+                if(scope.patchFieldName){
+                    patchFieldName = scope.patchFieldName;
+                }
+
                 if($rootScope.resourceHref) {
                     newURL = $rootScope.resourceHref;
                 }
@@ -184,10 +191,16 @@ function loadOptionsDataForMetadata(growl, item, resourcelist, scope, regionId, 
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                     if(action !== undefined){
-                                       options = optionsMapForResource.get(action);
-                                       if(options !== undefined){
-                                           httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
-                                       }
+                                        options = optionsMapForResource.get(action);
+                                        if(options !== undefined && patchFieldName !== undefined){
+                                            options = sanitizeSchema(patchFieldName, options);
+                                            httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                        }
+                                        else{
+                                            if(resolve) {
+                                                resolve();
+                                            }  
+                                        }
                                     }
                                 });
                             });
@@ -236,12 +249,21 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
+function convertToArray(data) {
+    if(data !== undefined && data.length === undefined){
+        var array = [];
+        array.push(data);
+        return array;
+    }
+    return data;
+}
+
 function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
     var httpmethod = options.httpmethod;
     var schema = options.schema;
-    // console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+    console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
 
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -255,7 +277,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             //Load the results into the search results table
             if(options.action==='search'){
                 if(data._links.item){
-                    $scope.stTableList = data._links.item;
+                    $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
                 }else{
@@ -336,14 +358,14 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
     var promises = [];
     var path;
     if(regionId){
-         path='assets/resources/metadata/regions/'+regionId+'/';
+         path='assets/resources/metamodel/regions/'+regionId+'/';
     }
     else{
-        path='assets/resources/metadata/';
+        path='assets/resources/metamodel/';
     }
     angular.forEach(metaModel.include, function(value) {
         promises.push($resource(path + value + '.json').get(function(m) {
-            $rootScope.metadata[value] = m.metadata;
+            $rootScope.metamodel[value] = m.metamodel;
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
@@ -357,16 +379,16 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
 }
 
 function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, resolve) {
-    var metadata = m.metadata;
-    var resourcelist = metadata.resourcelist;
+    var metamodel = m.metamodel;
+    var resourcelist = metamodel.resourcelist;
     
     if(resourcelist !== undefined && resourcelist.length >0){
         angular.forEach(resourcelist, function(resource){
-            scope.metadata[resource] = m.metadata;    
+            scope.metamodel[resource] = m.metamodel;    
         });
     }
-
-    scope.metadata[screenId] = m.metadata;
+    $rootScope.metamodel = scope.metamodel = scope.metamodel || {};
+    scope.metamodel[screenId] = m.metamodel;
 
     $browser.notifyWhenNoOutstandingRequests(function() {
         changeMandatoryColor($rootScope);
@@ -374,7 +396,10 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
 
     });
 
-    onSuccess(m.metadata);
+    if(onSuccess){
+        onSuccess(m.metamodel);
+    }
+    
     if(resolve){
         resolve();
     }
@@ -426,10 +451,10 @@ function formatIntoDate(value){
    return value.getFullYear() + '-' + (('0' + (value.getMonth() + 1)).slice(-2)) + '-' + ('0' + value.getDate()).slice(-2);
 }
 
-app.factory('TableMetaData', function($resource, $rootScope) {
+app.factory('TableMetaModel', function($resource, $rootScope) {
     this.load = function(tableId, onSuccess) {
-        $resource('assets/resources/metadata/table/' + $rootScope.regionId +'/' + tableId + '.json').get(function(m) {
-            onSuccess(m.tableMetaData);
+        $resource('assets/resources/metamodel/table/' + $rootScope.regionId +'/' + tableId + '.json').get(function(m) {
+            onSuccess(m.tableMetaModel);
         }, function() {
             return;
         });
@@ -440,7 +465,7 @@ app.factory('TableMetaData', function($resource, $rootScope) {
 
 function changeMandatoryColor($rootScope) {
     if ($rootScope.screenId !== undefined) {
-        $('#' + $rootScope.metadata[$rootScope.screenId].formid + ' input[ng-required=\'true\']').css('background-color', $rootScope.requiredColor);
-        $('#' + $rootScope.metadata[$rootScope.screenId].formid + ' select[ng-required=\'true\']').css('background-color', $rootScope.requiredColor);
+        $('#' + $rootScope.metamodel[$rootScope.screenId].formid + ' input[ng-required=\'true\']').css('background-color', $rootScope.requiredColor);
+        $('#' + $rootScope.metamodel[$rootScope.screenId].formid + ' select[ng-required=\'true\']').css('background-color', $rootScope.requiredColor);
     }
 }

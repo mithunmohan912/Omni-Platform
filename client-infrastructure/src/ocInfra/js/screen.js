@@ -8,7 +8,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaData, resourceFactory, TableMetaData, EnumerationService, CheckVisibleService) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService) {
 
     $rootScope.enumData = {};
     $rootScope.typeaheadData = {};
@@ -22,51 +22,51 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         growl.success('Im  a success message');
     };
    
-	screenname  = 'OmniChannel';
-	$rootScope.showHeader = true;
-	$scope.disableNext = false;
+    screenname  = 'OmniChannel';
+    $rootScope.showHeader = true;
+    $scope.disableNext = false;
 
-	$scope.rulesDataList = [];
-	var reqParmScreen = null;
-	var reqParmRegion = null;
-	var screenExist = false;
-	var regionExist = false;
-	$scope.data = {};
-	$scope.remove = 'ban-circle';
-	$scope.removestyle = 'red';	
-	$scope.dateOptions = {
-     	changeYear: true,
+    $scope.rulesDataList = [];
+    var reqParmScreen = null;
+    var reqParmRegion = null;
+    var screenExist = false;
+    var regionExist = false;
+    $scope.data = {};
+    $scope.remove = 'ban-circle';
+    $scope.removestyle = 'red'; 
+    $scope.dateOptions = {
+        changeYear: true,
         changeMonth: true,
         yearRange: '1900:2030',
     };
-	$rootScope.typeahead =[];
+    $rootScope.typeahead =[];
 
-	if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
-	if ($routeParams.regionId.indexOf(':') !== -1) {
-		reqParmRegion = $routeParams.regionId.split(':');
-		$rootScope.regionId = reqParmRegion[1];
-		regionExist = true;
-	}else{
-		reqParmRegion = $routeParams.regionId;
-		$rootScope.regionId = reqParmRegion;
-	}
-	}
+    if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
+    if ($routeParams.regionId.indexOf(':') !== -1) {
+        reqParmRegion = $routeParams.regionId.split(':');
+        $rootScope.regionId = reqParmRegion[1];
+        regionExist = true;
+    }else{
+        reqParmRegion = $routeParams.regionId;
+        $rootScope.regionId = reqParmRegion;
+    }
+    }
 
-	if ($routeParams.screenId.indexOf(':') !== -1) {
-		reqParmScreen = $routeParams.screenId.split(':');
-		$rootScope.screenId = reqParmScreen[1];
-		screenExist = true;
-	} else {
-		reqParmScreen = $routeParams.screenId;
-		$rootScope.screenId = reqParmScreen;
-	}
+    if ($routeParams.screenId.indexOf(':') !== -1) {
+        reqParmScreen = $routeParams.screenId.split(':');
+        $rootScope.screenId = reqParmScreen[1];
+        screenExist = true;
+    } else {
+        reqParmScreen = $routeParams.screenId;
+        $rootScope.screenId = reqParmScreen;
+    }
       
     // reset data after edited and back to search screen
     if($routeParams.screenId.indexOf('search') !== -1){
         $rootScope.resourceHref = undefined;
     }
-	
-	$rootScope.navigate = function(url, product_id) {
+    
+    $rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
@@ -99,72 +99,72 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-	MetaData.setHeaders($rootScope);
+	MetaModel.setHeaders($rootScope);
 
     $scope.loadTableMetadata = function(section) {
        
         $scope.field={};
 
-        TableMetaData.load(section.name, function(tableMetaData) {
-            $scope.field.tableMetaData = tableMetaData;           
+        TableMetaModel.load(section.name, function(tableMetaModel) {
+            $scope.field.tableMetaModel = tableMetaModel;           
         });
     };
-	
-	$rootScope.navigate = function(url, product_id) {
+    
+    $rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
 
     $scope.checkvisible = function(field)
-	{
-		if(field.visibleWhen)
-		{
-			return CheckVisibleService.checkVisible(field, $scope);
-		}
-		return true;
-	};
-	
-	$scope.loadMetaData = function() {
-		$rootScope.metadata = {};
-		MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
-	};
+    {
+        if(field.visibleWhen)
+        {
+            return CheckVisibleService.checkVisible(field, $scope);
+        }
+        return true;
+    };
+    
+    $scope.loadMetaData = function() {
+        $rootScope.metamodel = {};
+        MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
+    };
 
-	// Dynamic Injection of Factory
+    // Dynamic Injection of Factory
 
-	$scope.Injectfactory=function(){	
-		$scope.factoryname=$scope.screenId+'factory';
+    $scope.Injectfactory=function(){    
+        $scope.factoryname=$scope.screenId+'factory';
 
         try{
           
-	        $scope.factory = $injector.get($scope.factoryname);
-	        //console.log('Injector has '+$scope.factoryname+' service!');
+            $scope.factory = $injector.get($scope.factoryname);
+            //console.log('Injector has '+$scope.factoryname+' service!');
         }catch(e){
          console.log('Injector does not have '+$scope.factoryname+' service!');
         }
-	};
-	
-	$rootScope.isPrev = false;
-	
-	$scope.loadOptionData = function() {
-		 var url = $rootScope.resourceHref;
-		 if (url === undefined) {	
-				url = $rootScope.HostURL+$scope.screenId;
-		 }
-		 
-	};
+    };
+    
+    $rootScope.isPrev = false;
+    
+    $scope.loadOptionData = function() {
+         var url = $rootScope.resourceHref;
+         if (url === undefined) {   
+                url = $rootScope.HostURL+$scope.screenId;
+         }
+         
+    };
 
-	$scope.loadOptionData();
+    $scope.loadOptionData();
     
     $scope.stTableList = [];
     $scope.displayed = [];
     $scope.stTableList.showResult = true;
 
-	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
 
        console.log(nextScreenId);
-		var screenId = $rootScope.screenId;
-		var regionId = $rootScope.regionId;
-		if(action==='navigate'){
+        var screenId = $rootScope.screenId;
+        var regionId = $rootScope.regionId;
+        if(action==='navigate'){
             $rootScope.resourceHref = undefined;
             $rootScope.navigate(actionURL);
         }
@@ -190,7 +190,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
             new Promise(function(resolve) {
                 var optionFlag = false;
-                MetaData.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
+                $scope.patchFieldName = undefined;
+                MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
             }).then(function(){
                 if(tab !== undefined){
                         //var url=$rootScope.resourceHref + '/operations/tariff_calculation/execute';
@@ -227,7 +228,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                         });
                                     }).error(function(){
                                         //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                        				growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                                     });
                                 });
                             });
@@ -240,7 +241,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.getRelationshipOfNavigateStep = function(step){
-        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        var list = $rootScope.metamodel[$rootScope.screenId].sections;
         for(var i = 0; i < list.length; i++){
             var tabObj = list[i];
             if(step === tabObj.step){
@@ -248,20 +249,20 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
         }
     };
-  	  
-	$rootScope.next = function() {
+      
+    $rootScope.next = function() {
         $scope.next();
     };
-	
-	$scope.next = function() {
-	};
-	 
-	$rootScope.step=1;
+    
+    $scope.next = function() {
+    };
+     
+    $rootScope.step=1;
 
-	$scope.getenumdata=function(){
-	   	var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
+    $scope.getenumdata=function(){
+        var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
         resourceFactory.getData(url).success(function(data){
-		$scope.enumdata=data;   	
+        $scope.enumdata=data;       
      });
     };
 
@@ -271,7 +272,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.currName = undefined;
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metadata[$rootScope.screenId].sections;
+        var list = $rootScope.metamodel[$rootScope.screenId].sections;
         angular.forEach(list, function(tabObj){
             if(step === tabObj.step){
                 $rootScope.currRel = tabObj.link;
@@ -280,8 +281,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         });
     }
     new Promise(function(resolve) {
-        MetaData.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
+        MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
     }).then(function(){
+    
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
@@ -299,49 +301,46 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     });
 
     $scope.selecttab = function(step1, rel) {
-        var screenId = $rootScope.screenId;
-        var regionId = $rootScope.regionId;
-
         if ($scope.isValid()) {
             $rootScope.step = step1;
             $rootScope.currRel = rel;
-
-            new Promise(function(resolve) {
-                // patch for previous tab
-                if ($rootScope.step !== $scope.preStep && rel !== 'undefined') {
-                    loadRelationshipByStep($scope.preStep);
-                    if (regionId !== 'us') {
-                        var optionFlag = true;
-                        MetaData.actionHandling(undefined, $scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
-                    }
-                    $scope.preStep = $rootScope.step;
-                    loadRelationshipByStep($scope.preStep);
-                }
-            }).then(function() {
-                // load data for tab click
-                if ($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself') {
+            
+            loadRelationshipByStep($scope.preStep);
+            $scope.preStep = $rootScope.step;
+            loadRelationshipByStep($scope.preStep);            
+            if ($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself') {
                     $scope.loadDataByTab($rootScope.currRel);
-                } else {
-                    var params = {};
-                    resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
-                        if (data) {
-                            $scope.data=data;
-                        }
-                    });
-                    EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-                }
+            } else {
+                var params = {};
+                resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
+                    if (data) {
+                        $scope.data=data;
+                    }
+                });
+                EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+            }
 
-            });
         }
     };
 
-	$scope.loadDataByTab = function (tab) {
+    $scope.patchField = function(fieldName){
 
-	    var url = $rootScope.resourceHref;
+        $scope.patchFieldName = fieldName;
+        // not apply patch field for us
+        if ($rootScope.regionId !== 'us') { 
+            if($scope.isValidByField(fieldName)){
+                MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true);
+            }
+        }
+    };
 
-		if (url !== undefined) {
-			resourceFactory.options(url, $rootScope.headers).success(function(data){
-	            //Fetch the links response
+    $scope.loadDataByTab = function (tab) {
+
+        var url = $rootScope.resourceHref;
+
+        if (url !== undefined) {
+            resourceFactory.options(url, $rootScope.headers).success(function(data){
+                //Fetch the links response
                 if(data !== undefined && data._links !== undefined && data._links[tab] !== undefined){
                     var tabUrl = data._links[tab].href;
 
@@ -357,12 +356,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         EnumerationService.executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
                     });    
                 }
-	        });
-		}
+            });
+        }
 
-	};
+    };
 
-	$scope.isValid = function(){
+    $scope.isValid = function(){
         var dataField = [];
         var mandatoryField = $scope.loadmandatoryField();
         var emptyField = [];
@@ -394,31 +393,53 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         return true;
     };
 
+    $scope.isValidByField = function(fieldName){
+        var message = '';
+        if($scope.isMandatoryField(fieldName)){
+            if($scope.data[fieldName] !== undefined && $scope.data[fieldName] !== null){
+                return true;
+            }
+            var label = $scope.translateKeyToLabelByTab(fieldName);
+            message = $rootScope.locale[label] + $rootScope.locale.IS_REQD;
+            growl.error(message);
+            return false;
+        }
+        return true;
+    };
+
+    $scope.isMandatoryField = function(fieldName){
+        var arrMandatoryField = $scope.loadmandatoryField();
+        if($.inArray(fieldName, arrMandatoryField) !== -1){                    
+            return true;
+        }
+        return false;
+    }; 
+
     $scope.loadmandatoryField = function(){
-    	var mandatoryField = [];
-    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
-    	for(var i = 0; i < arrparent.length; i++){
-    		var arr = arrparent[i].elements;
-    		for(var j = 0; j < arr.length; j++){
-	    		var object = arr[j];
-	    		if(object.required !== undefined && object.required === 'required'){
-	    			mandatoryField.push(object.name);
-	    		}
-	    	}
-    	}
-    	return mandatoryField;
+        var mandatoryField = [];
+        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        for(var i = 0; i < arrparent.length; i++){
+            var arr = arrparent[i].elements;
+            for(var j = 0; j < arr.length; j++){
+                var object = arr[j];
+                if(object.required !== undefined && object.required === 'required'){
+                    mandatoryField.push(object.name);
+                }
+            }
+        }
+        return mandatoryField;
     };
 
     $scope.translateKeyToLabelByTab = function(key){
-    	var arrparent = $rootScope.metadata[$rootScope.currName].sections;
-    	for(var i = 0; i < arrparent.length; i++){
-    		var arr = arrparent[i].elements;
-    		for(var j = 0; j < arr.length; j++){
-	    		var object = arr[j];
-	    		if(object.name === key){
-	    			return object.label;
-	    		}
-	    	}
-    	}
+        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        for(var i = 0; i < arrparent.length; i++){
+            var arr = arrparent[i].elements;
+            for(var j = 0; j < arr.length; j++){
+                var object = arr[j];
+                if(object.name === key){
+                    return object.label;
+                }
+            }
+        }
     };
 }
