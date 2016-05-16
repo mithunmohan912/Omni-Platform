@@ -123,11 +123,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
 		return true;
 	};
-	
-	$scope.loadMetaModel = function() {
-		$rootScope.metamodel = {};
-		MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
-	};
 
 	// Dynamic Injection of Factory
 
