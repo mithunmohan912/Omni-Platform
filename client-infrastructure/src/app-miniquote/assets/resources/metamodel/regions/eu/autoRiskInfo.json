@@ -1,0 +1,380 @@
+{
+    "metamodel": {
+        "formid": "autoRiskInfo",
+        "title": "",
+        "resourcelist": "", 
+        "name": "autoRiskInfo",
+        "sections": [
+            {
+                "title": "_RISK_INFO",
+                "name": "risk_info",
+                "category": "nonaccordion",
+                "elements":   [
+                    {
+                        "name": "quote_automobile:make",
+                        "type": "autocomplete",
+                        "label": "_MAKE",
+                        "typewait": 1500,
+                        "columnsize": 3,
+                        "maxlength": 10,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:power",
+                        "type": "number",
+                        "label": "_POWER",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "typewait": 1000
+                    },
+                    {
+                        "name": "quote_automobile:usage",
+                        "type": "select",
+                        "label": "_USAGE",
+                        "columnsize": 3,
+                        "typemin": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "typewait": 1000,
+                        "enumdata":[
+                            {
+                                "value" : "Private, but not for work travel"
+                            },
+                            {
+                                "value" : "Private including work travel"
+                            },
+                            {
+                                "value" : "Professional purposes: merchandise transport for third parties"
+                            },
+                            {
+                                "value" : "Professional purposes: freight transport on own account"
+                            },
+                            {
+                                "value" : "Professional purposes: short term rentals"
+                            },
+                            {
+                                "value" : "Professional purposes: replacement cars"
+                            },
+                            {
+                                "value" : "Professional purposes: driving school"
+                            },
+                            {
+                                "value" : "Professional purposes: Other"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_automobile:ext_model",
+                        "type": "text",
+                        "label": "_EXT_MODEL",
+                        "columnsize": 3,
+                        "patchOnBlur": true,
+                        "maxlength": 30,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:first_use_date",
+                        "type": "date",
+                        "mask": "dd/mm/yy",
+                        "label": "_FIRST_USE_DATE",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_automobile:fuel",
+                        "type": "select",
+                        "label": "_FUEL",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Bio Ethanol"
+                            },
+                            {
+                                "value" : "Diesel oil"
+                            },
+                            {
+                                "value" : "Hybride ( diesel + eletricity)"
+                            },
+                            {
+                                "value" : "Electricity"
+                            },
+                            {
+                                "value" : "Hybride ( essence + electricity)"
+                            },
+                            {
+                                "value" : "GNV"
+                            },
+                            {
+                                "value" : "Hydrogen"
+                            },
+                            {
+                                "value" : "GPL"
+                            },
+                            {
+                                "value" : "Petrol"
+                            },
+                            {
+                                "value" : "Unknown"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_automobile:ext_sport",
+                        "type": "toggle",
+                        "label": "_EXT_SPORT",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_cabrio",
+                        "type": "toggle",
+                        "label": "_EXT_CABRIO",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_type",
+                        "type": "select",
+                        "label": "_EXT_TYPE",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Berline"
+                            },
+                            {
+                                "value" : "Cabriolet"
+                            },
+                            {
+                                "value" : "Camping-Car (Motor home)"
+                            },
+                            {
+                                "value" : "Car of mixed use (*)"
+                            },
+                            {
+                                "value" : "Coupé"
+                            },
+                            {
+                                "value" : "Hatchback"
+                            },
+                            {
+                                "value" : "Light Truck (MMA < 3500 kg)"
+                            },
+                            {
+                                "value" : "Minibus (*)"
+                            },
+                            {
+                                "value" : "Mobile home (*)"
+                            },
+                            {
+                                "value" : "Car with multiple usages M1 "
+                            },
+                            {
+                                "value" : "Car with multiple usages N1"
+                            },
+                            {
+                                "value" : "Private vehicle"
+                            },
+                            {
+                                "value" : "Slow mixed usage"
+                            },
+                            {
+                                "value" : "Slow vehicle"
+                            },
+                            {
+                                "value" : "Stationwagen"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_automobile:ext_trailer",
+                        "type": "toggle",
+                        "label": "_EXT_TRAILER",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_old_timer",
+                        "type": "toggle",
+                        "label": "_EXT_OLD_TIMER",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_average_mileage",
+                        "type": "toggle",
+                        "label": "_EXT_AVERAGE_MILEAGE",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_omnium_type",
+                        "type": "select",
+                        "label": "_EXT_OMNIUM_TYPE",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Classic"
+                            },
+                            {
+                                "value" : "Guaranteed price"
+                            },
+                            {
+                                "value" : "No Omnium"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_automobile:ext_degree_r_c",
+                        "type": "number",
+                        "label": "_EXT_DEGREE_R_C",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_aggravated_risk",
+                        "type": "toggle",
+                        "label": "_EXT_AGGRAVATED_RISK",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_safety_features",
+                        "type": "select",
+                        "label": "_EXT_SAFETY_FEATURES",
+                        "columnsize": 3,
+                        "enumdata":[
+                            {
+                                "value" : "No"
+                            },
+                            {
+                                "value" : "Yes"
+                            },
+                            {
+                                "value" : "Yes, it also works on the basis of radar technology"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_automobile:ext_responsible_claims_number",
+                        "type": "number",
+                        "label": "_EXT_RESPONSIBLE_CLAIMS_NUMBER",
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_automobile:ext_shared_claims_number",
+                        "type": "number",
+                        "label": "_EXT_SHARED_CLAIMS_NUMBER",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_to_determine_claims_number",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_EXT_TO_DETERMINE_CLAIMS_NUMBER",
+                        "min": 0,
+                        "max": 999999,
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_victim_claims_number",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_EXT_VICTIM_CLAIMS_NUMBER",
+                        "columnsize": 3,
+                        "min": 0,
+                        "max": 9999,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_official_claims",
+                        "type": "toggle",                      
+                        "label": "_EXT_OFFICIAL_CLAIMS", 
+                        "columnsize": 3,
+                        "required": "required"                        
+                    },
+                    {
+                        "name": "quote_automobile:ext_jeep",
+                        "type": "toggle",
+                        "label": "_EXT_JEEP",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "required": "required" 
+                    },
+                    {
+                        "name": "quote_automobile:insured_value",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_INSURED_VALUE",
+                        "columnsize": 3,
+                        "min": 0,
+                        "max": 1000000000000000,  
+                        "patchOnBlur": true,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_automobile:ext_leasing",
+                        "type": "select",
+                        "label": "_EXT_LEASING",
+                        "columnsize": 3,
+                        "visible": true,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "financial leasing"
+                            },
+                            {
+                                "value" : "None"
+                            },
+                            {
+                                "value" : "Operational leasing and / or rentin"
+                            }                           
+                        ]
+                    },
+                    {
+                        "name": "quote_risk:ext_vat",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_EXT_VAT",
+                        "columnsize": 3,                        
+                        "min": 0,
+                        "max": 999.99,
+                        "patchOnBlur": true,
+                        "required": "required"
+                    } 
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "submit1",
+                        "type": "buttonSmall",
+                        "label": "_CALCULATEPREMIUM",
+                        "action": "update",
+                        "tab": ["quote:quote_risk_list", "cscaia:operations", "cscaia:execute"],
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ] 
+    }
+}

@@ -53,7 +53,7 @@
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
           
       </li>
-        <li class="dropdown" ng-repeat="application in headermetadata.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+        <li class="dropdown" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">

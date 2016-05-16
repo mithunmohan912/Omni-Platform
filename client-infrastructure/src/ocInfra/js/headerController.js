@@ -31,9 +31,9 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
 
     };
 
-    $resource('assets/resources/metadata/header.json').get(function(data) {
+    $resource('assets/resources/metamodel/header.json').get(function(data) {
 
-        $rootScope.headermetadata = data.metadata;
+        $rootScope.headermetamodel = data.metamodel;
     }, function() {});
 
 });

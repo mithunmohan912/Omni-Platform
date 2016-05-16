@@ -1,0 +1,369 @@
+{
+    "metamodel": {
+        "formid": "riskInfo",
+        "title": "",
+        "resourcelist": "",
+        "name": "riskInfo",
+        "sections": [
+            {
+                "name": "risk_info",
+                "category": "nonaccordion",
+                "elements":   [
+                    {
+                        "name": "quote_home:postal_code",
+                        "type": "autocomplete",
+                        "label": "_POSTALCODE",
+                        "typewait": 1500,
+                        "columnsize": 3,
+                        "maxlength": 10,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_home:city",
+                        "type": "autocomplete",
+                        "label": "_CITY",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "typewait": 1000
+                    },
+                    {
+                        "name": "quote_home:street_name",
+                        "type": "autocomplete",
+                        "label": "_STREET_NAME",
+                        "columnsize": 3,
+                        "typemin": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "typewait": 1000
+                    },
+                    {
+                        "name": "quote_home:street_number",
+                        "type": "text",
+                        "label": "_STREET_NUMBER",
+                        "columnsize": 3,
+                        "patchOnBlur": true,
+                        "maxlength": 30,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_home:box_number",
+                        "type": "text",
+                        "label": "_BOX_NUMBER",
+                        "columnsize": 3,
+                        "maxlength": 30
+                    },
+                    {
+                        "name": "quote_home:bulding_nature",
+                        "type": "select",
+                        "label": "_HOME_NATURE",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Ancien bâtiment d'exploitation"
+                            },
+                            {
+                                "value" : "Flat"
+                            },
+                            {
+                                "value" : "Appartement avec profession libérale"
+                            },
+                            {
+                                "value" : "Caravane résidentielle"
+                            },
+                            {
+                                "value" : "Residence"
+                            },
+                            {
+                                "value" : "Habitation avec profession libérale"
+                            },
+                            {
+                                "value" : "Plusieurs appartements ou studios, critères non conformes à un petit building"
+                            },
+                            {
+                                "value" : "Plusieurs appartements ou studios, critères d'un petit building"
+                            },
+                            {
+                                "value" : "Discount"
+                            },
+                            {
+                                "value" : "Résidence secondaire en bois ou préfabriquée"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:bulding_type",
+                        "type": "select",
+                        "label": "_HOME_TYPE",
+                        "columnsize": 3,
+                        "enumdata":[
+                            {
+                                "value" : "Ancien bâtiment d'exploitation"
+                            },
+                            {
+                                "value" : "Flat"
+                            },
+                            {
+                                "value" : "Appartement avec profession libérale"
+                            },
+                            {
+                                "value" : "Caravane résidentielle"
+                            },
+                            {
+                                "value" : "Residence"
+                            },
+                            {
+                                "value" : "Habitation avec profession libérale"
+                            },
+                            {
+                                "value" : "Plusieurs appartements ou studios, critères non conformes à un petit building"
+                            },
+                            {
+                                "value" : "Plusieurs appartements ou studios, critères d'un petit building"
+                            },
+                            {
+                                "value" : "Discount"
+                            },
+                            {
+                                "value" : "Résidence secondaire en bois ou préfabriquée"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_occupation_type",
+                        "type": "select",
+                        "label": "_QUALITY",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Joint Owner"
+                            },
+                            {
+                                "value" : "Tenant"
+                            },
+                            {
+                                "value" : "Bare Owner"
+                            },
+                            {
+                                "value" : "Occupant"
+                            },
+                            {
+                                "value" : "Owner"
+                            },
+                            {
+                                "value" : "Owner landlord"
+                            },
+                            {
+                                "value" : "Fruit user"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_occupation",
+                        "type": "select",
+                        "label": "_OCCUPATION",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Irregular"
+                            },
+                            {
+                                "value" : "Regular"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_new_building",
+                        "type": "select",
+                        "label": "_RECENT_BUILDING",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "New Construction"
+                            },
+                            {
+                                "value" : "No"
+                            },
+                            {
+                                "value" : "Renovated residence"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_restauration_value",
+                        "type": "select",
+                        "label": "_BUILDING_VALUE",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "New value"
+                            },
+                            {
+                                "value" : "Real value"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_thatched_roof",
+                        "type": "toggle",
+                        "label": "_STRAW_ROOF",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_home:ext_bldng_under_construction",
+                        "type": "toggle",
+                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:alarm_system",
+                        "type": "toggle",
+                        "label": "_ALARM_SYSTEM",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_home:ext_assured_motorized_vehicle",
+                        "type": "toggle",
+                        "label": "_ASSURED_MOTORIZED",
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                    {
+                        "name": "quote_home:ext_signing_act",
+                        "type": "toggle",
+                        "label": "_SIGNING_OF_ACT",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:ext_purchase_building",
+                        "type": "toggle",
+                        "label": "_BUILDING_PURCHASE",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:ext_evaluation",
+                        "type": "select",
+                        "label": "_EVALUATION_SYSTEM",
+                        "columnsize": 3,
+                        "visible": true,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "20x the annual rent"
+                            },
+                            {
+                                "value" : "Acquisition evaluation grid building of other society"
+                            },
+                            {
+                                "value" : "Evaluation by extern expert"
+                            },
+                            {
+                                "value" : "First risk with 100% intention"
+                            },
+                            {
+                                "value" : "Not used"
+                            },
+                            {
+                                "value" : "Place system (evaluation grid)"
+                            },
+                            {
+                                "value" : "Evaluation by Fidea delegate"
+                            },
+                            {
+                                "value" : "Building not assured"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_building_value",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_VALUE_OF_BUILDING",
+                        "min": 0,
+                        "max": 9999999999999,
+                        "patchOnBlur": true,
+                        "columnsize": 3,
+                        "required": "required"
+                    },
+                     {
+                        "name": "quote_home:ext_content_evaluation",
+                        "type": "select",
+                        "label": "_BUILDING_CONTENT_EVALUATION",
+                        "columnsize": 3,
+                        "required": "required",
+                        "enumdata":[
+                            {
+                                "value" : "Acquisition evaluation grid building of other society"
+                            },
+                            {
+                                "value" : "Evaluation by extern expert"
+                            },
+                            {
+                                "value" : "First risk with 100% intention"
+                            },
+                            {
+                                "value" : "Not used"
+                            },
+                            {
+                                "value" : "Place system (evaluation grid)"
+                            },
+                            {
+                                "value" : "Evaluation by Fidea delegate"
+                            },
+                            {
+                                "value" : "Rule 30%, 35% (or 40%, 45%)"
+                            },
+                            {
+                                "value" : "Content not assured"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "quote_home:ext_content_value",
+                        "type": "number",
+                        "decimal": true,
+                        "label": "_VALUE_OF_CONTENT",
+                        "visible": true,
+                        "min": 0,
+                        "max": 9999999999999,
+                        "patchOnBlur": true,
+                        "columnsize": 3,
+                        "required": "required"
+                    }
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ]
+    }
+}
