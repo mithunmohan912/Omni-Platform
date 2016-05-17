@@ -1,0 +1,63 @@
+{
+    "metamodel": {
+        "labels": {
+            "title": "Driver(S)"
+        },
+        "sections": [
+            {
+            "title": "Driver Info",
+            "properties": [
+                {
+                    "id": "quote_driver:is_quote_owner",
+                    "label": "_DRIVER_SAME_HOLDER",
+                    "type": "checkbox",
+                    "row": 1,
+                    "patchOnBlur": true,
+                    "updateMode": "change"
+                },
+                {
+                    "id": "quote_driver:name",
+                    "label": "_LAST_NAME",
+                    "type": "autocomplete",
+                    "row": 1,
+                    "options": {
+                        "getData": "searchDriver",
+                        "select": "selectDriver"
+                    }
+                },
+                {
+                    "id": "quote_driver:first_name",
+                    "type": "autocomplete",
+                    "label": "_FIRSTNAME",
+                    "attributes": {
+                        "maxlength": 40,
+                        "typeahead-wait-ms": 3000
+                    },
+                    "row": 2
+                },
+                {
+                    "id": "quote_driver:birth_date",
+                    "type": "date",
+                    "label": "_DOB"
+                },
+                {
+                    "id": "quote_driver:license_date",
+                    "type": "date",
+                    "label": "_DRIVING_LICENSE_DATE"
+                },
+                {
+                    "id": "quote_driver:postal_code",
+                    "type": "autocomplete",
+                    "label": "_POSTALCODE",
+                    "attributes": {
+                        "maxlength": 4
+                    },
+                    "row": 2
+                }
+
+            ]
+       }
+
+       ]
+   }
+}

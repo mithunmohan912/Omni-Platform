@@ -8,8 +8,7 @@ exported showHostErrorMessage
 
 var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', '$translateProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider, $translateProvider) {
-    $routeProvider.
-    when('/screen/:screenId', {
+    $routeProvider.when('/screen/:screenId', {
         templateUrl: function() {
             return 'templates/screen.html';
         },
@@ -21,10 +20,39 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
     $translateProvider.useStaticFilesLoader({
         prefix: 'assets/resources/i18n/',
         suffix: '.json'
-     });
+    });
 
-     $translateProvider.preferredLanguage('en-gb');
-     $translateProvider.useSanitizeValueStrategy('escape'); 
+    $translateProvider.preferredLanguage('en-gb');
+    $translateProvider.useSanitizeValueStrategy('escape'); 
+
+    $httpProvider.interceptors.push(function($q, $rootScope) {
+
+        return {
+            'request': function(config) {
+                if (!$rootScope.requestCounter) {
+                    $rootScope.requestCounter = 0;
+                }
+                $rootScope.requestCounter++;
+                $rootScope.loader.loading = true;
+                return config || $q.when(config);
+            },
+            'response': function(response) {
+                $rootScope.requestCounter--;
+                if ($rootScope.requestCounter <= 0) {
+                    $rootScope.loader.loading = false;
+                }
+                return response || $q.when(response);
+            },
+
+            'responseError': function(rejection) {
+                $rootScope.requestCounter--;
+                if ($rootScope.requestCounter <= 0) {
+                    $rootScope.loader.loading = false;
+                }
+                return $q.reject(rejection);
+            }
+        };
+    });
     
 }]);
 
@@ -56,9 +84,10 @@ app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
     $rootScope.resourceData = [];
     $rootScope.resourceURI = [];
     $rootScope.errordata = [];
-
     //FIXME. remoce when having a login controller
-    $cookieStore.put('userid', 'kkdrens');
+    $cookieStore.put('userid', 'kkdrensk');
+    sessionStorage.username = 'kkdrensk';
+
 });
     
 

@@ -1,0 +1,65 @@
+{
+    "metamodel": {
+        "labels": {
+            "title": "_RISK_OWNER_POPUP"
+        },
+        "sections": [
+            {
+            "properties": [
+                {
+                    "id": "quote_risk_owner:is_quote_owner",
+                    "type": "checkbox",
+                    "label": "_RISK_OWNER_SAME_HOLDER",
+                    "row": 1,
+                    "patchOnBlur": true,
+                    "updateMode": "change"
+                },
+                {
+                    "id": "quote_risk_owner:legal_classification",
+                    "label": "_LEGAL_ACTIVITY_CLASS",
+                    "type": "select",
+                    "row": 2
+                },
+                {
+                    "id": "quote_risk_owner:type",
+                    "label": "_OWNER_TYPE",
+                    "type": "select",
+                    "row": 1
+                },
+                {
+                    "id": "quote_risk_owner:name",
+                    "label": "_LAST_NAME",
+                    "type": "autocomplete",
+                    "row": 2
+                },
+                {
+                    "id": "quote_risk_owner:first_name",
+                    "type": "autocomplete",
+                    "label": "_FIRSTNAME",
+                    "attributes": {
+                        "maxlength": 40,
+                        "typeahead-wait-ms": 3000
+                    },
+                    "row": 3
+                },
+                {
+                    "id": "quote_risk_owner:birth_date",
+                    "type": "date",
+                    "label": "_DOB",
+                    "row": 3
+                },
+                {
+                    "id": "quote_risk_owner:postal_code",
+                    "type": "autocomplete",
+                    "label": "_POSTALCODE",
+                    "attributes": {
+                        "maxlength": 4
+                    },
+                    "patchOnBlur": true,
+                    "row": 4
+                }
+            ]
+       }]
+    }
+    
+}

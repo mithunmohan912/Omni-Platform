@@ -6,8 +6,8 @@ global app
 
 app.factory('dashboardFactory', function($rootScope){
 	return {
-		dashboardToQuote: function(item){
-			$rootScope.resourceUrl = item.href;
+		dashboardToQuote: function(resource){
+			$rootScope.resourceUrl= resource.href;
 			$rootScope.navigate('/screen/quote');
 		}
 	};
