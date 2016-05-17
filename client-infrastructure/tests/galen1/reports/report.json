@@ -1,17 +1,19 @@
 {
   "tests" : [ {
-    "name" : "Landing page on Desktop in browser phantomjs",
-    "startedAt" : 1463391263235,
-    "endedAt" : 1463391295488,
+    "name" : "Landing Page on Desktop in browser phantomjs with http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote",
+    "startedAt" : 1463498696928,
+    "endedAt" : 1463498696971,
     "failed" : true,
     "statistic" : {
-      "passed" : 16,
-      "errors" : 18,
+      "passed" : 0,
+      "errors" : 1,
       "warnings" : 0,
-      "total" : 34
+      "total" : 1
     },
-    "testId" : "1-landing-page-on-desktop-in-browser-phantomjs",
+    "testId" : "1-landing-page-on-desktop-in-browser-phantomjs-with-http-ec2-52-19-140-230.eu-west-1.compute.amazonaws.com-omnichannel-dev-app-miniquote",
     "failed" : true,
-    "duration" : 32253
+    "duration" : 43,
+    "exceptionMessage" : "IllegalStateException: The path to the driver executable must be set by the phantomjs.binary.path capability/system property/PATH variable; for more information, see https://github.com/ariya/phantomjs/wiki. The latest version can be downloaded from http://phantomjs.org/download.html",
+    "exceptionStacktrace" : "java.lang.IllegalStateException: The path to the driver executable must be set by the phantomjs.binary.path capability/system property/PATH variable; for more information, see https://github.com/ariya/phantomjs/wiki. The latest version can be downloaded from http://phantomjs.org/download.html\r\n\tat com.google.common.base.Preconditions.checkState(Preconditions.java:197)\r\n\tat org.openqa.selenium.phantomjs.PhantomJSDriverService.findPhantomJS(PhantomJSDriverService.java:236)\r\n\tat org.openqa.selenium.phantomjs.PhantomJSDriverService.createDefaultService(PhantomJSDriverService.java:181)\r\n\tat org.openqa.selenium.phantomjs.PhantomJSDriver.<init>(PhantomJSDriver.java:104)\r\n\tat org.openqa.selenium.phantomjs.PhantomJSDriver.<init>(PhantomJSDriver.java:94)\r\n\tat com.galenframework.browser.SeleniumBrowserFactory.getDriver(SeleniumBrowserFactory.java:104)\r\n\tat com.galenframework.browser.SeleniumBrowserFactory.createLocalBrowser(SeleniumBrowserFactory.java:89)\r\n\tat com.galenframework.browser.SeleniumBrowserFactory.openBrowser(SeleniumBrowserFactory.java:65)\r\n\tat com.galenframework.runner.GalenBasicTestRunner.runTest(GalenBasicTestRunner.java:73)\r\n\tat com.galenframework.tests.GalenBasicTest.execute(GalenBasicTest.java:55)\r\n\tat com.galenframework.TestRunnable.runTest(TestRunnable.java:75)\r\n\tat com.galenframework.TestRunnable.run(TestRunnable.java:101)\r\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\r\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\r\n\tat java.lang.Thread.run(Thread.java:745)\r\n"
   } ]
 }
