@@ -19,8 +19,6 @@ public class ResponseHeadersProcessor implements Processor {
 	public static final String HEADER_CORS_ALLOW_HEADERS	= "Access-Control-Allow-Headers";
 
 	public static final String HEADER_USERNAME				= "Username";
-	public static final String HEADER_IBM_CLIENT_ID			= "X-IBM-Client-Id";
-	public static final String HEADER_IBM_CLIENT_SECRET		= "X-IBM-Client-Secret";
 
 	static Logger log = Logger.getLogger(ResponseHeadersProcessor.class.getName());
 
@@ -39,8 +37,6 @@ public class ResponseHeadersProcessor implements Processor {
 		defaultHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*");
 		
 		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_USERNAME);
-		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_ID);
-		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_SECRET);
 		
 		postprocess();
 	}
