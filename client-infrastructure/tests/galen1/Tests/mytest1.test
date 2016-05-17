@@ -1,0 +1,20 @@
+@@ set 
+    url          http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/release/app-miniquote/#/
+    
+@@ parameterized
+    | browser  	 |
+    | phantomjs  |
+    
+
+
+
+Landing page on Desktop in browser ${browser}
+    selenium ${browser} ${url} ${size}
+        wait 10s
+    	check Specs/FirstPage.gspec --include "${tags}"
+    	run Pages/FirstPage.js
+    	wait 10s
+    	check Specs/LoginPage.gspec --include "${tags}"
+        run Pages/LoginPage.js
+        wait 5s
+        check Specs/LoginPage.gspec --include "${tags}"
