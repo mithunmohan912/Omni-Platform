@@ -1,0 +1,28 @@
+@import Header.gspec
+@import Footer.gspec
+
+
+@objects
+    div                      xpath    //*[@id="loginModal"]/div/div
+
+    autoQuoteAsiaField       xpath    //*[@id="dashboard"]/div/div[2]/div[2]/div/div[3]/div/a/div
+    autoQuoteEUField         xpath    //*[@id="dashboard"]/div/div[3]/div[2]/div/div[3]/div/a/div
+    homeownerQuoteUSField    xpath    //*[@id="dashboard"]/div/div[4]/div[2]/div/div[3]/div/a/div
+    homeownerQuoteEUField    xpath    //*[@id="dashboard"]/div/div[5]/div[2]/div/div[3]/div/a/div
+
+
+
+= Main Section =
+    
+    autoQuoteAsiaField:   
+        left-of autoQuoteEUField
+        aligned horizontally all autoQuoteEUField
+        aligned vertically all homeownerQuoteUSField
+
+    autoQuoteEUField:   
+        aligned vertically all homeownerQuoteEUField
+
+    homeownerQuoteUSField:   
+        left-of autoQuoteEUField
+        aligned horizontally all homeownerQuoteEUField
+       
