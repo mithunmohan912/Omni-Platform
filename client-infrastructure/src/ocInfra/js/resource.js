@@ -20,6 +20,11 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     }
 
     function _get(url, params, headers) {
+        // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
+        if(params && Object.keys(params).length > 0){
+            resourceDirectory[url] = null;
+        }
+
         params = _addApiGatewayApiKeys(params);
         var promise;
         if (!resourceDirectory[url]) {
