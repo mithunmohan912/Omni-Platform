@@ -1,0 +1,69 @@
+'use strict';
+
+/*global ScreenController*/
+/*
+exported showHostErrorMessage
+*/
+
+
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate']).
+config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', '$translateProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider, $translateProvider) {
+    $routeProvider.
+    when('/screen/:screenId', {
+        templateUrl: function() {
+            return 'templates/screen.html';
+        },
+        controller: ScreenController
+    });
+	
+    tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
+	
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'assets/resources/i18n/',
+        suffix: '.json'
+     });
+
+     $translateProvider.preferredLanguage('en-gb');
+     $translateProvider.useSanitizeValueStrategy('escape'); 
+    
+}]);
+
+app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
+    // FIXME: Headers to null in order to use real AIA API
+    MetaModel.setHeaders = function($rootScope){
+        $rootScope.headers = null;
+    };
+    //FIXME. remove when having a login controller
+    $cookieStore.remove('userid');
+    if ($cookieStore.get('userid') === null || $cookieStore.get('userid') === undefined) {
+            $location.url('/screen/dashboard');
+    } 
+
+	//persist few objects at app level
+	$rootScope.routeParams = {};
+	$rootScope.user = {};
+    $rootScope.loader = {
+        loading: false
+    };
+    $rootScope.showHeader = false;
+   
+       // default locale
+    $rootScope.newlocale = 'en-gb';
+    $rootScope.locale = {};
+    $rootScope.isCopy = false;
+    $rootScope.allData = [];
+    OCAppConfig.load();
+    $rootScope.resourceData = [];
+    $rootScope.resourceURI = [];
+    $rootScope.errordata = [];
+
+    //FIXME. remoce when having a login controller
+    $cookieStore.put('userid', 'kkdrens');
+});
+    
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+{
+    "metamodel": {
+        "title": "_DASHBOARD",
+        "name": "dashboard",
+        "formid": "dashboard",
+        "groupid": "",
+        "viewAs": "menu",
+        "sections": [
+            {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
+                "name": "resource_management",
+                "category": "nonaccordion",
+                "columnsize": 4,    
+                "visible" : true,
+                "showButton": true,
+                "actionurl": "asia/screen/quotessearch",
+                "labelDisplay": "_AUTO_QUOTE_ASIA",
+                "icon": "glyphicon flaticon-auto",
+                "iconflags":"malaysia",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel"
+            },
+            {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
+                "name": "resource_management",
+                "category": "nonaccordion",
+                "columnsize": 4,    
+                "visible" : true,
+                "showButton": true,
+                "labelDisplay": "_AUTO_QUOTE_EU",
+                "actionurl": "eu/screen/autosearch",
+                "icon": "glyphicon flaticon-auto",
+                "iconflags":"eu",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel"
+            },            
+            {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
+                "name": "resource_management",
+                "category": "nonaccordion",
+                "columnsize": 4,    
+                "visible" : true,
+                "showButton": true,
+                "actionurl": "us/screen/quotessearch",
+                "labelDisplay": "_HOME_QUOTE_US",
+                "icon": "glyphicon flaticon-home",
+                "iconflags":"usa",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel"
+            },
+            {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
+                "name": "resource_management",
+                "category": "nonaccordion",
+                "columnsize": 4,    
+                "visible" : true,
+                "label": "_QUOTE",
+                "showButton": true,
+                "actionurl": "eu/screen/quotessearch",
+                "labelDisplay": "_HOME_QUOTE_EU",
+                "icon": "glyphicon flaticon-home",
+                "iconflags":"eu1",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel"
+            },
+             {
+                "title": "_RESOURCE_MANAGEMENT",
+                "hidetitle": true,
+                "name": "resource_management",
+                "category": "nonaccordion",
+                "columnsize": 4,    
+                "visible" : true,
+                "showButton": true,
+                "actionurl": "us/screen/clientssearch",
+                "labelDisplay": "_HOME_CLIENT_US",
+                "icon": "glyphicon flaticon-person",
+                "iconflags":"usa",
+                "txtCenter":"dashboard-txtCenter",
+                "modaledit": true,
+                "division":"dashboard_panel",
+                "elements" : [
+                    {
+                        "name": "_ASIA_AUTO_QS",
+                        "type": "buttonSmall",
+                        "label": "_ASIA_AUTO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigate",
+                        "actionurl": "asia/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_EU_AUTO_QS",
+                        "type": "buttonSmall",
+                        "label": "_EU_AUTO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigate",
+                        "actionurl": "eu/screen/autosearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_US_HO_QS",
+                        "type": "buttonSmall",
+                        "label": "_US_HO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigate",
+                        "actionurl": "us/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_EU_HO_QS",
+                        "type": "buttonSmall",
+                        "label": "_EU_HO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigate",
+                        "actionurl": "eu/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_US_CL_QS",
+                        "type": "buttonSmall",
+                        "label": "_US_CL_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigate",
+                        "actionurl": "us/screen/clientssearch",
+                        "visible": "true"
+                    }
+                ]
+            }
+             
+        ]
+    }
+}

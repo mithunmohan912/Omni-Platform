@@ -6,7 +6,7 @@ module.exports = {
   },
   ocInfra: {
     files: {
-      'tmp/js/ocInfra.js': ['src/ocInfra/js/*.js'],
+      'tmp/js/ocInfra.js': ['src/ocInfra/js/**/*.js'],
           },
       },
 };

@@ -1,0 +1,462 @@
+{
+  "testId" : "1-landing-page-on-desktop-in-browser-phantomjs",
+  "name" : "Landing page on Desktop in browser phantomjs",
+  "report" : {
+    "nodes" : [ {
+      "name" : "selenium phantomjs http://localhost:8080/app-miniquote/#/ 1336x768",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "wait 10s",
+        "status" : "info",
+        "time" : 1463391269252,
+        "type" : "node"
+      }, {
+        "name" : "check Specs/FirstPage.gspec --include \"desktop\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: Specs/FirstPage.gspec included tags: desktop",
+          "status" : "error",
+          "time" : 1463391279973,
+          "includedTags" : [ "desktop" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Skeleton",
+            "objects" : [ {
+              "name" : "logo",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 17
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "logo", "div" ]
+              } ]
+            }, {
+              "name" : "autoQuoteAsiaField",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 17
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "autoQuoteAsiaField", "div" ]
+              } ]
+            }, {
+              "name" : "homeownerQuoteAsiaField",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 17
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "homeownerQuoteAsiaField", "div" ]
+              } ]
+            }, {
+              "name" : "loginField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 17
+                },
+                "name" : "centered horizontally inside div",
+                "errors" : [ "\"loginField\" is not centered horizontally inside \"div\". Offset is 1116px" ],
+                "highlight" : [ "loginField", "div" ]
+              } ]
+            }, {
+              "name" : "startTourField",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 17
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "startTourField", "div" ]
+              } ]
+            } ]
+          }, {
+            "name" : "Main Section",
+            "objects" : [ {
+              "name" : "div",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 25
+                },
+                "name" : "centered horizontally inside screen",
+                "highlight" : [ "div", "screen" ]
+              } ]
+            }, {
+              "name" : "logo",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 28
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "logo", "div" ]
+              } ]
+            }, {
+              "name" : "autoQuoteAsiaField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 31
+                },
+                "name" : "aligned vertically all homeownerQuoteAsiaField",
+                "errors" : [ "\"homeownerQuoteAsiaField\" is not aligned vertically all with \"autoQuoteAsiaField\". Offset is 1px" ],
+                "highlight" : [ "autoQuoteAsiaField", "homeownerQuoteAsiaField" ]
+              } ]
+            }, {
+              "name" : "homeownerQuoteAsiaField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 34
+                },
+                "name" : "aligned vertically all loginField",
+                "errors" : [ "\"loginField\" is not aligned vertically all with \"homeownerQuoteAsiaField\". Offset is 558px" ],
+                "highlight" : [ "homeownerQuoteAsiaField", "loginField" ]
+              } ]
+            }, {
+              "name" : "loginField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/FirstPage.gspec",
+                  "lineNumber" : 37
+                },
+                "name" : "aligned vertically all startTourField",
+                "errors" : [ "\"startTourField\" is not aligned vertically all with \"loginField\". Offset is 558px" ],
+                "highlight" : [ "loginField", "startTourField" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "div" : {
+              "area" : [ 368, 30, 600, 400 ]
+            },
+            "startTourField" : {
+              "area" : [ 588, 387, 160, 33 ]
+            },
+            "logo" : {
+              "area" : [ 619, 59, 97, 57 ]
+            },
+            "screen" : {
+              "area" : [ 0, 0, 1336, 768 ]
+            },
+            "homeownerQuoteAsiaField" : {
+              "area" : [ 588, 233, 159, 33 ]
+            },
+            "loginField" : {
+              "area" : [ 30, 150, 160, 0 ]
+            },
+            "autoQuoteAsiaField" : {
+              "area" : [ 588, 176, 160, 33 ]
+            }
+          },
+          "screenshot" : "layout-1-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1463391279255,
+        "type" : "node"
+      }, {
+        "name" : "run Pages/FirstPage.js",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Open http://localhost:8080/app-miniquote/#/",
+          "status" : "info",
+          "time" : 1463391280036,
+          "type" : "node"
+        }, {
+          "name" : "Click loginButton on Landing page",
+          "status" : "info",
+          "nodes" : [ {
+            "name" : "id: login",
+            "type" : "text"
+          } ],
+          "time" : 1463391280414,
+          "type" : "node"
+        } ],
+        "time" : 1463391279973,
+        "type" : "node"
+      }, {
+        "name" : "wait 10s",
+        "status" : "info",
+        "time" : 1463391280449,
+        "type" : "node"
+      }, {
+        "name" : "check Specs/LoginPage.gspec --include \"desktop\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: Specs/LoginPage.gspec included tags: desktop",
+          "status" : "error",
+          "time" : 1463391291859,
+          "includedTags" : [ "desktop" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Skeleton",
+            "objects" : [ {
+              "name" : "logo",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "highlight" : [ "logo", "div" ]
+              } ]
+            }, {
+              "name" : "loginLabel",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "highlight" : [ "loginLabel", "div" ]
+              } ]
+            }, {
+              "name" : "useridLabel",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "errors" : [ "\"useridLabel\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "useridField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "errors" : [ "\"useridField\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "passwordLabel",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "highlight" : [ "passwordLabel", "div" ]
+              } ]
+            }, {
+              "name" : "passwordField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "errors" : [ "\"passwordField\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "loginButton",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 22
+                },
+                "name" : "inside div",
+                "errors" : [ "\"loginButton\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            } ]
+          }, {
+            "name" : "Main Section",
+            "objects" : [ {
+              "name" : "div",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 29
+                },
+                "name" : "centered horizontally inside screen",
+                "highlight" : [ "div", "screen" ]
+              } ]
+            }, {
+              "name" : "logo",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 32
+                },
+                "name" : "centered horizontally inside div",
+                "highlight" : [ "logo", "div" ]
+              } ]
+            }, {
+              "name" : "loginLabel",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 35
+                },
+                "name" : "above useridLabel",
+                "errors" : [ "\"useridLabel\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "useridLabel",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 38
+                },
+                "name" : "aligned vertically left passwordLabel",
+                "errors" : [ "\"useridLabel\" is absent on page" ],
+                "highlight" : [ ]
+              }, {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 39
+                },
+                "name" : "left-of useridField",
+                "errors" : [ "\"useridLabel\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "useridField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 42
+                },
+                "name" : "color-scheme < 100% #FFFE9F",
+                "errors" : [ "\"useridField\" is absent on page" ],
+                "highlight" : [ ]
+              }, {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 43
+                },
+                "name" : "aligned vertically all  passwordField",
+                "errors" : [ "\"useridField\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "passwordLabel",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 46
+                },
+                "name" : "left-of passwordField",
+                "errors" : [ "\"passwordField\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "passwordField",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 49
+                },
+                "name" : "color-scheme < 100% #FFFE9F",
+                "errors" : [ "\"passwordField\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            }, {
+              "name" : "loginButton",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 52
+                },
+                "name" : "text uppercase is \"Login\"",
+                "errors" : [ "\"loginButton\" is absent on page" ],
+                "highlight" : [ ]
+              }, {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "Specs/LoginPage.gspec",
+                  "lineNumber" : 53
+                },
+                "name" : "color-scheme < 100% #009CA9",
+                "errors" : [ "\"loginButton\" is absent on page" ],
+                "highlight" : [ ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "div" : {
+              "area" : [ 368, 30, 600, 400 ]
+            },
+            "logo" : {
+              "area" : [ 619, 59, 97, 57 ]
+            },
+            "screen" : {
+              "area" : [ 0, 0, 1336, 768 ]
+            },
+            "loginLabel" : {
+              "area" : [ 404, 136, 526, 0 ]
+            },
+            "passwordLabel" : {
+              "area" : [ 399, 212, 538, 20 ]
+            }
+          },
+          "screenshot" : "layout-2-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1463391290450,
+        "type" : "node"
+      }, {
+        "name" : "run Pages/LoginPage.js",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Type \"kkdrensk\" to userid on Login page",
+          "status" : "info",
+          "nodes" : [ {
+            "name" : "id: inputUsername",
+            "type" : "text"
+          } ],
+          "time" : 1463391291910,
+          "type" : "node"
+        }, {
+          "name" : "JavaScriptException: Error: No such element: id inputUsername (<cmd>#340)",
+          "status" : "error",
+          "time" : 1463391292258,
+          "stacktrace" : "org.mozilla.javascript.JavaScriptException: Error: No such element: id inputUsername (<cmd>#340)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_26(<cmd>:340)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call1(OptRuntime.java:32)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_42(<cmd>:438)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.callProp0(OptRuntime.java:85)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_39(<cmd>:426)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call1(OptRuntime.java:32)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91._c_anonymous_1(Pages/LoginPage.js:8)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call2(OptRuntime.java:42)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91._c_script_0(Pages/LoginPage.js:16)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:394)\r\n\tat org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3090)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.exec(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.Context.evaluateReader(Context.java:1110)\r\n\tat com.galenframework.javascript.GalenJsExecutor.eval(GalenJsExecutor.java:99)\r\n\tat com.galenframework.suite.actions.GalenPageActionRunJavascript.execute(GalenPageActionRunJavascript.java:65)\r\n\tat com.galenframework.runner.GalenPageRunner.executeAction(GalenPageRunner.java:84)\r\n\tat com.galenframework.runner.GalenPageRunner.run(GalenPageRunner.java:76)\r\n\tat com.galenframework.runner.GalenBasicTestRunner.runTest(GalenBasicTestRunner.java:76)\r\n\tat com.galenframework.tests.GalenBasicTest.execute(GalenBasicTest.java:55)\r\n\tat com.galenframework.TestRunnable.runTest(TestRunnable.java:75)\r\n\tat com.galenframework.TestRunnable.run(TestRunnable.java:101)\r\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\r\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\r\n\tat java.lang.Thread.run(Thread.java:745)\r\n",
+          "type" : "node"
+        } ],
+        "time" : 1463391291859,
+        "type" : "node"
+      } ],
+      "time" : 1463391263236,
+      "type" : "node"
+    } ]
+  }
+}
