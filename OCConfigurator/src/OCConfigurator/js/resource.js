@@ -7,8 +7,18 @@ global app
 
     var dataFactory = {};
 
-    dataFactory.getData = function (urlBase) {
-        return $http.get(urlBase);
+    dataFactory.getData = function (urlBase, apiHeader) {
+        //return $http.get(urlBase);
+        
+        var obj =   $http(
+            {
+                method : 'GET',
+                url : urlBase,
+                headers : apiHeader
+            }
+        );   
+        return obj;
+        
     };
 
     dataFactory.search = function (urlBase,id) {

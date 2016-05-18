@@ -1426,84 +1426,101 @@ function LeftControlPalette($scope, $http,$rootScope,dataFactory) {
 			$scope.attrsJson = data.ShortNameDefinition.ShortNameDefs.ShortNameDef;
 		});*/
 	};
-	
-	$http
-			.get('data/OCConfigurator-control-palette.json')
-			.success(
-					function(paletteData) {
-						$scope.accordions = angular
-								.fromJson(paletteData.accordions);
-						// for control palette in the left side 
-						$http
-								.get('data/controls.json')
-								.success(
-										function(dataControls) {
-											$scope.controls = angular
-													.fromJson(dataControls);
-											for ( var objAc = 0; objAc < $scope.accordions.length; objAc++) {
-												if ($scope.controls[$scope.accordions[objAc].id] != null)
-													$scope.accordions[objAc].controls = $scope.controls[$scope.accordions[objAc].id];
-											}
-										});
-					});
-	
-	$http
-	.get(
-			$rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetListScreensServiceJSONURI)
-	.success(
-			function(screenData) {
-				var ind = 0;
-				for ( var j in screenData.ScreenTypes.Screen) {
-
-					$scope.allElementTypes[ind++] = screenData.ScreenTypes.Screen[j].screenTypeNumber
-							+ ": "
-							+ screenData.ScreenTypes.Screen[j].screenDesc;
-
-				}
-				;
-			
-			});
-	var rootUrl = 'http://20.33.40.152:10104/csc/insurance';
-	var url = rootUrl + '/schemas';
 	var resourceId;
-	dataFactory.getData(url).success(function(data){
-		var resourceList = [];
-		var resourceJsonObj = {};
-		for (var i=0; i<data._links.item.length; i++) {
-			if (data._links.item[i].href !== null) {
-				resourceJsonObj.name = ((data._links.item[i].href).replace('http://20.33.40.152:10104/csc/insurance/schemas/',''));
-				resourceList[i] = JSON.parse(JSON.stringify(resourceJsonObj));
+	$http
+		.get('data/OCConfigurator-control-palette.json')
+		.success(
+				function(paletteData) {
+					$scope.accordions = angular.fromJson(paletteData.accordions);
+					// for control palette in the left side 
+					$http
+						.get('data/controls.json')
+						.success(function(dataControls) {
+							$scope.controls = angular.fromJson(dataControls);
+							for ( var objAc = 0; objAc < $scope.accordions.length; objAc++) {
+								if ($scope.controls[$scope.accordions[objAc].id] != null)
+									$scope.accordions[objAc].controls = $scope.controls[$scope.accordions[objAc].id];
+							}
+						});
+				});
+	$http
+		.get($rootScope.listURI.ApiURL + $rootScope.listURI.ApplicationURL + $rootScope.listURI.GetListScreensServiceJSONURI)
+		.success(
+		function(screenData) {
+			var ind = 0;
+			for ( var j in screenData.ScreenTypes.Screen) {
+				$scope.allElementTypes[ind++] = screenData.ScreenTypes.Screen[j].screenTypeNumber
+						+ ": "
+						+ screenData.ScreenTypes.Screen[j].screenDesc;
 			};
-		};
-		for ( var objAc = 0; objAc < $scope.accordions.length; objAc++) {
-			if ($scope.accordions[objAc].controls === undefined) {
-				$scope.accordions[objAc].controls = JSON.parse(JSON.stringify(resourceList));
-				resourceId = objAc;
-				break;
-			}
-		}
-		
-	});
+
+			var configPath = '../OCConfigurator/config/config.json';
+			//var rootUrl, url;
+			var header = '';
+			dataFactory.getData(configPath, '').success(function(data){
+				if(data.config.usingfile === 'yes'){
+					$scope.url = data.config.newItemFile;
+				}else{
+					$scope.rootUrl = data.config.newItemURL;
+					$scope.url = data.config.newItemURL + '/schemas';
+					header = data.config.apiHeader;
+				};
+
+				dataFactory.getData($scope.url, header).success(function(data){
+					var resourceList = [];
+					var resourceJsonObj = {};
+					for (var i=0; i<data._links.item.length; i++) {
+						if (data._links.item[i].href !== null) {
+							resourceJsonObj.title = ((data._links.item[i].href).replace($scope.url+'/',''));
+							resourceJsonObj.name = data._links.item[i].href;
+							resourceList[i] = JSON.parse(JSON.stringify(resourceJsonObj));
+						};
+					};
+
+					for ( var objAc = 0; objAc < $scope.accordions.length; objAc++) {
+						if ($scope.accordions[objAc].controls === undefined) {
+							$scope.accordions[objAc].controls = JSON.parse(JSON.stringify(resourceList));
+							resourceId = objAc;
+							break;
+						}
+					}
+					
+				}).error(function(err){
+					console.log("Error message : "+err);
+				});
+			});
+		});
+	
 
 	$scope.selectResource = function (resourceName) {
 		for ( var objAc = 0; objAc < $scope.accordions[resourceId].controls.length; objAc++) {
 			if ($scope.accordions[resourceId].controls[objAc] === resourceName) {
-				var elementId = objAc
-				url = rootUrl + '/' + $scope.accordions[resourceId].controls[elementId].name;
+				var elementId = objAc;
+				//url = rootUrl + '/' + $scope.accordions[resourceId].controls[elementId].name;
+				var url = $scope.accordions[resourceId].controls[elementId].name;
 				break;
 			}
 		}
 		if ($scope.accordions[resourceId].controls[elementId].schemaList === undefined) {
-				dataFactory.options(url).success(function(data){
-				for (var i=0; i<data.links.length; i++) {
-					if (data.links[i].method === 'POST' && data.links[i].rel === 'create' ) {
-						$scope.accordions[resourceId].controls[elementId].schemaList =  JSON.parse(JSON.stringify(
-																						data.links[i].schema));
-						break;
-						};
-					};	
-				});
-		}			
+			dataFactory.options(url).success(function(data){
+			for (var i=0; i<data.links.length; i++) {
+				if (data.links[i].method === 'POST' && data.links[i].rel === 'create' ) {
+					$scope.accordions[resourceId].controls[elementId].schemaList =  JSON.parse(JSON.stringify(data.links[i].schema));
+					break;
+					}else if(data.links[i].method === 'GET'){
+						var getUrl = data.links[i].href;
+						dataFactory.options(getUrl.replace('/schemas','')).success(function(getData){
+							for (var i=0; i<getData.links.length; i++) {
+								if (getData.links[i].method === 'POST' && getData.links[i].rel === 'create' ) {
+									$scope.accordions[resourceId].controls[elementId].schemaList =  JSON.parse(JSON.stringify(getData.links[i].schema));
+									break;
+								};
+							};
+						});
+					};
+				};	
+			});
+		};			
 	};
 	// for moving the value back to metamodel
 	$scope.moveValue = function(obj, key, newvalue) {
