@@ -1,0 +1,28 @@
+@@ parameterized
+    | url                                                                                        |
+    | http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote     |
+    
+@@ parameterized
+    | browser  	 |
+    | firefox    |
+    | phantomjs  |
+    | ie         |
+
+@@ parameterized
+    | deviceName           | tags        | size     |
+    | Mobile Portrait      | mobile      | 411x731  |
+    | Tablet Portrait      | tablet      | 768x1024 |
+    | Mobile Landscape     | tablet      | 731x411  |
+    | Tablet Landscape     | desktop     | 1024x768 | 
+    | Desktop      		   | desktop     | 1336x768 |
+
+Landing Page on ${deviceName} in browser ${browser} with ${url}
+    selenium ${browser} ${url} ${size}
+        wait 10s
+    	check Specs/FirstPage.gspec --include "${tags}"
+    	run Pages/FirstPage.js
+    	wait 10s
+    	check Specs/LoginPage.gspec --include "${tags}"
+        run Pages/LoginPage.js
+        wait 5s
+        check Specs/LoginPage.gspec --include "${tags}"

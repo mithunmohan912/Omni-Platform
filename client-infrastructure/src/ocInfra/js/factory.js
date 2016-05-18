@@ -10,6 +10,7 @@ exported ScreenController
 */
 
 app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
+    var self = this;
     
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
@@ -98,6 +99,279 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             $rootScope.headers.username = $rootScope.user.name;
         }
     };
+    
+    /*============================================= Helper methods for components =============================================*/
+    /*
+        This function is in charge of analyzing the metamodel object and create an array with all the urls (resource 
+        dependencies) that must be queried based on a $http response.
+        Entry parameters:
+            - responseData -> Success $http response data object.
+            - metamodel -> Object representing the UI metamodel.
+        Output:
+            - An array containing all the resource urls that must be retrieved (empty array if no dependencies).
+    */
+    function _extractBusinessDependencies(responseData, metamodel){
+        if(!metamodel){
+            console.warn('No metamodel object to extract business dependencies');
+            return [];
+        } else if(!metamodel.businessObject){
+            return [];
+        }
+
+        var dependencies = [];
+        var keySet = [];
+
+        // Process http response to know which keys are contained in this resource
+        for(var property in responseData){
+            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
+                var propertyKey = property.split(':')[0];
+                if(keySet.indexOf(propertyKey) === -1){
+                    keySet.push(propertyKey);
+                }
+            }
+        }
+
+        // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
+        keySet.forEach(function(objectKey){
+            if(objectKey in metamodel.businessObject){
+                metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                    if(businessDependency in responseData._links){
+                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+                    }
+                });
+            }
+        });
+
+        return dependencies;
+    }
+
+    /*
+        Based on a valid (success) data http response (data object contained in $http response) this function 
+        creates and returns an object (map) where the keys are the names of the properties and the values are 
+        objects containing the following information:
+            - metainfo: Object representing the meta-information specified by the backend, such as maximum lengths.
+            - value: Value of the property.
+            - required: Boolean that indicates whether or not this property is required.
+            - editable: Boolean that indicates whether or not this property is editable.
+            - self: String URL of the entity this property belongs to.
+            - consistent: Boolean representing the status (valid or not) of this property in the backend.
+            - statusMessages: Object containing 3 arrays, one for every type of severity message (information, 
+              warning, error), and the counter that indicates how many errors and warnings we have to deal with.
+        Entry parameters:
+            - responseData -> Success $http response data object.
+        Output:
+            - Object containing the processed properties.
+    */
+    function _processProperties(responseData){
+        var propertiesObject = {};
+
+        if(responseData && responseData._options && responseData._embedded){
+            // First get the PATCH and self links to use them later
+            var updateCRUD;
+            var resourceURL;
+
+            responseData._options.links.forEach(function(crud){
+                if(crud.rel === 'update'){
+                    updateCRUD = crud;
+                }
+            });
+
+
+            for(var link in responseData._links){
+                 if(link === 'self'){
+                    resourceURL = responseData._links[link].href;
+                }
+            }
+
+            // Process the entity properties
+            for(var property in responseData._options.properties){
+                if(responseData._options.properties[property].format !== 'uri'){
+                    propertiesObject[property] = {};
+                    propertiesObject[property].metainfo = responseData._options.properties[property];
+                    propertiesObject[property].value = responseData[property];
+                    propertiesObject[property].self = resourceURL;
+                    propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
+                    propertiesObject[property].editable = (updateCRUD !== undefined && (property in updateCRUD.schema.properties));
+                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                    propertiesObject[property].consistent = true;
+                }
+            }
+
+            // Process status of the properties (based on status_report coming from backend)
+            for(var i = 0; i < responseData._embedded.length; i++) {
+                if(responseData._embedded[i].rel.indexOf('status_report') >= 0){
+                    for(var j = 0; j < responseData._embedded[i].data.messages.length; j++){
+                        var item = responseData._embedded[i].data.messages[j];
+                        if(item.context in propertiesObject){
+                            propertiesObject[item.context].statusMessages[item.severity].push(item);
+                            if(item.severity !== 'information'){
+                                propertiesObject[item.context].consistent = false;
+                                propertiesObject[item.context].statusMessages.errorCount++;
+                            }
+                        }
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        return propertiesObject;
+    }
+
+    /*
+        Function that processes collection resources and extract its items urls to query them afterwards if required. In
+        case that the response ($http success data object) contains a summary for the items, we add them to the object
+        passed as second argument.
+        Entry parameters:
+            - responseData -> Data object contained in a success $http response.
+            - summaryData -> Object where the summaries of the items will be injected.
+        Output parameters:
+            - An array with the urls of the collection's items (empty array if there are not items).
+    */
+    function _extractItemDependencies(responseData, summaryData){
+        var itemDependencies = [];
+
+        if(responseData && responseData._links){
+            for(var linkKey in responseData._links){
+                if(linkKey === 'item'){
+                    var items = responseData._links[linkKey];
+                    // If there is only one item, the response it's not an array but an object
+                    if(!Array.isArray(items)){
+                        items = [items];
+                    }
+
+                    for(var j = 0; j < items.length; j++){
+                        var item = items[j];
+                        itemDependencies.push({ href: item.href, title: item.title });
+                        if(item.summary && summaryData){
+                            // By calling _processResponse without arguments we get the 'skeleton' for a resource
+                            summaryData[item.href] = _processResponse();
+                            for(var property in item.summary){
+                                summaryData[item.href].properties[property] = { value: item.summary[property] };
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return itemDependencies;
+    }
+
+    /*
+        Based on a $http response data and a metamodel, this function will create an uniform object (same structure for
+        collection resources and entity resources) containing the following information:
+            - dependencies -> Array of urls for the related resources.
+            - properties -> Object (map) with key equal to the name of the property and value equal to the object specified
+              for function '_processProperties'.
+            - items -> Array of urls for the items of the collection if any.
+            - deletable -> Boolean indicating whether or not this resource allows the DELETE operation.
+            - patchable -> Boolean indicating whether or not this resource allows the PATCH operation.
+            - creatable -> Boolean indicating whether or not this resource allows the POST operation.
+        Entry parameters:
+            - responseData -> Data object contained in the $http success response.
+            - metamodel -> UI metamodel object.
+            - summaryData -> Object where the summary of the collection's items (if any) will be stored.
+    */
+    function _processResponse(responseData, metamodel, summaryData){
+        var resource = {
+            'dependencies':[],
+            'properties': {},
+            'items': [],
+            'deletable': false,
+            'patchable': false,
+            'creatable': false
+        };
+        
+        if(responseData && responseData._links && responseData._options){
+            resource.href = responseData._links.self.href;
+            resource.up = responseData._links.up.href;
+
+            resource.properties = _processProperties(responseData);
+            resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
+            resource.items = _extractItemDependencies(responseData, summaryData);
+
+            // Process CRUD operations to check whether or not we can PATCH, DELETE...
+            responseData._options.links.forEach(function(apiOperation){
+                if(apiOperation.rel === 'update'){
+                    resource.patchable = true;
+                } else if(apiOperation.rel === 'delete'){
+                    resource.deletable = true;
+                } else if(apiOperation.rel === 'create'){
+                    resource.creatable = true;
+                }
+            });
+        }
+
+        return resource;
+    }
+
+
+    /*============================================= END Helper methods for components =============================================*/
+
+    /*============================================= Component methods =============================================*/
+    /*
+        This function queries the backend with the given URL and all the URLs found in the business object
+        configuration specified in the metamodel object.
+        Entry parameters:
+            - rootURL -> URL of the resource to get.
+            - metamodel -> UI metamodel object.
+            - resultSet -> Object where the retrieved resources will be inserted.
+            - dependencyName -> String that will be used as identifier of the resource.
+        Output:
+            - None. It will insert the results in the third parameter.
+    */
+    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+        // Entry validation
+        if(!resultSet){
+            return;
+        }
+
+        var methodResourceFactory = resourceFactory.get;
+        if (refresh) {
+            methodResourceFactory = resourceFactory.refresh;
+        }
+        var responseGET = methodResourceFactory(rootURL);
+        // Cached response (resource directory) or not, we always get a promise
+        if(responseGET.then){
+            responseGET.then(function success(httpResponse){
+                var responseData = httpResponse.data || httpResponse;
+                var summaryData = {};
+
+                // Add the resource to the result set
+                resultSet[rootURL] = _processResponse(responseData, metamodel, summaryData);
+                resultSet[rootURL].identifier = rootURL.substring(rootURL.lastIndexOf('/')+1);
+                // Build the right href. When there are url parameters, they are not included in the href so we need to include them
+                resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
+                resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
+
+                // Analyze business dependencies in order to extract them
+                resultSet[rootURL].dependencies.forEach(function(url){
+                    self.prepareToRender(url.href, metamodel, resultSet, url.resource);
+                });
+
+                // Shall we stick with the summaries or shall we retrieve the whole item ??
+                if(!metamodel.summary){
+                    resultSet[rootURL].items.forEach(function(url){
+                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
+                    });
+                } else {
+                    for(var resourceURL in summaryData){
+                        resultSet[resourceURL] = summaryData[resourceURL];
+                        resultSet[resourceURL].identifier = resourceURL.substring(resourceURL.lastIndexOf('/')+1);
+                        resultSet[resourceURL].href = resourceURL;
+                    }
+                }
+            }, function error(errorResponse){
+                // FIXME TODO: Do something useful if required, for now just logging
+                console.error(errorResponse);
+                throw errorResponse;
+            });
+        }
+    };
+    /*============================================= END Component methods =============================================*/
+
     return this;
 });
 
