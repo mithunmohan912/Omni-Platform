@@ -46,7 +46,8 @@ module.exports = {
                                            'src/app-reference/app/*.js',
                                            'src/app-reference/app/**/*.js', 
                                            'src/app-reference/assets/css/*.css',
-                                           'src/app-reference/ocInfra/js/ocInfra.js', 
+                                           'src/app-reference/ocInfra/js/ocInfra.js',
+                                           'src/app-reference/ocInfra/dist/*.js',
                                            'src/ocInfra/css/*.css'
             ]
         }

@@ -6,6 +6,7 @@ global app
 app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $rootScope, $q) {
 
     var resourceDirectory = {};
+    var PENDING_REQUEST = '0';
 
     function _addApiGatewayApiKeys(params) {
         if (params === undefined) {
@@ -28,6 +29,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         params = _addApiGatewayApiKeys(params);
         var promise;
         if (!resourceDirectory[url]) {
+            resourceDirectory[url] = PENDING_REQUEST;
             promise = $http({
                     method : 'GET',
                     url : url,
@@ -46,7 +48,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             }
         } else {
             promise = $q(function(resolve) {
-                resolve(resourceDirectory[url]);
+                if (resourceDirectory[url] === PENDING_REQUEST) {
+                    $rootScope.$on('resourceDirectory', function(event, data) {
+                        if (data.url === url) {
+                            resolve(resourceDirectory[url]);
+                        }
+                    });
+                } else {
+                    resolve(resourceDirectory[url]);
+                }
             });
             promise.success = function(callback) {
                 var _success = callback;
@@ -78,7 +88,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[url] = response.data;
+                resourceDirectory[response.data._links.self.href] = response.data;
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
             }, function(error) {

@@ -178,7 +178,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
 
             for(var link in responseData._links){
-                 if(responseData._links[link].rel === 'self'){
+                 if(link === 'self'){
                     resourceURL = responseData._links[link].href;
                 }
             }
@@ -322,13 +322,17 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         Output:
             - None. It will insert the results in the third parameter.
     */
-    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName){
+    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
         // Entry validation
         if(!resultSet){
             return;
         }
 
-        var responseGET = resourceFactory.get(rootURL);
+        var methodResourceFactory = resourceFactory.get;
+        if (refresh) {
+            methodResourceFactory = resourceFactory.refresh;
+        }
+        var responseGET = methodResourceFactory(rootURL);
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
             responseGET.then(function success(httpResponse){
@@ -350,7 +354,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
-                        self.prepareToRender(url.href, metamodel, resultSet);
+                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
                 } else {
                     for(var resourceURL in summaryData){
