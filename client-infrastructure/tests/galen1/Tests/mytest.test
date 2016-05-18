@@ -1,5 +1,6 @@
-@@ set 
-    url          http://localhost:8080/app-miniquote/#/
+@@ parameterized
+    | url                                                                                        |
+    | http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote     |
     
 @@ parameterized
     | browser  	 |
@@ -15,7 +16,7 @@
     | Tablet Landscape     | desktop     | 1024x768 | 
     | Desktop      		   | desktop     | 1336x768 |
 
-Landing page on ${deviceName} in browser ${browser}
+Landing Page on ${deviceName} in browser ${browser} with ${url}
     selenium ${browser} ${url} ${size}
         wait 10s
     	check Specs/FirstPage.gspec --include "${tags}"

@@ -1,6 +1,14 @@
-{
-  "testId" : "1-landing-page-on-desktop-in-browser-firefox",
-  "name" : "Landing Page on Desktop in browser firefox",
+<html>
+    <head>
+        <title>Galen Reports</title>
+        <link rel="stylesheet" type="text/css" href="report.css"></link>
+        <script src="jquery-1.11.2.min.js"></script>
+        <script src="handlebars-v2.0.0.js"></script>
+        <script src="galen-report.js"></script>
+        <script>
+var reportData = {
+  "testId" : "1-landing-page-on-desktop-in-browser-firefox-with-http-ec2-52-19-140-230.eu-west-1.compute.amazonaws.com-omnichannel-dev-app-miniquote",
+  "name" : "Landing Page on Desktop in browser firefox with http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote",
   "report" : {
     "nodes" : [ {
       "name" : "selenium firefox http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote 1336x768",
@@ -8,7 +16,7 @@
       "nodes" : [ {
         "name" : "wait 10s",
         "status" : "info",
-        "time" : 1463498496180,
+        "time" : 1463498631722,
         "type" : "node"
       }, {
         "name" : "check Specs/FirstPage.gspec --include \"desktop\"",
@@ -16,7 +24,7 @@
         "nodes" : [ {
           "name" : "Check layout: Specs/FirstPage.gspec included tags: desktop",
           "status" : "error",
-          "time" : 1463498506859,
+          "time" : 1463498642325,
           "includedTags" : [ "desktop" ],
           "excludedTags" : [ ],
           "sections" : [ {
@@ -166,7 +174,7 @@
           "screenshot" : "layout-1-screenshot.png",
           "type" : "layout"
         } ],
-        "time" : 1463498506183,
+        "time" : 1463498641724,
         "type" : "node"
       }, {
         "name" : "run Pages/FirstPage.js",
@@ -178,15 +186,15 @@
             "name" : "id: login",
             "type" : "text"
           } ],
-          "time" : 1463498506906,
+          "time" : 1463498642375,
           "type" : "node"
         } ],
-        "time" : 1463498506859,
+        "time" : 1463498642325,
         "type" : "node"
       }, {
         "name" : "wait 10s",
         "status" : "info",
-        "time" : 1463498507000,
+        "time" : 1463498642467,
         "type" : "node"
       }, {
         "name" : "check Specs/LoginPage.gspec --include \"desktop\"",
@@ -194,7 +202,7 @@
         "nodes" : [ {
           "name" : "Check layout: Specs/LoginPage.gspec included tags: desktop",
           "status" : "error",
-          "time" : 1463498517459,
+          "time" : 1463498652978,
           "includedTags" : [ "desktop" ],
           "excludedTags" : [ ],
           "sections" : [ {
@@ -426,7 +434,7 @@
           "screenshot" : "layout-2-screenshot.png",
           "type" : "layout"
         } ],
-        "time" : 1463498517001,
+        "time" : 1463498652468,
         "type" : "node"
       }, {
         "name" : "run Pages/LoginPage.js",
@@ -438,20 +446,256 @@
             "name" : "id: inputUsername",
             "type" : "text"
           } ],
-          "time" : 1463498517542,
+          "time" : 1463498653065,
           "type" : "node"
         }, {
           "name" : "JavaScriptException: Error: No such element: id inputUsername (<cmd>#340)",
           "status" : "error",
-          "time" : 1463498517578,
+          "time" : 1463498653093,
           "stacktrace" : "org.mozilla.javascript.JavaScriptException: Error: No such element: id inputUsername (<cmd>#340)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_26(<cmd>:340)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call1(OptRuntime.java:32)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_42(<cmd>:438)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.callProp0(OptRuntime.java:85)\r\n\tat org.mozilla.javascript.gen._cmd__89._c_anonymous_39(<cmd>:426)\r\n\tat org.mozilla.javascript.gen._cmd__89.call(<cmd>)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call1(OptRuntime.java:32)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91._c_anonymous_1(Pages/LoginPage.js:8)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.optimizer.OptRuntime.call2(OptRuntime.java:42)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91._c_script_0(Pages/LoginPage.js:16)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:394)\r\n\tat org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3090)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.call(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.gen.Pages_LoginPage_js_91.exec(Pages/LoginPage.js)\r\n\tat org.mozilla.javascript.Context.evaluateReader(Context.java:1110)\r\n\tat com.galenframework.javascript.GalenJsExecutor.eval(GalenJsExecutor.java:99)\r\n\tat com.galenframework.suite.actions.GalenPageActionRunJavascript.execute(GalenPageActionRunJavascript.java:65)\r\n\tat com.galenframework.runner.GalenPageRunner.executeAction(GalenPageRunner.java:84)\r\n\tat com.galenframework.runner.GalenPageRunner.run(GalenPageRunner.java:76)\r\n\tat com.galenframework.runner.GalenBasicTestRunner.runTest(GalenBasicTestRunner.java:76)\r\n\tat com.galenframework.tests.GalenBasicTest.execute(GalenBasicTest.java:55)\r\n\tat com.galenframework.TestRunnable.runTest(TestRunnable.java:75)\r\n\tat com.galenframework.TestRunnable.run(TestRunnable.java:101)\r\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\r\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\r\n\tat java.lang.Thread.run(Thread.java:745)\r\n",
           "type" : "node"
         } ],
-        "time" : 1463498517459,
+        "time" : 1463498652978,
         "type" : "node"
       } ],
-      "time" : 1463498474720,
+      "time" : 1463498609802,
       "type" : "node"
     } ]
   }
-}
+};
+        </script>
+        <script>
+
+            $(function () {
+                var galenReport = createGalenReport();
+                galenReport.render("main", reportData);
+            });
+        </script>
+    </head>
+    <body>
+        <script id="report-tpl" type="text/x-handlebars-template">
+            <ul class="report-nodes">
+            {{#each report.nodes}}
+                {{renderNode this}}
+            {{/each}}
+            </ul>
+        </script>
+        <script id="report-node-tpl" type="text/x-handlebars-template">
+            <li>
+                <span class="report-time">{{formatReportTime time}}</span>
+                <a class="expand-link node-expand-button node-status-{{status}} contains-children-{{hasChildElements nodes}} collapsed" href="#">{{status}}</a>
+                <div class="node-name node-status-{{status}}">{{name}}</div>
+                {{#if extras}}
+                    {{renderNodeExtras extras}}
+                {{/if}}
+                {{#if stacktrace}}
+                    <div class="stacktrace">{{stacktrace}}</div>
+                {{/if}}
+                {{#if attachments}}
+                    <ul class="report-node-attachments">
+                        {{#each attachments}}
+                            <li>
+                                <a class="icon-sprite-before node-attachment" href="{{this}}">{{this}}</a>
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{/if}}
+                <div class="node-details expand-container">
+                    {{#if nodes}}
+                        <ul class="report-nodes">
+                            {{#each nodes}}
+                                {{renderNode this}}
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                </div>
+            </li>
+        </script>
+        <script id="report-node-text-tpl" type="text/x-handlebars-template">
+            <li>
+                <div class="node-simple-text">
+                    {{name}}
+                </div>
+            </li>
+        </script>
+        <script id="report-layout-tpl" type="text/x-handlebars-template">
+            <li>
+                <span class="report-time">{{formatReportTime time}}</span>
+                <a class="expand-link node-expand-button node-status-label node-status-info contains-children-true collapsed" href="#">LAYOUT</a>
+                <div class="node-name">{{name}}</div>
+                <div class="node-horizontal-menu" data-layout-id="{{layoutId}}"><a class="layout-heatmap-link" href="#">Heat Map</a></div>
+                <div class="node-details expand-container">
+                    {{renderSublayout this}}
+                </div>
+            </li>
+        </script>
+        <script id="report-layout-sublayout-tpl" type="text/x-handlebars-template">
+            <div class="layout-report" data-layout-id="{{layoutId}}" data-screenshot="{{screenshot}}">
+                <ul class="layout-sections">
+                    {{#each sections}}
+                        {{renderLayoutSection this}}
+                    {{/each}}
+                </ul>
+            </div>
+        </script>
+        <script id="report-layout-section-tpl" type="text/x-handlebars-template">
+            <li>
+                <a class="layout-section icon-sprite-before expand-link contains-children-true" href="#">{{name}}</a>
+                <div class="layout-details expand-container">
+                    {{#if sections}}
+                        <ul class="layout-sections">
+                        {{#each sections}}
+                            {{renderLayoutSection this}}
+                        {{/each}}
+                        </ul>
+                    {{/if}}
+                    {{#if objects}}
+                        <ul class="layout-objects">
+                            {{#each objects}}
+                                {{renderLayoutObject this}}
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                </div>
+            </li>
+        </script>
+
+        <script id="report-layout-object-tpl" type="text/x-handlebars-template">
+            <li>
+                <a class="layout-object icon-sprite-before expand-link contains-children-true" href="#">{{name}}</a>
+                <ul class="layout-checks expand-container">
+                    {{#each specs}}
+                        {{renderLayoutCheck this}}
+                    {{/each}}
+                    {{#each specGroups}}
+                    <li>
+                        <a class="layout-specgroup icon-sprite-before expand-link contains-children-true" href="#">{{name}}</a>
+                        <ul class="layout-checks expand-container">
+                            {{#each specs}}
+                                {{renderLayoutCheck this}}
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{/each}}
+                </ul>
+            </li>
+        </script>
+        <script id="report-layout-check-tpl" type="text/x-handlebars-template">
+            <li>
+            <a class="layout-check icon-sprite-before layout-check-status-{{status}}" href="#"
+                data-highlight-objects="{{commaSeparated highlight}}"
+                title="{{place.filePath}}#{{place.lineNumber}}"
+                >{{name}}</a>
+
+                {{#if errors}}
+                    <div class="layout-check-error-message">
+                        {{#if imageComparison}}
+                        <a class="image-comparison-link"
+                            data-actual-image="{{imageComparison.actualImage}}"
+                            data-expected-image="{{imageComparison.expectedImage}}"
+                            data-map-image="{{imageComparison.comparisonMapImage}}"
+                            href="#">Show image comparison</a>
+                        {{/if}}
+                        <div class="layout-check-error-message-text">
+                            <ul>
+                            {{#each errors}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if subLayout}}
+                {{renderSublayout subLayout}}
+                {{/if}}
+            </li>
+        </script>
+        <script id="screenshot-popup-tpl" type="text/x-handlebars-template">
+            <div class="screenshot-canvas">
+                {{#if screenshot}}
+                <img src="{{screenshot}}"/>
+                {{else}}
+                <div class="empty-screenshot" style="width: {{width}}; height: {{height}};"></div>
+                {{/if}}
+                {{#each objects}}
+                <div class="canvas-rect" style="left: {{area.left}}px; top: {{area.top}}px; width: {{area.width}}px; height: {{area.height}}px; {{#if drawBorder}}border-color: {{color}};{{else}}border:none;{{/if}}{{#if fillBackground}}background: {{color}};{{else}}background:none;{{/if}}">
+                    <div class="canvas-rect-wrapper">
+                        <div class="canvas-rect-hint" style="background: {{color}};">{{name}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </script>
+        <script id="image-comparison-tpl" type="text/x-handlebars-template">
+            <div class="image-comparison image-comparison-layout-{{layout}}">
+                <div class="actual-image">
+                    <h5>Actual</h5>
+                    <img src="{{actual}}"/>
+                </div>
+
+                <div class="expected-image">
+                    <h5>Expected</h5>
+                    <img src="{{expected}}"/>
+                </div>
+
+                <div class="comparison-map">
+                    <h5>Comparison map</h5>
+                    <img src="{{map}}"/>
+                </div>
+            </div>
+        </script>
+        <script id="node-extras-tpl" type="text/x-handlebars-template">
+            <div class="node-extras">
+                <a class="node-extras" href="#">extras</a>
+                <div class="node-extras-content">
+                    <table class="node-extras-table">
+                        <tbody>
+                        {{#each this}}
+                        <tr>
+                            <td><label>{{@key}}</label></td>
+                            {{#ifCond type 'text'}}
+                            <td>{{value}}</td>
+                            {{/ifCond}}
+                            {{#ifCond type 'link'}}
+                            <td><a href="{{value}}">{{value}}</a></td>
+                            {{/ifCond}}
+                            {{#ifCond type 'image'}}
+                            <td><a href="{{value}}"><img src="{{value}}"/></a></td>
+                            {{/ifCond}}
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </script>
+
+
+
+        <div id="menu">
+            <ul>
+                <li><a href="report.html">Back to Test Overview</a></li>
+                <li><a class="menu-op-expand-all" href="#">Expand All</a></li>
+                <li><a class="menu-op-collapse-all" href="#">Collapse All</a></li>
+                <li><a class="menu-op-expand-errors" href="#">Expand Errors</a></li>
+            </ul>
+        </div>
+        <h2>Landing Page on Desktop in browser firefox with http://ec2-52-19-140-230.eu-west-1.compute.amazonaws.com/omnichannel/dev/app-miniquote</h2>
+        <div id="main"></div>
+        <div id="screen-shadow"></div>
+        <div id="popup" class="popup">
+            <div class="popup-wrapper">
+                <a class="popup-close-link" href="#">close</a>
+                <div class="popup-content"></div>
+            </div>
+        </div>
+        <div id="notification" class="notification">
+            <div class="notification-wrapper">
+                <a class="notification-close-link" href="#">close</a>
+                <div class="notification-summary"></div>
+                <div class="notification-message"></div>
+            </div>
+        </div>
+    </body>
+</html>
