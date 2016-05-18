@@ -425,6 +425,7 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                     var applName = regionToSORMap[regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
+                    $rootScope.resourceHref = newURL;
                 }
 
                 console.log('OPTIONS CALL ON : '+newURL);
