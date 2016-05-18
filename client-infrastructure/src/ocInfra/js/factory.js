@@ -322,6 +322,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
             $rootScope.loader.loading=false;
             if (data) {
+                showMessage("PATCH OPERATION SUCCESS");
                 if(resolve) {
                     resolve();
                 }
