@@ -1,3 +1,9 @@
+'use strict';
+
+/*
+global app
+*/
+
 
 /**
   * @ngdoc directive	 
@@ -11,7 +17,7 @@
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
-angular.module('app').directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, resourceFactory){
+app.directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, resourceFactory){
 
 	return {
 		restrict: 'E',
@@ -74,8 +80,8 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 							field.options.typeaheadBlur( {'event': event, 'id': field.id, '$injector': $injector} );
 						} else if(event && event.target && event.target.attributes && event.target.attributes['aria-owns']){
 							// Unset moveInProgress variable to avoid the dropdown being shown when it has no longer the focus
-							var typeaheadDropdown = document.getElementById(event.target.attributes['aria-owns'].value);
-							//angular.element(typeaheadDropdown).scope().moveInProgress = true;
+							// var typeaheadDropdown = document.getElementById(event.target.attributes['aria-owns'].value);
+							// angular.element(typeaheadDropdown).scope().moveInProgress = true;
 						} else {
 							console.warn('input.js -> autocomplete_typeaheadBlur(): Typeahead dropdown not found in view.');
 						}
@@ -207,7 +213,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 
 			defaults.toggle = {
 				'attributes': {
-					'true_label': "_TRUE",
+					'true_label': '_TRUE',
 					'false_label': '_FALSE'
 				},
 				'options': {},
@@ -242,7 +248,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 					'showcheckbox': false
 				},
 				'options': {
-					'_onclick': function(entityHref){
+					'_onclick': function(/*entityHref*/){
 						/*
 							FIXME: Do something here to select the item in the multiselect. If we use several checkboxes we get this select/unselect functionality by default.
 							Analyze what is better to do, multiple checkboxes or simple divs with onclick callback
@@ -255,7 +261,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 			$scope.patch = function(params, next){
 				
 				var payload = {};
-				var resourceToPatch = resourceFactory.get(params.property.self).then(function(resourceToPatch){
+				resourceFactory.get(params.property.self).then(function(resourceToPatch){
 					/*
 					Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
 					we may lose already modified information when the response come back from the backend
@@ -284,26 +290,26 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 			/* Function that (re)load the input with the new property */
 			$scope.load= function(){
 				// Configuration for toggles
-				uibButtonConfig.activeClass="btn-active";
+				uibButtonConfig.activeClass = 'btn-active';
 
 				$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
 				$scope.actionFactory = {};
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
 				} catch(error) {
-					console.warn($scope.screenFactoryName + " not found");
+					console.warn($scope.screenFactoryName + ' not found');
 				}
 
 				// Get the url of the template we will use based on input type
 				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
-				var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
+				var baseUrl = (!$scope.baseUrl || $scope.baseUrl === '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
 				$scope.inputHtmlUrl = baseUrl + '/input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
-				$scope.updateMode = (!$scope.updateMode || $scope.updateMode == '') ? defaults[inputType].updateMode : $scope.updateMode;
-				$scope.updateMode = (!$scope.updateMode || $scope.updateMode == '') ? 'blur' : $scope.updateMode;
-				if($scope.onUpdate && $scope.onUpdate != '' && !$scope.update){
+				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
+				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
+				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
 					$scope.update = $scope.actionFactory[$scope.onUpdate];
 				}
@@ -319,7 +325,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
 					'id': $scope.metamodel.id,
-					'name': $scope.metamodel.name || $scope.metamodel.id || "",
+					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
@@ -369,16 +375,16 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 					}
 				}
 				
-				for(var key in $scope.property.metainfo){
-					if(key != 'type'){
-						attributes[key.toLowerCase()] = $scope.property.metainfo[key];
+				for(var metainfo_key in $scope.property.metainfo){
+					if(metainfo_key !== 'type'){
+						attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
 					}
 				}
-				for(var key in $scope.metamodel.attributes){
-					if(attributes[key] && Array.isArray(attributes[key])){
-						attributes[key.toLowerCase()] = attributes[key].indexOf($scope.metamodel.attributes[key]) >= 0 ? $scope.metamodel.attributes[key] : attributes[key][0];
+				for(var attributes_key in $scope.metamodel.attributes){
+					if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
+						attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
 					} else {
-						attributes[key.toLowerCase()] = $scope.metamodel.attributes[key];
+						attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
 					}
 				}
 
@@ -386,21 +392,21 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 				var options = angular.copy(defaults[inputType].options);
 				$scope.field.options = options;
 
-				for(var key in $scope.metamodel.options){
+				for(var options_key in $scope.metamodel.options){
 					// Avoid override of default methods (they start with underscore)
-					var validKey = key;
+					var validKey = options_key;
 					do{
 						validKey = validKey.indexOf('_') === 0 ? validKey.substring(1) : validKey;
 					}while(validKey.indexOf('_') === 0);
 					
 					// Get the action for the options from the factory of the current screen
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
+					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]];
 				}
 
 			};
 
 			/* Watchers to react to changes in the property */
-			$scope.$watchGroup(['property', 'metamodel'], function(newValue, oldValue){
+			$scope.$watchGroup(['property', 'metamodel'], function(newValue){
 				if((newValue[0] && newValue[1]) || (newValue[0] === undefined && newValue[1] && newValue[1].uiInput)){
 					$scope.load();
 				}
@@ -442,21 +448,21 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 		            if (expression.operator === 'AND') {
 		                angular.forEach(expression.conditions, function(val) {
 		                    if (response) {
-		                        response = response && _evaluateExpression(val, $scope, entity);
+		                        response = response && _evaluateExpression(val, $scope, resource);
 		                    }
 		                });
 		            } else if (expression.operator === 'OR') {
 		                response = false;
 		                angular.forEach(expression.conditions, function(val) {
 		                    if (!response) {
-		                        response = response || _evaluateExpression(val, $scope, entity);
+		                        response = response || _evaluateExpression(val, $scope, resource);
 		                    }
 		                });
 		            }
 		        } else //Base case
 		        {
 		        	if (expression.existsInEntity){
-		        		response = resource && resource[expression.field] && resource[expression.field].value != null;
+		        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
 		        	}else{
 		        		var field; 
 		        		if (resource && resource[expression.field]) {
@@ -473,7 +479,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 		    }
 		},
 		link: function($scope, element){
-			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue, oldValue){
+			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){
 				if(newValue){
 
 					if(!$templateCache.get(newValue)){
@@ -488,7 +494,7 @@ angular.module('app').directive('inputRender', function($compile, $http, $rootSc
 							unwatch();
 						});
 					} else {
-						if($templateCache.get(newValue) == 'Pending'){
+						if($templateCache.get(newValue) === 'Pending'){
 							$rootScope.$on(newValue, function(event){
 								element.html($templateCache.get(event.name));
 								$compile(element.contents())($scope);

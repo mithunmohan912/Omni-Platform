@@ -1,4 +1,10 @@
-angular.module('app').directive('capitalize', function() {
+'use strict';
+
+/*
+global app
+*/
+
+app.directive('capitalize', function() {
    return {
      require: 'ngModel',
      link: function(scope, element, attrs, modelCtrl) {
@@ -13,7 +19,7 @@ angular.module('app').directive('capitalize', function() {
             }         
             return capitalized;
          };
-         if(attrs.capitalize === "true"){
+         if(attrs.capitalize === 'true'){
            modelCtrl.$parsers.push(capitalize);
            capitalize(scope[attrs.ngModel]);  // capitalize initial value
          }

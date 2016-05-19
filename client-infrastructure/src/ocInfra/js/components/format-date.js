@@ -1,4 +1,10 @@
-angular.module('app').directive('formatDate', function($filter) {
+'use strict';
+
+/*
+global app
+*/
+
+app.directive('formatDate', function($filter) {
     return {
         require: 'ngModel',
         link: function(scope, elem, attr, modelController) {

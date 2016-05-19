@@ -1,10 +1,15 @@
+'use strict';
 
-angular.module('omnichannel').directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector){
+/*
+global app
+*/
+
+app.directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector){
 
 return {
 		restrict: 'E',
 		scope: {
-			uiId: "@",
+			uiId: '@',
 			metamodel: '=',
 			resourceUrl: '=',
 			factoryName: '='
@@ -50,13 +55,13 @@ return {
 				}
 			});
 	*/
-			$scope.$watch('resourceUrl', function(newValue, oldValue){
+			$scope.$watch('resourceUrl', function(newValue){
 				$scope.resourceUrl = newValue;
 				_getTitle();
 
 			});
 
-			$scope.$watchCollection('resultSet', function(newValue, oldValue){
+			$scope.$watchCollection('resultSet', function(newValue){
 				//This should always get the data from ResourceDirectory and not calling the API
 					if(newValue[$scope.resourceUrl] && newValue[$scope.resourceUrl].properties){
 						var typeValue = newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type] ? newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type].value : '';
@@ -70,16 +75,16 @@ return {
 
 			function _defaultSave(){
 				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl });
-			};
+			}
 
 			function _defaultClose() {
-			};
+			}
 
 			function _defaultReset() {
 				if ($scope.metamodelObject.actions.reset.links){
 					$scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links });
 				}
-			};
+			}
 			
 			function _init(metamodelObject){
 				$scope.metamodelObject = metamodelObject;
@@ -108,7 +113,7 @@ return {
 					$scope.popup.labels.reset = $scope.metamodelObject.labels.reset || $scope.popup.labels.reset;
 				}
 
-			};
+			}
 
 			function _initActions(){
 
@@ -129,7 +134,7 @@ return {
 				if ($scope.metamodelObject.type && $scope.resourceUrl){
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 				}		
-			};
+			}
 
 			$scope.execute = function(action) {
 				if($scope.actionFactory[action]){

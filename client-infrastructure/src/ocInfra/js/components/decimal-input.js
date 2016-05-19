@@ -1,3 +1,9 @@
+'use strict';
+
+/*
+global app
+*/
+
 app.directive('decimalInput', function(){
     // Regex to match numbers (positive/negative) with dots and commas
     var regex_valid_chars = /^\$?-?\d+([\.\,]{0,1}\d*){0,1}$/;

@@ -273,7 +273,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						}
 
-						payloads.forEach(function(url){
+						Object.keys(payloads).forEach(function(url){
 							resourceFactory.get(url).then(function(resourceToPatch) {
 								var payloadToPatch = payloads[url];
 								for(var property in resourceToPatch){
