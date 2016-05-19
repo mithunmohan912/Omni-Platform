@@ -425,6 +425,7 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                     var applName = regionToSORMap[regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
+                    $rootScope.resourceHref = newURL;
                 }
 
                 console.log('OPTIONS CALL ON : '+newURL);
@@ -593,9 +594,19 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
-        resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
+         dataFactory.patch(url,params,$rootScope.headers).success(function(data){
+        if (data) { 
+        if(data.outcome === 'success'){
+                angular.forEach(data.messages, function(value){
+                    growl.success(value.message);
+                });
+            }else{
+                angular.forEach(data.messages, function(value){
+                    growl.error(value.message);
+                });
+            }  
             $rootScope.loader.loading=false;
-            if (data) {
+       
                 if(resolve) {
                     resolve();
                 }

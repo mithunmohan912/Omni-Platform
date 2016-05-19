@@ -1,0 +1,362 @@
+{
+    "metadata": {
+        "formid": "generalInfo",
+        "title": "",
+        "name": "generalInfo",
+        "sections": [
+            {
+                "name": "General Information/Location Information",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "QuoteSyncRs-persPolicy-policyNumber",
+                        "type": "text",
+                        "label": "_QUOTENUMBER",
+                        "visible": true,
+                         "required": "required",
+                        "columnsize": 3,
+                        "disabled":"true"
+                    },
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-dwellRating-terrCd",
+                        "type": "text",
+                        "label": "_TERR_CODE_DESC",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                  
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-fireProtClass",
+                        "type": "usselect",
+                        "label": "_PROTECTION_CLASS",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "value": "01",
+                                    "description": "01"
+                                },
+                                {
+                                    "value":  "02",
+                                    "description":  "02"
+                                },
+                                {
+                                    "value": "03",
+                                    "description": "03"
+                                },
+                                {
+                                    "value":  "04",
+                                    "description":  "04"
+                                },
+                                {
+                                    "value":  "05",
+                                     "description":  "05"
+                                },
+                                {
+                                    "value":  "06",
+                                    "description":  "06"
+                                },
+                                {
+                                    "value":  "07",
+                                    "description":  "07"
+                                }
+                            ]
+                    },
+                   
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-distHyd-unitmeas",
+                         "type": "text",
+                        "label": "_DISTANCE_FIRE_STATION",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-distHyd-numUnt",
+                        "type": "usselect",
+                        "label": "_DISTANCE_FIRE_HYDRANT",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                     "key":"0",
+                                    "value": "0",
+                                    "description": "_NOT_APPLICABLE"
+                                },
+                                {
+                                     "key":"1",
+                                    "value":  "1",
+                                    "description":  "_LT_500_FT"
+                                },
+                                {
+                                     "key":"2",
+                                    "value":  "2",
+                                    "description":  "_LT_1000_FT"
+                                },
+                                {
+                                     "key":"3",
+                                    "value":  "3",
+                                     "description":  "_UNDER_1000FT_LT_5_MILES"
+                                }
+                            ]
+                    },
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-const-yrBuilt",
+                        "type": "text",
+                        "label": "_CONSTRUCTION_YEAR",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                     
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-const-constCd",
+                        "type": "usselect",
+                        "label": "_CONSTRUCTION",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"F",
+                                    "value":  "F",
+                                    "description":  "_FRAME"
+                                },
+                                {
+                                    "key":"M",
+                                    "value": "M",
+                                    "description": "_MANSORY"
+                                },
+                                {
+                                    "key":"S",
+                                    "value":  "S",
+                                    "description":  "_SUPERIOR_CONST"
+                                }
+                            ]
+                    },
+                    {
+                        "name": "dwellingType",
+                        "type": "usselect",
+                        "label": "_DWELLING_TYPE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                               {
+                                    "key":"7",
+                                    "value": "7",
+                                    "description": "_SINGLE_FAMILY"
+                                },
+                                {
+                                    "key":"1",
+                                    "value":"1",
+                                    "description":"_APPARTMENT"
+                                },
+                                {
+                                    "key":"2",
+                                    "value":  "2",
+                                    "description":  "_CO_OP"
+                                },
+                                {
+                                    "key":"3",
+                                    "value":  "3",
+                                     "description":  "_CONDIMINIUM"
+                                },
+                                {
+                                    "key":"4",
+                                    "value":  "4",
+                                    "description":  "_DUPLEX"
+                                },
+                                {
+                                    "key":"5",
+                                    "value":  "5",
+                                    "description":  "_OTHERS"
+                                },
+                                {
+                                    "key":"6",
+                                    "value":  "6",
+                                    "description":  "_ROW_HOUSE"
+                                }
+                            ]
+                    },
+                   
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-dwellOcc-occType",
+                        "type": "usselect",
+                        "label": "_RESIDENT_TYPE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"O",
+                                    "value":  "O",
+                                    "description":  "_OWN_PRIMARY"
+                                },
+                                {
+                                    "key":"S",
+                                    "value":  "S",
+                                    "description":  "_OWNER_SEASONAL"
+                                },
+                                {
+                                    "key":"T",
+                                    "value":  "T",
+                                    "description":  "_TENANT_PRIMARY"
+                                },
+                                {
+                                    "key":"X",
+                                    "value":  "X",
+                                    "description":  "_SECONDARY_SEASONAL"
+                                },
+                                {
+                                    "key":"N",
+                                    "value":  "N",
+                                    "description":  "_SECONDARY_NONSEASONAL"
+                                }
+                            ]
+                    },
+                     {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-dwellInspectVal-numFam",
+                        "type": "text",
+                        "label": "_NBR_FAMILIES",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                        
+                    {
+                        "name": "QuoteSyncRs-insured|1-party-addr-country",
+                        "type": "usselect",
+                        "label": "_COUNTY",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"USA",
+                                    "value": "USA",
+                                     "description": "_CAMDEN"
+                                },
+                                {
+                                    "key":"USA",
+                                    "value":  "001",
+                                    "description":  "_COLUMBIA_METRO"
+                                },
+                                {
+                                    "key":"USA",
+                                    "value": "002",
+                                    "description": "_UNGRADED"
+                                },
+                                {
+                                    "key":"USA",
+                                    "value":  "003",
+                                    "description":  "_ABBEVILLE"
+                                }
+                            ]
+                    },
+                     {
+                        "name": "Inside City",
+                        "type": "litcheckbox1",
+                        "label": "_INSIDE_CITY",
+                        "visible": true,
+                         "columnsize": 3
+                    },
+                    {
+                        "name": "respondingfiredepartment",
+                        "type": "usselect",
+                        "label": "_RESPOND_FIRE_DEPT",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"CAMDEN FD",
+                                    "value": "CAMDEN FD",
+                                    "description": "_CAMDEN_FD"
+                                },
+                                {
+                                   "key":"Metro FD",
+                                    "value": "Metro FD" ,
+                                    "description": "_COLUMBIA_METRO" 
+                                }
+                            ]
+                    },
+                    
+                   
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgEffGrdType",
+                        "type": "usselect",
+                        "label": "_BUSINESS_CODE_EFF_CODE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                {
+                                    "key":"NG",
+                                    "value":"NG",
+                                    "description":"_UNGRADED"
+                                },
+                                {
+                                    "key":"NA",
+                                    "value": "NA",
+                                    "description": "_ABBEVILLE"
+
+                                },
+                                {
+                                    "key":"NP",
+                                    "value":  "NP",
+                                    "description":  "_NON_PARTICIPANT"
+                                }
+                            ]
+                    },
+                     
+
+                    {
+                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgCdEffGrdCd",
+                        "type": "text",
+                        "label": "_BCEG_CERT_YEAR",
+                        "visible": true,
+                        "columnsize": 3
+                    }
+                  
+                    
+                ]
+
+
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+        
+            }
+        ] 
+    }
+}

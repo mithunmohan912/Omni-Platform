@@ -1,44 +1,51 @@
 <div class="renderer">
-	<div ng-repeat="section in metamodelObject.sections track by $index" ng-class="section.colspan ? 'col-sm-{{section.colspan}}': 'col-sm-12'">	
-		<div>
-			<h4 class="color-primary" ng-if="section.title">{{section.title | translate}}</h4>
-			<span class="underline" ng-if="section.underline">
-				<hr/><hr/>
-			</span>
+	<div ng-repeat="section in metamodelObject.sections track by $index" class="section" ng-class="section.colspan ? 'col-sm-{{section.colspan}}': 'col-sm-12'" ng-switch on="section.type">	
+		<div ng-switch-when="reference" class="linkedRenderer">
+			<renderer metamodel="section.$ref"></renderer>
 		</div>
-		<form>
-			
-				<div ng-repeat="column in section.properties track by $index" class="oc-column col-sm-{{12/row.length}} col-md-{{12/row.length}} col-lg-{{12/row.length}}">
-					<div ng-if="column" ng-switch on="column.type">
-				      	<div ng-switch-when="table" class="table-responsive">
-							<table-render ng-if="resourcesToBind[column.id]" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel"></table-render>
-						</div>
-						<!--<div ng-switch-when="buttonGroup">
-							<div ng-repeat="button in column.buttons">
-								<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="doAction(button.action)">{{ button.label | translate }}</button>
-								<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="doAction(button.action)"></i>
+		<div ng-switch-default>
+			<div>
+				<h4 class="color-primary" ng-if="section.title">{{section.title | translate}}</h4>
+				<span class="underline" ng-if="section.underline">
+					<hr/>
+				</span>
+			</div>
+			<form>
+				<div ng-repeat="row in section.rows" class="row">
+					<div ng-repeat="column in row track by $index" class="oc-column col-sm-{{column.colspan}}">
+						<div ng-if="column" ng-switch on="column.type">
+					      	<div ng-switch-when="table" class="table-responsive">
+								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
-						</div>
-						<div ng-switch-when="_blank">
-						</div>
-						<div ng-switch-when="subtitle">
-							<h5 class="color-primary">{{column.label | translate}}</h5>
-						</div>
-						<div ng-switch-when="renderer">
-							<div ng-repeat="item in entityToBind[column.id].parent[column.id].items">
-								<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
-								<renderer entity="item.entity" metadata="column.metadata" ready="true"><renderer/>
+							<div ng-switch-when="buttonGroup">
+								<div ng-repeat="button in column.buttons">
+									<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="execute(button.action)">{{ button.label | translate }}</button>
+									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></i>
+								</div>
 							</div>
-						</div>
-						<div ng-switch-when="custom">
-							<div ng-include="column.templateUrl"></div>
-						</div>	-->
-						<div ng-switch-default>
-							<div ng-if="resourcesToBind.properties[column.id]">{{ resourcesToBind.properties[column.id].value }}</div>
+							<!-- <div ng-switch-when="_blank">
+							</div>
+							<div ng-switch-when="subtitle">
+								<h5 class="color-primary">{{column.label | translate}}</h5>
+							</div>
+							<div ng-switch-when="renderer">
+								<div ng-repeat="item in entityToBind[column.id].parent[column.id].items">
+									<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
+									<renderer entity="item.entity" metadata="column.metadata" ready="true"><renderer/>
+								</div>
+							</div>
+							<div ng-switch-when="custom">
+								<div ng-include="column.templateUrl"></div>
+							</div>	-->
+							<div ng-switch-default>
+								<div ng-repeat="id in column.id">
+									<input-render ng-if="(resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column)" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties"></input-render>
+								</div>	
+							</div>
 						</div>
 					</div>
 				</div>
-			
-		</form>
+			</form>
+		</div>
 	</div>
 </div>

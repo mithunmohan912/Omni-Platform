@@ -18,8 +18,8 @@
     </div>
     <div class="col-md-{{field.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
         <div class="btn-group">
-            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="false" uncheckable>NO</label>
-            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name)" ng-model="data[field.name]" btn-radio="true" uncheckable>YES</label>
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" btn-radio="false" uncheckable>NO</label>
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" btn-radio="true" uncheckable>YES</label>
         </div>
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox" style="text-align:left">
@@ -200,7 +200,7 @@
                     <!-- <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name);getListData(data[subfield.name],subfield.name)">
                         
                     </select> -->
-                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in subfield.enumdata " ng-change="validateEachSection(subfield.name)">
+                    <select id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" ng-init="data[subfield.name]=subfield.default" class="form-control input-md" ng-required="{{subfield.required == 'required'}}" ng-options="enum for enum in getEnums(subfield)" ng-change="validateEachSection(subfield.name)">
             
         </select>
 

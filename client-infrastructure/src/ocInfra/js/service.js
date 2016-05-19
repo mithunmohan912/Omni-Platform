@@ -85,6 +85,8 @@ app.service('EnumerationService', function($rootScope, resourceFactory){
                     });
                 });
             }
+        } else if($rootScope.resourceHref !== undefined){
+            self.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'search');
         }
     };
 

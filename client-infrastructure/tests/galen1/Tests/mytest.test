@@ -18,11 +18,11 @@
 
 Landing Page on ${deviceName} in browser ${browser} with ${url}
     selenium ${browser} ${url} ${size}
-        wait 10s
-    	check Specs/FirstPage.gspec --include "${tags}"
-    	run Pages/FirstPage.js
+        wait 20s
+    	check tests/galen1/Specs/FirstPage.gspec --include "${tags}"
+    	run tests/galen1/Pages/FirstPage.js
     	wait 10s
-    	check Specs/LoginPage.gspec --include "${tags}"
-        run Pages/LoginPage.js
+    	check tests/galen1/Specs/LoginPage.gspec --include "${tags}"
+        run tests/galen1/Pages/LoginPage.js
         wait 5s
-        check Specs/LoginPage.gspec --include "${tags}"
+        

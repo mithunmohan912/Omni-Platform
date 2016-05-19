@@ -7,7 +7,6 @@
     english             xpath    //*[@id="bs-example-navbar-collapse-1"]/ul/li[2]/a
     french              xpath    //*[@id="bs-example-navbar-collapse-1"]/ul/li[2]/a
 
-    userId              xpath    //*[@id="bs-example-navbar-collapse-1"]/ul/li[4]/span
     logout              xpath    //*[@id="bs-example-navbar-collapse-1"]/ul/li[5]/a
 
     homebutton          xpath    //*[@id="mainMenu"]/li[1]/a[1]
@@ -15,7 +14,7 @@
 
 
 @groups
-    headerelements logo,spanish,english,french,userId,logout,homebutton,quotebutton
+    headerelements logo,spanish,english,french,logout,homebutton,quotebutton
 
 = Skeleton =
     &headerelements:
@@ -37,12 +36,9 @@
         	aligned horizontally all spanish
 
         french:
-        	left-of userId
-        	
-       	userId:
-       		left-of logout
+        	left-of logout
 
-       	homebutton:
+        homebutton:
        		left-of quotebutton
        		aligned horizontally all quotebutton
 
