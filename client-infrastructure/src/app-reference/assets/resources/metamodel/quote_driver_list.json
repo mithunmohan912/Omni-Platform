@@ -1,59 +1,64 @@
 {
     "metamodel": {
-        "title": "Risk List",
-        "name": "quote_risk_list",
-        "modalRef": "quote_risk",
-        "buttonLabel": "_ADD_TRAILER",
+        "title": "Driver List",
+        "name": "quote_driver_list",
+        "buttonLabel": "_ADD_DRIVER",
+        "modalRef": "quote_driver",
+        "header": "hide",
 
         "properties": [
             {
+                "label": "",
                 "type": "status",
                 "align": "center",
                 "width": "5%"
             },
             {
-                "id": "quote_risk:risk_type",
-                "label_header": "_ROLE",
-                "type": "label",
+                "id": "_DRIVER",
+                "label": "_ROLE",
+                "type": "literal",
                 "align": "left",
                 "width": "10%"
             },
             {
-                "id": ["quote_automobile:make","quote_trailer:make"],
-                "label_header": "_MAKE",
+                "id": ["quote_driver:first_name","quote_driver:name"],
+                "label": "_NAME",
                 "type": "multilabel",
                 "align": "left",
                 "width": "25%"
             },
             {
-                "id": "quote_automobile:model",
-                "label_header": "_MODEL",
-                "type": "label",
+                "id": "quote_driver:birth_date",
+                "label": "_DOB",
+                "type": "date",
+                "format": "dd-MMM-yyyy",
                 "align": "center",
                 "width": "15%"
             },
             {
-                "id": "quote_automobile:power",
-                "label_header": "_KW",
-                "type": "label",
+                "id": "quote_driver:license_date",
+                "label": "_LICENSE_DATE",
+                "type": "date",
+                "format": "dd-MMM-yyyy",
                 "align": "center",
                 "width": "15%"
             },
             {
-                "id": "quote_automobile:registration_number",
-                "label_header": "_LICENSE_PLATE",
+                "id": "quote_driver:postal_code",
+                "label": "_POSTALCODE",
                 "type": "label",
                 "align": "right",
                 "width": "10%"
             },
             {
-                "id": ["quote_automobile:serial_number","quote_trailer:weight"],
-                "label_header": "_CHASSIS_NR",
-                "type": "multilabel",
+                "id": "quote_driver:is_quote_owner",
+                "label": "_SAME_AS_POLICY_HOLDER",
+                "type": "checkbox",
                 "align": "center",
                 "width": "10%"
             },
             {
+                "label": "",
                 "type": "actions",
                 "align": "center",
                 "width": "10%",
