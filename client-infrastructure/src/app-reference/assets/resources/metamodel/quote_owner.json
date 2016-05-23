@@ -22,10 +22,14 @@
                     "row": 1
                 },
                 {
-                    "id": ["person:last_name","quote_owner:name"],
+                    "id": ["person:last_name","organization:name", "quote_owner:name"],
                     "label": "_LAST_NAME",
                     "type": "autocomplete",
-                    "row": 2
+                    "row": 2,
+                    "options":{
+                            "getData": "searchByName",
+                            "select": "selectPerson"
+                        } 
                 },
                 {
                     "id": ["person:name", "quote_owner:first_name"],
@@ -47,17 +51,19 @@
                     "id": ["postal_address:postal_code", "quote_owner:postal_code"],
                     "type": "autocomplete",
                     "label": "_POSTALCODE",
+                    "selector": "postal_address:preferred",
                     "attributes": {
                         "maxlength": 4
                     },
                     "patchOnBlur": true,
+                    "onUpdate": "callbackQuoteOwner",
                     "row": 4
                 },
                  {
                     "id": ["postal_address:street_name", "quote_owner:street_name"],
                     "type": "autocomplete",
                     "label": "_STREET_NAME",
-                    "selector": "postal_address:preferred",
+                    "selector": ["postal_address:preferred", "operation_status"],
                     "row": 5
                 },
                   {
@@ -92,14 +98,14 @@
        }],
 
        "businessObject": {
-
             "quote_owner": [
                     "quote_owner:person_link",
                     "quote_owner:organization_link"
             ],
             "person": [
                     "person:postal_address_list",
-                    "person:e_mail_address_list"
+                    "person:e_mail_address_list",
+                    "cscaia:operations"
             ],
             "organization": [
                     "organization:postal_address_list",
@@ -112,6 +118,9 @@
 
             "reset": {
                 "links":["quote_owner:person_link", "quote_owner:organization_link"]
+            },
+            "ok": {
+                "callback": "callbackQuoteOwner"
             }
            
 
