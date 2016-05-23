@@ -5,7 +5,7 @@ module.exports = {
                     style: 'expanded'
                 },
                  files: {
-					'src/ocInfra/css/mystyle.css': 'src/ocInfra/assets/saas/mystyle.scss'
+					'src/ocInfra/css/omniColor.css': 'src/ocInfra/assets/sass/omniColors.scss'
 				}
             },
             dist: {
@@ -13,7 +13,7 @@ module.exports = {
                     style: 'compressed'
                 },
                files: {
-					'mystyle.css': 'mystyle.scss'
+					'omniColor.css': 'omniColor.scss'
 				}
             }
    

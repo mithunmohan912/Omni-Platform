@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('startServer', [ 'connect:dev', 'watch' ]);
 
-    grunt.registerTask('buildcss', [ 'sass:dist' ]);
+    grunt.registerTask('buildcss', [ 'sass:dev' ]);
 
 	grunt.registerTask('inject', ['injector','replace']);
 
