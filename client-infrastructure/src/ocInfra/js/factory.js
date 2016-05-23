@@ -198,20 +198,20 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
 
             // Process status of the properties (based on status_report coming from backend)
-            for(var i = 0; i < responseData._embedded.length; i++) {
-                if(responseData._embedded[i].rel.indexOf('status_report') >= 0){
-                    for(var j = 0; j < responseData._embedded[i].data.messages.length; j++){
-                        var item = responseData._embedded[i].data.messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
+            for(var rel in responseData._embedded) {
+                if(rel.indexOf('status_report') >= 0){
+                    if (responseData._embedded[rel].messages) {
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
                             }
                         }
                     }
-
-                    break;
                 }
             }
         }
