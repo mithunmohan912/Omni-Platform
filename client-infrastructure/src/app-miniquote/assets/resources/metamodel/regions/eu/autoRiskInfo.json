@@ -12,8 +12,10 @@
                 "elements":   [
                     {
                         "name": "quote_automobile:make",
-                        "type": "autocomplete",
+                        "type": "thtext",
+                        "typeaheadField": "referential_vehicle:make",
                         "label": "_MAKE",
+                        "typeahead": "true",
                         "typewait": 1500,
                         "columnsize": 3,
                         "maxlength": 10,
@@ -40,7 +42,7 @@
                     },
                     {
                         "name": "quote_automobile:ext_model",
-                        "type": "text",
+                        "type": "thtext",
                         "label": "_EXT_MODEL",
                         "columnsize": 3,
                         "patchOnBlur": true,
