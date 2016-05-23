@@ -1,0 +1,32 @@
+<span class="form-group has-feedback" 
+	  ng-show="field.isVisible()">
+
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	
+	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')" class="col-xs-12">
+
+		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
+		<input 	type="number"
+				class="form-control"
+				autocomplete="off"
+				id="{{field.id}}"
+				name="{{field.name}}"
+				placeholder="{{field.placeholder | translate}}"
+
+				ng-model="field.property.value"
+				ng-required="field.property.required"
+				ng-disabled="!field.property.editable"
+				ng-change="field.onChange()"
+				ng-blur="field.onBlur()"
+
+				decimal
+				decimal-precision="field.attributes.decimalprecision"
+				decimal-min="field.attributes.minimum"
+				decimal-max="field.attributes.maximum" /> 
+		
+		<i class="form-control-feedback fa fa-lg fa-percent"></i>
+		
+		<div ng-include="'src/ocInfra/templates/components/backend-error-display.html'"></div>
+    </span>
+
+</span>

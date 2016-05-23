@@ -282,7 +282,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         loadRelationshipByStep($scope.preStep);
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
-        if($rootScope.currRel !== undefined && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
+        if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
             $scope.loadDataByTab($rootScope.currRel);
         } else if($rootScope.resourceHref !== undefined) {
             var params = {};
