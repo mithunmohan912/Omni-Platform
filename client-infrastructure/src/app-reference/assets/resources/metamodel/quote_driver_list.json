@@ -1,0 +1,80 @@
+{
+    "metamodel": {
+        "title": "Driver List",
+        "name": "quote_driver_list",
+        "buttonLabel": "_ADD_DRIVER",
+        "modalRef": "quote_driver",
+        "header": "hide",
+
+        "properties": [
+            {
+                "label": "",
+                "type": "status",
+                "align": "center",
+                "width": "5%"
+            },
+            {
+                "id": "_DRIVER",
+                "label": "_ROLE",
+                "type": "literal",
+                "align": "left",
+                "width": "10%"
+            },
+            {
+                "id": ["quote_driver:first_name","quote_driver:name"],
+                "label": "_NAME",
+                "type": "multilabel",
+                "align": "left",
+                "width": "25%"
+            },
+            {
+                "id": "quote_driver:birth_date",
+                "label": "_DOB",
+                "type": "date",
+                "format": "dd-MMM-yyyy",
+                "align": "center",
+                "width": "15%"
+            },
+            {
+                "id": "quote_driver:license_date",
+                "label": "_LICENSE_DATE",
+                "type": "date",
+                "format": "dd-MMM-yyyy",
+                "align": "center",
+                "width": "15%"
+            },
+            {
+                "id": "quote_driver:postal_code",
+                "label": "_POSTALCODE",
+                "type": "label",
+                "align": "right",
+                "width": "10%"
+            },
+            {
+                "id": "quote_driver:is_quote_owner",
+                "label": "_SAME_AS_POLICY_HOLDER",
+                "type": "checkbox",
+                "align": "center",
+                "width": "10%"
+            },
+            {
+                "label": "",
+                "type": "actions",
+                "align": "center",
+                "width": "10%",
+                "options": [
+                    {
+                        "value": "edit",
+                        "title": "_EDIT",
+                        "icon": "fa fa-edit"
+                    },
+                    {
+                        "value": "delete",
+                        "title": "_DELETE",
+                        "icon": "fa fa-trash-o"
+                    }
+                ]
+            }
+        ]
+    }
+}

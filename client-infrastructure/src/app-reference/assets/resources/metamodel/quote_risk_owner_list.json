@@ -1,0 +1,77 @@
+{
+    "metamodel": {
+        "title": "Risk Owner List",
+        "name": "quote_risk_owner_list",
+        "modalRef": "quote_risk_owner",
+        "header": "hide",
+        
+        "properties": [
+            {
+                "label": "",
+                "type": "status",
+                "align": "center",
+                "width": "5%"
+            },
+            {
+                "id": "_RISK_OWNER",
+                "label": "_ROLE",
+                "type": "literal",
+                "align": "left",
+                "width": "10%"
+            },
+            {
+                "id": ["quote_risk_owner:first_name","quote_risk_owner:name"],
+                "label": "_NAME",
+                "type": "multilabel",
+                "align": "left",
+                "width": "25%"
+            },
+            {
+                "id": "quote_risk_owner:birth_date",
+                "label": "_DOB",
+                "type": "date",
+                "format": "dd-MMM-yyyy",
+                "align": "center",
+                "width": "15%"
+            },
+            {
+                "label": "_LICENSE_DATE",
+                "type": "blank",
+                "align": "center",
+                "width": "15%"
+            },
+            {
+                "id": "quote_risk_owner:postal_code",
+                "label": "_POSTALCODE",
+                "type": "label",
+                "align": "right",
+                "width": "10%"
+            },
+            {
+                "id": "quote_risk_owner:is_quote_owner",
+                "label": "_SAME_AS_POLICY_HOLDER",
+                "type": "checkbox",
+                "align": "center",
+                "width": "10%"
+            },
+            {
+                "label": "",
+                "type": "actions",
+                "align": "center",
+                "width": "10%",
+                "options": [
+                    {
+                        "value": "edit",
+                        "title": "_EDIT",
+                        "icon": "fa fa-edit"
+                    },
+                    {
+                        "value": "delete",
+                        "title": "_DELETE",
+                        "icon": "fa fa-trash-o"
+                    }
+                ]
+            }
+        ]
+    }
+}

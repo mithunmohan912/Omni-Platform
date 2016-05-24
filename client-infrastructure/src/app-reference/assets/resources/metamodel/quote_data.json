@@ -1,0 +1,67 @@
+{
+    "metamodel": {
+        "sections": [
+            {
+                "title":"Quote Data",
+                "underline": true,
+                "properties": [
+                    {
+                        "id": "quote:product_id",
+                        "label": "_PRODUCT_TYPE",
+                        "type": "text",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:description",
+                        "label": "_DESCRIPTION",
+                        "type": "textarea",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:distributor_id",
+                        "label": "_DISTRIBUTOR_ID",
+                        "type": "text",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote:language",
+                        "label": "_LANGUAGE",
+                        "type": "select",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote:contract_start_date",
+                        "label": "_START_DATE",
+                        "type": "date",
+                        "row": 4,
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote:status",
+                        "label": "_STATUS",
+                        "type": "text",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote:identifier",
+                        "label": "_IDENTIFIER",
+                        "type": "text",
+                        "row": 3
+                    },
+                    {
+                        "id": "quote:type",
+                        "label": "_TYPE",
+                        "type": "select",
+                        "row": 3,
+                        "visibleWhen": {
+                            "expression": {
+                                "field": "showMinimalInformation",
+                                "value": false
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

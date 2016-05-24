@@ -1,0 +1,38 @@
+{
+    "metamodel": {
+        "labels": {
+            "title": "_RISK_POPUP"
+        },
+        "type" : "quote_risk:risk_type",
+        "sections": [
+            {
+                "title": "Risk Info",
+                "properties": [
+                    {
+                        "id": ["quote_automobile:make", "quote_trailer:make"],
+                        "label": "_MAKE",
+                        "type": "autocomplete",
+                        "attributes": {
+                            "maxlength": 40,
+                            "capitalize": true
+                        },
+                        "row": 1
+                    },
+                    {
+                        "id": ["quote_automobile:usage", "quote_trailer:usage"],
+                        "type": "select",
+                        "label": "_USAGE",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote_trailer:weight",
+                        "type": "decimal",
+                        "label": "_TRAILER_TONNAGE",
+                        "row": 2
+                    }
+
+                ]
+            }
+        ]
+    }
+}

@@ -1,11 +1,18 @@
-<div class="tabbable boxed parentTabs" ng-if="metadata[screenId].category=='tabs'">
-	<h3 class="sectionlabel" id="label_{{metadata[screenId].name}}" ng-if="metadata[screenId].hidetitle !== true">{{locale[metadata[screenId].title]}}</h3>
+<div class="tabbable boxed parentTabs" ng-if="metamodel[screenId].category=='tabs'">
+
+	<h3 class="sectionlabel" id="label_{{metamodel[screenId].name}}" ng-if="metamodel[screenId].hidetitle !== true">
+    <span class="flaticon-hexagon"></span>
+    <span class="{{metamodel[screenId].icon}} icon-color"></span>
+    <span class="tabTitle">{{locale[metamodel[screenId].title]}}</span>
+  </h3>
     <div class="hr_margin">
-        <hr class="onl_hrOr_1" ng-if="metadata[screenId].title && metadata[screenId].hidetitle !== true">
-        <hr class="onl_hrOr_2" ng-if="metadata[screenId].title && metadata[screenId].hidetitle !== true">
+        <hr class="onl_hrOr_1" ng-if="metamodel[screenId].title && metamodel[screenId].hidetitle !== true">
+        <hr class="onl_hrOr_2" ng-if="metamodel[screenId].title && metamodel[screenId].hidetitle !== true">
     </div> 
 	<ul class="nav nav-tabs">
-		<li ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metadata[screenId].sections" quick-repeat-list="field in metadata[screenId].sections" >
+		<li ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metamodel[screenId].sections" quick-repeat-list="field in metamodel[screenId].sections" >
+      <span class="tab-icon flaticon-incomplete"></span>
+      <span class="tab-icon flaticon-complete"></span>
 			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)">{{(locale[field.name]?locale[field.name] : field.name)}}</a>
 			<div ng-if="field.type=='tourstep'">
 			<div  class="col-md-{{field.columnsize}}" style="text-align: center;" >

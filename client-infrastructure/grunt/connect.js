@@ -9,7 +9,7 @@ module.exports = {
 				keepalive: false,
 				livereload: true,
 				open: {
-					target: 'http://localhost:8080/app-clientmanagement/#/'
+					target: 'http://localhost:8080/app-miniquote/#/'
 				}
 			},
 	}

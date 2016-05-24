@@ -1,21 +1,41 @@
 @CHARSET "ISO-8859-1";
 @import url('../assets/oc-fonts/Source_Sans_Pro/stylesheet.css');
+.tabTitle{
+    font-size: 21px;
+    vertical-align: text-top;
+    font-size: bold;
+    font-family: source_sans_prosemibold;
+    line-height: 14px;
+    margin-left: 12px;
+}
+.tab-icon{
+    padding: 0px;
+    position: absolute;
+    z-index: 999999;
+    right: 0px;
+    top: 0px;
+    line-height: 15px;
+}
+.tab-icon.flaticon-incomplete:before{font-size: 10px;color:#ef2525 ;}
+.tab-icon.flaticon-complete:before{font-size: 10px;color:#6dd515 ;}
 .nav-tabs {
     margin: 0;
     padding: 0;
     border: 0;    
 }
 .nav-tabs > li > a {
-    background: #FAFAFA;
+ background: #ececec;
     border-radius: 0;
-    color: #050d9e;
-    border-left: 1px solid #d7d7d7;
-    border-top: 1px solid #d7d7d7;
+    color: #999;
+    border-left: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
     margin: 0px;
-    margin-bottom: -2px;
+    margin-bottom: -3px;
     padding-right: 25px;
     padding-left: 25px;
     cursor: pointer;
+    font-weight: normal;
+    font-family: source_sans_prosemibold;
 }
 
 .nav-tabs > li.disabled > a,
@@ -23,22 +43,25 @@
     color: #d7d7d7;    
     cursor: default;
     background: #FAFAFA;
-    border-right: 1px solid #d7d7d7;
-    border-top: 1px solid #d7d7d7;
+    border-right: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
     border-bottom-color: transparent;
     border-left-color: transparent;
 }
 
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover {
-    background: #FAFAFA;
-    color: #050d9e;
+    background: #fff;
+    color: #0096bb;
     cursor: default;
-    background-color: #FAFAFA;
-    border: 1px solid #ddd;
+    background-color: #fff;
+    border: 1px solid #cccccc;
     border-bottom-color: transparent;
     font-size: 16px;
-    border-top: 2px solid #050d9e;
+    border-top: 2px solid #0096bb;
+    font-family: source_sans_prosemibold;
+    font-weight: normal;
+    border-right: none;
     
 }
 .checkComplete{
@@ -556,7 +579,7 @@ padding-bottom: 0;
 tfoot { display: block;}
 }
 
-#_ASIA_AUTO_QS ,#login,#starttour {width: 160px;margin-top: 10px}
+#_ASIA_AUTO_QS ,#login,#_HOME_QUOTE_US {width: 160px;margin-top: 10px}
 
 @media only screen and (min-width:411px) and (max-width: 731px)  {
  .oc-logo   {

@@ -1,0 +1,67 @@
+{
+    "metamodel": {
+        "formid": "additionalInfo",
+        "title": "",
+        "resourcelist": "", 
+        "name": "additionalInfo",
+        "sections": [
+            {
+                
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "quote_home:ext_above_ground_floor",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q1",
+                        "visible": true,
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:ext_resent_damage",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q2",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:ext_limited_cellar",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q3",
+                        "columnsize": 3
+                    },
+                    {
+                        "name": "quote_home:ext_limited_cellar_except_one",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q4",
+                        "columnsize": 3
+                    }
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "submit1",
+                        "type": "buttonSmall",
+                        "label": "_CALCULATEPREMIUM",
+                        "action":"update",
+                        "tab": ["quote:quote_risk_list", "cscaia:operations", "cscaia:execute"],
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ] 
+    }
+}

@@ -1,0 +1,108 @@
+{
+    "metamodel": {
+        "formid": "quotesearch",
+        "resourcelist": ["quotes"], 
+        "title": "_SAVED_ITEMS",
+        "name": "quote",
+        "workflowGrp": [{"nav":"false"}],
+        "mainTabs": "false",
+        "createButton": true,
+        "button":{
+            "icon" : "",
+            "method" :"", 
+            "action": "create",
+            "actionurl": "/asia/screen/quotescreate",
+            "name": "create",
+            "label": "_CREATE_QUOTE"
+        },
+        "sections": [
+            {
+                "title": "_AUTO_QUOTE_ASIA_SEARCH",
+                "name": "quote_search",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                            {
+                                "name": "quote-product-id",
+                                "type": "text",
+                                "label": "_PRODUCT_ID",
+                                "columnsize": 6
+                            },
+                            {
+                                "name": "quote-start-date",
+                                "type": "date",
+                                "label": "_Effective_Date",
+                                "visible": "true",
+                                "columnsize": 6
+                            }
+                            
+                            ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [
+                             {
+                                "name": "quote-owner-name",
+                                "type": "text",
+                                "label": "_RISK_HOLDER",
+                                "visible": "true",
+                                "columnsize": 6
+                            },
+                            {
+                                "name": "quote-identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "visible": "true",
+                                "columnsize": 6,
+                                "maxlength": 30
+                            }
+                        ]
+                    },
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 4,
+                        "type": "columngroup",
+                        "visible": "true",
+                        "elementgroup": [                        
+                             {
+                                "name": "quote-distributor-id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "visible": "true",
+                                "columnsize": 6
+                            }                        
+                        
+                        ]
+                    },
+                    {
+                        "name": "search",
+                        "type": "buttonSmall",
+                        "label": "_SEARCH",
+                        "action":"search",
+                        "visible": "true",
+                        "columnsize": "12"
+                    },
+                    {
+                        "name": "searchlist",
+                        "type": "table",
+                        "label": "",
+                        "isTab": "false",
+                        "visible": "true",
+                        "columnsize": 12
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -15,11 +15,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('startServer', [ 'connect:dev', 'watch' ]);
 
-    grunt.registerTask('buildcss', [ 'sass:dist' ]);
+    grunt.registerTask('buildcss', [ 'sass:dev' ]);
 
 	grunt.registerTask('inject', ['injector','replace']);
 
-	grunt.registerTask('dist', ['ngAnnotate','uglify','cssmin','copy']);
+	grunt.registerTask('dist', ['ngAnnotate','uglify','cssmin','ngtemplates','copy']);
 
 	grunt.registerTask('minifyJS', ['ngAnnotate','uglify']);
 
@@ -28,5 +28,10 @@ module.exports = function(grunt) {
 	grunt.registerTask('build4m', ['copy4m']);
 	
 	grunt.registerTask('buildMobilePkg', ['clean:mobile','copy:dist_mobile','replace:replace_mobile','replace:replace_mobile_appjs']);
+
+	grunt.registerTask('exportTemplates', [
+  		'ngtemplates'
+  	]);
+
 
 };
