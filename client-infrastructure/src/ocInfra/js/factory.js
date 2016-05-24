@@ -571,11 +571,22 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(data){
             if (data) {
-                if($rootScope.regionId === 'us'){
+                if($rootScope.regionId === 'us' && $scope.metamodel[$rootScope.screenId].resourcelist[0] !=='clients' ){
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
                      }
+                     else if($rootScope.regionId === 'us' && $scope.metamodel[$rootScope.screenId].resourcelist[0] ==='clients'){
+                                   if(data.outcome === 'success'){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value.message);
+                    });
+                }else{
+                    angular.forEach(data.messages, function(value){
+                        growl.error(value.message);
+                    });
+
+                }}
                      else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
