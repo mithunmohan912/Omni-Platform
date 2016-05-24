@@ -12,6 +12,7 @@ module.exports = {
     'src/app-kitchensink/app/{,*/}*.js',
     'src/app-miniquote/app/{,*/}*.js',
     'src/app-weather/app/{,*/}*.js',
+    'src/app-reference/app/{,*/}*.js',
     'src/ocInfra/js/{,*/}*.js',
     'grunt/*.js',
     'tests/unit/*.js',

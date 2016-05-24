@@ -1,0 +1,152 @@
+{
+    "metamodel": {
+        "sections": [
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "icon": "fa-save",
+                                "tooltip": "Save quote",
+                                "action": "saveQuote"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title":"Summary",
+                "underline": true,
+                "properties": []
+            },
+            {
+                "row":"1",
+                "colspan": 6,
+                "properties": [
+                    {
+                        "id": "quote:ext_group_contract_type",
+                        "label": "_GROUP_CONTRACT_TYPE",
+                        "type": "select",
+                        "updateMode": "change",
+                        "onUpdate": "patchProductComponent"
+                    },
+                    {
+                        "id": "quote:frequency",
+                        "label": "_FREQUENCY",
+                        "type": "select",
+                        "updateMode": "change",
+                        "onUpdate": "patchProductComponent"
+                    }
+                ]
+            },
+            {
+                "row":"1",
+                "colspan": 6,
+                "properties": [
+                    {
+                        "id": "quote:ext_cost_without_reduction",
+                        "label": "_ANNUAL_PREMIUM",
+                        "label-size": "lg",
+                        "type": "label",
+                        "icon": "eur",
+                        "class": "tbbgcolor1"
+                    },
+                    {
+                        "id": "quote:ext_group_contract_reduction",
+                        "label": "_GROUP_CONTRACT_REDUCTION",
+                        "label-size": "lg",
+                        "type": "label",
+                        "icon": "eur",
+                        "class": "tbbgcolor1"
+                    },
+                    {
+                        "id": "quote:annual_cost",
+                        "label": "_ANNUAL_COST",
+                        "label-size": "lg",
+                        "type": "label",
+                        "icon": "eur",
+                        "class": "tbbgcolor1"
+                    },
+                    {
+                        "id": "quote:period_cost",
+                        "label": "_PERIOD_COST",
+                        "label-size": "lg",
+                        "type": "label",
+                        "icon": "eur",
+                        "class": "tbbgcolor1"
+                    }
+                ]
+            },
+            {
+                "title":"Coverages",
+                "underline": true,
+                "properties": []
+            },
+            {
+                "properties": [
+                    {
+                        "type": "blank",
+                        "row": 1
+                    },
+                    {
+                        "id": "showDates",
+                        "label": "_SHOW_DATES",
+                        "type": "checkbox",
+                        "uiInput": true,
+                        "value": true,
+                        "row": 1
+                    },
+                    {
+                        "id": "showAdjustment",
+                        "label": "_SHOW_ADJUSTMENT",
+                        "type": "checkbox",
+                        "uiInput": true,
+                        "value": false,
+                        "row": 1
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "id": "quote:quote_risk_list",
+                        "type": "renderer",
+                        "metamodel": "quote_coverage_risk"
+                    }
+                ]
+            }
+
+        ],
+        "businessObject": {
+            "quote": [
+                "quote:quote_tariff_adjustment_list",
+                "quote:quote_risk_list"
+            ],
+            "quote_risk": [
+                "quote_risk:quote_product_component_list-direct"
+            ],
+            "quote_product_component": [
+                "quote_option:child_prdct_cmpnnt_list",
+                "quote_pack:child_prdct_cmpnnt_list"
+            ]
+        }
+    }
+    
+}
