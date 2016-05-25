@@ -87,7 +87,7 @@ app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
     //FIXME. remoce when having a login controller
     $cookieStore.put('userid', 'kkdrensk');
     sessionStorage.username = 'kkdrensk';
-    $rootScope.currRel = "undefined";
+    $rootScope.currRel = 'undefined';
 
 });
     

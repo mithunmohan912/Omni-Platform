@@ -4,7 +4,7 @@
 global app
 */
 
-app.factory('coverageFactory', function($rootScope, $location){
+app.factory('coverageFactory', function($rootScope, $location, resourceFactory){
 	return {
 		next: function(resource) {
 			resourceFactory.refresh(resource.href + '/operations/transferToOffer/status_report').then(function(response) {
