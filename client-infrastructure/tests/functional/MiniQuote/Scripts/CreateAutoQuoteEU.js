@@ -1,7 +1,7 @@
-//SearchHomeQuoteUS
+//TS001- CreateAutoQuoteEU
 
 
-var Application = require('./../Utility/miniFunctions.js');
+var Application = require('./../Utility/EU_Functions.js');
 var CSV_Processor = require('./../Utility/CSV_Processor.js');
 
 // Global Variables Start
@@ -18,15 +18,15 @@ var perfMetric;
 var headers;
 // Global Variables End 
 
-describe('SearchHomeQuoteUS', function() {
+describe('CreateAutoQuoteEU', function() {
 
   var application = new Application();
   var wait= application.wait;
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/HomeOwnerUS.csv','SearchHomeQuoteUS');
-    perfWritter.initialize('./../Perf/US/SearchHomeQuoteUS.csv','');
+    application.initTestData('./../DataRepo/AutoQuoteEU.csv','CreateVerifyAutoQuote_EU');
+    perfWritter.initialize('./../Perf/EU/CreateVerifyAutoQuote_EU.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
@@ -61,12 +61,12 @@ describe('SearchHomeQuoteUS', function() {
 
 
 
-  it("should Launch URL",function(){
+  it("EU Auto #should Launch URL",function(){
     currentSpec = "should Launch URL";   
     application.launchURL();
   });
 
-  it('click login button', function() {
+  it('EU Auto #click login button', function() {
     currentSpec = "should click on the login button";
     application.clickLoginButton();
   });
@@ -85,42 +85,54 @@ describe('SearchHomeQuoteUS', function() {
     currentSpec = "Click on Asia button from Quote link";
     application.navigateLink();
   });
+  it('Click on Create Button', function() {
+    currentSpec = "Click on Create Button";
+    application.clickCreateQuoteButton();
+  });
+
+  it('Fill Additional Info Details', function() {
+    currentSpec = "Fill Additional info details";
+    application.fillNewQuoteDetails_QuoteInfo_EU();
+  });
+
+  it('Fill Owner Info Details', function() {
+    currentSpec = "Fill owner info details";
+    application.fillNewQuoteDetails_OwnerInfo_EU();
+  });
+
+  it('Fill Risk Info Details', function() {
+    currentSpec = "Fill Risk info details";
+    application.fillNewQuoteDetails_RiskInfo_EU();
+  });
+
+  it('Click Calculate Premium Button', function() {
+    currentSpec = "Click Calculate Button";
+    application.clickCalculatePremiumButton();
+    browser.waitForAngular();
+  });
+
+  it('Capture QuoteNumber', function() {
+    currentSpec = "Capturing Quote Number";
+    browser.waitForAngular();
+    application.getNewQuoteNumber_Auto_EU();
+  });
+
+  it('Click on Auto Quote Asia button', function() {
+    currentSpec = "Click on Asia button from Quote link";
+    browser.waitForAngular();
+    application.navigateLink();
+  });
 
   it('Enter Search Details', function() {
-    currentSpec = "Entering search Details";
-    criteria = ['quoteNumber', 'symbol'];
+    currentSpec = "Entering quote number";
+    application.searchByQuoteId();
+  });
+
+  it('Verify the search result', function() {
+    currentSpec = "Verifying search result";
+    criteria = ['quoteNumber'];
     param = application.getParam(criteria);
-    application.commonSearch_US(param);
-  });
-
-  it('Click on Inquire button', function() {
-    currentSpec = "Clicking on Inquire Button";
-    application.ClickInquireButton();
-  });
-
-  it('Verify Policy Tab Details', function() {
-    currentSpec = "Verifying Policy Tab details";
-    application.verifyPolicyTabDetails_US();
-  });
-
-  it('Clicking on Location Tab', function(){
-    currentSpec = "Clicking on Location tab";
-    application.clickLocationTab_US();
-  });
-
-  it('Verifying Location Tab Details', function() {
-    currentSpec = "Verifying Location Tab details";
-    application.verifyLocationTabDetails_US();
-  });
-
-  it('Clicking on Coverage Tab', function(){
-    currentSpec = "Clicking on Coverage tab";
-    application.clickCoverageTab_US();
-  });
-
-  it('Verifying Coverage Tab Details', function() {
-    currentSpec = "Verifying Coverage Tab details";
-    application.verifyCoverageTabDetails_US();
+    application.verifySearchCriteria_AutoQuote_EU(param);
   });
 
   it('Clicking Logout', function() {
