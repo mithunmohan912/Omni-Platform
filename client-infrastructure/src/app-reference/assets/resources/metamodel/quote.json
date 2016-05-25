@@ -52,6 +52,21 @@
                 ]
             },
             {
+                "row": 2,
+                "colspan": 3,
+                "properties": [
+                    {
+                        "type": "popupGroup",
+                        "popup": {
+                            "name": "editQuoteData",
+                            "label": "_EDIT_QUOTE_DATA",
+                            "metamodel": "quote_data",
+                            "action": ""
+                        }
+                    }
+                ]
+            },
+            {
                 "$ref": "quote_data",
                 "type": "reference"
             },
@@ -220,7 +235,8 @@
             ],
             "person": [
                     "person:postal_address_list",
-                    "person:e_mail_address_list"
+                    "person:e_mail_address_list",
+                    "cscaia:operations"
             ],
             "organization": [
                     "organization:postal_address_list",

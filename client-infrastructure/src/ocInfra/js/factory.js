@@ -570,13 +570,17 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(data){
-            if (data) {
-                if($rootScope.regionId === 'us'){
+        if (data) {
+                if($rootScope.regionId === 'us' ){
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                     }
-                     else{
+                     } 
+                     if(data.outcome === 'success'){
+                            angular.forEach(data.messages, function(value){
+                            growl.success(value.message);
+                        });
+                     } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  
