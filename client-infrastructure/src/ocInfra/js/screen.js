@@ -206,7 +206,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
         if(action==='navigate'){
-	    var resourcelist=$rootScope.metamodel[screenId].resourcelist
+	        var resourcelist=$rootScope.metamodel[screenId].resourcelist;
             var url = $rootScope.HostURL + resourcelist;
             var regionToSORMap = $rootScope.regionToSoR;
             var applName = regionToSORMap[regionId];
