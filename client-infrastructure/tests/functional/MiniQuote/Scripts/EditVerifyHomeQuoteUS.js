@@ -1,4 +1,4 @@
-//TS002 - EditVerifyAsiaQuote
+//EditVerifyHomeQuoteUS
 
 
 var Application = require('./../Utility/miniFunctions.js');
@@ -18,15 +18,15 @@ var perfMetric;
 var headers;
 // Global Variables End 
 
-describe('EditVerifyAsiaQuote', function() {
+describe('EditVerifyHomeQuoteUS', function() {
 
   var application = new Application();
   var wait= application.wait;
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/AutoQuoteAsia.csv','EditVerifyAsiaQuote');
-    perfWritter.initialize('./../Perf/Asia/EditVerifyAsiaQuote.csv','');
+    application.initTestData('./../DataRepo/HomeOwnerUS.csv','EditVerifyHomeQuoteUS');
+    perfWritter.initialize('./../Perf/US/EditVerifyHomeQuoteUS.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
@@ -87,57 +87,32 @@ describe('EditVerifyAsiaQuote', function() {
   });
 
   it('Enter Search Details', function() {
-    currentSpec = "Entering quote number";
-    application.searchByQuoteId();
+    currentSpec = "Entering search Details";
+    criteria = ['quoteNumber', 'symbol'];
+    param = application.getParam(criteria);
+    application.commonSearch_US(param);
   });
 
   it('Verify the search result', function() {
     currentSpec = "Verifying search result";
     criteria = ['quoteNumber'];
     param = application.getParam(criteria);
-    application.verifySearchCriteria(param);
+    application.verifySearchCriteria_US(param);
   });
 
   it('Click on Edit button', function() {
     currentSpec = "Clicking on Edit Button";
-    application.clickEditButton();
+    application.clickEditButton_US();
   });
 
-  it('Editing Edit Quote Details', function() {
-    currentSpec = "Editing Edit Quote";
-    application.EditVerifyDetails_AsiaQuoteOwnerInfo('edit');
+  it('Editing General Info Details', function() {
+    currentSpec = "Editing general info";
+    application.EditVerifyDetails_HomeQuote_GeneralInfo_US('edit');
   });
 
-  it('Next Button to Risk', function() {
-    currentSpec = "Click on Next Button";
-    element.all(by.id('next1')).get(0).click();
-    //application.clickNextButton();
-  });
-
-  it('Editing Risk tab details', function() {
-    currentSpec = "Risk Info Details Editing";
-    application.EditVerifyDetails_AsiaQuoteRiskInfo('edit');
-  });
-
-  it('Clicking on Next to Additional Info', function() {
-    currentSpec = "Click Next Button";
-    element.all(by.id('next1')).get(2).click();
-    //application.clickNextButton();
-  });
-
-  it('Editing Additional Info Details', function() {
-    currentSpec = "Editing Additional Info";
-    application.EditVerifyDetails_AsiaQuoteAdditionalInfo('edit');
-  });
-
-  it('Click Calculate Premium Button', function() {
-    currentSpec = "Click Calculate Button";
-    application.clickCalculatePremiumButton();
-  });
-
-  it('Verifying Premium Info Details', function() {
-    currentSpec = "Verify Premium Info";
-    application.verifyQuoteNumber();
+  it('Editing Coverage details', function() {
+    currentSpec = "Coverage Info Details Editing";
+    application.EditVerifyDetails_HomeQuote_CoverageInfo_US('edit');
   });
 
   it('Click on Auto Quote Asia button', function() {
@@ -145,51 +120,26 @@ describe('EditVerifyAsiaQuote', function() {
     application.navigateLink();
   });
 
-  it('Enter Search Details', function() {
-    currentSpec = "Entering quote number";
-    application.searchByQuoteId();
+   it('Enter Search Details', function() {
+    currentSpec = "Entering search Details";
+    criteria = ['quoteNumber', 'symbol'];
+    param = application.getParam(criteria);
+    application.commonSearch_US(param);
   });
 
   it('Click on Edit button', function() {
     currentSpec = "Clicking on Edit Button";
-    application.clickEditButton();
+    application.clickEditButton_US();
   });
 
   it('Verifying Edit Quote Details', function() {
     currentSpec = "Verifying Edit Quote";
-    application.EditVerifyDetails_AsiaQuoteOwnerInfo('verify');
-  });
-
-  it('Next Button to Risk', function() {
-    currentSpec = "Click on Next Button";
-    element.all(by.id('next1')).get(0).click();
-    //application.clickNextButton();  //multiple next buttons exist on page
+    application.EditVerifyDetails_HomeQuote_GeneralInfo_US('verify');
   });
 
   it('Verifying Risk tab details', function() {
     currentSpec = "Risk Info Details Verification";
-    application.EditVerifyDetails_AsiaQuoteRiskInfo('verify');
-  });
-
-  it('Clicking on Next to Additional Info', function() {
-    currentSpec = "Click Next Button";
-    element.all(by.id('next1')).get(2).click();
-    //application.clickNextButton();
-  });
-
-  it('Verifying Additional Info Details', function() {
-    currentSpec = "Verify Additional Info";
-    application.EditVerifyDetails_AsiaQuoteAdditionalInfo('verify');
-  });
-
-  it('Click Calculate Premium Button', function() {
-    currentSpec = "Click Calculate Button";
-    application.clickCalculatePremiumButton();
-  });
-
-  it('Verifying Premium Info Details', function() {
-    currentSpec = "Verify Premium Info";
-    application.verifyQuoteNumber();
+    application.EditVerifyDetails_HomeQuote_CoverageInfo_US('verify');
   });
 
   it('Clicking Logout', function() {
