@@ -1,0 +1,36 @@
+{
+    "metamodel": {
+        "formid": "AddClient",
+        "title": "_CLIENT_US_CREATE",
+        "hidetitle": false,
+        "resourcelist": ["clients"], 
+        "category":"tabs",
+        "createButton": false,
+        "name": "AddClient",
+        "sections": [
+            {
+                "$ref":"clientInfo",
+                "name": "_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 1
+                
+            },
+            {
+                "$ref":"additClientInfo",
+                "name": "_ADDITIONAL_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 2
+            },
+             {
+              
+              "$ref": "submitClient",
+              "step":2
+
+              
+           }
+        ] 
+    },
+    "include":[
+        "clientInfo", "additClientInfo","submitClient"
+    ]
+}

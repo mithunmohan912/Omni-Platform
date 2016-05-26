@@ -198,20 +198,20 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
 
             // Process status of the properties (based on status_report coming from backend)
-            for(var i = 0; i < responseData._embedded.length; i++) {
-                if(responseData._embedded[i].rel.indexOf('status_report') >= 0){
-                    for(var j = 0; j < responseData._embedded[i].data.messages.length; j++){
-                        var item = responseData._embedded[i].data.messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
+            for(var rel in responseData._embedded) {
+                if(rel.indexOf('status_report') >= 0){
+                    if (responseData._embedded[rel].messages) {
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
                             }
                         }
                     }
-
-                    break;
                 }
             }
         }
@@ -570,13 +570,17 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(data){
-            if (data) {
-                if($rootScope.regionId === 'us'){
+        if (data) {
+                if($rootScope.regionId === 'us' ){
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                     }
-                     else{
+                     } 
+                     if(data.outcome === 'success'){
+                            angular.forEach(data.messages, function(value){
+                            growl.success(value.message);
+                        });
+                     } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  

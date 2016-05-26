@@ -14,7 +14,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			$rootScope.resourceUrl = null;
 			$location.path('/screen/dashboard');
 		},
-		saveQuote: function(resource, properties){
+		saveQuote: function(resource, properties, callback){
 			var payloads = {};
 			if (properties) {
 				for(var key in properties){
@@ -27,10 +27,68 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 					}
 				}
 
-				for(var resourceURL in payloads){
-					resourceFactory.patch(resourceURL, payloads[resourceURL]);
-				}
+				Object.keys(payloads).forEach(function(resourceURL){
+					resourceFactory.patch(resourceURL, payloads[resourceURL]).then(function() {
+						if (callback) {
+							callback();
+						}
+					});
+				});
 			}
+		},
+		searchByName: function(element){
+
+			var url = '';
+
+			return element.field.getParentResource(element.field.property.self).then(function(response){
+				var data = response.data || response;
+				if (data){
+					if (data['quote_owner:type'] === 'Personne'){
+						url = $rootScope.HostURL + 'persons?_num=30&person:last_name='+element.$viewValue;
+					}else{
+						//ORG????
+						// url = $rootScope.HostURL + 'persons?_num=30&person:name='+element.$viewValue;
+					}
+				}
+
+				return resourceFactory.get(url).then(function(response){
+					var data = response.data || response;
+					return data._links.item;
+				
+				});
+			});	
+		},
+		selectPerson: function(element){
+
+			var payload = {};
+			var link = '';
+
+			return element.field.getParentResource(element.field.property.self).then(function(response){
+				var data = response.data || response;
+				if (data){
+					if (data['quote_owner:type'] === 'Personne'){
+						link = 'quote_owner:person_link';
+					}else{
+						link = 'quote_owner:organization_link';
+					}
+
+					payload[link] = element.$item.href;
+					resourceFactory.patch(element.property.self, payload).then(function() {
+						//update dependencies
+						$rootScope.$broadcast('refreshTable', { name: 'quote_risk_owner_list'});
+						$rootScope.$broadcast('refreshTable', { name: 'quote_driver_list'});
+					
+					});
+					
+				}
+
+			});	
+		},
+		callbackQuoteOwner: function() {
+			//update dependencies
+			$rootScope.$broadcast('refreshTable', { name: 'quote_risk_owner_list'});
+			$rootScope.$broadcast('refreshTable', { name: 'quote_driver_list'});
 		}
+
 	};
 });
