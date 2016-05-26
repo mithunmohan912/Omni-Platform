@@ -1,0 +1,26 @@
+{
+    "metamodel": {
+        "formid": "InquireClient",
+        "title": "_INQUIRE_CLIENT",
+        "resourcelist": ["clients"], 
+        "category":"tabs",
+        "name": "InquireClient",
+        "sections": [
+            {
+                "$ref":"inqclientInfo",
+                "name": "_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref":"inqadditClientInfo",
+                "name": "_ADDITIONAL_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 2
+            }
+        ] 
+    },
+    "include":[
+        "inqclientInfo", "inqadditClientInfo"
+    ]
+}

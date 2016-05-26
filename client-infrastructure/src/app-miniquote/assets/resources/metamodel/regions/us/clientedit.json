@@ -1,0 +1,32 @@
+{
+    "metamodel": {
+        "formid": "EditClient",
+        "title": "_EDIT_CLIENT",
+        "resourcelist": ["clients"], 
+        "category":"tabs",
+        "name": "EditClient",
+        "sections": [
+            {
+                "$ref":"editclientInfo",
+                "name": "_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref":"inqeditClientInfo",
+                "name": "_ADDITIONAL_CLIENT_INFO",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+              
+              "$ref": "submitforedit",
+              "step":2
+             
+             } ]
+        
+    },
+    "include":[
+        "editclientInfo", "inqeditClientInfo","submitforedit"
+    ]
+}

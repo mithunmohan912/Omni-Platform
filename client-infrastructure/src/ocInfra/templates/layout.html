@@ -36,7 +36,7 @@
         <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name);patchField(field.name)" ng-model-options="{updateOn: 'blur'}">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="thtext">
-        <input typeahead-min-length="" autocomplete="on" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == true}}" ng-disabled="{{field.disabled}}" ng-change="getNamesList(data[field.name],field.typeahead,field.typeaheadField);patchField(field.name)" ng-model-options="{updateOn: 'blur'}" typeahead="c for c in typeaheadData[field.typeaheadField] | filter:$viewValue | limitTo:10" typeahead-wait-ms=2000 typeahead-on-select='onSelectPart($item, field.name)' typeahead-template-url="customTemplate.html">
+        <input typeahead-min-length="" autocomplete="on" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == true}}" ng-disabled="checkEnable(field)" ng-change="getNamesList(data[field.name],field)" uib-typeahead="c for c in typeaheadData[field.typeaheadField] | filter:$viewValue | limitTo:10" typeahead-wait-ms=3000 typeahead-on-select='patchField(field.name)' typeahead-template-url="customTemplate.html">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="autocomplete">
         <input autocomplete="off" type="text" maxlength="{{field.maxlength}}" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name)" ng-blur="enableField(field.name)" typeahead="obj as obj for obj in getListData($viewValue,field.name)" typeahead-on-select='onSelectPart($item, field.name)'>
@@ -78,7 +78,7 @@
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="usselect">
-        <select ng-if="checkRegionId != 'asia'" id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in field.enumdata" ng-change="validateEachSection(field.name)">
+        <select  id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(field)" ng-change="validateEachSection(field.name)">
         </select>
     </div> 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
@@ -241,6 +241,6 @@
 
 <script type="text/ng-template" id="customTemplate.html">
     <a>
-        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
     </a>
 </script>

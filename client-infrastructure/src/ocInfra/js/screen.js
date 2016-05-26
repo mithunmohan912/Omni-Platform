@@ -79,25 +79,71 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-    $scope.getNamesList = function(viewValue, typeahead, fieldName){
-        
-        if(typeahead){
-            var url = $rootScope.HostURL + 'persons?' + fieldName + '=' + viewValue;
+    $scope.getNamesList = function(viewValue, field){        
+        if(field.typeahead){
+            var url = '';
+            var param = '';
+            var vehicle_make = '';
+            var vehicle_model = '';
+            
+            if (field.typeaheadField === 'referential_vehicle:make') {
+                vehicle_make = field.typeaheadField + '=' + viewValue;
+                param = vehicle_make;
+                url = $rootScope.HostURL + 'referential_vehicle_makes?' + param;
+            } else if (field.typeaheadField === 'referential_vehicle:model') {   
+                vehicle_model = field.typeaheadField + '=' + viewValue;         
+                var arrparent = $rootScope.metamodel[$rootScope.currName].sections; 
+                for(var i = 0; i < arrparent.length; i++){
+                    var arr = arrparent[i].elements;
+                    for(var j = 0; j < arr.length; j++){
+                        var object = arr[j];
+                        if(object.name === field.enableWhen.expression.field){                            
+                            if(object.typeaheadField !== undefined && object.typeaheadField !== null && object.typeaheadField !== ''){
+                                vehicle_make = object.typeaheadField + '=' + $scope.data[field.enableWhen.expression.field] + '&';
+                            }
+                        }
+                    }
+                }               
+                param =  vehicle_make + vehicle_model;
+                url = $rootScope.HostURL + 'referential_vehicle_models?' + param;
+            } else {
+                url = $rootScope.HostURL + 'persons?' + field.typeaheadField + '=' + viewValue;
+            }
+
             var regionToSORMap = $rootScope.regionToSoR;
             var applName = regionToSORMap[$rootScope.regionId];
             url = url.replace(':regionId',applName);
             resourceFactory.options(url, $rootScope.headers).success(function(data){
-                $rootScope.typeaheadData[fieldName] = [];
-                $scope.typeaheadData[fieldName] = [];
-                angular.forEach(data._links.item, function(value){
-                    if(value.summary[fieldName]){
-                        $rootScope.typeaheadData[fieldName].push(value.summary[fieldName]);
+                $rootScope.typeaheadData[field.typeaheadField] = [];
+                $scope.typeaheadData[field.typeaheadField] = [];
+                var items = convertToArray(data._links.item);
+                angular.forEach(items, function(value){
+                    if(value.summary[field.typeaheadField]){
+                        $rootScope.typeaheadData[field.typeaheadField].push(value.summary[field.typeaheadField]);
                     }
                 });
-                $scope.typeaheadData[fieldName] = $rootScope.typeaheadData[fieldName];
+                $scope.typeaheadData[field.typeaheadField] = $rootScope.typeaheadData[field.typeaheadField];
             });
         }
     };
+
+    $scope.checkEnable = function(field)
+    {
+        if(field.enableWhen)
+        {
+            return ($scope.data[field.enableWhen.expression.field] !== undefined && $scope.data[field.enableWhen.expression.field] !== null && $scope.data[field.enableWhen.expression.field] !== '') ? false : true;
+        }
+        return false;
+    };
+
+    function convertToArray(data) {
+        if(data !== undefined && data.length === undefined){
+            var array = [];
+            array.push(data);
+            return array;
+        }
+        return data;
+    }
 
 	MetaModel.setHeaders($rootScope);
 
@@ -160,7 +206,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
         if(action==='navigate'){
-            $rootScope.resourceHref = undefined;
+	        var resourcelist=$rootScope.metamodel[screenId].resourcelist;
+            var url = $rootScope.HostURL + resourcelist;
+            var regionToSORMap = $rootScope.regionToSoR;
+            var applName = regionToSORMap[regionId];
+            var newURL = url.replace(':regionId',applName);
+            $rootScope.resourceHref =newURL;
             $rootScope.navigate(actionURL);
         }
         else if(action==='nextTab'){
@@ -280,6 +331,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     }).then(function(){
     
         loadRelationshipByStep($scope.preStep);
+         if($rootScope.regionId === 'us') {
+            $rootScope.currRel = 'itself';
+        } 
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){

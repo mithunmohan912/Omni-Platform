@@ -47,7 +47,15 @@
                         "columnsize": 3,
                         "patchOnBlur": true,
                         "maxlength": 30,
-                        "required": "required"
+                        "typeaheadField": "referential_vehicle:model",
+                        "typeahead": "true",
+                        "required": "required",
+                        "enableWhen": {
+                            "expression": {
+                                "field": "quote_automobile:make",
+                                "value": true
+                            }
+                        }
                     },
                     {
                         "name": "quote_automobile:first_use_date",
