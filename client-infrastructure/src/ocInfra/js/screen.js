@@ -206,7 +206,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
         if(action==='navigate'){
-            $rootScope.resourceHref = undefined;
+	    var resourcelist=$rootScope.metamodel[screenId].resourcelist
+            var url = $rootScope.HostURL + resourcelist;
+            var regionToSORMap = $rootScope.regionToSoR;
+            var applName = regionToSORMap[regionId];
+            var newURL = url.replace(':regionId',applName);
+            $rootScope.resourceHref =newURL;
             $rootScope.navigate(actionURL);
         }
         else if(action==='nextTab'){
@@ -326,6 +331,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     }).then(function(){
     
         loadRelationshipByStep($scope.preStep);
+         if($rootScope.regionId === 'us') {
+            $rootScope.currRel = 'itself';
+        } 
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
