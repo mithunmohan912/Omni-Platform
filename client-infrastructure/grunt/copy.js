@@ -494,4 +494,13 @@ module.exports = {
      },
    ]
   },
+  dist_cordova : {
+    files: [
+     {
+      expand: true , cwd:'mobile/' , flatten: false,
+      dest: '../mobile-infrastructure/OCMiniQuote/www',
+      src: ['app-miniquote/**']
+     }
+   ]
+  }
 };
