@@ -130,6 +130,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
 
+				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.factoryName);
+				} catch(e) {
+					console.log($scope.factoryName + ' not found');
+				}
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined) {
 					return;
@@ -218,13 +224,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				});
 				
-				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
-				try {
-					$scope.actionFactory = $injector.get($scope.factoryName);
-				} catch(e) {
-					console.log($scope.factoryName + ' not found');
-				}
-				
 				MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
 			}
 
@@ -237,9 +236,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 
-			$scope.execute = function(action) {
+			$scope.execute = function(action, actionURL) {
 				if($scope.actionFactory && $scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);
+					if($scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);	
+					}else{
+						$scope.actionFactory[action](actionURL);
+					}
 				} else {
 					if ($scope[action]) {
 						$scope[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);
