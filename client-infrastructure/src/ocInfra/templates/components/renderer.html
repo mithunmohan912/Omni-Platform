@@ -26,7 +26,7 @@
 							<div ng-switch-when="buttonGroup">
 								<div ng-repeat="button in column.buttons">
 									<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="execute(button.action, button.actionURL)">{{ button.label | translate }}</button>
-									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></i><br ng-if="button.underlineText" />
+									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action, button.actionURL)"></i><br ng-if="button.underlineText" />
 									<span ng-if="button.underlineText">{{button.underlineText}}</span>
 								</div>
 							</div>
