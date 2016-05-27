@@ -1,4 +1,4 @@
-//SearchHomeQuoteUS
+//CreateHomeQuoteUS
 
 
 var Application = require('./../Utility/miniFunctions.js');
@@ -18,15 +18,15 @@ var perfMetric;
 var headers;
 // Global Variables End 
 
-describe('SearchHomeQuoteUS', function() {
+describe('CreateHomeQuoteUS', function() {
 
   var application = new Application();
   var wait= application.wait;
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/HomeOwnerUS.csv','SearchHomeQuoteUS');
-    perfWritter.initialize('./../Perf/US/SearchHomeQuoteUS.csv','');
+    application.initTestData('./../DataRepo/HomeOwnerUS.csv','CreateHomeQuoteUS');
+    perfWritter.initialize('./../Perf/US/CreateHomeQuoteUS.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
@@ -86,41 +86,60 @@ describe('SearchHomeQuoteUS', function() {
     application.navigateLink();
   });
 
+  it('Click on Create Button', function() {
+    currentSpec = "Click on Create Button";
+    application.clickCreateQuoteButton();
+  });
+
+  it('Fill Applicant Info Details', function() {
+    currentSpec = "Fill Home Owner Applicant info details";
+    application.fillNewQuoteDetails_HomeInfo_US();
+  });
+
+  it('Fill Policy Info Details', function() {
+    currentSpec = "Fill policy info details";
+    application.fillNewQuoteDetails_PolicyInfo_US();
+  });
+
+  it('Fill General Info Details', function() {
+    currentSpec = "Fill General info details";
+    application.fillNewQuoteDetails_GeneralInfo_US();
+  });
+
+  it('Fill Coverage Info Details', function() {
+    currentSpec = "Fill Coverage info details";
+    application.fillNewQuoteDetails_CoverageInfo_US();
+  });
+
+  it('Click on CalculatePremium Button', function() {
+    currentSpec = "Clicking on calcute premium button";
+    application.clickCalculatePremiumButton_HomeUS();
+  });
+
+  it('Click on Premium Tab', function() {
+    currentSpec = "Clicking on Premium Tab";
+    application.clickOnPremiumTab_HomeUS();
+  });
+
+  it('Capture QuoteNumber', function() {
+    currentSpec = "Capturing Quote Number";
+    browser.waitForAngular();
+    application.getNewQuoteNumber_HomeOwnerUS();
+  });
+
+  it('Click on Auto Quote Asia button', function() {
+    currentSpec = "Click on Asia button from Quote link";
+    application.navigateLink();
+  });
+
   it('Enter Search Details', function() {
     currentSpec = "Entering search Details";
-    criteria = ['quoteNumber', 'symbol'];
-    param = application.getParam(criteria);
-    application.commonSearch_US(param);
+    application.searchByQuoteId_HomeOwnerUS();    
   });
 
-  it('Click on Inquire button', function() {
-    currentSpec = "Clicking on Inquire Button";
-    application.ClickInquireButton();
-  });
-
-  it('Verify Policy Tab Details', function() {
-    currentSpec = "Verifying Policy Tab details";
-    application.verifyPolicyTabDetails_US();
-  });
-
-  it('Clicking on Location Tab', function(){
-    currentSpec = "Clicking on Location tab";
-    application.clickLocationTab_US();
-  });
-
-  it('Verifying Location Tab Details', function() {
-    currentSpec = "Verifying Location Tab details";
-    application.verifyLocationTabDetails_US();
-  });
-
-  it('Clicking on Coverage Tab', function(){
-    currentSpec = "Clicking on Coverage tab";
-    application.clickCoverageTab_US();
-  });
-
-  it('Verifying Coverage Tab Details', function() {
-    currentSpec = "Verifying Coverage Tab details";
-    application.verifyCoverageTabDetails_US();
+  it('Verify Created Home Quote', function() {
+    currentSpec = "Verifying search criteria";
+    application.verifySearchCriteria_US();
   });
 
   it('Clicking Logout', function() {
@@ -129,3 +148,4 @@ describe('SearchHomeQuoteUS', function() {
   });
 
 });
+

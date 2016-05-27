@@ -1,4 +1,4 @@
-//SearchHomeQuoteUS
+//CreateAutoQuoteAsia
 
 
 var Application = require('./../Utility/miniFunctions.js');
@@ -18,15 +18,15 @@ var perfMetric;
 var headers;
 // Global Variables End 
 
-describe('SearchHomeQuoteUS', function() {
+describe('CreateAutoQuoteAsia', function() {
 
   var application = new Application();
   var wait= application.wait;
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/HomeOwnerUS.csv','SearchHomeQuoteUS');
-    perfWritter.initialize('./../Perf/US/SearchHomeQuoteUS.csv','');
+    application.initTestData('./../DataRepo/AutoQuoteAsia.csv','CreateAutoQuoteAsia');
+    perfWritter.initialize('./../Perf/Asia/CreateAutoQuoteAsia.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
@@ -86,46 +86,52 @@ describe('SearchHomeQuoteUS', function() {
     application.navigateLink();
   });
 
+  it('Click on Create Button', function() {
+    currentSpec = "Click on Create Button";
+    application.clickCreateQuoteButton();
+  });
+
+  it('Fill Owner Info Details', function() {
+    currentSpec = "Fill owner info details";
+    application.fillNewQuoteDetails_OwnerInfo();
+  });
+
+  it('Fill Risk Info Details', function() {
+    currentSpec = "Fill Risk info details";
+    application.fillNewQuoteDetails_RiskInfo();
+  });
+
+  it('Fill Additional Info Details', function() {
+    currentSpec = "Fill Additional info details";
+    application.fillNewQuoteDetails_AdditionalInfo();
+  });
+
+  it('Capture QuoteNumber', function() {
+    currentSpec = "Capturing Quote Number";
+    application.getNewQuoteNumber();
+  });
+
+  it('Click on Auto Quote Asia button', function() {
+    currentSpec = "Click on Asia button from Quote link";
+    browser.waitForAngular();
+    application.navigateLink();
+  });
+
   it('Enter Search Details', function() {
-    currentSpec = "Entering search Details";
-    criteria = ['quoteNumber', 'symbol'];
+    currentSpec = "Entering quote number";
+    application.searchByQuoteId();
+  });
+
+  it('Verify the search result', function() {
+    currentSpec = "Verifying search result";
+    criteria = ['quoteNumber'];
     param = application.getParam(criteria);
-    application.commonSearch_US(param);
+    application.verifySearchCriteria(param);
   });
 
-  it('Click on Inquire button', function() {
-    currentSpec = "Clicking on Inquire Button";
-    application.ClickInquireButton();
-  });
-
-  it('Verify Policy Tab Details', function() {
-    currentSpec = "Verifying Policy Tab details";
-    application.verifyPolicyTabDetails_US();
-  });
-
-  it('Clicking on Location Tab', function(){
-    currentSpec = "Clicking on Location tab";
-    application.clickLocationTab_US();
-  });
-
-  it('Verifying Location Tab Details', function() {
-    currentSpec = "Verifying Location Tab details";
-    application.verifyLocationTabDetails_US();
-  });
-
-  it('Clicking on Coverage Tab', function(){
-    currentSpec = "Clicking on Coverage tab";
-    application.clickCoverageTab_US();
-  });
-
-  it('Verifying Coverage Tab Details', function() {
-    currentSpec = "Verifying Coverage Tab details";
-    application.verifyCoverageTabDetails_US();
-  });
-
-  it('Clicking Logout', function() {
+  it('Logout', function() {
     currentSpec = "Clicking on Logout Link";
     application.clickLogout();
-  });
+  })
 
 });
