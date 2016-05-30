@@ -1,4 +1,4 @@
-Setting up Mobile Environment and run OCMiniQuote as Android app
+###Setting up Mobile Environment and run OCMiniQuote as Android app
 
 Prerequisites:
 
@@ -38,21 +38,27 @@ Prerequisites:
 
  To build the app from client-infrastructure code:
 
+ - Navigate to mobile-infrastructure folder from Cmd Prompt/Terminal
+
+ - Run the shell command configcordova.sh with the following parameters in same order 
+
+ 		sh configcordova.sh create (This will create a new Cordova Project and will add corresponding plugins)
+ 		sh configcordova.sh addresources (This will add image resources, config file and build file to Cordova Project)
+
  - Navigate to client-infrastructure code from Cmd Prompt/Terminal
 
  - Run the following grunt command
 
- 	grunt buildMobilePkg
+ 	grunt buildMobilePkg --force
 
  - The above command will copy the latest mini quote code base to mobile-infrastructure/OCMiniQuote/www folder that will be built as mobile app
 
  - After grunt command execution is successfull, navigate to mobile-infrastructure folder from Command Prompt/Terminal
 
- - Run the shell command cordova.sh with following parameters in the same order
+ - Run the shell command buildbinaries.sh with following parameters in the same order
 
- 		sh cordova.sh addplugins
- 		sh cordova.sh buildios
- 		sh cordova.sh buildandroid
+ 		sh buildbinaries.sh buildios
+ 		sh buildbinaries.sh buildandroid
 
  - The first cmd will add the plugins to the skeleton Cordova project that are required for wrapping the mobile application
 

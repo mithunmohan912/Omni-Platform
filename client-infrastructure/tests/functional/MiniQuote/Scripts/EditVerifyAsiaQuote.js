@@ -103,9 +103,9 @@ describe('EditVerifyAsiaQuote', function() {
     application.clickEditButton();
   });
 
-  it('Verifying Edit Quote Details', function() {
-    currentSpec = "Verifying Edit Quote";
-    application.EditDetails_AsiaQuoteOwnerInfo();
+  it('Editing Edit Quote Details', function() {
+    currentSpec = "Editing Edit Quote";
+    application.EditVerifyDetails_AsiaQuoteOwnerInfo('edit');
   });
 
   it('Next Button to Risk', function() {
@@ -114,9 +114,9 @@ describe('EditVerifyAsiaQuote', function() {
     //application.clickNextButton();
   });
 
-  it('Verifying Risk tab details', function() {
-    currentSpec = "Risk Info Details Verification";
-    application.EditDetails_AsiaQuoteRiskInfo();
+  it('Editing Risk tab details', function() {
+    currentSpec = "Risk Info Details Editing";
+    application.EditVerifyDetails_AsiaQuoteRiskInfo('edit');
   });
 
   it('Clicking on Next to Additional Info', function() {
@@ -125,9 +125,9 @@ describe('EditVerifyAsiaQuote', function() {
     //application.clickNextButton();
   });
 
-  it('Verifying Additional Info Details', function() {
-    currentSpec = "Verify Additional Info";
-    application.EditDetails_AsiaQuoteAdditionalInfo();
+  it('Editing Additional Info Details', function() {
+    currentSpec = "Editing Additional Info";
+    application.EditVerifyDetails_AsiaQuoteAdditionalInfo('edit');
   });
 
   it('Click Calculate Premium Button', function() {
@@ -137,7 +137,7 @@ describe('EditVerifyAsiaQuote', function() {
 
   it('Verifying Premium Info Details', function() {
     currentSpec = "Verify Premium Info";
-    application.verifySavedQuoteDetails_PremiumInfo();
+    application.verifyQuoteNumber();
   });
 
   it('Click on Auto Quote Asia button', function() {
@@ -157,18 +157,18 @@ describe('EditVerifyAsiaQuote', function() {
 
   it('Verifying Edit Quote Details', function() {
     currentSpec = "Verifying Edit Quote";
-    application.verifySavedQuoteDetails_OwnerInfo();
+    application.EditVerifyDetails_AsiaQuoteOwnerInfo('verify');
   });
 
   it('Next Button to Risk', function() {
     currentSpec = "Click on Next Button";
     element.all(by.id('next1')).get(0).click();
-    //application.clickNextButton();
+    //application.clickNextButton();  //multiple next buttons exist on page
   });
 
   it('Verifying Risk tab details', function() {
     currentSpec = "Risk Info Details Verification";
-    application.verifySavedQuoteDetails_RiskInfo();
+    application.EditVerifyDetails_AsiaQuoteRiskInfo('verify');
   });
 
   it('Clicking on Next to Additional Info', function() {
@@ -179,7 +179,7 @@ describe('EditVerifyAsiaQuote', function() {
 
   it('Verifying Additional Info Details', function() {
     currentSpec = "Verify Additional Info";
-    application.verifySavedQuoteDetails_AdditionalInfo();
+    application.EditVerifyDetails_AsiaQuoteAdditionalInfo('verify');
   });
 
   it('Click Calculate Premium Button', function() {
@@ -189,7 +189,7 @@ describe('EditVerifyAsiaQuote', function() {
 
   it('Verifying Premium Info Details', function() {
     currentSpec = "Verify Premium Info";
-    application.verifySavedQuoteDetails_PremiumInfo();
+    application.verifyQuoteNumber();
   });
 
   it('Clicking Logout', function() {
