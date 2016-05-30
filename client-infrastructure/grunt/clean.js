@@ -10,5 +10,6 @@ module.exports = {
   weather : ['src/app-weather/ocInfra'],
   miniquote : ['src/app-miniquote/ocInfra'],
   reference : ['src/app-reference/ocInfra'],
-  mobile : ['mobile']
+  mobile : ['mobile/app-miniquote'],
+  cordova : ['../mobile-infrastructure/OCMiniQuote/www']
 };

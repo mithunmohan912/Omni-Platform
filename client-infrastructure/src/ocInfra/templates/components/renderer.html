@@ -1,5 +1,11 @@
 <div class="renderer">
 	<div ng-repeat="section in metamodelObject.sections track by $index" class="section" ng-class="section.colspan ? 'col-sm-{{section.colspan}}': 'col-sm-12'" ng-switch on="section.type">	
+		<div class="oc-modal-header border-none">
+		    <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
+        	<h3 class="text-left">{{section.title | translate}}</h3>
+        	<hr ng-if="screenId!=='anonymous'"class="onl_hrOr_1"><hr ng-if="screenId!=='anonymous'" class="onl_hrOr_2">
+        	<hr ng-if="screenId=='anonymous'" class="onl_hrOr_2" style="width:100%">
+    	</div>
 		<div ng-switch-when="reference" class="linkedRenderer">
 			<renderer metamodel="section.$ref"></renderer>
 		</div>
@@ -19,8 +25,9 @@
 							</div>
 							<div ng-switch-when="buttonGroup">
 								<div ng-repeat="button in column.buttons">
-									<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="execute(button.action)">{{ button.label | translate }}</button>
-									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></i>
+									<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="execute(button.action, button.actionURL)">{{ button.label | translate }}</button>
+									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action, button.actionURL)"></i><br ng-if="button.underlineText" />
+									<span ng-if="button.underlineText">{{button.underlineText}}</span>
 								</div>
 							</div>
 							<!-- <div ng-switch-when="_blank">
