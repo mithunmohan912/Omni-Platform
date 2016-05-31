@@ -26,6 +26,10 @@ if [ "$1" = "addresources" ]; then
         cp -r Images.xcassets/ OCMiniQuote/platforms/ios/OCMiniQuote/Images.xcassets
         cp -r config.xml OCMiniQuote
         cp -r build.json OCMiniQuote
+        cd ..
+        cd client-infrastructure
+        echo $PWD
+        grunt buildMobilePkg --force
 
 fi
        
