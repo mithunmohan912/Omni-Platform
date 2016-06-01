@@ -1,0 +1,133 @@
+{
+    "metamodel": {
+        "name": "quote_coverage_list",
+        "subtable": {
+            "id": "quote_option:child_prdct_cmpnnt_list",
+            "metamodel": "quote_coverage_children_list"
+        },
+        "modalRef": "quote_coverage_options",
+        "class": "maintable",
+        "header": [
+            {
+                "label": ""
+            },
+            {   
+                "label": ""
+            },
+            {
+                "label_header": "_OPTIONS"
+            },
+            {
+                "label_header": "Reduction"
+            },
+            {
+                "label_header": "_COVERAGE_VALUE"
+            },
+            {
+                "label_header": "_START_DATE",
+                "visibleWhen": {
+                    "expression": {
+                        "field": "showDates",
+                        "value": true
+                    }
+                }
+            },
+            {
+                "label_header": "_END_DATE",
+                "visibleWhen": {
+                    "expression": {
+                        "field": "showDates",
+                        "value": true
+                    }
+                }
+            },
+            {
+                "label_header": "_COVERAGE_COMMISSION",
+                "visibleWhen": {
+                    "expression": {
+                        "field": "showAdjustment",
+                        "value": true
+                    }
+                }
+            }
+        ],
+		"properties": [
+            {
+                "label": "",
+                "id": "quote_product_component:selected",
+                "type": "checkbox",
+                "updateMode": "change",
+                "onUpdate": "patchProductComponent"
+            },
+			{	
+				"label": "",
+                "id": "quote_product_component:label",
+                "type": "label"
+            },
+            {
+                "label_header": "_OPTIONS",
+                "type": "actions",
+                "options": [
+                    {
+                        "value": "edit",
+                        "title": "_OPTIONS"
+                    }
+                ]
+            },
+            {
+                "label_header": "Reduction",
+                "id": "reduction",
+                "type": "select",
+                "uiInput": true,
+                "visibleWhen": {
+                    "expression": {
+                        "field": "reduction",
+                        "existsInEntity": true
+                    }
+                }
+            },
+            {
+                "label_header": "_COVERAGE_VALUE",
+                "id": "quote_coverage:cost",
+                "type": "label",
+                "icon": "eur",
+                "class": "tbbgcolor1"
+            },
+            {
+                "label_header": "_START_DATE",
+                "placeholder": "dd/MM/yyyy",
+                "id": "quote_coverage:ext_start_date",
+                "type": "date",
+                "updateMode": "change",
+                "onUpdate": "patchProductComponent"
+            },
+            {
+                "label_header": "_END_DATE",
+                "placeholder": "dd/MM/yyyy",
+                "id": "quote_coverage:ext_end_date",
+                "type": "date",
+                "updateMode": "change",
+                "onUpdate": "patchProductComponent"
+            },
+            {
+                "label_header": "_COVERAGE_COMMISSION",
+                "id": "quote_coverage:commission_rate",
+                "type": "select",
+                "visibleWhen": {
+                    "expression": {
+                        "field": "quote_coverage:commission_rate",
+                        "existsInEntity": true
+                    }
+                },
+                "updateMode": "change",
+                "onUpdate": "patchProductComponent"
+            }
+		],
+        "visibleWhen": {
+            "expression": {
+                "field": "quote_product_component:available",
+                "value": true
+            }
+        }
+	}
+}
