@@ -292,7 +292,11 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				// Configuration for toggles
 				uibButtonConfig.activeClass = 'btn-active';
 
-				$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+				if($location.path().split('/screen/')[1] !== undefined){
+					$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+				}else{
+					$scope.screenFactoryName = $location.path().split('/')[0] + 'Factory';
+				}
 				$scope.actionFactory = {};
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
@@ -301,11 +305,17 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 
 				// Get the url of the template we will use based on input type
-				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
+				var inputType = {};
+
+				if($scope.properties !== undefined){
+					inputType = $scope.metamodel.type || $scope.properties.metainfo.type;	
+				}else{
+					inputType = $scope.metamodel.type;
+				}
+				
 				var baseUrl = (!$scope.baseUrl || $scope.baseUrl === '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
-
+				
 				$scope.inputHtmlUrl = baseUrl + '/input-' + inputType + '.html';
-
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
@@ -374,17 +384,22 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						attributes[key.toLowerCase()] = attributes[key][0];
 					}
 				}
-				
-				for(var metainfo_key in $scope.property.metainfo){
-					if(metainfo_key !== 'type'){
-						attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
-					}
+
+				if($scope.property !== undefined && $scope.property.metainfo !== undefined){
+					for(var metainfo_key in $scope.property.metainfo){
+						if(metainfo_key !== 'type'){
+							attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
+						}
+					}	
 				}
-				for(var attributes_key in $scope.metamodel.attributes){
-					if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
-						attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
-					} else {
-						attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
+
+				if($scope.metamodel.attributes !== undefined){
+					for(var attributes_key in $scope.metamodel.attributes){
+						if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
+							attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
+						} else {
+							attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
+						}
 					}
 				}
 

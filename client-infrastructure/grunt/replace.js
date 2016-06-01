@@ -41,6 +41,14 @@ module.exports = {
          to: '..\/vendors'
       }]
    },
+   replace_omnichannel: {
+     src: ['src/app-omnichannel/index.html'],
+       overwrite: true,                
+         replacements: [{
+         from: '.\/vendors',
+         to: '..\/vendors'
+      }]
+   },
    replace_mobile: {
  	 	 src: ['mobile/app-miniquote/index.html'],
    		 overwrite: true,                

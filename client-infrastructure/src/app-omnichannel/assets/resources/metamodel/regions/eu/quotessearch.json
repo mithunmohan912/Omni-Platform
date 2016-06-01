@@ -1,0 +1,111 @@
+{
+    "metamodel": {
+        "formid": "quotesearch",
+        "resourcelist": ["quotes"], 
+        "resourceUrl": "http://20.33.40.152:10114/csc/insurance/quotes?_inquiry=ci_saved_items",
+        "sections": [
+            {
+                "properties": [
+                            {
+                                "id": "quote:description",
+                                "type": "text",
+                                "label": "_DESCRIPTION",
+                                "row": 1
+                            },
+                            {
+                                "id": "quote:distributor_id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "row": 1
+                            },
+                            {
+                                "id": "quote:contract_start_date",
+                                "type": "date",
+                                "label": "_START_DATE_OF_THE_CONTRACT",
+                                "row": 1
+                            },
+                            {
+                                "id": "quote_owner:name",
+                                "type": "text",
+                                "label": "_RISK_HOLDER",
+                                "row": 2
+                            },
+                            {
+                                "id": "quote:identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "row": 2
+                            },
+                            {
+                                "id": "quote:type",
+                                "type": "select",
+                                "label": "_QUOTE_TYPE",
+                                "row": 2                      
+                            },
+                            {
+                                "id":"quote:status",
+                                "type":"text",
+                                "label":"_QUOTE_STATUS",
+                                "row": 3
+                            },
+                            {
+                                "id": "quote:product_id",
+                                "type": "text",
+                                "label": "_PRODUCT",
+                                "row": 3
+                            },
+                            {
+                                "id":"quote_home:street_number",
+                                "type":"text",
+                                "label":"_STREET_NUMBER",
+                                "row": 3
+                            },    
+                            {
+                                "id":"quote_home:street_name",
+                                "type":"text",
+                                "label":"_STREET_NAME",
+                                "row": 4
+                            },
+                                            
+                             {
+                                "id":"quote_home:box_number",
+                                "type":"text",
+                                "label":"_BOX_NUMBER",
+                                "row": 4
+                            },
+                           {
+                                "id":"quote_home:city",
+                                "type":"text",
+                                "label":"_CITY",
+                                "row": 4
+                            },
+                            {
+                                "id": "quote_home:postal_code",
+                                "type": "text",
+                                "label": "_POSTAL_CODE",
+                                "row": 5
+                            },
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "label": "_SEARCH",
+                                        "action":"search"
+                                    },
+                                    {
+                                        "action": "create",
+                                        "actionurl": "/eu/screen/quotescreate",
+                                        "label": "_CREATE_QUOTE"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "quotes?_inquiry=ci_saved_items",
+                                "metamodel": "searchlist",
+                                "type": "table"
+                            }
+                ]
+            }
+        ]
+    }
+}

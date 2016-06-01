@@ -36,7 +36,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <ul class="nav navbar-nav navbar-right " class="navbar navbar-default navbar-fixed-top" tour-step order="0" title="{{locale['_LANGUAGE']}}" content="{{locale['_LANGUAGECONTENT']}}" placement="bottom">
+      <ul class="nav navbar-nav navbar-right " class="navbar navbar-default navbar-fixed-top" >
+      <div tour-step order="0" title="{{locale['_LANGUAGE']}}" backdrop="true" content="{{locale['_LANGUAGECONTENT']}}" placement="bottom"></div>
         <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a>
 
 
@@ -48,7 +49,8 @@
       </ul>
 
       <div>
-      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" tour-step order="0" title="{{locale['_HOME']}}" content="{{locale['_HOMECONTENT']}}" placement="left" >      
+      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >
+      <div tour-step order="0" title="{{locale['_HOME']}}" content="{{locale['_HOMECONTENT']}}" placement="left" backdrop="true"></div>      
       <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
           

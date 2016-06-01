@@ -13,6 +13,7 @@ module.exports = {
     'src/app-miniquote/app/{,*/}*.js',
     'src/app-weather/app/{,*/}*.js',
     'src/app-reference/app/{,*/}*.js',
+    'src/app-omnichannel/app/{,*/}*.js',
     'src/ocInfra/js/{,*/}*.js',
     'grunt/*.js',
     'tests/unit/*.js',

@@ -31,521 +31,6 @@ function OCController($scope, $rootScope, $routeParams, $location, $http, $resou
         $location.path(actionURL);
     };
 }
-//jshint ignore :start
-
-
-/**
- * @file angular-bootstrap-tour is micro-library.
- * Scaffolded with generator-microjs
- * @author  <Ben March>
- */
-
-
-(function angularBootstrapTour(app) {
-    'use strict';
-
-    //all components moved to separate files
-
-}(angular.module('bm.bsTour', [])));
-
-
-
-(function (app) {
-    'use strict';
-
-    app.provider('TourConfig', [function () {
-
-        var config = {
-            prefixOptions: false,
-            prefix: 'bsTour'
-        };
-
-        this.set = function (option, value) {
-            config[option] = value;
-        };
-
-        this.$get = [function () {
-
-            var service = {};
-
-            service.get = function (option) {
-                return config[option];
-            };
-
-            return service;
-
-        }];
-
-    }]);
-
-}(angular.module('bm.bsTour')));
-
-
-
-(function (app) {
-    'use strict';
-
-    app.controller('TourController', ['$filter', '$timeout', function ($filter, $timeout) {
-
-        var self = this,
-            steps = [],
-            tour,
-            newStepFound = angular.noop,
-            dummyStep = {};
-
-        /**
-         * Sorts steps based on "order" and set next and prev options appropriately
-         *
-         * @param {Array} steps
-         * @returns {Array}
-         */
-        function orderSteps(steps) {
-            var ordered = $filter('orderBy')(steps, 'order');
-
-            angular.forEach(ordered, function (step, index) {
-                step.next = ordered[index + 1] ? index + 1 : - 1;
-                step.prev = index - 1;
-            });
-
-            return ordered;
-        }
-
-        /**
-         * As steps are linked, add them to the tour options
-         */
-        self.refreshTour = function () {
-            //remove dummy steps that were previously added
-            steps = steps.filter(function (step) {
-                return step !== dummyStep;
-            });
-
-            //if the first or last step redirects to another page, BT needs a step (dummyStep)
-            if (steps[0] && steps[0].redirectPrev) {
-                steps.unshift(dummyStep);
-            }
-            if (steps[steps.length-1] && steps[steps.length-1].redirectNext) {
-                steps.push(dummyStep);
-            }
-
-            //refresh
-            if (tour) {
-                tour._options.steps = [];
-                tour.addSteps(orderSteps(steps));
-            }
-        };
-
-        /**
-         * Adds a step to the tour
-         *
-         * @param {object} step
-         */
-        self.addStep = function (step) {
-            if (~steps.indexOf(step)) {
-                return;
-            }
-
-            steps.push(step);
-            self.refreshTour();
-            newStepFound(step);
-        };
-
-        /**
-         * Removes a step from the tour
-         *
-         * @param step
-         */
-        self.removeStep = function (step) {
-            if (!~steps.indexOf(step)) {
-                return;
-            }
-
-            steps.splice(steps.indexOf(step), 1);
-            self.refreshTour();
-        };
-
-        /**
-         * Returns the list of steps
-         *
-         * @returns {Array}
-         */
-        self.getSteps = function () {
-            return steps;
-        };
-
-        /**
-         * Tells the tour to pause while ngView loads
-         *
-         * @param waitForStep
-         */
-        self.waitFor = function (waitForStep) {
-            tour.end();
-            newStepFound = function (step) {
-                if (step.stepId === waitForStep) {
-                    tour.setCurrentStep(steps.indexOf(step));
-                    $timeout(function () {
-                        tour.start(true);
-                    });
-                }
-            };
-        };
-
-        /**
-         * Initialize the tour
-         *
-         * @param {object} options
-         * @returns {Tour}
-         */
-        self.init = function (options) {
-            options.steps = orderSteps(steps);
-            tour = new Tour(options);
-            return tour;
-        };
-
-
-    }]);
-
-}(angular.module('bm.bsTour')));
-
-
-
-(function (app) {
-    'use strict';
-
-    function directive () {
-        return ['TourHelpers', function (TourHelpers) {
-
-            return {
-                restrict: 'EA',
-                scope: true,
-                controller: 'TourController',
-                link: function (scope, element, attrs, ctrl) {
-
-                    //Pass static options through or use defaults
-                    var tour = {},
-                        templateReady,
-                        events = 'onStart onEnd afterGetState afterSetState afterRemoveState onShow onShown onHide onHidden onNext onPrev onPause onResume'.split(' '),
-                        options = 'name container keyboard storage debug redirect duration basePath backdrop orphan'.split(' ');
-
-                    //Pass interpolated values through
-                    TourHelpers.attachInterpolatedValues(attrs, tour, options);
-
-                    //Attach event handlers
-                    TourHelpers.attachEventHandlers(scope, attrs, tour, events);
-
-                    //Compile template
-                    templateReady = TourHelpers.attachTemplate(scope, attrs, tour);
-
-                    //Monitor number of steps
-                    scope.$watchCollection(ctrl.getSteps, function (steps) {
-                        scope.stepCount = steps.length;
-                    });
-
-                    //If there is an options argument passed, just use that instead
-                    //@deprecated use 'options' instead
-                    if (attrs.tourOptions) {
-                        angular.extend(tour, scope.$eval(attrs.tourOptions));
-                    }
-
-                    if (attrs[TourHelpers.getAttrName('options')]) {
-                        angular.extend(tour, scope.$eval(attrs[TourHelpers.getAttrName('options')]));
-                    }
-
-                    //Initialize tour
-                    templateReady.then(function () {
-                        scope.tour = ctrl.init(tour);
-                        scope.tour.refresh = ctrl.refreshTour;
-                    });
-
-                }
-            };
-
-        }];
-    }
-
-    app.directive('tour', directive());
-    app.directive('bsTour', directive());
-
-}(angular.module('bm.bsTour')));
-
-
-
-(function (app) {
-    'use strict';
-
-    app.factory('TourHelpers', ['$templateCache', '$http', '$compile', 'TourConfig', '$q', function ($templateCache, $http, $compile, TourConfig, $q) {
-
-        var helpers = {},
-            safeApply;
-
-        /**
-         * Helper function that calls scope.$apply if a digest is not currently in progress
-         * Borrowed from: https://coderwall.com/p/ngisma
-         *
-         * @param {$rootScope.Scope} scope
-         * @param {Function} fn
-         */
-        safeApply = helpers.safeApply = function(scope, fn) {
-            var phase = scope.$$phase;
-            if (phase === '$apply' || phase === '$digest') {
-                if (fn && (typeof(fn) === 'function')) {
-                    fn();
-                }
-            } else {
-                scope.$apply(fn);
-            }
-        };
-
-        /**
-         * Compiles and links a template to the provided scope
-         *
-         * @param {String} template
-         * @param {$rootScope.Scope} scope
-         * @returns {Function}
-         */
-        function compileTemplate(template, scope) {
-            return function (/*index, step*/) {
-                var $template = angular.element(template); //requires jQuery
-                return $compile($template)(scope);
-            };
-
-        }
-
-        /**
-         * Looks up a template by URL and passes it to {@link helpers.compile}
-         *
-         * @param {String} templateUrl
-         * @param {$rootScope.Scope} scope
-         * @returns {Promise}
-         */
-        function lookupTemplate(templateUrl, scope) {
-
-            return $http.get(templateUrl, {
-                cache: $templateCache
-            }).success(function (template) {
-                if (template) {
-                    return compileTemplate(template, scope);
-                }
-                return '';
-            });
-
-        }
-
-        /**
-         * Converts a stringified boolean to a JS boolean
-         *
-         * @param string
-         * @returns {*}
-         */
-        function stringToBoolean(string) {
-            if (string === 'true') {
-                return true;
-            } else if (string === 'false') {
-                return false;
-            }
-
-            return string;
-        }
-
-        /**
-         * Helper function that attaches proper compiled template to options
-         *
-         * @param {$rootScope.Scope} scope
-         * @param {Attributes} attrs
-         * @param {Object} options represents the tour or step object
-         */
-        helpers.attachTemplate = function (scope, attrs, options) {
-
-            var deferred = $q.defer(),
-                template;
-
-            if (attrs[helpers.getAttrName('template')]) {
-                template = compileTemplate(scope.$eval(attrs[helpers.getAttrName('template')]), scope);
-                options.template = template;
-                deferred.resolve(template);
-            } else if (attrs[helpers.getAttrName('templateUrl')]) {
-                lookupTemplate(attrs[helpers.getAttrName('templateUrl')], scope).then(function (template) {
-                    if (template) {
-                        options.template = template.data;
-                        deferred.resolve(template);
-                    }
-                });
-            } else {
-                deferred.resolve();
-            }
-
-            return deferred.promise;
-
-        };
-
-        /**
-         * Helper function that attaches event handlers to options
-         *
-         * @param {$rootScope.Scope} scope
-         * @param {Attributes} attrs
-         * @param {Object} options represents the tour or step object
-         * @param {Array} events
-         */
-        helpers.attachEventHandlers = function (scope, attrs, options, events) {
-
-            angular.forEach(events, function (eventName) {
-                if (attrs[helpers.getAttrName(eventName)]) {
-                    options[eventName] = function (tour) {
-                        safeApply(scope, function () {
-                            scope.$eval(attrs[helpers.getAttrName(eventName)]);
-                        });
-                    };
-                }
-            });
-
-        };
-
-        /**
-         * Helper function that attaches observers to option attributes
-         *
-         * @param {Attributes} attrs
-         * @param {Object} options represents the tour or step object
-         * @param {Array} keys attribute names
-         */
-        helpers.attachInterpolatedValues = function (attrs, options, keys) {
-
-            angular.forEach(keys, function (key) {
-                if (attrs[helpers.getAttrName(key)]) {
-                    options[key] = stringToBoolean(attrs[helpers.getAttrName(key)]);
-                    attrs.$observe(helpers.getAttrName(key), function (newValue) {
-                        options[key] = stringToBoolean(newValue);
-                    });
-                }
-            });
-
-        };
-
-        /**
-         * Returns the attribute name for an option depending on the prefix
-         *
-         * @param {string} option - name of option
-         * @returns {string} potentially prefixed name of option, or just name of option
-         */
-        helpers.getAttrName = function (option) {
-            if (TourConfig.get('prefixOptions')) {
-                return TourConfig.get('prefix') + option.charAt(0).toUpperCase() + option.substr(1);
-            } else {
-                return option;
-            }
-        };
-
-        return helpers;
-
-    }]);
-
-}(angular.module('bm.bsTour')));
-
-
-(function (app) {
-    'use strict';
-
-    function directive() {
-        return ['TourHelpers', '$location', function (TourHelpers, $location) {
-
-            return {
-                restrict: 'EA',
-                scope: true,
-                require: '^tour',
-                link: function (scope, element, attrs, ctrl) {
-
-                    //Assign required options
-                    var step = {
-                            element: element,
-                            stepId: attrs.tourStep
-                        },
-                        events = 'onShow onShown onHide onHidden onNext onPrev onPause onResume'.split(' '),
-                        options = 'content title path animation container placement backdrop redirect orphan reflex duration nextStep prevStep nextPath prevPath'.split(' '),
-                        orderWatch,
-                        skipWatch,
-                        templateReady;
-
-                    //Pass interpolated values through
-                    TourHelpers.attachInterpolatedValues(attrs, step, options);
-                    orderWatch = attrs.$observe(TourHelpers.getAttrName('order'), function (order) {
-                        step.order = !isNaN(order*1) ? order*1 : 0;
-                        ctrl.refreshTour();
-                    });
-
-                    //Attach event handlers
-                    TourHelpers.attachEventHandlers(scope, attrs, step, events);
-
-                    //Compile templates
-                    templateReady = TourHelpers.attachTemplate(scope, attrs, step);
-
-                    //Check whether or not the step should be skipped
-                    function stepIsSkipped() {
-                        var skipped;
-                        if (attrs[TourHelpers.getAttrName('skip')]) {
-                            skipped = scope.$eval(attrs[TourHelpers.getAttrName('skip')]);
-                        }
-                        if (!skipped) {
-                            skipped = !!step.path || (element.is(':hidden') && !attrs.availableWhenHidden);
-                        }
-                        return skipped;
-                    }
-                    skipWatch = scope.$watch(stepIsSkipped, function (skip) {
-                        if (skip) {
-                            ctrl.removeStep(step);
-                        } else {
-                            ctrl.addStep(step);
-                        }
-                    });
-
-                    scope.$on('$destroy', function () {
-                        ctrl.removeStep(step);
-                        orderWatch();
-                        skipWatch();
-                    });
-
-                    //If there is an options argument passed, just use that instead
-                    if (attrs[TourHelpers.getAttrName('options')]) {
-                        angular.extend(step, scope.$eval(attrs[TourHelpers.getAttrName('options')]));
-                    }
-
-                    //set up redirects
-                    function setRedirect(direction, path, targetName) {
-                        var oldHandler = step[direction];
-                        step[direction] = function (tour) {
-                            if (oldHandler) {
-                                oldHandler(tour);
-                            }
-                            ctrl.waitFor(targetName);
-
-                            TourHelpers.safeApply(scope, function () {
-                                $location.path(path);
-                            });
-                        };
-                    }
-                    if (step.nextPath) {
-                        step.redirectNext = true;
-                        setRedirect('onNext', step.nextPath, step.nextStep);
-                    }
-                    if (step.prevPath) {
-                        step.redirectPrev = true;
-                        setRedirect('onPrev', step.prevPath, step.prevStep);
-                    }
-
-                    //Add step to tour
-                    templateReady.then(function () {
-                        ctrl.addStep(step);
-                        scope.tourStep = step;
-                    });
-
-                }
-            };
-
-        }];
-    }
-
-    app.directive('tourStep', directive());
-    app.directive('bsTourStep', directive());
-
-}(angular.module('bm.bsTour')));
-
 'use strict';
 /*global ScreenController,LoginController*/
 
@@ -630,6 +115,1436 @@ function showHostErrorMessage(message, severity) {
 global app
 */
 
+app.directive('capitalize', function() {
+   return {
+     require: 'ngModel',
+     link: function(scope, element, attrs, modelCtrl) {
+        var capitalize = function(inputValue) {
+           if(inputValue === undefined){
+                inputValue = ''; 
+           } 
+           var capitalized = inputValue.toUpperCase();
+           if(capitalized !== inputValue) {
+              modelCtrl.$setViewValue(capitalized);
+              modelCtrl.$render();
+            }         
+            return capitalized;
+         };
+         if(attrs.capitalize === 'true'){
+           modelCtrl.$parsers.push(capitalize);
+           capitalize(scope[attrs.ngModel]);  // capitalize initial value
+         }
+     }
+   };
+});
+'use strict';
+
+/*
+global app
+*/
+
+app.directive('decimalInput', function(){
+    // Regex to match numbers (positive/negative) with dots and commas
+    var regex_valid_chars = /^\$?-?\d+([\.\,]{0,1}\d*){0,1}$/;
+
+    // Function to parse a str as a float. Returns the number parsed with the specified precision, NaN or undefined
+    function _parseFloat(str, precision){
+        var numberToParse;
+        if(!str){
+            return undefined;
+        }
+
+        // We need it to be a string
+        str += '';
+
+        // If the number has both decimal and milliard separators
+        if(str.indexOf(',') > 0 && str.indexOf('.') > 0){
+            if(str.lastIndexOf(',') > str.lastIndexOf('.')){
+                numberToParse = str.substring(0, str.lastIndexOf(',')).replace(/,/g, '').replace(/\./g,'');
+                numberToParse += str.substring(str.lastIndexOf(',')).replace(',','.');
+            } else {
+                numberToParse = str.substring(0, str.lastIndexOf('.')).replace(/,/g, '').replace(/\./g,'');
+                numberToParse += str.substring(str.lastIndexOf('.'));
+            }
+        }
+        // Cases for numbers with just decimal separator
+        else if(str.indexOf(',') > 0){
+            numberToParse = str.substring(0, str.lastIndexOf(',')).replace(/,/g, '');
+            numberToParse += str.substring(str.lastIndexOf(','), (str.lastIndexOf(',') + precision) < str.length ? str.lastIndexOf(',')+precision+1 : str.length).replace(',','.');
+        } else if(str.indexOf('.') > 0){
+            numberToParse = str.substring(0, str.lastIndexOf('.')).replace(/\./g,'');
+            numberToParse += str.substring(str.lastIndexOf('.'), (str.lastIndexOf('.') + precision) < str.length ? str.lastIndexOf('.')+precision+1 : str.length);
+        } else {
+            return parseFloat(str);
+        }
+
+        return parseFloat(numberToParse);
+    }
+
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+            decimalPrecision: '=?',
+            decimalMin: '=?',
+            decimalMax: '=?'
+        },
+        link: function($scope, element, attrs, controller){
+            // 2 decimals by default
+            $scope.decimalPrecision = $scope.decimalPrecision || 2;
+            $scope.decimalMin = $scope.decimalMin || 0;
+            $scope.decimalMax = $scope.decimalMax || 9999999;
+
+             controller.$parsers.unshift(function (viewValue) {
+
+                if(!viewValue || viewValue === ''){
+                    controller.$setValidity('decimal', true);
+                    return viewValue;
+                }
+
+                if (regex_valid_chars.test(viewValue)) {
+                    controller.$setValidity('decimal', true);
+                    var number = _parseFloat(viewValue, $scope.decimalPrecision);
+                    if(number < $scope.decimalMin){
+                        number = $scope.decimalMin;
+                        viewValue = number + '';
+                    } else if(number > $scope.decimalMax){
+                        number = $scope.decimalMax;
+                        viewValue = number + '';
+                    }
+
+                    // If the viewValue ends with a character (dot, comma, zero) then we won't update the view because more numbers will be introduced
+                    if(!isNaN(parseInt(viewValue.charAt(viewValue.length-1))) && parseInt(viewValue.charAt(viewValue.length-1)) !== 0){
+                        controller.$setViewValue(number+'');
+                        controller.$render();
+                    } else{
+                        if(viewValue.indexOf(',') > 0){
+                            viewValue = viewValue.split(',')[1].length > $scope.decimalPrecision ? viewValue.substring(0, viewValue.indexOf(',') + $scope.decimalPrecision + 1) : viewValue;
+                        } else if(viewValue.indexOf('.') > 0){
+                            viewValue = viewValue.split('.')[1].length > $scope.decimalPrecision ? viewValue.substring(0, viewValue.indexOf('.') + $scope.decimalPrecision + 1) : viewValue;
+                        }
+                        controller.$setViewValue(viewValue);
+                        controller.$render();
+                    }
+                    return number;
+                } else {
+                    // If the new value is not valid, lets keep the old model value
+                    if(viewValue.length === 1 && viewValue.charAt(0) === '-'){
+                        return viewValue;
+                    } else if(isNaN(parseFloat(controller.$modelValue))){
+                        controller.$setViewValue('0');
+                    } else {
+                        controller.$setViewValue(controller.$modelValue+'');
+                    }
+                    controller.$render();
+                    return controller.$modelValue;
+                }
+            });
+
+            controller.$formatters.unshift(
+               function (modelValue) {
+
+                    if(modelValue){
+                        return parseFloat(modelValue).toFixed($scope.decimalPrecision);
+                    }
+                    // If there is no model value we can either set 0 as default value, or let the placeholder kick in. In this case
+                    // we let the placeholder to appear
+               }
+           );
+        }
+    };
+    });
+'use strict';
+
+/*
+global app
+*/
+
+app.directive('formatDate', ['$filter', function($filter) {
+    return {
+        require: 'ngModel',
+        link: function(scope, elem, attr, modelController) {
+            modelController.$parsers.push(function(viewValue){
+                return $filter('date')(viewValue, 'yyyy-MM-dd');
+            });
+        }
+    };
+}]);
+'use strict';
+
+/*
+global app
+*/
+
+
+/**
+  * @ngdoc directive	 
+  * @name OCDR.directive:input-render
+  * @description 
+  *	InputRender is an AngularJS directive in charge of creating input elements alongside with their labels.
+
+  * @restrict 'E'
+  * @element
+  * @scope 
+  * @param {Object} property Entity object containing the property that will be used to render and bind the input
+  * @param {Object} metamodel Object representing the metadata defined in a JSON file
+  */
+app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, resourceFactory){
+
+	return {
+		restrict: 'E',
+		replace: 'true',
+		scope: {
+			property: '=',
+			metamodel: '=',
+			resources: '=',
+			updateMode: '@',
+			onUpdate: '@',
+			baseUrl: '@'
+		},
+		controller: ['$scope', function($scope){
+			/* Default attributes and actions for inputs */
+			var defaults = {};
+			defaults.autocomplete = {
+				'attributes': {
+					'typeahead-wait-ms': 1000,
+					'typeahead-focus-first': false,
+					'typeahead-min-length': 3,
+					'maxlength': 9999999,
+					'capitalize': false
+				},
+				'options': {
+					'_getData': function($viewValue, id, field){
+						// If the user defined an action for getting the data, we invoke it
+						if(field.options.getData){
+							if(field.attributes.capitalize){
+								var values = field.options.getData( {'$viewValue': $viewValue, 'id': id, 'property': field.property, '$injector': $injector} );
+								// Check if the action returns a promise or not
+								if(values.then){
+									values.then(function(data){
+										return data.map(function(e){
+											return e.toUpperCase();
+										});
+									});
+								} else {
+									return values.map(function(e){
+										return e.toUpperCase();
+									});
+								}
+							} else {
+								return field.options.getData( {'$viewValue': $viewValue, 'id': id, 'property': field.property, '$injector': $injector} );
+							}
+						} else {
+							console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
+						}
+					},
+					'_select': function($item, id, field){
+						// field.options.select is the action defined by the user to be invoked when a value from the dropdown is selected
+						if(field.options.select){
+							field.options.select( {'$item': $item, 'id': id, 'property': field.property, '$injector': $injector} );
+						} else {
+							console.warn('input.js -> autocomplete_select(): No select callback for autocomplete input.');
+						}
+					},
+					'_typeaheadBlur': function(event, field){
+						// field.options.typeaheadBlur is the action defined by the user to be invoked when the autocomplete loses the focus
+						if(field.options.typeaheadBlur){
+							field.options.typeaheadBlur( {'event': event, 'id': field.id, '$injector': $injector} );
+						} else if(event && event.target && event.target.attributes && event.target.attributes['aria-owns']){
+							// Unset moveInProgress variable to avoid the dropdown being shown when it has no longer the focus
+							// var typeaheadDropdown = document.getElementById(event.target.attributes['aria-owns'].value);
+							// angular.element(typeaheadDropdown).scope().moveInProgress = true;
+						} else {
+							console.warn('input.js -> autocomplete_typeaheadBlur(): Typeahead dropdown not found in view.');
+						}
+					},
+					'_typeaheadFocus': function(event, field){
+						// field.options.typeaheadFocus is the action defined by the user to be invoked when the autocomplete gets the focus
+						if(field.options.typeaheadFocus){
+							field.options.typeaheadFocus( {'event': event, 'id': field.id, '$injector': $injector} );
+						} else if(event && event.target && event.target.attributes && event.target.attributes['aria-owns']){
+							// Set moveInProgress variable to enable dropdown visibility when it gains the focus
+							var typeaheadDropdown = document.getElementById(event.target.attributes['aria-owns'].value);
+							angular.element(typeaheadDropdown).scope().moveInProgress = false;
+						} else {
+							console.warn('input.js -> autocomplete_typeaheadFocus(): Typeahead dropdown not found in view.');
+						}
+					}
+				}
+			};
+
+			defaults.decimal = {
+				'attributes': {
+					'decimalprecision': 2,
+					'minimum': 0,
+					'maximum': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.money = {
+				'attributes': {
+					'currency': ['eur', 'usd', 'gbp', 'yen', 'rub', 'won'],
+					'decimalprecision': 2,
+					'minimum': 0,
+					'maximum': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.email = {
+				'attributes': {
+					'maxlength': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.number = {
+				'attributes': {
+					'min': 0,
+					'max': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.percentage = {
+				'attributes': {
+					'decimalprecision': 2,
+					'minimum': 0,
+					'maximum': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.select = {
+				'attributes': {
+					'capitalize': false
+				},
+				'options': {
+					'_getData': function(id, field){
+						/*
+							field.options.getData: action defined by the user that will be invoked to fill the dropdown options.
+							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
+						*/
+						if(field.options.getData){
+							if(field.attributes.capitalize){
+								var values = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+								if(values.then){
+									values.then(function(data){
+										return data.map(function(e){
+											return e.toUpperCase();
+										});
+									});
+								} else {
+									return values.map(function(e){
+										return e.toUpperCase();
+									});
+								}
+							} else {
+								return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							}
+						} else {
+							//console.warn('input.js -> select_getData(): No getData method for select input.');
+							if(field.attributes.capitalize){
+								if(!field.attributes.enum || !Array.isArray(field.attributes.enum)){
+									return [];
+								}
+								return field.attributes.enum.map(function(e){
+									return e.toUpperCase();
+								});
+							} else {
+								return field.attributes.enum;
+							}
+						}
+					}
+				}
+			};
+
+			defaults.textMask = {
+				'attributes': {
+					'capitalize': true,
+					'mask': ''
+				},
+				'options': {}
+			};
+
+			defaults.text = {
+				'attributes': {
+					'capitalize': true,
+					'maxlength': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.textarea = {
+				'attributes': {
+					'maxlength': 9999999
+				},
+				'options': {}
+			};
+
+			defaults.toggle = {
+				'attributes': {
+					'true_label': '_TRUE',
+					'false_label': '_FALSE'
+				},
+				'options': {},
+				'updateMode': 'change'
+			};
+
+			defaults.date = {
+				'attributes': {
+					'dateformat': 'dd/MM/yyyy',
+					'startWeek': 1,
+					'trigger': 'focus',
+					'autoclose': true
+				},
+				'options': {}
+			};
+
+			defaults.checkbox = {
+				'attributes': {},
+				'options': {},
+				'updateMode': 'change'
+			};
+
+			defaults.label = {
+				'attributes': {},
+				'options': {}
+			};
+
+			// FIXME: multiselect not finished yet. We don't know any backend response to be displayed this way
+			// We allow the user to display a checkbox to reflect the state of the item (but we could do the same through CSS)
+			defaults.multiselect = {
+				'attributes': {
+					'showcheckbox': false
+				},
+				'options': {
+					'_onclick': function(/*entityHref*/){
+						/*
+							FIXME: Do something here to select the item in the multiselect. If we use several checkboxes we get this select/unselect functionality by default.
+							Analyze what is better to do, multiple checkboxes or simple divs with onclick callback
+						*/
+					}
+				}
+			};
+
+			// Patch on blur default function
+			$scope.patch = function(params, next){
+				
+				var payload = {};
+				resourceFactory.get(params.property.self).then(function(resourceToPatch){
+					/*
+					Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
+					we may lose already modified information when the response come back from the backend
+					*/
+					for(var property in resourceToPatch){
+						if(property.indexOf(':') > 0 && property.indexOf('_') > 0){
+							if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
+								payload[property] = $scope.resources[property].value;
+							}
+						}
+					}
+					if(Object.keys(payload).length > 0){
+						resourceFactory.patch(params.property.self, payload, {}).then(function(){
+							if(next){
+								next(params);
+							}
+						}, function(error){
+							console.error(error);
+							resourceFactory.refresh(params.property.self, {}, {});
+						});
+					}
+				});
+				
+			};
+
+			/* Function that (re)load the input with the new property */
+			$scope.load= function(){
+				// Configuration for toggles
+				uibButtonConfig.activeClass = 'btn-active';
+
+				if($location.path().split('/screen/')[1] !== undefined){
+					$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+				}else{
+					$scope.screenFactoryName = $location.path().split('/')[0] + 'Factory';
+				}
+				$scope.actionFactory = {};
+				try {
+					$scope.actionFactory = $injector.get($scope.screenFactoryName);
+				} catch(error) {
+					console.warn($scope.screenFactoryName + ' not found');
+				}
+
+				// Get the url of the template we will use based on input type
+				var inputType = {};
+
+				if($scope.properties !== undefined){
+					inputType = $scope.metamodel.type || $scope.properties.metainfo.type;	
+				}else{
+					inputType = $scope.metamodel.type;
+				}
+				
+				var baseUrl = (!$scope.baseUrl || $scope.baseUrl === '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
+				
+				$scope.inputHtmlUrl = baseUrl + '/input-' + inputType + '.html';
+				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
+				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
+				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
+				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
+					// Get the callback function from the action factory of the current screen
+					$scope.update = $scope.actionFactory[$scope.onUpdate];
+				}
+				
+				if(!$scope.property && $scope.resources){
+					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
+					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.property = $scope.resources[$scope.metamodel.id];
+				}
+
+				// Field to bind to the input
+				$scope.field = {
+					'property': $scope.property,
+					'label': $scope.metamodel.label,
+					'id': $scope.metamodel.id,
+					'name': $scope.metamodel.name || $scope.metamodel.id || '',
+					'placeholder': $scope.metamodel.placeholder,
+					'onBlur': function(){
+						if($scope.updateMode === 'blur'){
+							if($scope.metamodel.patchOnBlur){
+								$scope.patch( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope}, $scope.update );
+							}else if($scope.update){
+								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
+							}
+						}
+					},
+					'onChange': function(){
+						if($scope.updateMode === 'change'){
+							if($scope.metamodel.patchOnBlur){
+								$scope.patch( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope}, $scope.update );
+							} else if($scope.update){
+								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
+							}
+						}
+					},
+					'isVisible': function(){
+						/*
+							Visibility should be at renderer level (or the directive that is going to include the input) to prevent empty spaces.
+							For example, the renderer creates a div with 'x' width to place the input, but the input is not visible. From the renderer point of view
+							it doesn't know that the input is hidden, so it preserves the space.
+						*/
+						//return true;
+						return $scope.metamodel.visible || (($scope.metamodel.visibleWhen) ? _evaluateExpression($scope.metamodel.visibleWhen.expression, $scope, $scope.resources) : true);
+					},
+					'attributes': {},
+					'options': {},
+					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
+					'icon': $scope.metamodel.icon,
+					'class': $scope.metamodel.class,
+					'format': $scope.metamodel.format,
+					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
+				};
+
+
+				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
+				var attributes = angular.copy(defaults[inputType].attributes);
+				$scope.field.attributes = attributes;
+
+				// In case that we have several default values in an array, we select the first one
+				for(var key in attributes){
+					if(attributes[key] && Array.isArray(attributes[key])){
+						attributes[key.toLowerCase()] = attributes[key][0];
+					}
+				}
+
+				if($scope.property !== undefined && $scope.property.metainfo !== undefined){
+					for(var metainfo_key in $scope.property.metainfo){
+						if(metainfo_key !== 'type'){
+							attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
+						}
+					}	
+				}
+
+				if($scope.metamodel.attributes !== undefined){
+					for(var attributes_key in $scope.metamodel.attributes){
+						if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
+							attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
+						} else {
+							attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
+						}
+					}
+				}
+
+				// Union of ui options and default options. First we put the default options and then the user options defined in the UI metadata
+				var options = angular.copy(defaults[inputType].options);
+				$scope.field.options = options;
+
+				for(var options_key in $scope.metamodel.options){
+					// Avoid override of default methods (they start with underscore)
+					var validKey = options_key;
+					do{
+						validKey = validKey.indexOf('_') === 0 ? validKey.substring(1) : validKey;
+					}while(validKey.indexOf('_') === 0);
+					
+					// Get the action for the options from the factory of the current screen
+					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]];
+				}
+
+			};
+
+			/* Watchers to react to changes in the property */
+			$scope.$watchGroup(['property', 'metamodel'], function(newValue){
+				if((newValue[0] && newValue[1]) || (newValue[0] === undefined && newValue[1] && newValue[1].uiInput)){
+					$scope.load();
+				}
+			});
+
+
+
+			function _searchInParents(scope, fieldName){
+				if(typeof fieldName !== 'string'){
+					return undefined;
+				}
+				if(fieldName in scope){
+					return scope[fieldName];
+				} else if(fieldName.indexOf('.') > 0){
+					var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+					if(firstObj in scope){
+						return scope.$eval(fieldName);
+					} else if(scope.$parent){
+						return _searchInParents(scope.$parent, fieldName);
+					}
+				} else if(scope.$parent){
+					if(scope.$parent.resourcesToBind){
+						if (fieldName in scope.$parent.resourcesToBind.properties) {
+							return scope.$parent.resourcesToBind.properties[fieldName];
+						} else {
+							return _searchInParents(scope.$parent, fieldName);
+						}
+					} else {
+						return _searchInParents(scope.$parent, fieldName);
+					}
+				}
+
+				return undefined;
+			}
+			function _evaluateExpression(expression, $scope, resource) {
+		        var response = true;
+		        if (expression.operator) //Recursive case
+		        {
+		            if (expression.operator === 'AND') {
+		                angular.forEach(expression.conditions, function(val) {
+		                    if (response) {
+		                        response = response && _evaluateExpression(val, $scope, resource);
+		                    }
+		                });
+		            } else if (expression.operator === 'OR') {
+		                response = false;
+		                angular.forEach(expression.conditions, function(val) {
+		                    if (!response) {
+		                        response = response || _evaluateExpression(val, $scope, resource);
+		                    }
+		                });
+		            }
+		        } else //Base case
+		        {
+		        	if (expression.existsInEntity){
+		        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+		        	}else{
+		        		var field; 
+		        		if (resource && resource[expression.field]) {
+							field = resource[expression.field];
+		        		} else {
+		        			field = _searchInParents($scope, expression.field);
+		        		}
+		        		var value = field instanceof Object? field.value: field;
+		        		response = value === expression.value;
+		        	}
+		            
+		        }
+		        return response;
+		    }
+		}],
+		link: function($scope, element){
+			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){
+				if(newValue){
+
+					if(!$templateCache.get(newValue)){
+						$templateCache.put(newValue, 'Pending');
+
+						$http.get(newValue).then(function(response){
+							$templateCache.put(newValue, response.data);
+							$rootScope.$broadcast(newValue, response.data);
+							
+							element.html(response.data);
+							$compile(element.contents())($scope);
+							unwatch();
+						});
+					} else {
+						if($templateCache.get(newValue) === 'Pending'){
+							$rootScope.$on(newValue, function(event){
+								element.html($templateCache.get(event.name));
+								$compile(element.contents())($scope);
+							});
+						} else {
+							element.html($templateCache.get(newValue));
+							$compile(element.contents())($scope);
+						}
+						unwatch();
+					}
+				}
+			});
+		}
+	};
+}]);
+
+'use strict';
+
+/*
+global app
+*/
+
+app.directive('popupRender',  ['MetaModel', '$resource', '$rootScope', '$location', '$injector', function(MetaModel, $resource, $rootScope, $location, $injector){
+
+return {
+		restrict: 'E',
+		scope: {
+			uiId: '@',
+			metamodel: '=',
+			resourceUrl: '=',
+			factoryName: '='
+		},
+
+		controller: ['$scope', function($scope){
+
+			$scope.popup = {
+				'id': $scope.uiId || '_popup' + Math.floor(Math.random()*1000000000000),
+				'labels': {},
+				'actions': {}
+			};
+			
+			$scope.resultSet = {};
+
+			$scope.resetDisabled = false;
+			$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+			try {
+				$scope.actionFactory = $injector.get($scope.screenFactoryName);
+			} catch(e) {
+				console.log($scope.screenFactoryName + 'not found');
+			}
+
+			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
+			if (!metamodelObject) {
+				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
+					_init(data);
+				});
+			} else {
+				_init(metamodelObject);
+			}
+
+			/*$scope.$watch('metamodel', function(newValue, oldValue){
+
+				if(newValue){
+					var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[newValue]: null;
+					if (!metamodelObject) {
+						MetaModel.load($rootScope, $rootScope.regionId, newValue, function(data) {
+							_init(data);
+						});
+					} else {
+						_init(metamodelObject);
+					}
+				}
+			});*/
+	
+
+			$scope.$on('resourceDirectory', function(event, params){
+				if($scope.resourceUrl === params.url >= 0){
+						//_init(metamodelObject);
+						if (params.response.config.method !== 'DELETE') {
+							$scope.resultSet = {};
+							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						}
+					}
+			});
+
+			$scope.$watch('resourceUrl', function(){
+				if ($scope.metamodelObject) {
+					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+					if ($scope.resourceUrl){
+						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						// _getTitle();
+					}					
+				}
+
+			});
+
+			$scope.$watchCollection('resultSet', function(newValue){
+				//This should always get the data from ResourceDirectory and not calling the API
+					if(newValue[$scope.resourceUrl] && newValue[$scope.resourceUrl].properties){
+						var typeValue = newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type] ? newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type].value : '';
+						if (typeValue){
+							$scope.popup.labels.title = typeValue.toUpperCase() + '_' + $scope.popup.labels.title;
+						}else{
+							$scope.popup.labels.title = $scope.popup.labels.title;
+						}
+						
+						$scope.popUpResourceToBind = newValue[$scope.resourceUrl];
+						$scope.resetDisabled = checkReset();
+					}
+
+			});
+
+
+
+			function _defaultSave(){
+				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback});
+			}
+
+			function _defaultClose() {
+			}
+
+			function _defaultReset() {
+				if ($scope.metamodelObject.actions.reset.links){
+					var callback = $scope.metamodelObject.actions.reset.callback? $scope.metamodelObject.actions.reset.callback: null;
+					$scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links, callback: callback });
+				}
+			}
+			
+			function _init(metamodelObject){
+				$scope.metamodelObject = metamodelObject;
+
+				// Default labels and actions
+				_initLabels();
+				_initActions();
+			}	
+
+
+			function _initLabels(){
+				$scope.popup.labels.title = '_POPUP_TITLE';
+				$scope.popup.labels.ok = '_SAVE';
+				$scope.popup.labels.close = '_CLOSE';
+				$scope.popup.labels.reset = '_RESET';
+				$scope.popup.actions._ok = _defaultSave;
+				$scope.popup.actions._close =_defaultClose;
+				$scope.popup.actions._reset =_defaultReset;
+
+
+				// User defined labels and actions
+				if($scope.metamodelObject.labels){
+					$scope.popup.labels.title =  $scope.metamodelObject.labels.title || $scope.popup.labels.title;
+					$scope.popup.labels.ok = $scope.metamodelObject.labels.ok || $scope.popup.labels.ok;
+					$scope.popup.labels.close = $scope.metamodelObject.labels.close || $scope.popup.labels.close;
+					$scope.popup.labels.cancel = $scope.metamodelObject.labels.cancel || $scope.popup.labels.cancel;
+					$scope.popup.labels.reset = $scope.metamodelObject.labels.reset || $scope.popup.labels.reset;
+				}
+
+			}
+
+			function _initActions(){
+
+				if($scope.metamodelObject.actions){
+					$scope.popup.actions._ok = ($scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.method) ? $scope.metamodelObject.actions.ok.method: $scope.popup.actions._ok;
+					$scope.popup.actions._close = ($scope.metamodelObject.actions.close && $scope.metamodelObject.actions.close.method) ? $scope.metamodelObject.actions.close.method:$scope.popup.actions._close;
+					$scope.popup.actions._cancel = ($scope.metamodelObject.actions.cancel && $scope.metamodelObject.actions.cancel.method) ? $scope.metamodelObject.actions.cancel.method:$scope.popup.actions._cancel;
+					$scope.popup.actions._reset = ($scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.method) ? 
+						$scope.metamodelObject.actions.reset.method:$scope.popup.actions._reset;
+				}
+
+			}
+
+			function checkReset(){
+
+				//Check links defined in metamodel
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
+
+						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
+							if ($scope.popUpResourceToBind.dependencies[j].resource === $scope.metamodelObject.actions.reset.links[i]){
+								//It means ther's al least one link to be reset, so we must not disable the reset button. 
+								return false;
+							}
+						}
+					}
+				}
+				return true;
+			}
+
+			// function _getTitle(){
+			// 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+			// 	if ($scope.metamodelObject.type && $scope.resourceUrl){
+			// 		$scope.popup.labels.title = $scope.metamodelObject.labels.title || $scope.popup.labels.title;		
+			// 	}
+			// };
+
+			$scope.execute = function(action) {
+				if($scope.actionFactory[action]){
+					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.resourcesToBind.properties);
+				} else {
+					//default actions case
+					action();				
+				}
+
+			};
+		}],
+		templateUrl: 'src/ocInfra/templates/components/popup.html'
+	};
+}]);
+'use strict';
+
+/*
+global angular
+*/
+
+angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '$rootScope', '$injector', 'resourceFactory', '$q', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q){
+
+	return {
+		restrict: 'E',
+		scope: {
+			metamodel: '=',
+			resourceUrl: '=',
+			factoryName: '='
+		},
+		link: function($scope){
+			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
+			if (!metamodelObject) {
+				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
+					_processMetamodel(data);
+					_init(data);
+				});
+			} else {
+				_processMetamodel(metamodelObject);
+				_init(metamodelObject);
+			}
+
+			/*$scope.$watch('metamodel', function(newValue){
+				if(newValue){
+					var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[newValue]: null;
+					if (!metamodelObject) {
+						MetaModel.load($rootScope, $rootScope.regionId, newValue, function(data) {
+							_processMetamodel(data);
+							_init(data);
+						});
+					} else {
+						_processMetamodel(metamodelObject);
+						_init(metamodelObject);
+					}
+				}
+			});*/
+
+			$scope.$watch('resourceUrl', function(newValue, oldValue){
+				if(newValue !== oldValue){
+					if($scope.metamodelObject){
+						//_processMetamodel($scope.metamodelObject);
+						_init($scope.metamodelObject);
+					}
+				}
+			});
+
+			// $scope.isVisible = function(property, metamodelProperty){
+			$scope.isVisible = function(property){
+				if(property === undefined){
+					return false;
+				}
+
+				return true;
+			};
+
+			function _processMetamodel(metamodel){
+				if(metamodel && metamodel.sections){
+					metamodel.sections.forEach(function(section){
+						// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
+						if(!section.type || section.type !== 'reference'){
+							var rowNumbers = [];
+							section.rows = [];
+							
+							section.properties.forEach(function(property){
+								if(property.row !== undefined){
+									if(rowNumbers[property.row] === undefined){
+										rowNumbers[property.row] = 0;
+									}
+									rowNumbers[property.row]++;
+								}
+
+								//we need to process an array even if id is a single value. 
+								if (property.id && !Array.isArray(property.id)){
+									property.id = [property.id]; 
+								}
+							});
+
+							var propertyMapFilter = function(property){
+								if(property.row !== undefined && property.row === i){
+									return property;
+								}
+							};
+
+							for(var i = 0; i < rowNumbers.length; i++){
+								if(rowNumbers[i] !== undefined){
+									var propertiesInRow = section.properties.map(propertyMapFilter);
+
+									section.rows.push(propertiesInRow);
+
+									for(var j = 0; j < propertiesInRow.length; j++){
+										if(propertiesInRow[j] !== undefined){
+											section.properties.splice(section.properties.indexOf(propertiesInRow[j]), 1);
+											
+											var calculatedColspan = 12;
+								
+											if(section.properties.length > 1 && propertiesInRow[j].row){
+												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
+											}
+
+											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
+
+											section.properties.push(propertiesInRow[j]);
+										}
+									}
+								}
+							}
+
+							for(var index = section.properties.length - 1; index >= 0; index--){
+								if(section.properties[index].row === undefined){
+									section.rows.unshift([section.properties[index]]);
+								}
+							}
+
+							section.rows.forEach(function(properties){
+								while(properties.indexOf(undefined) >= 0) {
+									properties.splice(properties.indexOf(undefined), 1);
+								}
+							});
+						}
+					});
+				}
+			}
+
+			function _init(metamodelObject){
+				$scope.metamodelObject = metamodelObject;
+				$scope.resultSet = {};
+				$scope.boundUrls = [];
+
+				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.factoryName);
+				} catch(e) {
+					console.log($scope.factoryName + ' not found');
+				}
+				$scope.resourcesToBind = { properties : {} };
+				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
+				if ($scope.resourceUrlToRender === undefined) {
+					return;
+				}
+
+				$scope.$watchCollection('resultSet', function(newValue){
+					if(newValue){
+						//$scope.resourcesToBind = $scope.resourcesToBind || {};
+						//keep the ui inputs
+						var propertiesToKeep = {};
+						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
+							for (var property in $scope.resourcesToBind.properties) {
+								if (property.indexOf(':') === -1) {
+									propertiesToKeep[property] = $scope.resourcesToBind.properties[property];
+								}
+							}
+						}
+						$scope.resourcesToBind = { properties: propertiesToKeep };
+
+						for(var url in newValue){
+							$scope.resourcesToBind[newValue[url].identifier] = newValue[url];
+						}
+
+						$scope.boundUrls = [];
+						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
+						$scope.propertiesCollection = [];
+
+						// Extract the urls of the properties we have bound, so we can then update the view when any of those properties gets updated		
+						for(var i = 0; i < $scope.metamodelObject.sections.length; i++){
+							// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
+							if(!$scope.metamodelObject.sections[i].type || $scope.metamodelObject.sections[i].type !== 'reference') {
+								for(var j = 0; j < $scope.metamodelObject.sections[i].properties.length; j++){
+
+									
+									// if we potentially have the same property coming from different resources. 
+									if (Array.isArray($scope.metamodelObject.sections[i].properties[j].id)){
+										var idValues = $scope.metamodelObject.sections[i].properties[j].id;
+
+										for(var k = 0; k < idValues.length; k++){
+											var resourceSelected = { resource: null, points: 0 };
+											for(var resource in $scope.resourcesToBind){
+												if (resource !=='properties'){
+
+													//If the resource is part of a collection and we are only interested in on of the collection items. 
+													if ($scope.metamodelObject.sections[i].properties[j].selector){
+
+														seekSelectorInResource($scope.resourcesToBind[resource], $scope.metamodelObject.sections[i].properties[j].selector, resourceSelected);
+													} else if ($scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resource].properties){	
+														resourceSelected.resource = resource;
+													}
+												}
+											}
+
+											$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
+											//if we have found a value in one of the resources, we are done and no need to go on. 
+											if (resourceSelected.resource && $scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
+												$scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]] = 
+													$scope.resourcesToBind[resourceSelected.resource].properties[$scope.metamodelObject.sections[i].properties[j].id[k]];
+													// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
+
+												if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self) < 0) {
+													$scope.boundUrls.push($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self);	
+												}
+												break;
+											}
+											
+										}
+									} 
+								}
+							}
+						}
+						
+
+
+					}
+				});
+	
+
+				$scope.$on('resourceDirectory', function(event, params){
+					if($scope.boundUrls.indexOf(params.url) >= 0){
+						//_init(metamodelObject);
+						if (params.response.config.method !== 'DELETE') {
+							$scope.resultSet = {};
+							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
+						}
+					}
+				});
+				
+				MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
+			}
+
+			function seekSelectorInResource(resource, selector, resourceSelected){
+				var selectors = Array.isArray(selector)?selector:[selector];
+				var points = 0;
+				selectors.forEach(function(sel) {
+					//If we found the selctor among the resource properties, we discard it if the selector is not true
+					if (resource.properties[sel]) {
+						points += 2;
+						if (resource.properties[sel].value === true){
+							points += 1;
+						}
+					}
+				});
+				
+				if (points >= resourceSelected.points) {
+					resourceSelected.resource = resource.identifier;
+					resourceSelected.points = points;
+					return true;
+				}
+
+				return false;
+			}
+
+
+			$scope.execute = function(action, actionURL) {
+				if($scope.actionFactory && $scope.actionFactory[action]){
+					if($scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);	
+					}else{
+						$scope.actionFactory[action]($scope, actionURL);
+					}
+				} else {
+					if ($scope[action]) {
+						$scope[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);
+					}
+				}
+			};
+			/* Commented for JSHint because it is not used (yet) */
+			/*
+			function _sanitize(oldProperties, newProperties){
+				var properties = {};
+
+				for(var key in oldProperties){
+					if(newProperties && key in newProperties && newProperties[key].value !== oldProperties[key].value){
+						properties[key] = newProperties[key];
+					}
+				}
+
+				return properties;
+			}
+			*/
+
+			$scope.$on('patch_renderer', function(event, data){
+				if (data.resourceUrl === $scope.resourceUrlToRender) {
+					var payloads = {};
+					var promises = [];
+					var propertiesBound = $scope.resourcesToBind.properties;
+					if (propertiesBound) {
+						for(var key in propertiesBound){
+							if(propertiesBound[key] && propertiesBound[key].self && propertiesBound[key].editable){
+								var href = propertiesBound[key].self;
+								payloads[href] = payloads[href] || {};
+							}
+						}
+
+						var payloadKeys = Object.keys(payloads);
+						payloadKeys.forEach(function(url){
+							resourceFactory.get(url).then(function(response) {
+								var resourceToPatch = response.data;
+								var payloadToPatch = payloads[url];
+								for(var property in resourceToPatch){
+									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
+										if(property in propertiesBound && propertiesBound[property].value !== resourceToPatch[property]){
+											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
+										}
+									}
+								}
+								if(Object.keys(payloadToPatch).length > 0){
+									promises.push(resourceFactory.patch(url, payloadToPatch));
+									$q.all(promises).then(function() {
+										if (data.callback) {
+											$scope.execute(data.callback);
+										}
+									});
+								}
+							});
+						});
+					}
+				}
+			});
+
+			$scope.$on('reset_renderer', function(event, data){
+				if (data.resourceUrl === $scope.resourceUrlToRender) {
+					var payloads = {};
+					
+					if ($scope.resourcesToBind) {
+
+					 	for(var key in data.links){
+							if($scope.resourcesToBind[data.links[key]]){
+								payloads[data.links[key]] = '';
+							}
+						}
+
+					resourceFactory.patch(data.resourceUrl, payloads);
+						
+					}
+				}
+			});
+
+			$scope.$on('reset_renderer', function(event, data){
+				if (data.resourceUrl === $scope.resourceUrlToRender) {
+					var payloads = {};
+					
+					if ($scope.resourcesToBind) {
+
+					 	for(var key in data.links){
+							if($scope.resourcesToBind[data.links[key]]){
+								payloads[data.links[key]] = '';
+							}
+						}
+
+						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
+							if (data.callback) {
+								$scope.execute(data.callback);
+							}
+						});
+						
+					}
+				}
+			});
+		},
+		templateUrl: 'src/ocInfra/templates/components/renderer.html'
+	};
+}]);
+'use strict';
+
+/*
+global angular
+*/
+
+angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource', '$location', '$injector', '$rootScope', 'resourceFactory', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory){
+	return {
+		restrict: 'E',
+		replace: 'true',
+		scope: {
+			metamodel: '=',
+			resourceUrl: '=',
+			factoryName: '='
+		},
+		controller: ['$scope', function($scope){
+			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
+			if (!metamodelObject) {
+				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
+					_init(data);
+				});
+			} else {
+				_init(metamodelObject);
+			}
+
+			/*$scope.$watch('metamodel', function(newValue){
+				if(newValue){
+					var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[newValue]: null;
+					if (!metamodelObject) {
+						MetaModel.load($rootScope, $rootScope.regionId, newValue, function(data) {
+							_init(data);
+						});
+					} else {
+						_init(metamodelObject);
+					}
+				}
+			});*/
+
+			$scope.$on('resourceDirectory', function(event, params) {
+				for (var resource in $scope.resultSet) {
+					if (params.url === resource) {
+						if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH') {
+							if (params.response.config.method === 'DELETE') {
+								delete $scope.resultSet[params.url];
+							}
+							//refresh collection and items
+							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
+						} else {
+							//refresh items
+							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						}
+					}
+				}
+			});
+
+			$scope.$on('refreshTable', function(event, params) {
+				if (params.name === $scope.metamodelObject.name) {
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
+				}
+			});
+
+			function _init(metamodelObject){
+				$scope.resultSet = {};
+				$scope.itemSelected = {};
+				$scope.metamodelObject = metamodelObject;
+
+				var modalRef = $scope.metamodelObject.modalRef;
+                if (modalRef) {
+                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
+					if (!modalMetamodel) {
+						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
+							$scope.modalMetamodelObject = data;
+						});
+					} else {
+						$scope.modalMetamodelObject = metamodelObject;
+					}
+                }
+
+				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
+				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+
+				$scope.$watchCollection('resultSet', function(newValue){
+					if(newValue && newValue[$scope.resourceUrl]) {
+						$scope.items = [];
+						newValue[$scope.resourceUrl].items.forEach(function(item){
+							$scope.items.push(newValue[item.href]);
+						});
+					}
+				});
+				
+				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.factoryName);
+				} catch(e) {
+					console.log($scope.factoryName + ' not found');
+				}
+			}
+
+			$scope.execute = function(action, displayedItem, field) {
+				if(!action.method){
+					if($scope.metamodelObject.buttonMethod && action.buttonAction){
+						$scope.actionFactory[$scope.metamodelObject.buttonMethod](displayedItem, field);
+					} else {
+						$scope[action.value](displayedItem, field);
+					}
+				} else {
+					$scope.actionFactory[action.method](displayedItem, field);
+				}
+			};
+
+			$scope.isValidStatus = function(displayedItem){
+ 				var status = true;
+ 				if (displayedItem) {
+ 					var properties = displayedItem.properties;
+					if ($scope.modalMetamodelObject) {
+						$scope.modalMetamodelObject.sections.forEach(function(section) {
+			 				if (section.properties) {
+			                    section.properties.forEach(function(property){
+			 						if (properties[property.id]){
+			 							status = status && properties[property.id].consistent;
+			 						}
+				 				});
+							}
+						});
+		               
+					}
+ 				}
+				return status;
+			};
+
+			$scope.edit = function(itemSelected) {
+				$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+			};
+
+ 			$scope.update = function(displayedItem, field) {
+				if(displayedItem.patchable){
+					var payload = {};
+ 					payload[field.id] = displayedItem.properties[field.id].value;
+					//patch resource
+					resourceFactory.patch(displayedItem.href, payload).then(function() {
+						//refresh collection and items
+						//MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
+					});
+					
+	 			}
+	 		};
+
+	 		$scope.delete = function(displayedItem) {
+	 			if (displayedItem.deletable) {
+	 				//delete resource
+	 				resourceFactory.delete(displayedItem.href).then(function() {
+						//refresh collection and items
+						//MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
+	 				});
+	 			}
+	 		};
+
+	 		$scope.add = function() {
+	 			resourceFactory.get($scope.resourceUrl).then(function(response) {
+	 				response.data._options.links.forEach(function(link) {
+	 					if (link.rel === 'create') {
+	 						var hrefToPost = link.href;
+	 						resourceFactory.post(hrefToPost, {}, $rootScope.headers).then(function(response) {
+				 				//select the new resource
+				 				var href = response.data._links.self.href;
+				 				$scope.edit({href: href});
+
+				 				//refresh only the collection
+				 				resourceFactory.refresh($scope.resourceUrl).then(function(/*response*/) {
+				 					//MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+				 				});
+
+				 			});
+	 					}
+	 				});
+	 			});
+	 		};
+
+		}],
+		link : function (/*$scope*/) {
+		},
+		templateUrl: 'src/ocInfra/templates/components/table.html'
+	};
+}]);
+'use strict';
+
+/*
+global app
+*/
+
 
 app.directive('ocLogodir', function() {
   return {
@@ -655,7 +1570,6 @@ app.directive('formatDate', function() {
     };
 });
 
-
 'use strict';
 
 
@@ -668,6 +1582,7 @@ exported ScreenController
 */
 
 app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$q', 'resourceFactory', 'growl', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
+    var self = this;
     
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
@@ -699,7 +1614,7 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
 
     this.actionHandling=function(item, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
-        var metaModel = $scope.metamodel[screenId];
+        var metaModel = $scope.metamodelObject;
         
         //Add new values to $scope.data
         //incase the data is Date the code will select current data and reforamt 
@@ -752,16 +1667,283 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
             'Content-Type': 'application/json'
         };
 
-        if($rootScope.config.securityHeaders){
-            for(var key in $rootScope.config.securityHeaders){
-                $rootScope.headers[key] = $rootScope.config.securityHeaders[key];
-            }
-        }
-
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
     };
+    
+    /*============================================= Helper methods for components =============================================*/
+    /*
+        This function is in charge of analyzing the metamodel object and create an array with all the urls (resource 
+        dependencies) that must be queried based on a $http response.
+        Entry parameters:
+            - responseData -> Success $http response data object.
+            - metamodel -> Object representing the UI metamodel.
+        Output:
+            - An array containing all the resource urls that must be retrieved (empty array if no dependencies).
+    */
+    function _extractBusinessDependencies(responseData, metamodel){
+        if(!metamodel){
+            console.warn('No metamodel object to extract business dependencies');
+            return [];
+        } else if(!metamodel.businessObject){
+            return [];
+        }
+
+        var dependencies = [];
+        var keySet = [];
+
+        // Process http response to know which keys are contained in this resource
+        for(var property in responseData){
+            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
+                var propertyKey = property.split(':')[0];
+                if(keySet.indexOf(propertyKey) === -1){
+                    keySet.push(propertyKey);
+                }
+            }
+        }
+
+        // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
+        keySet.forEach(function(objectKey){
+            if(objectKey in metamodel.businessObject){
+                metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                    if(businessDependency in responseData._links){
+                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+                    }
+                });
+            }
+        });
+
+        return dependencies;
+    }
+
+    /*
+        Based on a valid (success) data http response (data object contained in $http response) this function 
+        creates and returns an object (map) where the keys are the names of the properties and the values are 
+        objects containing the following information:
+            - metainfo: Object representing the meta-information specified by the backend, such as maximum lengths.
+            - value: Value of the property.
+            - required: Boolean that indicates whether or not this property is required.
+            - editable: Boolean that indicates whether or not this property is editable.
+            - self: String URL of the entity this property belongs to.
+            - consistent: Boolean representing the status (valid or not) of this property in the backend.
+            - statusMessages: Object containing 3 arrays, one for every type of severity message (information, 
+              warning, error), and the counter that indicates how many errors and warnings we have to deal with.
+        Entry parameters:
+            - responseData -> Success $http response data object.
+        Output:
+            - Object containing the processed properties.
+    */
+    function _processProperties(responseData){
+        var propertiesObject = {};
+
+        if(responseData && responseData._options && responseData._embedded){
+            // First get the PATCH and self links to use them later
+            var updateCRUD;
+            var resourceURL;
+
+            responseData._options.links.forEach(function(crud){
+                if(crud.rel === 'update'){
+                    updateCRUD = crud;
+                }
+            });
+
+
+            for(var link in responseData._links){
+                 if(link === 'self'){
+                    resourceURL = responseData._links[link].href;
+                }
+            }
+
+            // Process the entity properties
+            for(var property in responseData._options.properties){
+                if(responseData._options.properties[property].format !== 'uri'){
+                    propertiesObject[property] = {};
+                    propertiesObject[property].metainfo = responseData._options.properties[property];
+                    propertiesObject[property].value = responseData[property];
+                    propertiesObject[property].self = resourceURL;
+                    propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
+                    propertiesObject[property].editable = (updateCRUD !== undefined && (property in updateCRUD.schema.properties));
+                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                    propertiesObject[property].consistent = true;
+                }
+            }
+
+            // Process status of the properties (based on status_report coming from backend)
+            for(var rel in responseData._embedded) {
+                if(rel.indexOf('status_report') >= 0){
+                    if (responseData._embedded[rel].messages) {
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return propertiesObject;
+    }
+
+    /*
+        Function that processes collection resources and extract its items urls to query them afterwards if required. In
+        case that the response ($http success data object) contains a summary for the items, we add them to the object
+        passed as second argument.
+        Entry parameters:
+            - responseData -> Data object contained in a success $http response.
+            - summaryData -> Object where the summaries of the items will be injected.
+        Output parameters:
+            - An array with the urls of the collection's items (empty array if there are not items).
+    */
+    function _extractItemDependencies(responseData, summaryData){
+        var itemDependencies = [];
+
+        if(responseData && responseData._links){
+            for(var linkKey in responseData._links){
+                if(linkKey === 'item'){
+                    var items = responseData._links[linkKey];
+                    // If there is only one item, the response it's not an array but an object
+                    if(!Array.isArray(items)){
+                        items = [items];
+                    }
+
+                    for(var j = 0; j < items.length; j++){
+                        var item = items[j];
+                        itemDependencies.push({ href: item.href, title: item.title });
+                        if(item.summary && summaryData){
+                            // By calling _processResponse without arguments we get the 'skeleton' for a resource
+                            summaryData[item.href] = _processResponse();
+                            for(var property in item.summary){
+                                summaryData[item.href].properties[property] = { value: item.summary[property] };
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return itemDependencies;
+    }
+
+    /*
+        Based on a $http response data and a metamodel, this function will create an uniform object (same structure for
+        collection resources and entity resources) containing the following information:
+            - dependencies -> Array of urls for the related resources.
+            - properties -> Object (map) with key equal to the name of the property and value equal to the object specified
+              for function '_processProperties'.
+            - items -> Array of urls for the items of the collection if any.
+            - deletable -> Boolean indicating whether or not this resource allows the DELETE operation.
+            - patchable -> Boolean indicating whether or not this resource allows the PATCH operation.
+            - creatable -> Boolean indicating whether or not this resource allows the POST operation.
+        Entry parameters:
+            - responseData -> Data object contained in the $http success response.
+            - metamodel -> UI metamodel object.
+            - summaryData -> Object where the summary of the collection's items (if any) will be stored.
+    */
+    function _processResponse(responseData, metamodel, summaryData){
+        var resource = {
+            'dependencies':[],
+            'properties': {},
+            'items': [],
+            'deletable': false,
+            'patchable': false,
+            'creatable': false
+        };
+        
+        if(responseData && responseData._links && responseData._options){
+            resource.href = responseData._links.self.href;
+            resource.up = responseData._links.up.href;
+
+            resource.properties = _processProperties(responseData);
+            resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
+            resource.items = _extractItemDependencies(responseData, summaryData);
+
+            // Process CRUD operations to check whether or not we can PATCH, DELETE...
+            responseData._options.links.forEach(function(apiOperation){
+                if(apiOperation.rel === 'update'){
+                    resource.patchable = true;
+                } else if(apiOperation.rel === 'delete'){
+                    resource.deletable = true;
+                } else if(apiOperation.rel === 'create'){
+                    resource.creatable = true;
+                }
+            });
+        }
+
+        return resource;
+    }
+
+
+    /*============================================= END Helper methods for components =============================================*/
+
+    /*============================================= Component methods =============================================*/
+    /*
+        This function queries the backend with the given URL and all the URLs found in the business object
+        configuration specified in the metamodel object.
+        Entry parameters:
+            - rootURL -> URL of the resource to get.
+            - metamodel -> UI metamodel object.
+            - resultSet -> Object where the retrieved resources will be inserted.
+            - dependencyName -> String that will be used as identifier of the resource.
+        Output:
+            - None. It will insert the results in the third parameter.
+    */
+    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+        // Entry validation
+        if(!resultSet){
+            return;
+        }
+
+        var methodResourceFactory = resourceFactory.get;
+        if (refresh) {
+            methodResourceFactory = resourceFactory.refresh;
+        }
+        var responseGET = methodResourceFactory(rootURL);
+        // Cached response (resource directory) or not, we always get a promise
+        if(responseGET.then){
+            responseGET.then(function success(httpResponse){
+                var responseData = httpResponse.data || httpResponse;
+                var summaryData = {};
+
+                // Add the resource to the result set
+                resultSet[rootURL] = _processResponse(responseData, metamodel, summaryData);
+                resultSet[rootURL].identifier = rootURL.substring(rootURL.lastIndexOf('/')+1);
+                // Build the right href. When there are url parameters, they are not included in the href so we need to include them
+                resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
+                resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
+
+                // Analyze business dependencies in order to extract them
+                resultSet[rootURL].dependencies.forEach(function(url){
+                    self.prepareToRender(url.href, metamodel, resultSet, url.resource);
+                });
+
+                // Shall we stick with the summaries or shall we retrieve the whole item ??
+                if(!metamodel.summary){
+                    resultSet[rootURL].items.forEach(function(url){
+                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
+                    });
+                } else {
+                    for(var resourceURL in summaryData){
+                        resultSet[resourceURL] = summaryData[resourceURL];
+                        resultSet[resourceURL].identifier = resourceURL.substring(resourceURL.lastIndexOf('/')+1);
+                        resultSet[resourceURL].href = resourceURL;
+                    }
+                }
+            }, function error(errorResponse){
+                // FIXME TODO: Do something useful if required, for now just logging
+                console.error(errorResponse);
+                throw errorResponse;
+            });
+        }
+    };
+    /*============================================= END Component methods =============================================*/
+
     return this;
 }]);
 
@@ -780,6 +1962,15 @@ function loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFacto
     }
 }
 
+function sanitizeSchema(fieldName, options){
+    angular.forEach(options.schema.properties, function(val, key) {
+        if (key !== fieldName) {
+            delete options.schema.properties[key];
+        }
+    });
+    return options;
+}
+
 function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve){
         if(resourcelist !== undefined && resourcelist.length > 0){
             //Iterate through the resource list of meta model
@@ -790,6 +1981,11 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                 //Formulate the URL for the options call
                 var url;
                 var newURL;
+                var patchFieldName;
+                if(scope.patchFieldName){
+                    patchFieldName = scope.patchFieldName;
+                }
+
                 if($rootScope.resourceHref) {
                     newURL = $rootScope.resourceHref;
                 }
@@ -801,6 +1997,7 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                     var applName = regionToSORMap[regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
+                    $rootScope.resourceHref = newURL;
                 }
 
                 console.log('OPTIONS CALL ON : '+newURL);
@@ -841,10 +2038,16 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                     if(action !== undefined){
-                                       options = optionsMapForResource.get(action);
-                                       if(options !== undefined){
-                                           httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
-                                       }
+                                        options = optionsMapForResource.get(action);
+                                        if(options !== undefined && patchFieldName !== undefined){
+                                            options = sanitizeSchema(patchFieldName, options);
+                                            httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                        }
+                                        else{
+                                            if(resolve) {
+                                                resolve();
+                                            }  
+                                        }
                                     }
                                 });
                             });
@@ -893,12 +2096,21 @@ function setOptionsMapForResource(optiondataobj, optionsMapForResource){
     });
 }
 
+function convertToArray(data) {
+    if(data !== undefined && data.length === undefined){
+        var array = [];
+        array.push(data);
+        return array;
+    }
+    return data;
+}
+
 function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
     var httpmethod = options.httpmethod;
     var schema = options.schema;
-    // console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+    console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
 
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -912,7 +2124,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             //Load the results into the search results table
             if(options.action==='search'){
                 if(data._links.item){
-                    $scope.stTableList = data._links.item;
+                    $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
                 }else{
@@ -930,13 +2142,17 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(data){
-            if (data) {
-                if($rootScope.regionId === 'us'){
+        if (data) {
+                if($rootScope.regionId === 'us' ){
                      if(data._links.self.quoteNumber !== undefined){
                         $scope.data['quote:identifier']=data._links.self.quoteNumber;
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                     }
-                     else{
+                     } 
+                     if(data.outcome === 'success'){
+                            angular.forEach(data.messages, function(value){
+                            growl.success(value.message);
+                        });
+                     } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
                      }  
@@ -955,8 +2171,18 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
-            $rootScope.loader.loading=false;
-            if (data) {
+            if (data) { 
+                if(data.outcome === 'success'){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value.message);
+                    });
+                }else{
+                    angular.forEach(data.messages, function(value){
+                        growl.error(value.message);
+                    });
+                }  
+                $rootScope.loader.loading=false;
+       
                 if(resolve) {
                     resolve();
                 }
@@ -1000,7 +2226,7 @@ function loadReferencedMetaModels(growl, scope, metaModel, screenId, onSuccess, 
     }
     angular.forEach(metaModel.include, function(value) {
         promises.push($resource(path + value + '.json').get(function(m) {
-            $rootScope.metamodel[value] = m.metaModel;
+            $rootScope.metamodel[value] = m.metamodel;
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
@@ -1017,6 +2243,7 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
     var metamodel = m.metamodel;
     var resourcelist = metamodel.resourcelist;
     
+    $rootScope.showHeader = metamodel.showHeader;
     if(resourcelist !== undefined && resourcelist.length >0){
         angular.forEach(resourcelist, function(resource){
             scope.metamodel[resource] = m.metamodel;    
@@ -1252,75 +2479,197 @@ app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resour
 global app
 */
 
+app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $rootScope, $q) {
 
-    app.factory('resourceFactory', ['$http', function($http) {
+    var resourceDirectory = {};
+    var PENDING_REQUEST = '0';
 
-    var resourceFactory = {};
-
-    resourceFactory.getData = function (urlBase) {
-        return $http.get(urlBase);
-    };
-
-    resourceFactory.get = function (urlBase,params,headers) {
-        var obj =   $http(
-            {
-                method : 'GET',
-                url : urlBase,
-                params : params,
-                headers : headers
+    function _addApiGatewayApiKeys(params) {
+        if (params === undefined) {
+            params = {};
+        }
+        if ($rootScope.config.apiGatewayApiKeys) {
+            for(var key in $rootScope.config.apiGatewayApiKeys) {
+                params[key] = $rootScope.config.apiGatewayApiKeys[key];
             }
-        );   
-        return obj;
-    };
+        }
+        return params;
+    }
 
-    resourceFactory.post = function (urlBase,params,headers) {
-        var obj = $http({
-                method: 'POST',
-                url: urlBase,
-                headers: headers,
-                data: params
+    function _get(url, params, headers) {
+        // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
+        if(params && Object.keys(params).length > 0){
+            resourceDirectory[url] = null;
+        }
+
+        params = _addApiGatewayApiKeys(params);
+        var promise;
+        if (!resourceDirectory[url]) {
+            resourceDirectory[url] = PENDING_REQUEST;
+            promise = $http({
+                    method : 'GET',
+                    url : url,
+                    params : params,
+                    headers : headers
             });
-        return obj;
-    };
+            if (promise.then) {
+                promise.then(function(response) {
+                    resourceDirectory[url] = response;
+                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
-    resourceFactory.insert = function (urlBase,obj) {
-        return $http.post(urlBase, obj);
-    };
+                }, function(error) {
+                    console.error(error);
+                    throw error;
+                });   
+            }
+        } else {
+            promise = $q(function(resolve) {
+                if (resourceDirectory[url] === PENDING_REQUEST) {
+                    $rootScope.$on('resourceDirectory', function(event, data) {
+                        if (data.url === url) {
+                            resolve(resourceDirectory[url]);
+                        }
+                    });
+                } else {
+                    resolve(resourceDirectory[url]);
+                }
+            });
+            promise.success = function(callback) {
+                var _success = callback;
+                promise.then(_success, null);
+                return promise;
+            };
+            promise.error = function(callback) {
+                var _error = callback;
+                promise.then(null, _error);
+                return promise;
+            };
+        }
+        return promise;
+    }
 
-    resourceFactory.update = function (urlBase,obj) {
-        return $http.put(urlBase + '/' + obj.id, obj);
-    };
+    function _refresh(url, params, headers) {
+        resourceDirectory[url] = null;
+        return _get(url, params, headers);
+    }
 
-    resourceFactory.delete = function (url, headers) {
-        var obj = $http({
+    function _post(url, data, headers) {
+        var params = _addApiGatewayApiKeys({});
+        var promise = $http({
+                method: 'POST',
+                url: url,
+                headers: headers,
+                params: params,
+                data: data
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[response.data._links.self.href] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+
+            }, function(error) {
+                console.error(error);
+                throw error;
+            });   
+        }
+        return promise;
+    }
+
+    function _delete(url, headers) {
+        var params = _addApiGatewayApiKeys({});
+        var promise = $http({
             method : 'DELETE',
             url : url,
-            headers : headers
+            headers : headers,
+            params: params
         });
-        return obj;
-    };
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = null;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
-    resourceFactory.options=function(urlBase, headers){
-        var obj =   $http(
-            {
-                method : 'GET',
-                url : urlBase,
-                headers : headers
-            }
-        );   
-        return obj;
-    };
+            }, function(error) {
+                console.error(error);
+                throw error;
+            });   
+        }
+        return promise;
+    }
 
-    resourceFactory.patch = function (urlBase,params,headers) {
-        var obj = $http({
+    function _patch(url,data,headers) {
+        var params = _addApiGatewayApiKeys({});
+        var promise = $http({
                 method: 'PATCH',
-                url: urlBase,
+                url: url,
+                headers: headers,
+                params: params,
+                data: data
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+
+            }, function(error) {
+                console.error(error);
+                throw error;
+            }); 
+        } 
+        return promise;
+    }
+
+    function _execute(url, params, headers, method) {
+        var promise = $http({
+                method: method,
+                url: url,
                 headers: headers,
                 data: params
-            });
-        return obj;
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                resourceDirectory[url] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+
+            }, function(error) {
+                console.error(error);
+                throw error;
+            }); 
+        } 
+        return promise;
+
+    }
+
+    return {
+        'get': _get,
+        'refresh': _refresh,
+        'post': _post,
+        'delete' : _delete,
+        'patch': _patch,
+        'execute': _execute,
+
+        'getData' : function (urlBase) {
+            return $http.get(urlBase);
+        },
+        'insert' : function (urlBase,obj) {
+            return $http.post(urlBase, obj);
+        },
+
+        'update' : function (urlBase,obj) {
+            return $http.put(urlBase + '/' + obj.id, obj);
+        },
+        'options' : function(urlBase, headers){
+            var params = _addApiGatewayApiKeys({});
+            var obj =   $http(
+                {
+                    method : 'GET',
+                    url : urlBase,
+                    headers : headers,
+                    params: params
+                }
+            );   
+            return obj;
+        }
     };
- return resourceFactory;
 
 }]);
 'use strict';
@@ -1347,51 +2696,51 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         growl.success('Im  a success message');
     };
    
-	screenname  = 'OmniChannel';
-	$rootScope.showHeader = true;
-	$scope.disableNext = false;
+    screenname  = 'OmniChannel';
+    
+    $scope.disableNext = false;
 
-	$scope.rulesDataList = [];
-	var reqParmScreen = null;
-	var reqParmRegion = null;
-	var screenExist = false;
-	var regionExist = false;
-	$scope.data = {};
-	$scope.remove = 'ban-circle';
-	$scope.removestyle = 'red';	
-	$scope.dateOptions = {
-     	changeYear: true,
+    $scope.rulesDataList = [];
+    var reqParmScreen = null;
+    var reqParmRegion = null;
+    var screenExist = false;
+    var regionExist = false;
+    $scope.data = {};
+    $scope.remove = 'ban-circle';
+    $scope.removestyle = 'red'; 
+    $scope.dateOptions = {
+        changeYear: true,
         changeMonth: true,
         yearRange: '1900:2030',
     };
-	$rootScope.typeahead =[];
+    $rootScope.typeahead =[];
 
-	if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
-	if ($routeParams.regionId.indexOf(':') !== -1) {
-		reqParmRegion = $routeParams.regionId.split(':');
-		$rootScope.regionId = reqParmRegion[1];
-		regionExist = true;
-	}else{
-		reqParmRegion = $routeParams.regionId;
-		$rootScope.regionId = reqParmRegion;
-	}
-	}
+    if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
+    if ($routeParams.regionId.indexOf(':') !== -1) {
+        reqParmRegion = $routeParams.regionId.split(':');
+        $rootScope.regionId = reqParmRegion[1];
+        regionExist = true;
+    }else{
+        reqParmRegion = $routeParams.regionId;
+        $rootScope.regionId = reqParmRegion;
+    }
+    }
 
-	if ($routeParams.screenId.indexOf(':') !== -1) {
-		reqParmScreen = $routeParams.screenId.split(':');
-		$rootScope.screenId = reqParmScreen[1];
-		screenExist = true;
-	} else {
-		reqParmScreen = $routeParams.screenId;
-		$rootScope.screenId = reqParmScreen;
-	}
+    if ($routeParams.screenId.indexOf(':') !== -1) {
+        reqParmScreen = $routeParams.screenId.split(':');
+        $rootScope.screenId = reqParmScreen[1];
+        screenExist = true;
+    } else {
+        reqParmScreen = $routeParams.screenId;
+        $rootScope.screenId = reqParmScreen;
+    }
       
     // reset data after edited and back to search screen
-    if($routeParams.screenId.indexOf('search') !== -1){
+    if($routeParams.screenId.indexOf('search') !== -1 || $routeParams.screenId.indexOf('dashboard')!== -1 ){
         $rootScope.resourceHref = undefined;
     }
-	
-	$rootScope.navigate = function(url, product_id) {
+    
+    $rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
@@ -1404,25 +2753,71 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-    $scope.getNamesList = function(viewValue, typeahead, fieldName){
-        
-        if(typeahead){
-            var url = $rootScope.HostURL + 'persons?' + fieldName + '=' + viewValue;
+    $scope.getNamesList = function(viewValue, field){        
+        if(field.typeahead){
+            var url = '';
+            var param = '';
+            var vehicle_make = '';
+            var vehicle_model = '';
+            
+            if (field.typeaheadField === 'referential_vehicle:make') {
+                vehicle_make = field.typeaheadField + '=' + viewValue;
+                param = vehicle_make;
+                url = $rootScope.HostURL + 'referential_vehicle_makes?' + param;
+            } else if (field.typeaheadField === 'referential_vehicle:model') {   
+                vehicle_model = field.typeaheadField + '=' + viewValue;         
+                var arrparent = $rootScope.metamodel[$rootScope.currName].sections; 
+                for(var i = 0; i < arrparent.length; i++){
+                    var arr = arrparent[i].elements;
+                    for(var j = 0; j < arr.length; j++){
+                        var object = arr[j];
+                        if(object.name === field.enableWhen.expression.field){                            
+                            if(object.typeaheadField !== undefined && object.typeaheadField !== null && object.typeaheadField !== ''){
+                                vehicle_make = object.typeaheadField + '=' + $scope.data[field.enableWhen.expression.field] + '&';
+                            }
+                        }
+                    }
+                }               
+                param =  vehicle_make + vehicle_model;
+                url = $rootScope.HostURL + 'referential_vehicle_models?' + param;
+            } else {
+                url = $rootScope.HostURL + 'persons?' + field.typeaheadField + '=' + viewValue;
+            }
+
             var regionToSORMap = $rootScope.regionToSoR;
             var applName = regionToSORMap[$rootScope.regionId];
             url = url.replace(':regionId',applName);
             resourceFactory.options(url, $rootScope.headers).success(function(data){
-                $rootScope.typeaheadData[fieldName] = [];
-                $scope.typeaheadData[fieldName] = [];
-                angular.forEach(data._links.item, function(value){
-                    if(value.summary[fieldName]){
-                        $rootScope.typeaheadData[fieldName].push(value.summary[fieldName]);
+                $rootScope.typeaheadData[field.typeaheadField] = [];
+                $scope.typeaheadData[field.typeaheadField] = [];
+                var items = convertToArray(data._links.item);
+                angular.forEach(items, function(value){
+                    if(value.summary[field.typeaheadField]){
+                        $rootScope.typeaheadData[field.typeaheadField].push(value.summary[field.typeaheadField]);
                     }
                 });
-                $scope.typeaheadData[fieldName] = $rootScope.typeaheadData[fieldName];
+                $scope.typeaheadData[field.typeaheadField] = $rootScope.typeaheadData[field.typeaheadField];
             });
         }
     };
+
+    $scope.checkEnable = function(field)
+    {
+        if(field.enableWhen)
+        {
+            return ($scope.data[field.enableWhen.expression.field] !== undefined && $scope.data[field.enableWhen.expression.field] !== null && $scope.data[field.enableWhen.expression.field] !== '') ? false : true;
+        }
+        return false;
+    };
+
+    function convertToArray(data) {
+        if(data !== undefined && data.length === undefined){
+            var array = [];
+            array.push(data);
+            return array;
+        }
+        return data;
+    }
 
 	MetaModel.setHeaders($rootScope);
 
@@ -1434,8 +2829,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             $scope.field.tableMetaModel = tableMetaModel;           
         });
     };
-	
-	$rootScope.navigate = function(url, product_id) {
+    
+    $rootScope.navigate = function(url, product_id) {
         $rootScope.product_id = product_id;
         $location.path(url);
     };
@@ -1448,11 +2843,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
 		return true;
 	};
-	
-	$scope.loadMetaModel = function() {
-		$rootScope.metamodel = {};
-		MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen));
-	};
 
 	// Dynamic Injection of Factory
 
@@ -1461,36 +2851,41 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
         try{
           
-	        $scope.factory = $injector.get($scope.factoryname);
-	        //console.log('Injector has '+$scope.factoryname+' service!');
+            $scope.factory = $injector.get($scope.factoryname);
+            //console.log('Injector has '+$scope.factoryname+' service!');
         }catch(e){
          console.log('Injector does not have '+$scope.factoryname+' service!');
         }
-	};
-	
-	$rootScope.isPrev = false;
-	
-	$scope.loadOptionData = function() {
-		 var url = $rootScope.resourceHref;
-		 if (url === undefined) {	
-				url = $rootScope.HostURL+$scope.screenId;
-		 }
-		 
-	};
+    };
+    
+    $rootScope.isPrev = false;
+    
+    $scope.loadOptionData = function() {
+         var url = $rootScope.resourceHref;
+         if (url === undefined) {   
+                url = $rootScope.HostURL+$scope.screenId;
+         }
+         
+    };
 
-	$scope.loadOptionData();
+    $scope.loadOptionData();
     
     $scope.stTableList = [];
     $scope.displayed = [];
     $scope.stTableList.showResult = true;
 
-	$scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
 
        console.log(nextScreenId);
-		var screenId = $rootScope.screenId;
-		var regionId = $rootScope.regionId;
-		if(action==='navigate'){
-            $rootScope.resourceHref = undefined;
+        var screenId = $rootScope.screenId;
+        var regionId = $rootScope.regionId;
+        if(action==='navigate'){
+	        var resourcelist=$rootScope.metamodel[screenId].resourcelist;
+            var url = $rootScope.HostURL + resourcelist;
+            var regionToSORMap = $rootScope.regionToSoR;
+            var applName = regionToSORMap[regionId];
+            var newURL = url.replace(':regionId',applName);
+            $rootScope.resourceHref =newURL;
             $rootScope.navigate(actionURL);
         }
         else if(action==='nextTab'){
@@ -1515,6 +2910,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
             new Promise(function(resolve) {
                 var optionFlag = false;
+                $scope.patchFieldName = undefined;
                 MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
             }).then(function(){
                 if(tab !== undefined){
@@ -1552,7 +2948,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                         });
                                     }).error(function(){
                                         //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                        				growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
                                     });
                                 });
                             });
@@ -1573,20 +2969,20 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             }
         }
     };
-  	  
-	$rootScope.next = function() {
+      
+    $rootScope.next = function() {
         $scope.next();
     };
-	
-	$scope.next = function() {
-	};
-	 
-	$rootScope.step=1;
+    
+    $scope.next = function() {
+    };
+     
+    $rootScope.step=1;
 
-	$scope.getenumdata=function(){
-	   	var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
+    $scope.getenumdata=function(){
+        var url = 'https://oc-sample-dropdown.getsandbox.com/omnichannel/sample/select';
         resourceFactory.getData(url).success(function(data){
-		$scope.enumdata=data;   	
+        $scope.enumdata=data;       
      });
     };
 
@@ -1609,6 +3005,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     }).then(function(){
     
         loadRelationshipByStep($scope.preStep);
+         if($rootScope.regionId === 'us') {
+            $rootScope.currRel = 'itself';
+        } 
         EnumerationService.loadEnumerationByTab();
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
@@ -1625,49 +3024,46 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     });
 
     $scope.selecttab = function(step1, rel) {
-        var screenId = $rootScope.screenId;
-        var regionId = $rootScope.regionId;
-
         if ($scope.isValid()) {
             $rootScope.step = step1;
             $rootScope.currRel = rel;
-
-            new Promise(function(resolve) {
-                // patch for previous tab
-                if ($rootScope.step !== $scope.preStep && rel !== 'undefined') {
-                    loadRelationshipByStep($scope.preStep);
-                    if (regionId !== 'us') {
-                        var optionFlag = true;
-                        MetaModel.actionHandling(undefined, $scope, regionId, screenId, 'update', resourceFactory, $scope.currRel, optionFlag, resolve);
-                    }
-                    $scope.preStep = $rootScope.step;
-                    loadRelationshipByStep($scope.preStep);
-                }
-            }).then(function() {
-                // load data for tab click
-                if ($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself') {
+            
+            loadRelationshipByStep($scope.preStep);
+            $scope.preStep = $rootScope.step;
+            loadRelationshipByStep($scope.preStep);            
+            if ($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself') {
                     $scope.loadDataByTab($rootScope.currRel);
-                } else {
-                    var params = {};
-                    resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
-                        if (data) {
-                            $scope.data=data;
-                        }
-                    });
-                    EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-                }
+            } else {
+                var params = {};
+                resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
+                    if (data) {
+                        $scope.data=data;
+                    }
+                });
+                EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+            }
 
-            });
         }
     };
 
-	$scope.loadDataByTab = function (tab) {
+    $scope.patchField = function(fieldName){
 
-	    var url = $rootScope.resourceHref;
+        $scope.patchFieldName = fieldName;
+        // not apply patch field for us
+        if ($rootScope.regionId !== 'us') { 
+            if($scope.isValidByField(fieldName)){
+                MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true);
+            }
+        }
+    };
 
-		if (url !== undefined) {
-			resourceFactory.options(url, $rootScope.headers).success(function(data){
-	            //Fetch the links response
+    $scope.loadDataByTab = function (tab) {
+
+        var url = $rootScope.resourceHref;
+
+        if (url !== undefined) {
+            resourceFactory.options(url, $rootScope.headers).success(function(data){
+                //Fetch the links response
                 if(data !== undefined && data._links !== undefined && data._links[tab] !== undefined){
                     var tabUrl = data._links[tab].href;
 
@@ -1683,12 +3079,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         EnumerationService.executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
                     });    
                 }
-	        });
-		}
+            });
+        }
 
-	};
+    };
 
-	$scope.isValid = function(){
+    $scope.isValid = function(){
         var dataField = [];
         var mandatoryField = $scope.loadmandatoryField();
         var emptyField = [];
@@ -1720,32 +3116,54 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         return true;
     };
 
+    $scope.isValidByField = function(fieldName){
+        var message = '';
+        if($scope.isMandatoryField(fieldName)){
+            if($scope.data[fieldName] !== undefined && $scope.data[fieldName] !== null){
+                return true;
+            }
+            var label = $scope.translateKeyToLabelByTab(fieldName);
+            message = $rootScope.locale[label] + $rootScope.locale.IS_REQD;
+            growl.error(message);
+            return false;
+        }
+        return true;
+    };
+
+    $scope.isMandatoryField = function(fieldName){
+        var arrMandatoryField = $scope.loadmandatoryField();
+        if($.inArray(fieldName, arrMandatoryField) !== -1){                    
+            return true;
+        }
+        return false;
+    }; 
+
     $scope.loadmandatoryField = function(){
-    	var mandatoryField = [];
-    	var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
-    	for(var i = 0; i < arrparent.length; i++){
-    		var arr = arrparent[i].elements;
-    		for(var j = 0; j < arr.length; j++){
-	    		var object = arr[j];
-	    		if(object.required !== undefined && object.required === 'required'){
-	    			mandatoryField.push(object.name);
-	    		}
-	    	}
-    	}
-    	return mandatoryField;
+        var mandatoryField = [];
+        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        for(var i = 0; i < arrparent.length; i++){
+            var arr = arrparent[i].elements;
+            for(var j = 0; j < arr.length; j++){
+                var object = arr[j];
+                if(object.required !== undefined && object.required === 'required'){
+                    mandatoryField.push(object.name);
+                }
+            }
+        }
+        return mandatoryField;
     };
 
     $scope.translateKeyToLabelByTab = function(key){
-    	var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
-    	for(var i = 0; i < arrparent.length; i++){
-    		var arr = arrparent[i].elements;
-    		for(var j = 0; j < arr.length; j++){
-	    		var object = arr[j];
-	    		if(object.name === key){
-	    			return object.label;
-	    		}
-	    	}
-    	}
+        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        for(var i = 0; i < arrparent.length; i++){
+            var arr = arrparent[i].elements;
+            for(var j = 0; j < arr.length; j++){
+                var object = arr[j];
+                if(object.name === key){
+                    return object.label;
+                }
+            }
+        }
     };
 }
 'use strict';
@@ -1835,6 +3253,8 @@ app.service('EnumerationService', ['$rootScope', 'resourceFactory', function($ro
                     });
                 });
             }
+        } else if($rootScope.resourceHref !== undefined){
+            self.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'search');
         }
     };
 
