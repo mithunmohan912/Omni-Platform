@@ -13,15 +13,11 @@
 		<li ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metamodel[screenId].sections" quick-repeat-list="field in metamodel[screenId].sections" >
       <span class="tab-icon flaticon-incomplete"></span>
       <span class="tab-icon flaticon-complete"></span>
-			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)">{{(locale[field.name]?locale[field.name] : field.name)}}</a>
-			<div ng-if="field.type=='tourstep'">
-			<div  class="col-md-{{field.columnsize}}" style="text-align: center;" >
-                <div  tour-step backdrop="true" order="{{field.order}}" title="{{(locale[field.title]?locale[field.title] : field.title)}}" content="{{(locale[field.tourcontent]?locale[field.tourcontent] : field.tourcontent)}}" placement="{{field.position}}" autoscroll="true"></div>
-
-                </div>
-                </div>
-
+			<a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)" tour-step backdrop="true" order="{{field.order}}" title="{{(locale[field.title]?locale[field.title] : field.title)}}" content="{{(locale[field.tourcontent]?locale[field.tourcontent] : field.tourcontent)}}" placement="{{field.position}}" autoscroll="true">{{(locale[field.name]?locale[field.name] : field.name)}} </a>
+			
 		</li>
+
+   
 </ul>
 
 <!-- <ul class="nav nav-tabs responsive" id="myTab">
