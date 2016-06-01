@@ -3,45 +3,45 @@
 
 **Table of contents**
 -------------
-[Overview](#overview)
-[Components](#components)
-[1. Renderer](#1-renderer)
-&nbsp;&nbsp;&nbsp;[1.1 Renderer metamodel](#11-renderer-metamodel)
-&nbsp;&nbsp;&nbsp;[1.2 Renderer template](#12-renderer-template)
-&nbsp;&nbsp;&nbsp;[1.3 Renderer usage](#13-renderer-usage)
-[2. Table](#2-table)
-&nbsp;&nbsp;&nbsp;[2.1 Table usage](#21-table-usage)
-&nbsp;&nbsp;&nbsp;[2.2 Table metamodel](#22-table-metamodel)
-&nbsp;&nbsp;&nbsp;[2.3 Table metamodel properties](#23-table-metamodel-properties)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.1 Table label](#231-table-label)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.2 Table multilabel](#232-table-multilabel)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.3 Table icon](#233-table-icon)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.4 Table literal](#234-table-literal)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.5 Table status](#235-table-status)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.6 Table date](#236-table-date)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.7 Table checkbox](#237-table-checkbox)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.3.8 Table actions](#238-table-actions)
-[3. Pop up](#3-pop-up)
-[4. Input](#4-input)
-&nbsp;&nbsp;&nbsp;[4.1 Input directive usage](#41-input-directive-usage)
-&nbsp;&nbsp;&nbsp;[4.2 Input metamodel example](#42-input-metamodel-example)
-&nbsp;&nbsp;&nbsp;[4.3 Input metamodel structure](#43-input-metamodel-structure)
-&nbsp;&nbsp;&nbsp;[4.4 Input metamodel attributes and options](#44-input-metamodel-attributes-and-options)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1 Autocomplete](#441-autocomplete)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2 Decimal](#442-decimal)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.3 Money](#443-money)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.4 Email](#444-email)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.5 Number](#445-number)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.6 Percentage](#446-percentage)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.7 Select](#447-select)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.8 TextMask](#448-textmask)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.9 Text](#449-text)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.10 Textarea](#4410-textarea)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.11 Toggle](#4411-toggle)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.12 Date](#4412-date)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.13 Checkbox](#4413-checkbox)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.14 Label](#4414-label)
-[Metamodels](#metamodels)
+* [Overview](#overview)
+* [Components](#components)
+* [1. Renderer](#1-renderer)
+    - [1.1 Renderer metamodel](#11-renderer-metamodel)
+    - [1.2 Renderer template](#12-renderer-template)
+    - [1.3 Renderer usage](#13-renderer-usage)
+* [2. Table](#2-table)
+    - [2.1 Table usage](#21-table-usage)
+    - [2.2 Table metamodel](#22-table-metamodel)
+    - [2.3 Table metamodel properties](#23-table-metamodel-properties)
+        + [2.3.1 Table label](#231-table-label)
+        + [2.3.2 Table literal](#232-table-literal)
+        + [2.3.3 Table icon](#233-table-icon)
+        + [2.3.4 Table status](#234-table-status)
+        + [2.3.5 Table actions](#235-table-actions)
+* [3. Pop up](#3-pop-up)
+    - [3.1 Pop up metamodel example](#31-pop-up-metamodel-example)
+    - [3.2 Pop up directive usage](#32-pop-up-directive-usage)
+    - [3.3 Pop up code example](#33-pop-up-code-example)
+* [4. Input](#4-input)
+    - [4.1 Input directive usage](#41-input-directive-usage)
+    - [4.2 Input metamodel example](#42-input-metamodel-example)
+    - [4.3 Input metamodel structure](#43-input-metamodel-structure)
+    - [4.4 Input metamodel attributes and options](#44-input-metamodel-attributes-and-options)
+        + [4.4.1 Autocomplete](#441-autocomplete)
+        + [4.4.2 Decimal](#442-decimal)
+        + [4.4.3 Money](#443-money)
+        + [4.4.4 Email](#444-email)
+        + [4.4.5 Number](#445-number)
+        + [4.4.6 Percentage](#446-percentage)
+        + [4.4.7 Select](#447-select)
+        + [4.4.8 TextMask](#448-textmask)
+        + [4.4.9 Text](#449-text)
+        + [4.4.10 Textarea](#4410-textarea)
+        + [4.4.11 Toggle](#4411-toggle)
+        + [4.4.12 Date](#4412-date)
+        + [4.4.13 Checkbox](#4413-checkbox)
+        + [4.4.14 Label](#4414-label)
+* [Metamodels](#metamodels)
 
 **OverView**
 ----------------
@@ -248,15 +248,15 @@ Example:
 #### 2.3 Table metamodel properties
 Depending on the property type, its metadata definition can be slightly different. These are the common attributes:
 
-* __id__: Name of the backend property that will be displayed. In some cases, this property can be an array of names (i.e: multilabels).
+* __id__: Name of the backend property that will be displayed. In some cases, this property can be an array of names.
 * __label_header__: Text or key in the i18n file representing the column header to use when there is not a header section specified for the table.
 * __align__: the align property value for the table column.
 * __width__: the width property value for the table column.
-* __type__: Text used to indicate the type of cell that will have to be displayed. The possible values are as follows:
+* __type__: Text used to indicate the type of cell that will have to be displayed. Some possible values are explained in the folowing sections.
 
 ##### 2.3.1 Table label
 
-Label type used to display the value of the property specified in the *id* attribute.
+Label type used to display the value of the property specified in the *id* attribute that could be an array of ids. It would be also posible to specify an attribute *format*, for example 'dd/MM/YYYY' for a date.
 
 Example:
 
@@ -268,20 +268,20 @@ Example:
                 "width": "10%"
             }
 
+##### 2.3.2 Table literal
 
-##### 2.3.2 Table multilabel
-
-Multilabel type will render a collection of properties defined in the *id* attribute separated by blank spaces.
+Literal type used to render the *id* value directly in the table cell, it may be a text or key in the i18n file.
 
 Example:
 
-        {
-                "id": ["quote_driver:first_name", "quote_driver:name"],
-                "label_header": "_NAME",
-                "type": "multilabel",
+            {
+                "id": "_DRIVER",
+                "label_header": "_ROLE",
+                "type": "literal",
                 "align": "left",
-                "width": "25%"
-        }
+                "width": "10%"
+            }
+
 
 ##### 2.3.3 Table icon
 
@@ -307,21 +307,7 @@ Example:
             }
 
 
-##### 2.3.4 Table literal
-
-Literal type used to render the *id* value directly in the table cell, it may be a text or key in the i18n file.
-
-Example:
-
-            {
-                "id": "_DRIVER",
-                "label_header": "_ROLE",
-                "type": "literal",
-                "align": "left",
-                "width": "10%"
-            }
-
-##### 2.3.5 Table status
+##### 2.3.4 Table status
 
 Status type used to insert an icon displaying the entity backend status of the resource.
 
@@ -334,37 +320,7 @@ Example:
                 "width": "5%"
             }
 
-##### 2.3.6 Table date
-
-Date type that displays the date value contained in the property specified in the *id* attribute formatted based on the *format* attribute.
-
-Example:
-
-            {
-                "id": "quote:start_date",
-                "label_header": "_Effective_Date",
-                "type": "date",
-                "format": "dd/MM/yyyy",
-                "align": "left",
-                "width": "10%"
-            }
-
-##### 2.3.7 Table checkbox
-
-Checkbox type is rendered as a checkbox that will be bound with the *id* attribute defined. The table will have the default action of patching any change detected in its status, but it could be ovewritten by using the attribute *method* to specify the name of the function in the custom factory to be executed instead of the behaviour by default.
-
-Example:
-
-            {
-                "id": "quote_driver:is_quote_owner",
-                "label": "_SAME_AS_POLICY_HOLDER",
-                "type": "checkbox",
-                "align": "center",
-                "width": "10%"
-            }
-
-
-##### 2.3.8 Table Actions
+##### 2.3.5 Table Actions
 
 Action type defines a list of actions to be included for each item in the table. It is required by every action to add an element in the *options* attribute containing the following fields:
 
@@ -396,12 +352,13 @@ Example:
                 ]
             }
 
+_Since the table uses the [input](#4-input) renderer underneath, it could be possible to render in a cell any type allowed by the component, as well as any behavior allowed by it such as the patch of the property._
 
-### 3. Pop up
+### 3. Pop Up
+- - - -
 
 This component handles the screen section expected to be renderized inside a modal window. It usually appears with a button group to trigger some actions related to its form data and a "X" button to close the modal. 
 
- 
 The metamodel definition interpreted by a pop up can include the follow attributes:
 
 •	**actions**: defines the functions to be executed by the popup buttons. This actions will override the popup default actions.
@@ -416,7 +373,7 @@ The metamodel definition interpreted by a pop up can include the follow attribut
 	- close: Action to be executed from X button.
 		+ callback: custom action to be executed afeter the default behaviour.
 		
-Example:
+####3.1 Pop up metamodel example:
 
 	"name":"quote_owner",
         "labels": {
@@ -449,7 +406,7 @@ Example:
              }
         }]  
 
-#####Usage:
+####3.2 Pop up directive usage:
 
 The popup renderer directive has an isolate scope and it is restricted to elements. Its scope option contains the following properties:
 
@@ -458,8 +415,9 @@ The popup renderer directive has an isolate scope and it is restricted to elemen
 -**factoryName**: Custom Factory defined for custom screen actions. 
 -**resourceUrl**: API resource (optional).
 
-	<popup-render ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+####3.3 Pop up code example:
 
+	<popup-render ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
 
 ### 4. Input
 - - - -
