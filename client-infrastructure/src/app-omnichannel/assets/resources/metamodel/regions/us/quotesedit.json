@@ -1,0 +1,41 @@
+{
+    "metamodel": {
+        "formid": "AddHomeQuote",
+        "title": "_HOME_QUOTE_US_CREATE",
+        "hidetitle": false,
+        "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "createButton": false,
+        "name": "AddHomeQuote",
+        "sections": [
+            {
+                 
+               
+                
+              
+                "$ref": "editgeneralInfo",
+                "name": "_GENERAL_INFO",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref": "editcoverageInfo",
+                "name": "_COVERAGE_INFO",
+                "renderAsTab": true,
+                "step": 2
+            },
+             {
+              
+              "$ref": "submitforedit",
+              "step":2
+             
+             } ]
+              
+           
+        
+    },
+    "include":[
+         "editgeneralInfo","editcoverageInfo","submitforedit"
+        
+    ]
+}
