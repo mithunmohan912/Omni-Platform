@@ -1,5 +1,6 @@
 {
     "metamodel" : {
+        "name":"quote_owner",
         "labels": {
             "title": "_OWNER_POPUP",
             "ok": "_SAVE",
@@ -19,7 +20,8 @@
                     "id": "quote_owner:type",
                     "label": "_OWNER_TYPE",
                     "type": "select",
-                    "row": 1
+                    "row": 1,
+                    "patchOnBlur": true
                 },
                 {
                     "id": ["person:last_name","organization:name", "quote_owner:name"],
@@ -45,13 +47,14 @@
                     "id": ["person:birth_date", "quote_owner:birth_date"],
                     "type": "date",
                     "label": "_DOB",
-                    "row": 3
+                    "row": 3,
+                    "input": true
                 },
                 {
                     "id": ["postal_address:postal_code", "quote_owner:postal_code"],
                     "type": "autocomplete",
                     "label": "_POSTALCODE",
-                    "selector": "postal_address:preferred",
+                    "selector": ["postal_address:preferred", "operation_status"],
                     "attributes": {
                         "maxlength": 4
                     },
@@ -67,24 +70,24 @@
                     "row": 5
                 },
                   {
-                    "id": ["postal_address:city", "quote_owner:city"],
+                    "id": ["postal_address:city_name", "quote_owner:city"],
                     "type": "autocomplete",
                     "label": "_CITY",
-                    "selector": "postal_address:preferred",
+                    "selector": ["postal_address:preferred", "operation_status"],
                     "row": 4
                 },
                  {
                     "id": ["postal_address:box_number","quote_owner:box_number"],
                     "type": "autocomplete",
                     "label": "_BOX_NO",
-                    "selector": "postal_address:preferred",
+                    "selector": ["postal_address:preferred", "operation_status"],
                     "row": 5
                 },
                  {
                     "id": ["postal_address:street_number", "quote_owner:street_number"],
                     "type": "text",
                     "label": "_STREET_NUMBER",
-                    "selector": "postal_address:preferred",
+                    "selector": ["postal_address:preferred", "operation_status"],
                     "row": 6
                 },
                  {
@@ -95,7 +98,33 @@
                 }
 
             ]
-       }],
+       },
+
+       {
+        "title": "_ADD_ADDRESS",
+        "underline": true,
+        "colspan":8,
+        "properties": []
+       },
+       {        
+                "colspan":2,
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "icon": "fa-plus",
+                                "tooltip": "Add",
+                                "action": "addAddress"
+                            }
+                        ]
+                    }
+                ]
+       }
+
+
+
+       ],
 
        "businessObject": {
             "quote_owner": [
@@ -121,8 +150,11 @@
             },
             "ok": {
                 "callback": "callbackQuoteOwner"
+            },
+            "close": {
+                "callback" : "closeOwnerPopUp"
             }
-           
+                      
 
         }
     }

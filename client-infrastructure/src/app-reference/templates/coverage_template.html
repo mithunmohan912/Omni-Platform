@@ -1,0 +1,4 @@
+<div ng-repeat="item in resourcesToBind[column.id].items">
+	<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
+	<renderer resource-url="item.href" metamodel="column.metamodel" factory-name="screenId + 'Factory'"></renderer>
+</div>
