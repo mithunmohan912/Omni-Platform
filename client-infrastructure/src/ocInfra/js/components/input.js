@@ -238,7 +238,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					$timeout(function() {
 						$scope.timeout = false;
 						var payload = {};
-						var response = resourceFactory.get(params.property.self).then(function(response){
+						resourceFactory.get(params.property.self).then(function(response){
 							/*
 							Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
 							we may lose already modified information when the response come back from the backend
@@ -271,7 +271,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			$scope.getData = function(params) {
 				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
 				return resourceFactory.get(url).then(function(response) {
-					var response = response.data || response;
+					response = response.data || response;
 					var items = response._links.item || [];
 					if(items && !Array.isArray(items)){
 						return [items];
@@ -298,7 +298,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(error) {
-					console.warn($scope.factoryName + " not found");
+					console.warn($scope.factoryName + ' not found');
 				}
 
 				if(!$scope.property && $scope.resources){
@@ -355,7 +355,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						//return true;
 						return $scope.metamodel.visible || (($scope.metamodel.visibleWhen) ? _evaluateExpression($scope.metamodel.visibleWhen.expression, $scope, $scope.resources) : true);
 					},
-					'getParentResource' : function(resourceURL){
+					'getParentResource' : function(){
 						return resourceFactory.get($scope.field.property.self);
 					},
 					'attributes': {},

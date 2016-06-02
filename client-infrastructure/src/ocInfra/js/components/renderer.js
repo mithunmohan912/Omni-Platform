@@ -116,7 +116,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
 				//Initial resource specified in metamodel?
-				if ($scope.metamodelObject.resourceUrl && $scope.metamodelObject.resourceUrl.indexOf($rootScope.hostURL) == -1){
+				if ($scope.metamodelObject.resourceUrl && $scope.metamodelObject.resourceUrl.indexOf($rootScope.hostURL) === -1){
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
 
@@ -147,9 +147,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 						$scope.resourcesToBind = { properties: propertiesToKeep };
 
-						for(var resource in newValue){
-							if(resource !== 'deferred' && resource !== 'pending'){
-								$scope.resourcesToBind[newValue[resource].identifier] = newValue[resource];
+						for(var url in newValue){
+							if(url !== 'deferred' && url !== 'pending'){
+								$scope.resourcesToBind[newValue[url].identifier] = newValue[resource];
 							}
 						}
 

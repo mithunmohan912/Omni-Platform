@@ -26,7 +26,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			$scope.$on('resourceDirectory', function(event, params) {
 				if ((params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					params.response.data._links.up.href === $scope.resourceUrl) {
-					if (params.response.config.method == 'DELETE' || params.response.config.method == 'PATCH' || params.response.config.method == 'POST') {
+					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
 						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet){
@@ -116,7 +116,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			}
 
 			function _isInput(type) {
-				return type !== "status" && type !== "icon" && type !== "literal" && type !== "blank" && type !== "actions";
+				return type !== 'status' && type !== 'icon' && type !== 'literal' && type !== 'blank' && type !== 'actions';
 			}
 
 			function _getResourceSelected(id) {
