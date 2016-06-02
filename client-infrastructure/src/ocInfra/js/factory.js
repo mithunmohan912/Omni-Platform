@@ -42,7 +42,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
     this.actionHandling=function(item, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
-        var metaModel = $scope.metamodelObject;
+        var metaModel = $scope.metamodel[screenId] || $scope.metamodelObject;
         
         //Add new values to $scope.data
         //incase the data is Date the code will select current data and reforamt 
