@@ -25,21 +25,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				_init(metamodelObject);
 			}
 
-			/*$scope.$watch('metamodel', function(newValue){
-				if(newValue){
-					var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[newValue]: null;
-					if (!metamodelObject) {
-						MetaModel.load($rootScope, $rootScope.regionId, newValue, function(data) {
-							_processMetamodel(data);
-							_init(data);
-						});
-					} else {
-						_processMetamodel(metamodelObject);
-						_init(metamodelObject);
-					}
-				}
-			});*/
-
 			$scope.$watch('resourceUrl', function(newValue, oldValue){
 				if(newValue !== oldValue){
 					if($scope.metamodelObject){
@@ -130,6 +115,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.metamodelObject = metamodelObject;
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
+				//Initial resource specified in metamodel?
+				if ($scope.metamodelObject.resourceUrl && $scope.metamodelObject.resourceUrl.indexOf($rootScope.hostURL) === -1){
+					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
+				}
+
 
 				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
 				try {
@@ -158,7 +148,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						$scope.resourcesToBind = { properties: propertiesToKeep };
 
 						for(var url in newValue){
-							$scope.resourcesToBind[newValue[url].identifier] = newValue[url];
+							if(url !== 'deferred' && url !== 'pending'){
+								$scope.resourcesToBind[newValue[url].identifier] = newValue[resource];
+							}
 						}
 
 						$scope.boundUrls = [];
@@ -218,10 +210,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$on('resourceDirectory', function(event, params){
 					if($scope.boundUrls.indexOf(params.url) >= 0){
-						//_init(metamodelObject);
 						if (params.response.config.method !== 'DELETE') {
-							$scope.resultSet = {};
-							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
+							/*
+								We use the promise to get all values into the resultSet before changing the scope's resultSet. This
+								way we prevent the screen from flashing (the screen was being left blank before starting the rendering process again).
+							*/
+							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, {}).then(function(resultSet){
+								$scope.resultSet = resultSet;
+							});
 						}
 					}
 				});
@@ -337,6 +333,16 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 
+
+			$scope.$on('close_popUp_renderer', function(event, data){
+				if (data.resourceUrl === $scope.resourceUrlToRender) {
+					if (data.callback) {
+						$scope.execute(data.callback);
+					}
+
+				}
+			});
+
 			$scope.$on('reset_renderer', function(event, data){
 				if (data.resourceUrl === $scope.resourceUrlToRender) {
 					var payloads = {};
@@ -359,6 +365,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 		},
-		templateUrl: 'src/ocInfra/templates/components/renderer.html'
+		templateUrl: $rootScope.templatesURL + 'renderer.html'
 	};
 });

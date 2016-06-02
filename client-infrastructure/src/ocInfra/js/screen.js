@@ -23,7 +23,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
    
     screenname  = 'OmniChannel';
-    
+    $rootScope.showHeader = true;
     $scope.disableNext = false;
 
     $scope.rulesDataList = [];
@@ -354,7 +354,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.selecttab = function(step1, rel) {
         if ($scope.isValid()) {
-            msg.destroy();
+            if(msg !== undefined){
+                msg.destroy();    
+            }
             $rootScope.step = step1;
             $rootScope.currRel = rel;
             
