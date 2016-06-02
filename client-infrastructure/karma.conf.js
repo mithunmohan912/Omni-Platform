@@ -21,7 +21,7 @@ module.exports = function(config) {
             'src/vendors/angular-resource/angular-resource.min.js',
             'src/vendors/angular-cookies/angular-cookies.min.js',
             'src/vendors/restangular/dist/restangular.min.js',
-            'src/vendors/lodash/lodash.min.js',
+            'src/vendors/lodash/lodash.js',
             'src/vendors/angular-ui-select/dist/select.min.js',
             'src/vendors/angular-strap/dist/angular-strap.min.js',
             'src/vendors/angular-strap/dist/angular-strap.tpl.min.js',
@@ -40,6 +40,7 @@ module.exports = function(config) {
             'src/vendors/quick-ng-repeat/quick-ng-repeat.js',
             'src/vendors/jquery-validation/dist/jquery.validate.js',
              'src/vendors/angular-growl-v2/build/angular-growl.js',
+             'src/vendors/angular-bootstrap-tour/dist/angular-bootstrap-tour.js',
 			'src/ocInfra/js/*.js',
             'tests/unit/*.js'
 

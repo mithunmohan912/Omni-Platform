@@ -14,7 +14,14 @@
                 "name": "_OWNER_INFO_TAB",
                 "renderAsTab": true,
                 "link": "quote:quote_owner_list",
-                "step": 1
+                "step": 1,
+                 "order": "1",
+                "type": "tourstep",
+                "columnsize": 12,
+                "hidetitle":true,
+                "title": "_OWNER_INFO_TAB",
+                "tourcontent": "_RISK_INFO_TAB_CONTENT",
+                "position": "right"
             },
             {
                 "$ref": "riskInfo",
@@ -22,8 +29,7 @@
                 "name": "_RISK_INFO_TAB",
                 "renderAsTab": true,
                 "link": "quote:quote_risk_list",
-                "step": 2
-            }, {
+                "step": 2,
                 "order": "1",
                 "type": "tourstep",
                 "columnsize": 12,
@@ -32,7 +38,7 @@
                 "tourcontent": "_RISK_INFO_TAB_CONTENT",
                 "position": "top"
 
-            },
+            }, 
 
             {
                 "$ref": "additionalInfo",
@@ -40,16 +46,14 @@
                 "name": "_ADDITIONAL_INFO_TAB",
                 "renderAsTab": true,
                 "link": "quote:quote_risk_list",
-                "step": 3
-            }, {
+                "step": 3,
                 "order": "2",
                 "type": "tourstep",
                 "columnsize": 12,
                 "hidetitle":true,
                 "title": "_ADDITIONAL_INFO_TAB",
                 "tourcontent": "_ADDITIONAL_INFO_TAB_CONTENT",
-                "position": "top"
-
+                "position": "bottom"
             },
 
             {
@@ -58,15 +62,14 @@
                 "name": "_PREMIUM_INFO_TAB",
                 "renderAsTab": true,
                 "link": "undefined",
-                "step": 4
-            }, {
-                "order": "3",
+                "step": 4,
+                 "order": "3",
                 "type": "tourstep",
                 "columnsize": 12,
                 "hidetitle":true,
                 "title": "_PREMIUM_INFO_TAB",
                 "tourcontent": "_PREMIUM_INFO_TAB_CONTENT",
-                "position": "top"
+                "position": "bottom"
 
             }
 

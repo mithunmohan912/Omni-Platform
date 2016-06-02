@@ -1,4 +1,4 @@
-###Setting up Mobile Environment and run OCMiniQuote as Android app
+###Setting up Mobile Environment and run OCMiniQuote as Mobile App
 
 Prerequisites:
 
@@ -42,29 +42,20 @@ Prerequisites:
 
  - Run the shell command configcordova.sh with the following parameters in same order 
 
- 		sh configcordova.sh create (This will create a new Cordova Project and will add corresponding plugins)
- 		sh configcordova.sh addresources (This will add image resources, config file and build file to Cordova Project)
+ 		sh configcordova.sh create 
+ 		sh configcordova.sh addresources
 
- - Navigate to client-infrastructure code from Cmd Prompt/Terminal
-
- - Run the following grunt command
-
- 	grunt buildMobilePkg --force
-
- - The above command will copy the latest mini quote code base to mobile-infrastructure/OCMiniQuote/www folder that will be built as mobile app
-
- - After grunt command execution is successfull, navigate to mobile-infrastructure folder from Command Prompt/Terminal
+ - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
 
  - Run the shell command buildbinaries.sh with following parameters in the same order
 
  		sh buildbinaries.sh buildios
  		sh buildbinaries.sh buildandroid
 
- - The first cmd will add the plugins to the skeleton Cordova project that are required for wrapping the mobile application
 
- - The second command will build the iOS application and will put the ipa in the mobile-infrastructure/OCMiniQuote/platforms/ios/build/device folder. Note: To build and sign the ipa with the CSC Apple Enterprise Certificate, you need to download the CSC Apple P12 Certificate from C3, the Mini Quote provisioning profile from the Apple Developer website and install on the local machine.
+ - The first command will build the iOS application and will put the ipa in the mobile-infrastructure/OCMiniQuote/platforms/ios/build/device folder. Note: To build and sign the ipa with the CSC Apple Enterprise Certificate, you need to download the CSC Apple P12 Certificate from C3, the Mini Quote provisioning profile from the Apple Developer website and install on the local machine.
 
- - The third command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
+ - The second command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
 
 
 To run the mobile app code on iOS Simulator:
