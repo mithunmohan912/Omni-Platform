@@ -346,6 +346,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 }
             });
             EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+            if($rootScope.regionId === 'us'){
+                EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'fetch');    
+            }
         }
     });
 
