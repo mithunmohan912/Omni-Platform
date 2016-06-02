@@ -1,6 +1,6 @@
 'use strict';
 
-/*global ScreenController,AnonymousController,LoginController,CKEDITOR*/
+/*global ScreenController,CKEDITOR*/
 /*
 exported showHostErrorMessage
 */
@@ -122,7 +122,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     }, function() {});
 });
 
-app.factory('anonymousFactory', function($rootScope, growl, resourceFactory, MetaModel){
+app.factory('anonymousFactory', function($rootScope, growl, resourceFactory, MetaModel, EnumerationService){
     return {
         navigateToScreen: function($scope, actionURL){
             if(actionURL === '/login'){
