@@ -25,6 +25,7 @@ return {
 			
 			$scope.resultSet = {};
 
+			$scope.resetDisabled = false;
 			$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
 			try {
 				$scope.actionFactory = $injector.get($scope.screenFactoryName);
@@ -53,11 +54,27 @@ return {
 						_init(metamodelObject);
 					}
 				}
+			});*/
+	
+
+			$scope.$on('resourceDirectory', function(event, params){
+				if($scope.resourceUrl === params.url >= 0){
+						//_init(metamodelObject);
+						if (params.response.config.method !== 'DELETE') {
+							$scope.resultSet = {};
+							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						}
+					}
 			});
-	*/
-			$scope.$watch('resourceUrl', function(newValue){
-				$scope.resourceUrl = newValue;
-				_getTitle();
+
+			$scope.$watch('resourceUrl', function(){
+				if ($scope.metamodelObject) {
+					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+					if ($scope.resourceUrl){
+						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						// _getTitle();
+					}					
+				}
 
 			});
 
@@ -65,8 +82,14 @@ return {
 				//This should always get the data from ResourceDirectory and not calling the API
 					if(newValue[$scope.resourceUrl] && newValue[$scope.resourceUrl].properties){
 						var typeValue = newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type] ? newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type].value : '';
-						$scope.popup.labels.title = typeValue.toUpperCase() + '_' + $scope.popup.labels.title;
-						$scope.entityToBind = newValue[$scope.resourceUrl];
+						if (typeValue){
+							$scope.popup.labels.title = typeValue.toUpperCase() + '_' + $scope.popup.labels.title;
+						}else{
+							$scope.popup.labels.title = $scope.popup.labels.title;
+						}
+						
+						$scope.popUpResourceToBind = newValue[$scope.resourceUrl];
+						$scope.resetDisabled = checkReset();
 					}
 
 			});
@@ -74,7 +97,8 @@ return {
 
 
 			function _defaultSave(){
-				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl });
+				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback});
 			}
 
 			function _defaultClose() {
@@ -82,12 +106,14 @@ return {
 
 			function _defaultReset() {
 				if ($scope.metamodelObject.actions.reset.links){
-					$scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links });
+					var callback = $scope.metamodelObject.actions.reset.callback? $scope.metamodelObject.actions.reset.callback: null;
+					$scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links, callback: callback });
 				}
 			}
 			
 			function _init(metamodelObject){
 				$scope.metamodelObject = metamodelObject;
+
 				// Default labels and actions
 				_initLabels();
 				_initActions();
@@ -106,7 +132,7 @@ return {
 
 				// User defined labels and actions
 				if($scope.metamodelObject.labels){
-					$scope.popup.labels.title =  _getTitle();
+					$scope.popup.labels.title =  $scope.metamodelObject.labels.title || $scope.popup.labels.title;
 					$scope.popup.labels.ok = $scope.metamodelObject.labels.ok || $scope.popup.labels.ok;
 					$scope.popup.labels.close = $scope.metamodelObject.labels.close || $scope.popup.labels.close;
 					$scope.popup.labels.cancel = $scope.metamodelObject.labels.cancel || $scope.popup.labels.cancel;
@@ -118,27 +144,42 @@ return {
 			function _initActions(){
 
 				if($scope.metamodelObject.actions){
-					// $scope.popup.actions._ok = $scope.metamodelObject.actions.ok.method ? $scope.metamodelObject.actions.ok: $scope.popup.actions._ok;
-					// $scope.popup.actions._close = $scope.metamodelObject.actions.close.method ? $scope.metamodelObject.actions.close:$scope.popup.actions._close;
-					// $scope.popup.actions._cancel = $scope.metamodelObject.actions.cancel.method ? $scope.metamodelObject.actions.cancel:$scope.popup.actions._cancel;
+					$scope.popup.actions._ok = ($scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.method) ? $scope.metamodelObject.actions.ok.method: $scope.popup.actions._ok;
+					$scope.popup.actions._close = ($scope.metamodelObject.actions.close && $scope.metamodelObject.actions.close.method) ? $scope.metamodelObject.actions.close.method:$scope.popup.actions._close;
+					$scope.popup.actions._cancel = ($scope.metamodelObject.actions.cancel && $scope.metamodelObject.actions.cancel.method) ? $scope.metamodelObject.actions.cancel.method:$scope.popup.actions._cancel;
 					$scope.popup.actions._reset = ($scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.method) ? 
 						$scope.metamodelObject.actions.reset.method:$scope.popup.actions._reset;
 				}
 
 			}
 
-			function _getTitle(){
-				$scope.popup.labels.title = $scope.metamodelObject.labels.title || $scope.popup.labels.title;	
-				
-				//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
-				if ($scope.metamodelObject.type && $scope.resourceUrl){
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-				}		
+			function checkReset(){
+
+				//Check links defined in metamodel
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
+
+						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
+							if ($scope.popUpResourceToBind.dependencies[j].resource === $scope.metamodelObject.actions.reset.links[i]){
+								//It means ther's al least one link to be reset, so we must not disable the reset button. 
+								return false;
+							}
+						}
+					}
+				}
+				return true;
 			}
+
+			// function _getTitle(){
+			// 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+			// 	if ($scope.metamodelObject.type && $scope.resourceUrl){
+			// 		$scope.popup.labels.title = $scope.metamodelObject.labels.title || $scope.popup.labels.title;		
+			// 	}
+			// };
 
 			$scope.execute = function(action) {
 				if($scope.actionFactory[action]){
-					$scope.actionFactory[action]();
+					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.resourcesToBind.properties);
 				} else {
 					//default actions case
 					action();				

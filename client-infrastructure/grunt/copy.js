@@ -150,6 +150,35 @@ module.exports = {
      }
    ]
   },
+  dist_omnichannel : {
+    files: [
+     {
+      expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
+      dest: 'src/app-omnichannel/ocInfra/js' ,
+      src: ['js/*.js']
+     },
+     {
+      expand: true , cwd:'tmp/' , flatten: true,  filter: 'isFile',
+      dest: 'src/app-omnichannel/ocInfra/css' ,
+      src: ['css/*.css']
+     },
+     {
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-omnichannel/ocInfra/' ,
+      src: ['assets/**']
+     },
+      {
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-omnichannel/ocInfra/' ,
+      src: ['dist/**']
+     },
+     {
+      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
+      dest: 'src/app-omnichannel/ocInfra/' ,
+      src: ['templates/**']
+     }
+   ]
+  },
   dist_mobile : {
     files: [
 	{
@@ -494,4 +523,13 @@ module.exports = {
      },
    ]
   },
+  dist_cordova : {
+    files: [
+     {
+      expand: true , cwd:'mobile/' , flatten: false,
+      dest: '../mobile-infrastructure/OCMiniQuote/www',
+      src: ['app-miniquote/**']
+     }
+   ]
+  }
 };

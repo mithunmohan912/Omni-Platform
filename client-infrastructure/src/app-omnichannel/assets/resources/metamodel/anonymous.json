@@ -1,0 +1,79 @@
+{
+    "metamodel": {
+        "formid": "login",
+        "title": "",
+        "name": "login",
+        "showHeader" :false,
+        "sections": [
+            {
+                "title": "",
+                "name": "loginModal",
+                "category": "modal",
+                "division": "loginDiv",
+                "logodir": true,
+                "properties": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 12,
+                        "type": "buttonGroup",    
+                        "visible": true,
+                        "required": "required",
+                        "buttons": [
+                                 {
+                                    "label": "_ASIA_AUTO_QS",
+                                    "icon": "flaticon-adults",
+                                    "action":"navigateToScreen",
+                                    "actionURL" : "/asia/screen/quotescreate"
+                                  },
+                                  {
+                                    "order": "0",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_ANONYMOUS",
+                                     "tourcontent":"_ANONYMOUS_AISA_CONTENT",
+                                     "position":"bottom"
+                                },
+                                {
+                                    "label": "_HOME_QUOTE_US",
+                                    "icon": "flaticon-adults",
+                                    "action":"navigateToScreen",
+                                    "actionURL" : "/us/screen/quotescreate"
+                                  },
+                                  {
+                                    "order": "1",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_ANONYMOUS",
+                                     "tourcontent":"_ANONYMOUS_US_CONTENT",
+                                     "position":"bottom"
+                                },
+                                {
+                                    "action":"navigateToScreen",
+                                    "label": "_SIGNIN",
+                                    "actionURL": "/screen/login"
+                                },
+                                {
+                                    "order": "2",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_LOGIN",
+                                     "tourcontent":"_LOGIN_CONTENT",
+                                     "position":"bottom"
+                                },
+                                {
+                                    "type": "tourButton",
+                                    "icon": "flaticon-take-a-tour",
+                                    "method":"starttour",
+                                    "underlineText" : "TAKE A TOUR"
+                                }
+                                
+                                 
+                            ]
+                    }
+                    
+                ]
+            }
+        ]
+    }
+}

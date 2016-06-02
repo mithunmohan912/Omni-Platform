@@ -17,14 +17,14 @@
   <link rel="stylesheet" href="../vendors/angular-growl-v2/build/angular-growl.css">
   <link rel="stylesheet" href="../vendors/bootstrap-tour/build/css/bootstrap-tour.css">
   <link rel="stylesheet" href="../vendors/bootstrap-tour/build/css/bootstrap-tour-standalone.css">
-  <link rel="stylesheet" href="../vendors/bootstrap-responsive-tabs/dist/main.css">
+  <link rel="stylesheet" href="../vendors/flaticon/flaticon.css">
   <!-- endbower_injector -->
   <!-- injector:css -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../ocInfra/css/angular-growl.css">
   <link rel="stylesheet" href="../ocInfra/css/custom-style.css">
   <link rel="stylesheet" href="../ocInfra/css/oc-bootstrap-tour-standalone.css">
   <link rel="stylesheet" href="../ocInfra/css/omnichannel.css">
-  <link rel="stylesheet" href="../ocInfra/css/style.css">
   <link rel="stylesheet" href="../ocInfra/css/tab-style.css">
   <!-- endinjector -->
   <link rel="stylesheet" href="assets/css/style.css">
@@ -43,6 +43,8 @@
     <div class="container-fluid">
         <div ng-view autoscroll="true"></div>
     </div>
+
+    <div ng-include src="'templates/error.html'"></div>
 
   <!-- bower_injector:js -->
   <script src="../vendors/modernizr/modernizr.js"></script>
@@ -72,7 +74,7 @@
   <script src="../vendors/angular-growl-v2/build/angular-growl.js"></script>
   <script src="../vendors/bootstrap-tour/build/js/bootstrap-tour.js"></script>
   <script src="../vendors/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
-  <script src="../vendors/bootstrap-responsive-tabs/dist/bootstrap-responsive-tabs.js"></script>
+  <script src="../vendors/angular-bootstrap-tour/dist/angular-bootstrap-tour.js"></script>
   <script src="../vendors/angular-strap/dist/angular-strap.js"></script>
   <script src="../vendors/angular-strap/dist/angular-strap.tpl.js"></script>
   <script src="../vendors/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -82,10 +84,10 @@
   <script src="app/app.js"></script>
   <script src="app/coverageFactory.js"></script>
   <script src="app/dashboardFactory.js"></script>
+  <script src="app/optionsController.js"></script>
   <script src="app/quoteFactory.js"></script>
   <script src="app/LoadConfig/LoadConfig.js"></script>
   <script src="ocInfra/js/ocInfra.js"></script>
-  <script src="ocInfra/dist/templates.js"></script>
   <!-- endinjector -->
   </body>
 </html>

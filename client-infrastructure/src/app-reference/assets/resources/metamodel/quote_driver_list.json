@@ -1,64 +1,65 @@
 {
     "metamodel": {
-        "title": "Driver List",
         "name": "quote_driver_list",
         "buttonLabel": "_ADD_DRIVER",
         "modalRef": "quote_driver",
-        "header": "hide",
+        "header": false,
 
         "properties": [
             {
-                "label": "",
+                "label_header": "",
                 "type": "status",
                 "align": "center",
                 "width": "5%"
             },
             {
                 "id": "_DRIVER",
-                "label": "_ROLE",
+                "label_header": "_ROLE",
                 "type": "literal",
                 "align": "left",
                 "width": "10%"
             },
             {
-                "id": ["quote_driver:first_name","quote_driver:name"],
-                "label": "_NAME",
-                "type": "multilabel",
+                "id": ["quote_driver:first_name", "quote_driver:name"],
+                "label_header": "_NAME",
+                "type": "label",
                 "align": "left",
                 "width": "25%"
             },
             {
                 "id": "quote_driver:birth_date",
-                "label": "_DOB",
-                "type": "date",
+                "label_header": "_DOB",
+                "type": "label",
                 "format": "dd-MMM-yyyy",
                 "align": "center",
                 "width": "15%"
             },
             {
                 "id": "quote_driver:license_date",
-                "label": "_LICENSE_DATE",
+                "label_header": "_LICENSE_DATE",
                 "type": "date",
                 "format": "dd-MMM-yyyy",
                 "align": "center",
-                "width": "15%"
+                "width": "15%",
+                "patchOnBlur": true
             },
             {
                 "id": "quote_driver:postal_code",
-                "label": "_POSTALCODE",
+                "label_header": "_POSTALCODE",
                 "type": "label",
                 "align": "right",
                 "width": "10%"
             },
             {
                 "id": "quote_driver:is_quote_owner",
-                "label": "_SAME_AS_POLICY_HOLDER",
+                "label_header": "_SAME_AS_POLICY_HOLDER",
                 "type": "checkbox",
                 "align": "center",
-                "width": "10%"
+                "width": "10%",
+                "patchOnBlur": true
             },
             {
-                "label": "",
+                "label_header": "",
                 "type": "actions",
                 "align": "center",
                 "width": "10%",

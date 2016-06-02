@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	global angular
+global angular
 */
 
 angular.module('omnichannel').directive('tableRender', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory){
@@ -36,12 +36,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			});*/
 
-			$scope.$on('resourceDirectory', function(event, data) {
+			$scope.$on('resourceDirectory', function(event, params) {
 				for (var resource in $scope.resultSet) {
-					if (data.url === resource) {
-						if (data.response.config.method === 'DELETE' || data.response.config.method === 'PATCH') {
-							if (data.response.config.method === 'DELETE') {
-								delete $scope.resultSet[data.url];
+					if (params.url === resource) {
+						if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH') {
+							if (params.response.config.method === 'DELETE') {
+								delete $scope.resultSet[params.url];
 							}
 							//refresh collection and items
 							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
@@ -50,6 +50,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 						}
 					}
+				}
+			});
+
+			$scope.$on('refreshTable', function(event, params) {
+				if (params.name === $scope.metamodelObject.name) {
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
 				}
 			});
 
@@ -65,6 +71,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
 							$scope.modalMetamodelObject = data;
 						});
+					} else {
+						$scope.modalMetamodelObject = metamodelObject;
 					}
                 }
 
@@ -72,7 +80,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 
 				$scope.$watchCollection('resultSet', function(newValue){
-					if(newValue){
+					if(newValue && newValue[$scope.resourceUrl]) {
 						$scope.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 							$scope.items.push(newValue[item.href]);
@@ -104,7 +112,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
  				var status = true;
  				if (displayedItem) {
  					var properties = displayedItem.properties;
-					if ($scope.modalMetamodeObject) {
+					if ($scope.modalMetamodelObject) {
 						$scope.modalMetamodelObject.sections.forEach(function(section) {
 			 				if (section.properties) {
 			                    section.properties.forEach(function(property){
@@ -150,7 +158,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 	 		$scope.add = function() {
 	 			resourceFactory.get($scope.resourceUrl).then(function(response) {
-	 				response._options.links.forEach(function(link) {
+	 				response.data._options.links.forEach(function(link) {
 	 					if (link.rel === 'create') {
 	 						var hrefToPost = link.href;
 	 						resourceFactory.post(hrefToPost, {}, $rootScope.headers).then(function(response) {

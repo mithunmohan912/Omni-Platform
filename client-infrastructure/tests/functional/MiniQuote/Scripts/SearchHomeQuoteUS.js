@@ -25,8 +25,8 @@ describe('SearchHomeQuoteUS', function() {
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/AutoQuoteAsia.csv','SearchHomeQuoteUS');
-    perfWritter.initialize('./../Perf/Asia/SearchHomeQuoteUS.csv','');
+    application.initTestData('./../DataRepo/HomeOwnerUS.csv','SearchHomeQuoteUS');
+    perfWritter.initialize('./../Perf/US/SearchHomeQuoteUS.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
@@ -87,18 +87,41 @@ describe('SearchHomeQuoteUS', function() {
   });
 
   it('Enter Search Details', function() {
-    currentSpec = "Entering quote number";
+    currentSpec = "Entering search Details";
     criteria = ['quoteNumber', 'symbol'];
     param = application.getParam(criteria);
-    application.commonSearchByParams(param);
+    application.commonSearch_US(param);
   });
 
-  it('Click on Edit button', function() {
-    currentSpec = "Clicking on Edit Button";
+  it('Click on Inquire button', function() {
+    currentSpec = "Clicking on Inquire Button";
     application.ClickInquireButton();
   });
 
+  it('Verify Policy Tab Details', function() {
+    currentSpec = "Verifying Policy Tab details";
+    application.verifyPolicyTabDetails_US();
+  });
 
+  it('Clicking on Location Tab', function(){
+    currentSpec = "Clicking on Location tab";
+    application.clickLocationTab_US();
+  });
+
+  it('Verifying Location Tab Details', function() {
+    currentSpec = "Verifying Location Tab details";
+    application.verifyLocationTabDetails_US();
+  });
+
+  it('Clicking on Coverage Tab', function(){
+    currentSpec = "Clicking on Coverage tab";
+    application.clickCoverageTab_US();
+  });
+
+  it('Verifying Coverage Tab Details', function() {
+    currentSpec = "Verifying Coverage Tab details";
+    application.verifyCoverageTabDetails_US();
+  });
 
   it('Clicking Logout', function() {
     currentSpec = "Clicking on Logout Link";

@@ -16,13 +16,28 @@
                             "maxlength": 40,
                             "capitalize": true
                         },
-                        "row": 1
+                        "row": 1,
+                        "options":{
+                            "href": "referential_vehicle_makes",
+                            "params": "_num=30&referential_vehicle:make"
+                        },
+                        "patchOnBlur": true
                     },
                     {
                         "id": ["quote_automobile:usage", "quote_trailer:usage"],
                         "type": "select",
                         "label": "_USAGE",
                         "row": 1
+                    },
+                    {
+                        "id": "quote_automobile:ext_model",
+                        "label": "_MODEL",
+                        "type": "autocomplete",
+                        "attributes": {
+                            "maxlength": 40,
+                            "capitalize": true
+                        },
+                        "row": 2
                     },
                     {
                         "id": "quote_trailer:weight",

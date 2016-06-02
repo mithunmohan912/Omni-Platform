@@ -1,10 +1,10 @@
 'use strict';
 
 /*
-	global angular
+global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q){
 
 	return {
 		restrict: 'E',
@@ -85,6 +85,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									return property;
 								}
 							};
+
 							for(var i = 0; i < rowNumbers.length; i++){
 								if(rowNumbers[i] !== undefined){
 									var propertiesInRow = section.properties.map(propertyMapFilter);
@@ -130,6 +131,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
 
+				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.factoryName);
+				} catch(e) {
+					console.log($scope.factoryName + ' not found');
+				}
+				$scope.resourcesToBind = { properties : {} };
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined) {
 					return;
@@ -167,34 +175,33 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									// if we potentially have the same property coming from different resources. 
 									if (Array.isArray($scope.metamodelObject.sections[i].properties[j].id)){
 										var idValues = $scope.metamodelObject.sections[i].properties[j].id;
-										ID_LOOP:
-										for(var k = 0; k < idValues.length; k++){
 
+										for(var k = 0; k < idValues.length; k++){
+											var resourceSelected = { resource: null, points: 0 };
 											for(var resource in $scope.resourcesToBind){
 												if (resource !=='properties'){
 
 													//If the resource is part of a collection and we are only interested in on of the collection items. 
 													if ($scope.metamodelObject.sections[i].properties[j].selector){
-														if (seekSelectorInResource($scope.resourcesToBind[resource], $scope.metamodelObject.sections[i].properties[j].selector)){
-															//do nothing; 
-														}else{
-															continue; //We discard this resource. 
-														}
-													}
 
-													$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
-													//if we have found a value in one of the resources, we are done and no need to go on. 
-													if ($scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resource].properties){	
-														$scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]] = 
-															$scope.resourcesToBind[resource].properties[$scope.metamodelObject.sections[i].properties[j].id[k]];
-															// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
-
-														if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self) < 0) {
-															$scope.boundUrls.push($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self);	
-														}
-														break ID_LOOP;
+														seekSelectorInResource($scope.resourcesToBind[resource], $scope.metamodelObject.sections[i].properties[j].selector, resourceSelected);
+													} else if ($scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resource].properties){	
+														resourceSelected.resource = resource;
 													}
 												}
+											}
+
+											$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
+											//if we have found a value in one of the resources, we are done and no need to go on. 
+											if (resourceSelected.resource && $scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
+												$scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]] = 
+													$scope.resourcesToBind[resourceSelected.resource].properties[$scope.metamodelObject.sections[i].properties[j].id[k]];
+													// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
+
+												if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self) < 0) {
+													$scope.boundUrls.push($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self);	
+												}
+												break;
 											}
 											
 										}
@@ -209,37 +216,49 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				});
 	
 
-				$scope.$on('resourceDirectory', function(event, data){
-					if($scope.boundUrls.indexOf(data.url) >= 0){
+				$scope.$on('resourceDirectory', function(event, params){
+					if($scope.boundUrls.indexOf(params.url) >= 0){
 						//_init(metamodelObject);
-						if (data.response.config.method !== 'DELETE') {
+						if (params.response.config.method !== 'DELETE') {
+							$scope.resultSet = {};
 							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
 						}
 					}
 				});
 				
-				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
-				try {
-					$scope.actionFactory = $injector.get($scope.factoryName);
-				} catch(e) {
-					console.log($scope.factoryName + ' not found');
-				}
-				
 				MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
 			}
 
-			function seekSelectorInResource(resource, selector){
-				if (resource.properties[selector] && resource.properties[selector].value === true){
+			function seekSelectorInResource(resource, selector, resourceSelected){
+				var selectors = Array.isArray(selector)?selector:[selector];
+				var points = 0;
+				selectors.forEach(function(sel) {
+					//If we found the selctor among the resource properties, we discard it if the selector is not true
+					if (resource.properties[sel]) {
+						points += 2;
+						if (resource.properties[sel].value === true){
+							points += 1;
+						}
+					}
+				});
+				
+				if (points >= resourceSelected.points) {
+					resourceSelected.resource = resource.identifier;
+					resourceSelected.points = points;
 					return true;
-				}else{
-					return false;
 				}
+
+				return false;
 			}
 
 
-			$scope.execute = function(action) {
+			$scope.execute = function(action, actionURL) {
 				if($scope.actionFactory && $scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);
+					if($scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);	
+					}else{
+						$scope.actionFactory[action]($scope, actionURL);
+					}
 				} else {
 					if ($scope[action]) {
 						$scope[action]($scope.resultSet[$scope.resourceUrlToRender], $scope.resourcesToBind.properties);
@@ -264,6 +283,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			$scope.$on('patch_renderer', function(event, data){
 				if (data.resourceUrl === $scope.resourceUrlToRender) {
 					var payloads = {};
+					var promises = [];
 					var propertiesBound = $scope.resourcesToBind.properties;
 					if (propertiesBound) {
 						for(var key in propertiesBound){
@@ -273,18 +293,25 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						}
 
-						Object.keys(payloads).forEach(function(url){
-							resourceFactory.get(url).then(function(resourceToPatch) {
+						var payloadKeys = Object.keys(payloads);
+						payloadKeys.forEach(function(url){
+							resourceFactory.get(url).then(function(response) {
+								var resourceToPatch = response.data;
 								var payloadToPatch = payloads[url];
 								for(var property in resourceToPatch){
-									if(property.indexOf(':') > 0 && property.indexOf('_') > 0){
+									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
 										if(property in propertiesBound && propertiesBound[property].value !== resourceToPatch[property]){
-											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value;
+											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
 										}
 									}
 								}
 								if(Object.keys(payloadToPatch).length > 0){
-									resourceFactory.patch(url, payloadToPatch);
+									promises.push(resourceFactory.patch(url, payloadToPatch));
+									$q.all(promises).then(function() {
+										if (data.callback) {
+											$scope.execute(data.callback);
+										}
+									});
 								}
 							});
 						});
@@ -305,6 +332,28 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 
 					resourceFactory.patch(data.resourceUrl, payloads);
+						
+					}
+				}
+			});
+
+			$scope.$on('reset_renderer', function(event, data){
+				if (data.resourceUrl === $scope.resourceUrlToRender) {
+					var payloads = {};
+					
+					if ($scope.resourcesToBind) {
+
+					 	for(var key in data.links){
+							if($scope.resourcesToBind[data.links[key]]){
+								payloads[data.links[key]] = '';
+							}
+						}
+
+						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
+							if (data.callback) {
+								$scope.execute(data.callback);
+							}
+						});
 						
 					}
 				}

@@ -48,6 +48,16 @@ module.exports = {
                                            'src/app-reference/ocInfra/js/ocInfra.js',
                                            'src/app-reference/ocInfra/dist/*.js',
                                            'src/ocInfra/css/*.css'
+            ],
+            'src/app-omnichannel/index.html': ['src/app-omnichannel/js/*.js',
+                                             'src/app-omnichannel/js/**/*.js',
+                                             'src/app-omnichannel/app/*.js',
+                                             'src/app-omnichannel/app/**/*.js',  
+                                             'src/app-omnichannel/assets/css/*.css',
+                                             'src/app-omnichannel/ocInfra/js/ocInfra.js',
+                                             'src/app-omnichannel/ocInfra/dist/*.js',
+                                             'src/ocInfra/css/*.css',
+                                             'src/ocInfra/css/Omni_Iconfont/font/flaticon.css'
             ]
         }
 
@@ -64,7 +74,8 @@ module.exports = {
             'src/app-miniquote/index.html': ['bower.json'],
             'src/app-weather/index.html': ['bower.json'],
             'src/app-kitchensink/index.html': ['bower.json'],
-            'src/app-reference/index.html': ['bower.json']
+            'src/app-reference/index.html': ['bower.json'],
+            'src/app-omnichannel/index.html': ['bower.json']
         }
     }
 };

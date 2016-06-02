@@ -10,7 +10,7 @@ var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSan
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', '$translateProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider, $translateProvider) {
     $routeProvider.when('/screen/:screenId', {
         templateUrl: function() {
-            return 'templates/screen.html';
+            return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     });
@@ -48,6 +48,10 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
                 $rootScope.requestCounter--;
                 if ($rootScope.requestCounter <= 0) {
                     $rootScope.loader.loading = false;
+                }
+                if (rejection.data && rejection.data.messages) {
+                    $rootScope.errordata = rejection.data.messages;
+                    $rootScope.showError = true;
                 }
                 return $q.reject(rejection);
             }
@@ -87,6 +91,7 @@ app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
     //FIXME. remoce when having a login controller
     $cookieStore.put('userid', 'kkdrensk');
     sessionStorage.username = 'kkdrensk';
+    $rootScope.currRel = 'undefined';
 
 });
     
