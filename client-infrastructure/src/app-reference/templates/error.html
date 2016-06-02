@@ -1,23 +1,25 @@
-<div id="errorPopup" class="alert alert-info" style="overflow:auto; max-height: 520px" ng-show="showError">
-	<div class="btn-group btn-group-sm pull-right">
-		<button type="button" class="close" ng-click="$parent.showError=false">X</button>
+<div id="errorPopup">
+	<div class="alert alert-info" ng-show="showError">
+		<div class="btn-group btn-group-sm pull-right">
+			<button type="button" class="close" ng-click="$parent.showError=false">X</button>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+				<th>#</th>				
+				<th ><span style="color:black;">Severity:</span></th>
+				<th ><span style="color:black;">Context:</span></th>
+				<th ><span style="color:black;">Message:</span></th>
+				</tr>
+			</thead>
+			<tbody>				
+				<tr ng-repeat="error in errordata">	
+					<td>{{$index+1}}</td>
+					<td><span style="color:black;" ng-if="error.severity"> {{error.severity}}</span></td>
+					<td><span style="color:black;" ng-if="error.context"> {{error.context.split('#')[1]?error.context.split('#')[1]:error.context}}</span></td>
+					<td><span style="color:black;" ng-if="error.message || error.text"> {{error.message}}{{error.text}}</span></td>
+				</tr>
+			</tbody>				
+		</table>            
 	</div>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-			<th>#</th>				
-			<th ><span style="color:black;">Severity:</span></th>
-			<th ><span style="color:black;">Context:</span></th>
-			<th ><span style="color:black;">Message:</span></th>
-			</tr>
-		</thead>
-		<tbody>				
-			<tr ng-repeat="error in errordata">	
-				<td>{{$index+1}}</td>
-				<td><span style="color:black;" ng-if="error.severity"> {{error.severity}}</span></td>
-				<td><span style="color:black;" ng-if="error.context"> {{error.context.split('#')[1]?error.context.split('#')[1]:error.context}}</span></td>
-				<td><span style="color:black;" ng-if="error.message || error.text"> {{error.message}}{{error.text}}</span></td>
-			</tr>
-		</tbody>				
-	</table>            
-</div>
+</duv>

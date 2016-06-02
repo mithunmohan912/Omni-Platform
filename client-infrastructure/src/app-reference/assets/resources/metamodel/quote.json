@@ -46,8 +46,7 @@
                         "label": "_MINIMAL_INFORMATION",
                         "type": "checkbox",
                         "uiInput": true,
-                        "value": true,
-                        "scope": true
+                        "value": true
                     }
                 ]
             },
@@ -56,7 +55,7 @@
                 "colspan": 3,
                 "properties": [
                     {
-                        "type": "popupGroup",
+                        "type": "popup",
                         "popup": {
                             "name": "editQuoteData",
                             "label": "_EDIT_QUOTE_DATA",
@@ -229,32 +228,12 @@
                     "quote:quote_owner_list",
                     "quote:quote_risk_list"
             ],
-            "quote_owner": [
-                    "quote_owner:person_link",
-                    "quote_owner:organization_link"
-            ],
-            "person": [
-                    "person:postal_address_list",
-                    "person:e_mail_address_list",
-                    "cscaia:operations"
-            ],
-            "organization": [
-                    "organization:postal_address_list",
-                    "organization:e_mail_address_list"
-            ],
+           
             "quote_risk": [
                     "quote_risk:quote_risk_owner_list",
                     "quote_automobile:quote_driver_list",
                     "quote_van:quote_driver_list",
                     "quote_motorcycle:quote_driver_list"
-            ],
-            "risk_owner": [
-                    "risk_owner:person_link",
-                    "risk_owner:organization_link"
-            ],        
-            "quote_driver": [
-                    "quote_driver:person_link",
-                    "quote_driver:organization_link"
             ]
         }
     }

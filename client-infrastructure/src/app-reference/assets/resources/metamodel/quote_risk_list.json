@@ -1,6 +1,5 @@
 {
     "metamodel": {
-        "title": "Risk List",
         "name": "quote_risk_list",
         "modalRef": "quote_risk",
         "buttonLabel": "_ADD_TRAILER",
@@ -21,12 +20,12 @@
             {
                 "id": ["quote_automobile:make","quote_trailer:make"],
                 "label_header": "_MAKE",
-                "type": "multilabel",
+                "type": "label",
                 "align": "left",
                 "width": "25%"
             },
             {
-                "id": "quote_automobile:model",
+                "id": "quote_automobile:ext_model",
                 "label_header": "_MODEL",
                 "type": "label",
                 "align": "center",
@@ -42,16 +41,18 @@
             {
                 "id": "quote_automobile:registration_number",
                 "label_header": "_LICENSE_PLATE",
-                "type": "label",
+                "type": "text",
                 "align": "right",
-                "width": "10%"
+                "width": "10%",
+                "patchOnBlur": true
             },
             {
                 "id": ["quote_automobile:serial_number","quote_trailer:weight"],
                 "label_header": "_CHASSIS_NR",
-                "type": "multilabel",
+                "type": "decimal",
                 "align": "center",
-                "width": "10%"
+                "width": "10%",
+                "patchOnBlur": true
             },
             {
                 "type": "actions",
