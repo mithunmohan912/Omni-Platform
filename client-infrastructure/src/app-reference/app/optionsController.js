@@ -1,5 +1,7 @@
+'use strict';
+
 /*
-global app
+global app, column
 */
 
 app.controller('OptionsController', [ '$scope', function($scope){
@@ -10,7 +12,7 @@ app.controller('OptionsController', [ '$scope', function($scope){
 		var allOptions = [];
 
 		for(var item in $scope.resourcesToBind[column.id].items){
-			allOptions = allOptions.concat($scope.resultSet[item.href].properties['options_table'].value);
+			allOptions = allOptions.concat($scope.resultSet[item.href].properties.options_table.value);
 		}
 
 		$scope.optionsTable = allOptions;

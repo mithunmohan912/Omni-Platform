@@ -99,7 +99,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			//We need to check ifsome operations resource has been patched. In that case we have to call 
 			//execute to confitrm this resource. 
 			var operationsURL = getOperationsResource(properties);
-			for (var key in operationsURL){
+			Object.keys(operationsURL).forEach(function(key){
 				resourceFactory.post(operationsURL[key] + '/execute', {}, $rootScope.headers).then(function(response) {
 					resourceFactory.get(operationsURL[key]).then(function(response) {
 						resourceFactory.refresh(response.data._links.up.href);
@@ -107,7 +107,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 					resourceFactory.refresh(response.data._links.up.href);
 					resourceFactory.refresh(resource.href);
 				});
-			}
+			});
 			
 
 			//update dependencies
@@ -118,7 +118,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			if (params && params.dependencies){
 				var personUrl;
 				for(var i=0; i< params.dependencies.length; i++){
-					if(params.dependencies[i].resource == "quote_owner:person_link"){
+					if(params.dependencies[i].resource === 'quote_owner:person_link'){
 						personUrl = params.dependencies[i].href;
 						break;
 					}
