@@ -1,0 +1,54 @@
+{
+    "metamodel": {
+        "formid": "AddHomeQuote",
+        "title": "_HOME_QUOTE_US_CREATE",
+        "icon":"flaticon-home",
+        "hidetitle": false,
+        "resourcelist": ["quotes"], 
+        "category":"tabs",
+        "createButton": false,
+        "name": "AddHomeQuote",
+        "sections": [
+            {
+                "$ref":"applicantInfo",
+                "name": "_APPLICANT_INFO",
+                "renderAsTab": true,
+                "step": 1
+            },
+            {
+                "$ref":"policyInfo",
+                "name": "_POLICY_INFO",
+                "renderAsTab": true,
+                "step": 2
+            },
+            {
+                "$ref": "generalInfo",
+                "name": "_GENERAL_INFO",
+                "renderAsTab": true,
+                "step": 3
+            },
+            {
+                "$ref": "coverageInfo",
+                "name": "_COVERAGE_INFO",
+                "renderAsTab": true,
+                "step": 4
+            },
+             {
+              
+              "$ref": "submit",
+              "step":4
+
+              
+           }, 
+            {
+                "$ref": "premiumInfo",
+                "name": "_PREMIUM_INFO",
+                "renderAsTab": true,
+                "step": 5
+            }
+        ] 
+    },
+    "include":[
+        "applicantInfo", "policyInfo", "generalInfo","coverageInfo","submit","premiumInfo"
+    ]
+}
