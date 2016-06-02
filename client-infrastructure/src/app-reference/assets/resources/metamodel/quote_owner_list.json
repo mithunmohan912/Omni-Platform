@@ -1,12 +1,11 @@
 {
     "metamodel": {
-        "title": "Owner List",
         "name": "quote_owner_list",
         "modalRef": "quote_owner",
 
         "properties": [
             {
-                "label": "",
+                "label_header": "",
                 "type": "status",
                 "align": "center",
                 "width": "5%"
@@ -19,17 +18,17 @@
                 "width": "10%"
             },
             {
-                "id": ["quote_owner:first_name","quote_owner:name"],
+                "id": ["person:first_name", "person:last_name", "organization:legal_name"],
                 "label_header": "_NAME",
-                "type": "multilabel",
+                "type": "label",
                 "align": "left",
                 "width": "25%"
             },
             {
                 "id": "quote_owner:birth_date",
                 "label_header": "_DOB",
-                "type": "date",
-                "format": "dd-MMM-yyyy",
+                "type": "label",
+                "format": "dd/MM/yyyy",
                 "align": "center",
                 "width": "15%"
             },
@@ -40,7 +39,7 @@
                 "width": "15%"
             },
             {
-                "id": "quote_owner:postal_code",
+                "id": "postal_address:postal_code",
                 "label_header": "_POSTALCODE",
                 "type": "label",
                 "align": "right",
@@ -54,7 +53,7 @@
                 "width": "10%"
             },
             {
-                "label": "",
+                "label_header": "",
                 "type": "actions",
                 "align": "center",
                 "width": "10%",
@@ -71,6 +70,21 @@
                     }
                 ]
             }
-        ]
+        ],
+
+        "businessObject": {
+            "quote_owner": [
+                    "quote_owner:person_link",
+                    "quote_owner:organization_link"
+            ],
+            "person": [
+                    "person:postal_address_list",
+                    "person:e_mail_address_list"
+            ],
+            "organization": [
+                    "organization:postal_address_list",
+                    "organization:e_mail_address_list"
+            ]
+        }
     }
 }
