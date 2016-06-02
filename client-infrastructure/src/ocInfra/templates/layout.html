@@ -18,8 +18,8 @@
     </div>
     <div class="col-md-{{field.columnsize}}" ng-switch-when="toggle" style=" margin-bottom: 10px; text-align:left;">
         <div class="btn-group">
-            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" btn-radio="false" uncheckable>NO</label>
-            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" btn-radio="true" uncheckable>YES</label>
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" uib-btn-radio="false" uncheckable>NO</label>
+            <label class="btn btn-default" name="{{field.name}}" id="{{field.name}}" ng-click="validateEachSection(field.name);patchField(field.name)" ng-model="data[field.name]" uib-btn-radio="true" uncheckable>YES</label>
         </div>
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="litcheckbox" style="text-align:left">
