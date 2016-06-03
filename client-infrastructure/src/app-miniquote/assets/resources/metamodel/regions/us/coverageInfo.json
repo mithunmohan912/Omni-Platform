@@ -15,8 +15,6 @@
                         "label": "_HO_FORM",
                         "visible": true,
                         "required": "required",
-                        "invokeMethod":"EditForm",
-                        "patchOnBlur": true,
                         "columnsize": 2,
                         "enumdata":[
                         
@@ -57,34 +55,15 @@
                         "type": "text",
                         "label": "_A_DWELLING",
                         "visible": true,
-                        "invokeMethod":"EditCovA",
-                        "patchOnBlur": true,
-                        "columnsize": 2,
-                        "disablewhen":[
-                            {
-                                "field":"quote-homeLineBus-dwell-policyType",
-                                "value":"4"
-                            }
-
-                        ]
+                        "columnsize": 2
                     },
                      {
                         "name": "quote-homeLineBus-dwell-cov|3-lim-formCurrAmt-amt",
                         "type": "text",
                         "label": "_B_OTHERSTRUCTURE",
                         "visible": true,
-                                                                                                "required": "required",
-                        "columnsize": 2,
-                        "disablewhen":[
-                            {
-                                "field":"quote-homeLineBus-dwell-policyType",
-                                "value":"4"
-                            },
-                            {
-                                "field":"quote-homeLineBus-dwell-policyType",
-                                "value":"6"
-                            }
-                        ]
+                        "required": "required",
+                        "columnsize": 2
                         
                     },
                     
@@ -113,14 +92,7 @@
                                                                                                 "required": "required",
                         "columnsize": 2,
                         "invokeMethod":"EditCovA",
-                        "patchOnBlur": true,
-                        "disablewhen":[
-                            {
-                                "field":"quote-homeLineBus-dwell-policyType",
-                                "value":"6"
-                            }
-
-                        ]
+                        "patchOnBlur": true
                         
                     },
                      {

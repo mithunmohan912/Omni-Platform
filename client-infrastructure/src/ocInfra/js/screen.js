@@ -169,20 +169,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 		}
 		return true;
 	};
-    $scope.checkdisable=function(field){
-        var response=false;
-        angular.forEach(field.disablewhen,function(val){
-              if($scope.data[val.field]== val.value){
-                response=true;
-              }
-
-        });
-
-         if(response || field.disabled){
-            response=true;
-         }
-         return response;
-    };
 
 	// Dynamic Injection of Factory
 
@@ -198,7 +184,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
     
-    $scope.Injectfactory();
     
     $rootScope.isPrev = false;
     
@@ -405,10 +390,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
-    $scope.callMethod = function(methodName, fieldName){
-        console.log('Invoke init method for the custom factory');
-        $scope.factory.init($scope, methodName, fieldName);
-    };
 
     $scope.loadDataByTab = function (tab) {
 
