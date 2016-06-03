@@ -264,7 +264,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                         } else {
                                             urlDetail = data.messages.context;
                                         }
-                                        resourceFactory.get(urlDetail,params,$rootScope.headers).success(function(data){
+                                        resourceFactory.refresh(urlDetail,params,$rootScope.headers).success(function(data){
                                             $scope.data = data;
                                             console.log('Compute successfully !!');
                                             // go to next tab to see premium
