@@ -671,7 +671,6 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
     var metamodel = m.metamodel;
     var resourcelist = metamodel.resourcelist;
     
-    $rootScope.showHeader = metamodel.showHeader;
     if(resourcelist !== undefined && resourcelist.length >0){
         angular.forEach(resourcelist, function(resource){
             scope.metamodel[resource] = m.metamodel;    
