@@ -1,0 +1,25 @@
+{
+    "metamodel": {
+        "labels": {
+            "title": "Options"
+        },
+        "actions": {
+            "ok": "patchOptions"
+        },
+        "sections": [{
+            "properties": [
+                {
+                    "id": "quote_option:child_prdct_cmpnnt_list",
+                    "type": "custom",
+                    "templateUrl": "templates/quote_coverage_options_list.html"
+                }
+            ]
+       }],
+       "businessObject": {
+            "quote_product_component": [
+                "quote_option:child_prdct_cmpnnt_list",
+                "quote_pack:child_prdct_cmpnnt_list"
+            ]
+        }
+    }
+}
