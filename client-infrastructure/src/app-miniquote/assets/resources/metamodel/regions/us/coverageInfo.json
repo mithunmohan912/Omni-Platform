@@ -14,7 +14,7 @@
                         "type": "usselect",
                         "label": "_HO_FORM",
                         "visible": true,
-                         "required": "required",
+                        "required": "required",
                         "columnsize": 2,
                         "enumdata":[
                         
@@ -56,14 +56,13 @@
                         "label": "_A_DWELLING",
                         "visible": true,
                         "columnsize": 2
-                        
                     },
                      {
                         "name": "quote-homeLineBus-dwell-cov|3-lim-formCurrAmt-amt",
                         "type": "text",
                         "label": "_B_OTHERSTRUCTURE",
                         "visible": true,
-                                                                                                "required": "required",
+                        "required": "required",
                         "columnsize": 2
                         
                     },
@@ -91,7 +90,9 @@
                         "label": "_D_LOSS_OF_USE",
                         "visible": true,
                                                                                                 "required": "required",
-                        "columnsize": 2
+                        "columnsize": 2,
+                        "invokeMethod":"EditCovA",
+                        "patchOnBlur": true
                         
                     },
                      {
