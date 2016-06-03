@@ -23,7 +23,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
    
     screenname  = 'OmniChannel';
-    
+    $rootScope.showHeader = true;
     $scope.disableNext = false;
 
     $scope.rulesDataList = [];
@@ -183,6 +183,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
          console.log('Injector does not have '+$scope.factoryname+' service!');
         }
     };
+    
     
     $rootScope.isPrev = false;
     
@@ -354,6 +355,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.selecttab = function(step1, rel) {
         if ($scope.isValid()) {
+            if(msg !== undefined){
+                msg.destroy();    
+            }
             $rootScope.step = step1;
             $rootScope.currRel = rel;
             
@@ -386,6 +390,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         }
     };
 
+
     $scope.loadDataByTab = function (tab) {
 
         var url = $rootScope.resourceHref;
@@ -413,6 +418,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     };
 
+    var msg;
+
     $scope.isValid = function(){
         var dataField = [];
         var mandatoryField = $scope.loadmandatoryField();
@@ -438,7 +445,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
             });
             //showMessage(message);
-            growl.error(message);
+           msg = growl.error(message);
             return false;
         }
 
