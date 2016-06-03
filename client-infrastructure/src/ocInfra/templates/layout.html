@@ -33,7 +33,7 @@
         <input autocomplete="off" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" typeahead="c for c in typeahead[field.name] | filter:$viewValue | limitTo:10" typeahead-min-length='' typeahead-on-select='onSelectPart($item, $model, $label)' typeahead-template-url="customTemplate.html">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="text">
-        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="{{field.disabled}}" ng-change="validateEachSection(field.name);patchField(field.name)" ng-model-options="{updateOn: 'blur'}">
+        <input type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-disabled="checkdisable(field)" ng-change="validateEachSection(field.name);patchField(field.name);callMethod(field.invokeMethod, field.name)" ng-model-options="{updateOn: 'blur'}">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="thtext">
         <input typeahead-min-length="" autocomplete="on" type="text" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" maxlength="{{field.maxlength}}" class="form-control input-md" ng-required="{{field.required == true}}" ng-disabled="checkEnable(field)" ng-change="getNamesList(data[field.name],field)" uib-typeahead="c for c in typeaheadData[field.typeaheadField] | filter:$viewValue | limitTo:10" typeahead-wait-ms=3000 typeahead-on-select='patchField(field.name)' typeahead-template-url="customTemplate.html">
@@ -66,7 +66,7 @@
         <input type="number" id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" min="{{field.min}}" max="{{field.max}}" class="form-control input-md" ng-value="data[field.name]" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name);patchField(field.name)" ng-model-options="{updateOn: 'blur'}" ng-disabled="{{field.disabled}}">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="date">
-        <input id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md calendarIcon" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name);patchField(field.name)" ng-model-options="{updateOn: 'blur'}" ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}" ng-disabled="{{field.disabled}}">
+        <input id="{{field.name}}" name="{{field.name}}" ng-model="data[field.name]" class="form-control input-md calendarIcon" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name);patchField(field.name);callMethod(field.invokeMethod, field.name)" ng-model-options="{updateOn: 'blur'}" ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}" ng-disabled="checkdisable(field)">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="textarea">
         <textarea ng-model="data[field.name]" class="form-control input-md" label="{{field.instructions}}" id="{{field.name}}" name="{{field.name}}" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name);patchField(field.name)" ng-model-options="{updateOn: 'blur'}" placeholder="{{field.placeholder}}">{{field.value}}</textarea>
@@ -78,7 +78,7 @@
         <input type="email" id="{{field.name}}" name="{{field.name}}" maxlength="{{field.maxlength}}" ng-model="data[field.name]" placeholder="{{field.placeholder}}" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-change="validateEachSection(field.name)">
     </div>
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="usselect">
-        <select  id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(field)" ng-change="validateEachSection(field.name)">
+        <select  id="{{field.name}}" name="{{field.name}}" ng-init="data[field.name]=field.default" ng-model="data[field.name]" class="form-control input-md" ng-required="{{field.required == 'required'}}" ng-options="enum.value as (locale[enum.description]?locale[enum.description] : enum.description) for enum in getEnums(field)" ng-change="validateEachSection(field.name);callMethod(field.invokeMethod, field.name)">
         </select>
     </div> 
     <div class="col-md-{{field.columnsize}} margin_BTM_15px" ng-switch-when="select">
@@ -186,7 +186,7 @@
                     <input type="number" id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" placeholder="{{subfield.placeholder}}" min="{{subfield.min}}" max="{{subfield.max}}" class="form-control input-md" ng-value="data[subfield.name]" ng-required="{{subfield.required == 'required'}}" ng-disabled="{{subfield.disabled}}" ng-change="validateEachSection(subfield.name)">
                 </div>
                 <div class="col-md-{{subfield.columnsize}}  " ng-switch-when="date">
-                    <input id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md calendarIcon" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name)"  ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}">
+                    <input id="{{subfield.name}}" name="{{subfield.name}}" ng-model="data[subfield.name]" class="form-control input-md calendarIcon" ng-required="{{subfield.required == 'required'}}" ng-change="validateEachSection(subfield.name);callMethod(field.invokeMethod, field.name)"  ui-date="dateOptions" data-mask="{{config.dateMask}}" format-date placeholder="{{getLocaleDatePlaceholder()}}">
                 </div>
 
                 <div ng-switch-when="table" id="{{subfield.name}}" class="col-md-{{subfield.columnsize}}" ng-controller='TableController'>
