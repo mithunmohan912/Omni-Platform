@@ -38,7 +38,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             });
             if (promise.then) {
                 promise.then(function(response) {
-                    resourceDirectory[url] = response;
+                    resourceDirectory[url] = response.data;
                     $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
                 }, function(error) {
@@ -88,7 +88,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[response.data._links.self.href] = response;
+                resourceDirectory[url] = response.data;
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
             }, function(error) {
@@ -131,9 +131,9 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[url] = response;
+                resourceDirectory[url] = response.data;
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
-
+                //return response.data;
             }, function(error) {
                 console.error(error);
                 throw error;
@@ -151,7 +151,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[url] = response;
+                resourceDirectory[url] = response.data;
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
 
             }, function(error) {
