@@ -24,7 +24,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         $resource(path).get(function(m) {
             scope.screenId = screenId;
             $rootScope.title = m.metamodel.title;
-
+            $rootScope.metamodel[screenId] = m.metamodel;
             if (m.include && m.include.length > 0) {
                 loadReferencedMetaModels(growl, scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
