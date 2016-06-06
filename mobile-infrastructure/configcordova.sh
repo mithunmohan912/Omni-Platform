@@ -4,6 +4,7 @@ echo $PWD
 
 # Below parameter will create a new Cordova Project along with the corresponding plugins
 if [ "$1" = "create" ]; then
+        rm -r OCMiniQuote
         cordova create OCMiniQuote com.csc.e.omnichannel.miniquote OCMiniQuote
         cd OCMiniQuote
         cordova platform add ios --save
