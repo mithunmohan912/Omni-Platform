@@ -11,7 +11,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
     OCMetadata.load($scope,metamodelLocation);
     $rootScope.isAuthSuccess = false;
     MetaModel.setHeaders($rootScope);
-
+    
     $scope.checkvisible = function(field) {
             return FieldService.checkVisibility(field, $scope);    
      };
@@ -21,6 +21,8 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
             $rootScope.nextURL = actionURL;
             $rootScope.navigate(actionURL);
         } else if(method === 'navigate'){
+            $rootScope.resourceHref = undefined;
+            $rootScope.regionId = undefined;
             $rootScope.nextURL = actionURL;
             $rootScope.navigate(actionURL);
             // if create anonymous quotes => regionId doesn't value.
@@ -29,6 +31,7 @@ function AnonymousController($scope, $rootScope, $location, $cookieStore, $http,
                 var arr = actionURL.split('/');
                 $rootScope.regionId = arr[1];
             }
+        
             if($rootScope.regionId!=='us'){
             new Promise(function(resolve) {
                 MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, false, resolve);

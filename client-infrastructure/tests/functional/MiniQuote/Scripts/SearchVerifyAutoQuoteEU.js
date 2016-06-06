@@ -25,8 +25,8 @@ describe('SearchVerifyAutoQuoteEU', function() {
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/AutoQuoteEU.csv','SearchVerifyAutoQuoteEU');
-    perfWritter.initialize('./../Perf/EU/SearchVerifyAutoQuoteEU.csv','');
+    application.initTestData('DataRepo/AutoQuoteEU.csv','SearchVerifyAutoQuoteEU');
+    perfWritter.initialize('Perf/EU/SearchVerifyAutoQuoteEU.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
