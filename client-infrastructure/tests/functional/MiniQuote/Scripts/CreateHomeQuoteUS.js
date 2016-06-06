@@ -25,8 +25,8 @@ describe('CreateHomeQuoteUS', function() {
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/HomeOwnerUS.csv','CreateHomeQuoteUS');
-    perfWritter.initialize('./../Perf/US/CreateHomeQuoteUS.csv','');
+    application.initTestData('DataRepo/HomeOwnerUS.csv','CreateHomeQuoteUS');
+    perfWritter.initialize('Perf/US/CreateHomeQuoteUS.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });

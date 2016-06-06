@@ -23,31 +23,31 @@ TourConfigProvider.set('prefixOptions', false);
     $routeProvider.
     when('/', {
         templateUrl: function() {
-          return 'templates/screen.html';
+          return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     }).
     when('/:screenId', {
         templateUrl: function() {
-          return 'templates/screen.html';
+          return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     }).
     when('/screen/:screenId', {
         templateUrl: function() {
-          return 'templates/screen.html';
+          return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     }).
     when('/:regionId/screen/:screenId', {
         templateUrl: function() {
-            return 'templates/screen.html';
+            return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     }).
     when('/:regionId/screen/:screenId/:newTransaction', {
         templateUrl: function() {
-            return 'templates/screen.html';
+            return 'ocInfra/templates/components/screen.html';
         },
         controller: ScreenController
     });

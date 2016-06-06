@@ -2,7 +2,18 @@
 
 module.exports = function(grunt) {
 
-	require('load-grunt-config')(grunt);
+	require('load-grunt-config')(grunt, {
+		 data: {
+			 pkg: grunt.file.readJSON('package.json')
+		 }
+	 });
+
+	grunt.loadNpmTasks('grunt-protractor-webdriver');
+	grunt.loadNpmTasks('grunt-protractor-runner');
+	
+	grunt.registerTask('e2e-test', ['protractor:e2e']);
+	grunt.registerTask('functional', ['protractor_webdriver:startselenium','protractor:e2e']);	
+	grunt.registerTask('runseleniumserver', ['protractor_webdriver:startselenium']);	
 
 	grunt.registerTask('clean_components', ['clean:dist',
 			'clean:lib', 'clean:reports' , 'clean:tmp' ]);

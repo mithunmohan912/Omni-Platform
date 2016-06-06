@@ -25,33 +25,8 @@
                         "type": "date",
                         "label": "_EFFECTIVE_DATE",
                         "visible": true,
-                        "invokeMethod":"CalculateExpDt",
-                        "patchOnBlur": true,
                         "required": "required",
                         "columnsize": 2
-                    },
-                    {
-                        "name": "quote-persPolicy-contractTerm-expDt",
-                        "type": "date",
-                        "label": "_EXPIRATION_DATE",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 2,
-                        "disablewhen":[
-                            {
-                                "field":"quote-persPolicy-polTermMon",
-                                "value":"12"
-                            },
-                            {
-                                "field":"quote-persPolicy-polTermMon",
-                                "value":"3"
-                            },
-                            {
-                                "field":"quote-persPolicy-polTermMon",
-                                "value":"6"
-                            }
-
-                        ]
                     },
                     {
                         "name": "quote-persPolicy-polTermMon",
@@ -60,8 +35,6 @@
                         "visible":true,
                         "columnsize": 2,
                         "required": "required",
-                        "invokeMethod":"CalculateExpDt",
-                        "patchOnBlur": true,
                         "support":"false",
                         "default":"12",
                         "enumdata": [
