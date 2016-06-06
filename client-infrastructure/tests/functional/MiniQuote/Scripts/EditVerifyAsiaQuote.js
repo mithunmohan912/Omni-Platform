@@ -25,8 +25,8 @@ describe('EditVerifyAsiaQuote', function() {
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/AutoQuoteAsia.csv','EditVerifyAsiaQuote');
-    perfWritter.initialize('./../Perf/Asia/EditVerifyAsiaQuote.csv','');
+    application.initTestData('DataRepo/AutoQuoteAsia.csv','EditVerifyAsiaQuote');
+    perfWritter.initialize('Perf/Asia/EditVerifyAsiaQuote.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
