@@ -25,8 +25,8 @@ describe('CreateAutoQuoteAsia', function() {
   var perfWritter = new CSV_Processor();
 
   beforeAll(function(){
-    application.initTestData('./../DataRepo/AutoQuoteAsia.csv','CreateAutoQuoteAsia');
-    perfWritter.initialize('./../Perf/Asia/CreateAutoQuoteAsia.csv','');
+    application.initTestData('DataRepo/AutoQuoteAsia.csv','CreateAutoQuoteAsia');
+    perfWritter.initialize('Perf/Asia/CreateAutoQuoteAsia.csv','');
       perfWritter.readDatafromFile(function(data){      
       perfMetric = data ;    
      });
