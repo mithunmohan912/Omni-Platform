@@ -15,6 +15,14 @@
 				<div ng-repeat="row in section.rows" class="row">
 					<div ng-repeat="column in row track by $index" class="oc-column col-sm-{{column.colspan}}">
 						<div ng-if="column" ng-switch on="column.type">
+							<div ng-switch-when="tabs">
+								<ul class="nav nav-tabs">
+									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
+										<a ng-if="tab.screenId === screenName">{{tab.title | translate}}</a>
+										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{tab.title | translate}}</a>
+									</li>
+								</ul>
+							</div>
 					      	<div ng-switch-when="table" class="table-responsive">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
