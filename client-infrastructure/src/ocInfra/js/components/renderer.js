@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
 
 	return {
 		restrict: 'E',
@@ -120,13 +120,17 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
 
+				$scope.resourcesToBind = { properties: {} };
 
-				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
+
+				$scope.screenName = $location.path().substring($location.path().lastIndexOf('/')+1);
+
 				$scope.resourcesToBind = { properties : {} };
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined) {
@@ -149,55 +153,32 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
-								$scope.resourcesToBind[newValue[url].identifier] = newValue[resource];
+								$scope.resourcesToBind[newValue[url].identifier] = newValue[url];
 							}
 						}
 
 						$scope.boundUrls = [];
 						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
 						$scope.propertiesCollection = [];
-
+						var searchIdsInAttributes = function(property) {
+												if (property.id && !Array.isArray(property.id)){
+													property.id = [property.id];
+												}
+												savePropertyInResourcesToBind(property);
+											};
 						// Extract the urls of the properties we have bound, so we can then update the view when any of those properties gets updated		
 						for(var i = 0; i < $scope.metamodelObject.sections.length; i++){
 							// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
 							if(!$scope.metamodelObject.sections[i].type || $scope.metamodelObject.sections[i].type !== 'reference') {
 								for(var j = 0; j < $scope.metamodelObject.sections[i].properties.length; j++){
 
-									
-									// if we potentially have the same property coming from different resources. 
-									if (Array.isArray($scope.metamodelObject.sections[i].properties[j].id)){
-										var idValues = $scope.metamodelObject.sections[i].properties[j].id;
-
-										for(var k = 0; k < idValues.length; k++){
-											var resourceSelected = { resource: null, points: 0 };
-											for(var resource in $scope.resourcesToBind){
-												if (resource !=='properties'){
-
-													//If the resource is part of a collection and we are only interested in on of the collection items. 
-													if ($scope.metamodelObject.sections[i].properties[j].selector){
-
-														seekSelectorInResource($scope.resourcesToBind[resource], $scope.metamodelObject.sections[i].properties[j].selector, resourceSelected);
-													} else if ($scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resource].properties){	
-														resourceSelected.resource = resource;
-													}
-												}
-											}
-
-											$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
-											//if we have found a value in one of the resources, we are done and no need to go on. 
-											if (resourceSelected.resource && $scope.metamodelObject.sections[i].properties[j].id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
-												$scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]] = 
-													$scope.resourcesToBind[resourceSelected.resource].properties[$scope.metamodelObject.sections[i].properties[j].id[k]];
-													// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
-
-												if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self) < 0) {
-													$scope.boundUrls.push($scope.resourcesToBind.properties[$scope.metamodelObject.sections[i].properties[j].id[k]].self);	
-												}
-												break;
-											}
-											
+									savePropertyInResourcesToBind($scope.metamodelObject.sections[i].properties[j]); 
+									//search ids in attributes
+									for (var attribute in $scope.metamodelObject.sections[i].properties[j].attributes) {
+										if (Array.isArray($scope.metamodelObject.sections[i].properties[j].attributes[attribute])){
+											$scope.metamodelObject.sections[i].properties[j].attributes[attribute].forEach(searchIdsInAttributes);
 										}
-									} 
+									}
 								}
 							}
 						}
@@ -223,6 +204,41 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				});
 				
 				MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
+			}
+
+
+			function savePropertyInResourcesToBind(property) {
+				if (Array.isArray(property.id)){
+					var idValues = property.id;
+					for(var k = 0; k < idValues.length; k++){
+						var resourceSelected = { resource: null, points: 0 };
+						for(var resource in $scope.resourcesToBind){
+							if (resource !=='properties'){
+
+								//If the resource is part of a collection and we are only interested in on of the collection items. 
+								if (property.selector){
+									seekSelectorInResource($scope.resourcesToBind[resource], property.selector, resourceSelected);
+								} else if (property.id[k] in $scope.resourcesToBind[resource].properties){	
+									resourceSelected.resource = resource;
+								}
+							}
+						}
+
+						$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
+						//if we have found a value in one of the resources, we are done and no need to go on. 
+						if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
+							$scope.resourcesToBind.properties[property.id[k]] = 
+								$scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
+								// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
+
+							if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[property.id[k]].self) < 0) {
+								$scope.boundUrls.push($scope.resourcesToBind.properties[property.id[k]].self);	
+							}
+							break;
+						}
+						
+					}
+				} 
 			}
 
 			function seekSelectorInResource(resource, selector, resourceSelected){
@@ -277,7 +293,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			*/
 
 			$scope.$on('patch_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
+				if (data.resourceUrl === $scope.resourceUrlToRender || data.save) {
 					var payloads = {};
 					var promises = [];
 					var propertiesBound = $scope.resourcesToBind.properties;

@@ -26,12 +26,6 @@ return {
 			$scope.resultSet = {};
 
 			$scope.resetDisabled = false;
-			$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
-			try {
-				$scope.actionFactory = $injector.get($scope.screenFactoryName);
-			} catch(e) {
-				console.log($scope.screenFactoryName + 'not found');
-			}
 
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
@@ -109,6 +103,13 @@ return {
 				// Default labels and actions
 				_initLabels();
 				_initActions();
+
+				$scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.screenFactoryName);
+				} catch(e) {
+					console.log($scope.screenFactoryName + 'not found');
+				}
 			}	
 
 

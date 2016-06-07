@@ -25,7 +25,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			$scope.$on('resourceDirectory', function(event, params) {
 				if ((params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
-					params.response.data._links.up.href === $scope.resourceUrl) {
+					(params.response.data._links && params.response.data._links.up.href === $scope.resourceUrl)) {
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -70,7 +70,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
-						$scope.items = [];
+						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
+						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 							var newItem = angular.copy(newValue[item.href]);
 							var newValueItem = _getResultSetItem(newValue, newItem);
@@ -101,13 +102,13 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 								newItem.properties = $scope.itemResourcesToBind.properties;
 							}
 							if (newItem) {
-								$scope.items.push(newItem);
+								$scope.table.items.push(newItem);
 							}
 						});
 					}
 				});
 				
-				$scope.factoryName = $scope.factoryName || metamodelObject.factoryName;
+				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName ;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(e) {
@@ -178,9 +179,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 						$scope.modalMetamodelObject.sections.forEach(function(section) {
 			 				if (section.properties) {
 			                    section.properties.forEach(function(property){
-			 						if (properties[property.id]){
-			 							status = status && properties[property.id].consistent;
+			 						var ids = property.id;
+			 						if(!Array.isArray(ids)){
+			 							ids = [ids];
 			 						}
+			 						ids.forEach(function(id){
+			 							if (properties[id]){
+				 							status = status && properties[id].consistent;
+				 						}
+			 						});
 				 				});
 							}
 						});

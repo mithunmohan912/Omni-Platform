@@ -160,6 +160,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 			};
 
+			defaults.radio = {
+				'attributes': {
+					'capitalize': false
+				},
+				'updateMode': 'change'
+			};
+
 			defaults.textMask = {
 				'attributes': {
 					'capitalize': true,
@@ -227,6 +234,11 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						*/
 					}
 				}
+			};
+
+			defaults.range = {
+				'attributes': {},
+				'options': {}
 			};
 
 			// Patch on blur default function
@@ -311,7 +323,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
 				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
-				$scope.inputHtmlUrl = $rootScope.templatesURL + 'input-' + inputType + '.html';
+				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
+				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
@@ -319,6 +332,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
 					$scope.update = $scope.actionFactory[$scope.onUpdate];
+					if(!$scope.update){
+						$scope.update = _searchInParents($scope, $scope.onUpdate);
+					}
 				}
 
 				// Field to bind to the input
