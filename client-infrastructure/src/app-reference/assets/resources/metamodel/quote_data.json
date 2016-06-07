@@ -30,11 +30,26 @@
                         "row": 2
                     },
                     {
-                        "id": "quote:contract_start_date",
+                        "id": "startDate",
                         "label": "_START_DATE",
-                        "type": "date",
-                        "row": 4,
-                        "patchOnBlur": true
+                        "type": "range",
+                        "uiInput": true,
+                        "attributes": {
+                            "range": [
+                                {
+                                    "id": "quote:contract_start_date",
+                                    "type": "date",
+                                    "patchOnBlur": true
+                                },
+                                {
+                                    "id": "quote:start_date",
+                                    "label": "_TO",
+                                    "type": "date"
+
+                                }
+                            ]
+                        },
+                        "row": 4
                     },
                     {
                         "id": "quote:status",

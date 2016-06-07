@@ -17,7 +17,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 	}
 
 	return {
-		next: function(resource) {
+		toCoverage: function(resource) {
 			$rootScope.resourceUrl = resource.href;
 			$location.path('/screen/coverage');
 		},
@@ -25,8 +25,8 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			$rootScope.resourceUrl = null;
 			$location.path('/screen/dashboard');
 		},
-		saveQuote: function(resource, properties, callback){
-			var payloads = {};
+		saveQuote: function(/*resource, properties, callback*/){
+			/*var payloads = {};
 			if (properties) {
 				for(var key in properties){
 					if(properties[key] && properties[key].self){
@@ -45,7 +45,8 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 						}
 					});
 				});
-			}
+			}*/
+			$rootScope.$broadcast('patch_renderer', {save: true});
 		},
 		searchByName: function(element){
 
@@ -68,7 +69,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 				});
 			});	
 		},
-		selectPerson: function(element){
+		selectPersonOrg: function(element){
 
 			var payload = {};
 			var link = '';
