@@ -376,8 +376,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
                 if(resultSet.pending === 0){
                     var deferred = resultSet.deferred;
-                    delete resultSet['deferred'];
-                    delete resultSet['pending'];
+                    delete resultSet.deferred;
+                    delete resultSet.pending;
 
                     deferred.resolve(resultSet);
                 }
