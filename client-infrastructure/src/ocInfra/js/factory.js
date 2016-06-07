@@ -27,6 +27,11 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             if($rootScope.metamodel !== undefined){
                 $rootScope.metamodel[screenId] = m.metamodel;    
             }
+
+            // Initialize colspan and offset if they do not exist
+            m.metamodel.colspan = m.metamodel.colspan || 12;
+            m.metamodel.offset = m.metamodel.offset || 0;
+
             if (m.include && m.include.length > 0) {
                 loadReferencedMetaModels(growl, scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
