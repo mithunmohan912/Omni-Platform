@@ -2,17 +2,17 @@
 ========================
 **Table of contents**
 -------------
-[Overview](#overview)
-[1. App.js](#1-appjs)
-[1.2 AppConf](#12-appconf)
-[1.3 Custom Factory](#13-customfactory)
-[1.4 Navigation](#14-navigation)
-[1.5 Dashboard screen](#15-dashboard-screen)
-[1.6 Quote screen](#16-quote-screen)
-&nbsp;&nbsp;&nbsp;[1.6.1 Metamodel example](#161-metamodel-example)
-&nbsp;&nbsp;&nbsp;[1.6.2 Dependencies](#162-dependencies)
-&nbsp;&nbsp;&nbsp;[1.6.3 Focus on properties](#163-focus-on-properties)
-&nbsp;&nbsp;&nbsp;[1.6.4 Focus on actions](#164-focus-on-actions)
+* [Overview](#overview)
+* [1. App.js](#1-appjs)
+* [1.2 AppConf](#12-appconf)
+* [1.3 Custom Factory](#13-customfactory)
+* [1.4 Navigation](#14-navigation)
+* [1.5 Dashboard screen](#15-dashboard-screen)
+* [1.6 Quote screen](#16-quote-screen)
+    - [1.6.1 Metamodel example](#161-metamodel-example)
+    - [1.6.2 Dependencies](#162-dependencies)
+    - [1.6.3 Focus on properties](#163-focus-on-properties) 
+    - [1.6.4 Focus on actions](#164-focus-on-actions)
 
 
 
