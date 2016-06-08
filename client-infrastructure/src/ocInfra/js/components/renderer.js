@@ -171,12 +171,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
 							if(!$scope.metamodelObject.sections[i].type || $scope.metamodelObject.sections[i].type !== 'reference') {
 								for(var j = 0; j < $scope.metamodelObject.sections[i].properties.length; j++){
-
-									savePropertyInResourcesToBind($scope.metamodelObject.sections[i].properties[j]); 
-									//search ids in attributes
-									for (var attribute in $scope.metamodelObject.sections[i].properties[j].attributes) {
-										if (Array.isArray($scope.metamodelObject.sections[i].properties[j].attributes[attribute])){
-											$scope.metamodelObject.sections[i].properties[j].attributes[attribute].forEach(searchIdsInAttributes);
+									if (!$scope.metamodelObject.sections[i].properties[j].uiInput) {
+										savePropertyInResourcesToBind($scope.metamodelObject.sections[i].properties[j]); 
+										//search ids in attributes
+										for (var attribute in $scope.metamodelObject.sections[i].properties[j].attributes) {
+											if (Array.isArray($scope.metamodelObject.sections[i].properties[j].attributes[attribute])){
+												$scope.metamodelObject.sections[i].properties[j].attributes[attribute].forEach(searchIdsInAttributes);
+											}
 										}
 									}
 								}
