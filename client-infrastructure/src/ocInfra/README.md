@@ -29,6 +29,7 @@
         + [2.4.13 Checkbox](#2413-checkbox)
         + [2.4.14 Label](#2414-label)
         + [2.4.15 Radio](#2415-radio)
+        + [2.4.16 Range](#2416-range)
 * [3. Table](#3-table)
     - [3.1 Table usage](#31-table-usage)
     - [3.2 Table metamodel](#32-table-metamodel)
@@ -43,6 +44,7 @@
     - [4.2 Pop up directive usage](#42-pop-up-directive-usage)
     - [4.3 Pop up code example](#43-pop-up-code-example)
 * [Metamodels](#metamodels)
+    - [Business object](#business-object)
 * [Factories](#factories)
 * [5. Resource factory](#5-resource-factory)
     - [5.1 Methods](#51-methods)
@@ -468,8 +470,6 @@ This type uses the same attributes as the [decimal input](#442-decimal).
 ##### 2.4.14 Label
 This type is not strictly an input since it only displays data. However, it is rendered by the input directive for simplicity. Due to the fact that it is going to render any type of data as a read-only field, it allows different parameters for customizing the label.
 
-##### 2.4.15 Radio
-
 ###### Attributes
 * __icon__: _Font awesome_ class used to show an image at the end of the label. I.e: EUR symbol.
 * __class__: Class name used to add styling to the label.
@@ -479,7 +479,11 @@ This type is not strictly an input since it only displays data. However, it is r
 >_None._
 
 
-##### 2.4.15 Range
+##### 2.4.15 Radio
+
+> _TODO_
+
+##### 2.4.16 Range
 
 This type displays two input components of any type. It has to be defined as a _uiInput_ and specify the properties of the range in the attributes section.
 
@@ -743,7 +747,66 @@ The popup renderer directive has an isolate scope and it is restricted to elemen
 
 
 ##Metamodels
-Omnichannel projects metamodel are a set of json files specifying the layout and some features contained in the application screens, sections, modals..etc
+Omnichannel projects metamodel are a set of json files specifying the layout and some features contained in the application screens, sections, or modals among others. 
+
+The main key of this JSON objects is the _metamodel_ key. Every file would be therefore similar to this:
+
+    {
+        "metamodel":{
+            "sections":[
+                {
+                    ... section 1 ...
+                },
+                {
+                    ... section 2 ...
+                },
+                ... more sections ...
+            ],
+            ... more stuff ...
+        }
+    }
+
+Apart from the _sections_ element and all that comes with it, which are the basic elements to create the application screens, there are other objects/properties available within the _metamodel_ object.
+
+### Business object
+The business object is a powerful capability that allows the developer to extract more dependencies from the API without having to worry about how to process them. The framework automatically inspects this object to extract more resources starting from a root resource.
+To clarify how it works, these are the steps the framework does with this object:
+
+1. Extract a resource from the backend.
+2. Analyze the resource to get its keys. What the framework does to get those keys is split the resource properties and use the first part of the split as a key. I.e: The key of the property _quote:identifier_ would be _quote_.
+3. Go to the business object and do a match between the extracted keys and the keys present in the object. Then it will store the link names found under every matched key to use them later on.
+4. At this point the framework knows two things: a resource and a set of link names. It does not have the url for those link names yet, so it will try to find them in the resource it knows. As an output of this process, the framework will know the urls it will have to query.
+5. This process is repeated for every resource retrieved.
+
+###### Example
+    {
+        "metamodel":{
+            "sections":[
+                {
+                    ... section 1 ...
+                },
+                {
+                    ... section 2 ...
+                },
+                ... more sections ...
+            ],
+            "businessObject": {
+                "quote": [ 
+                        "quote:quote_owner_list",
+                        "quote:quote_risk_list"
+                ],
+               
+                "quote_risk": [
+                        "quote_risk:quote_risk_owner_list",
+                        "quote_automobile:quote_driver_list",
+                        "quote_van:quote_driver_list",
+                        "quote_motorcycle:quote_driver_list"
+                ]
+            }
+        }
+    }
+
+The above example basically means: For a __quote__ resource I want to retrieve the resources referenced by the names __quote:quote\_owner\_list__ and __quote:quote\_risk\_list__. As a consequence of retrieving those related resources, the framework will find resources of type __quote\_risk__, and then it will retrieve also the resources specified for that type in the business object.
 
 ##Factories
 OcInfra provides developers with 2 factories: one named _resourceFactory_ for API interactions and another one named _MetaModel_ to provide the metamodel loading functionality.
@@ -784,19 +847,35 @@ The metamodel factory (named _MetaModel_) is the factory in charge of loading th
         + __deletable__: Boolean flag that indicates whether or not this resource allows a _DELETE_ on it.
         + __patchable__: Boolean flag that indicates whether or not this resource allows a _PATCH_ on it.
 
-> _TODO_
+_1. Getting into too much detail about this objects would make it more unclear, so we recommend to debug the code and inspect the objects on the browser._
+
+_2. Helper methods for preparing the rendering objects can be seen directly in the code, where they are well commented._
 
 ### Events
+
+> Since the renderer will be used inside other components (like the _renderer_ itself or the _popup_), it will have to listen to some events ([_reset\_renderer_](#reset_renderer), [_patch\_renderer_](#patch_renderer)) in order to reset the data it is being shown or to patch the values that have changed so far.
+
 ###### resourceDirectory
-> _TODO_
+The resourceDirectory event is broadcasted every time the resource directory gets updated, so it is thrown by the resource factory after every _GET_, _PATCH_, _POST_ or _DELETE_ operation that involves an interaction with the backend (when a GET returns a cached result the event is not thrown). A common use for this event is to listen to it in order to know when a resource has changed and, therefore, when a component will have to refresh.
+
 ###### reset_renderer
-> _TODO_
+This event is broadcasted from the _popup_ directive reset action and is listened to from the _renderer_ directive. By doing so, the _renderer_ will patch the links passed within the arguments to an empty string in order to reset them.
+
 ###### patch_renderer
-> _TODO_
+As of today, this event is broadcasted from the _popup_ directive save action and is listened to from the _renderer_ directive. The _popup_ will specify the resource url to patch and then any renderer bound to that url will trigger a patch on all the entities being shown by him at that moment in time.
+
 ###### close_popUp_renderer
-> _TODO_
+This event is thrown by the _popup_ to pass the renderer a callback to be executed when the popup gets closed.
+
 ###### refreshPopUp
-> _TODO_
+The _refreshPopUp_ event is used to prepare the data that the popup will have to show.
+
+When a popup is closed it does not disappear from the HTML code, it stills underneath, so opening again the same resource will show the values it had when the popup got closed. In most cases that is not a problem, but if the resource got updated between those 2 opens of the popup it will probably display the data we don't want.
+
+If we can anticipate those cases, we could broadcast this event to force the refresh of the popup's data.
+
 ###### refreshTable 
-> _TODO_
+This event is similar to the [_refreshPopUp_](#refreshPopUp) event.
+
+In some cases updating a resource will impact the resources within a collection or the collection itself, event if the updated resource is not contained in that collection. Since a collection listens only to itself or its items, it will not notice when it has to refresh the data.
 
