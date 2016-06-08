@@ -4,6 +4,51 @@
         "resourceUrl": "quotes?_inquiry=ci_saved_items",
         "sections": [
             {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_CREATE_QUOTE",
+                                "action": "createQuote"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title":"Search",
+                "underline": true,
+                "properties": [
+                    {
+                        "id": "quote:identifier",
+                        "label": "Quote Nr",
+                        "type": "text",
+                        "uiInput": true,
+                        "row": 1,
+                        "colspan": 4
+                    },
+                    {
+                        "id": "quote:distributor_id",
+                        "label": "Distributor id",
+                        "type": "text",
+                        "uiInput": true,
+                        "row": 1,
+                        "colspan": 4
+                    },
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_SEARCH",
+                                "action": "searchQuotes"
+                            }
+                        ],
+                        "row": 2
+                    }
+                ]
+            },
+            {
                 "title":"Quote draft list",
                 "underline": true,
                 "properties": [
