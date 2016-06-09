@@ -9,6 +9,9 @@
         <hr class="onl_hrOr_1" ng-if="metamodel[screenId].title && metamodel[screenId].hidetitle !== true">
         <hr class="onl_hrOr_2" ng-if="metamodel[screenId].title && metamodel[screenId].hidetitle !== true">
     </div> 
+    <div class="responsive-tabs">
+    <div class="desktop">
+
 	<ul class="nav nav-tabs">
 		<li ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metamodel[screenId].sections" quick-repeat-list="field in metamodel[screenId].sections" >
       <span class="tab-icon flaticon-incomplete"></span>
@@ -20,24 +23,33 @@
    
 </ul>
 
-<!-- <ul class="nav nav-tabs responsive" id="myTab">
-  <li><a href="#home">Home <span class="glyphicon glyphicon-ok"></a></li>
-  <li class="active panActive">
-  	<a href="#profile">Profile <span class="glyphicon glyphicon-minus"></span></a> 
-  	
-  </li>
-  <li><a href="#messages">Messages <span class="glyphicon glyphicon-ok"></a></li>
-</ul>
 
-<div class="tab-content responsive">
-  <div class="tab-pane" id="home">...content...</div>
-  <div class="tab-pane active" id="profile">...content...</div>
-  <div class="tab-pane" id="messages">...content...</div>
 </div>
+ 
+        <div ng-class="(field.step==step) ? 'active' : ''" quick-ng-repeat="field in metamodel[screenId].sections" quick-repeat-list="field in metamodel[screenId].sections">
+            <div class="mobile">
+               <a  ng-show="field.renderAsTab" ng-click="selecttab(field.step, field.link)" ><div  ng-if="field.order" tour-step backdrop="true" order="{{field.order}}" title="{{(locale[field.title]?locale[field.title] : field.title)}}" content="{{(locale[field.tourcontent]?locale[field.tourcontent] : field.tourcontent)}}" placement="{{field.position}}" autoscroll="true"></div>{{(locale[field.name]?locale[field.name] : field.name)}} </a>
+      
+            
+            <div ng-show="field.step==step" class="tabs-content">
+                <div quick-ng-repeat="section in metamodel[screenId].sections"  quick-repeat-list="metamodel[screenId].sections">
 
-<script type="text/javascript">
-  (function($) {
-      fakewaffle.responsiveTabs(['xs', 'sm']);
-  })(jQuery);
-</script> -->
+           
+            <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
+                <div ng-repeat="section in metamodel[screenId].sections" ng-include="'sectionRenderer.html'" >
+                </div>
+            </div>
+            
+            <div ng-if="section.$ref === undefined || section.$ref === ''">
+                <div ng-include="'sectionRenderer.html'">
+                </div>
+            </div>
+        </div>
+        
+            </div>
+            </div>
+        </div>
+
+
+</div>
 </div>
