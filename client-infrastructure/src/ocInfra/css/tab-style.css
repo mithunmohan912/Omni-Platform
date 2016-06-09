@@ -683,3 +683,88 @@ span.glyphicon.glyphicon-ok{
     color: green;
     }
 }
+
+body {
+}
+
+.responsive-tabs {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+    .responsive-tabs a {
+        cursor: pointer;
+        display: block;
+        line-height: 2em;
+        padding: 5px 1em;
+    }
+
+.active {
+    color: #2BA6CB;
+}
+
+.desktop {
+    display: none;
+}
+.active > .mobile {
+    color: #2BA6CB;
+    background-color: #fff;
+}
+.mobile {
+    color: #808080;
+    background-color: #eeeeee;
+}
+
+.off {
+    display: none;
+}
+
+@media (min-width: 640px) {
+
+    .responsive-tabs {
+        display: block;
+        /*margin: 100px auto;
+        max-width: 50%;*/
+    }
+
+        .responsive-tabs ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .responsive-tabs li {
+            display: inline-block;
+            padding: 0;
+            border-bottom: none;
+        }
+
+        .responsive-tabs a {
+            cursor: pointer;
+            padding: 0 2em;
+        }
+
+    .active {
+        color: #2BA6CB;
+        pointer-events: none;
+        cursor: default;
+        border-top: 2px solid #2BA6CB;
+        border-right: 1px solid #bebbbb;
+        border-bottom: 2px solid #fff;
+        border-left: 1px solid #bebbbb;
+        margin-bottom: -2px;
+    }
+
+    .tabs-content {
+        padding: 1em;
+        border: 1px solid #bebbbb;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .desktop {
+        display: block;
+        color: #808080;
+    }
+}

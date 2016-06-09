@@ -10,12 +10,12 @@
         <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metamodel[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
-        
+        <div class="desktop">
         <div quick-ng-repeat="section in metamodel[screenId].sections"  quick-repeat-list="metamodel[screenId].sections">
 
            
             <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
-                <div ng-repeat="section in metamodel[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid tab-content">
+                <div ng-repeat="section in metamodel[screenId].sections" ng-include="'sectionRenderer.html'" >
                 </div>
             </div>
             
@@ -23,6 +23,7 @@
                 <div ng-include="'sectionRenderer.html'">
                 </div>
             </div>
+        </div>
         </div>
         <!-- bottom button group section -->
         <div class="form-group wizardMargin" ng-repeat="section in metamodel[screenId].buttonGrp">
