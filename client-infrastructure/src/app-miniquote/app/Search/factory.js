@@ -66,3 +66,4 @@ app.factory('dashboardfactory', ['$http','resourceFactory','$rootScope','$log','
    
  return dashboardfactory;
 }]);
+

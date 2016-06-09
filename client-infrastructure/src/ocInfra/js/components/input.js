@@ -17,7 +17,7 @@ global app
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
-app.directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, resourceFactory){
+app.directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
 	return {
 		restrict: 'E',
@@ -28,7 +28,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			resources: '=',
 			updateMode: '@',
 			onUpdate: '@',
-			baseUrl: '@'
+			baseUrl: '@',
+			factoryName: '='
 		},
 		controller: function($scope){
 			/* Default attributes and actions for inputs */
@@ -45,25 +46,20 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'_getData': function($viewValue, id, field){
 						// If the user defined an action for getting the data, we invoke it
 						if(field.options.getData){
-							if(field.attributes.capitalize){
-								var values = field.options.getData( {'$viewValue': $viewValue, 'id': id, 'property': field.property, '$injector': $injector} );
-								// Check if the action returns a promise or not
-								if(values.then){
-									values.then(function(data){
-										return data.map(function(e){
-											return e.toUpperCase();
-										});
-									});
+							return field.options.getData( {'$viewValue': $viewValue, 'field': field}).then(function(data){
+								data = data || [];
+								if(data && !Array.isArray(data)){
+									return [data];
 								} else {
-									return values.map(function(e){
-										return e.toUpperCase();
-									});
+									return data;
 								}
-							} else {
-								return field.options.getData( {'$viewValue': $viewValue, 'id': id, 'property': field.property, '$injector': $injector} );
-							}
+							});
 						} else {
-							console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
+							//default action
+							if (field.options.href && field.options.params) {
+								return $scope.getData({'$viewValue': $viewValue, 'field': field});
+							}
+							//console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
 						}
 					},
 					'_select': function($item, id, field){
@@ -155,34 +151,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
 						*/
 						if(field.options.getData){
-							if(field.attributes.capitalize){
-								var values = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
-								if(values.then){
-									values.then(function(data){
-										return data.map(function(e){
-											return e.toUpperCase();
-										});
-									});
-								} else {
-									return values.map(function(e){
-										return e.toUpperCase();
-									});
-								}
-							} else {
-								return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
-							}
+							return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
 						} else {
 							//console.warn('input.js -> select_getData(): No getData method for select input.');
-							if(field.attributes.capitalize){
-								if(!field.attributes.enum || !Array.isArray(field.attributes.enum)){
-									return [];
-								}
-								return field.attributes.enum.map(function(e){
-									return e.toUpperCase();
-								});
-							} else {
-								return field.attributes.enum;
-							}
+							return field.attributes.enum;
 						}
 					}
 				}
@@ -259,32 +231,55 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 			// Patch on blur default function
 			$scope.patch = function(params, next){
-				
-				var payload = {};
-				resourceFactory.get(params.property.self).then(function(resourceToPatch){
-					/*
-					Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
-					we may lose already modified information when the response come back from the backend
-					*/
-					for(var property in resourceToPatch){
-						if(property.indexOf(':') > 0 && property.indexOf('_') > 0){
-							if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-								payload[property] = $scope.resources[property].value;
+				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
+				//there is one patch when selecting the value in the dropdown and when losing the focus.
+				if (!$scope.timeout) {
+					$scope.timeout = true;
+					$timeout(function() {
+						$scope.timeout = false;
+						var payload = {};
+						resourceFactory.get(params.property.self).then(function(response){
+							/*
+							Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
+							we may lose already modified information when the response come back from the backend
+							*/
+							var resourceToPatch = response.data;
+							for(var property in resourceToPatch){
+								if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
+									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
+										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+									}
+								}
 							}
-						}
-					}
-					if(Object.keys(payload).length > 0){
-						resourceFactory.patch(params.property.self, payload, {}).then(function(){
-							if(next){
-								next(params);
+							if(Object.keys(payload).length > 0){
+								resourceFactory.patch(params.property.self, payload, {}).then(function(){
+									if(next){
+										next(params);
+									}
+								}, function(error){
+									console.error(error);
+									resourceFactory.refresh(params.property.self, {}, {});
+								});
 							}
-						}, function(error){
-							console.error(error);
-							resourceFactory.refresh(params.property.self, {}, {});
 						});
+					}, params.scope.metamodel.type === 'autocomplete'?500:0);
+				}
+				
+			};
+
+			// Ger data default function for the autocomplete input
+			$scope.getData = function(params) {
+				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
+				return resourceFactory.get(url).then(function(response) {
+					response = response.data || response;
+					var items = response._links.item || [];
+					if(items && !Array.isArray(items)){
+						return [items];
+					} else {
+						return items;
 					}
 				});
-				
+
 			};
 
 			/* Function that (re)load the input with the new property */
@@ -292,19 +287,31 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				// Configuration for toggles
 				uibButtonConfig.activeClass = 'btn-active';
 
-				$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+				if($location.path().split('/screen/')[1] !== undefined){
+					$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
+				}else{
+					$scope.screenFactoryName = $location.path().split('/')[0] + 'Factory';
+				}
+
 				$scope.actionFactory = {};
+				$scope.factoryName = $scope.metamodel.factoryName || $scope.factoryName || $scope.screenFactoryName;
 				try {
-					$scope.actionFactory = $injector.get($scope.screenFactoryName);
+					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(error) {
-					console.warn($scope.screenFactoryName + ' not found');
+					console.warn($scope.factoryName + ' not found');
+				}
+
+				if(!$scope.property && $scope.resources){
+					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
+					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
 				// Get the url of the template we will use based on input type
 				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
-				var baseUrl = (!$scope.baseUrl || $scope.baseUrl === '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
+				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
-				$scope.inputHtmlUrl = baseUrl + '/input-' + inputType + '.html';
+				$scope.inputHtmlUrl = $rootScope.templatesURL + 'input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
@@ -312,12 +319,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
 					$scope.update = $scope.actionFactory[$scope.onUpdate];
-				}
-				
-				if(!$scope.property && $scope.resources){
-					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
-					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
 				// Field to bind to the input
@@ -354,6 +355,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						//return true;
 						return $scope.metamodel.visible || (($scope.metamodel.visibleWhen) ? _evaluateExpression($scope.metamodel.visibleWhen.expression, $scope, $scope.resources) : true);
 					},
+					'getParentResource' : function(){
+						return resourceFactory.get($scope.field.property.self);
+					},
 					'attributes': {},
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
@@ -374,17 +378,22 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						attributes[key.toLowerCase()] = attributes[key][0];
 					}
 				}
-				
-				for(var metainfo_key in $scope.property.metainfo){
-					if(metainfo_key !== 'type'){
-						attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
-					}
+
+				if($scope.property !== undefined && $scope.property.metainfo !== undefined){
+					for(var metainfo_key in $scope.property.metainfo){
+						if(metainfo_key !== 'type'){
+							attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
+						}
+					}	
 				}
-				for(var attributes_key in $scope.metamodel.attributes){
-					if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
-						attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
-					} else {
-						attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
+
+				if($scope.metamodel.attributes !== undefined){
+					for(var attributes_key in $scope.metamodel.attributes){
+						if(attributes[attributes_key] && Array.isArray(attributes[attributes_key])){
+							attributes[attributes_key.toLowerCase()] = attributes[attributes_key].indexOf($scope.metamodel.attributes[attributes_key]) >= 0 ? $scope.metamodel.attributes[attributes_key] : attributes[attributes_key][0];
+						} else {
+							attributes[attributes_key.toLowerCase()] = $scope.metamodel.attributes[attributes_key];
+						}
 					}
 				}
 
@@ -400,7 +409,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					}while(validKey.indexOf('_') === 0);
 					
 					// Get the action for the options from the factory of the current screen
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]];
+
+					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]] || _searchInParents($scope, $scope.metamodel.options[key]) || $scope.metamodel.options[key]; 
+					/*if (validKey === 'getData') {
+						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
+					} else {
+						$scope.field.options[validKey] = $scope.metamodel.options[key];
+					}*/
 				}
 
 			};

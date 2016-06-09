@@ -1,61 +1,61 @@
 {
     "metamodel": {
-        "title": "Risk Owner List",
         "name": "quote_risk_owner_list",
         "modalRef": "quote_risk_owner",
-        "header": "hide",
+        "header": false,
         
         "properties": [
             {
-                "label": "",
+                "label_header": "",
                 "type": "status",
                 "align": "center",
                 "width": "5%"
             },
             {
                 "id": "_RISK_OWNER",
-                "label": "_ROLE",
+                "label_header": "_ROLE",
                 "type": "literal",
                 "align": "left",
                 "width": "10%"
             },
             {
                 "id": ["quote_risk_owner:first_name","quote_risk_owner:name"],
-                "label": "_NAME",
-                "type": "multilabel",
+                "label_header": "_NAME",
+                "type": "label",
                 "align": "left",
                 "width": "25%"
             },
             {
                 "id": "quote_risk_owner:birth_date",
-                "label": "_DOB",
-                "type": "date",
+                "label_header": "_DOB",
+                "type": "label",
                 "format": "dd-MMM-yyyy",
                 "align": "center",
                 "width": "15%"
             },
             {
-                "label": "_LICENSE_DATE",
+                "label_header": "_LICENSE_DATE",
                 "type": "blank",
                 "align": "center",
                 "width": "15%"
             },
             {
                 "id": "quote_risk_owner:postal_code",
-                "label": "_POSTALCODE",
+                "label_header": "_POSTALCODE",
                 "type": "label",
                 "align": "right",
                 "width": "10%"
             },
             {
                 "id": "quote_risk_owner:is_quote_owner",
-                "label": "_SAME_AS_POLICY_HOLDER",
+                "label_header": "_SAME_AS_POLICY_HOLDER",
                 "type": "checkbox",
                 "align": "center",
-                "width": "10%"
+                "width": "10%",
+                "patchOnBlur": true
             },
             {
-                "label": "",
+                "label_header": "",
                 "type": "actions",
                 "align": "center",
                 "width": "10%",

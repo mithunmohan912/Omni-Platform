@@ -18,8 +18,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-injector": "0.6.0",
     "grunt-karma": "^0.10.1",
-    "grunt-ng-annotate": "^1.0.1",
     "grunt-text-replace": "^0.4.0",
+    "grunt-ng-annotate": "^1.0.1",
     "jshint-html-reporter": "0.2.4",
     "jshint-stylish": "^1.0.1",
     "karma": "^0.12.32",
@@ -30,10 +30,13 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-config": "^0.17.1",
+	"node-sass": "^3.7.0",
     "protractor":"^3.3.0",
     "fast-csv" : "^2.0.0",
+    "grunt-protractor-runner": "^3.2.0",
     "protractor-jasmine2-html-reporter":"^0.0.6",
-    "jasmine-fail-fast" : "2.0.0"
+    "jasmine-fail-fast" : "2.0.0",
+    "phantomjs-prebuilt" : "^2.1.7"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -44,6 +47,7 @@
     "postbower-install": "bower install",
     "prebuild": "npm run bower-install",
     "build": "grunt build",
+    "postbuild": "node-sass --include-path scss src/ocInfra/assets/sass/ --output-style compressed --output src/ocInfra/css/",
     "prestart": "npm run build",
     "start": "grunt test",
     "poststart": "npm run watch-it",

@@ -21,7 +21,8 @@
                         "type": "buttonGroup",
                         "buttons": [
                             {
-                                "label": "_NEXT"
+                                "label": "_NEXT",
+                                "action": "next"
                             },
                             {
                                 "label": "_BACK",
@@ -127,8 +128,9 @@
                 "properties": [
                     {
                         "id": "quote:quote_risk_list",
-                        "type": "renderer",
-                        "metamodel": "quote_coverage_risk"
+                        "metamodel": "quote_coverage_risk",
+                        "type": "custom",
+                        "templateUrl": "templates/coverage_template.html"
                     }
                 ]
             }
@@ -138,13 +140,6 @@
             "quote": [
                 "quote:quote_tariff_adjustment_list",
                 "quote:quote_risk_list"
-            ],
-            "quote_risk": [
-                "quote_risk:quote_product_component_list-direct"
-            ],
-            "quote_product_component": [
-                "quote_option:child_prdct_cmpnnt_list",
-                "quote_pack:child_prdct_cmpnnt_list"
             ]
         }
     }

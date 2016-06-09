@@ -1,4 +1,4 @@
-Setting up Mobile Environment and run OCMiniQuote as Android app
+###Setting up Mobile Environment and run OCMiniQuote as Mobile App
 
 Prerequisites:
 
@@ -36,29 +36,55 @@ Prerequisites:
  - Once installed open CMD prompt(windows) or Terminal(Mac) and type cordova -v . This displays the version of cordova installed.
 
 
- To build the app from client-infrastructure code:
+ To build the app from client-infrastructure code on MacOS X and later:
 
- - Navigate to client-infrastructure code from Cmd Prompt/Terminal
+ (Note: npm-install has to be run on the client-infrastructure folder before building the mobile package. Refer Readme of OmniChannel-Infrastructure for complete details)
 
- - Run the following grunt command
+ - Navigate to mobile-infrastructure folder from Terminal
 
- 	grunt buildMobilePkg
+ - Run the shell command configcordova.sh with the following parameters in same order 
 
- - The above command will copy the latest mini quote code base to mobile-infrastructure/OCMiniQuote/www folder that will be built as mobile app
+ 		sh configcordova.sh create 
+ 		sh configcordova.sh addresources
 
- - After grunt command execution is successfull, navigate to mobile-infrastructure folder from Command Prompt/Terminal
+ - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
 
- - Run the shell command cordova.sh with following parameters in the same order
+ - Run the shell command buildbinaries.sh with following parameters in the same order
 
- 		sh cordova.sh addplugins
- 		sh cordova.sh buildios
- 		sh cordova.sh buildandroid
+ 		sh buildbinaries.sh buildios
+ 		sh buildbinaries.sh buildandroid
 
- - The first cmd will add the plugins to the skeleton Cordova project that are required for wrapping the mobile application
 
- - The second command will build the iOS application and will put the ipa in the mobile-infrastructure/OCMiniQuote/platforms/ios/build/device folder. Note: To build and sign the ipa with the CSC Apple Enterprise Certificate, you need to download the CSC Apple P12 Certificate from C3, the Mini Quote provisioning profile from the Apple Developer website and install on the local machine.
+ - The first command will build the iOS application and will put the ipa in the mobile-infrastructure/OCMiniQuote/platforms/ios/build/device folder. Note: To build and sign the ipa with the CSC Apple Enterprise Certificate, you need to download the CSC Apple P12 Certificate from C3, the Mini Quote provisioning profile from the Apple Developer website and install on the local machine.
 
- - The third command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
+ - The second command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
+
+
+ To build the app from client-infrastructure code on Windows 7 and later:
+
+ - Windows OS cannot run the shell scripts natively. So, we need to install Cygwin, a linux based terminal on Windows to execute Shell scripts. It can be installed from the link below:
+
+ 	https://www.cygwin.com/
+
+ - Once installed open Cygwin terminal from the installed location and navigate to mobile-infrastructure folder using 'cd' commands of linux
+
+ - Run the shell command configcordova.sh with the following parameters in same order 
+
+ 		dos2unix configcordova.sh
+ 		bash configcordova.sh create 
+ 		bash configcordova.sh addresources
+
+ - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
+
+ - Run the shell command buildbinaries.sh with following parameters in the same order
+
+ 		dos2unix buildbinaries.sh
+ 		bash buildbinaries.sh buildandroid
+
+
+ - The first command will convert the editor based script into the unix compatible script to run as shell script.
+
+ - The second command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
 
 
 To run the mobile app code on iOS Simulator:

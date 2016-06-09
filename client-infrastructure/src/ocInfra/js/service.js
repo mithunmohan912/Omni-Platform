@@ -77,12 +77,14 @@ app.service('EnumerationService', function($rootScope, resourceFactory){
                 var urlDetail = $rootScope.resourceHref;
                 self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
             } else {
-                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
-                    var url = data._links[$rootScope.currRel].href;
-                    resourceFactory.options(url, $rootScope.headers).success(function(data){
-                        var urlDetail = data._links.item.href;
-                        self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
-                    });
+                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data1){
+                    if(data1._links[$rootScope.currRel] !== undefined){
+                        var url = data1._links[$rootScope.currRel].href;
+                        resourceFactory.options(url, $rootScope.headers).success(function(data2){
+                            var urlDetail = data2._links.item.href;
+                            self.executeEnumerationFromBackEnd(urlDetail, $rootScope.headers, 'update');
+                        });    
+                    }
                 });
             }
         } else if($rootScope.resourceHref !== undefined){
