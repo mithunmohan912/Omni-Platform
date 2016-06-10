@@ -19,7 +19,7 @@ CSV_Processor.prototype.initialize = function (fileName) {
 */
 
 CSV_Processor.prototype.initialize = function (fileName,testCaseName) {
-	this.fileName = fileName ;
+	this.fileName = fileName;
 	this.testCaseName = testCaseName;
 }
 CSV_Processor.prototype.initData = function (data) {
@@ -31,6 +31,11 @@ CSV_Processor.prototype.showData = function () {
 }
 
 CSV_Processor.prototype.readDatafromFile = function (callback) {
+	console.log("this.fileName..........",this.fileName);
+	var writterFileName;
+	if(this.fileName.indexOf('Perf') > -1){
+		writterFileName = this.fileName;
+	}
 	var stream = fs.createReadStream(this.fileName);	
 	var streamObject = csv.fromStream(stream, {headers : true});
 	var completeData = [];
@@ -39,11 +44,51 @@ CSV_Processor.prototype.readDatafromFile = function (callback) {
 	})
 	.on("end", function(){
 		this.data = completeData ;
+
+		if(writterFileName){
+
+			preparePerfConfig(writterFileName,function(config){
+				completeData.push({"config" : config});
+				if(typeof callback === 'function') callback(completeData);
+			})
+		}
+		else{
+			if(typeof callback === 'function') callback(completeData);
+		}	
 		callback(completeData);
-				 	//initData(completeData)
-				 });
+
+		
+	});
 }
 
+var preparePerfConfig = function (fileName,callback) {
+	var configFilePath = 'PerfConf/Conf.csv';	
+	var testConfigpath = "PerfConf/"+fileName.split("Perf")[1];
+	//var testConfigpath = "PerfConf"+fileName.split("/")[1];
+	console.log("testConfigpath.........",testConfigpath);
+	var config= {};
+	var stream = fs.createReadStream(configFilePath);	
+	var streamObject = csv.fromStream(stream, {headers : true});
+	var completeData = [];
+	streamObject.on("data", function(data){
+		completeData.push(data);
+	})
+	.on("end", function(){
+		config.envConfig = completeData ;
+
+	 });
+
+	var stream = fs.createReadStream(testConfigpath);	
+	var streamObject = csv.fromStream(stream, {headers : true});
+	var testConfigData = [];
+	streamObject.on("data", function(data){
+		testConfigData.push(data);
+	})
+	.on("end", function(){
+		config.testCaseConfig = testConfigData ;	
+		if(typeof callback === 'function') callback(config);	
+	 });
+}
 CSV_Processor.prototype.filterData = function (columnName) {
 
 	var testCaseName = this.testCaseName;
@@ -56,8 +101,40 @@ CSV_Processor.prototype.filterData = function (columnName) {
 	}
 	return result;
 }
+var findTestStepresult = function(currentSpec,captureTime,config){
+		var envConfig = config.envConfig;
+		var testCaseConfig = config.testCaseConfig;
+		var size;
+		
+		for(var index in envConfig){
+			if(parseFloat(captureTime) <= parseFloat(envConfig[index].value)){
+				size = envConfig[index].Size;
+				break;
+			}
+		}
+		
+		var testCase = testCaseConfig.filter(function(row){
+			return row.TestStep === currentSpec;
+		})[0];
 
+
+		if(testCase){
+				if( testCase.Size === size){
+					return "Passed";
+					}else{
+						return "Failed";
+					}
+				}else{
+			return "";
+		}
+	}
 CSV_Processor.prototype.buildPerfMetrics = function(param){
+	var config;
+	for(var index in param.perfMetric){
+		if(param.perfMetric[index].config) config = param.perfMetric[index].config;
+	}
+	var result = findTestStepresult(param.currentSpec,param.captureTime,config);
+	
 	var currentSpec = param.currentSpec;
 	var captureTime = param.captureTime;
 	var headers = param.headers;
@@ -71,21 +148,24 @@ CSV_Processor.prototype.buildPerfMetrics = function(param){
 		iteration = "Test - 1";
 		row["TestStep"] = currentSpec;
 		row[iteration]  = captureTime;
+		row[iteration+" Result"]  = result;
 		perfMetric.push(row);
 	}else{
 		this.newStepIndex++;
 		var isAvail = false;
-		iteration = "Test - "+ (headers.length);
+		iteration = "Test - "+ (parseInt(getIterationNumber(headers)) + 1);
 		for(var i=0;i<perfMetric.length;i++){
 			if(perfMetric[i].TestStep === currentSpec){           
 				perfMetric[i][iteration] = captureTime ; 
+				perfMetric[i][iteration+"-Result"]  = result;
 				isAvail = true;
 			}
 		}
 		if(!isAvail){
 			this.tempPerf = [];
 			row["TestStep"] = currentSpec;
-			row[iteration] = captureTime;          
+			row[iteration] = captureTime;  
+			row[iteration+" Result"]  = result;              
 			if(this.newStepIndex > perfMetric.length){
 				for(var i=0;i<perfMetric.length;i++){
 					this.tempPerf.push(perfMetric[i]);
@@ -105,6 +185,16 @@ CSV_Processor.prototype.buildPerfMetrics = function(param){
 	}
 
 	return perfMetric;
+}
+
+var getIterationNumber = function(headers){
+	var maxIteration = 0;
+	for(var i=0;i<headers.length;i++){
+		if(headers[i].indexOf('Test - '> -1) &&  headers[i].indexOf('Result' <= -1))
+			var index = headers[i].split('Test - ')[1];
+			if(index > maxIteration) maxIteration = index;
+	}
+	return maxIteration;
 }
 
 CSV_Processor.prototype.getHeaderArray = function(callback){
