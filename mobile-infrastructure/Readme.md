@@ -36,9 +36,11 @@ Prerequisites:
  - Once installed open CMD prompt(windows) or Terminal(Mac) and type cordova -v . This displays the version of cordova installed.
 
 
- To build the app from client-infrastructure code:
+ To build the app from client-infrastructure code on MacOS X and later:
 
- - Navigate to mobile-infrastructure folder from Cmd Prompt/Terminal
+ (Note: npm-install has to be run on the client-infrastructure folder before building the mobile package. Refer Readme of OmniChannel-Infrastructure for complete details)
+
+ - Navigate to mobile-infrastructure folder from Terminal
 
  - Run the shell command configcordova.sh with the following parameters in same order 
 
@@ -54,6 +56,33 @@ Prerequisites:
 
 
  - The first command will build the iOS application and will put the ipa in the mobile-infrastructure/OCMiniQuote/platforms/ios/build/device folder. Note: To build and sign the ipa with the CSC Apple Enterprise Certificate, you need to download the CSC Apple P12 Certificate from C3, the Mini Quote provisioning profile from the Apple Developer website and install on the local machine.
+
+ - The second command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
+
+
+ To build the app from client-infrastructure code on Windows 7 and later:
+
+ - Windows OS cannot run the shell scripts natively. So, we need to install Cygwin, a linux based terminal on Windows to execute Shell scripts. It can be installed from the link below:
+
+ 	https://www.cygwin.com/
+
+ - Once installed open Cygwin terminal from the installed location and navigate to mobile-infrastructure folder using 'cd' commands of linux
+
+ - Run the shell command configcordova.sh with the following parameters in same order 
+
+ 		dos2unix configcordova.sh
+ 		bash configcordova.sh create 
+ 		bash configcordova.sh addresources
+
+ - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
+
+ - Run the shell command buildbinaries.sh with following parameters in the same order
+
+ 		dos2unix buildbinaries.sh
+ 		bash buildbinaries.sh buildandroid
+
+
+ - The first command will convert the editor based script into the unix compatible script to run as shell script.
 
  - The second command will build the Android app and will put the apk in the mobile-infrastructure/OCMiniQuote/platforms/android/build/outputs/apk folder.
 
