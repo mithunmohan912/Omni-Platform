@@ -93,8 +93,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': undefined });
 
             }, function(error) {
-                console.error(error);
-                throw error;
+                //console.error(error);
+                return error;
             });   
         }
         return promise;

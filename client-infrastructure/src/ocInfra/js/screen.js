@@ -273,9 +273,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                             $scope.preStep = $rootScope.step;
                                             EnumerationService.executeEnumerationFromBackEnd(data, 'create');
                                         });
-                                    }).error(function(){
-                                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                    }).error(function(err){
+
+                                        // Show error message when Calculate Premium failed 
+                                        var mess = '';
+                                        if(err.Errors){
+                                            var arrayErr = convertToArray(err.Errors);                                           
+                                            mess = arrayErr.map(function(elem){
+                                                return elem.Reason;
+                                            }).join("\n");                                            
+                                        } else{
+                                            mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
+                                        } 
+                                        growl.error(mess); 
                                     });
                                 });
                             });
