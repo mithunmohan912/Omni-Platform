@@ -38,8 +38,9 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             });
             if (promise.then) {
                 promise.then(function(response) {
-                    resourceDirectory[url] = response.data;
-                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                    var previous = resourceDirectory[url];
+                    resourceDirectory[url] = response;
+                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
 
                 }, function(error) {
                     console.error(error);
@@ -88,8 +89,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                resourceDirectory[response.data._links.self.href] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': undefined });
 
             }, function(error) {
                 console.error(error);
@@ -109,8 +110,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
+                var previous = resourceDirectory[url];
                 resourceDirectory[url] = null;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                
 
             }, function(error) {
                 console.error(error);
@@ -131,9 +134,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
-                //return response.data;
+                var previous = resourceDirectory[url];
+                resourceDirectory[url] = response;
+                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                
             }, function(error) {
                 console.error(error);
                 throw error;
