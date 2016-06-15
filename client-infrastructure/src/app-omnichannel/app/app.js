@@ -122,7 +122,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     }, function() {});
 });
 
-app.factory('anonymousFactory', function($rootScope, growl, resourceFactory, MetaModel, EnumerationService){
+app.factory('anonymousFactory', function($rootScope){
     return {
         navigateToScreen: function($scope, actionURL){
             if(actionURL === '/login'){
@@ -135,19 +135,12 @@ app.factory('anonymousFactory', function($rootScope, growl, resourceFactory, Met
                     var arr = actionURL.split('/');
                     $rootScope.regionId = arr[1];
                 }
-                if($rootScope.regionId!=='us'){
-                    new Promise(function(resolve) {
-                        MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'create', resourceFactory, undefined, false, resolve);
-                    }).then(function(){
-                        EnumerationService.loadEnumerationByTab();
-                    }); 
-                }
             }
         }
     };
 });
 
-app.factory('dashboardFactory', function($rootScope, growl, resourceFactory, MetaModel, anonymousFactory){
+app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     return {
         navigateToScreen: function($scope, actionURL){
             $rootScope.resourceHref = undefined;
@@ -156,6 +149,16 @@ app.factory('dashboardFactory', function($rootScope, growl, resourceFactory, Met
     };
 });
 
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel){
+    return {
+        actionHandling: function($scope, actionURL, optionsMap, properties){
+            new Promise(function(resolve) {
+                MetaModel.handleAction($rootScope, $scope, actionURL, optionsMap, properties, resourceFactory, resolve);
+            }).then(function(){
+            });
+        }
+    };
+});
 
 app.factory('loginFactory', function($rootScope, $filter, $http, growl){
     return {

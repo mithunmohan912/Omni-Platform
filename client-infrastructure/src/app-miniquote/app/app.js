@@ -55,9 +55,9 @@ TourConfigProvider.set('prefixOptions', false);
 
             'responseError': function(rejection) {
 
-                 if(rejection.status == "-1")
+                 if(rejection.status === '-1')
                  {
-                    growl.error("Gateway Timedout/InSecure Response");
+                    growl.error('Gateway Timedout/InSecure Response');
 
                  }
                 $rootScope.loader.loading = false;
