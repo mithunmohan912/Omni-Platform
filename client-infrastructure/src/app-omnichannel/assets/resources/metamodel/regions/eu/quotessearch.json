@@ -1,111 +1,143 @@
 {
     "metamodel": {
         "formid": "quotesearch",
-        "resourcelist": ["quotes"], 
-        "resourceUrl": "http://20.33.40.152:10114/csc/insurance/quotes?_inquiry=ci_saved_items",
+        "resource": "quotes",
         "sections": [
+            {
+                           "properties": [
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "action": "actionHandling",
+                                        "actionURL": "create",
+                                        "label": "_CREATE_QUOTE"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
             {
                 "properties": [
                             {
                                 "id": "quote:description",
                                 "type": "text",
                                 "label": "_DESCRIPTION",
-                                "row": 1
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote:distributor_id",
                                 "type": "text",
-                                "label": "_DISTRIBUTOR_ID",
-                                "row": 1
+                                "label": "_DISTRIBUTOR_ID",                                
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote:contract_start_date",
                                 "type": "date",
-                                "label": "_START_DATE_OF_THE_CONTRACT",
-                                "row": 1
+                                "label": "_START_DATE_OF_THE_CONTRACT",                                
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote_owner:name",
                                 "type": "text",
-                                "label": "_RISK_HOLDER",
-                                "row": 2
+                                "label": "_RISK_HOLDER",                                
+                                "row": 2,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote:identifier",
                                 "type": "text",
-                                "label": "_QUOTE_NUMBER",
-                                "row": 2
+                                "label": "_QUOTE_NUMBER",                                
+                                "row": 2,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote:type",
                                 "type": "select",
-                                "label": "_QUOTE_TYPE",
-                                "row": 2                      
+                                "label": "_QUOTE_TYPE",                                
+                                "row": 2,
+                                "uiInput" : true                      
                             },
                             {
                                 "id":"quote:status",
                                 "type":"text",
-                                "label":"_QUOTE_STATUS",
-                                "row": 3
+                                "label":"_QUOTE_STATUS",                                
+                                "row": 3,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote:product_id",
                                 "type": "text",
-                                "label": "_PRODUCT",
-                                "row": 3
+                                "label": "_PRODUCT",                                
+                                "row": 3,
+                                "uiInput" : true
                             },
                             {
                                 "id":"quote_home:street_number",
                                 "type":"text",
-                                "label":"_STREET_NUMBER",
-                                "row": 3
+                                "label":"_STREET_NUMBER",                                
+                                "row": 3,
+                                "uiInput" : true
                             },    
                             {
                                 "id":"quote_home:street_name",
                                 "type":"text",
-                                "label":"_STREET_NAME",
-                                "row": 4
+                                "label":"_STREET_NAME",                                
+                                "row": 4,
+                                "uiInput" : true
                             },
                                             
                              {
                                 "id":"quote_home:box_number",
                                 "type":"text",
-                                "label":"_BOX_NUMBER",
-                                "row": 4
+                                "label":"_BOX_NUMBER",                                
+                                "row": 4,
+                                "uiInput" : true
                             },
                            {
                                 "id":"quote_home:city",
                                 "type":"text",
                                 "label":"_CITY",
-                                "row": 4
+                                "row": 4,
+                                "uiInput" : true
                             },
                             {
                                 "id": "quote_home:postal_code",
                                 "type": "text",
                                 "label": "_POSTAL_CODE",
-                                "row": 5
-                            },
+                                "row": 5,
+                                "uiInput" : true
+                            }
+                        
+                        ]
+                    },
+                    {
+                           "properties": [
                             {
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
                                         "label": "_SEARCH",
-                                        "action":"search"
-                                    },
-                                    {
-                                        "action": "create",
-                                        "actionurl": "/eu/screen/quotescreate",
-                                        "label": "_CREATE_QUOTE"
+                                        "action":"actionHandling",
+                                        "actionURL":"search"
                                     }
                                 ]
-                            },
-                            {
-                                "id": "quotes?_inquiry=ci_saved_items",
-                                "metamodel": "searchlist",
-                                "type": "table"
                             }
-                ]
-            }
+                        ]
+                    },
+                    {
+                           "properties": [
+                            {
+                                "id": "quotes",
+                                "metamodel": "searchlist",
+                                "type": "table",
+                                "uiInput" : true
+                            }
+                        ]
+                    }
         ]
     }
 }
