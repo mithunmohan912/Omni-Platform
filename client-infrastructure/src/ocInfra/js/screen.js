@@ -281,7 +281,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                             var arrayErr = convertToArray(err.Errors);                                           
                                             mess = arrayErr.map(function(elem){
                                                 return elem.Reason;
-                                            }).join("\n");                                            
+                                            }).join('\n');                                            
                                         } else{
                                             mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
                                         } 
