@@ -201,19 +201,19 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
             // Process status of the properties (based on status_report coming from backend)
             for(var rel in responseData._embedded) {
-                if(rel.indexOf('status_report') >= 0){
-                    if (responseData._embedded[rel].messages) {
-                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
-                            var item = responseData._embedded[rel].messages[j];
-                            if(item.context in propertiesObject){
-                                propertiesObject[item.context].statusMessages[item.severity].push(item);
-                                if(item.severity !== 'information'){
-                                    propertiesObject[item.context].consistent = false;
-                                    propertiesObject[item.context].statusMessages.errorCount++;
-                                }
+                if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
+                    for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                        var item = responseData._embedded[rel].messages[j];
+                        if(item.context in propertiesObject){
+                            propertiesObject[item.context].statusMessages[item.severity].push(item);
+                            if(item.severity !== 'information'){
+                                propertiesObject[item.context].consistent = false;
+                                propertiesObject[item.context].statusMessages.errorCount++;
                             }
                         }
                     }
+
+                    break;
                 }
             }
         }
@@ -327,7 +327,12 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
         // Entry validation
         if(!resultSet){
-            return;
+            return $q(function(resolve, reject){
+                reject('No result set to store the results');
+            });
+        } else if(!resultSet.deferred){
+            resultSet.deferred = $q.defer();
+            resultSet.pending = 1;
         }
 
         var methodResourceFactory = resourceFactory.get;
@@ -340,6 +345,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             responseGET.then(function success(httpResponse){
                 var responseData = httpResponse.data || httpResponse;
                 var summaryData = {};
+                resultSet.pending--;
 
                 // Add the resource to the result set
                 resultSet[rootURL] = _processResponse(responseData, metamodel, summaryData);
@@ -350,12 +356,14 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
                 // Analyze business dependencies in order to extract them
                 resultSet[rootURL].dependencies.forEach(function(url){
+                    resultSet.pending++;
                     self.prepareToRender(url.href, metamodel, resultSet, url.resource);
                 });
 
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
+                        resultSet.pending++;
                         self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
                 } else {
@@ -365,12 +373,22 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                         resultSet[resourceURL].href = resourceURL;
                     }
                 }
+
+                if(resultSet.pending === 0){
+                    var deferred = resultSet.deferred;
+                    delete resultSet.deferred;
+                    delete resultSet.pending;
+
+                    deferred.resolve(resultSet);
+                }
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
                 throw errorResponse;
             });
         }
+
+        return resultSet.deferred.promise;
     };
     /*============================================= END Component methods =============================================*/
 
