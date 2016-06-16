@@ -20,6 +20,8 @@ module.exports = function(config) {
             'src/vendors/angular-route/angular-route.min.js',
             'src/vendors/angular-resource/angular-resource.min.js',
             'src/vendors/angular-cookies/angular-cookies.min.js',
+            'src/vendors/angular-translate/angular-translate.js',
+            'src/vendors/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
             'src/vendors/restangular/dist/restangular.min.js',
             'src/vendors/lodash/lodash.js',
             'src/vendors/angular-ui-select/dist/select.min.js',
@@ -39,10 +41,16 @@ module.exports = function(config) {
             'src/vendors/modernizr/modernizr.js',
             'src/vendors/quick-ng-repeat/quick-ng-repeat.js',
             'src/vendors/jquery-validation/dist/jquery.validate.js',
-             'src/vendors/angular-growl-v2/build/angular-growl.js',
-             'src/vendors/angular-bootstrap-tour/dist/angular-bootstrap-tour.js',
+            'src/vendors/angular-growl-v2/build/angular-growl.js',
+            'src/vendors/angular-bootstrap-tour/dist/angular-bootstrap-tour.js',
 			'src/ocInfra/js/*.js',
-            'tests/unit/*.js'
+            'tests/unit/*.js',
+            'src/app-reference/app/app.js',
+            'src/app-reference/app/LoadConfig/LoadConfig.js',
+            'src/app-reference/app/quoteFactory.js',
+            'src/app-reference/app/tests/mocks/*.js',
+            'src/app-reference/app/tests/*.js'
+
 
         ],
 
@@ -58,7 +66,7 @@ module.exports = function(config) {
             'src/app-kitchensink/**/*.js': ['coverage'],
             'src/app-miniquote/**/*.js': ['coverage'],
             'src/app-weather/**/*.js': ['coverage'],
-            'src/ocInfra/**/*.js': ['coverage']
+            'src/ocInfra/**/*.js': ['coverage'] 
         },
 
 
@@ -94,12 +102,12 @@ module.exports = function(config) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
 
 
         // Continuous Integration mode
