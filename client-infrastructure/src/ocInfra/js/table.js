@@ -41,10 +41,10 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         
         var optionFlag = true;
         
-        MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, optionFlag); 
-
         if (url !== undefined) {
             $rootScope.navigate(url);
+        }else{
+            MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, undefined, optionFlag); 
         }
     };
 	

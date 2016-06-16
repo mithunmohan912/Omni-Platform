@@ -41,7 +41,7 @@ TourConfigProvider.set('prefixOptions', false);
 
     tmhDynamicLocaleProvider.localeLocationPattern('../vendors/angular-i18n/angular-locale_{{locale}}.js');
 
-    $httpProvider.interceptors.push(function($q, $rootScope) {
+    $httpProvider.interceptors.push(function($q, $rootScope, growl) {
 
         return {
             'request': function(config) {
@@ -49,13 +49,17 @@ TourConfigProvider.set('prefixOptions', false);
                 return config || $q.when(config);
             },
             'response': function(response) {
-
                 $rootScope.loader.loading = false;
                 return response || $q.when(response);
             },
 
             'responseError': function(rejection) {
 
+                 if(rejection.status === '-1')
+                 {
+                    growl.error('Gateway Timedout/InSecure Response');
+
+                 }
                 $rootScope.loader.loading = false;
                 return $q.reject(rejection);
             }
