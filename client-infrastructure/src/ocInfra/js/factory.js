@@ -49,8 +49,6 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         } 
     };
 
-
-
     this.prepareOptions = function(rootURL, optionsMap){
         if(!optionsMap){
             return;
@@ -60,6 +58,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
           if(responseGET.then){
             responseGET.then(function success(httpResponse){
+                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
                 optionsMap[rootURL] = _processOptions(responseData);
@@ -172,7 +171,6 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 });
             }
         });
-
         return dependencies;
     }
 
@@ -188,9 +186,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                         object.action = optionsObj.rel;
                         object.href = optionsObj.href;
                         object.httpmethod = optionsObj.method;
-                        console.log('Action: '+object.action);
-                        console.log('HREF: '+object.href);
-                        console.log('HTTP Method: '+object.httpmethod);
+                        
                         var schema = optionsObj.schema;
                         if(schema !== undefined){
                             var optionProp = schema.properties;
@@ -209,7 +205,10 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                         }
                     }
                     object.properties = propertiesObject;
-                    optionsMapForResource.set(object.action, object); 
+                    console.log('Action: '+object.action);
+                    console.log('HREF: '+object.href);
+                    console.log('HTTP Method: '+object.httpmethod);
+                    optionsMapForResource.set(object.action, object);
                 });    
             }
         }
@@ -626,7 +625,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     var url = options.href;
     var httpmethod = options.httpmethod;
     console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
-
+    //$scope.resourceUrl = url;
     var params={};
     //Set the params data from the screen per the schema object for the given action (from the options object)
     params = setDataToParams($scope, properties, params);
@@ -638,6 +637,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
             console.log('GET Call Successful---');
             $rootScope.loader.loading=false;
+
             //Load the results into the search results table
             if(options.action==='search'){
                 var responseData = response.data || response;
@@ -741,7 +741,8 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
     if(httpmethod==='GET'){
         $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        resourceFactory.get(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.get(url,params,$rootScope.headers).success(function(responseData){
+            var data = responseData.data || responseData;
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
