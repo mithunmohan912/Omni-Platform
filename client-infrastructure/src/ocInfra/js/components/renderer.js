@@ -10,7 +10,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		restrict: 'E',
 		scope: {
 			metamodel: '=',
-			resourceUrl: '=',
+			resourceUrl: '=?',
 			factoryName: '='
 		},
 		link: function($scope){
@@ -315,13 +315,18 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if(optionsMapForResource !== undefined  && actionURL !== undefined){
 					var optionsObj = optionsMapForResource.get(actionURL);
 					if(optionsObj !== undefined){
+						/*
 						$rootScope.resourceUrlToRender = optionsObj.href;	
 						$scope.metamodelObject.resourceUrl = optionsObj.href;
 						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
 						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
 						_init($scope.metamodelObject);
+						*/
+						$scope.resourceUrl = optionsObj.href;
 					}
+					
 				}
+
 			};
 			/* Commented for JSHint because it is not used (yet) */
 			/*
