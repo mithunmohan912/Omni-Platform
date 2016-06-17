@@ -138,11 +138,6 @@ module.exports = {
       dest: 'src/app-reference/ocInfra/' ,
       src: ['assets/**']
      },
-      {
-      expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
-      dest: 'src/app-reference/ocInfra/' ,
-      src: ['dist/**']
-     },
      {
       expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'src/app-reference/ocInfra/' ,
