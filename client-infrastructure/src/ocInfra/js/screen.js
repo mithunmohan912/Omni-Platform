@@ -271,11 +271,21 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                             $rootScope.step = $rootScope.step + 1;
                                             loadRelationshipByStep($rootScope.step);
                                             $scope.preStep = $rootScope.step;
-                                            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                                            EnumerationService.executeEnumerationFromBackEnd(data, 'create');
                                         });
-                                    }).error(function(){
-                                        //showMessage($rootScope.locale.CALC_PREMIUM_OP_FAILED);
-                                        growl.error($rootScope.locale.CALC_PREMIUM_OP_FAILED);
+                                    }).error(function(err){
+
+                                        // Show error message when Calculate Premium failed 
+                                        var mess = '';
+                                        if(err.Errors){
+                                            var arrayErr = convertToArray(err.Errors);                                           
+                                            mess = arrayErr.map(function(elem){
+                                                return elem.Reason;
+                                            }).join('\n');                                            
+                                        } else{
+                                            mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
+                                        } 
+                                        growl.error(mess); 
                                     });
                                 });
                             });
@@ -335,7 +345,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
          if($rootScope.regionId === 'us') {
             $rootScope.currRel = 'itself';
         } 
-        EnumerationService.loadEnumerationByTab();
+
+        if($rootScope.screenId.indexOf('search') !== -1 ){
+           EnumerationService.loadEnumerationByTab();
+        }  
         // load data for tab click
         if($rootScope.currRel !== 'undefined' && $rootScope.currRel !== 'itself' && $scope.regionId !== 'us'){
             $scope.loadDataByTab($rootScope.currRel);
@@ -344,12 +357,12 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
                 if (data) {
                     $scope.data=data;
+                    EnumerationService.executeEnumerationFromBackEnd(data, 'create');
+                    if($rootScope.regionId === 'us'){
+                        EnumerationService.executeEnumerationFromBackEnd(data, 'fetch');    
+                    }
                 }
-            });
-            EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
-            if($rootScope.regionId === 'us'){
-                EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'fetch');    
-            }
+            });            
         }
     });
 
@@ -371,9 +384,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                 resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(data){
                     if (data) {
                         $scope.data=data;
+                        EnumerationService.executeEnumerationFromBackEnd(data, 'create');
                     }
-                });
-                EnumerationService.executeEnumerationFromBackEnd($rootScope.resourceHref, $rootScope.headers, 'create');
+                });                
             }
 
         }
@@ -408,9 +421,9 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                         resourceFactory.get(detailTabUrl, params, $rootScope.headers).success(function(data){
                             if (data) {
                                 $scope.data=data;
+                                EnumerationService.executeEnumerationFromBackEnd(data, 'update');
                             }
-                        });
-                        EnumerationService.executeEnumerationFromBackEnd(detailTabUrl, $rootScope.headers, 'update');
+                        });                        
                     });    
                 }
             });

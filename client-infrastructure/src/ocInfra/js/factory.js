@@ -47,6 +47,34 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
+    this.handleAction=function($rootScope, $scope, action, optionsMap, properties, resourceFactory, resolve){        
+        var options = optionsMap.get(action);
+        if(options !== undefined){
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, resolve);       
+        } 
+    };
+
+    this.prepareOptions = function(rootURL, optionsMap){
+        if(!optionsMap){
+            return;
+        }
+        var methodResourceFactory = resourceFactory.refresh;
+        var params = {};
+         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseGET.then){
+            responseGET.then(function success(httpResponse){
+                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                var responseData = httpResponse.data || httpResponse;
+                // Add the resource to the result set
+                optionsMap[rootURL] = _processOptions(responseData);
+            }, function error(errorResponse){
+                // FIXME TODO: Do something useful if required, for now just logging
+                console.error(errorResponse);
+                throw errorResponse;
+            });
+        }
+    };
+
     this.actionHandling=function(item, $scope, regionId, screenId, action, resourceFactory, tab, optionFlag, resolve){
         //Retrieve the meta-model for the given screen Id from the scope
         var metaModel = $scope.metamodel[screenId] || $scope.metamodelObject;
@@ -148,10 +176,49 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 });
             }
         });
-
         return dependencies;
     }
 
+    function _processOptions(responseData){
+        var optionsMapForResource = new Map();
+        var propertiesObject = {};
+        if(responseData && responseData._options){
+            var optiondataobj = responseData._options.links;
+            if(optiondataobj !== undefined){
+                angular.forEach(optiondataobj, function(optionsObj){
+                    var object = {};
+                    if(optionsObj !== undefined){
+                        object.action = optionsObj.rel;
+                        object.href = optionsObj.href;
+                        object.httpmethod = optionsObj.method;
+                        
+                        var schema = optionsObj.schema;
+                        if(schema !== undefined){
+                            var optionProp = schema.properties;
+                            if(optionProp !== undefined){
+                                angular.forEach(optionProp, function(val, key){
+                                    propertiesObject[key] = {};
+                                    propertiesObject[key].metainfo = schema.properties[key];
+                                    propertiesObject[key].value = '';
+                                    propertiesObject[key].url = optionsObj.href;
+                                    propertiesObject[key].required = (schema.required && schema.required.indexOf(key) >= 0);
+                                    propertiesObject[key].editable = true;
+                                    propertiesObject[key].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                                    propertiesObject[key].consistent = true;
+                                });
+                            }   
+                        }
+                    }
+                    object.properties = propertiesObject;
+                    console.log('Action: '+object.action);
+                    console.log('HREF: '+object.href);
+                    console.log('HTTP Method: '+object.httpmethod);
+                    optionsMapForResource.set(object.action, object);
+                });    
+            }
+        }
+        return optionsMapForResource;
+    }
     /*
         Based on a valid (success) data http response (data object contained in $http response) this function 
         creates and returns an object (map) where the keys are the names of the properties and the values are 
@@ -558,6 +625,113 @@ function convertToArray(data) {
     return data;
 }
 
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, resolve){
+    //Retrieve the URL, Http Method and Schema from the options object
+    var url = options.href;
+    var httpmethod = options.httpmethod;
+    console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
+    //$scope.resourceUrl = url;
+    var params={};
+    //Set the params data from the screen per the schema object for the given action (from the options object)
+    params = setDataToParams($scope, properties, params);
+
+    if(httpmethod==='GET'){
+        $rootScope.loader.loading=true;    
+        //Call the get method on the Data Factory with the URL, Http Method, and parameters
+        console.log('Invoke GET Call---');
+        resourceFactory.get(url,params,$rootScope.headers).success(function(response){
+            console.log('GET Call Successful---');
+            $rootScope.loader.loading=false;
+
+            //Load the results into the search results table
+            if(options.action==='search'){
+                var responseData = response.data || response;
+                return responseData._links.item;   
+            }
+        }).error(function(){
+            $rootScope.loader.loading=false;
+            //showMessage($rootScope.locale.GET_OPERATION_FAILED);
+            growl.error($rootScope.locale.GET_OPERATION_FAILED);
+        });
+    } else if(httpmethod==='POST'){
+        $rootScope.loader.loading=true;
+        //Call the post method on the Data Factory
+        resourceFactory.post(url,params,$rootScope.headers).success(function(httpResponse){
+            var data = httpResponse.data || httpResponse;
+        if (data) {
+                if($rootScope.regionId === 'us' ){
+                     if(data._links.self.quoteNumber !== undefined){
+                        $scope.data['quote:identifier']=data._links.self.quoteNumber;
+                        $scope.data['quote:annual_cost'] =data._links.self.premium;                        
+                     } 
+                     if(data.outcome === 'success'){
+                            angular.forEach(data.messages, function(value){
+                            growl.success(value.message);
+                        });
+                     } else{
+                        //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
+                        growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
+                     }  
+                } else {
+                    $rootScope.resourceHref = data._links.self.href;
+                    $rootScope.loader.loading=false;
+                    if(resolve) {
+                        resolve();
+                    }                    
+                }
+            }
+        }).error(function(){
+            $rootScope.loader.loading=false;
+        });
+    } else if(httpmethod==='PATCH'){
+        $rootScope.loader.loading=true;
+        //Call the patch method on the Data Factory
+        resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
+            if (data) { 
+                if(data.outcome === 'success'){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value.message);
+                    });
+                }else{
+                    angular.forEach(data.messages, function(value){
+                        growl.error(value.message);
+                    });
+                }  
+                $rootScope.loader.loading=false;
+       
+                if(resolve) {
+                    resolve();
+                }
+            }
+        }).error(function(){
+            $rootScope.loader.loading=false;
+            //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
+            growl.error($rootScope.locale.PATCH_OPERATION_FAILED);
+        });
+    } else if(httpmethod==='DELETE'){
+        resourceFactory.delete(url,$rootScope.headers).success(function(data){
+            if(data.outcome === 'success'){  
+                var index=0;
+                angular.forEach($scope.stTableList, function(field){
+                    if(item.$$hashKey===field.$$hashKey){
+                        $scope.stTableList.splice(index, 1);    
+                    } else{
+                        index=index+1;     
+                    }
+                });
+                angular.forEach(data.messages, function(value){
+                    growl.success(value.message);
+                });
+            }else{
+                angular.forEach(data.messages, function(value){
+                    growl.error(value.message);
+                });
+            }
+        });
+    }
+}
+
+
 function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.url;
@@ -572,7 +746,8 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
     if(httpmethod==='GET'){
         $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        resourceFactory.get(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.get(url,params,$rootScope.headers).success(function(responseData){
+            var data = responseData.data || responseData;
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
@@ -756,6 +931,46 @@ function setData($scope, schema, object){
     }
     
     return object;
+}
+
+function setDataToParams($scope, properties, params){
+     if(properties !== undefined){
+        angular.forEach(properties, function(val, key){  
+           // var href = properties[key].self;
+
+            var value = properties[key].value;
+            var type = properties[key].metainfo.type;
+            
+            if(type !== undefined && type==='static'){
+                value = val.value;
+            }
+
+            if(value === null || value === undefined || value === '' || value === 'undefined'){
+                //continue
+            }else{
+    
+                var format = properties[key].metainfo.format;
+    
+                if(format !== undefined && format==='date'){
+                    //Format the date in to yyyy/mm/dd format
+                    value = formatIntoDate(value);
+                }
+    
+                if(typeof value === 'object') {
+                    if(value.key !== undefined){
+                        value = value.key;
+                    }else{
+                        value = value.value;
+                    }
+                } 
+    
+                console.log(key +' : '+value);
+                params[key] = properties[key].value;
+            }
+        });    
+    }
+    
+    return params;
 }
 
 function formatIntoDate(value){
