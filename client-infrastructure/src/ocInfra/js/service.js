@@ -75,16 +75,21 @@ app.service('EnumerationService', function($rootScope, resourceFactory){
         if($rootScope.resourceHref && $rootScope.currRel){
             if($rootScope.currRel === 'itself'){
                 var urlDetail = $rootScope.resourceHref;
-                resourceFactory.options(urlDetail, $rootScope.headers).success(function(data){
+                resourceFactory.options(urlDetail, $rootScope.headers).success(function(responseData){
+                    var data = responseData.data || responseData;
                     self.executeEnumerationFromBackEnd(data, 'update');
                 });
             } else {
-                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data1){
+                resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(responseData1){
+                    var data1 = responseData1.data || responseData1;
+
                     if(data1._links[$rootScope.currRel] !== undefined){
                         var url = data1._links[$rootScope.currRel].href;
-                        resourceFactory.options(url, $rootScope.headers).success(function(data2){
+                        resourceFactory.options(url, $rootScope.headers).success(function(responseData2){
+                            var data2 = responseData2.data || responseData2;
                             var urlDetail = data2._links.item.href;
-                            resourceFactory.options(urlDetail, $rootScope.headers).success(function(data){
+                            resourceFactory.options(urlDetail, $rootScope.headers).success(function(responseData){
+                                var data = responseData.data || responseData;
                                 self.executeEnumerationFromBackEnd(data, 'update');
                             });
                         });    
@@ -92,7 +97,8 @@ app.service('EnumerationService', function($rootScope, resourceFactory){
                 });
             }
         } else if($rootScope.resourceHref !== undefined){
-            resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(data){
+            resourceFactory.options($rootScope.resourceHref, $rootScope.headers).success(function(responseData){
+                            var data = responseData.data || responseData;
                self.executeEnumerationFromBackEnd(data, 'search');
             });
         }

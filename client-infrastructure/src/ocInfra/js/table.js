@@ -43,9 +43,9 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         
         if (url !== undefined) {
             $rootScope.navigate(url);
-        }else{
-            MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory, undefined, optionFlag); 
-        }
+        } 
+        MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory,undefined, optionFlag); 
+        
     };
 	
     $scope.loadTableMetadata();	
