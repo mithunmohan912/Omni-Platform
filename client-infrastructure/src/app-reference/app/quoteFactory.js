@@ -26,26 +26,6 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			$location.path('/screen/dashboard');
 		},
 		saveQuote: function(/*resource, properties, callback*/){
-			/*var payloads = {};
-			if (properties) {
-				for(var key in properties){
-					if(properties[key] && properties[key].self){
-						var href = properties[key].self;
-						payloads[href] = payloads[href] || {};
-						if (properties[key].editable) {
-							payloads[href][key] = properties[key].value;
-						}
-					}
-				}
-
-				Object.keys(payloads).forEach(function(resourceURL){
-					resourceFactory.patch(resourceURL, payloads[resourceURL]).then(function() {
-						if (callback) {
-							callback();
-						}
-					});
-				});
-			}*/
 			$rootScope.$broadcast('patch_renderer', {save: true});
 		},
 		searchByName: function(element){

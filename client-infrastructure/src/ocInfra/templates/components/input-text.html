@@ -5,7 +5,7 @@
 
 	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')" class="col-xs-12">
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		<input 	type="text"
+		<input 	type="{{field.format}}"
 				class="form-control"
 				autocomplete="off"
 				id="{{field.id}}"

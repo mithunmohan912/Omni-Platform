@@ -40,7 +40,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 promise.then(function(response) {
                     var previous = resourceDirectory[url];
                     resourceDirectory[url] = response;
-                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
 
                 }, function(error) {
                     console.error(error);
@@ -50,7 +50,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         } else {
             promise = $q(function(resolve) {
                 if (resourceDirectory[url] === PENDING_REQUEST) {
-                    $rootScope.$on('resourceDirectory', function(event, data) {
+                    $rootScope.$on('resource_directory', function(event, data) {
                         if (data.url === url) {
                             resolve(resourceDirectory[url]);
                         }
@@ -90,7 +90,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': undefined });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });
 
             }, function(error) {
                 //console.error(error);
@@ -112,7 +112,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
                 resourceDirectory[url] = null;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
                 
 
             }, function(error) {
@@ -136,7 +136,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
                 resourceDirectory[url] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
                 
             }, function(error) {
                 console.error(error);
@@ -157,7 +157,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);

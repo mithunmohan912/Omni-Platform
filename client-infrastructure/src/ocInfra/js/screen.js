@@ -172,17 +172,37 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
 	// Dynamic Injection of Factory
 
-	$scope.Injectfactory=function(){	
-		$scope.factoryname=$scope.screenId+'factory';
+    // function _injectfactory(){
+    //     _clearFactory();
 
-        try{
-          
-            $scope.factory = $injector.get($scope.factoryname);
-            //console.log('Injector has '+$scope.factoryname+' service!');
-        }catch(e){
-         console.log('Injector does not have '+$scope.factoryname+' service!');
-        }
-    };
+    //     $scope.factoryName = $scope.screenId + 'Factory';
+    //     try {
+           
+    //         $scope.factory = $injector.get($scope.factoryName);
+            
+    //         Object.keys($scope.factory).forEach(function(method){
+    //             $scope[method] = (function(operation) {
+    //                 var operation = operation;
+    //                 return function(params) {
+    //                     return $scope.factory[operation]($scope, params);
+    //                 };
+    //             })(method);
+
+    //         });
+            
+
+    //     } catch(e){
+    //         console.log($scope.factoryName+' not found!');
+    //     }
+    // }
+
+    // function _clearFactory(){
+    //     if($scope.factoryName && $scope.factory){
+    //         for (var operation in $scope.factory) {
+    //             delete $scope[operation];
+    //         }
+    //     }
+    // }
     
     
     $rootScope.isPrev = false;

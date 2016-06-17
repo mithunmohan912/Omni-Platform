@@ -37,7 +37,7 @@ return {
 			}
 
 
-			$scope.$on('resourceDirectory', function(event, params){
+			$scope.$on('resource_directory', function(event, params){
 				if($scope.resourceUrl && params.url.indexOf($scope.resourceUrl) >= 0){
 					if (params.response.config.method !== 'DELETE') {
 						$scope.resultSet = {};
@@ -55,7 +55,7 @@ return {
 				}				
 			});
 
-			$scope.$on('refreshPopUp', function(event, params) {
+			$scope.$on('refresh_popUp', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
 				}
@@ -164,11 +164,12 @@ return {
 			}
 
 			$scope.execute = function(action) {
-				if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
-				} else {
+				if (typeof action === 'function') {
 					//default actions case
-					action();				
+					action();
+					
+				} else if($scope.actionFactory[action]){
+					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
 				}
 
 			};

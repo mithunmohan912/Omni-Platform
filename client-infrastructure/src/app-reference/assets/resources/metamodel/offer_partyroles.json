@@ -1,0 +1,114 @@
+{
+    "metamodel" : {
+        "name":"offer_partyroles",
+        "labels": {
+            "title": "_PARTY_ROLE_POPUP",
+            "ok": "_SAVE",
+            "close": "_CLOSE"
+        },
+        "sections": [
+
+            {
+            "properties": [
+                {
+                    "id": "party_role:party_type",
+                    "label": "_PARTY_TYPE",
+                    "type": "select",
+                    "row": 1,
+                    "patchOnBlur": true
+                },
+                {
+                    "id": ["person:last_name","organization:name"],
+                    "label": "_NAME",
+                    "type": "autocomplete",
+                    "row": 2,
+                    "options":{
+                            "getData": "searchByName",
+                            "select": "selectPersonOrg"
+                        } 
+                },
+                {
+                    "id": "person:name",
+                    "type": "autocomplete",
+                    "label": "_FIRSTNAME",
+                    "attributes": {
+                        "maxlength": 40,
+                        "typeahead-wait-ms": 3000
+                    },
+                    "row": 3
+                },
+                {
+                    "id": "person:birth_date",
+                    "type": "date",
+                    "label": "_DOB",
+                    "row": 3,
+                    "input": true
+                },
+                {
+                    "id": "postal_address:postal_code",
+                    "type": "autocomplete",
+                    "label": "_POSTALCODE",
+                    "selector": ["postal_address:preferred", "operation_status"],
+                    "attributes": {
+                        "maxlength": 4
+                    },
+                    "patchOnBlur": true,
+                    "onUpdate": "callbackQuoteOwner",
+                    "row": 4
+                },
+                 {
+                    "id": "postal_address:street_name",
+                    "type": "autocomplete",
+                    "label": "_STREET_NAME",
+                    "selector": ["postal_address:preferred", "operation_status"],
+                    "row": 5
+                },
+                  {
+                    "id": "postal_address:city_name",
+                    "type": "autocomplete",
+                    "label": "_CITY",
+                    "selector": ["postal_address:preferred", "operation_status"],
+                    "row": 4
+                },
+                 {
+                    "id": "postal_address:box_number",
+                    "type": "autocomplete",
+                    "label": "_BOX_NO",
+                    "selector": ["postal_address:preferred", "operation_status"],
+                    "row": 5
+                },
+                 {
+                    "id": "postal_address:street_number",
+                    "type": "text",
+                    "label": "_STREET_NUMBER",
+                    "selector": ["postal_address:preferred", "operation_status"],
+                    "row": 6
+                },
+                {
+                    "id": "e_mail_address:text",
+                    "type": "email",
+                    "label": "_EMAIL",
+                    "row": 6
+                }
+
+            ]
+       }
+       ],
+
+       "businessObject": {
+            "party_role": [
+                    "party_role:person",
+                    "party_role:organization"
+            ],
+            "person": [
+                    "person:postal_address_list",
+                    "person:e_mail_address_list",
+                    "cscaia:operations"
+            ],
+            "organization": [
+                    "organization:postal_address_list",
+                    "organization:e_mail_address_list"
+            ]
+        }
+    }
+}

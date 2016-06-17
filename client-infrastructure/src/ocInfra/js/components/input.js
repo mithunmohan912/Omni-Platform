@@ -180,7 +180,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'capitalize': true,
 					'maxlength': 9999999
 				},
-				'options': {}
+				'options': {},
+				'format': 'text'
 			};
 
 			defaults.textarea = {
@@ -379,7 +380,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.class,
-					'format': $scope.metamodel.format,
+					'format': $scope.metamodel.format || defaults[inputType].format,
 					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
 				};
 

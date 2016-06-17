@@ -857,7 +857,7 @@ return {
 			});*/
 	
 
-			$scope.$on('resourceDirectory', function(event, params){
+			$scope.$on('resource_directory', function(event, params){
 				if($scope.resourceUrl === params.url >= 0){
 						//_init(metamodelObject);
 						if (params.response.config.method !== 'DELETE') {
@@ -1208,7 +1208,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				});
 	
 
-				$scope.$on('resourceDirectory', function(event, params){
+				$scope.$on('resource_directory', function(event, params){
 					if($scope.boundUrls.indexOf(params.url) >= 0){
 						//_init(metamodelObject);
 						if (params.response.config.method !== 'DELETE') {
@@ -1392,7 +1392,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 				}
 			});*/
 
-			$scope.$on('resourceDirectory', function(event, params) {
+			$scope.$on('resource_directory', function(event, params) {
 				for (var resource in $scope.resultSet) {
 					if (params.url === resource) {
 						if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH') {
@@ -1409,7 +1409,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 				}
 			});
 
-			$scope.$on('refreshTable', function(event, params) {
+			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
 				}
@@ -2515,7 +2515,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             if (promise.then) {
                 promise.then(function(response) {
                     resourceDirectory[url] = response;
-                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
                 }, function(error) {
                     console.error(error);
@@ -2525,7 +2525,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         } else {
             promise = $q(function(resolve) {
                 if (resourceDirectory[url] === PENDING_REQUEST) {
-                    $rootScope.$on('resourceDirectory', function(event, data) {
+                    $rootScope.$on('resource_directory', function(event, data) {
                         if (data.url === url) {
                             resolve(resourceDirectory[url]);
                         }
@@ -2565,7 +2565,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);
@@ -2586,7 +2586,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[url] = null;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);
@@ -2608,7 +2608,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[url] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);
@@ -2628,7 +2628,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[url] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);

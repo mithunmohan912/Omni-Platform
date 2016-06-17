@@ -70,12 +70,10 @@
 		</tfoot>
 	</table>
 
-	<div>
-		<span ng-if="metamodelObject.buttonLabel">
-		    <button data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute({ value: 'add', buttonAction: true })" class="btn btn-primary btn-mg" ng-disabled="!table.creatable">
-		    	{{ metamodelObject.buttonLabel | translate }}
-		    </button>
-		</span>
+	<div class="btn-group">
+	    <button data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute(button.action)" class="btn btn-primary btn-mg" ng-disabled="!table.creatable" ng-repeat="button in buttons">
+	    	{{ button.label | translate }}
+	    </button>
 	</div>
 
 	<popup-render ng-if="modalMetamodelObject" ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>

@@ -23,10 +23,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				_init(metamodelObject);
 			}
 
-			$scope.$on('resourceDirectory', function(event, params) {
+			$scope.$on('resource_directory', function(event, params) {
 				if ((params.url === $scope.resourceUrl) ||
 					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
-					(params.response.data._links && params.response.data._links.up.href === $scope.resourceUrl)) {
+					(params.response.data._links && params.response.data._links.up.href === $scope.resourceUrl) ||
+					(params.url in $scope.resultSet)) {
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -45,9 +46,13 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			});
 
-			$scope.$on('refreshTable', function(event, params) {
+			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
+					$scope.inProgress = true;
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
+						$scope.resultSet = resultSet;
+						$scope.inProgress = false;
+					});
 				}
 			});
 
@@ -109,6 +114,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 							}
 						});
 					}
+
+					//buttons
+					_getButtonsFromOptions();
 				});
 				
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName ;
@@ -116,6 +124,44 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
+				}
+			}
+
+			function _getButtonsFromOptions() {
+				$scope.buttons = [];
+				if ($scope.metamodelObject.buttons) {
+					var label = $scope.metamodelObject.buttonLabel;
+					//look for the POST operation by default to create the possible buttons
+					resourceFactory.get($scope.resourceUrl).then(function(response) {
+						response.data._options.links.forEach(function(link) {
+							if (link.rel === 'create') {
+								var params = {};
+								if (link.schema.required && link.schema.required.length > 0) {
+									//FIXME. if there is more than one attribute required
+									var required = link.schema.required[0];
+									if (link.schema.properties && required in link.schema.properties) {
+										var property = link.schema.properties[required];
+										if (property.enum) {
+											property.enum.forEach(function(value) {
+												params = {};
+												params[required] = value;
+												$scope.buttons.push({
+													label: 'ADD_'+value.toUpperCase().trim(),
+													action: { value: 'add', buttonAction: true, params: params }
+												});
+											});
+										}
+									}
+								}
+								if ($scope.buttons.length === 0) {
+									$scope.buttons.push({
+										label: label,
+										action: { value: 'add', buttonAction: true, params: params }
+									});
+								}
+							}
+						});
+					});
 				}
 			}
 
@@ -158,19 +204,19 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				return resultSetItem;
 			}
 
-			$scope.execute = function(action, displayedItem, field) {
-				if(!action.method){
-					if($scope.metamodelObject.buttonMethod && action.buttonAction){
-						$scope.actionFactory[$scope.metamodelObject.buttonMethod](displayedItem, field);
+			$scope.execute = function(action, displayedItem) {
+				if(action.buttonAction){
+					if ($scope.metamodelObject.buttonMethod) {
+						$scope.actionFactory[$scope.metamodelObject.buttonMethod](action.params);
 					} else {
-						if (field && field.method) {
-							$scope.actionFactory[field.method](displayedItem, field);
-						} else {
-							$scope[action.value](displayedItem, field);
-						}
+						$scope[action.value](action.params, $scope.metamodelObject.buttonCallback);
 					}
 				} else {
-					$scope.actionFactory[action.method](displayedItem, field);
+					if (action.method) {
+						$scope.actionFactory[action.method](displayedItem);
+					} else {
+						$scope[action.value](displayedItem, action.callback);
+					}
 				}
 			};
 
@@ -200,36 +246,44 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				return status;
 			};
 
-			$scope.edit = function(itemSelected) {
+			$scope.edit = function(itemSelected, callback) {
 				$scope.itemSelected = itemSelected;
 				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected);
+					}
+				}
 			};
 
- 			$scope.update = function(displayedItem, field) {
-				if(displayedItem.patchable){
-					var payload = {};
- 					payload[field.id] = displayedItem.properties[field.id].value;
-					//patch resource
-					resourceFactory.patch(displayedItem.href, payload);
-	 			}
-	 		};
-
-	 		$scope.delete = function(displayedItem) {
+	 		$scope.delete = function(displayedItem, callback) {
 	 			if (displayedItem.deletable) {
 	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href);
+	 				resourceFactory.delete(displayedItem.href).then(function(response) {
+	 					if (callback) {
+	 						if ($scope.actionFactory[callback]) {
+								$scope.actionFactory[callback](response);
+							}
+	 					}
+	 				});
 	 			}
 	 		};
 
-	 		$scope.add = function() {
+	 		$scope.add = function(params, callback) {
 	 			resourceFactory.get($scope.resourceUrl).then(function(response) {
 	 				response.data._options.links.forEach(function(link) {
 	 					if (link.rel === 'create') {
 	 						var hrefToPost = link.href;
-	 						resourceFactory.post(hrefToPost, {}, $rootScope.headers).then(function(response) {
+	 						resourceFactory.post(hrefToPost, params, $rootScope.headers).then(function(response) {
 				 				//select the new resource
 				 				var href = response.data._links.self.href;
 				 				$scope.edit({href: href});
+
+				 				if (callback) {
+				 					if ($scope.actionFactory[callback]) {
+										$scope.actionFactory[callback](response);
+									}
+				 				}
 				 			});
 	 					}
 	 				});

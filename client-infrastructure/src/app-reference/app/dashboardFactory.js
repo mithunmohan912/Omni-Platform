@@ -7,8 +7,18 @@ global app
 app.factory('dashboardFactory', function($rootScope, resourceFactory){
 	return {
 		dashboardToQuote: function(resource){
-			$rootScope.resourceUrl= resource.href;
-			$rootScope.navigate('/screen/quote');
+			resourceFactory.get(resource.href).then(function(response) {
+				if (response.data._links) {
+					if ('quote:offer' in response.data._links) {
+						$rootScope.resourceUrl = response.data._links['quote:offer'].href;
+						$rootScope.navigate('/screen/offer');
+					} else {
+						$rootScope.resourceUrl= resource.href;
+						$rootScope.navigate('/screen/quote');
+					}
+				}
+			});
+			
 		},
 		createQuote: function() {
 			//example car
@@ -22,13 +32,24 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 			});	
 		},
 		searchQuotes: function(resource, properties) {
-			var payload = {};
-			for (var prop in properties) {
-				if (properties[prop].value) {
-					payload[prop] = properties[prop].value;
+			if (resource.href) {
+				var payload = {};
+				for (var prop in properties) {
+					if (properties[prop].value) {
+						payload[prop] = properties[prop].value;
+					}
 				}
+				resourceFactory.refresh(resource.href, payload);
+			} else {
+				resourceFactory.execute($rootScope.hostURL+'quotes', {}, {}, 'OPTIONS').then(function(response) {
+					for (var link in response.data.links) {
+						if (response.data.links[link].rel === 'search') {
+							$rootScope.resourceUrl= response.data.links[link].href;
+							break;
+						}
+					}
+				});
 			}
-			resourceFactory.refresh(resource.href, payload);
 		}
 	};
 });

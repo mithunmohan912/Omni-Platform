@@ -10,7 +10,8 @@
                             {
                                 "icon": "fa-save",
                                 "tooltip": "Save quote",
-                                "action": "saveQuote"
+                                "action": "saveQuote",
+                                "label": ""
                             }
                         ]
                     }
@@ -123,9 +124,7 @@
                     {
                         "id": "quote:quote_risk_list",
                         "type": "table",
-                        "metamodel": "quote_risk_list",
-                        "row": 3,
-                        "column": 1
+                        "metamodel": "quote_risk_list"
                     }
                 ]
             },
@@ -150,7 +149,8 @@
                     },
                     {
                         "id": "quote_automobile:ext_victim_claims_number",
-                        "type": "number",
+                        "type": "text",
+                        "format": "password",
                         "label": "_VICTIM_CLAIMS",
                         "patchOnBlur": true
                     },

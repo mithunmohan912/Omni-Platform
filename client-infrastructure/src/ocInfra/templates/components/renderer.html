@@ -1,25 +1,25 @@
-<div class="renderer">
-	<div ng-repeat="section in metamodelObject.sections track by $index" class="section" ng-class="section.colspan ? 'col-sm-{{section.colspan}}': 'col-sm-12'" ng-switch on="section.type">	
-		<div class="oc-modal-header border-none">
-		    <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
-        	<h3 class="text-left">{{section.title | translate}}</h3>
-        	<hr ng-if="screenId!=='anonymous'"class="onl_hrOr_1"><hr ng-if="screenId!=='anonymous'" class="onl_hrOr_2">
-        	<hr ng-if="screenId=='anonymous'" class="onl_hrOr_2" style="width:100%">
+<div class="renderer renderer-{{screenName}}">
+	<div ng-repeat="section in metamodelObject.sections track by $index" class="section col-xs-12 {{section.class}}" ng-class="section.colspan ? 'col-sm-{{section.colspan}} col-sm-offset-{{section.offset}}': 'col-sm-12'" ng-switch on="section.type">	
+		<div ng-if="section.title || section.logodir" class="oc-modal-header border-none">
+		    <div ng-if="section.logodir == true" class="oc-logo logo-center"></div>
+        	<h3 class="text-left">{{ section.title | translate }}</h3>
+        	<hr ng-if="section.title" class="onl_hrOr_1">
+        	<hr class="onl_hrOr_2">
     	</div>
 	
 		<div ng-switch-when="reference" class="linkedRenderer">
-			<renderer metamodel="section.$ref"></renderer>
+			<renderer metamodel="section.$ref" factory-name="factoryName"></renderer>
 		</div>
 		<div ng-switch-default>
 			<form>
 				<div ng-repeat="row in section.rows" class="row">
-					<div ng-repeat="column in row track by $index" class="oc-column col-sm-{{column.colspan}}">
+					<div ng-repeat="column in row track by $index" class="oc-column {{column.class}}" ng-class="column.colspan ? 'col-sm-{{column.colspan}} col-sm-offset-{{column.offset}}': 'col-sm-12'">
 						<div ng-if="column" ng-switch on="column.type">
 							<div ng-switch-when="tabs">
 								<ul class="nav nav-tabs">
 									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
-										<a ng-if="tab.screenId === screenName">{{tab.title | translate}}</a>
-										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{tab.title | translate}}</a>
+										<a ng-if="tab.screenId === screenName">{{ tab.title | translate }}</a>
+										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{ tab.title | translate }}</a>
 									</li>
 								</ul>
 							</div>
@@ -27,10 +27,11 @@
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
 							<div ng-switch-when="buttonGroup">
-								<div ng-repeat="button in column.buttons">
-									<button ng-if="button.label" class="btn btn-primary renderer-button" ng-click="execute(button.action, button.actionURL)">{{ button.label | translate }}</button>
-									<i ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></i><br ng-if="button.underlineText" />
-									<span ng-if="button.underlineText">{{button.underlineText}}</span>
+								<div ng-repeat="button in column.buttons" class="renderer-button-div">
+									<button ng-if="button.label || button.icon" class="btn btn-primary renderer-button" ng-click="execute(button.action, button.actionURL)">
+										<span ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></span>
+										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
+									</button>
 								</div>
 							</div>
 							<div ng-switch-when="iconGroup">
@@ -39,7 +40,7 @@
             							<a ng-click="execute(icon.action, icon.actionURL)" class="thumbnail text-center">
             							<div class="text-center">
               								<span class="{{icon.icon}}"></span>
-              								<div class="text-center">{{icon.label | translate}}  <span class="flag {{icon.iconflags}}"></span></div>
+              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
             							</div>
             							</a>
           							</div>
