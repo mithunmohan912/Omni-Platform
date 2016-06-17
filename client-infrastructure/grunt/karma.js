@@ -3,7 +3,7 @@
 module.exports = {
   unit: {
     configFile: 'karma.conf.js',
-    singleRun: true
+    singleRun: false
   },
   main: {
     configFile: 'karma.conf.js',
