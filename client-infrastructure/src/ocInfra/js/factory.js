@@ -213,7 +213,9 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     console.log('Action: '+object.action);
                     console.log('HREF: '+object.href);
                     console.log('HTTP Method: '+object.httpmethod);
-                    optionsMapForResource.set(object.action, object);
+                    if(!optionsMapForResource.get(object.action)){
+                        optionsMapForResource.set(object.action, object);
+                    }
                 });    
             }
         }
@@ -265,7 +267,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     propertiesObject[property].value = responseData[property];
                     propertiesObject[property].self = resourceURL;
                     propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
-                    propertiesObject[property].editable = (updateCRUD !== undefined && (property in updateCRUD.schema.properties));
+                    propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
                     propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
                     propertiesObject[property].consistent = true;
                 }

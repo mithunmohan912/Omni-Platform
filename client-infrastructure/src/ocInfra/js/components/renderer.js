@@ -151,19 +151,31 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$watchCollection('optionsMap', function(newValue){
 					if(newValue){
-						for (var url in newValue) {
+						Object.keys(newValue).forEach(function(url){
 							var optionsMapForResource = newValue[url];
 							if(optionsMapForResource !== undefined && $scope.metamodelObject.actionOnScreen){
 								var optionsObj = optionsMapForResource.get($scope.metamodelObject.actionOnScreen);
 								if(optionsObj !== undefined){
 									console.log('optionsMap action' + optionsObj.action);
-									$scope.metamodelObject.resourceUrl = optionsObj.href;
-									$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-									$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
-									_init($scope.metamodelObject);	
+
+									var data = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_data'));
+									var params = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_params'));
+
+									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+
+									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(){
+										$scope.metamodelObject.resourceUrl = optionsObj.href;
+										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
+										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+										_init($scope.metamodelObject);
+
+									});									
+										
 								}
 							}
-						}
+						});		
+						
 					}
 				});
 				

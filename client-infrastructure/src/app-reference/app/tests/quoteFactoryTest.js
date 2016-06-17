@@ -49,7 +49,7 @@ describe('quoteFactoryTest', function(){
 
   it('test case to test next button exists', function(){
 
-     expect(_quoteFactory.next).toBeDefined();
+     expect(_quoteFactory.toCoverage).toBeDefined();
    
   });
 

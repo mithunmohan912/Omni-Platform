@@ -146,12 +146,13 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return promise;
     }
 
-    function _execute(url, params, headers, method) {
+    function _execute(url, data, params, headers, method) {
         var promise = $http({
                 method: method,
                 url: url,
                 headers: headers,
-                data: params
+                data: data,
+                params: params
         });
         if (promise.then) {
             promise.then(function(response) {
