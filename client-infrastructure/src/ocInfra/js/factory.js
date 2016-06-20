@@ -541,7 +541,8 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                     optionsMapForResource = new Map();
                 }
                     //Options call for the resources in the meta model.
-                    resourceFactory.options(newURL, $rootScope.headers).success(function(data){
+                    resourceFactory.options(newURL, $rootScope.headers).success(function(responseData){
+                    var data = responseData.data || responseData;
                     //Fetch the options response
                     var optiondataobj = data._options.links;
                     var options;
@@ -553,10 +554,12 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
 
                             var tabUrl = tabObj.href;
 
-                            resourceFactory.options(tabUrl, $rootScope.headers).success(function(data){
-                                var detailTabUrl = data._links.item.href;
-                                resourceFactory.options(detailTabUrl, $rootScope.headers).success(function(data){
-                                    optiondataobj = data._options.links;
+                            resourceFactory.options(tabUrl, $rootScope.headers).success(function(responseData1){
+                                var data1 = responseData1.data || responseData1;
+                                var detailTabUrl = data1._links.item.href;
+                                resourceFactory.options(detailTabUrl, $rootScope.headers).success(function(responseData2){
+                                    var data2 = responseData2.data || responseData2;
+                                    optiondataobj = data2._options.links;
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
                                     if(action !== undefined){
@@ -642,12 +645,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
         console.log('Invoke GET Call---');
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
-            console.log('GET Call Successful---');
+            var responseData = response.data || response;
+	    console.log('GET Call Successful---');
             $rootScope.loader.loading=false;
 
             //Load the results into the search results table
             if(options.action==='search'){
-                var responseData = response.data || response;
+                
                 return responseData._links.item;   
             }
         }).error(function(){
@@ -688,7 +692,8 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
-        resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
+        resourceFactory.patch(url,params,$rootScope.headers).success(function(responseData){
+            var data = responseData.data || responseData;
             if (data) { 
                 if(data.outcome === 'success'){
                     angular.forEach(data.messages, function(value){
@@ -711,7 +716,8 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             growl.error($rootScope.locale.PATCH_OPERATION_FAILED);
         });
     } else if(httpmethod==='DELETE'){
-        resourceFactory.delete(url,$rootScope.headers).success(function(data){
+        resourceFactory.delete(url,$rootScope.headers).success(function(responseData){
+	       var data=responseData.data || responseData ;
             if(data.outcome === 'success'){  
                 var index=0;
                 angular.forEach($scope.stTableList, function(field){

@@ -135,8 +135,14 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
+
                 resourceDirectory[url] = response;
+                //Is this really needed?? After the patch call, the entity data is already up to date. 
+                // data = {};
+                // _refresh(url, data, headers);
+
                 $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
+
                 
             }, function(error) {
                 console.error(error);
