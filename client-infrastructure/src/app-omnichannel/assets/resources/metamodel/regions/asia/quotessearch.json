@@ -1,78 +1,83 @@
 {
     "metamodel": {
-        "formid": "quotesearch",
-        "resourcelist": ["quotes"], 
-        "resourceUrl": "https://devgateway.api.csc.com/insurance/omnichannel/miniquote/asia/quotes?_inquiry=ci_saved_items",
-        "title": "_SAVED_ITEMS",
-        "name": "quote",
-        "workflowGrp": [{"nav":"false"}],
-        "mainTabs": "false",
-        "createButton": true,
-        "button":{
-            "icon" : "",
-            "method" :"", 
-            "action": "create",
-            "actionurl": "/asia/screen/quotescreate",
-            "name": "create",
-            "label": "_CREATE_QUOTE"
-        },
+        "resource": "quotes",
         "sections": [
             {
-                "title": "_AUTO_QUOTE_ASIA_SEARCH",
-                "name": "quote_search",
-                "category": "nonaccordion",
                 "properties": [
                             {
-                                "name": "quote-product-id",
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "action": "actionHandling",
+                                        "actionURL": "create",
+                                        "label": "_CREATE_QUOTE"
+                                    }
+                                ]
+                            }
+                ]
+            },
+            {
+                "properties": [
+                            {
+                                "id": "quote-product-id",
                                 "type": "text",
                                 "label": "_PRODUCT_ID",
-                                "columnsize": 6
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
-                                "name": "quote-start-date",
+                                "id": "quote-start-date",
                                 "type": "date",
                                 "label": "_Effective_Date",
-                                "visible": "true",
-                                "columnsize": 6
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
-                                "name": "quote-owner-name",
+                                "id": "quote-owner-name",
                                 "type": "text",
                                 "label": "_RISK_HOLDER",
-                                "visible": "true",
-                                "columnsize": 6
+                                "row": 1,
+                                "uiInput" : true
                             },
                             {
-                                "name": "quote-identifier",
+                                "id": "quote-identifier",
                                 "type": "text",
                                 "label": "_QUOTE_NUMBER",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 30
+                                "row": 2,
+                                "uiInput" : true
+                               
                             },
                             {
-                                "name": "quote-distributor-id",
+                                "id": "quote-distributor-id",
                                 "type": "text",
                                 "label": "_DISTRIBUTOR_ID",
-                                "visible": "true",
-                                "columnsize": 6
-                            },
+                                "row": 2,
+                                "uiInput" : true
+                            }      
+                ]
+            },
+            {
+                "properties": [
                             {
                                 "type": "buttonGroup",
-                                "buttons": [
-                                        {
-                                            "label": "_SEARCH",
-                                            "icon": "flaticon-adults",
-                                            "action":"search",
-                                            "actionURL" : "/screen/dashboard"
-                                        }
+                                "buttons" : [
+                                    {
+                                        "label": "_SEARCH",
+                                        "action":"actionHandling",
+                                        "actionURL":"search"
+                                    }
                                 ]
-                            },
-                    {
-                        "metamodel": "searchlist",
-                        "type": "table",
-                        "id": "searchlist"
-                    }
+                            }
+                ]
+            },
+            {
+                "properties": [
+                            {
+                                "id": "quotes",
+                                "metamodel": "searchlist",
+                                "type": "table",
+                                "uiInput" : true
+                            }
                 ]
             }
         ]
