@@ -135,7 +135,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
-                resourceDirectory[url] = response;
+                data = {};
+                _refresh(url, data, headers);
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
                 
             }, function(error) {
