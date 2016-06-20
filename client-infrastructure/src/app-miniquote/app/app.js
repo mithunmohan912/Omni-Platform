@@ -181,26 +181,4 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
 
 
-app.factory('dashboardfactory', ['$http','resourceFactory','$rootScope','$log','growl',function($http,resourceFactory,$rootScope,log,growl) {
-  // growl.addSuccessMessage('hi');  
-
-    var dashboardfactory = {};
-
-    dashboardfactory.init=function(){
-
-      
-        var url1 = $rootScope.HostURL + 'quotes';
-
-     return resourceFactory.getData(url1).success(function(){
-       //$scope.displayed= data;
-       
-       
-          });
-
-    };
-  
-     
-   
- return dashboardfactory;
-}]);
 
