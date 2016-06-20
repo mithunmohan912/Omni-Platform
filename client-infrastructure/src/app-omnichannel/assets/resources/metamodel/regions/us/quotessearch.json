@@ -1,99 +1,84 @@
 {
     "metamodel": {
         "formid": "quotesearch",
-        "resourcelist": ["quotes"], 
-        "title": "_HOME_QUOTE_US_SEARCH",
-        "name": "quote",
-        "workflowGrp": [{"nav":"false"}],
-        "mainTabs": "false",
-        "createButton": true,
-        "button":{
-            "icon" : "",
-            "type": "buttonSmall",
-            "label": "_CREATE_QUOTE",
-            "action": "navigate",
-            "actionurl": "us/screen/quotescreate",
-            "name": "create",
-            "label": "_CREATE_QUOTE"
-        },
+        "resource": "quotes",
         "sections": [
             {
-                "title": "_HOME_QUOTE_US_SEARCH",
-                "name": "quote_search",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 6,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
+                "properties": [
                             {
-                                "name": "symbol",
-                                "type": "text",
-                                "label": "Symbol",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 3
-                            },
-                            {
-                                "name": "firstName",
-                                "type": "text",
-                                "label": "_FIRSTNAME",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 64
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "action": "actionHandling",
+                                        "actionURL": "create",
+                                        "label": "_CREATE_QUOTE"
+                                    }
+                                ]
                             }
-                            ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 6,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
-                            {
-                                "name": "quoteNumber",
-                                "type": "text",
-                                "label": "_QUOTE_NUMBER",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 7
-                            },
-                            {
-                                "name": "lastName",
-                                "type": "text",
-                                "label": "_LASTNAME",
-                                "columnsize": 6,
-                                "maxlength": 256
-                            }
-                        ]
-                    },
-                    {
-                        "text": "_ADDITIONAL_INFO",
-                        "name": "searchriskdetails",
-                        "visible": "true",
-                        "type": "view"
-                    },
-                    {
-                        "name": "search",
-                        "type": "buttonSmall",
-                        "label": "_SEARCH",
-                        "action":"search",
-                        "visible": "true",
-                        "columnsize": "12"
-                    },
-                    {
-                        "name": "searchlist",
-                        "type": "table",
-                        "label": "",
-                        "isTab": "false",
-                        "visible": "true",
-                        "columnsize": 12
-                    }
                 ]
+            },
+            {
+                "properties": [
+                               {
+                                    "id": "symbol",
+                                    "type": "text",
+                                    "label": "Symbol",
+                                    "row": 1,
+                                    "uiInput" : true
+                                },
+                                {
+                                    "id": "firstName",
+                                    "type": "text",
+                                    "label": "_FIRSTNAME",
+                                    "row": 1,
+                                    "uiInput" : true
+                                },
+                                {
+                                    "id": "quoteNumber",
+                                    "type": "text",
+                                    "label": "_QUOTE_NUMBER",
+                                    "row": 2,
+                                    "uiInput" : true
+                                },
+                                {
+                                    "id": "lastName",
+                                    "type": "text",
+                                    "label": "_LASTNAME",
+                                    "row": 2,
+                                    "uiInput" : true
+                                },
+                                {
+                                    "text": "_ADDITIONAL_INFO",
+                                    "id": "searchriskdetails",
+                                    "type": "view",
+                                    "row": 3
+                                }
+                        
+                ]
+            },
+            {
+                    "properties": [
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "label": "_SEARCH",
+                                        "action":"actionHandling",
+                                        "actionURL":"search"
+                                    }
+                                ]
+                            }
+                    ]
+            },
+            {
+                    "properties": [
+                            {
+                                "id": "quotes",
+                                "metamodel": "searchlist",
+                                "type": "table",
+                                "uiInput" : true
+                            }
+                    ]
             }
         ]
     }

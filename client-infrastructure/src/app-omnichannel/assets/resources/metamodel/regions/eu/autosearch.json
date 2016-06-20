@@ -1,194 +1,135 @@
 {
     "metamodel": {
         "formid": "quotesearch",
-        "resourcelist": ["quotes"], 
-        "title": "_SAVED_ITEMS",
-        "name": "quote",
-        "viewAs": "menu",
-        "createButton": true,
-        "defaultValue": [
-            {
-                "field": "quote:contract_start_date",
-                "value": "Date",
-                "action": "create"
-            },
-            {
-                "field": "quote:distributor_id",
-                "value": "gtmoni",
-                "action": "create"
-            }
-        ],
-        "workflowGrp": [{"nav":"false"}],
-        "mainTabs": "false",
-         "button":{
-            "icon" : "",
-            "label": "_CREATE_QUOTE",
-            "action": "create",
-            "actionurl": "/eu/screen/autocreate",
-            "name": "create",
-            "label": "_CREATE_QUOTE"
-        },
+        "resource": "quotes",
         "sections": [
             {
-                "title": "_AUTO_QUOTE_EU_SEARCH",
-                "name": "quote_search",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
+                "properties": [
                             {
-                                "name": "contract:number",
-                                "type": "text",
-                                "label": "_CONTRACT",
-                                "visible": "true",
-                                "columnsize": 6
-                            },
-                            {
-                                "name": "quote:description",
-                                "type": "text",
-                                "label": "_DESCRIPTION",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 30
-                            },
-                            {
-                                "name": "quote:distributor_id",
-                                "type": "text",
-                                "label": "_DISTRIBUTOR_ID",
-                                "visible": "true",
-                                "columnsize": 6
-                            }
-                            ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
-                            {
-                                "name": "quote:identifier",
-                                "type": "text",
-                                "label": "_QUOTE_NUMBER",
-                                "visible": "true",
-                                "columnsize": 6,
-                                "maxlength": 30
-                            },
-                            {
-                                "name": "quote:product_id",
-                                "type": "text",
-                                "label": "_PRODUCT",
-                                "default": "MC011",
-                                "columnsize": 6                                
-                            },
-                            {
-                                "name": "quote:start_date",
-                                "type": "date",
-                                "label": "_Effective_Date",
-                                "visible": "true",
-                                "columnsize": 6
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "action": "actionHandling",
+                                        "actionURL": "create",
+                                        "label": "_CREATE_QUOTE"
+                                    }
+                                ]
                             }
                         ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [                        
-                             {
-                                "name":"quote:status",
+            },
+            {
+                "properties": [
+                            {
+                                "id": "contract:number",
+                                "type": "text",
+                                "label": "_CONTRACT",
+                                "row": 1,
+                                "uiInput" : true
+                            },
+                            {
+                                "id": "quote:description",
+                                "type": "text",
+                                "label": "_DESCRIPTION",
+                                "row": 1,
+                                "uiInput" : true  
+                            },
+                            {
+                                "id": "quote:distributor_id",
+                                "type": "text",
+                                "label": "_DISTRIBUTOR_ID",
+                                "row": 1,
+                                "uiInput" : true
+                            },
+                            
+                            {
+                                "id": "quote:identifier",
+                                "type": "text",
+                                "label": "_QUOTE_NUMBER",
+                                "row": 2,
+                                "uiInput" : true
+                            },
+                            {
+                                "id": "quote:product_id",
+                                "type": "text",
+                                "label": "_PRODUCT",
+                                "row": 2,
+                                "uiInput" : true
+                            },
+                            {
+                                "id": "quote:start_date",
+                                "type": "date",
+                                "label": "_Effective_Date",
+                                "row": 2,
+                                "uiInput" : true
+                            },
+                            {
+                                "id":"quote:status",
                                 "type":"text",
                                 "label":"_QUOTE_STATUS",
-                                "columnsize":6
+                                "row": 3,
+                                "uiInput" : true
                             },
-                           {
-                                "name": "quote:type",
+                            {
+                                "id": "quote:type",
                                 "type": "select",
                                 "label": "_QUOTE_TYPE",
-                                "columnsize": 6                                
+                                "row": 3,
+                                "uiInput" : true                                  
                             },
-                           
                             {
-                                "name": "quote_owner:name",
+                                "id": "quote_owner:id",
                                 "type": "text",
                                 "label": "_RISK_HOLDER",
-                                "visible": "true",
-                                "columnsize": 6
+                                "row": 3,
+                                "uiInput" : true
+                            },
+                            {
+                                "id":"quote_automobile:make",
+                                "type":"text",
+                                "label":"_MAKE",
+                                "row": 4,
+                                "uiInput" : true
+                            },
+                            {
+                                "id":"quote_automobile:ext_model",
+                                "type":"text",
+                                "label":"_EXT_MODEL",
+                                "row": 4,
+                                "uiInput" : true
+                            },                        
+                            {
+                                "id": "quote_automobile:registration_number",
+                                "type": "text",
+                                "label": "_REGISTRATION_NUMBER",
+                                "row": 4,
+                                "uiInput" : true
                             }
                         
                         ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
-                           {
-                                "name":"quote_automobile:make",
-                                "type":"text",
-                                "label":"_MAKE",
-                                "columnsize":6
-                            }
-                            ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [                        
-                             {
-                                "name":"quote_automobile:ext_model",
-                                "type":"text",
-                                "label":"_EXT_MODEL",
-                                "columnsize":6
-                            }                        
-                        ]
-                    },
-                    {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 4,
-                        "type": "columngroup",
-                        "visible": "true",
-                        "elementgroup": [
+            },
+            {
+                    "properties": [
                             {
-                                "name": "quote_automobile:registration_number",
-                                "type": "text",
-                                "label": "_REGISTRATION_NUMBER",
-                                "visible": "true",
-                                "columnsize": 6
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "label": "_SEARCH",
+                                        "action":"actionHandling",
+                                        "actionURL":"search"
+                                    }
+                                ]
                             }
-                            ]
-                    },
-                    {
-                        "name": "search",
-                        "type": "buttonSmall",
-                        "label": "_SEARCH",
-                        "action":"search",
-                        "visible": "true",
-                        "columnsize": "12"
-                    },
-                    {
-                        "name": "searchlist",
-                        "type": "table",
-                        "label": "",
-                        "isTab": "false",
-                        "visible": "true",
-                        "columnsize": 12
-                    }
-                ]
+                    ]
+            },
+            {
+                    "properties": [
+                            {
+                                "id": "quotes",
+                                "metamodel": "autosearchlist",
+                                "type": "table",
+                                "uiInput" : true
+                            }
+                    ]
             }
         ]
     }
