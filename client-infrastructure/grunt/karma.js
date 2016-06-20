@@ -3,11 +3,11 @@
 module.exports = {
   unit: {
     configFile: 'karma.conf.js',
-    singleRun: false
+    singleRun: true
   },
   main: {
     configFile: 'karma.conf.js',
-    singleRun: false,
+    singleRun: true,
     autoWatch: true
   }
 };
