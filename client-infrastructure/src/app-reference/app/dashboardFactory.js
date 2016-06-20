@@ -20,12 +20,16 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 			});
 			
 		},
-		createQuote: function() {
-			//example car
-			var payload = {
-				'quote:distributor_id': '998877', 
-				'quote:product_id': 'MC011'
-			};
+		createQuote: function(scope, actionURL, options, properties, defaultValues) {
+
+			//Default values:
+			var payload = {};
+
+			for (var key in properties){
+				payload[key] = properties[key].value ? properties[key].value : defaultValues[key].value;
+
+			}
+			
 			resourceFactory.post($rootScope.hostURL+'quotes', payload, $rootScope.headers).then(function(response) {
 				$rootScope.resourceUrl= response.data._links.self.href;
 				$rootScope.navigate('/screen/quote');

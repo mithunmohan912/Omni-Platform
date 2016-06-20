@@ -343,8 +343,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			$scope.execute = function(action, actionURL) {
 
 				if($scope.actionFactory && $scope.actionFactory[action]){
+					var defaultValues = MetaModel.getDefaultValues(action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties);
+						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
 					}
 				} else {
 					if ($scope[action]) {
@@ -370,7 +371,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 
 			};
-
 
 			$scope.$on('patch_renderer', function(event, data){
 				if (data.resourceUrl === $scope.resourceUrlToRender || data.save) {

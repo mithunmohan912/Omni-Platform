@@ -384,6 +384,27 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     }
 
 
+    this.getDefaultValues = function(action, metaModel){
+        var properties = {};
+
+            if(metaModel.defaultValue !== undefined){
+                angular.forEach(metaModel.defaultValue, function(resource) {
+                    if(action ===resource.action){
+                        if(resource.value === 'Date'){
+                            resource.value = formatIntoDate(new Date());    
+                        }
+
+                        properties[resource.field] = {value: resource.value};
+                        
+                    }
+                });
+            }
+
+
+        return properties;
+
+    };
+
     /*============================================= END Helper methods for components =============================================*/
 
     /*============================================= Component methods =============================================*/
