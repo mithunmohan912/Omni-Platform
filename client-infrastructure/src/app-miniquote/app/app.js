@@ -54,6 +54,11 @@ TourConfigProvider.set('prefixOptions', false);
             },
 
             'responseError': function(rejection) {
+                console.log('rejection!!' + rejection.statusText + 'error' + rejection.status);
+                //console.log(JSON.stringify(rejection));
+                if(rejection.status){
+                    growl.error(rejection.statusText);
+                }
 
                  if(rejection.status === '-1')
                  {
