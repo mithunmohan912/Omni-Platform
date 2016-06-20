@@ -32,7 +32,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             } else {
                 setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, resolve);
             }
-           // loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory);
+            loadOptions(growl, scope, screenId, regionId, $rootScope, resourceFactory);
         }, function() {
             $rootScope.showIcon = false;
             //showMessage($rootScope.appConfig.timeoutMsg);
@@ -710,7 +710,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         });
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(responseData){
-	var data=responsedata.data || responseData ;
+	       var data=responseData.data || responseData ;
             if(data.outcome === 'success'){  
                 var index=0;
                 angular.forEach($scope.stTableList, function(field){
