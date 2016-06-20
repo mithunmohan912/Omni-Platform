@@ -93,8 +93,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': undefined });
 
             }, function(error) {
-                console.error(error);
-                throw error;
+                //console.error(error);
+                return error;
             });   
         }
         return promise;
@@ -135,7 +135,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
-                resourceDirectory[url] = response;
+                data = {};
+                _refresh(url, data, headers);
                 $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
                 
             }, function(error) {
