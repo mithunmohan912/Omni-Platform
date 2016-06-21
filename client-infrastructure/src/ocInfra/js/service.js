@@ -8,7 +8,7 @@ exported checkVisibility
 app.service('OCInfraConfig', function($resource, $rootScope){	
     this.load = function() {
     	$rootScope.infraConfig = {};
-        $resource('../assets/resources/config/OCInfraConfig.json').get(function(data) {
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
 			$rootScope.infraConfig = data.config.base;
 			$rootScope.metamodelPath = data.config.base.templates.metaModel;
 			angular.forEach($rootScope.infraConfig.properties, function(key) {
