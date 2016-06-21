@@ -153,6 +153,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					if(newValue){
 						for (var url in newValue) {
 							var optionsMapForResource = newValue[url];
+
 							if(optionsMapForResource !== undefined && $scope.metamodelObject.actionOnScreen){
 								var optionsObj = optionsMapForResource.get($scope.metamodelObject.actionOnScreen);
 								if(optionsObj !== undefined){
@@ -166,9 +167,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 					}
 				});
-				
 				MetaModel.prepareOptions($scope.optionUrl, $scope.optionsMap);
-
 			}
 
 			function _init(metamodelObject){
@@ -302,9 +301,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				if($scope.actionFactory && $scope.actionFactory[action]){
 					if($scope.resourcesToBind.properties !== undefined){
-						if($scope.optionUrl && $scope.optionsMap[$scope.optionUrl] && $scope.optionsMap[$scope.optionUrl].get(actionURL)){
-							$scope.resourcesToBind.properties = $scope.optionsMap[$scope.optionUrl].get(actionURL).properties;	
-						}
 						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties);
 					}
 				} else {
