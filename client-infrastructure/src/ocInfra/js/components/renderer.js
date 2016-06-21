@@ -153,6 +153,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					if(newValue){
 						Object.keys(newValue).forEach(function(url){
 							var optionsMapForResource = newValue[url];
+
 							if(optionsMapForResource !== undefined && $scope.metamodelObject.actionOnScreen){
 								var optionsObj = optionsMapForResource.get($scope.metamodelObject.actionOnScreen);
 								if(optionsObj !== undefined){
@@ -178,9 +179,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						
 					}
 				});
-				
 				MetaModel.prepareOptions($scope.optionUrl, $scope.optionsMap);
-
 			}
 
 			function _init(metamodelObject){
