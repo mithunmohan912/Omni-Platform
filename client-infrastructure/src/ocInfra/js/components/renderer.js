@@ -302,6 +302,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				if($scope.actionFactory && $scope.actionFactory[action]){
 					if($scope.resourcesToBind.properties !== undefined){
+						if($scope.optionUrl && $scope.optionsMap[$scope.optionUrl] && $scope.optionsMap[$scope.optionUrl].get(actionURL)){
+							$scope.resourcesToBind.properties = $scope.optionsMap[$scope.optionUrl].get(actionURL).properties;	
+						}
 						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties);
 					}
 				} else {

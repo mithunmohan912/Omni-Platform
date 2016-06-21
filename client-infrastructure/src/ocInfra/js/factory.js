@@ -176,7 +176,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
     function _processOptions(responseData){
         var optionsMapForResource = new Map();
-        var propertiesObject = {};
+        
         if(responseData && responseData._options){
             var optiondataobj = responseData._options.links;
             if(optiondataobj !== undefined){
@@ -186,8 +186,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                         object.action = optionsObj.rel;
                         object.href = optionsObj.href;
                         object.httpmethod = optionsObj.method;
-                        
                         var schema = optionsObj.schema;
+                        var propertiesObject = {};
                         if(schema !== undefined){
                             var optionProp = schema.properties;
                             if(optionProp !== undefined){
@@ -201,14 +201,17 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                                     propertiesObject[key].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
                                     propertiesObject[key].consistent = true;
                                 });
-                            }   
+                            }
+                            object.properties = propertiesObject; 
                         }
                     }
-                    object.properties = propertiesObject;
                     console.log('Action: '+object.action);
                     console.log('HREF: '+object.href);
                     console.log('HTTP Method: '+object.httpmethod);
-                    optionsMapForResource.set(object.action, object);
+                    if(!optionsMapForResource.get(object.action)){
+                        optionsMapForResource.set(object.action, object);
+                    }
+
                 });    
             }
         }
@@ -354,8 +357,14 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         };
         
         if(responseData && responseData._links && responseData._options){
-            resource.href = responseData._links.self.href;
-            resource.up = responseData._links.up.href;
+
+            if(responseData._links.self){
+                resource.href = responseData._links.self.href;    
+            }
+
+            if(responseData._links.up){
+                resource.up = responseData._links.up.href;    
+            }
 
             resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
@@ -943,7 +952,7 @@ function setDataToParams($scope, properties, params){
             var type = properties[key].metainfo.type;
             
             if(type !== undefined && type==='static'){
-                value = val.value;
+                value = properties[key].metainfo.value;
             }
 
             if(value === null || value === undefined || value === '' || value === 'undefined'){
