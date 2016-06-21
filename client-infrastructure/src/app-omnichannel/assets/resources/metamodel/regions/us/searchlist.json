@@ -1,23 +1,18 @@
 {
     "metamodel": {
-        "id": "quotesearchlist",
-        "title": "Quote Search List",
-        "searching": true,
-        "name":"quoteList",
-        "pagination": "true",
         "summary": true,
-        "actionurl": "/screen/quotessearch",
+        "searching": true,
+        "pagination": true,
         "properties": [
             {
-                "id": "quote_risk:risk_type",
-                "label_header": "_PRODUCT_TYPE",
-                "type": "icon",
-                "align": "center",
-                "visible": true,
-                "width": "5%"
+    	       "label_header": "_QUOTE_STATUS",
+    	       "type": "label",
+    	       "align": "left",
+    	       "visible": true,
+    	       "width": "10%"   
             },
             {
-                "id": "quote:identifier",
+                "id": "contract:number",
                 "label_header": "_NUMBER",
                 "type": "label",
                 "align": "left",
@@ -25,7 +20,7 @@
                 "width": "10%"
             },
             {
-                "id": "quote_owner:name",
+                "id": "person:last_name",
                 "label_header": "_NAME",
                 "type": "label",
                 "align": "left",
@@ -33,44 +28,26 @@
                 "width": "10%"
             },
             {
-                "id": "quote:contract_start_date",
+                "id": "contract:start_date",
                 "label_header": "_Effective_Date",
                 "type": "date",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
-            {
-                "id": "quote:distributor_id",                
-                "label_header": "_DISTRIBUTOR_ID",
+            {              
+                "label_header": "_CITY",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
-            {
-                "id": "quote:description",                
-                "label_header": "_DESCRIPTION",
+            {            
+                "label_header": "_STATE",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "15%"
-            },
-            {
-                "id": "quote_risk:display_id",
-                "label_header": "_RISK_DATA",
-                "type": "label",
-                "align": "left",
-                "visible": true,
-                "width": "15%"
-            },
-            {
-                "id": "quote:product_id",
-                "label_header": "_PRODUCT_ID",
-                "type": "label",
-                "align": "left",
-                "visible": true,
-                "width": "10%"
             },
             {
                 "type": "dropdown",
@@ -81,10 +58,16 @@
                 "space":"nowrap",
                 "options": [
                     {
+                        "value": "inquire",
+                        "icon": "flaticon-question",
+                        "title": "_INQUIRE",
+                        "actionurl": "/us/screen/hoquoteinquire"
+                    },
+                    {
                         "value": "edit",
                         "icon": "fa fa-edit",
-                        "title": "_EDIT",
-                        "actionurl": "/eu/screen/autocreate",
+			            "title": "_EDIT",
+			            "actionurl": "/us/screen/quotesedit",
                         "visibleWhen": {
                             "expression": {
                                 "operator": "OR",
@@ -110,19 +93,6 @@
                         }
                     },
                     {
-                        "value": "fetch",
-                        "icon": "fa fa-edit",
-                        "action": "fetch",
-                        "title": "_EDIT",
-                        "actionurl": "/eu/screen/quotescreate",
-                        "visibleWhen": {
-                            "expression": {
-                                "field": "quote:product_id",
-                                "value": "IN005"
-                            }
-                        }
-                    },
-                    {
                         "value": "delete",
                         "action": "delete",
                         "icon": "glyphicon glyphicon-trash",
@@ -139,8 +109,6 @@
                 "MC002": "flaticon-auto", 
                 "IN005": "flaticon-home", 
                 "AX009": "flaticon-auto"  
-
             }
-        
     }
 }

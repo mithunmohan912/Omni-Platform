@@ -5,7 +5,7 @@
 
 	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')" class="col-xs-12">
 	
-			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
+			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 			<input  class="form-control"
 					autocomplete="off"
 					id="{{field.id}}"
@@ -27,7 +27,7 @@
 					format-date />
 			<i class="form-control-feedback fa fa-lg fa-calendar"></i>
 		
-			<div ng-include="'ocInfra/templates/components/backend-error-display.html'"></div>
+			<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>
 
 </span>

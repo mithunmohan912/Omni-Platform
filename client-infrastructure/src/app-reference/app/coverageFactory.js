@@ -6,7 +6,7 @@ global app
 
 app.factory('coverageFactory', function($rootScope, $location, resourceFactory){
 	return {
-		next: function(resource) {
+		toOffer: function(resource) {
 			resourceFactory.refresh(resource.href + '/operations/transferToOffer/status_report').then(function(response) {
 				var data = response.data || response;
 				if (data.consistent) {
@@ -20,7 +20,7 @@ app.factory('coverageFactory', function($rootScope, $location, resourceFactory){
 				}
 			});
 		},
-		back: function() {
+		toQuote: function() {
 			$location.path('/screen/quote');
 		}
 	};

@@ -40,7 +40,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 promise.then(function(response) {
                     var previous = resourceDirectory[url];
                     resourceDirectory[url] = response;
-                    $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
 
                 }, function(error) {
                     console.error(error);
@@ -50,7 +50,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         } else {
             promise = $q(function(resolve) {
                 if (resourceDirectory[url] === PENDING_REQUEST) {
-                    $rootScope.$on('resourceDirectory', function(event, data) {
+                    $rootScope.$on('resource_directory', function(event, data) {
                         if (data.url === url) {
                             resolve(resourceDirectory[url]);
                         }
@@ -90,7 +90,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': undefined });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });
 
             }, function(error) {
                 //console.error(error);
@@ -112,7 +112,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
                 resourceDirectory[url] = null;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
                 
 
             }, function(error) {
@@ -135,9 +135,14 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         if (promise.then) {
             promise.then(function(response) {
                 var previous = resourceDirectory[url];
-                data = {};
-                _refresh(url, data, headers);
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response, 'previous': previous });
+
+                resourceDirectory[url] = response;
+                //Is this really needed?? After the patch call, the entity data is already up to date. 
+                // data = {};
+                // _refresh(url, data, headers);
+
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
+
                 
             }, function(error) {
                 console.error(error);
@@ -147,17 +152,18 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return promise;
     }
 
-    function _execute(url, params, headers, method) {
+    function _execute(url, data, params, headers, method) {
         var promise = $http({
                 method: method,
                 url: url,
                 headers: headers,
-                data: params
+                data: data,
+                params: params
         });
         if (promise.then) {
             promise.then(function(response) {
                 resourceDirectory[url] = response.data;
-                $rootScope.$broadcast('resourceDirectory', { 'url': url, 'response': response });
+                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
 
             }, function(error) {
                 console.error(error);
