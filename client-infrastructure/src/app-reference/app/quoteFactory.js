@@ -17,7 +17,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 	}
 
 	return {
-		next: function(resource) {
+		toCoverage: function(resource) {
 			$rootScope.resourceUrl = resource.href;
 			$location.path('/screen/coverage');
 		},
@@ -25,27 +25,8 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			$rootScope.resourceUrl = null;
 			$location.path('/screen/dashboard');
 		},
-		saveQuote: function(resource, properties, callback){
-			var payloads = {};
-			if (properties) {
-				for(var key in properties){
-					if(properties[key] && properties[key].self){
-						var href = properties[key].self;
-						payloads[href] = payloads[href] || {};
-						if (properties[key].editable) {
-							payloads[href][key] = properties[key].value;
-						}
-					}
-				}
-
-				Object.keys(payloads).forEach(function(resourceURL){
-					resourceFactory.patch(resourceURL, payloads[resourceURL]).then(function() {
-						if (callback) {
-							callback();
-						}
-					});
-				});
-			}
+		saveQuote: function(/*resource, properties, callback*/){
+			$rootScope.$broadcast('patch_renderer', {save: true});
 		},
 		searchByName: function(element){
 
@@ -68,7 +49,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 				});
 			});	
 		},
-		selectPerson: function(element){
+		selectPersonOrg: function(element){
 
 			var payload = {};
 			var link = '';

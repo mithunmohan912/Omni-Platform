@@ -47,6 +47,7 @@ td, th, tbody, thead {
 	position:absolute;
 	bottom: 40%;
 	left: 100%;
+	z-index: 2;
 }
 
 .backend-status>i{
@@ -229,4 +230,16 @@ span.form-group>label{
 	max-height: 520px; 
 	max-width: 800px;
 	position: fixed;
+}
+
+@media only screen and (min-width: 1025px) {
+
+	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	   text-align: left;
+	}
+}
+
+.btn-group .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
 }

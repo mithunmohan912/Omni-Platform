@@ -5,11 +5,13 @@
                 "properties": [
                     {
                         "type": "buttonGroup",
+                        "colspan": 12,
                         "buttons": [
                             {
                                 "icon": "fa-save",
                                 "tooltip": "Save quote",
-                                "action": "saveQuote"
+                                "action": "saveQuote",
+                                "label": ""
                             }
                         ]
                     }
@@ -18,11 +20,35 @@
             {
                 "properties": [
                     {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quote",
+                                "action": "toQuote",
+                                "title": "_QUOTE_TAB"
+                            },
+                            {
+                                "screenId": "coverage",
+                                "action": "toCoverage",
+                                "title": "_COVERAGE_TAB"
+                            },
+                            {
+                                "screenId": "offer",
+                                "action": "toOffer",
+                                "title": "_OFFER_TAB"
+                            }
+                        ]
+                    },
+                    {
                         "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "next"
+                                "action": "toCoverage"
                             },
                             {
                                 "label": "_BACK",
@@ -56,6 +82,7 @@
                 "properties": [
                     {
                         "type": "popup",
+                        "colspan": 6,
                         "popup": {
                             "name": "editQuoteData",
                             "label": "_EDIT_QUOTE_DATA",
@@ -97,9 +124,7 @@
                     {
                         "id": "quote:quote_risk_list",
                         "type": "table",
-                        "metamodel": "quote_risk_list",
-                        "row": 3,
-                        "column": 1
+                        "metamodel": "quote_risk_list"
                     }
                 ]
             },
@@ -124,7 +149,8 @@
                     },
                     {
                         "id": "quote_automobile:ext_victim_claims_number",
-                        "type": "number",
+                        "type": "text",
+                        "format": "password",
                         "label": "_VICTIM_CLAIMS",
                         "patchOnBlur": true
                     },

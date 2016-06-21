@@ -18,15 +18,39 @@
             {
                 "properties": [
                     {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quote",
+                                "action": "toQuote",
+                                "title": "_QUOTE_TAB"
+                            },
+                            {
+                                "screenId": "coverage",
+                                "action": "toCoverage",
+                                "title": "_COVERAGE_TAB"
+                            },
+                            {
+                                "screenId": "offer",
+                                "action": "toOffer",
+                                "title": "_OFFER_TAB"
+                            }
+                        ]
+                    },
+                    {
                         "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "next"
+                                "action": "toOffer"
                             },
                             {
                                 "label": "_BACK",
-                                "action": "back"
+                                "action": "toQuote"
                             }
                         ]
                     }
