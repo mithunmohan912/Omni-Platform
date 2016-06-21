@@ -7,7 +7,7 @@ module.exports = {
   },
   main: {
     configFile: 'karma.conf.js',
-    singleRun: false,
+    singleRun: true,
     autoWatch: true
   }
 };
