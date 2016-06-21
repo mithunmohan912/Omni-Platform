@@ -1,6 +1,43 @@
 {
     "metamodel": {
     	"sections": [
+            {
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quote",
+                                "action": "toQuote",
+                                "title": "_QUOTE_TAB"
+                            },
+                            {
+                                "screenId": "coverage",
+                                "action": "toCoverage",
+                                "title": "_COVERAGE_TAB"
+                            },
+                            {
+                                "screenId": "offer",
+                                "action": "toOffer",
+                                "title": "_OFFER_TAB"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                ]
+            },
     		{
     			"title": "_CONTRACT_INFO",
     			"underline": true,
@@ -11,7 +48,35 @@
                         "label": "_EXTERNAL_CONTRACT_NUMBER"
                     }
     			]
-    		}
-    	]
+    		},
+            {
+                "title": "_PARTY_ROLES",
+                "underline": true,
+                "properties":  [
+                    {
+                        "id": "contract:role_list",
+                        "type": "table",
+                        "metamodel": "offer_partyroles_list"
+                    }
+                ]
+            }
+    	],
+        "businessObject": {
+            "contract": [ 
+                    "contract:role_list"
+            ],
+            "party_role": [
+                    "party_role:person",
+                    "party_role:organization"
+            ],
+            "person": [
+                    "person:postal_address_list",
+                    "person:e_mail_address_list"
+            ],
+            "organization": [
+                    "organization:postal_address_list",
+                    "organization:e_mail_address_list"
+            ]
+        }
     }
 }

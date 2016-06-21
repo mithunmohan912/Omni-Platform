@@ -26,12 +26,6 @@ return {
 			$scope.resultSet = {};
 
 			$scope.resetDisabled = false;
-			$scope.screenFactoryName = $location.path().split('/screen/')[1].split('/')[0] + 'Factory';
-			try {
-				$scope.actionFactory = $injector.get($scope.screenFactoryName);
-			} catch(e) {
-				console.log($scope.screenFactoryName + 'not found');
-			}
 
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
@@ -43,7 +37,7 @@ return {
 			}
 
 
-			$scope.$on('resourceDirectory', function(event, params){
+			$scope.$on('resource_directory', function(event, params){
 				if($scope.resourceUrl && params.url.indexOf($scope.resourceUrl) >= 0){
 					if (params.response.config.method !== 'DELETE') {
 						$scope.resultSet = {};
@@ -61,7 +55,7 @@ return {
 				}				
 			});
 
-			$scope.$on('refreshPopUp', function(event, params) {
+			$scope.$on('refresh_popUp', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, true);
 				}
@@ -109,6 +103,13 @@ return {
 				// Default labels and actions
 				_initLabels();
 				_initActions();
+
+				$scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
+				try {
+					$scope.actionFactory = $injector.get($scope.screenFactoryName);
+				} catch(e) {
+					console.log($scope.screenFactoryName + 'not found');
+				}
 			}	
 
 
@@ -163,11 +164,12 @@ return {
 			}
 
 			$scope.execute = function(action) {
-				if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
-				} else {
+				if (typeof action === 'function') {
 					//default actions case
-					action();				
+					action();
+					
+				} else if($scope.actionFactory[action]){
+					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
 				}
 
 			};

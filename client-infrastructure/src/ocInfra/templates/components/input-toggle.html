@@ -1,7 +1,7 @@
 <span class="form-group">
     <label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
     <span class="col-xs-12" ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')">
-        <div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
+        <div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
         <label  class="btn btn-default col-xs-6"
                 name="{{field.name}}"
 
@@ -26,7 +26,7 @@
             <span>{{field.attributes.true_label | translate}}</span>
         </label>
             
-        <div ng-include="'ocInfra/templates/components/backend-error-display.html'"></div>
+        <div ng-include="baseUrl + 'backend-error-display.html'"></div>
     </span>
 </span>
 
