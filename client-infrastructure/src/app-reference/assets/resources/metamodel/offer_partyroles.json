@@ -1,8 +1,8 @@
 {
     "metamodel" : {
-        "name":"quote_owner",
+        "name":"offer_partyroles",
         "labels": {
-            "title": "_OWNER_POPUP",
+            "title": "_PARTY_ROLE_POPUP",
             "ok": "_SAVE",
             "close": "_CLOSE"
         },
@@ -11,20 +11,14 @@
             {
             "properties": [
                 {
-                    "id": "quote_owner:legal_classification",
-                    "label": "_LEGAL_ACTIVITY_CLASS",
-                    "type": "select",
-                    "row": 2
-                },
-                {
-                    "id": "quote_owner:type",
-                    "label": "_OWNER_TYPE",
+                    "id": "party_role:party_type",
+                    "label": "_PARTY_TYPE",
                     "type": "select",
                     "row": 1,
                     "patchOnBlur": true
                 },
                 {
-                    "id": ["person:last_name","organization:name", "quote_owner:name"],
+                    "id": ["person:last_name","organization:name"],
                     "label": "_NAME",
                     "type": "autocomplete",
                     "row": 2,
@@ -34,7 +28,7 @@
                         } 
                 },
                 {
-                    "id": ["person:name", "quote_owner:first_name"],
+                    "id": "person:name",
                     "type": "autocomplete",
                     "label": "_FIRSTNAME",
                     "attributes": {
@@ -44,14 +38,14 @@
                     "row": 3
                 },
                 {
-                    "id": ["person:birth_date", "quote_owner:birth_date"],
+                    "id": "person:birth_date",
                     "type": "date",
                     "label": "_DOB",
                     "row": 3,
                     "input": true
                 },
                 {
-                    "id": ["postal_address:postal_code", "quote_owner:postal_code"],
+                    "id": "postal_address:postal_code",
                     "type": "autocomplete",
                     "label": "_POSTALCODE",
                     "selector": ["postal_address:preferred", "operation_status"],
@@ -63,73 +57,48 @@
                     "row": 4
                 },
                  {
-                    "id": ["postal_address:street_name", "quote_owner:street_name"],
+                    "id": "postal_address:street_name",
                     "type": "autocomplete",
                     "label": "_STREET_NAME",
                     "selector": ["postal_address:preferred", "operation_status"],
                     "row": 5
                 },
                   {
-                    "id": ["postal_address:city_name", "quote_owner:city"],
+                    "id": "postal_address:city_name",
                     "type": "autocomplete",
                     "label": "_CITY",
                     "selector": ["postal_address:preferred", "operation_status"],
                     "row": 4
                 },
                  {
-                    "id": ["postal_address:box_number","quote_owner:box_number"],
+                    "id": "postal_address:box_number",
                     "type": "autocomplete",
                     "label": "_BOX_NO",
                     "selector": ["postal_address:preferred", "operation_status"],
                     "row": 5
                 },
                  {
-                    "id": ["postal_address:street_number", "quote_owner:street_number"],
+                    "id": "postal_address:street_number",
                     "type": "text",
                     "label": "_STREET_NUMBER",
                     "selector": ["postal_address:preferred", "operation_status"],
                     "row": 6
                 },
-                 {
-                    "id": ["e_mail_address:text", "quote_owner:email"],
+                {
+                    "id": "e_mail_address:text",
                     "type": "email",
                     "label": "_EMAIL",
                     "row": 6
                 }
 
             ]
-       },
-
-       {
-        "title": "_ADD_ADDRESS",
-        "underline": true,
-        "colspan":8,
-        "properties": []
-       },
-       {        
-                "colspan":2,
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                "icon": "fa-plus",
-                                "tooltip": "Add",
-                                "action": "addAddress"
-                            }
-                        ]
-                    }
-                ]
        }
-
-
-
        ],
 
        "businessObject": {
-            "quote_owner": [
-                    "quote_owner:person_link",
-                    "quote_owner:organization_link"
+            "party_role": [
+                    "party_role:person",
+                    "party_role:organization"
             ],
             "person": [
                     "person:postal_address_list",
@@ -140,23 +109,6 @@
                     "organization:postal_address_list",
                     "organization:e_mail_address_list"
             ]
-        },
-    
-    "actions": 
-       {
-
-            "reset": {
-                "links":["quote_owner:person_link", "quote_owner:organization_link"]
-            },
-            "ok": {
-                "callback": "callbackQuoteOwner"
-            },
-            "close": {
-                "callback" : "closeOwnerPopUp"
-            }
-                      
-
         }
     }
-    
 }

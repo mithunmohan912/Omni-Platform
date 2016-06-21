@@ -539,9 +539,12 @@ The metamodel definition by default is as follows, a metamodel element that coul
 * __name__: name to link the actions in the table and the popup component.
 * __searching__: flag to show the searching input at the top of the table.
 * __pagination__: flag to show the pagination footer.
-* __buttonLabel__: the button that could be included at the bottom of the table to add a new item to the collection.
-* __modalRef__: metadata file relative path that includes the metadata definition for the popup. These last two attributes are mandatory only if the table has to include a modal screen.
 * __header__: flag to indicate whether the table has to shown a header or not.
+* __buttons__: flag to indicate if there will be buttons at the bottom of the table.
+* __buttonLabel__: label for the button that could be included at the bottom of the table to add a new item to the collection.
+* __buttonMethod__: optional, name of the function in the custom factory that is going to overwrite the default action.
+* __buttonCallback__: optional, name of the function in the custom factory that is going to be executed after the default action.
+* __modalRef__: metadata file relative path that includes the metadata definition for the popup.
 * __properties__: list of fields that the table is going to include, one for each table column.
 
 Example:
@@ -653,6 +656,7 @@ Action type defines a list of actions to be included for each item in the table.
 * __title__: optional, text that could be displayed as a link. 
 * __icon__: optional, image of the action.
 * __method__: optional, name of the function in the custom factory that is going to overwrite the default action, it receives as a parameter the resource selected.
+* __callback__: optional, name of the function in the custom factory that is going to be executed after the default action.
 
 Example:
 
@@ -855,7 +859,7 @@ _2. Helper methods for preparing the rendering objects can be seen directly in t
 
 > Since the renderer will be used inside other components (like the _renderer_ itself or the _popup_), it will have to listen to some events ([_reset\_renderer_](#reset_renderer), [_patch\_renderer_](#patch_renderer)) in order to reset the data it is being shown or to patch the values that have changed so far.
 
-###### resourceDirectory
+###### resource_directory
 The resourceDirectory event is broadcasted every time the resource directory gets updated, so it is thrown by the resource factory after every _GET_, _PATCH_, _POST_ or _DELETE_ operation that involves an interaction with the backend (when a GET returns a cached result the event is not thrown). A common use for this event is to listen to it in order to know when a resource has changed and, therefore, when a component will have to refresh.
 
 ###### reset_renderer
@@ -867,15 +871,15 @@ As of today, this event is broadcasted from the _popup_ directive save action an
 ###### close_popUp_renderer
 This event is thrown by the _popup_ to pass the renderer a callback to be executed when the popup gets closed.
 
-###### refreshPopUp
-The _refreshPopUp_ event is used to prepare the data that the popup will have to show.
+###### refresh_popUp
+The _refresh_popUp_ event is used to prepare the data that the popup will have to show.
 
 When a popup is closed it does not disappear from the HTML code, it stills underneath, so opening again the same resource will show the values it had when the popup got closed. In most cases that is not a problem, but if the resource got updated between those 2 opens of the popup it will probably display the data we don't want.
 
 If we can anticipate those cases, we could broadcast this event to force the refresh of the popup's data.
 
-###### refreshTable 
-This event is similar to the [_refreshPopUp_](#refreshPopUp) event.
+###### refresh_table 
+This event is similar to the [_refresh_popUp_](#refresh_popup) event.
 
 In some cases updating a resource will impact the resources within a collection or the collection itself, event if the updated resource is not contained in that collection. Since a collection listens only to itself or its items, it will not notice when it has to refresh the data.
 

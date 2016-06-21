@@ -27,6 +27,11 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             if($rootScope.metamodel !== undefined){
                 $rootScope.metamodel[screenId] = m.metamodel;    
             }
+
+            // Initialize colspan and offset if they do not exist
+            m.metamodel.colspan = m.metamodel.colspan || 12;
+            m.metamodel.offset = m.metamodel.offset || 0;
+
             if (m.include && m.include.length > 0) {
                 loadReferencedMetaModels(growl, scope, m, screenId, onSuccess, $resource, $q, $rootScope, $browser, regionId, resolve);
             } else {
@@ -263,7 +268,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     propertiesObject[property].value = responseData[property];
                     propertiesObject[property].self = resourceURL;
                     propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
-                    propertiesObject[property].editable = (updateCRUD !== undefined && (property in updateCRUD.schema.properties));
+                    propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
                     propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
                     propertiesObject[property].consistent = true;
                 }
@@ -385,6 +390,27 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         return resource;
     }
 
+
+    this.getDefaultValues = function(action, metaModel){
+        var properties = {};
+
+            if(metaModel.defaultValue !== undefined){
+                angular.forEach(metaModel.defaultValue, function(resource) {
+                    if(action ===resource.action){
+                        if(resource.value === 'Date'){
+                            resource.value = formatIntoDate(new Date());    
+                        }
+
+                        properties[resource.field] = {value: resource.value};
+                        
+                    }
+                });
+            }
+
+
+        return properties;
+
+    };
 
     /*============================================= END Helper methods for components =============================================*/
 
@@ -986,7 +1012,8 @@ function setDataToParams($scope, properties, params){
            // var href = properties[key].self;
 
             var value = properties[key].value;
-            var type = properties[key].metainfo.type;
+            //JsHint issues. Varialbe definde but not used
+            // var type = properties[key].metainfo.type;
             
             if(value === null || value === undefined || value === '' || value === 'undefined'){
                 //continue
