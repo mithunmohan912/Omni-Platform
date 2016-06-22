@@ -160,6 +160,14 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
     };
 });
 
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function($scope, actionURL, optionsMap, properties){
+           quotessearchFactory.actionHandling($scope, actionURL, optionsMap, properties);
+        }
+    };
+});
+
 app.factory('loginFactory', function($rootScope, $filter, $http, growl){
     return {
         navigateToScreen: function($scope, actionURL){
