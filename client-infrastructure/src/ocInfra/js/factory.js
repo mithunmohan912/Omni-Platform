@@ -665,10 +665,8 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
     //$scope.resourceUrl = url;
     var params={};
-
-    options.properties = setDataIntoProperties(options.properties, properties);
     //Set the params data from the screen per the schema object for the given action (from the options object)
-    params = setDataToParams($scope, options.properties, params);
+    params = setDataToParams(properties, params);
 
     if(httpmethod==='GET'){
         $rootScope.loader.loading=true;    
@@ -971,11 +969,10 @@ function setData($scope, schema, object){
     return object;
 }
 
-function setDataIntoProperties(properties, propertiesData){
-    
-    if(propertiesData !== undefined && properties !== undefined){
-        angular.forEach(propertiesData, function(val, key){
-            var value = propertiesData[key].value;
+function setDataToParams(properties, params){
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key){
+            var value = properties[key].value;
             var type = properties[key].metainfo.type;
             
             if(type !== undefined && type==='static'){
@@ -1000,30 +997,11 @@ function setDataIntoProperties(properties, propertiesData){
                         value = value.value;
                     }
                 }
-                properties[key].value = value;
-            }
-        });
-    }
-    return properties;
-}
-function setDataToParams($scope, properties, params){
-     if(properties !== undefined){
-        angular.forEach(properties, function(val, key){  
-           // var href = properties[key].self;
-
-            var value = properties[key].value;
-            //JsHint issues. Varialbe definde but not used
-            // var type = properties[key].metainfo.type;
-            
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
-                //continue
-            }else{
                 console.log(key +' : '+value);
                 params[key] = value;
             }
         });    
     }
-    
     return params;
 }
 
