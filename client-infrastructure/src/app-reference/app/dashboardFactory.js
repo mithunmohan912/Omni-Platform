@@ -25,9 +25,10 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 			//Default values:
 			var payload = {};
 
-			for (var key in properties){
-				payload[key] = properties[key].value ? properties[key].value : defaultValues[key].value;
-
+			for (var key in defaultValues){
+                	if(defaultValues[key] !== undefined){
+                    	payload[key] = defaultValues[key].value;    
+                	}
 			}
 			
 			resourceFactory.post($rootScope.hostURL+'quotes', payload, $rootScope.headers).then(function(response) {
