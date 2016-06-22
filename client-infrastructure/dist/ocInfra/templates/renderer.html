@@ -1,21 +1,21 @@
 <div ng-include src="config.templates.mainTabsTemplate"></div>
-<form class="form-horizontal" id="{{metadata[screenId].formid}}" ng-submit="save(data)" novalidate>
+<form class="form-horizontal" id="{{metamodel[screenId].formid}}" ng-submit="save(data)" novalidate>
     <div>
         <!-- Work flow Section -->
-        <div class="form-group wizardMargin" ng-repeat="workflowGrp in metadata[screenId].workflowGrp">
+        <div class="form-group wizardMargin" ng-repeat="workflowGrp in metamodel[screenId].workflowGrp">
             <div ng-include src="config.templates.workflow"></div>
         </div>
          <div growl></div>
         <!-- top button group section -->
-        <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metadata[screenId].buttonGrp">
+        <div class="form-group wizardMargin marginbottom0px" ng-repeat="section in metamodel[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
-        
-        <div quick-ng-repeat="section in metadata[screenId].sections"  quick-repeat-list="metadata[screenId].sections">
+        <div class="desktop">
+        <div quick-ng-repeat="section in metamodel[screenId].sections"  quick-repeat-list="metamodel[screenId].sections">
 
            
             <div ng-if="section.$ref !== ''" ng-init="screenId=section.$ref" ng-show="section.step == step">
-                <div ng-repeat="section in metadata[screenId].sections" ng-include="'sectionRenderer.html'"  class="container-fluid tab-content">
+                <div ng-repeat="section in metamodel[screenId].sections" ng-include="'sectionRenderer.html'" >
                 </div>
             </div>
             
@@ -24,8 +24,9 @@
                 </div>
             </div>
         </div>
+        </div>
         <!-- bottom button group section -->
-        <div class="form-group wizardMargin" ng-repeat="section in metadata[screenId].buttonGrp">
+        <div class="form-group wizardMargin" ng-repeat="section in metamodel[screenId].buttonGrp">
             <div ng-include src="config.templates.buttongroup"></div>
         </div>
     </div>
@@ -37,8 +38,12 @@
     <div class="">
         <div ng-include src="config.templates.header"></div>
     </div>
-    <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}</h3>
-    <div class="hr_margin">
+    <div>
+    <h3 class="sectionlabel" id="label_{{section.name}}" ng-if="section.hidetitle !== true">{{locale[section.title]}}
+    <button ng-if="metamodel[screenId].createButton" style="float:right;" id="{{metamodel[screenId].button.name}}" class="oc-btn oc-btn-small {{metamodel[screenId].button.icon}}" ng-click="doaction(metamodel[screenId].button.method, section, metamodel[screenId].button.action,metamodel[screenId].button.actionurl,metamodel[screenId].button.nextScreenId)">{{(locale[metamodel[screenId].button.label]?locale[metamodel[screenId].button.label] : metamodel[screenId].button.label)}}
+    </button></h3>
+    </div>
+    <div class="hr_margin" ng-if="section.title && section.hidetitle !== true">
         <hr class="onl_hrOr_1" ng-if="section.title && section.hidetitle !== true">
         <hr class="onl_hrOr_2" ng-if="section.title && section.hidetitle !== true">
     </div> 
@@ -51,7 +56,11 @@
           <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
-              <span class="{{section.icon}}"></span>{{locale[section.labelDisplay]}}
+            <div class="text-center">
+              <span class="{{section.icon}}"></span>
+              
+              <div class="text-center">{{locale[section.labelDisplay]}}  <span class="flag {{section.iconflags}}"></span></div>
+            </div>
             </a>
           </div>
         </div>
@@ -83,7 +92,7 @@
                     <div ng-switch-when="nonaccordion" class="form-group marginbottom0px col-md-{{subsection.columnsize}}">
                         <div quick-ng-repeat="field in subsection.elements" quick-repeat-list="subsection.elements" class="col-md-{{field.columnsize}}" ng-show="checkvisible(field)">
                             <div ng-if="field.$ref !== ''">
-                                <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                                     <div ng-include src="config.templates.layout"></div>
                                 </div>
                             </div>
@@ -99,7 +108,7 @@
             <div class="form-group marginbottom0px col-md-{{section.columnsize}}">
                 <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
                     <div ng-if="field.$ref !== ''">
-                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                        <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                             <div ng-include src="config.templates.layout"></div>
                         </div>
                     </div>
@@ -122,13 +131,14 @@
                         <div class="oc-modal-header border-none">
                             <div ng-if="section.logodir == true" class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>
                             <h3 class="text-left">{{locale[section.title]}}</h3>
-                            <hr class="onl_hrOr_1"><hr class="onl_hrOr_2">
+                            <hr ng-if="screenId!=='anonymous'"class="onl_hrOr_1"><hr ng-if="screenId!=='anonymous'" class="onl_hrOr_2">
+                            <hr ng-if="screenId=='anonymous'" class="onl_hrOr_2" style="width:100%">
                         </div>
 
                         <div class="modal-body">
                                 <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
                                     <div ng-if="field.$ref !== ''">
-                                        <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
+                                        <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
                                             <div ng-include src="config.templates.layout"></div>
                                         </div>
                                     </div>

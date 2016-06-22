@@ -1,33 +1,31 @@
 <div>
     <div class="col-md-12">
-<div name="table-header" class="row"  ng-if="screenId === 'landingPage'">
-    <label class="pull-left">{{locale["_RESULTS"]}} :{{stTableList.length}}</label>
-    <label class="pull-right"><a class="source_sans-bold" ng-click="navigate(field.tableMetaData.actionurl, field.tableMetaData.name);">
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>{{locale["_ADVANCED_SEARCH"]}} </a></label>
+<div name="table-header" class="row">
+    <label class="pull-left">{{locale["_RESULTS"]}} :  {{stTableList.length}}</label>
+    <!-- <label class="pull-right"><a class="source_sans-bold" ng-click="navigate(field.tableMetaData.actionurl, field.tableMetaData.name);">
+-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>{{locale["_ADVANCED_SEARCH"]}} </a></label> -->
 </div>
 </div>
 <div name="table" id="no-more-tables">
     <table st-safe-src="stTableList" st-table="displayed" class="col-md-12 table-bordered table-striped table-condensed cf">
     <thead class="cf">
+        <tr ng-show="field.tableMetaData.searching">
+            <th colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
+                <input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_RESULTS"]}} type="search" />
+            </th>
+        </tr>
         <tr>
             <th ng-attr-style="width:{{columns.width}};text-align:{{columns.align}}; "  ng-repeat="columns in field.tableMetaData.element | filter:visible=true">{{locale[columns.displayName]}}</th>
-        </tr>
-        <tr ng-show="field.tableMetaData.searching">
-            <th ng-attr-style="width:{{column.width}}; text-align:{{column.align}};"  colspan="{{(field.tableMetaData.element | filter:visible=true).length}}">
-                <!--input ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" /-->
-                <input ng-if="screenId === 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_TXFRITEMS_PAGE"]}} type="search" />
-                <input ng-if="screenId !== 'txfritemsearch'" ng-model="searchText" class="form-control" placeholder={{locale["_FILTER_QUOTES_ON_THIS_PAGE"]}} type="search" />
-            </th>
         </tr>
     </thead>
 
     <tbody>
-        <tr ng-hide="showResult">
+        <tr ng-hide="stTableList.showResult">
             <td colspan="5"><span>{{locale["_Quote_data_not _found"]}}.</span></td>
         </tr>
-        <tr ng-repeat="row in displayed | filter:searchText" ng-show="showResult">
+        <tr ng-repeat="row in displayed | filter:searchText" ng-show="stTableList.showResult">
 
-            <td ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
+            <td class="iconTable" ng-attr-style="width:{{column.width}}; text-align:{{column.align}};" data-title="{{locale[column.displayName]}}" ng-repeat="column in field.tableMetaData.element">
                 <ng-switch on="column.type">
                     <!-- Label -->
                     <span ng-switch-when="label">{{row.summary[column.quoteField]}} {{row.summary[column.contractField]}}</span>
@@ -46,10 +44,10 @@
                     <span ng-switch-when="linklabel">
                         <ng-switch on="column.action">
                             <span ng-switch-when="Edit">
-                                <a style="cursor:pointer;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="editItem(row, field.tableMetaData.id);">{{column.action}}</a>      
                             </span>
                         <span ng-switch-when="Delete">
-                                <a style="cursor:pointer;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
+                                <a style="cursor:pointer; text-decoration: none;" ng-click="deleteItem(row, field.tableMetaData.id);">{{column.action}}</a>        
                             </span>
                         </ng-switch>
                     </span>
@@ -69,8 +67,8 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="16" class="text-center" style="text-align: center;padding-left:0px">
-                <div st-items-by-page="5" st-pagination="" st-template="ocinfra/templates/stpaging.html">
+            <td colspan="16" class="text-right" style="padding-left:0px">
+                <div st-items-by-page="5" class="pag-right" st-pagination="" st-template="ocInfra/templates/stpaging.html">
                 </div>
             </td>
         </tr>

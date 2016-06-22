@@ -19,12 +19,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
-					//_init(data);
+					_init(data);
 				});
 			} else {
 				_processMetamodel(metamodelObject);
 				_options(metamodelObject);
-				//_init(metamodelObject);
+				_init(metamodelObject);
 			}
 
 			$scope.$watch('resourceUrl', function(newValue, oldValue){
