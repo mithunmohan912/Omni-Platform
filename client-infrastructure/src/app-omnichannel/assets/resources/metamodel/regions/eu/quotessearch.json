@@ -2,6 +2,23 @@
     "metamodel": {
         "resource": "quotes",
         "summary": true,
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            },
+            {
+                "field": "quote:product_id",
+                "value": "IN005",
+                "action": "create"
+            }
+        ],
         "sections": [
             {
                            "properties": [
@@ -9,9 +26,10 @@
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
-                                        "action": "actionHandling",
-                                        "actionURL": "create",
-                                        "label": "_CREATE_QUOTE"
+                                        "method": "actionHandling",
+                                        "action": "create",
+                                        "label": "_CREATE",
+                                        "actionURL": "/eu/screen/quotescreate"
                                     }
                                 ]
                             }
@@ -114,8 +132,8 @@
                                 "buttons" : [
                                     {
                                         "label": "_SEARCH",
-                                        "action":"actionHandling",
-                                        "actionURL":"search"
+                                        "method":"actionHandling",
+                                        "action":"search"
                                     }
                                 ]
                             }

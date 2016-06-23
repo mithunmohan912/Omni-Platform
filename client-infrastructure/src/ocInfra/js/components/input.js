@@ -169,7 +169,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 			defaults.textMask = {
 				'attributes': {
-					'capitalize': true,
+					'capitalize': false,
 					'mask': ''
 				},
 				'options': {}
@@ -177,7 +177,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 			defaults.text = {
 				'attributes': {
-					'capitalize': true,
+					'capitalize': false,
 					'maxlength': 9999999
 				},
 				'options': {},

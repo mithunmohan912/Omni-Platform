@@ -47,10 +47,10 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, optionsMap, properties, resourceFactory, resolve){        
+    this.handleAction=function($rootScope, $scope, action, actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve){        
         var options = optionsMap.get(action);
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
         } 
     };
 
@@ -658,30 +658,29 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
     console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
     //$scope.resourceUrl = url;
-    var params={};
-
-    options.properties = setDataIntoProperties(options.properties, properties);
-    //Set the params data from the screen per the schema object for the given action (from the options object)
-    params = setDataToParams($scope, options.properties, params);
-
+    
     if(httpmethod==='GET'){
+        var params={};
+        //Set the params data from the screen per the schema object for the given action (from the options object)
+        params = setDataToParams(properties, params);
+
         $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        console.log('Invoke GET Call---');
+
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
             var responseData = response.data || response;
-	    console.log('GET Call Successful---');
             $rootScope.loader.loading=false;
-
+            if(actionURL){
+                $rootScope.navigate(actionURL);
+            }
             //Load the results into the search results table
-            if(options.action==='search'){
-                
+            if(options.action==='search'){                
                 return responseData._links.item;   
             }
         }).error(function(){
@@ -690,32 +689,28 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
+        var params = {};
+        properties = loadFromDefaultSet(properties, defaultValues);
+        params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(httpResponse){
             var data = httpResponse.data || httpResponse;
         if (data) {
-                if($rootScope.regionId === 'us' ){
-                     if(data._links.self.quoteNumber !== undefined){
-                        $scope.data['quote:identifier']=data._links.self.quoteNumber;
-                        $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                     } 
-                     if(data.outcome === 'success'){
-                            angular.forEach(data.messages, function(value){
-                            growl.success(value.message);
-                        });
-                     } else{
-                        //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
-                        growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
-                     }  
-                } else {
-                    $rootScope.resourceHref = data._links.self.href;
-                    $rootScope.loader.loading=false;
-                    if(resolve) {
-                        resolve();
-                    }                    
-                }
+            $scope.resourceUrl= data._links.self.href;
+            $rootScope.resourceUrl= data._links.self.href;
+            console.log('Self link----'+$scope.resourceUrl);
+
+            if(actionURL){
+                $rootScope.navigate(actionURL);
             }
+           // $scope.optionUrl = data._links.self.href;
+            $rootScope.resourceHref = data._links.self.href;
+            $rootScope.loader.loading=false;
+            if(resolve) {
+                resolve();
+            }                    
+        }
         }).error(function(){
             $rootScope.loader.loading=false;
         });
@@ -971,11 +966,23 @@ function setData($scope, schema, object){
     return object;
 }
 
-function setDataIntoProperties(properties, propertiesData){
-    
-    if(propertiesData !== undefined && properties !== undefined){
-        angular.forEach(propertiesData, function(val, key){
-            var value = propertiesData[key].value;
+function loadFromDefaultSet(properties, defaultValues){
+    if(properties !== undefined && defaultValues !== undefined){
+        for (var key in properties) {
+            if (!properties[key].value) {
+                if(defaultValues[key] !== undefined){
+                    properties[key].value = defaultValues[key].value;    
+                }
+            }
+        }
+    }
+    return properties;
+}
+
+function setDataToParams(properties, params){
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key){
+            var value = properties[key].value;
             var type = properties[key].metainfo.type;
             
             if(type !== undefined && type==='static'){
@@ -1000,30 +1007,11 @@ function setDataIntoProperties(properties, propertiesData){
                         value = value.value;
                     }
                 }
-                properties[key].value = value;
-            }
-        });
-    }
-    return properties;
-}
-function setDataToParams($scope, properties, params){
-     if(properties !== undefined){
-        angular.forEach(properties, function(val, key){  
-           // var href = properties[key].self;
-
-            var value = properties[key].value;
-            //JsHint issues. Varialbe definde but not used
-            // var type = properties[key].metainfo.type;
-            
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
-                //continue
-            }else{
                 console.log(key +' : '+value);
                 params[key] = value;
             }
         });    
     }
-    
     return params;
 }
 

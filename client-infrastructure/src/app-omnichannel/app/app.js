@@ -124,15 +124,15 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
 app.factory('anonymousFactory', function($rootScope){
     return {
-        navigateToScreen: function($scope, actionURL){
-            if(actionURL === '/login'){
-                $rootScope.nextURL = actionURL;
-                $rootScope.navigate(actionURL);    
+        navigateToScreen: function($scope, inputComponent){
+            if(inputComponent.actionURL === '/login'){
+                $rootScope.nextURL = inputComponent.actionURL;
+                $rootScope.navigate(inputComponent.actionURL);    
             }else{
-               $rootScope.nextURL = actionURL;
-                $rootScope.navigate(actionURL);
+               $rootScope.nextURL = inputComponent.actionURL;
+                $rootScope.navigate(inputComponent.actionURL);
                 if($rootScope.regionId === undefined){
-                    var arr = actionURL.split('/');
+                    var arr = inputComponent.actionURL.split('/');
                     $rootScope.regionId = arr[1];
                 }
             }
@@ -142,27 +142,35 @@ app.factory('anonymousFactory', function($rootScope){
 
 app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     return {
-        navigateToScreen: function($scope, actionURL){
+        navigateToScreen: function($scope, inputComponent){
             $rootScope.resourceHref = undefined;
-            anonymousFactory.navigateToScreen($scope, actionURL);
+            anonymousFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory){
     return {
-        actionHandling: function($scope, actionURL, optionsMap, properties){
+        actionHandling: function($scope, inputComponent, optionsMap, properties, defaultValues){
             new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, $scope, actionURL, optionsMap, properties, resourceFactory, resolve);
+                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve);
             }).then(function(){
             });
         }
     };
 });
 
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function($scope, inputComponent, optionsMap, properties){
+           quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+        }
+    };
+});
+
 app.factory('loginFactory', function($rootScope, $filter, $http, growl){
     return {
-        navigateToScreen: function($scope, actionURL){
+        navigateToScreen: function($scope, inputComponent){
             $rootScope.showIcon = true;
                  $http({
                     url: 'assets/resources/config/users.json',
@@ -184,8 +192,8 @@ app.factory('loginFactory', function($rootScope, $filter, $http, growl){
                     }
                     $rootScope.user = user;
                     sessionStorage.username = user.name;
-                    $rootScope.nextURL = actionURL;
-                    $rootScope.navigate(actionURL);  
+                    $rootScope.nextURL = inputComponent.actionURL;
+                    $rootScope.navigate(inputComponent.actionURL);  
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
