@@ -149,13 +149,17 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory){
     return {
         actionHandling: function($scope, inputComponent, optionsMap, properties, defaultValues){
             new Promise(function(resolve) {
                 MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve);
             }).then(function(){
             });
+        },
+        navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
+            anonymousFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
