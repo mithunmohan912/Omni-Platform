@@ -664,12 +664,10 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     var httpmethod = options.httpmethod;
     console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
     //$scope.resourceUrl = url;
-    
+    var params={};
     if(httpmethod==='GET'){
-        var params={};
         //Set the params data from the screen per the schema object for the given action (from the options object)
         params = setDataToParams(properties, params);
-
         $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
 
@@ -689,7 +687,6 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
-        var params = {};
         properties = loadFromDefaultSet(properties, defaultValues);
         params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;
@@ -717,6 +714,9 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     } else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
+        //Set the params data from the screen per the schema object for the given action (from the options object)
+        params = setDataToParams(properties, params);
+
         resourceFactory.patch(url,params,$rootScope.headers).success(function(responseData){
             var data = responseData.data || responseData;
             if (data) { 

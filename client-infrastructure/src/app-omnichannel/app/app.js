@@ -149,7 +149,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel){
     return {
         actionHandling: function($scope, inputComponent, optionsMap, properties, defaultValues){
             new Promise(function(resolve) {
