@@ -19,12 +19,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
-					//_init(data);
+					_init(data);
 				});
 			} else {
 				_processMetamodel(metamodelObject);
 				_options(metamodelObject);
-				//_init(metamodelObject);
+				_init(metamodelObject);
 			}
 
 			$scope.$watch('resourceUrl', function(newValue, oldValue){
@@ -194,16 +194,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.resourcesToBind = { properties: {} };
 
-				
-
-
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
-
 
 				$scope.screenName = $location.path().substring($location.path().lastIndexOf('/')+1);
  
@@ -339,31 +335,24 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 
-			$scope.execute = function(action, actionURL) {
+			$scope.execute = function(inputComponent) {
 
-				if($scope.actionFactory && $scope.actionFactory[action]){
-					var defaultValues = MetaModel.getDefaultValues(action, $scope.metamodelObject);
+				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
+					var defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
 					}
 				} else {
-					if ($scope[action]) {
+					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[action]($scope.resourcesToBind.properties);
+							$scope[inputComponent.method]($scope.resourcesToBind.properties);
 						}
 					}
 				}			
 				var optionsMapForResource = $scope.optionsMap[$scope.optionUrl];
-				if(optionsMapForResource !== undefined  && actionURL !== undefined){
-					var optionsObj = optionsMapForResource.get(actionURL);
+				if(optionsMapForResource !== undefined  && inputComponent.action !== undefined){
+					var optionsObj = optionsMapForResource.get(inputComponent.action);
 					if(optionsObj !== undefined){
-						/*
-						$rootScope.resourceUrlToRender = optionsObj.href;	
-						$scope.metamodelObject.resourceUrl = optionsObj.href;
-						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
-						_init($scope.metamodelObject);
-						*/
 						$scope.resourceUrl = optionsObj.href;
 					}
 					

@@ -7,12 +7,12 @@
             {
                 "field": "quote:product_id",
                 "value": "MC011",
-                "action": "createQuote"
+                "action": "create"
             },
             {
                 "field": "quote:distributor_id",
                 "value": "998877",
-                "action": "createQuote"
+                "action": "create"
             }
         ],
         "sections": [
@@ -23,7 +23,8 @@
                         "buttons": [
                             {
                                 "label": "_CREATE_QUOTE",
-                                "action": "createQuote"
+                                "method": "createQuote",
+                                "action": "create"
                             }
                         ]
                     }
@@ -54,7 +55,8 @@
                         "buttons": [
                             {
                                 "label": "_SEARCH",
-                                "action": "searchQuotes"
+                                "method": "searchQuotes",
+                                "action": "search"
                             }
                         ],
                         "row": 2
