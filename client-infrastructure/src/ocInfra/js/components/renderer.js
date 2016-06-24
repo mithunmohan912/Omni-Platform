@@ -301,13 +301,16 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 							$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
 							//if we have found a value in one of the resources, we are done and no need to go on. 
-							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
-								$scope.resourcesToBind.properties[property.id[k]] = 
-									$scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
-									// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
+							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
-								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[property.id[k]].self) < 0) {
-									$scope.boundUrls.push($scope.resourcesToBind.properties[property.id[k]].self);	
+				                var id = (property.complexId && property.complexId[k]) ? property.complexId[k] : property.id[k];
+							
+				                  $scope.resourcesToBind.properties[id] = 
+				                  $scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
+                
+
+								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
+									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
 								}
 								break;
 							}
@@ -316,6 +319,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					} 
 				}
 			}
+
 
 			function seekSelectorInResource(resource, selector, resourceSelected){
 				var selectors = Array.isArray(selector)?selector:[selector];

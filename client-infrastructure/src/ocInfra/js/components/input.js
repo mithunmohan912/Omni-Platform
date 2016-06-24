@@ -257,11 +257,24 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							we may lose already modified information when the response come back from the backend
 							*/
 							var resourceToPatch = response.data;
+
+           				   var complexIdCollection = getComplexIdsToPayload();
+
+
 							for(var property in resourceToPatch){
 								if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
 									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
 										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-									}
+									}else{
+					                    for (var index in complexIdCollection){
+					                        var complexId = complexIdCollection[index];
+					                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
+					                        if (property === simpleId && params.property.self === $scope.resources[complexId].self){
+					                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
+                       						 }
+                    					}
+
+                  					}
 								}
 							}
 							if(Object.keys(payload).length > 0){
@@ -279,6 +292,22 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 				
 			};
+
+      function getComplexIdsToPayload(){
+        //1. Check and extract complexId if exist
+        //2. Check complexId properties values and compare to the resource response -> determine wheter it should be added to payload or not
+        var complexIdCollection = [];
+        angular.forEach($scope.resources, function(value, key){
+            if (key && (key.split(':').length) > 2){
+                complexIdCollection.push(key);
+            }
+        });
+
+        return complexIdCollection;
+
+        
+      }
+
 
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
@@ -427,7 +456,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					
 					// Get the action for the options from the factory of the current screen
 
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]] || _searchInParents($scope, $scope.metamodel.options[key]) || $scope.metamodel.options[key]; 
+					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					/*if (validKey === 'getData') {
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
 					} else {
