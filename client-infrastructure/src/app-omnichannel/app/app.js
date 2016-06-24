@@ -156,6 +156,10 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
                 MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve);
             }).then(function(){
             });
+        },
+        navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
+            anonymousFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });

@@ -56,11 +56,11 @@ TourConfigProvider.set('prefixOptions', false);
             'responseError': function(rejection) {
                 console.log('rejection!!' + rejection.statusText + 'error' + rejection.status);
                 //console.log(JSON.stringify(rejection));
-                if(rejection.status){
+                if(rejection.status && rejection.status !== -1 && rejection.statusText){
                     growl.error(rejection.statusText);
                 }
 
-                 if(rejection.status === '-1')
+                 if(rejection.status === -1)
                  {
                     growl.error('Gateway Timedout/InSecure Response');
 
