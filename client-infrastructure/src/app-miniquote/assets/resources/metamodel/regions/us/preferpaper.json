@@ -1,0 +1,85 @@
+{
+    "metamodel": {
+        "formid": "policysearch",
+        "resourcelist": ["policies"], 
+        "title": "_ACCESS_YOUR_POLICY",
+        "name": "policies",
+        "workflowGrp": [{"nav":"true"}],
+        "mainTabs": "false",
+        "createButton": false,
+         "defaultValue": [
+            {
+                "field": "PolicyUpdateRq-InsuredOrPrincipal-GeneralPartyInfo-com.csc_GoGreenIndicator",
+                "value": "2",
+                "action": "update"              
+            }
+           ],
+        "sections": [
+            {
+                "title": "_ACCESS_YOUR_POLICY",
+                "name": "Policy Search Information",
+                "category": "nonaccordion",
+                "elements": [
+                        {
+                        "name": "PolicyUpdateRq-Producer-GeneralPartyInfo-Addr-Addr1",
+                        "type": "text",
+                        "label": "_MAILING_ADDRESS",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false"
+                        
+                    },
+                    {
+                        "name": "PolicyUpdateRq-Producer-GeneralPartyInfo-Addr-Addr2",
+                        "type": "text",
+                        "label": "_EXTENDED_MAILING_ADDRESS",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false"
+                        
+                    },
+                    {
+                        "name": "PolicyUpdateRq-Producer-GeneralPartyInfo-Addr-City",
+                        "type": "text",
+                        "label": "_CITY",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false"
+                        
+                    },
+                    {
+                        "name": "PolicyUpdateRq-Producer-GeneralPartyInfo-Addr-StateProvCd",
+                        "type": "text",
+                        "label": "_STATE",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false"
+                        
+                    },
+                    {
+                        "name": "PolicyUpdateRq-Producer-GeneralPartyInfo-Addr-PostalCode",
+                        "type": "text",
+                        "label": "_POSTAL_CODE",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false"
+                        
+                    },
+                    {
+                        "name": "submit",
+                        "type": "buttonSmall",
+                        "label": "_SUBMIT",
+                        "action": "update",
+                         "visible": true,
+                         "columnsize": "6"
+                     }
+                   ]
+                  }
+                 ]
+                }
+                }   
