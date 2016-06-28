@@ -49,6 +49,10 @@ Prerequisites:
 
  - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
 
+ - To ignore the SSL certificates, modifications had to be done to the Cordova library files. Read the below blog post and make the necessary changes before building the mobile app
+
+ 	http://ivancevich.me/articles/ignoring-invalid-ssl-certificates-on-cordova-android-ios/
+
  - Run the shell command buildbinaries.sh with following parameters in the same order
 
  		sh buildbinaries.sh buildios
@@ -75,6 +79,10 @@ Prerequisites:
  		bash configcordova.sh addresources
 
  - The above shell scripts will create a new Cordova Project, add the configuration files, copy the image assets, pull the code from client-infrastructe folder and will place a mobile deployment ready code in mobile-infrastructure/OCMiniQuote/www folder. 
+
+ - To ignore the SSL certificates, modifications had to be done to the Cordova library files. Read the below blog post and make the necessary changes before building the mobile app
+
+ 	http://ivancevich.me/articles/ignoring-invalid-ssl-certificates-on-cordova-android-ios/
 
  - Run the shell command buildbinaries.sh with following parameters in the same order
 
