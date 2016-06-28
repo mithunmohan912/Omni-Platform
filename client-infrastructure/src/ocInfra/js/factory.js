@@ -47,17 +47,37 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve){        
-        var options = optionsMap.get(action);
+    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, resolve){        
+    var options = {};
+    if(!$rootScope.optionsMapForURL.get(rootURL)){
+    
+            callOptions($rootScope, rootURL, function(optionsObj){
+                options = optionsObj.get(action);
+                if(!properties){
+                    properties = options.properties;
+                }
+                if(options !== undefined){
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
+                }
+            });
+    }else{
+        options = $rootScope.optionsMapForURL.get(rootURL).get(action);
+        if(!properties){
+            properties = options.properties;
+        }
         if(options !== undefined){
             invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
         } 
+    } 
     };
 
-    this.prepareOptions = function(rootURL, optionsMap){
-        if(!optionsMap){
-            return;
+    this.prepareOptions = function($rootScope, rootURL, optionsMap){
+        if(!$rootScope.optionsMapForURL){
+            $rootScope.optionsMapForURL = new Map();
         }
+        if($rootScope.optionsMapForURL.get(rootURL)){
+            return;
+        } 
         var methodResourceFactory = resourceFactory.refresh;
         var params = {};
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
@@ -66,7 +86,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 console.log('OPTIONS CALL INVOKED URL:'+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
-                optionsMap[rootURL] = _processOptions(responseData);
+                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
@@ -134,7 +155,31 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             $rootScope.headers.username = $rootScope.user.name;
         }
     };
-    
+
+    function callOptions($rootScope, rootURL, callback){
+        if(!$rootScope.optionsMapForURL){
+            $rootScope.optionsMapForURL = new Map();
+        }
+        
+        var methodResourceFactory = resourceFactory.refresh;
+        var params = {};
+         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseGET.then){
+            responseGET.then(function success(httpResponse){
+                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                var responseData = httpResponse.data || httpResponse;
+                // Add the resource to the result set
+                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                if(typeof callback === 'function'){
+                  callback($rootScope.optionsMapForURL.get(rootURL));  
+                } 
+            }, function error(errorResponse){
+                // FIXME TODO: Do something useful if required, for now just logging
+                console.error(errorResponse);
+                throw errorResponse;
+            });
+        }
+    }    
     /*============================================= Helper methods for components =============================================*/
     /*
         This function is in charge of analyzing the metamodel object and create an array with all the urls (resource 
@@ -210,9 +255,6 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                             object.properties = propertiesObject; 
                         }
                     }
-                    console.log('Action: '+object.action);
-                    console.log('HREF: '+object.href);
-                    console.log('HTTP Method: '+object.httpmethod);
                     if(!optionsMapForResource.get(object.action)){
                         optionsMapForResource.set(object.action, object);
                     }
@@ -445,6 +487,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
             responseGET.then(function success(httpResponse){
+                console.log('Prepare to render ----- '+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 var summaryData = {};
                 resultSet.pending--;
@@ -458,6 +501,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
                 // Analyze business dependencies in order to extract them
                 resultSet[rootURL].dependencies.forEach(function(url){
+                    console.log('Invoked for dependencies - '+url.href);
                     resultSet.pending++;
                     self.prepareToRender(url.href, metamodel, resultSet, url.resource);
                 });
@@ -465,6 +509,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
+                        console.log('Invoked for items details - '+url.href);
                         resultSet.pending++;
                         self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
@@ -672,6 +717,8 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
 
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
+            $scope.resourceUrl= url;
+            $rootScope.resourceUrl = url;
             var responseData = response.data || response;
             $rootScope.loader.loading=false;
             if(actionURL){
@@ -696,8 +743,6 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         if (data) {
             $scope.resourceUrl= data._links.self.href;
             $rootScope.resourceUrl= data._links.self.href;
-            console.log('Self link----'+$scope.resourceUrl);
-
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
