@@ -159,11 +159,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								if(optionsObj !== undefined){
 									console.log('optionsMap action' + optionsObj.action);
 
-									var data = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_data'));
-									var params = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_params'));
+									var data = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_data'));
+									var params = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
-									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
-									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
 
 									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(){
 										$scope.metamodelObject.resourceUrl = optionsObj.href;
