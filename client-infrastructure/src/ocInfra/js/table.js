@@ -32,6 +32,22 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         }
 
     };
+    $scope.checkShowRow = function(opt,row) {
+        if (opt.visibleWhen) {
+            return CheckVisibleService.checkVisibleOnRowValue(opt, row, $scope);
+        }
+
+        if (opt.visibleflag === undefined) {
+            return true;
+        }
+
+        if ( $rootScope.config[opt.visibleflag] === undefined || $rootScope.config[opt.visibleflag] === true) {
+            return true;
+        } else {
+            return false;
+        }
+
+    };
 
     $scope.doActionItem = function(action, item, tableName,url) {
        

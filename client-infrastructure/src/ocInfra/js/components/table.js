@@ -213,7 +213,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					}
 				} else {
 					if (action.method) {
-						$scope.actionFactory[action.method](displayedItem);
+						$scope.actionFactory[action.method](displayedItem, action, $scope);
 					} else {
 						$scope[action.value](displayedItem, action.callback);
 					}
