@@ -40,10 +40,6 @@
 						                <a><i data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
 						            </span>
-						            <span ng-switch-when="delete">
-						                <a><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)" ng-show="displayedItem.deletable"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
-						                </a>
-						            </span>
 						            <span ng-switch-default>
 						            	<a><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
