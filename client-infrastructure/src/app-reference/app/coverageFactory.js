@@ -7,10 +7,10 @@ global app
 app.factory('coverageFactory', function($rootScope, $location, resourceFactory){
 	return {
 		toOffer: function(resource) {
-			resourceFactory.refresh(resource.href + '/operations/transferToOffer/status_report').then(function(response) {
+			resourceFactory.refresh($rootScope.resourceUrl + '/operations/transferToOffer/status_report').then(function(response) {
 				var data = response.data || response;
 				if (data.consistent) {
-					resourceFactory.post(resource.href + '/operations/transferToOffer/execute', {}, $rootScope.headers).then(function(response) {
+					resourceFactory.post($rootScope.resourceUrl + '/operations/transferToOffer/execute', {}, $rootScope.headers).then(function(response) {
 						$rootScope.resourceUrl = response.headers()['content-location'];
 						$location.path('/screen/offer');
 					});

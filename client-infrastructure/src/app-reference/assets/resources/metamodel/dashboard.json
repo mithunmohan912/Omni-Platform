@@ -1,7 +1,20 @@
 {
     "metamodel": {
         "summary": true,
-        "resourceUrl": "quotes?_inquiry=ci_saved_items",
+        "resource": "quotes",
+        "actionOnScreen": "search",
+        "defaultValue": [
+            {
+                "action": "createQuote",
+                "field": "quote:distributor_id",
+                "value": "998877"
+            },
+            {
+                "action": "createQuote",
+                "field": "quote:product_id",
+                "value": "MC011"
+            }
+        ],
         "sections": [
             {
                 "properties": [
@@ -25,8 +38,14 @@
                         "label": "Quote Nr",
                         "type": "text",
                         "uiInput": true,
-                        "row": 1,
-                        "colspan": 4
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:product_id",
+                        "label": "Product Id",
+                        "type": "text",
+                        "uiInput": true,
+                        "row": 1
                     },
                     {
                         "id": "quote:distributor_id",

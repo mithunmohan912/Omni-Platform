@@ -18,14 +18,12 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 
 	return {
 		toCoverage: function(resource) {
-			$rootScope.resourceUrl = resource.href;
 			$location.path('/screen/coverage');
 		},
 		back: function() {
-			$rootScope.resourceUrl = null;
 			$location.path('/screen/dashboard');
 		},
-		saveQuote: function(/*resource, properties, callback*/){
+		saveQuote: function(scope, actionURL, options, properties, defaultValues){
 			$rootScope.$broadcast('patch_renderer', {save: true});
 		},
 		searchByName: function(element){

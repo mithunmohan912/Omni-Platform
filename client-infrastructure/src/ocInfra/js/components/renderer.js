@@ -165,10 +165,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
 									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
 
-									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(){
-										$scope.metamodelObject.resourceUrl = optionsObj.href;
-										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
+										if (optionsObj.httpmethod === 'POST') {
+											$scope.resourceUrl = response.data._links.self.href;
+										} else {
+											$scope.metamodelObject.resourceUrl = optionsObj.href;
+											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
+											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+										}
+
 										_init($scope.metamodelObject);
 
 									});									

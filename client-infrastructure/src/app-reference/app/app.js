@@ -63,7 +63,12 @@ config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocal
 app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
     // FIXME: Headers to null in order to use real AIA API
     MetaModel.setHeaders = function($rootScope){
-        $rootScope.headers = null;
+        $rootScope.headers = {
+                'Accept': 'application/vnd.hal+json', 
+                'Content-Type': 'application/json', 
+                'NSP_USERID': 'kkdrensk', 
+                'Accept-Language': 'en'
+            }
     };
     //FIXME. remove when having a login controller
     $cookieStore.remove('userid');

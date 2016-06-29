@@ -46,7 +46,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'_getData': function($viewValue, id, field){
 						// If the user defined an action for getting the data, we invoke it
 						if(field.options.getData){
-							return field.options.getData( {'$viewValue': $viewValue, 'field': field}).then(function(data){
+							return field.options.getData( {'$viewValue': $viewValue, 'field': field, 'resources': $scope.resources}).then(function(data){
 								data = data || [];
 								if(data && !Array.isArray(data)){
 									return [data];
@@ -65,7 +65,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'_select': function($item, id, field){
 						// field.options.select is the action defined by the user to be invoked when a value from the dropdown is selected
 						if(field.options.select){
-							field.options.select( {'$item': $item, 'id': id, 'property': field.property, '$injector': $injector} );
+							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector} );
 						} else {
 							console.warn('input.js -> autocomplete_select(): No select callback for autocomplete input.');
 						}
@@ -263,13 +263,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 							for(var property in resourceToPatch){
 								if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
-									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
+									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property] && $scope.resources[property].editable){
 										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
 									}else{
 					                    for (var index in complexIdCollection){
 					                        var complexId = complexIdCollection[index];
 					                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
-					                        if (property === simpleId && params.property.self === $scope.resources[complexId].self){
+					                        if (property === simpleId && params.property.self === $scope.resources[complexId].self && $scope.resources[complexId].editable){
 					                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
                        						 }
                     					}
@@ -408,7 +408,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
-					'class': $scope.metamodel.class,
+					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || defaults[inputType].format,
 					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
 				};
