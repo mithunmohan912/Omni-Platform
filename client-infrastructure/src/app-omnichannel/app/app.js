@@ -176,13 +176,36 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
-app.factory('quotescreateFactory', function($rootScope, resourceFactory, MetaModel){
+app.factory('quotescreateFactory', function($rootScope, $location){
     return {
-        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
-            new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, resolve);
-            }).then(function(){
-            });
+        navigateToTab: function($scope, inputComponent){
+            //$rootScope.resourceUrl = resource.href;
+            $location.path(inputComponent.actionURL);
+
+        }
+    };
+});
+
+app.factory('riskInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('additionalInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('premiumInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
         }
     };
 });

@@ -19,7 +19,7 @@
 								<ul class="nav nav-tabs">
 									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
 										<a ng-if="tab.screenId === screenName">{{ tab.title | translate }}</a>
-										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{ tab.title | translate }}</a>
+										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab)">{{ tab.title | translate }}</a>
 									</li>
 								</ul>
 							</div>
