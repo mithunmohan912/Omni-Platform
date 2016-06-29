@@ -835,7 +835,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
-                if(data._links.item){
+                if(data._links.item && Object.keys(data._links.item).length > 0){
                     $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
