@@ -291,17 +291,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     function _processProperties(responseData){
         var propertiesObject = {};
 
-        if(responseData && responseData._options && responseData._embedded){
+        if(responseData && responseData._options){
             // First get the PATCH and self links to use them later
             var updateCRUD;
             var resourceURL;
-
-            responseData._options.links.forEach(function(crud){
-                if(crud.rel === 'update'){
-                    updateCRUD = crud;
-                }
-            });
-
+            if(responseData._options.links){
+                responseData._options.links.forEach(function(crud){
+                    if(crud.rel === 'update'){
+                        updateCRUD = crud;
+                    }
+                });
+            }
+            
 
             for(var link in responseData._links){
                  if(link === 'self'){
@@ -324,22 +325,24 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
 
             // Process status of the properties (based on status_report coming from backend)
-            for(var rel in responseData._embedded) {
-                if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
-                    for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
-                        var item = responseData._embedded[rel].messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
+            if(responseData._embedded){
+                for(var rel in responseData._embedded) {
+                    if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
                             }
                         }
+                        break;
                     }
-
-                    break;
-                }
+                }    
             }
+            
         }
 
         return propertiesObject;
