@@ -199,7 +199,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.resourcesToBind = { properties: {} };
 
-				
+				$scope.boundUrls.push($scope.resourceUrl);
 
 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
@@ -239,6 +239,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 
 						$scope.boundUrls = [];
+						$scope.boundUrls.push($scope.resourceUrl);
 						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
 						$scope.propertiesCollection = [];
 						var searchIdsInAttributes = function(property) {

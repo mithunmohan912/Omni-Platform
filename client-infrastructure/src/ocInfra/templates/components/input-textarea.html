@@ -8,7 +8,7 @@
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 		<textarea 	class="form-control"
 					autocomplete="off"
-					id="{{field.id}}"
+					id="{{metamodel.complexId ? metamodel.complexId : field.id}}"
 					name="{{field.name}}"
 					placeholder="{{field.placeholder | translate}}"
 					maxlength="{{field.attributes.maxlength}}"

@@ -7,7 +7,7 @@
 
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 		<input 	type="checkbox"
-				id="{{field.id}}"
+				id="{{metamodel.complexId ? metamodel.complexId : field.id}}"
 				name="{{field.name}}"
 				
 				ng-model="field.property.value"

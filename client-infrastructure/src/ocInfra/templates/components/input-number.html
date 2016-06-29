@@ -10,7 +10,7 @@
 				autocomplete="off"
 				min="{{field.attributes.min}}"
 				max="{{field.attributes.max}}"
-				id="{{field.id}}"
+				id="{{metamodel.complexId ? metamodel.complexId : field.id}}"
 				name="{{field.name}}"
 				placeholder="{{field.placeholder | translate}}"
 

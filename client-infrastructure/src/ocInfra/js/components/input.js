@@ -29,7 +29,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			updateMode: '@',
 			onUpdate: '@',
 			baseUrl: '@',
-			factoryName: '='
+			factoryName: '=',
+			resourceUrl: '='
 		},
 		controller: function($scope){
 			/* Default attributes and actions for inputs */
@@ -374,6 +375,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
+					'resourceUrl': $scope.resourceUrl,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
