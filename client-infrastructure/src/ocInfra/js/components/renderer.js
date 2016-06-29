@@ -31,7 +31,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if(newValue !== oldValue){
 					if($scope.metamodelObject){
 						//_processMetamodel($scope.metamodelObject);
-						//_options($scope.metamodelObject);
 						_init($scope.metamodelObject);
 					}
 				}
@@ -338,7 +337,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			$scope.execute = function(inputComponent) {
 
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
-					var defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
+					var defaultValues = {};
+					if(inputComponent.action){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
+					}
+					
 					if($scope.resourcesToBind.properties !== undefined){
 						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
 					}
@@ -348,15 +351,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							$scope[inputComponent.method]($scope.resourcesToBind.properties);
 						}
 					}
-				}			
-				var optionsMapForResource = $scope.optionsMap[$scope.optionUrl];
-				if(optionsMapForResource !== undefined  && inputComponent.action !== undefined){
-					var optionsObj = optionsMapForResource.get(inputComponent.action);
-					if(optionsObj !== undefined){
-						$scope.resourceUrl = optionsObj.href;
-					}					
 				}
-
 			};
 
 			$scope.$on('patch_renderer', function(event, data){
