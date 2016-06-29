@@ -1,0 +1,31 @@
+
+	<span class="form-group" 
+		  ng-show="field.isVisible()">
+
+		<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-8 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+		<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-12 ' : '')" class="col-xs-12">
+			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
+
+				<div ng-repeat="option in field.attributes.enum track by $index" class="radio">
+					
+
+					
+					<input 	type="radio"
+							id="{{option}}"
+							name="{{option}}"
+						
+							ng-model="field.property.value"
+							ng-disabled="!field.property.editable"
+							ng-change="field.onChange()"
+							ng-blur="field.onBlur()" 
+							value = "{{option}}" >{{option | translate}}</input>
+
+					
+				</div>
+			<div ng-include="'src/ocInfra/templates/components/backend-error-display.html'"></div>
+		</span>
+	</span>
+
+
+	

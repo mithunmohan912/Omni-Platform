@@ -1,0 +1,22 @@
+<span class="form-group" 
+	  ng-show="field.isVisible()">
+
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')" class="col-xs-12">
+
+		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
+		<span 	id="{{field.id}}"
+				name="{{field.name}}">
+
+				<!-- FIXME: UNCOMPLETED: ng-repeat to display collection's items. We do not know yet any backend response to be displayed this way, so this development is unfinished -->
+				<div class="multiselect-row" ng-repeat="item in field.property.items">
+					<!-- Display the href until we know any kind of response to be taken as an example -->
+					<span>{{item.entity.href}}</span>
+				</div>
+
+		</span>
+		
+		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+	</span>
+</span>
