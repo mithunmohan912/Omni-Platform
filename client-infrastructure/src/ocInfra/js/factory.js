@@ -203,15 +203,15 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
         // Process http response to know which keys are contained in this resource
         for(var property in responseData){
-            
+            var propertyKey = {};
             if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                var propertyKey = property.split(':')[0];
+                propertyKey = property.split(':')[0];
             
                 if(keySet.indexOf(propertyKey) === -1){
                     keySet.push(propertyKey);
                 }
             } else if(property.indexOf('-') > 0){
-                var propertyKey = property.split('-')[0];
+                propertyKey = property.split('-')[0];
             
                 if(keySet.indexOf(propertyKey) === -1){
                     keySet.push(propertyKey);
