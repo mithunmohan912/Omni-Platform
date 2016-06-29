@@ -246,6 +246,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
+            if ($scope.isValid()) {
+            if(msg !== undefined){
+                msg.destroy();    
+            }
             if(tab === undefined){
                 $rootScope.resourceHref = undefined;
             }
@@ -320,7 +324,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                     EnumerationService.loadEnumerationByTab();
                 }
             });
-        }
+        } }
     };
 
     $scope.getRelationshipOfNavigateStep = function(step){
@@ -527,7 +531,15 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.loadmandatoryField = function(){
         var mandatoryField = [];
-        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        var arrparent;
+        if($rootScope.currName)
+        {
+        arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        }
+        else
+        {
+        arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+        }
         for(var i = 0; i < arrparent.length; i++){
             var arr = arrparent[i].elements;
             for(var j = 0; j < arr.length; j++){
@@ -541,7 +553,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.translateKeyToLabelByTab = function(key){
-        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+         var arrparent;
+        if($rootScope.currName){
+        arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        }
+        else
+        {
+         arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+        }
         for(var i = 0; i < arrparent.length; i++){
             var arr = arrparent[i].elements;
             for(var j = 0; j < arr.length; j++){
