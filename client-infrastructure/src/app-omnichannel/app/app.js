@@ -151,15 +151,19 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
 
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory){
     return {
-        actionHandling: function($scope, inputComponent, optionsMap, properties, defaultValues){
+        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
             new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, optionsMap, properties, resourceFactory, defaultValues, resolve);
+                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, resolve);
             }).then(function(){
             });
         },
         navigateToScreen: function($scope, inputComponent){
             $rootScope.resourceHref = undefined;
             anonymousFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined);
+            
         }
     };
 });
@@ -168,6 +172,17 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     return {
         actionHandling: function($scope, inputComponent, optionsMap, properties){
            quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+        }
+    };
+});
+
+app.factory('quotescreateFactory', function($rootScope, resourceFactory, MetaModel){
+    return {
+        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
+            new Promise(function(resolve) {
+                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, resolve);
+            }).then(function(){
+            });
         }
     };
 });

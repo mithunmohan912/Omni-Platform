@@ -128,7 +128,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				var resource = $scope.metamodelObject.resource;
 				$scope.resourcesToBind = { properties : {} };
 				var newURL = {};
-				if($rootScope.regionId !== undefined && resource !== undefined){
+				if($rootScope.resourceHref){
+					 $scope.optionUrl = $rootScope.resourceHref;
+                    $scope.resourceUrlToRender = $rootScope.resourceHref;
+				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = $rootScope.hostURL + resource;
                     //Retrieve regionToSORMap from the rootScope
                     var regionToSORMap = $rootScope.regionToSoR;
@@ -136,15 +139,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     var applName = regionToSORMap[$rootScope.regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
-                    $scope.metamodelObject.optionUrl = newURL;
+                    $scope.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
-                	$scope.metamodelObject.optionUrl = newURL;
+                	$scope.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 }
 
-				$scope.optionUrl = $scope.metamodelObject.optionUrl;
 				if($scope.optionUrl === undefined){
 					return;
 				}
@@ -157,8 +159,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if(optionsMapForResource !== undefined && $scope.metamodelObject.actionOnScreen){
 								var optionsObj = optionsMapForResource.get($scope.metamodelObject.actionOnScreen);
 								if(optionsObj !== undefined){
-									console.log('optionsMap action' + optionsObj.action);
-
 									var data = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_data'));
 									var params = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
@@ -179,7 +179,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						
 					}
 				});
-				MetaModel.prepareOptions($scope.optionUrl, $scope.optionsMap);
+				MetaModel.prepareOptions($rootScope, $scope.optionUrl, $scope.optionsMap);
 			}
 
 			function _init(metamodelObject){
@@ -340,7 +340,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					var defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
@@ -354,8 +354,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					var optionsObj = optionsMapForResource.get(inputComponent.action);
 					if(optionsObj !== undefined){
 						$scope.resourceUrl = optionsObj.href;
-					}
-					
+					}					
 				}
 
 			};
