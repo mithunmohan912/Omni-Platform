@@ -203,8 +203,16 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
         // Process http response to know which keys are contained in this resource
         for(var property in responseData){
+            var propertyKey = {};
             if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                var propertyKey = property.split(':')[0];
+                propertyKey = property.split(':')[0];
+            
+                if(keySet.indexOf(propertyKey) === -1){
+                    keySet.push(propertyKey);
+                }
+            } else if(property.indexOf('-') > 0){
+                propertyKey = property.split('-')[0];
+            
                 if(keySet.indexOf(propertyKey) === -1){
                     keySet.push(propertyKey);
                 }
@@ -258,7 +266,6 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     if(!optionsMapForResource.get(object.action)){
                         optionsMapForResource.set(object.action, object);
                     }
-
                 });    
             }
         }
@@ -284,17 +291,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     function _processProperties(responseData){
         var propertiesObject = {};
 
-        if(responseData && responseData._options && responseData._embedded){
+        if(responseData && responseData._options){
             // First get the PATCH and self links to use them later
             var updateCRUD;
             var resourceURL;
-
-            responseData._options.links.forEach(function(crud){
-                if(crud.rel === 'update'){
-                    updateCRUD = crud;
-                }
-            });
-
+            if(responseData._options.links){
+                responseData._options.links.forEach(function(crud){
+                    if(crud.rel === 'update'){
+                        updateCRUD = crud;
+                    }
+                });
+            }
+            
 
             for(var link in responseData._links){
                  if(link === 'self'){
@@ -317,22 +325,24 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
 
             // Process status of the properties (based on status_report coming from backend)
-            for(var rel in responseData._embedded) {
-                if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
-                    for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
-                        var item = responseData._embedded[rel].messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
+            if(responseData._embedded){
+                for(var rel in responseData._embedded) {
+                    if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
                             }
                         }
+                        break;
                     }
-
-                    break;
-                }
+                }    
             }
+            
         }
 
         return propertiesObject;
@@ -418,15 +428,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             resource.items = _extractItemDependencies(responseData, summaryData);
 
             // Process CRUD operations to check whether or not we can PATCH, DELETE...
-            responseData._options.links.forEach(function(apiOperation){
-                if(apiOperation.rel === 'update'){
-                    resource.patchable = true;
-                } else if(apiOperation.rel === 'delete'){
-                    resource.deletable = true;
-                } else if(apiOperation.rel === 'create'){
-                    resource.creatable = true;
-                }
-            });
+            if(responseData._options.links){
+                responseData._options.links.forEach(function(apiOperation){
+                    if(apiOperation.rel === 'update'){
+                        resource.patchable = true;
+                    } else if(apiOperation.rel === 'delete'){
+                        resource.deletable = true;
+                    } else if(apiOperation.rel === 'create'){
+                        resource.creatable = true;
+                    }
+                });     
+            }
+           
         }
 
         return resource;
@@ -469,6 +482,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+        
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
@@ -487,7 +501,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
             responseGET.then(function success(httpResponse){
-                console.log('Prepare to render ----- '+rootURL);
+                
                 var responseData = httpResponse.data || httpResponse;
                 var summaryData = {};
                 resultSet.pending--;
@@ -788,15 +802,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(responseData){
 	       var data=responseData.data || responseData ;
-            if(data.outcome === 'success'){  
-                var index=0;
-                angular.forEach($scope.stTableList, function(field){
-                    if(item.$$hashKey===field.$$hashKey){
-                        $scope.stTableList.splice(index, 1);    
-                    } else{
-                        index=index+1;     
-                    }
-                });
+            if(data.outcome === 'success'){
                 angular.forEach(data.messages, function(value){
                     growl.success(value.message);
                 });

@@ -1,23 +1,72 @@
 {
     "metamodel": {
-        "formid": "riskInfo",
-        "title": "",
-        "resourcelist": "",
-        "name": "riskInfo",
+        "businessObject": {
+            "quote": [
+                "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "name": "risk_info",
-                "category": "nonaccordion",
-                "elements":   [
+                "properties": [
                     {
-                        "name": "quote-vehicle-use",
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/quotescreate",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId": "riskInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "action": "toCoverage"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                    ]
+                    },
+                {
+                    "properties":   [
+                    {
+                        "id": "quote-vehicle-use",
                         "type": "select",
                         "label": "_QUOTE_VEHICLE_USE",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-sum-insured",
+                        "id": "quote-sum-insured",
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_SUM_INSURED",
@@ -28,7 +77,7 @@
                         "required": "required"
                     },
                     {
-                        "name": "quote-year-of-registration",
+                        "id": "quote-year-of-registration",
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_YEAR_OF_REGISTRATION",
@@ -39,62 +88,62 @@
                         "required": "required"
                     },
                     {
-                        "name": "quote-currency",
+                        "id": "quote-currency",
                         "type": "text",
                         "label": "_QUOTE_CURRENCY",
                         "columnsize": 3
                     },
                     {
-                        "name": "quote-make-of-vehicle",
+                        "id": "quote-make-of-vehicle",
                         "type": "select",
                         "label": "_QUOTE_MAKE_OF_VEHICLE",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-commencement-date",
+                        "id": "quote-commencement-date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_QUOTE_COMMENCEMENT_DATE",
                         "columnsize": 3
                     },
                     {
-                        "name": "quote-engine-capacity",
+                        "id": "quote-engine-capacity",
                         "type": "text",
                         "label": "_QUOTE_ENGINE_CAPACITY",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-geographic-location",
+                        "id": "quote-geographic-location",
                         "type": "select",
                         "label": "_QUOTE_GEOGRAPHIC_LOCATION",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-driver-name",
+                        "id": "quote-driver-name",
                         "type": "text",
                         "label": "_QUOTE_DRIVER_NAME",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-cover",
+                        "id": "quote-cover",
                         "type": "select",
                         "label": "_QUOTE_COVER",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-driver-gender",
+                        "id": "quote-driver-gender",
                         "type": "select",
                         "label": "_QUOTE_DRIVER_GENDER",
                         "columnsize": 3,
                         "required": "required"
                     },
                     {
-                        "name": "quote-NCD-percentage",
+                        "id": "quote-NCD-percentage",
                         "type": "number",
                         "label": "_QUOTE_NCD_PERCENTAGE",
                         "min": 0,
@@ -103,7 +152,7 @@
                         "required": "required"
                     },
                     {
-                        "name": "quote-permitted-driver",
+                        "id": "quote-permitted-driver",
                         "type": "select",
                         "label": "_QUOTE_PERMITTED_DRIVER",
                         "columnsize": 3,
@@ -112,12 +161,9 @@
                 ]
             },
             {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "previous1",
+                        "id": "previous1",
                         "type": "buttonSmall",
                         "label": "_PREVIOUS",
                         "action":"previousTab",
@@ -126,7 +172,7 @@
                         "style" : "float : left;"
                     },
                     {
-                        "name": "next1",
+                        "id": "next1",
                         "type": "buttonSmall",
                         "label": "_NEXT",
                         "action":"nextTab",
