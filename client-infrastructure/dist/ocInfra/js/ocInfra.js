@@ -301,7 +301,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			updateMode: '@',
 			onUpdate: '@',
 			baseUrl: '@',
-			factoryName: '='
+			factoryName: '=',
+			resourceUrl: '='
 		},
 		controller: ['$scope', function($scope){
 			/* Default attributes and actions for inputs */
@@ -646,6 +647,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
+					'resourceUrl': $scope.resourceUrl,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
@@ -1224,7 +1226,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 
 				$scope.resourcesToBind = { properties: {} };
 
-				
+				$scope.boundUrls.push($scope.resourceUrl);
 
 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
@@ -1264,6 +1266,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 						}
 
 						$scope.boundUrls = [];
+						$scope.boundUrls.push($scope.resourceUrl);
 						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
 						$scope.propertiesCollection = [];
 						var searchIdsInAttributes = function(property) {

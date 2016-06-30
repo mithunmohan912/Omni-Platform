@@ -9,7 +9,7 @@
 		<input 	type="number"
 				class="form-control"
 				autocomplete="off"
-				id="{{field.id}}"
+				id="{{metamodel.complexId ? metamodel.complexId : field.id}}"
 				name="{{field.name}}"
 				placeholder="{{field.placeholder | translate}}"
 
