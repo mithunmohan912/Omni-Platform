@@ -1,8 +1,8 @@
 {
     "metamodel": {
         "businessObject": {
-            "quote": [
-                    "quote:quote_risk_list"
+           "quote": [
+                   "quote:quote_risk_list"
             ]
         },
         "sections": [
@@ -46,11 +46,13 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/premiumInfo"
                             },
                             {
                                 "label": "_BACK",
-                                "action": "back"
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/riskInfo"
                             }
                         ]
                     }
@@ -62,23 +64,22 @@
                         "id": "quote-additional-premium",
                         "type": "text",
                         "label": "_QUOTE_ADDITIONAL_PREMIUM",
-                        "visible": true,
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-additional-cover",
                         "type": "select",
                         "label": "_QUOTE_ADDITIONAL_COVER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-additional-limit",
                         "type": "text",
                         "label": "_QUOTE_ADDITIONAL_LIMIT",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 2,
+                        "patchOnBlur": true
                     }
                 ]
             },
