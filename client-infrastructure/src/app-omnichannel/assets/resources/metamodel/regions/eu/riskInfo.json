@@ -1,203 +1,178 @@
 {
     "metamodel": {
-        "formid": "riskInfo",
-        "title": "",
-        "resourcelist": "",
-        "name": "riskInfo",
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "name": "risk_info",
-                "category": "nonaccordion",
-                "elements":   [
+                "properties": [
                     {
-                        "name": "quote_home:postal_code",
-                        "type": "autocomplete",
-                        "label": "_POSTALCODE",
-                        "typewait": 1500,
-                        "columnsize": 3,
-                        "maxlength": 10,
-                        "required": "required"
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/quotescreate",
+                                "title": "_QUOTE_INFO_TAB"   
+                            },
+                            {
+                                "screenId":"ownerInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/ownerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId":"riskInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
                     },
                     {
-                        "name": "quote_home:city",
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "action": "toCoverage"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                    ]
+                    },
+            {
+                "properties":   [
+                    {
+                        "id": "quote_home:postal_code",
                         "type": "autocomplete",
-                        "label": "_CITY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000
+                        "label": "_POSTALCODE"
                     },
                     {
-                        "name": "quote_home:street_name",
+                        "id": "quote_home:city",
                         "type": "autocomplete",
-                        "label": "_STREET_NAME",
-                        "columnsize": 3,
-                        "typemin": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000
+                        "label": "_CITY"
                     },
                     {
-                        "name": "quote_home:street_number",
+                        "id": "quote_home:street_name",
+                        "type": "autocomplete",
+                        "label": "_STREET_NAME"
+                    },
+                    {
+                        "id": "quote_home:street_number",
                         "type": "text",
-                        "label": "_STREET_NUMBER",
-                        "columnsize": 3,
-                        "patchOnBlur": true,
-                        "maxlength": 30,
-                        "required": "required"
+                        "label": "_STREET_NUMBER"
                     },
                     {
-                        "name": "quote_home:box_number",
+                        "id": "quote_home:box_number",
                         "type": "text",
-                        "label": "_BOX_NUMBER",
-                        "columnsize": 3,
-                        "maxlength": 30
+                        "label": "_BOX_NUMBER"
                     },
                     {
-                        "name": "quote_home:bulding_nature",
+                        "id": "quote_home:bulding_nature",
                         "type": "select",
-                        "label": "_HOME_NATURE",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required"                       
+                        "label": "_HOME_NATURE"                     
                     },
                     {
-                        "name": "quote_home:bulding_type",
+                        "id": "quote_home:bulding_type",
                         "type": "select",
-                        "label": "_HOME_TYPE",
-                        "columnsize": 3                       
+                        "label": "_HOME_TYPE"                
                     },
                     {
-                        "name": "quote_home:ext_occupation_type",
+                        "id": "quote_home:ext_occupation_type",
                         "type": "select",
-                        "label": "_QUALITY",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_QUALITY"                        
                     },
                     {
-                        "name": "quote_home:ext_occupation",
+                        "id": "quote_home:ext_occupation",
                         "type": "select",
-                        "label": "_OCCUPATION",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_OCCUPATION"                 
                     },
                     {
-                        "name": "quote_home:ext_new_building",
+                        "id": "quote_home:ext_new_building",
                         "type": "select",
-                        "label": "_RECENT_BUILDING",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_RECENT_BUILDING"                  
                     },
                     {
-                        "name": "quote_home:ext_restauration_value",
+                        "id": "quote_home:ext_restauration_value",
                         "type": "select",
-                        "label": "_BUILDING_VALUE",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_BUILDING_VALUE"                   
                     },
                     {
-                        "name": "quote_home:ext_thatched_roof",
+                        "id": "quote_home:ext_thatched_roof",
                         "type": "toggle",
-                        "label": "_STRAW_ROOF",
-                        "columnsize": 3,
-                        "required": "required"
+                        "label": "_STRAW_ROOF"
                     },
                     {
-                        "name": "quote_home:ext_bldng_under_construction",
+                        "id": "quote_home:ext_bldng_under_construction",
                         "type": "toggle",
-                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION",
-                        "columnsize": 3
+                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION"
                     },
                     {
-                        "name": "quote_home:alarm_system",
+                        "id": "quote_home:alarm_system",
                         "type": "toggle",
-                        "label": "_ALARM_SYSTEM",
-                        "columnsize": 3,
-                        "required": "required"
+                        "label": "_ALARM_SYSTEM"
                     },
                     {
-                        "name": "quote_home:ext_assured_motorized_vehicle",
+                        "id": "quote_home:ext_assured_motorized_vehicle",
                         "type": "toggle",
-                        "label": "_ASSURED_MOTORIZED",
-                        "columnsize": 3,
-                        "required": "required"
+                        "label": "_ASSURED_MOTORIZED"
                     },
                     {
-                        "name": "quote_home:ext_signing_act",
+                        "id": "quote_home:ext_signing_act",
                         "type": "toggle",
-                        "label": "_SIGNING_OF_ACT",
-                        "columnsize": 3
+                        "label": "_SIGNING_OF_ACT"
                     },
                     {
-                        "name": "quote_home:ext_purchase_building",
+                        "id": "quote_home:ext_purchase_building",
                         "type": "toggle",
-                        "label": "_BUILDING_PURCHASE",
-                        "columnsize": 3
+                        "label": "_BUILDING_PURCHASE"
                     },
                     {
-                        "name": "quote_home:ext_evaluation",
+                        "id": "quote_home:ext_evaluation",
                         "type": "select",
-                        "label": "_EVALUATION_SYSTEM",
-                        "columnsize": 3,
-                        "visible": true,
-                        "required": "required"                        
+                        "label": "_EVALUATION_SYSTEM"                       
                     },
                     {
-                        "name": "quote_home:ext_building_value",
+                        "id": "quote_home:ext_building_value",
                         "type": "number",
                         "decimal": true,
-                        "label": "_VALUE_OF_BUILDING",
-                        "min": 0,
-                        "max": 9999999999999,
-                        "patchOnBlur": true,
-                        "columnsize": 3,
-                        "required": "required"
+                        "label": "_VALUE_OF_BUILDING"
                     },
                      {
-                        "name": "quote_home:ext_content_evaluation",
+                        "id": "quote_home:ext_content_evaluation",
                         "type": "select",
-                        "label": "_BUILDING_CONTENT_EVALUATION",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_BUILDING_CONTENT_EVALUATION"                  
                     },
                     {
-                        "name": "quote_home:ext_content_value",
+                        "id": "quote_home:ext_content_value",
                         "type": "number",
                         "decimal": true,
-                        "label": "_VALUE_OF_CONTENT",
-                        "visible": true,
-                        "min": 0,
-                        "max": 9999999999999,
-                        "patchOnBlur": true,
-                        "columnsize": 3,
-                        "required": "required"
-                    }
-                ]
-            },
-            {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
-                    {
-                        "name": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "name": "next1",
-                        "type": "buttonSmall",
-                        "label": "_NEXT",
-                        "action":"nextTab",
-                        "visible": true,
-                        "columnsize": "6"
+                        "label": "_VALUE_OF_CONTENT"
                     }
                 ]
             }
-        ]
+        ] 
     }
 }

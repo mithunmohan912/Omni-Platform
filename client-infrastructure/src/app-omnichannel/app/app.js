@@ -152,10 +152,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory){
     return {
         actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
-            new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, resolve);
-            }).then(function(){
-            });
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues);
         },
         navigateToScreen: function($scope, inputComponent){
             $rootScope.resourceHref = undefined;
@@ -163,7 +160,6 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         },
         itemActionHandling: function(resource, inputComponent, $scope){
             MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined);
-            
         }
     };
 });
@@ -171,7 +167,13 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
 app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     return {
         actionHandling: function($scope, inputComponent, optionsMap, properties){
-           quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+            quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotessearchFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
 });
@@ -186,6 +188,30 @@ app.factory('quotescreateFactory', function($rootScope, $location){
     };
 });
 
+app.factory('autocreateFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('ownerInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('autoOwnerInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
 app.factory('riskInfoFactory', function($rootScope, $location, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent){
@@ -193,6 +219,15 @@ app.factory('riskInfoFactory', function($rootScope, $location, quotescreateFacto
         }
     };
 });
+
+app.factory('autoRiskInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
 
 app.factory('additionalInfoFactory', function($rootScope, $location, quotescreateFactory){
     return {
@@ -203,6 +238,14 @@ app.factory('additionalInfoFactory', function($rootScope, $location, quotescreat
 });
 
 app.factory('premiumInfoFactory', function($rootScope, $location, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('autoPremiumInfoFactory', function($rootScope, $location, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent){
             quotescreateFactory.navigateToTab($scope, inputComponent);
