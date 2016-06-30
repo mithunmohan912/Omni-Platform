@@ -20,7 +20,9 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 			});
 			
 		},
-		createQuote: function(scope, actionURL, options, properties, defaultValues) {
+		createQuote: function(params) {
+			var properties = params.properties;
+			var defaultValues = params.defaultValues;
 
 			//Default values:
 			var payload = {};
@@ -36,7 +38,10 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 				$rootScope.navigate('/screen/quote');
 			});	
 		},
-		searchQuotes: function(scope, actionURL, options, properties) {
+		searchQuotes: function(params) {
+			var scope = params.scope;
+			var properties = params.properties;
+
 			if (scope.metamodelObject.resourceUrl) {
 				var payload = {};
 				for (var prop in properties) {

@@ -17,13 +17,13 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 	}
 
 	return {
-		toCoverage: function(resource) {
+		toCoverage: function() {
 			$location.path('/screen/coverage');
 		},
 		back: function() {
 			$location.path('/screen/dashboard');
 		},
-		saveQuote: function(scope, actionURL, options, properties, defaultValues){
+		saveQuote: function(){
 			$rootScope.$broadcast('patch_renderer', {save: true});
 		},
 		searchByName: function(element){
