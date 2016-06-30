@@ -23,9 +23,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
    
     screenname  = 'OmniChannel';
-    $rootScope.showHeader = true;
     $scope.disableNext = false;
-
+    
     $scope.rulesDataList = [];
     var reqParmScreen = null;
     var reqParmRegion = null;

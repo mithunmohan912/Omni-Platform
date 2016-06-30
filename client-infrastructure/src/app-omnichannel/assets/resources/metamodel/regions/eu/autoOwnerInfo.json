@@ -1,5 +1,6 @@
 {
     "metamodel": {
+        "showHeader": true,
         "businessObject": {
             "quote": [ 
                     "quote:quote_owner_list"
@@ -7,6 +8,7 @@
         },
         "sections": [
             {
+                "title": "_AUTO_QUOTE_EU",
                 "properties": [
                     {
                         "type": "tabs",
@@ -46,11 +48,13 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autoRiskInfo"
                             },
                             {
-                                "label": "_BACK",
-                                "action": "back"
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autocreate"
                             }
                         ]
                     }

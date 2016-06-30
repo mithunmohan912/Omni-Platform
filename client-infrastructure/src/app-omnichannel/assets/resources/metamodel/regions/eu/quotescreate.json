@@ -1,7 +1,9 @@
 {
     "metamodel": {
+        "showHeader": true,
         "sections": [
             {
+                "title": "_HOME_QUOTE_EU",
                 "properties": [
                     {
                         "type": "tabs",
@@ -42,16 +44,12 @@
                     },
                     {
                         "type": "buttonGroup",
-                        "colspan": 4,
                         "row": 1,
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
-                            },
-                            {
-                                "label": "_BACK",
-                                "action": "back"
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/ownerInfo"
                             }
                         ]
                     }
@@ -62,18 +60,24 @@
                     {
                         "id": "quote:description",
                         "type": "textarea",
-                        "label": "_EXTERNAL_CONTRACT_NUMBER"
+                        "label": "_EXTERNAL_CONTRACT_NUMBER",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote:contract_start_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
-                        "label": "_START_DATE_OF_THE_CONTRACT"
+                        "label": "_START_DATE_OF_THE_CONTRACT",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote:language",
                         "type": "select",
-                        "label": "_CONTRACT_LANGUAGE"
+                        "label": "_CONTRACT_LANGUAGE",
+                        "row": 2,
+                        "patchOnBlur": true
                     }
                 ]
             }

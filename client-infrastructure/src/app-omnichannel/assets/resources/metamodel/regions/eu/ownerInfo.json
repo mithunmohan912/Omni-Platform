@@ -1,5 +1,6 @@
 {
     "metamodel": {
+        "showHeader": true,
         "businessObject": {
             "quote": [ 
                     "quote:quote_owner_list"
@@ -7,6 +8,7 @@
         },
         "sections": [
             {
+                "title": "_HOME_QUOTE_EU",
                 "properties": [
                     {
                         "type": "tabs",
@@ -47,16 +49,17 @@
                     },
                     {
                         "type": "buttonGroup",
-                        "colspan": 4,
                         "row": 1,
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/riskInfo"
                             },
                             {
-                                "label": "_BACK",
-                                "action": "back"
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/quotescreate"
                             }
                         ]
                     }
@@ -67,53 +70,73 @@
                     {
                         "id": "quote_owner:type",
                         "type": "select",
-                        "label": "_PERSONAL_ENTITY"
+                        "label": "_PERSONAL_ENTITY",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:person_title",
                         "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS"
+                        "label": "_LEGAL_ACTIVITY_CLASS",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:name",
                         "type": "text",
-                        "label": "_LASTNAME"
+                        "label": "_LASTNAME",
+                        "row": 2,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:first_name",
                         "type": "text",
-                        "label": "_FIRSTNAME"
+                        "label": "_FIRSTNAME",
+                        "row": 2,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
-                        "label": "_DOB"
+                        "label": "_DOB",
+                        "row": 3,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:city",
                         "type": "autocomplete",
-                        "label": "_CITY"
+                        "label": "_CITY",
+                        "row": 3,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:street_number",
                         "type": "text",
-                        "label": "_STREET_NUMBER"
+                        "label": "_STREET_NUMBER",
+                        "row": 4,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:street_name",
                         "type": "text",
-                        "label": "_STREET_NAME"
+                        "label": "_STREET_NAME",
+                        "row": 4,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:postal_code",
                         "type": "text",
-                        "label": "_BOX_NUMBER"
+                        "label": "_BOX_NUMBER",
+                        "row": 5,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_owner:email",
                         "type": "email",
-                        "label": "_EMAIL"
+                        "label": "_EMAIL",
+                        "row": 5,
+                        "patchOnBlur": true
                     }
                 ]
             }
