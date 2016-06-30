@@ -1,64 +1,88 @@
 {
     "metamodel": {
-        "formid": "additionalInfo",
-        "title": "",
-        "resourcelist": "", 
-        "name": "additionalInfo",
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "quote_home:ext_above_ground_floor",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q1",
-                        "visible": true,
-                        "columnsize": 3
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/quotescreate",
+                                "title": "_QUOTE_INFO_TAB"   
+                            },
+                            {
+                                "screenId":"ownerInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/ownerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId":"riskInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
                     },
                     {
-                        "name": "quote_home:ext_resent_damage",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q2",
-                        "columnsize": 3
-                    },
-                    {
-                        "name": "quote_home:ext_limited_cellar",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q3",
-                        "columnsize": 3
-                    },
-                    {
-                        "name": "quote_home:ext_limited_cellar_except_one",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q4",
-                        "columnsize": 3
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "action": "toCoverage"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
                     }
-                ]
-            },
+                    ]
+                    },
             {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
+                        "id": "quote_home:ext_above_ground_floor",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q1"
                     },
                     {
-                        "name": "submit1",
-                        "type": "buttonSmall",
-                        "label": "_CALCULATEPREMIUM",
-                        "action":"update",
-                        "tab": ["quote:quote_risk_list", "cscaia:operations", "cscaia:execute"],
-                        "visible": true,
-                        "columnsize": "6"
+                        "id": "quote_home:ext_resent_damage",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q2"
+                    },
+                    {
+                        "id": "quote_home:ext_limited_cellar",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q3"
+                    },
+                    {
+                        "id": "quote_home:ext_limited_cellar_except_one",
+                        "type": "toggle",
+                        "label": "_FLOODING_Q4"
                     }
                 ]
             }

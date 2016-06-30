@@ -1,46 +1,77 @@
 {
     "metamodel": {
-        "formid": "AddAutoQuote",
         "title": "_AUTO_QUOTE_EU_CREATE",
-        "icon":"flaticon-auto",
-        "resourcelist": ["quotes"], 
-        "category":"tabs",
-        "viewAs": "menu",
-        "hidetitle": false,
-        "createButton": false,
-        "name": "AddAutoQuote",
         "sections": [
             {
-                "$ref": "quoteInfo",
-                "name": "_QUOTE_INFO_TAB",
-                "renderAsTab":true,
-                "link" : "itself",
-                "step": 1
-            },
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "autocreate",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autocreate",
+                                "title": "_QUOTE_INFO_TAB"
+                            },
+                            {
+                                "screenId":"autoOwnerInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autoOwnerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "$ref":"autoRiskInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autoRiskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "$ref": "autoPremiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/autoPremiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "action": "toCoverage"
+                            },
+                            {
+                                "label": "_BACK",
+                                "action": "back"
+                            }
+                        ]
+                    }
+                    ]
+                    },
             {
-                "$ref":"ownerInfo",
-                "name": "_OWNER_INFO_TAB",
-                "link" : "quote:quote_owner_list",
-                "renderAsTab": true,
-                "step": 2
-            },
-            {
-                "$ref":"autoRiskInfo",
-                "name": "_RISK_INFO_TAB",
-                "link" : "quote:quote_risk_list",
-                "renderAsTab": true,
-                "step": 3
-            },
-            {
-                "$ref": "premiumInfo",
-                "name": "_PREMIUM_INFO_TAB",
-                "renderAsTab": true,
-                "link" : "undefined",
-                "step": 4
+                "properties": [
+                    {
+                        "id": "quote:description",
+                        "type": "textarea",
+                        "label": "_EXTERNAL_CONTRACT_NUMBER"
+                    },
+                    {
+                        "id": "quote:contract_start_date",
+                        "mask": "dd/mm/yy",
+                        "type": "date",
+                        "label": "_START_DATE_OF_THE_CONTRACT"
+                    },
+                    {
+                        "id": "quote:language",
+                        "type": "select",
+                        "label": "_CONTRACT_LANGUAGE"
+                    }
+                ]
             }
-        ]
-    },
-    "include":[
-        "quoteInfo", "ownerInfo", "autoRiskInfo", "premiumInfo"
-    ]
+        ] 
+    }
 }
