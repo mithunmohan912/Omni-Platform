@@ -54,11 +54,13 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo"
                             },
                             {
                                 "label": "_PREVIOUS",
-                                "action": "back"
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/riskInfo"
                             }
                         ]
                     }
@@ -69,22 +71,30 @@
                     {
                         "id": "quote_home:ext_above_ground_floor",
                         "type": "toggle",
-                        "label": "_FLOODING_Q1"
+                        "label": "_FLOODING_Q1",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_home:ext_resent_damage",
                         "type": "toggle",
-                        "label": "_FLOODING_Q2"
+                        "label": "_FLOODING_Q2",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_home:ext_limited_cellar",
                         "type": "toggle",
-                        "label": "_FLOODING_Q3"
+                        "label": "_FLOODING_Q3",
+                        "row": 2,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_home:ext_limited_cellar_except_one",
                         "type": "toggle",
-                        "label": "_FLOODING_Q4"
+                        "label": "_FLOODING_Q4",
+                        "row": 2,
+                        "patchOnBlur": true
                     }
                 ]
             }

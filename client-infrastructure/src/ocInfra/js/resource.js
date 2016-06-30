@@ -7,8 +7,6 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     var resourceDirectory = {};
     var PENDING_REQUEST = '0';
-    //used to distinct between GET method with and without params
-    var urlParams = {};
 
     function _addApiGatewayApiKeys(params) {
         if (params === undefined) {
@@ -26,10 +24,6 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
             resourceDirectory[url] = null;
-            urlParams[url] = true;
-        }else if(urlParams[url]){
-            resourceDirectory[url] = null;
-            urlParams[url] = false;
         }
 
         params = _addApiGatewayApiKeys(params);
