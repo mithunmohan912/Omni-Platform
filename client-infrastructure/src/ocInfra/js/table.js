@@ -59,6 +59,7 @@ app.controller('TableController', function($browser, $scope, $rootScope, TableMe
         
         if (url !== undefined) {
             $rootScope.navigate(url);
+            MetaModel.setAction(action);
         } else{
         MetaModel.actionHandling(item, $scope, regionId, screenId, action, resourceFactory,undefined, optionFlag); 
     }

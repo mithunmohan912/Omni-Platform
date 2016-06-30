@@ -11,7 +11,11 @@ exported ScreenController
 
 app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
     var self = this;
-    
+
+    this.setAction = function(action){
+        $rootScope.actionAfterNavigation = action;
+    };
+
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
@@ -137,6 +141,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
                         httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve);       
+                        $rootScope.actionAfterNavigation = undefined;
                     } else{
                         loadOptionsDataForMetamodel(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
@@ -649,11 +654,12 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                                     optiondataobj = data2._options.links;
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                                    if(action !== undefined){
-                                        options = optionsMapForResource.get(action);
+                                    if(action !== undefined || $rootScope.actionAfterNavigation !== undefined){
+                                        options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                         if(options !== undefined && patchFieldName !== undefined){
                                             options = sanitizeSchema(patchFieldName, options);
                                             httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                            $rootScope.actionAfterNavigation = undefined;
                                         }
                                         else{
                                             if(resolve) {
@@ -666,20 +672,23 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                 options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
+                                
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
@@ -899,6 +908,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                     resolve();
                 }
             }
+           resourceFactory.refresh(url,params,$rootScope.headers); 
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);

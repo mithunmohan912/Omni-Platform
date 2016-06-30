@@ -14,33 +14,27 @@
                         "row": 1,
                         "tabs": [
                             {
-                                "screenId": "quotescreate",
+                                "screenId": "autocreate",
                                 "method": "navigateToTab",
-                                "actionURL": "/eu/screen/quotescreate",
-                                "title": "_QUOTE_INFO_TAB"   
+                                "actionURL": "/eu/screen/autocreate",
+                                "title": "_QUOTE_INFO_TAB"
                             },
                             {
-                                "screenId":"ownerInfo",
+                                "screenId":"autoOwnerInfo",
                                 "method": "navigateToTab",
-                                "actionURL": "/eu/screen/ownerInfo",
+                                "actionURL": "/eu/screen/autoOwnerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "screenId":"riskInfo",
+                                "$ref":"autoRiskInfo",
                                 "method": "navigateToTab",
-                                "actionURL": "/eu/screen/riskInfo",
+                                "actionURL": "/eu/screen/autoRiskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "screenId": "additionalInfo",
+                                "$ref": "autoPremiumInfo",
                                 "method": "navigateToTab",
-                                "actionURL": "/eu/screen/additionalInfo",
-                                "title": "_ADDITIONAL_INFO_TAB"
-                            },
-                            {
-                                "screenId": "premiumInfo",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/premiumInfo",
+                                "actionURL": "/eu/screen/autoPremiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
@@ -67,53 +61,80 @@
                     {
                         "id": "quote_owner:type",
                         "type": "select",
-                        "label": "_PERSONAL_ENTITY"
+                        "label": "_PERSONAL_ENTITY",
+                        "required": "required",                        
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:person_title",
                         "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS"
+                        "label": "_LEGAL_ACTIVITY_CLASS",                        
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:name",
                         "type": "text",
-                        "label": "_LASTNAME"
+                        "typeaheadField": "person:last_name",
+                        "label": "_LASTNAME",
+                        "columnsize": 3,
+                        "typeahead": "true",
+                        "maxlength": 40
                     },
                     {
                         "id": "quote_owner:first_name",
                         "type": "text",
-                        "label": "_FIRSTNAME"
+                        "typeaheadField": "person:first_name",
+                        "label": "_FIRSTNAME",
+                        "columnsize": 3,
+                        "typeahead": "true",
+                        "maxlength": 40
                     },
                     {
                         "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
-                        "label": "_DOB"
+                        "label": "_DOB",
+                        "required": "required",
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:city",
                         "type": "autocomplete",
-                        "label": "_CITY"
+                        "label": "_CITY",
+                        "columnsize": 3,
+                        "maxlength": 30,
+                        "typewait": 1000
                     },
                     {
                         "id": "quote_owner:street_number",
                         "type": "text",
-                        "label": "_STREET_NUMBER"
+                        "label": "_STREET_NUMBER",
+                        "maxlength": 8,
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:street_name",
                         "type": "text",
-                        "label": "_STREET_NAME"
+                        "label": "_STREET_NAME",
+                        "maxlength": 30,
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:postal_code",
                         "type": "text",
-                        "label": "_BOX_NUMBER"
+                        "typeaheadField": "person:postal_code",
+                        "typeahead": "true",
+                        "label": "_BOX_NUMBER",
+                        "maxlength": 8,
+                        "required": "required",
+                        "columnsize": 3
                     },
                     {
                         "id": "quote_owner:email",
                         "type": "email",
-                        "label": "_EMAIL"
+                        "label": "_EMAIL",
+                        "columnsize": 3,
+                        "maxlength": 80
                     }
                 ]
             }
