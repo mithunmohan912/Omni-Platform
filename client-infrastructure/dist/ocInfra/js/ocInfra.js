@@ -330,7 +330,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						} else {
 							//default action
 							if (field.options.href && field.options.params) {
-								return $scope.getData({'$viewValue': $viewValue, 'field': field});
+								return $scope.getData({'$viewValue': $viewValue, 'field': field, 'resources': $scope.resources});
 							}
 							//console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
 						}
@@ -338,7 +338,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'_select': function($item, id, field){
 						// field.options.select is the action defined by the user to be invoked when a value from the dropdown is selected
 						if(field.options.select){
-							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector} );
+							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector, 'resources': $scope.resources} );
 						} else {
 							console.warn('input.js -> autocomplete_select(): No select callback for autocomplete input.');
 						}
@@ -1383,7 +1383,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				if($scope.actionFactory && $scope.actionFactory[action]){
 					var defaultValues = MetaModel.getDefaultValues(action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[action]({ 'scope':$scope, 'actionURL':actionURL, 'optionsMap':$scope.optionsMap[$scope.optionUrl], 'properties':$scope.resourcesToBind.properties, 'defaultValues':defaultValues });
 					}
 				} else {
 					if ($scope[action]) {
