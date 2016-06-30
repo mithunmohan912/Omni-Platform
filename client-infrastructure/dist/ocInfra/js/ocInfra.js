@@ -1195,6 +1195,8 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
 										if (optionsObj.httpmethod === 'POST') {
 											$scope.resourceUrl = response.data._links.self.href;
+											//This value will be updated also when clicking in edit a quote from the dashboard
+                      						sessionStorage.setItem(resource + '_get' +  '_url', $scope.resourceUrl);
 										} else {
 											$scope.metamodelObject.resourceUrl = optionsObj.href;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
