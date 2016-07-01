@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.jettison.JettisonFeature;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MessageTranslatorTest {
@@ -57,31 +58,37 @@ public class MessageTranslatorTest {
 	/** TESTS */
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorAia() {
 		testMessageTranslator(URI_MOCK_AIA_PERSONS, URI_AIA_PRIVATE_PREFIX, URI_AIA_PUBLIC_PREFIX);
 	}
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorIntegral() {
 		testMessageTranslator(URI_MOCK_INTEGRAL_PERSONS, URI_INTEGRAL_PRIVATE_PREFIX, URI_INTEGRAL_PUBLIC_PREFIX);
 	}
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorPointIn() {
 		testMessageTranslator(URI_MOCK_POINTIN_PERSONS, URI_POINTIN_PRIVATE_PREFIX, URI_POINTIN_PUBLIC_PREFIX);
 	}
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorOmniChannelAia() {
 		testMessageTranslator(URI_MOCK_OMNICHANNEL_AIA_PERSONS, URI_AIA_PUBLIC_PREFIX, URI_AIA_PRIVATE_PREFIX);
 	}
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorOmniChannelIntegral() {
 		testMessageTranslator(URI_MOCK_OMNICHANNEL_INTEGRAL_PERSONS, URI_INTEGRAL_PUBLIC_PREFIX, URI_INTEGRAL_PRIVATE_PREFIX);
 	}
 
 	@Test
+	@Ignore
 	public void testMessageTranslatorOmniChannelPointIn() {
 		testMessageTranslator(URI_MOCK_OMNICHANNEL_POINTIN_PERSONS, URI_POINTIN_PUBLIC_PREFIX, URI_POINTIN_PRIVATE_PREFIX);
 	}
