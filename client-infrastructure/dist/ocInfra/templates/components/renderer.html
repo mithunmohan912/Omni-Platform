@@ -6,7 +6,6 @@
         	<hr ng-if="section.title" class="onl_hrOr_1">
         	<hr class="onl_hrOr_2">
     	</div>
-	
 		<div ng-switch-when="reference" class="linkedRenderer">
 			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
 		</div>
@@ -22,6 +21,9 @@
 										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{ tab.title | translate }}</a>
 									</li>
 								</ul>
+							</div>
+							<div ng-switch-when="pdf">
+								<ng-pdf template-url="/partials/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 							</div>
 					      	<div ng-switch-when="table" class="table-responsive">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>

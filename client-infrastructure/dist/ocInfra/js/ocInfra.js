@@ -1167,11 +1167,16 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
-                	$scope.metamodelObject.optionUrl = newURL;
-                    $scope.resourceUrlToRender = newURL;
+                  
+                  //we need to check the sesssion storage just in case we are coming from another SPA
+                  newURL = sessionStorage.getItem(resource + '_url') ? sessionStorage.getItem(resource + '_url') : newURL;
+                	$scope.metamodelObject.optionUrl = newURL ;
+                  $scope.resourceUrlToRender = newURL;
+                  $scope.resourceUrl = newURL;
                 }
 
 				$scope.optionUrl = $scope.metamodelObject.optionUrl;
+       
 				if($scope.optionUrl === undefined){
 					return;
 				}
@@ -1189,14 +1194,14 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 									var data = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_data'));
 									var params = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_data');
 									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
-									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+
+                  
 
 									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
 										if (optionsObj.httpmethod === 'POST') {
 											$scope.resourceUrl = response.data._links.self.href;
-											//This value will be updated also when clicking in edit a quote from the dashboard
-                      						sessionStorage.setItem(resource + '_get' +  '_url', $scope.resourceUrl);
 										} else {
 											$scope.metamodelObject.resourceUrl = optionsObj.href;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
