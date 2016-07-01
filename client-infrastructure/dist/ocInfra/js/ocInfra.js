@@ -1652,7 +1652,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
 				if ($scope.metamodelObject.buttons) {
-					var label = $scope.metamodelObject.buttonLabel;
+					var label = $scope.metamodelObject.buttons.label;
 					//look for the POST operation by default to create the possible buttons
 					resourceFactory.get($scope.resourceUrl).then(function(response) {
 						response.data._options.links.forEach(function(link) {
@@ -1728,10 +1728,10 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 
 			$scope.execute = function(action, displayedItem) {
 				if(action.buttonAction){
-					if ($scope.metamodelObject.buttonMethod) {
-						$scope.actionFactory[$scope.metamodelObject.buttonMethod](action.params);
+					if ($scope.metamodelObject.buttons.method) {
+						$scope.actionFactory[$scope.metamodelObject.buttons.method](action.params);
 					} else {
-						$scope[action.value](action.params, $scope.metamodelObject.buttonCallback);
+						$scope[action.value](action.params, $scope.metamodelObject.buttons.callback);
 					}
 				} else {
 					if (action.method) {
