@@ -53,6 +53,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
     this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
     var options = {};
+    //Pick the URL for the business dependency on which your metamodel depends. 
     if(properties !== undefined){
         angular.forEach(properties, function(val, key) {
             var url = properties[key].self;
@@ -61,6 +62,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
         });
     }
+    
     console.log('Invoke options on - '+rootURL);
 
     if(!$rootScope.optionsMapForURL.get(rootURL)){

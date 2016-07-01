@@ -13,60 +13,70 @@
                             {
                                 "screenId": "autocreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autocreate",
                                 "title": "_QUOTE_INFO_TAB"
                             },
                             {
                                 "screenId":"autoOwnerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "$ref":"autoRiskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoRiskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "$ref": "autoPremiumInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoPremiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/autoOwnerInfo"
-                            }
-                        ]
                     }
-                    ]
-                    },
+                ]
+            },
             {
                 "properties": [
                     {
                         "id": "quote:description",
                         "type": "textarea",
+                        "row": 1,
                         "label": "_EXTERNAL_CONTRACT_NUMBER"
                     },
                     {
                         "id": "quote:contract_start_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
+                        "row": 1,
                         "label": "_START_DATE_OF_THE_CONTRACT"
                     },
                     {
                         "id": "quote:language",
                         "type": "select",
+                        "row": 2,
                         "label": "_CONTRACT_LANGUAGE"
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoOwnerInfo"
+                            }
+                        ]
                     }
                 ]
             }
