@@ -18,182 +18,212 @@
                             {
                                 "screenId": "autocreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autocreate",
                                 "title": "_QUOTE_INFO_TAB"
                             },
                             {
                                 "screenId":"autoOwnerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "$ref":"autoRiskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoRiskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "$ref": "autoPremiumInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoPremiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/autoPremiumInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/autoOwnerInfo"
-                            }
-                        ]
                     }
-                    ]
-                    },
+                ]
+                },
             {
                 "properties": [
                     {
                         "id": "quote_automobile:make",
                         "type": "text",
-                        "typeaheadField": "referential_vehicle:make",
                         "label": "_MAKE",
-                        "typeahead": "true",
-                        "typewait": 1500
+                        "row": 1
                     },
                     {
                         "id": "quote_automobile:power",
                         "type": "number",
-                        "label": "_POWER"
+                        "label": "_POWER",
+                        "row": 1
                     },
                     {
                         "id": "quote_automobile:usage",
                         "type": "select",
-                        "label": "_USAGE"
+                        "label": "_USAGE",
+                        "row": 2
                     },
                     {
                         "id": "quote_automobile:ext_model",
                         "type": "text",
-                        "label": "_EXT_MODEL"
+                        "label": "_EXT_MODEL",
+                        "row": 2
                     },
                     {
                         "id": "quote_automobile:first_use_date",
                         "type": "date",
                         "mask": "dd/mm/yy",
-                        "label": "_FIRST_USE_DATE"
+                        "label": "_FIRST_USE_DATE",
+                        "row": 3
                     },
                     {
                         "id": "quote_automobile:fuel",
                         "type": "select",
-                        "label": "_FUEL"
+                        "label": "_FUEL",
+                        "row": 3
                     },
                     {
                         "id": "quote_automobile:ext_sport",
                         "type": "toggle",
-                        "label": "_EXT_SPORT"
+                        "label": "_EXT_SPORT",
+                        "row": 4
                     },
                     {
                         "id": "quote_automobile:ext_cabrio",
                         "type": "toggle",
-                        "label": "_EXT_CABRIO"
+                        "label": "_EXT_CABRIO",
+                        "row": 4
                     },
                     {
                         "id": "quote_automobile:ext_type",
                         "type": "select",
-                        "label": "_EXT_TYPE"
+                        "label": "_EXT_TYPE",
+                        "row": 5
                     },
                     {
                         "id": "quote_automobile:ext_trailer",
                         "type": "toggle",
-                        "label": "_EXT_TRAILER"
+                        "label": "_EXT_TRAILER",
+                        "row": 5
                     },
                     {
                         "id": "quote_automobile:ext_old_timer",
                         "type": "toggle",
-                        "label": "_EXT_OLD_TIMER"
+                        "label": "_EXT_OLD_TIMER",
+                        "row": 6
                     },
                     {
                         "id": "quote_automobile:ext_average_mileage",
                         "type": "toggle",
-                        "label": "_EXT_AVERAGE_MILEAGE"
+                        "label": "_EXT_AVERAGE_MILEAGE",
+                        "row": 6
                     },
                     {
                         "id": "quote_automobile:ext_omnium_type",
                         "type": "select",
-                        "label": "_EXT_OMNIUM_TYPE"                   
+                        "label": "_EXT_OMNIUM_TYPE"                   ,
+                        "row": 7
                     },
                     {
                         "id": "quote_automobile:ext_degree_r_c",
                         "type": "number",
-                        "label": "_EXT_DEGREE_R_C"
+                        "label": "_EXT_DEGREE_R_C",
+                        "row": 7
                     },
                     {
                         "id": "quote_automobile:ext_aggravated_risk",
                         "type": "toggle",
-                        "label": "_EXT_AGGRAVATED_RISK"
+                        "label": "_EXT_AGGRAVATED_RISK",
+                        "row": 8
                     },
                     {
                         "id": "quote_automobile:ext_safety_features",
                         "type": "select",
-                        "label": "_EXT_SAFETY_FEATURES"        
+                        "label": "_EXT_SAFETY_FEATURES"        ,
+                        "row": 8
                     },
                     {
                         "id": "quote_automobile:ext_responsible_claims_number",
                         "type": "number",
-                        "label": "_EXT_RESPONSIBLE_CLAIMS_NUMBER"
+                        "label": "_EXT_RESPONSIBLE_CLAIMS_NUMBER",
+                        "row": 9
                     },
                     {
                         "id": "quote_automobile:ext_shared_claims_number",
                         "type": "number",
-                        "label": "_EXT_SHARED_CLAIMS_NUMBER"
+                        "label": "_EXT_SHARED_CLAIMS_NUMBER",
+                        "row": 9
                     },
                     {
                         "id": "quote_automobile:ext_to_determine_claims_number",
                         "type": "number",
                         "decimal": true,
-                        "label": "_EXT_TO_DETERMINE_CLAIMS_NUMBER"
+                        "label": "_EXT_TO_DETERMINE_CLAIMS_NUMBER",
+                        "row": 10
                     },
                     {
                         "id": "quote_automobile:ext_victim_claims_number",
                         "type": "number",
                         "decimal": true,
-                        "label": "_EXT_VICTIM_CLAIMS_NUMBER"
+                        "label": "_EXT_VICTIM_CLAIMS_NUMBER",
+                        "row": 10
                     },
                     {
                         "id": "quote_automobile:ext_official_claims",
                         "type": "toggle",                      
-                        "label": "_EXT_OFFICIAL_CLAIMS"               
+                        "label": "_EXT_OFFICIAL_CLAIMS"               ,
+                        "row": 11
                     },
                     {
                         "id": "quote_automobile:ext_jeep",
                         "type": "toggle",
-                        "label": "_EXT_JEEP"
+                        "label": "_EXT_JEEP",
+                        "row": 11
                     },
                     {
                         "id": "quote_automobile:insured_value",
                         "type": "number",
                         "decimal": true,
-                        "label": "_INSURED_VALUE"
+                        "label": "_INSURED_VALUE",
+                        "row": 12
                     },
                     {
                         "id": "quote_automobile:ext_leasing",
                         "type": "select",
-                        "label": "_EXT_LEASING"                   
+                        "label": "_EXT_LEASING"                   ,
+                        "row": 12
                     },
                     {
                         "id": "quote_risk:ext_vat",
                         "type": "number",
                         "decimal": true,
-                        "label": "_EXT_VAT"
+                        "label": "_EXT_VAT",
+                        "row": 13
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoPremiumInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoOwnerInfo"
+                            }
+                        ]
                     }
                 ]
             }

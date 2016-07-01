@@ -18,24 +18,28 @@
                             {
                                 "screenId": "quotescreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/quotescreate",
                                 "title": "_QUOTE_INFO_TAB"   
                             },
                             {
                                 "screenId":"ownerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/ownerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "screenId":"riskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/riskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "screenId": "additionalInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/additionalInfo",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
@@ -44,22 +48,6 @@
                                 "method": "navigateToTab",
                                 "actionURL": "/eu/screen/premiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/riskInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/quotescreate"
                             }
                         ]
                     }
@@ -71,72 +59,77 @@
                         "id": "quote_owner:type",
                         "type": "select",
                         "label": "_PERSONAL_ENTITY",
-                        "row": 1,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "id": "quote_owner:person_title",
-                        "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS",
-                        "row": 1,
-                        "patchOnBlur": true
+                        "row": 1
                     },
                     {
                         "id": "quote_owner:name",
                         "type": "text",
                         "label": "_LASTNAME",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "row": 2
                     },
                     {
                         "id": "quote_owner:first_name",
                         "type": "text",
                         "label": "_FIRSTNAME",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "row": 2
                     },
                     {
                         "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_DOB",
-                        "row": 3,
-                        "patchOnBlur": true
+                        "row": 3
                     },
                     {
                         "id": "quote_owner:city",
                         "type": "autocomplete",
                         "label": "_CITY",
-                        "row": 3,
-                        "patchOnBlur": true
+                        "row": 3
                     },
                     {
                         "id": "quote_owner:street_number",
                         "type": "text",
                         "label": "_STREET_NUMBER",
-                        "row": 4,
-                        "patchOnBlur": true
+                        "row": 4
                     },
                     {
                         "id": "quote_owner:street_name",
                         "type": "text",
                         "label": "_STREET_NAME",
-                        "row": 4,
-                        "patchOnBlur": true
+                        "row": 4
                     },
                     {
                         "id": "quote_owner:postal_code",
                         "type": "text",
                         "label": "_BOX_NUMBER",
-                        "row": 5,
-                        "patchOnBlur": true
+                        "row": 5
                     },
                     {
                         "id": "quote_owner:email",
                         "type": "email",
                         "label": "_EMAIL",
-                        "row": 5,
-                        "patchOnBlur": true
+                        "row": 5
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/riskInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/quotescreate"
+                            }
+                        ]
                     }
                 ]
             }
