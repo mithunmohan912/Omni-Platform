@@ -18,127 +18,111 @@
                             {
                                 "screenId": "autocreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autocreate",
                                 "title": "_QUOTE_INFO_TAB"
                             },
                             {
                                 "screenId":"autoOwnerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "$ref":"autoRiskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoRiskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "$ref": "autoPremiumInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/autoPremiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/autoRiskInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/autocreate"
-                            }
-                        ]
                     }
-                    ]
-                    },
+                ]
+            },
             {
                "properties":   [
                     {
                         "id": "quote_owner:type",
                         "type": "select",
                         "label": "_PERSONAL_ENTITY",
-                        "required": "required",                        
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:person_title",
-                        "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS",                        
-                        "columnsize": 3
+                        "row": 1
                     },
                     {
                         "id": "quote_owner:name",
                         "type": "text",
-                        "typeaheadField": "person:last_name",
                         "label": "_LASTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
+                        "row": 1
                     },
                     {
                         "id": "quote_owner:first_name",
                         "type": "text",
-                        "typeaheadField": "person:first_name",
                         "label": "_FIRSTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
+                        "row": 2
                     },
                     {
                         "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
-                        "label": "_DOB",
-                        "required": "required",
-                        "columnsize": 3
+                        "row": 2
                     },
                     {
                         "id": "quote_owner:city",
                         "type": "autocomplete",
                         "label": "_CITY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "typewait": 1000
+                        "row": 3
                     },
                     {
                         "id": "quote_owner:street_number",
                         "type": "text",
                         "label": "_STREET_NUMBER",
-                        "maxlength": 8,
-                        "columnsize": 3
+                        "row": 3
                     },
                     {
                         "id": "quote_owner:street_name",
                         "type": "text",
                         "label": "_STREET_NAME",
-                        "maxlength": 30,
-                        "columnsize": 3
+                        "row": 4
                     },
                     {
                         "id": "quote_owner:postal_code",
                         "type": "text",
-                        "typeaheadField": "person:postal_code",
-                        "typeahead": "true",
                         "label": "_BOX_NUMBER",
-                        "maxlength": 8,
-                        "required": "required",
-                        "columnsize": 3
+                        "row": 4
                     },
                     {
                         "id": "quote_owner:email",
                         "type": "email",
                         "label": "_EMAIL",
-                        "columnsize": 3,
-                        "maxlength": 80
+                        "row": 5
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoRiskInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autocreate"
+                            }
+                        ]
                     }
                 ]
             }
