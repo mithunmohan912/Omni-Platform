@@ -18,24 +18,28 @@
                             {
                                 "screenId": "quotescreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/quotescreate",
                                 "title": "_QUOTE_INFO_TAB"   
                             },
                             {
                                 "screenId":"ownerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/ownerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "screenId":"riskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/riskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "screenId": "additionalInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/additionalInfo",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
@@ -46,176 +50,141 @@
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/additionalInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/ownerInfo"
-                            }
-                        ]
                     }
-                    ]
-                    },
+                ]
+            },
             {
                 "properties":   [
                     {
                         "id": "quote_home:postal_code",
                         "type": "autocomplete",
                         "label": "_POSTALCODE",
-                        "row": 1,
-                        "patchOnBlur": true
+                        "row": 1
                     },
                     {
                         "id": "quote_home:city",
                         "type": "autocomplete",
                         "label": "_CITY",
-                        "row": 1,
-                        "patchOnBlur": true
+                        "row": 1
                     },
                     {
                         "id": "quote_home:street_name",
                         "type": "autocomplete",
                         "label": "_STREET_NAME",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "row": 2
                     },
                     {
                         "id": "quote_home:street_number",
                         "type": "text",
                         "label": "_STREET_NUMBER",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "row": 2
                     },
                     {
                         "id": "quote_home:box_number",
                         "type": "text",
                         "label": "_BOX_NUMBER",
-                        "row": 3,
-                        "patchOnBlur": true
+                        "row": 3
                     },
                     {
                         "id": "quote_home:bulding_nature",
                         "type": "select",
                         "label": "_HOME_NATURE",
-                        "row": 3,
-                        "patchOnBlur": true
+                        "row": 3
                     },
                     {
                         "id": "quote_home:bulding_type",
                         "type": "select",
                         "label": "_HOME_TYPE",
-                        "row": 4,
-                        "patchOnBlur": true
+                        "row": 4
                     },
                     {
                         "id": "quote_home:ext_occupation_type",
                         "type": "select",
                         "label": "_QUALITY",
-                        "row": 4,
-                        "patchOnBlur": true                        
+                        "row": 4
                     },
                     {
                         "id": "quote_home:ext_occupation",
                         "type": "select",
                         "label": "_OCCUPATION",
-                        "row": 5,
-                        "patchOnBlur": true
+                        "row": 5
                     },
                     {
                         "id": "quote_home:ext_new_building",
                         "type": "select",
                         "label": "_RECENT_BUILDING",
-                        "row": 5,
-                        "patchOnBlur": true
+                        "row": 5
                     },
                     {
                         "id": "quote_home:ext_restauration_value",
                         "type": "select",
                         "label": "_BUILDING_VALUE",
-                        "row": 6,
-                        "patchOnBlur": true
+                        "row": 6
                     },
                     {
                         "id": "quote_home:ext_thatched_roof",
                         "type": "toggle",
                         "label": "_STRAW_ROOF",
-                        "row": 6,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "id": "quote_home:ext_bldng_under_construction",
-                        "type": "toggle",
-                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION",
-                        "row": 7,
-                        "patchOnBlur": true
+                        "row": 6
                     },
                     {
                         "id": "quote_home:alarm_system",
                         "type": "toggle",
                         "label": "_ALARM_SYSTEM",
-                        "row": 7,
-                        "patchOnBlur": true
+                        "row": 7
                     },
                     {
                         "id": "quote_home:ext_assured_motorized_vehicle",
                         "type": "toggle",
                         "label": "_ASSURED_MOTORIZED",
-                        "row": 8,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "id": "quote_home:ext_signing_act",
-                        "type": "toggle",
-                        "label": "_SIGNING_OF_ACT",
-                        "row": 8,
-                        "patchOnBlur": true
-                    },
-                    {
-                        "id": "quote_home:ext_purchase_building",
-                        "type": "toggle",
-                        "label": "_BUILDING_PURCHASE",
-                        "row": 9,
-                        "patchOnBlur": true
+                        "row": 7
                     },
                     {
                         "id": "quote_home:ext_evaluation",
                         "type": "select",
                         "label": "_EVALUATION_SYSTEM",
-                        "row": 9,
-                        "patchOnBlur": true                       
+                        "row": 8
                     },
                     {
                         "id": "quote_home:ext_building_value",
                         "type": "number",
                         "decimal": true,
                         "label": "_VALUE_OF_BUILDING",
-                        "row": 10,
-                        "patchOnBlur": true
+                        "row": 8
                     },
                      {
                         "id": "quote_home:ext_content_evaluation",
                         "type": "select",
                         "label": "_BUILDING_CONTENT_EVALUATION",
-                        "row": 10,
-                        "patchOnBlur": true                 
+                        "row": 9
                     },
                     {
                         "id": "quote_home:ext_content_value",
                         "type": "number",
                         "decimal": true,
                         "label": "_VALUE_OF_CONTENT",
-                        "row": 11,
-                        "patchOnBlur": true
+                        "row": 9                        
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/additionalInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo"
+                            }
+                        ]
                     }
                 ]
             }
