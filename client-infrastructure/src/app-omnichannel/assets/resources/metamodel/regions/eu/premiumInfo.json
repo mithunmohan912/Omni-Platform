@@ -1,7 +1,9 @@
 {
     "metamodel": {
+        "showHeader": true,
         "sections": [
             {
+                "title": "_HOME_QUOTE_EU",
                 "properties": [
                     {
                         "type": "tabs",
@@ -46,12 +48,9 @@
                         "row": 1,
                         "buttons": [
                             {
-                                "label": "_NEXT",
-                                "action": "toCoverage"
-                            },
-                            {
-                                "label": "_BACK",
-                                "action": "back"
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/additionalInfo"
                             }
                         ]
                     }
@@ -62,11 +61,13 @@
                     {
                         "id": "quote:identifier",
                         "type": "label",
+                        "row": 1,
                         "label": "_QUOTE_IDENTIFIER"
                     },
                     {
                         "id": "quote:annual_cost",
                         "type": "label",
+                        "row": 1,
                         "label": "_QUOTE_ANNUAL_COST"
                     }
                 ]

@@ -56,7 +56,11 @@ TourConfigProvider.set('prefixOptions', false);
             'responseError': function(rejection) {
                 console.log('rejection!!' + rejection.statusText + 'error' + rejection.status);
                 //console.log(JSON.stringify(rejection));
-                if(rejection.status && rejection.status !== -1 && rejection.statusText){
+               
+                if($rootScope.regionId === 'eu'){
+                    growl.error(rejection.data.messages[0].message +'<br>' +rejection.data.messages[1].message );
+                }
+                if(rejection.status && rejection.status !== -1 && rejection.statusText && $rootScope.regionId !== 'eu'){
                     growl.error(rejection.statusText);
                 }
 

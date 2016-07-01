@@ -972,7 +972,12 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
     }
     $rootScope.metamodel = scope.metamodel = scope.metamodel || {};
     scope.metamodel[screenId] = m.metamodel;
-
+    
+    if(m.metamodel.showHeader === undefined){
+        m.metamodel.showHeader = true;
+    }
+    $rootScope.metamodel.showHeader = m.metamodel.showHeader;
+    
     $browser.notifyWhenNoOutstandingRequests(function() {
         changeMandatoryColor($rootScope);
         $rootScope.$apply();
