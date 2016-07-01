@@ -77,6 +77,7 @@
                         "id": "quote_home:street_number",
                         "type": "text",
                         "label": "_STREET_NUMBER",
+                        "patchOnBlur": true,
                         "row": 2
                     },
                     {
@@ -89,7 +90,8 @@
                         "id": "quote_home:bulding_nature",
                         "type": "select",
                         "label": "_HOME_NATURE",
-                        "row": 3
+                        "row": 3,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_home:bulding_type",
@@ -128,6 +130,12 @@
                         "row": 6
                     },
                     {
+                        "id": "quote_home:ext_bldng_under_construction",
+                        "type": "toggle",
+                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION",
+                        "row": 7
+                    },
+                    {
                         "id": "quote_home:alarm_system",
                         "type": "toggle",
                         "label": "_ALARM_SYSTEM",
@@ -137,33 +145,47 @@
                         "id": "quote_home:ext_assured_motorized_vehicle",
                         "type": "toggle",
                         "label": "_ASSURED_MOTORIZED",
-                        "row": 7
+                        "row": 8
+                    },
+                    {
+                        "id": "quote_home:ext_signing_act",
+                        "type": "toggle",
+                        "label": "_SIGNING_OF_ACT",
+                        "row": 8
+                    },
+                    {
+                        "id": "quote_home:ext_purchase_building",
+                        "type": "toggle",
+                        "label": "_BUILDING_PURCHASE",
+                        "row": 9
                     },
                     {
                         "id": "quote_home:ext_evaluation",
                         "type": "select",
                         "label": "_EVALUATION_SYSTEM",
-                        "row": 8
+                        "row": 9
                     },
                     {
                         "id": "quote_home:ext_building_value",
                         "type": "number",
                         "decimal": true,
                         "label": "_VALUE_OF_BUILDING",
-                        "row": 8
+                        "patchOnBlur": true,
+                        "row": 10
                     },
                      {
                         "id": "quote_home:ext_content_evaluation",
                         "type": "select",
                         "label": "_BUILDING_CONTENT_EVALUATION",
-                        "row": 9
+                        "row": 10
                     },
                     {
                         "id": "quote_home:ext_content_value",
                         "type": "number",
                         "decimal": true,
                         "label": "_VALUE_OF_CONTENT",
-                        "row": 9                        
+                        "patchOnBlur": true,
+                        "row": 11                       
                     }
                 ]
             },
