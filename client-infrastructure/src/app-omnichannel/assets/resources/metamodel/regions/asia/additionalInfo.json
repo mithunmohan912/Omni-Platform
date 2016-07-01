@@ -1,5 +1,6 @@
 {
     "metamodel": {
+        "showHeader": true,
         "businessObject": {
            "quote": [
                    "quote:quote_risk_list"
@@ -16,18 +17,21 @@
                             {
                                 "screenId": "quotescreate",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/asia/screen/quotescreate",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "screenId": "riskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/asia/screen/riskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "screenId": "additionalInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/asia/screen/additionalInfo",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
@@ -38,27 +42,10 @@
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/asia/screen/premiumInfo"
-                            },
-                            {
-                                "label": "_BACK",
-                                "method": "navigateToTab",
-                                "actionURL": "/asia/screen/riskInfo"
-                            }
-                        ]
                     }
-                    ]
-                    },
-                {
+                ]
+            },
+            {
                 "properties": [
                     {
                         "id": "quote-additional-premium",
@@ -86,22 +73,21 @@
             {
                 "properties": [
                     {
-                        "id": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "id": "submit1",
-                        "type": "buttonSmall",
-                        "label": "_CALCULATEPREMIUM",
-                        "action":"update",
-                        "tab": ["quote:quote_risk_list", "quote:quote_operations", "quote-execute"],
-                        "visible": true,
-                        "columnsize": "6"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/premiumInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/riskInfo"
+                            }
+                        ]
                     }
                 ]
             }
