@@ -2,8 +2,9 @@
     "metamodel": {
         "name": "offer_partyroles_list",
         "modalRef": "offer_partyroles",
-        "buttons": true,
-        "buttonCallback": "callbackPartyRole",
+        "buttons": {
+            "callback": "callbackPartyRole"
+        },
         "filters": { "party_role:role_type": ["owner"] },
 
         "properties": [
