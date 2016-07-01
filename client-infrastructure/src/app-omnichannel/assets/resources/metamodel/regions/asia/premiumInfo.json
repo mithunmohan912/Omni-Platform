@@ -34,51 +34,37 @@
                             }
                         ]
                     },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                            },
-                            {
-                                "label": "_BACK",
-                                "method": "navigateToTab",
-                                "actionURL": "/asia/screen/additionalInfo"
-                            }
-                        ]
-                    }
-                    ]
-                    },
-                {
+                    
+                ]
+            },
+            {
                 "properties":   [
                     {
                         "id": "quote-identifier",
                         "type": "label",
                         "label": "_QUOTE_IDENTIFIER",
-                        "columnsize": 3,
-                        "disabled" : true
+                        "row": 1
+
                     },
                     {
                         "id": "quote-annual_cost",
                         "type": "costLabelAsia",
                         "label": "_QUOTE_ANNUAL_COST",
-                        "columnsize": 3,
-                        "disabled" : true
+                        "row": 1
                     }
                 ]
             },
             {
                 "properties": [
                     {
-                        "id": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/additionalInfo"
+                            }
+                        ]
                     }
                 ]
             }

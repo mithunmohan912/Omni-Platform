@@ -39,27 +39,10 @@
                             }
                         ]
                     },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/asia/screen/additionalInfo"
-                            },
-                            {
-                                "label": "_BACK",
-                                "method": "navigateToTab",
-                                "actionURL": "/asia/screen/quotescreate"
-                            }
-                        ]
-                    }
-                    ]
-                    },
-                {
-                    "properties":   [
+                ]
+            },
+            {
+                "properties":   [
                     {
                         "id": "quote-vehicle-use",
                         "type": "select",
@@ -72,8 +55,6 @@
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_SUM_INSURED",
-                        "min": 0,
-                        "max": 9999999999999,
                         "patchOnBlur": true,
                         "row": 1
                     },
@@ -82,8 +63,6 @@
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_YEAR_OF_REGISTRATION",
-                        "min": 1950,
-                        "max": 2016,
                         "patchOnBlur": true,
                         "row": 2
                     },
@@ -157,21 +136,21 @@
             {
                 "properties": [
                     {
-                        "id": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "id": "next1",
-                        "type": "buttonSmall",
-                        "label": "_NEXT",
-                        "action":"nextTab",
-                        "visible": true,
-                        "columnsize": "6"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/additionalInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/ownerInfo"
+                            }
+                        ]
                     }
                 ]
             }
