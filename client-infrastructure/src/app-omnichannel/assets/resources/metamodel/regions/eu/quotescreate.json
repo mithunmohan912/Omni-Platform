@@ -19,18 +19,21 @@
                             {
                                 "screenId":"ownerInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/ownerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
                                 "screenId":"riskInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/riskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
                                 "screenId": "additionalInfo",
                                 "method": "navigateToTab",
+                                "action": "update",
                                 "actionURL": "/eu/screen/additionalInfo",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
@@ -41,43 +44,44 @@
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/ownerInfo"
-                            }
-                        ]
                     }
-                    ]
-                    },
+                ]
+            },
             {
                 "properties": [
                     {
                         "id": "quote:description",
                         "type": "textarea",
                         "label": "_EXTERNAL_CONTRACT_NUMBER",
-                        "row": 1,
-                        "patchOnBlur": true
+                        "row": 1
                     },
                     {
                         "id": "quote:contract_start_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_START_DATE_OF_THE_CONTRACT",
-                        "row": 1,
-                        "patchOnBlur": true
+                        "row": 1
                     },
                     {
                         "id": "quote:language",
                         "type": "select",
                         "label": "_CONTRACT_LANGUAGE",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "row": 2
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo"
+                            }
+                        ]
                     }
                 ]
             }

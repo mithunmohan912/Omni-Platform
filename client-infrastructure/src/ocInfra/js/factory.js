@@ -51,8 +51,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, resolve){        
+    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
     var options = {};
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key) {
+            var url = properties[key].self;
+            if(url !== undefined && url !== rootURL){
+                rootURL = url;
+            }
+        });
+    }
+    console.log('Invoke options on - '+rootURL);
+
     if(!$rootScope.optionsMapForURL.get(rootURL)){
     
             callOptions($rootScope, rootURL, function(optionsObj){
@@ -61,7 +71,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
                 }
             });
     }else{
@@ -70,7 +80,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
         } 
     } 
     };
@@ -517,6 +527,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Build the right href. When there are url parameters, they are not included in the href so we need to include them
                 resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
                 resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
+               // $rootScope.resourceUrl = rootURL;
 
                 // Analyze business dependencies in order to extract them
                 resultSet[rootURL].dependencies.forEach(function(url){
@@ -726,7 +737,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -780,6 +791,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
+
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -788,11 +800,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.patch(url,params,$rootScope.headers).success(function(responseData){
             var data = responseData.data || responseData;
             if (data) { 
-                if(data.outcome === 'success'){
-                    angular.forEach(data.messages, function(value){
-                        growl.success(value.message);
-                    });
-                }else{
+                if(data.outcome === 'failure'){
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
@@ -802,6 +810,9 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                 if(resolve) {
                     resolve();
                 }
+            }
+            if(actionURL){
+                $location.path(actionURL);    
             }
         }).error(function(){
             $rootScope.loader.loading=false;
@@ -1050,7 +1061,7 @@ function setDataToParams(properties, params){
         angular.forEach(properties, function(val, key){
             var value = properties[key].value;
             var type = properties[key].metainfo.type;
-            
+
             if(type !== undefined && type==='static'){
                 value = properties[key].metainfo.value;
             }
