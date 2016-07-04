@@ -15,7 +15,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.optionsMap = [];
     $scope.checkRegionId = $rootScope.regionId;
     $rootScope.metamodel= {};
-    $scope.metamodel = "";
+ 
 
     $scope.showErr = function () {       
         growl.error('<b>Error:</b> Uh oh!');
