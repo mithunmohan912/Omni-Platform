@@ -38,109 +38,82 @@
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "action": "toCoverage"
-                            },
-                            {
-                                "label": "_BACK",
-                                "action": "back"
-                            }
-                        ]
                     }
-                    ]
-                    },
-                {
-                    "properties":   [
+                ]
+            },
+            {
+                "properties":   [
                     {
                         "id": "quote-vehicle-use",
                         "type": "select",
                         "label": "_QUOTE_VEHICLE_USE",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-sum-insured",
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_SUM_INSURED",
-                        "min": 0,
-                        "max": 9999999999999,
                         "patchOnBlur": true,
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 1
                     },
                     {
                         "id": "quote-year-of-registration",
                         "type": "number",
                         "decimal": true,
                         "label": "_QUOTE_YEAR_OF_REGISTRATION",
-                        "min": 1950,
-                        "max": 2016,
                         "patchOnBlur": true,
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote-currency",
-                        "type": "text",
-                        "label": "_QUOTE_CURRENCY",
-                        "columnsize": 3
+                        "row": 2
                     },
                     {
                         "id": "quote-make-of-vehicle",
                         "type": "select",
                         "label": "_QUOTE_MAKE_OF_VEHICLE",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 3,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-commencement-date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_QUOTE_COMMENCEMENT_DATE",
-                        "columnsize": 3
+                        "row": 3
                     },
                     {
                         "id": "quote-engine-capacity",
                         "type": "text",
                         "label": "_QUOTE_ENGINE_CAPACITY",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 4,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-geographic-location",
                         "type": "select",
                         "label": "_QUOTE_GEOGRAPHIC_LOCATION",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 4,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-driver-name",
                         "type": "text",
                         "label": "_QUOTE_DRIVER_NAME",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 5,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-cover",
                         "type": "select",
                         "label": "_QUOTE_COVER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 5,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-driver-gender",
                         "type": "select",
                         "label": "_QUOTE_DRIVER_GENDER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 6,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-NCD-percentage",
@@ -148,36 +121,36 @@
                         "label": "_QUOTE_NCD_PERCENTAGE",
                         "min": 0,
                         "max": 100,
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 6,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote-permitted-driver",
                         "type": "select",
                         "label": "_QUOTE_PERMITTED_DRIVER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 2,
+                        "patchOnBlur": true
                     }
                 ]
             },
             {
                 "properties": [
                     {
-                        "id": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "id": "next1",
-                        "type": "buttonSmall",
-                        "label": "_NEXT",
-                        "action":"nextTab",
-                        "visible": true,
-                        "columnsize": "6"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/additionalInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/quotescreate"
+                            }
+                        ]
                     }
                 ]
             }

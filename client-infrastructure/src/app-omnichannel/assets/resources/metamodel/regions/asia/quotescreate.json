@@ -38,52 +38,56 @@
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "properties":   [
+                    {
+                        "id": "quote-party-type",
+                        "type": "select",
+                        "label": "_QUOTE_PARTY_TYPE",
+                        "patchOnBlur": true,
+                        "row": 1
                     },
                     {
+                         "id": "quote-full-name",
+                         "type": "text",
+                         "label": "_QUOTE_FULL_NAME",
+                         "patchOnBlur": true,
+                        "row": 1
+                    },
+                    {
+                        "id": "quote-gender",
+                        "type": "select",
+                        "label": "_GENDER",
+                        "patchOnBlur": true,
+                        "row": 2
+                    },
+                    {
+                        "id": "quote-birth-date",
+                        "type": "date",
+                        "label": "_DOB",
+                        "patchOnBlur": true,
+                        "row": 2
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
                         "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "action": "toCoverage"
-                            },
-                            {
-                                "label": "_BACK",
-                                "action": "back"
-                            }
-                        ]
-                    }
-                    ]
-                    },
-                    {
-                        "properties":   [
-                            {
-                                "id": "quote-party-type",
-                                "type": "select",
-                                "label": "_QUOTE_PARTY_TYPE",
-                                "patchOnBlur": true
-                            },
-                            {
-                                "id": "quote-full-name",
-                                "type": "text",
-                                "label": "_QUOTE_FULL_NAME",
-                                "patchOnBlur": true
-                            },
-                            {
-                                "id": "quote-gender",
-                                "type": "select",
-                                "label": "_GENDER",
-                                "patchOnBlur": true
-                            },
-                            {
-                                "id": "quote-birth-date",
-                                "type": "date",
-                                "label": "_DOB",
-                                "patchOnBlur": true
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/riskInfo"
                             }
                         ]
                     }
                 ]
+            }
+        ]
     }
 }
