@@ -51,8 +51,18 @@
     <div ng-if="section.modaledit !== true" class="{{section.heightClass}}">
         <div ng-include src="'nonaccordionsection.html'"></div>
     </div>
-    
-        <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true" >
+        <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true && showIcon === false" >
+          <div ng-if="section.visible" ng-click="navigate(section.actionurl)" 
+            class="text-center ">
+            <a  class="thumbnail text-center">
+            <div class="text-center">
+              <span class="{{section.icon}}" style="width:10em"></span>
+              <div  class="text-center">{{locale[section.labelDisplay]}}  <span class="flag {{section.iconflags}}"></span></div>
+            </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-6"  ng-if="section.showButton === true && showIcon === true" >
           <div ng-click="navigate(section.actionurl)" 
             class="text-center ">
             <a  class="thumbnail text-center">
