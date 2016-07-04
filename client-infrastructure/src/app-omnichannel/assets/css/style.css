@@ -1,0 +1,245 @@
+.renderer {
+	margin-top: 20px;
+}
+
+.renderer-button {
+	float:right;
+	margin:5px;
+	cursor:pointer;
+}
+
+.linkedRenderer .section {
+	padding: 0px;
+}
+
+.coverageSection {
+	margin-top: 13px;
+	margin-bottom: 13px;
+}
+
+td, th, tbody, thead {
+	text-align: center;
+}
+
+/* Styles for backend error messages */
+.status-message-dialog{
+	margin-bottom: 10px;
+}
+
+.help-tooltip {
+    position: absolute;
+    left: -21px;
+    top: 10px;
+}
+
+.help-tooltip + div {
+	display: none;
+	position:absolute;
+	background-color: white;
+    padding: 8px;
+    border: 1px solid lightgray;
+    top: -1px;
+    width: 100%;
+    z-index: 1000;
+}
+
+.backend-status{
+	position:absolute;
+	bottom: 40%;
+	left: 100%;
+	z-index: 2;
+}
+
+.backend-status>i{
+	color: white;
+	position: absolute;
+	top: 0px;
+	left: 3.5px;
+}
+
+.backend-status:hover + div, .help-tooltip:hover + div{
+	display: block;
+}
+
+.backend-status + div{
+	display: none;
+	position: absolute;
+	top: 100%;
+}
+
+.color-error{
+	color:indianred;
+}
+
+.color-warning{
+	color:orange;
+}
+
+.color-info{
+	color:#2980b9;
+}
+
+.status-message-dialog>.status-message{
+	text-align: center;
+	position: relative;
+	bottom: -4px;
+}
+
+.status-message>span{
+	color:black;
+	margin-left:3px;
+}
+
+.arrow_box {
+	background: #ffffff;
+	border: 1px solid lightgrey;
+	z-index:999;
+	padding:5%;
+}
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 11px;
+	margin-left: -12px;
+}
+.arrow_box:before {
+	border-color: rgba(107, 124, 135, 0);
+	border-bottom-color: lightgrey;
+	border-width: 13px;
+	margin-left: -13px;
+}
+
+.arrow_box>i{
+	margin-top:4px;
+	margin-bottom:4px;
+}
+/* End styles for backend error messages */
+
+/* Styles for custom inputs */
+
+/* Override Bootstrap form-control-feedback for tags i */
+i.form-control-feedback{
+	color: #778899;
+}
+
+/* Remove the spinner that webkit shows within inputs of type number */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[required], select[required], textarea[required]{
+	background-color: #fdfdd0;
+}
+
+.required-star::before{
+	content:'*';
+	color:#ef2525;
+	position: absolute;
+	left: 0;
+}
+
+td .required-star::before{
+	content:'';
+	color:#ef2525;
+	position: absolute;
+	left: 0;
+}
+
+.active>a, .btn-active, .btn-primary {
+	background-color: #0096bb !important;
+	border-color: #0096bb !important;
+	color: #fff !important;
+}
+
+.btn-active:hover, .btn-primary:hover{
+	background-color: #4f88a1 !important;
+	border-color: #4f88a1 !important;
+	color: #fff !important;
+}
+
+textarea {
+	resize: none;
+}
+
+span.form-group>span{
+	margin-bottom:7.5px;
+	margin-top:7.5px;
+	padding: 0px;
+	padding-right: 3px;
+}
+
+span.form-group>label{
+	padding-bottom:7.5px;
+	padding-top:7.5px;
+}
+/* End styles for custom inputs */
+
+/* Styles for datepicker */
+.datepicker.dropdown-menu {
+  width: 250px;
+  height: 250px;
+}
+.datepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+  margin-bottom:5px;
+}
+.datepicker.dropdown-menu tbody {
+  height: 180px;
+}
+.datepicker.dropdown-menu tbody button {
+  padding: 6px;
+}
+.datepicker.dropdown-menu.datepicker-mode-1 tbody button,
+.datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+  height: 65px;
+}
+.timepicker.dropdown-menu {
+  padding: 0 4px;
+}
+.timepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+}
+.timepicker.dropdown-menu tbody button {
+  padding: 6px;
+}
+/* End styles for datepicker */
+
+#errorPopup {
+	width: 800px; 
+	margin: 0 auto;
+}
+#errorPopup .alert {
+	overflow: auto; 
+	max-height: 520px; 
+	max-width: 800px;
+	position: fixed;
+}
+
+@media only screen and (min-width: 1025px) {
+
+	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	   text-align: left;
+	}
+}
+
+.btn-group .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
