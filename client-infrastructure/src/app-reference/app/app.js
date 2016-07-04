@@ -68,7 +68,7 @@ app.run(function($rootScope, OCAppConfig, $location, $cookieStore, MetaModel) {
                 'Content-Type': 'application/json', 
                 'NSP_USERID': 'kkdrensk', 
                 'Accept-Language': 'en'
-            }
+        };
     };
     //FIXME. remove when having a login controller
     $cookieStore.remove('userid');
