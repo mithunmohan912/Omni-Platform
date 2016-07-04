@@ -1,333 +1,89 @@
 {
     "metamodel": {
-        "businessObject": {
-            "quote": [ 
-                    "quote:quote_owner_list",
-                    "quote:quote_risk_list"
-            ]
-        },
+        "showHeader": true,
         "sections": [
+            {
+                "title": "_HOME_QUOTE_EU",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/quotescreate",
+                                "title": "_QUOTE_INFO_TAB"   
+                            },
+                            {
+                                "screenId":"ownerInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId":"riskInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    }
+                ]
+            },
             {
                 "properties": [
                     {
                         "id": "quote:description",
                         "type": "textarea",
                         "label": "_EXTERNAL_CONTRACT_NUMBER",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "updateMode": "change"
+                        "patchOnBlur": true,
+                        "row": 1
                     },
                     {
                         "id": "quote:contract_start_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_START_DATE_OF_THE_CONTRACT",
-                        "columnsize": 3,
-                        "required": "required",
-                        "updateMode": "change"
+                        "patchOnBlur": true,
+                        "row": 1
                     },
                     {
                         "id": "quote:language",
                         "type": "select",
                         "label": "_CONTRACT_LANGUAGE",
-                        "required": "required",                       
-                        "columnsize": 3
-                    }
-                ]
-            },
-            {
-               "properties":   [
-                    {
-                        "id": "quote_owner:type",
-                        "type": "select",
-                        "label": "_PERSONAL_ENTITY",
-                        "required": "required",                        
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:person_title",
-                        "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS",                        
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:name",
-                        "type": "text",
-                        "typeaheadField": "person:last_name",
-                        "label": "_LASTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
-                    },
-                    {
-                        "id": "quote_owner:first_name",
-                        "type": "text",
-                        "typeaheadField": "person:first_name",
-                        "label": "_FIRSTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
-                    },
-                    {
-                        "id": "quote_owner:birth_date",
-                        "mask": "dd/mm/yy",
-                        "type": "date",
-                        "label": "_DOB",
-                        "required": "required",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:city",
-                        "type": "autocomplete",
-                        "label": "_CITY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "typewait": 1000
-                    },
-                    {
-                        "id": "quote_owner:street_number",
-                        "type": "text",
-                        "label": "_STREET_NUMBER",
-                        "maxlength": 8,
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:street_name",
-                        "type": "text",
-                        "label": "_STREET_NAME",
-                        "maxlength": 30,
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:postal_code",
-                        "type": "text",
-                        "typeaheadField": "person:postal_code",
-                        "typeahead": "true",
-                        "label": "_BOX_NUMBER",
-                        "maxlength": 8,
-                        "required": "required",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_owner:email",
-                        "type": "email",
-                        "label": "_EMAIL",
-                        "columnsize": 3,
-                        "maxlength": 80
-                    }
-                ]
-            },
-            {
-                "properties":   [
-                    {
-                        "id": "quote_home:postal_code",
-                        "type": "autocomplete",
-                        "label": "_POSTALCODE",
-                        "typewait": 1500,
-                        "columnsize": 3,
-                        "maxlength": 10,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote_home:city",
-                        "type": "autocomplete",
-                        "label": "_CITY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000
-                    },
-                    {
-                        "id": "quote_home:street_name",
-                        "type": "autocomplete",
-                        "label": "_STREET_NAME",
-                        "columnsize": 3,
-                        "typemin": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000
-                    },
-                    {
-                        "id": "quote_home:street_number",
-                        "type": "text",
-                        "label": "_STREET_NUMBER",
-                        "columnsize": 3,
-                        "updateMode": "change",
-                        "maxlength": 30,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote_home:box_number",
-                        "type": "text",
-                        "label": "_BOX_NUMBER",
-                        "columnsize": 3,
-                        "maxlength": 30
-                    },
-                    {
-                        "id": "quote_home:bulding_nature",
-                        "type": "select",
-                        "label": "_HOME_NATURE",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required"                       
-                    },
-                    {
-                        "id": "quote_home:bulding_type",
-                        "type": "select",
-                        "label": "_HOME_TYPE",
-                        "columnsize": 3                       
-                    },
-                    {
-                        "id": "quote_home:ext_occupation_type",
-                        "type": "select",
-                        "label": "_QUALITY",
-                        "columnsize": 3,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_occupation",
-                        "type": "select",
-                        "label": "_OCCUPATION",
-                        "columnsize": 3,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_new_building",
-                        "type": "select",
-                        "label": "_RECENT_BUILDING",
-                        "columnsize": 3,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_restauration_value",
-                        "type": "select",
-                        "label": "_BUILDING_VALUE",
-                        "columnsize": 3,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_thatched_roof",
-                        "type": "toggle",
-                        "label": "_STRAW_ROOF",
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote_home:ext_bldng_under_construction",
-                        "type": "toggle",
-                        "label": "_MAIN_BUILDING_UNDER_CONSTRUCTION",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:alarm_system",
-                        "type": "toggle",
-                        "label": "_ALARM_SYSTEM",
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote_home:ext_assured_motorized_vehicle",
-                        "type": "toggle",
-                        "label": "_ASSURED_MOTORIZED",
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "id": "quote_home:ext_signing_act",
-                        "type": "toggle",
-                        "label": "_SIGNING_OF_ACT",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:ext_purchase_building",
-                        "type": "toggle",
-                        "label": "_BUILDING_PURCHASE",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:ext_evaluation",
-                        "type": "select",
-                        "label": "_EVALUATION_SYSTEM",
-                        "columnsize": 3,
-                        "visible": true,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_building_value",
-                        "type": "number",
-                        "decimal": true,
-                        "label": "_VALUE_OF_BUILDING",
-                        "min": 0,
-                        "max": 9999999999999,
-                        "updateMode": "change",
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                     {
-                        "id": "quote_home:ext_content_evaluation",
-                        "type": "select",
-                        "label": "_BUILDING_CONTENT_EVALUATION",
-                        "columnsize": 3,
-                        "required": "required"                        
-                    },
-                    {
-                        "id": "quote_home:ext_content_value",
-                        "type": "number",
-                        "decimal": true,
-                        "label": "_VALUE_OF_CONTENT",
-                        "visible": true,
-                        "min": 0,
-                        "max": 9999999999999,
-                        "updateMode": "change",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 2
                     }
                 ]
             },
             {
                 "properties": [
                     {
-                        "id": "quote_home:ext_above_ground_floor",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q1",
-                        "visible": true,
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:ext_resent_damage",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q2",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:ext_limited_cellar",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q3",
-                        "columnsize": 3
-                    },
-                    {
-                        "id": "quote_home:ext_limited_cellar_except_one",
-                        "type": "toggle",
-                        "label": "_FLOODING_Q4",
-                        "columnsize": 3
-                    }
-                ]
-            },
-            {
-                "properties":   [
-                    {
-                        "id": "quote:identifier",
-                        "type": "label",
-                        "label": "_QUOTE_IDENTIFIER",
-                        "columnsize": 3,
-                        "disabled" : true
-                    },
-                    {
-                        "id": "quote:annual_cost",
-                        "type": "label",
-                        "label": "_QUOTE_ANNUAL_COST",
-                        "columnsize": 3,
-                        "disabled" : true
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo"
+                            }
+                        ]
                     }
                 ]
             }

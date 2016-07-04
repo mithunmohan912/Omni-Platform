@@ -2,6 +2,24 @@
     "metamodel": {
         "resource": "quotes",
         "summary": true,
+        "showHeader": true,
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            },
+            {
+                "field": "quote:product_id",
+                "value": "MC011",
+                "action": "create"
+            }
+        ],
         "sections": [
             {
                 "title": "_AUTO_QUOTE_EU_SEARCH",
@@ -14,6 +32,7 @@
                                         "action": "create",
                                         "label": "_CREATE_QUOTE",
                                         "actionURL": "/eu/screen/autocreate"
+                                
                                     }
                                 ]
                             }

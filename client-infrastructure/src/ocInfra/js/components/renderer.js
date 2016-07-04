@@ -335,15 +335,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 
 			$scope.execute = function(inputComponent) {
-
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
+					
 					var defaultValues = {};
 					if(inputComponent.action){
 						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
-					
+
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
+							$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
 					}
 				} else {
 					if ($scope[inputComponent.method]) {

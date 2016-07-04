@@ -1,0 +1,64 @@
+{
+    "tableMetaModel": {
+        "id": "documentlist",
+        "title": "Document Search List",
+        "searching": true,
+        "name":"documentList",
+        "actionurl": "/screen/policydocuments",
+        "element": [
+             {
+                "quoteField": "MMDescription",
+                "displayName": "_DOCUMENT_TYPE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },        
+             {
+                "quoteField": "MMDateProd",
+                "displayName": "_DATE_PRODUCED",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },  
+            {
+                "quoteField": "MMName",
+                "displayName": "_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"   
+            },
+            {
+                "type": "dropdown",
+                "align": "left",
+                "visible": true,
+                "displayName": "_ACTION",
+                "width": "10%",
+                "options": [
+                    {
+                        "value": "fetchdoc",
+                        "action":"fetch",                       
+                        "icon": "flaticon-info",
+                        "title": "_VIEW",
+                        "actionurl":"/us/screen/viewdocument"
+                    }
+
+            
+                ]
+            }
+             
+        ],
+    "iconList": 
+            {
+                "MC011": "flaticon-car95", 
+                "MD005": "flaticon-delivery50", 
+                "MA002": "flaticon-motorbike", 
+                "MC002": "flaticon-single17", 
+                "IN005": "flaticon-home168", 
+                "AX009": "flaticon-adults"
+            }
+        
+    }
+}

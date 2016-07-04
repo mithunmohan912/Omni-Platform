@@ -11,7 +11,11 @@ exported ScreenController
 
 app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
     var self = this;
-    
+
+    this.setAction = function(action){
+        $rootScope.actionAfterNavigation = action;
+    };
+
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
@@ -47,8 +51,20 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, resolve){        
+    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
     var options = {};
+    //Pick the URL for the business dependency on which your metamodel depends. 
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key) {
+            var url = properties[key].self;
+            if(url !== undefined && url !== rootURL){
+                rootURL = url;
+            }
+        });
+    }
+    
+    console.log('Invoke options on - '+rootURL);
+
     if(!$rootScope.optionsMapForURL.get(rootURL)){
     
             callOptions($rootScope, rootURL, function(optionsObj){
@@ -57,7 +73,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
                 }
             });
     }else{
@@ -66,7 +82,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
         } 
     } 
     };
@@ -137,6 +153,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
                         httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve);       
+                        $rootScope.actionAfterNavigation = undefined;
                     } else{
                         loadOptionsDataForMetamodel(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
@@ -512,6 +529,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Build the right href. When there are url parameters, they are not included in the href so we need to include them
                 resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
                 resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
+               // $rootScope.resourceUrl = rootURL;
 
                 // Analyze business dependencies in order to extract them
                 resultSet[rootURL].dependencies.forEach(function(url){
@@ -649,11 +667,12 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                                     optiondataobj = data2._options.links;
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                                    if(action !== undefined){
-                                        options = optionsMapForResource.get(action);
+                                    if(action !== undefined || $rootScope.actionAfterNavigation !== undefined){
+                                        options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                         if(options !== undefined && patchFieldName !== undefined){
                                             options = sanitizeSchema(patchFieldName, options);
                                             httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                            $rootScope.actionAfterNavigation = undefined;
                                         }
                                         else{
                                             if(resolve) {
@@ -666,20 +685,23 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                 options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
+                                
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
@@ -717,7 +739,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -771,6 +793,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
+
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         //Set the params data from the screen per the schema object for the given action (from the options object)
@@ -779,11 +802,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.patch(url,params,$rootScope.headers).success(function(responseData){
             var data = responseData.data || responseData;
             if (data) { 
-                if(data.outcome === 'success'){
-                    angular.forEach(data.messages, function(value){
-                        growl.success(value.message);
-                    });
-                }else{
+                if(data.outcome === 'failure'){
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
@@ -793,6 +812,9 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                 if(resolve) {
                     resolve();
                 }
+            }
+            if(actionURL){
+                $location.path(actionURL);    
             }
         }).error(function(){
             $rootScope.loader.loading=false;
@@ -835,7 +857,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
-                if(data._links.item){
+                if(data._links.item && Object.keys(data._links.item).length > 0){
                     $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
@@ -899,6 +921,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                     resolve();
                 }
             }
+           resourceFactory.refresh(url,params,$rootScope.headers); 
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
@@ -962,7 +985,12 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
     }
     $rootScope.metamodel = scope.metamodel = scope.metamodel || {};
     scope.metamodel[screenId] = m.metamodel;
-
+    
+    if(m.metamodel.showHeader === undefined){
+        m.metamodel.showHeader = true;
+    }
+    $rootScope.metamodel.showHeader = m.metamodel.showHeader;
+    
     $browser.notifyWhenNoOutstandingRequests(function() {
         changeMandatoryColor($rootScope);
         $rootScope.$apply();
@@ -1035,7 +1063,7 @@ function setDataToParams(properties, params){
         angular.forEach(properties, function(val, key){
             var value = properties[key].value;
             var type = properties[key].metainfo.type;
-            
+
             if(type !== undefined && type==='static'){
                 value = properties[key].metainfo.value;
             }

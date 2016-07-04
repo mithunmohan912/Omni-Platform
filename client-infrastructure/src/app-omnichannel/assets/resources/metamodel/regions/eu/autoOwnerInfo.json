@@ -1,6 +1,11 @@
 {
     "metamodel": {
         "showHeader": true,
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_owner_list"
+            ]
+        },
         "sections": [
             {
                 "title": "_AUTO_QUOTE_EU",
@@ -43,27 +48,60 @@
                 ]
             },
             {
-                "properties": [
+               "properties":   [
                     {
-                        "id": "quote:description",
-                        "type": "textarea",
-                        "row": 1,
-                        "patchOnBlur": true,
-                        "label": "_EXTERNAL_CONTRACT_NUMBER"
+                        "id": "quote_owner:type",
+                        "type": "select",
+                        "label": "_PERSONAL_ENTITY",
+                        "row": 1
                     },
                     {
-                        "id": "quote:contract_start_date",
+                        "id": "quote_owner:name",
+                        "type": "text",
+                        "label": "_LASTNAME",
+                        "row": 1
+                    },
+                    {
+                        "id": "quote_owner:first_name",
+                        "type": "text",
+                        "label": "_FIRSTNAME",
+                        "row": 2
+                    },
+                    {
+                        "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
-                        "row": 1,
-                        "patchOnBlur": true,
-                        "label": "_START_DATE_OF_THE_CONTRACT"
+                        "row": 2
                     },
                     {
-                        "id": "quote:language",
-                        "type": "select",
-                        "row": 2,
-                        "label": "_CONTRACT_LANGUAGE"
+                        "id": "quote_owner:city",
+                        "type": "autocomplete",
+                        "label": "_CITY",
+                        "row": 3
+                    },
+                    {
+                        "id": "quote_owner:street_number",
+                        "type": "text",
+                        "label": "_STREET_NUMBER",
+                        "row": 3
+                    },
+                    {
+                        "id": "quote_owner:street_name",
+                        "type": "text",
+                        "label": "_STREET_NAME",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote_owner:postal_code",
+                        "type": "text",
+                        "label": "_BOX_NUMBER",
+                        "row": 4
+                    },
+                    {
+                        "id": "quote_owner:email",
+                        "type": "email",
+                        "label": "_EMAIL",
+                        "row": 5
                     }
                 ]
             },
@@ -76,7 +114,13 @@
                                 "label": "_NEXT",
                                 "method": "navigateToTab",
                                 "action": "update",
-                                "actionURL": "/eu/screen/autoOwnerInfo"
+                                "actionURL": "/eu/screen/autoRiskInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autocreate"
                             }
                         ]
                     }

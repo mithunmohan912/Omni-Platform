@@ -1,241 +1,232 @@
 {
     "metamodel": {
-        "formid": "autoRiskInfo",
-        "title": "",
-        "resourcelist": "", 
-        "name": "autoRiskInfo",
+        "showHeader": true,
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "title": "_RISK_INFO",
-                "name": "risk_info",
-                "category": "nonaccordion",
-                "elements":   [
+                "title": "_AUTO_QUOTE_EU",
+                "properties": [
                     {
-                        "name": "quote_automobile:make",
-                        "type": "thtext",
-                        "typeaheadField": "referential_vehicle:make",
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "autocreate",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autocreate",
+                                "title": "_QUOTE_INFO_TAB"
+                            },
+                            {
+                                "screenId":"autoOwnerInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoOwnerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "$ref":"autoRiskInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoRiskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "$ref": "autoPremiumInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoPremiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    }
+                ]
+                },
+            {
+                "properties": [
+                    {
+                        "id": "quote_automobile:make",
+                        "type": "text",
                         "label": "_MAKE",
-                        "typeahead": "true",
-                        "typewait": 1500,
-                        "columnsize": 3,
-                        "maxlength": 10,
-                        "required": "required"
+                        "row": 1
                     },
                     {
-                        "name": "quote_automobile:power",
+                        "id": "quote_automobile:power",
                         "type": "number",
                         "label": "_POWER",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000
+                        "row": 1
                     },
                     {
-                        "name": "quote_automobile:usage",
+                        "id": "quote_automobile:usage",
                         "type": "select",
                         "label": "_USAGE",
-                        "columnsize": 3,
-                        "typemin": 3,
-                        "maxlength": 30,
-                        "required": "required",
-                        "typewait": 1000                        
+                        "row": 2
                     },
                     {
-                        "name": "quote_automobile:ext_model",
-                        "type": "thtext",
+                        "id": "quote_automobile:ext_model",
+                        "type": "text",
                         "label": "_EXT_MODEL",
-                        "columnsize": 3,
                         "patchOnBlur": true,
-                        "maxlength": 30,
-                        "required": "required"
+                        "row": 2
                     },
                     {
-                        "name": "quote_automobile:first_use_date",
+                        "id": "quote_automobile:first_use_date",
                         "type": "date",
                         "mask": "dd/mm/yy",
                         "label": "_FIRST_USE_DATE",
-                        "columnsize": 3
+                        "row": 3
                     },
                     {
-                        "name": "quote_automobile:fuel",
+                        "id": "quote_automobile:fuel",
                         "type": "select",
                         "label": "_FUEL",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required"                        
+                        "row": 3
                     },
                     {
-                        "name": "quote_automobile:ext_sport",
+                        "id": "quote_automobile:ext_sport",
                         "type": "toggle",
                         "label": "_EXT_SPORT",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 4
                     },
                     {
-                        "name": "quote_automobile:ext_cabrio",
+                        "id": "quote_automobile:ext_cabrio",
                         "type": "toggle",
                         "label": "_EXT_CABRIO",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 4
                     },
                     {
-                        "name": "quote_automobile:ext_type",
+                        "id": "quote_automobile:ext_type",
                         "type": "select",
                         "label": "_EXT_TYPE",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "row": 5
                     },
                     {
-                        "name": "quote_automobile:ext_trailer",
+                        "id": "quote_automobile:ext_trailer",
                         "type": "toggle",
                         "label": "_EXT_TRAILER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 5
                     },
                     {
-                        "name": "quote_automobile:ext_old_timer",
+                        "id": "quote_automobile:ext_old_timer",
                         "type": "toggle",
                         "label": "_EXT_OLD_TIMER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 6
                     },
                     {
-                        "name": "quote_automobile:ext_average_mileage",
+                        "id": "quote_automobile:ext_average_mileage",
                         "type": "toggle",
                         "label": "_EXT_AVERAGE_MILEAGE",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 6
                     },
                     {
-                        "name": "quote_automobile:ext_omnium_type",
+                        "id": "quote_automobile:ext_omnium_type",
                         "type": "select",
-                        "label": "_EXT_OMNIUM_TYPE",
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_EXT_OMNIUM_TYPE"                   ,
+                        "row": 7
                     },
                     {
-                        "name": "quote_automobile:ext_degree_r_c",
+                        "id": "quote_automobile:ext_degree_r_c",
                         "type": "number",
                         "label": "_EXT_DEGREE_R_C",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 7
                     },
                     {
-                        "name": "quote_automobile:ext_aggravated_risk",
+                        "id": "quote_automobile:ext_aggravated_risk",
                         "type": "toggle",
                         "label": "_EXT_AGGRAVATED_RISK",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 8
                     },
                     {
-                        "name": "quote_automobile:ext_safety_features",
+                        "id": "quote_automobile:ext_safety_features",
                         "type": "select",
-                        "label": "_EXT_SAFETY_FEATURES",
-                        "columnsize": 3                        
+                        "label": "_EXT_SAFETY_FEATURES"        ,
+                        "row": 8
                     },
                     {
-                        "name": "quote_automobile:ext_responsible_claims_number",
+                        "id": "quote_automobile:ext_responsible_claims_number",
                         "type": "number",
                         "label": "_EXT_RESPONSIBLE_CLAIMS_NUMBER",
-                        "required": "required",
-                        "columnsize": 3
+                        "row": 9
                     },
                     {
-                        "name": "quote_automobile:ext_shared_claims_number",
+                        "id": "quote_automobile:ext_shared_claims_number",
                         "type": "number",
                         "label": "_EXT_SHARED_CLAIMS_NUMBER",
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 9
                     },
                     {
-                        "name": "quote_automobile:ext_to_determine_claims_number",
+                        "id": "quote_automobile:ext_to_determine_claims_number",
                         "type": "number",
                         "decimal": true,
                         "label": "_EXT_TO_DETERMINE_CLAIMS_NUMBER",
-                        "min": 0,
-                        "max": 999999,
-                        "columnsize": 3,
-                        "required": "required"
+                        "row": 10
                     },
                     {
-                        "name": "quote_automobile:ext_victim_claims_number",
+                        "id": "quote_automobile:ext_victim_claims_number",
                         "type": "number",
                         "decimal": true,
                         "label": "_EXT_VICTIM_CLAIMS_NUMBER",
-                        "columnsize": 3,
-                        "min": 0,
-                        "max": 9999,
-                        "required": "required"
+                        "row": 10
                     },
                     {
-                        "name": "quote_automobile:ext_official_claims",
+                        "id": "quote_automobile:ext_official_claims",
                         "type": "toggle",                      
-                        "label": "_EXT_OFFICIAL_CLAIMS", 
-                        "columnsize": 3,
-                        "required": "required"                        
+                        "label": "_EXT_OFFICIAL_CLAIMS"               ,
+                        "row": 11
                     },
                     {
-                        "name": "quote_automobile:ext_jeep",
+                        "id": "quote_automobile:ext_jeep",
                         "type": "toggle",
                         "label": "_EXT_JEEP",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "required": "required" 
+                        "row": 11
                     },
                     {
-                        "name": "quote_automobile:insured_value",
+                        "id": "quote_automobile:insured_value",
                         "type": "number",
                         "decimal": true,
                         "label": "_INSURED_VALUE",
-                        "columnsize": 3,
-                        "min": 0,
-                        "max": 1000000000000000,  
                         "patchOnBlur": true,
-                        "required": "required"
+                        "row": 12
                     },
                     {
-                        "name": "quote_automobile:ext_leasing",
+                        "id": "quote_automobile:ext_leasing",
                         "type": "select",
-                        "label": "_EXT_LEASING",
-                        "columnsize": 3,
-                        "visible": true,
-                        "required": "required"                        
+                        "label": "_EXT_LEASING"                   ,
+                        "row": 12
                     },
                     {
-                        "name": "quote_risk:ext_vat",
+                        "id": "quote_risk:ext_vat",
                         "type": "number",
                         "decimal": true,
                         "label": "_EXT_VAT",
-                        "columnsize": 3,                        
-                        "min": 0,
-                        "max": 999.99,
                         "patchOnBlur": true,
-                        "required": "required"
-                    } 
+                        "row": 13
+                    }
                 ]
             },
             {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "name": "submit1",
-                        "type": "buttonSmall",
-                        "label": "_CALCULATEPREMIUM",
-                        "action": "update",
-                        "tab": ["quote:quote_risk_list", "cscaia:operations", "cscaia:execute"],
-                        "visible": true,
-                        "columnsize": "6"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoPremiumInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoOwnerInfo"
+                            }
+                        ]
                     }
                 ]
             }
