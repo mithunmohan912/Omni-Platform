@@ -441,7 +441,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
-        var payload = JSON.parse(localStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
         var responseGET = methodResourceFactory(rootURL, payload);
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){

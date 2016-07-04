@@ -176,7 +176,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										if (optionsObj.httpmethod === 'POST') {
 											$scope.resourceUrl = response.data._links.self.href;
 										} else {
-											$scope.metamodelObject.resourceUrl = optionsObj.href;
+											$scope.resourceUrl = optionsObj.href;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
 										}

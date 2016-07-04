@@ -1,3 +1,4 @@
+
 'use strict';
 
 /*
@@ -42,18 +43,18 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 			var scope = params.scope;
 			var properties = params.properties;
 
-			if (scope.metamodelObject.resourceUrl) {
+			if (scope.resourceUrl) {
 				var payload = {};
 				for (var prop in properties) {
 					if (properties[prop].value) {
 						payload[prop] = properties[prop].value;
 					}
 				}
-				localStorage.setItem('quotes_search_params', JSON.stringify(payload));
+				sessionStorage.setItem('quotes_search_params', JSON.stringify(payload));
 				if (Object.keys(payload).length > 0){
-					resourceFactory.get(scope.metamodelObject.resourceUrl, payload);
+					resourceFactory.get(scope.resourceUrl, payload);
 				} else {
-					resourceFactory.refresh(scope.metamodelObject.resourceUrl, payload);
+					resourceFactory.refresh(scope.resourceUrl, payload);
 				}
 			} else {
 				resourceFactory.execute($rootScope.hostURL+'quotes', {}, $rootScope.headers, 'OPTIONS').then(function(response) {
