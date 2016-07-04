@@ -376,6 +376,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
+					'selector': $scope.metamodel.selector,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
