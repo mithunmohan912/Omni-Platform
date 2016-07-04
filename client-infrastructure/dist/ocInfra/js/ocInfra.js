@@ -531,24 +531,22 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							*/
 							var resourceToPatch = response.data;
 
-           				   var complexIdCollection = getComplexIdsToPayload();
+           				   	var complexIdCollection = getComplexIdsToPayload();
 
 
 							for(var property in resourceToPatch){
-								if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
-									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property] && $scope.resources[property].editable){
-										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-									}else{
-					                    for (var index in complexIdCollection){
-					                        var complexId = complexIdCollection[index];
-					                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
-					                        if (property === simpleId && params.property.self === $scope.resources[complexId].self && $scope.resources[complexId].editable){
-					                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
-                       						 }
-                    					}
+								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property] && $scope.resources[property].editable){
+									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+								}else{
+				                    for (var index in complexIdCollection){
+				                        var complexId = complexIdCollection[index];
+				                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
+				                        if (property === simpleId && params.property.self === $scope.resources[complexId].self && $scope.resources[complexId].editable){
+				                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
+                   						 }
+                					}
 
-                  					}
-								}
+              					}
 							}
 							if(Object.keys(payload).length > 0){
 								resourceFactory.patch(params.property.self, payload, {}).then(function(){
@@ -1204,7 +1202,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 										if (optionsObj.httpmethod === 'POST') {
 											$scope.resourceUrl = response.data._links.self.href;
 										} else {
-											$scope.metamodelObject.resourceUrl = optionsObj.href;
+											$scope.resourceUrl = optionsObj.href;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
 										}
@@ -2293,7 +2291,8 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
-        var payload = JSON.parse(localStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
         var responseGET = methodResourceFactory(rootURL, payload);
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
