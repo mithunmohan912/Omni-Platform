@@ -14,8 +14,6 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.typeaheadData = {};
     $rootScope.optionsMap = [];
     $scope.checkRegionId = $rootScope.regionId;
-    $rootScope.metamodel= {};
- 
 
     $scope.showErr = function () {       
         growl.error('<b>Error:</b> Uh oh!');
@@ -43,14 +41,16 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.typeahead =[];
 
     if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
-    if ($routeParams.regionId.indexOf(':') !== -1) {
-        reqParmRegion = $routeParams.regionId.split(':');
-        $rootScope.regionId = reqParmRegion[1];
-        regionExist = true;
+        if ($routeParams.regionId.indexOf(':') !== -1) {
+            reqParmRegion = $routeParams.regionId.split(':');
+            $rootScope.regionId = reqParmRegion[1];
+            regionExist = true;
+        }else{
+            reqParmRegion = $routeParams.regionId;
+            $rootScope.regionId = reqParmRegion;
+        }
     }else{
-        reqParmRegion = $routeParams.regionId;
-        $rootScope.regionId = reqParmRegion;
-    }
+        $rootScope.regionId = undefined;
     }
 
     if ($routeParams.screenId.indexOf(':') !== -1) {

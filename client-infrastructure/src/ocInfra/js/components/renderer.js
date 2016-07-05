@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if (!metamodelObject) {
+			if ($rootScope.regionId !== undefined || !metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
