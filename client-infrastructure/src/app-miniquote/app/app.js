@@ -57,7 +57,7 @@ TourConfigProvider.set('prefixOptions', false);
                 console.log('rejection!!' + rejection.statusText + 'error' + rejection.status);
                 //console.log(JSON.stringify(rejection));
                
-                if($rootScope.regionId === 'eu'){
+                if($rootScope.regionId === 'eu' && rejection.data.messages){
                     growl.error(rejection.data.messages[0].message +'<br>' +rejection.data.messages[1].message );
                 }
                 if(rejection.status && rejection.status !== -1 && rejection.statusText && $rootScope.regionId !== 'eu'){
@@ -66,7 +66,7 @@ TourConfigProvider.set('prefixOptions', false);
 
                  if(rejection.status === -1)
                  {
-                    growl.error('Gateway Timedout/InSecure Response');
+                    growl.error('Gateway Timeout');
 
                  }
                 $rootScope.loader.loading = false;

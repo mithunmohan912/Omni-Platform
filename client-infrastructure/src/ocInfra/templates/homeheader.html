@@ -51,7 +51,7 @@
       <div>
       <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >
       <div tour-step order="0" title="{{locale['_HOME']}}" content="{{locale['_HOMECONTENT']}}" placement="left" backdrop="true"></div>      
-      <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
+      <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{locale['_HOME']}}"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
           
       </li>
