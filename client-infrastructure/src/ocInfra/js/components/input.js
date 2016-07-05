@@ -247,7 +247,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			$scope.patch = function(params, next){
 				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
 				//there is one patch when selecting the value in the dropdown and when losing the focus.
-				if (!$scope.timeout) {git 
+				if (!$scope.timeout) {
 					$scope.timeout = true;
 					$timeout(function() {
 						$scope.timeout = false;

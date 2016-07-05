@@ -6,9 +6,8 @@
         	<hr ng-if="section.title" class="onl_hrOr_1">
         	<hr class="onl_hrOr_2">
     	</div>
-	
 		<div ng-switch-when="reference" class="linkedRenderer">
-			<renderer metamodel="section.$ref" factory-name="factoryName" resourceUrl="resourceUrl"></renderer>
+			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
 		</div>
 		<div ng-switch-default>
 			<form>
@@ -69,10 +68,7 @@
 							</div>
 							<div ng-switch-default>
 								<div ng-repeat="id in column.id">
-
-									<input-render ng-if="(column.complexId && isVisible(resourcesToBind.properties[column.complexId], column))" id="column.complexId" property="resourcesToBind.properties[column.complexId]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName"></input-render>
-
-									<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column)) && !column.complexId" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName"></input-render>
+									<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
 								</div>
 							</div>
 						</div>

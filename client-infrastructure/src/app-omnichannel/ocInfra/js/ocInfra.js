@@ -301,7 +301,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			updateMode: '@',
 			onUpdate: '@',
 			baseUrl: '@',
-			factoryName: '='
+			factoryName: '=',
+			resourceUrl: '='
 		},
 		controller: ['$scope', function($scope){
 			/* Default attributes and actions for inputs */
@@ -329,7 +330,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						} else {
 							//default action
 							if (field.options.href && field.options.params) {
-								return $scope.getData({'$viewValue': $viewValue, 'field': field});
+								return $scope.getData({'$viewValue': $viewValue, 'field': field, 'resources': $scope.resources});
 							}
 							//console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
 						}
@@ -337,7 +338,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'_select': function($item, id, field){
 						// field.options.select is the action defined by the user to be invoked when a value from the dropdown is selected
 						if(field.options.select){
-							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector} );
+							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector, 'resources': $scope.resources} );
 						} else {
 							console.warn('input.js -> autocomplete_select(): No select callback for autocomplete input.');
 						}
@@ -518,7 +519,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			$scope.patch = function(params, next){
 				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
 				//there is one patch when selecting the value in the dropdown and when losing the focus.
-				if (!$scope.timeout) {
+				if (!$scope.timeout) {git 
 					$scope.timeout = true;
 					$timeout(function() {
 						$scope.timeout = false;
@@ -529,25 +530,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							we may lose already modified information when the response come back from the backend
 							*/
 							var resourceToPatch = response.data;
-
-           				   var complexIdCollection = getComplexIdsToPayload();
-
-
 							for(var property in resourceToPatch){
-								if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
-									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property] && $scope.resources[property].editable){
-										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-									}else{
-					                    for (var index in complexIdCollection){
-					                        var complexId = complexIdCollection[index];
-					                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
-					                        if (property === simpleId && params.property.self === $scope.resources[complexId].self && $scope.resources[complexId].editable){
-					                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
-                       						 }
-                    					}
-
-                  					}
-								}
+								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
+									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+								}					
 							}
 							if(Object.keys(payload).length > 0){
 								resourceFactory.patch(params.property.self, payload, {}).then(function(){
@@ -564,21 +550,6 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 				
 			};
-
-      function getComplexIdsToPayload(){
-        //1. Check and extract complexId if exist
-        //2. Check complexId properties values and compare to the resource response -> determine wheter it should be added to payload or not
-        var complexIdCollection = [];
-        angular.forEach($scope.resources, function(value, key){
-            if (key && (key.split(':').length) > 2){
-                complexIdCollection.push(key);
-            }
-        });
-
-        return complexIdCollection;
-
-        
-      }
 
 
 			// Ger data default function for the autocomplete input
@@ -646,6 +617,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
+					'resourceUrl': $scope.resourceUrl,
+					'selector': $scope.metamodel.selector,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
@@ -1165,11 +1138,16 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
-                	$scope.metamodelObject.optionUrl = newURL;
-                    $scope.resourceUrlToRender = newURL;
+                  
+                  //we need to check the sesssion storage just in case we are coming from another SPA
+                  newURL = sessionStorage.getItem(resource + '_url') ? sessionStorage.getItem(resource + '_url') : newURL;
+                	$scope.metamodelObject.optionUrl = newURL ;
+                  $scope.resourceUrlToRender = newURL;
+                  $scope.resourceUrl = newURL;
                 }
 
 				$scope.optionUrl = $scope.metamodelObject.optionUrl;
+       
 				if($scope.optionUrl === undefined){
 					return;
 				}
@@ -1187,14 +1165,16 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 									var data = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_data'));
 									var params = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_data');
 									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
-									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+
+                  
 
 									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
 										if (optionsObj.httpmethod === 'POST') {
 											$scope.resourceUrl = response.data._links.self.href;
 										} else {
-											$scope.metamodelObject.resourceUrl = optionsObj.href;
+											$scope.resourceUrl = optionsObj.href;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
 											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
 										}
@@ -1224,7 +1204,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 
 				$scope.resourcesToBind = { properties: {} };
 
-				
+				$scope.boundUrls.push($scope.resourceUrl);
 
 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
@@ -1264,6 +1244,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 						}
 
 						$scope.boundUrls = [];
+						$scope.boundUrls.push($scope.resourceUrl);
 						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
 						$scope.propertiesCollection = [];
 						var searchIdsInAttributes = function(property) {
@@ -1333,10 +1314,10 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 							//if we have found a value in one of the resources, we are done and no need to go on. 
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
-				                var id = (property.complexId && property.complexId[k]) ? property.complexId[k] : property.id[k];
+				                var id = property.id[k];
 							
 				                  $scope.resourcesToBind.properties[id] = 
-				                  $scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
+				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
                 
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
@@ -1378,7 +1359,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				if($scope.actionFactory && $scope.actionFactory[action]){
 					var defaultValues = MetaModel.getDefaultValues(action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[action]($scope, actionURL, $scope.optionsMap[$scope.optionUrl], $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[action]({ 'scope':$scope, 'actionURL':actionURL, 'optionsMap':$scope.optionsMap[$scope.optionUrl], 'properties':$scope.resourcesToBind.properties, 'defaultValues':defaultValues });
 					}
 				} else {
 					if ($scope[action]) {
@@ -1642,7 +1623,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
 				if ($scope.metamodelObject.buttons) {
-					var label = $scope.metamodelObject.buttonLabel;
+					var label = $scope.metamodelObject.buttons.label;
 					//look for the POST operation by default to create the possible buttons
 					resourceFactory.get($scope.resourceUrl).then(function(response) {
 						response.data._options.links.forEach(function(link) {
@@ -1718,10 +1699,10 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 
 			$scope.execute = function(action, displayedItem) {
 				if(action.buttonAction){
-					if ($scope.metamodelObject.buttonMethod) {
-						$scope.actionFactory[$scope.metamodelObject.buttonMethod](action.params);
+					if ($scope.metamodelObject.buttons.method) {
+						$scope.actionFactory[$scope.metamodelObject.buttons.method](action.params);
 					} else {
-						$scope[action.value](action.params, $scope.metamodelObject.buttonCallback);
+						$scope[action.value](action.params, $scope.metamodelObject.buttons.callback);
 					}
 				} else {
 					if (action.method) {
@@ -2282,7 +2263,8 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
-        var payload = JSON.parse(localStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
         var responseGET = methodResourceFactory(rootURL, payload);
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
