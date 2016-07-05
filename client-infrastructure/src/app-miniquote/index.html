@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="../ocInfra/css/angular-growl.css">
   <link rel="stylesheet" href="../ocInfra/css/custom-style.css">
   <link rel="stylesheet" href="../ocInfra/css/oc-bootstrap-tour-standalone.css">
-  <link rel="stylesheet" href="../ocInfra/css/omniColor.css">
+  <link rel="stylesheet" href="../ocInfra/css/omniColors.css">
   <link rel="stylesheet" href="../ocInfra/css/omnichannel.css">
   <link rel="stylesheet" href="../ocInfra/css/tab-style.css">
   <link rel="stylesheet" href="../ocInfra/css/Omni_Iconfont/font/flaticon.css">
@@ -40,8 +40,8 @@
     <!-- loading... -->
     <div class="loading" ng-show="loader.loading">
         <h3>
-          <span class="label label-default">
-            Processing ..<i class="fa fa-spinner fa-spin"></i>
+         <span class="label label-default" >
+            {{locale['_PROCESSING']}}....<i class="fa fa-spinner fa-spin"></i>
           </span>
         </h3>
     </div>
@@ -89,6 +89,7 @@
   <script src="../vendors/angular-strap/dist/angular-strap.tpl.js"></script>
   <script src="../vendors/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="../vendors/angular-ui-mask/dist/mask.js"></script>
+  <script src="../vendors/es6-shim/es6-shim.js"></script>
   <!-- endbower_injector -->
   <!-- injector:js -->
   <script src="app/AnonymousController.js"></script>
