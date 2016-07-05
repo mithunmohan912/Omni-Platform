@@ -316,10 +316,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							//if we have found a value in one of the resources, we are done and no need to go on. 
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
-				                var id = (property.complexId && property.complexId[k]) ? property.complexId[k] : property.id[k];
+				                var id = property.id[k];
 							
 				                  $scope.resourcesToBind.properties[id] = 
-				                  $scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
+				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
                 
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {

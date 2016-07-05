@@ -6,7 +6,7 @@
 	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8' : '')" class="col-xs-12">
 
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		<span 	id="{{metamodel.complexId ? metamodel.complexId : field.id}}"
+		<span 	id="{{field.id}}"
 				name="{{field.name}}">
 
 				<!-- FIXME: UNCOMPLETED: ng-repeat to display collection's items. We do not know yet any backend response to be displayed this way, so this development is unfinished -->

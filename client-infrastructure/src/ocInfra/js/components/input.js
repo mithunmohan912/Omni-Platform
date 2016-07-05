@@ -247,7 +247,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			$scope.patch = function(params, next){
 				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
 				//there is one patch when selecting the value in the dropdown and when losing the focus.
-				if (!$scope.timeout) {
+				if (!$scope.timeout) {git 
 					$scope.timeout = true;
 					$timeout(function() {
 						$scope.timeout = false;
@@ -258,23 +258,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							we may lose already modified information when the response come back from the backend
 							*/
 							var resourceToPatch = response.data;
-
-           				   	var complexIdCollection = getComplexIdsToPayload();
-
-
 							for(var property in resourceToPatch){
-								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property] && $scope.resources[property].editable){
+								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
 									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-								}else{
-				                    for (var index in complexIdCollection){
-				                        var complexId = complexIdCollection[index];
-				                        var simpleId  = complexId.split(':')[0] + ':' + complexId.split(':')[1];
-				                        if (property === simpleId && params.property.self === $scope.resources[complexId].self && $scope.resources[complexId].editable){
-				                          payload[property] = $scope.resources[complexId].value?$scope.resources[complexId].value:null;
-                   						 }
-                					}
-
-              					}
+								}					
 							}
 							if(Object.keys(payload).length > 0){
 								resourceFactory.patch(params.property.self, payload, {}).then(function(){
@@ -291,21 +278,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 				
 			};
-
-      function getComplexIdsToPayload(){
-        //1. Check and extract complexId if exist
-        //2. Check complexId properties values and compare to the resource response -> determine wheter it should be added to payload or not
-        var complexIdCollection = [];
-        angular.forEach($scope.resources, function(value, key){
-            if (key && (key.split(':').length) > 2){
-                complexIdCollection.push(key);
-            }
-        });
-
-        return complexIdCollection;
-
-        
-      }
 
 
 			// Ger data default function for the autocomplete input
