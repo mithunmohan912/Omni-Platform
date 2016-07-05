@@ -25,6 +25,12 @@ app.service('LoginSrv', function($rootScope,$resource,  $cookieStore, $http,  OC
                     }
                     $rootScope.user = user;
                     
+                    if($rootScope.user.name === 'pntuser'){
+                        $rootScope.showIcon = true;
+                    }else{
+                        $rootScope.showIcon = false;
+                    }
+
                     sessionStorage.username = user.name;
                     var defaultLocale = user.personalizationData.locale;
                     $rootScope.newlocale = defaultLocale;
