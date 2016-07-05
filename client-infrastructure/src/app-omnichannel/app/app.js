@@ -124,15 +124,15 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
 app.factory('anonymousFactory', function($rootScope){
     return {
-        navigateToScreen: function($scope, actionURL){
-            if(actionURL === '/login'){
-                $rootScope.nextURL = actionURL;
-                $rootScope.navigate(actionURL);    
+        navigateToScreen: function($scope, inputComponent){
+            if(inputComponent.actionURL === '/login'){
+                $rootScope.nextURL = inputComponent.actionURL;
+                $rootScope.navigate(inputComponent.actionURL);    
             }else{
-               $rootScope.nextURL = actionURL;
-                $rootScope.navigate(actionURL);
+               $rootScope.nextURL = inputComponent.actionURL;
+                $rootScope.navigate(inputComponent.actionURL);
                 if($rootScope.regionId === undefined){
-                    var arr = actionURL.split('/');
+                    var arr = inputComponent.actionURL.split('/');
                     $rootScope.regionId = arr[1];
                 }
             }
@@ -142,27 +142,122 @@ app.factory('anonymousFactory', function($rootScope){
 
 app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     return {
-        navigateToScreen: function($scope, actionURL){
+        navigateToScreen: function($scope, inputComponent){
             $rootScope.resourceHref = undefined;
-            anonymousFactory.navigateToScreen($scope, actionURL);
+            anonymousFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
-        actionHandling: function($scope, actionURL, optionsMap, properties){
-            new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, $scope, actionURL, optionsMap, properties, resourceFactory, resolve);
-            }).then(function(){
-            });
+        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, $location);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
+            anonymousFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined, $location);
+        }
+    };
+});
+
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function($scope, inputComponent, optionsMap, properties){
+            quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotessearchFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        }
+    };
+});
+
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, resourceFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            if(inputComponent.action){
+                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, undefined, $location);    
+            } else if(inputComponent.actionURL){
+                $location.path(inputComponent.actionURL);
+            }
+        }
+    };
+});
+
+app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+
+app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent, rootURL, properties){
+            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        }
+    };
+});
+
+app.factory('premiumInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        }
+    };
+});
+
+app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
+    return {
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
         }
     };
 });
 
 app.factory('loginFactory', function($rootScope, $filter, $http, growl){
     return {
-        navigateToScreen: function($scope, actionURL){
+        navigateToScreen: function($scope, inputComponent){
             $rootScope.showIcon = true;
                  $http({
                     url: 'assets/resources/config/users.json',
@@ -184,8 +279,8 @@ app.factory('loginFactory', function($rootScope, $filter, $http, growl){
                     }
                     $rootScope.user = user;
                     sessionStorage.username = user.name;
-                    $rootScope.nextURL = actionURL;
-                    $rootScope.navigate(actionURL);  
+                    $rootScope.nextURL = inputComponent.actionURL;
+                    $rootScope.navigate(inputComponent.actionURL);  
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {

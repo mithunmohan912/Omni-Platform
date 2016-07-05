@@ -1,29 +1,17 @@
 {
     "metamodel": {
-        "formid": "login",
-        "title": "",
-        "name": "login",
         "showHeader" :false,
         "sections": [
             {
-                "title": "",
-                "name": "loginModal",
-                "category": "modal",
-                "division": "loginDiv",
                 "logodir": true,
                 "properties": [
                     {
-                        "subtitle": "",
-                        "name": "",
-                        "columnsize": 12,
-                        "type": "buttonGroup",    
-                        "visible": true,
-                        "required": "required",
+                        "type": "buttonGroup",
                         "buttons": [
                                  {
                                     "label": "_ASIA_AUTO_QS",
                                     "icon": "flaticon-adults",
-                                    "action":"navigateToScreen",
+                                    "method":"navigateToScreen",
                                     "actionURL" : "/asia/screen/quotescreate"
                                   },
                                   {
@@ -37,7 +25,7 @@
                                 {
                                     "label": "_HOME_QUOTE_US",
                                     "icon": "flaticon-adults",
-                                    "action":"navigateToScreen",
+                                    "method":"navigateToScreen",
                                     "actionURL" : "/us/screen/quotescreate"
                                   },
                                   {
@@ -49,7 +37,7 @@
                                      "position":"bottom"
                                 },
                                 {
-                                    "action":"navigateToScreen",
+                                    "method":"navigateToScreen",
                                     "label": "_SIGNIN",
                                     "actionURL": "/screen/login"
                                 },

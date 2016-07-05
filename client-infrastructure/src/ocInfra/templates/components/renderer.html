@@ -19,7 +19,7 @@
 								<ul class="nav nav-tabs">
 									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
 										<a ng-if="tab.screenId === screenName">{{ tab.title | translate }}</a>
-										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab.action)">{{ tab.title | translate }}</a>
+										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab)">{{ tab.title | translate }}</a>
 									</li>
 								</ul>
 							</div>
@@ -28,16 +28,16 @@
 							</div>
 							<div ng-switch-when="buttonGroup">
 								<div ng-repeat="button in column.buttons" class="renderer-button-div">
-									<button ng-if="button.label || button.icon" class="btn btn-primary renderer-button" ng-click="execute(button.action, button.actionURL)">
-										<span ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button.action)"></span>
+									<button ng-if="button.label || button.icon" class="btn btn-primary renderer-button" ng-click="execute(button)">
+										<span ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 									</button>
 								</div>
 							</div>
 							<div ng-switch-when="iconGroup">
 								<div class="col-xs-6 col-md-6" ng-repeat="icon in column.icons">
-									<div ng-click="execute(icon.action, icon.actionURL)" class="text-center ">
-            							<a ng-click="execute(icon.action, icon.actionURL)" class="thumbnail text-center">
+									<div ng-click="execute(icon)" class="text-center ">
+            							<a ng-click="execute(icon)" class="thumbnail text-center">
             							<div class="text-center">
               								<span class="{{icon.icon}}"></span>
               								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>

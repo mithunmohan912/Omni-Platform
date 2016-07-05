@@ -1,60 +1,93 @@
 {
     "metamodel": {
-        "formid": "additionalInfo",
-        "title": "",
-        "resourcelist": "", 
-        "name": "additionalInfo",
+        "showHeader": true,
+        "businessObject": {
+           "quote": [
+                   "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "quote-additional-premium",
-                        "type": "text",
-                        "label": "_QUOTE_ADDITIONAL_PREMIUM",
-                        "visible": true,
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "name": "quote-additional-cover",
-                        "type": "select",
-                        "label": "_QUOTE_ADDITIONAL_COVER",
-                        "columnsize": 3,
-                        "required": "required"
-                    },
-                    {
-                        "name": "quote-additional-limit",
-                        "type": "text",
-                        "label": "_QUOTE_ADDITIONAL_LIMIT",
-                        "columnsize": 3,
-                        "required": "required"
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/quotescreate",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId": "riskInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/asia/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
                     }
                 ]
             },
             {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
+                        "id": "quote-additional-premium",
+                        "type": "text",
+                        "label": "_QUOTE_ADDITIONAL_PREMIUM",
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
-                        "name": "submit1",
-                        "type": "buttonSmall",
-                        "label": "_CALCULATEPREMIUM",
-                        "action":"update",
-                        "tab": ["quote:quote_risk_list", "quote:quote_operations", "quote-execute"],
-                        "visible": true,
-                        "columnsize": "6"
+                        "id": "quote-additional-cover",
+                        "type": "select",
+                        "label": "_QUOTE_ADDITIONAL_COVER",
+                        "row": 1,
+                        "patchOnBlur": true
+                    },
+                    {
+                        "id": "quote-additional-limit",
+                        "type": "text",
+                        "label": "_QUOTE_ADDITIONAL_LIMIT",
+                        "row": 2,
+                        "patchOnBlur": true
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/premiumInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/riskInfo"
+                            }
+                        ]
                     }
                 ]
             }

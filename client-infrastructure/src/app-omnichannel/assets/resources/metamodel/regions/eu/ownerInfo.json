@@ -1,119 +1,138 @@
 {
     "metamodel": {
-        "formid": "ownerInfo",
-        "title": "",
-        "resourcelist": "", 
-        "name": "ownerInfo",
+        "showHeader": true,
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_owner_list"
+            ]
+        },
         "sections": [
             {
-                
-                "name": "owner_info",
-                "category": "nonaccordion",
-                "elements":   [
+                "title": "_HOME_QUOTE_EU",
+                "properties": [
                     {
-                        "name": "quote_owner:type",
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/quotescreate",
+                                "title": "_QUOTE_INFO_TAB"   
+                            },
+                            {
+                                "screenId":"ownerInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId":"riskInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    }
+                    ]
+                    },
+            {
+               "properties":   [
+                    {
+                        "id": "quote_owner:type",
                         "type": "select",
                         "label": "_PERSONAL_ENTITY",
-                        "required": "required",                        
-                        "columnsize": 3
+                        "row": 1
                     },
                     {
-                        "name": "quote_owner:person_title",
-                        "type": "select",
-                        "label": "_LEGAL_ACTIVITY_CLASS",                        
-                        "columnsize": 3
-                    },
-                    {
-                        "name": "quote_owner:name",
-                        "type": "thtext",
-                        "typeaheadField": "person:last_name",
+                        "id": "quote_owner:name",
+                        "type": "text",
                         "label": "_LASTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
+                        "row": 2
                     },
                     {
-                        "name": "quote_owner:first_name",
-                        "type": "thtext",
-                        "typeaheadField": "person:first_name",
+                        "id": "quote_owner:first_name",
+                        "type": "text",
                         "label": "_FIRSTNAME",
-                        "columnsize": 3,
-                        "typeahead": "true",
-                        "maxlength": 40
+                        "row": 2
                     },
                     {
-                        "name": "quote_owner:birth_date",
+                        "id": "quote_owner:birth_date",
                         "mask": "dd/mm/yy",
                         "type": "date",
                         "label": "_DOB",
-                        "required": "required",
-                        "columnsize": 3
+                        "row": 3
                     },
                     {
-                        "name": "quote_owner:city",
+                        "id": "quote_owner:city",
                         "type": "autocomplete",
                         "label": "_CITY",
-                        "columnsize": 3,
-                        "maxlength": 30,
-                        "typewait": 1000
+                        "row": 3
                     },
                     {
-                        "name": "quote_owner:street_number",
+                        "id": "quote_owner:street_number",
                         "type": "text",
                         "label": "_STREET_NUMBER",
-                        "maxlength": 8,
-                        "columnsize": 3
+                        "row": 4
                     },
                     {
-                        "name": "quote_owner:street_name",
+                        "id": "quote_owner:street_name",
                         "type": "text",
                         "label": "_STREET_NAME",
-                        "maxlength": 30,
-                        "columnsize": 3
+                        "row": 4
                     },
                     {
-                        "name": "quote_owner:postal_code",
-                        "type": "thtext",
-                        "typeaheadField": "person:postal_code",
-                        "typeahead": "true",
+                        "id": "quote_owner:postal_code",
+                        "type": "text",
                         "label": "_BOX_NUMBER",
-                        "maxlength": 8,
-                        "required": "required",
-                        "columnsize": 3
+                        "row": 5
                     },
                     {
-                        "name": "quote_owner:email",
+                        "id": "quote_owner:email",
                         "type": "email",
                         "label": "_EMAIL",
-                        "columnsize": 3,
-                        "maxlength": 80
+                        "row": 5
                     }
                 ]
             },
             {
-                "title": "",
-                "name": "additional_info",
-                "category": "nonaccordion",
-                "elements": [
+                "properties": [
                     {
-                        "name": "previous1",
-                        "type": "buttonSmall",
-                        "label": "_PREVIOUS",
-                        "action":"previousTab",
-                        "visible": true,
-                        "columnsize": "6",
-                        "style" : "float : left;"
-                    },
-                    {
-                        "name": "next1",
-                        "type": "buttonSmall",
-                        "label": "_NEXT",
-                        "action":"nextTab",
-                        "visible": true,
-                        "columnsize": "6"
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/riskInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/quotescreate"
+                            }
+                        ]
                     }
                 ]
             }
-        ]
+        ] 
     }
 }

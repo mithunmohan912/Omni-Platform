@@ -11,7 +11,11 @@ exported ScreenController
 
 app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q, resourceFactory, growl) {
     var self = this;
-    
+
+    this.setAction = function(action){
+        $rootScope.actionAfterNavigation = action;
+    };
+
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
@@ -47,17 +51,49 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, optionsMap, properties, resourceFactory, resolve){        
-        var options = optionsMap.get(action);
+    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
+    var options = {};
+    //Pick the URL for the business dependency on which your metamodel depends. 
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key) {
+            var url = properties[key].self;
+            if(url !== undefined && url !== rootURL){
+                rootURL = url;
+            }
+        });
+    }
+    
+    console.log('Invoke options on - '+rootURL);
+
+    if(!$rootScope.optionsMapForURL.get(rootURL)){
+    
+            callOptions($rootScope, rootURL, function(optionsObj){
+                options = optionsObj.get(action);
+                if(!properties){
+                    properties = options.properties;
+                }
+                if(options !== undefined){
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
+                }
+            });
+    }else{
+        options = $rootScope.optionsMapForURL.get(rootURL).get(action);
+        if(!properties){
+            properties = options.properties;
+        }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
         } 
+    } 
     };
 
-    this.prepareOptions = function(rootURL, optionsMap){
-        if(!optionsMap){
-            return;
+    this.prepareOptions = function($rootScope, rootURL, optionsMap){
+        if(!$rootScope.optionsMapForURL){
+            $rootScope.optionsMapForURL = new Map();
         }
+        if($rootScope.optionsMapForURL.get(rootURL)){
+            return;
+        } 
         var methodResourceFactory = resourceFactory.refresh;
         var params = {};
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
@@ -66,7 +102,8 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 console.log('OPTIONS CALL INVOKED URL:'+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
-                optionsMap[rootURL] = _processOptions(responseData);
+                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
@@ -116,6 +153,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                     var options = optionsMapForResource.get(action);
                     if(options !== undefined){
                         httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, options, resolve);       
+                        $rootScope.actionAfterNavigation = undefined;
                     } else{
                         loadOptionsDataForMetamodel(growl, item, resourcelist, $scope, regionId, $rootScope, resourceFactory, action, tab, optionFlag, resolve);
                     }
@@ -134,7 +172,31 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             $rootScope.headers.username = $rootScope.user.name;
         }
     };
-    
+
+    function callOptions($rootScope, rootURL, callback){
+        if(!$rootScope.optionsMapForURL){
+            $rootScope.optionsMapForURL = new Map();
+        }
+        
+        var methodResourceFactory = resourceFactory.refresh;
+        var params = {};
+         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseGET.then){
+            responseGET.then(function success(httpResponse){
+                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                var responseData = httpResponse.data || httpResponse;
+                // Add the resource to the result set
+                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                if(typeof callback === 'function'){
+                  callback($rootScope.optionsMapForURL.get(rootURL));  
+                } 
+            }, function error(errorResponse){
+                // FIXME TODO: Do something useful if required, for now just logging
+                console.error(errorResponse);
+                throw errorResponse;
+            });
+        }
+    }    
     /*============================================= Helper methods for components =============================================*/
     /*
         This function is in charge of analyzing the metamodel object and create an array with all the urls (resource 
@@ -158,8 +220,16 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
 
         // Process http response to know which keys are contained in this resource
         for(var property in responseData){
+            var propertyKey = {};
             if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                var propertyKey = property.split(':')[0];
+                propertyKey = property.split(':')[0];
+            
+                if(keySet.indexOf(propertyKey) === -1){
+                    keySet.push(propertyKey);
+                }
+            } else if(property.indexOf('-') > 0){
+                propertyKey = property.split('-')[0];
+            
                 if(keySet.indexOf(propertyKey) === -1){
                     keySet.push(propertyKey);
                 }
@@ -210,13 +280,9 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                             object.properties = propertiesObject; 
                         }
                     }
-                    console.log('Action: '+object.action);
-                    console.log('HREF: '+object.href);
-                    console.log('HTTP Method: '+object.httpmethod);
                     if(!optionsMapForResource.get(object.action)){
                         optionsMapForResource.set(object.action, object);
                     }
-
                 });    
             }
         }
@@ -242,17 +308,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     function _processProperties(responseData){
         var propertiesObject = {};
 
-        if(responseData && responseData._options && responseData._embedded){
+        if(responseData && responseData._options){
             // First get the PATCH and self links to use them later
             var updateCRUD;
             var resourceURL;
-
-            responseData._options.links.forEach(function(crud){
-                if(crud.rel === 'update'){
-                    updateCRUD = crud;
-                }
-            });
-
+            if(responseData._options.links){
+                responseData._options.links.forEach(function(crud){
+                    if(crud.rel === 'update'){
+                        updateCRUD = crud;
+                    }
+                });
+            }
+            
 
             for(var link in responseData._links){
                  if(link === 'self'){
@@ -275,22 +342,24 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             }
 
             // Process status of the properties (based on status_report coming from backend)
-            for(var rel in responseData._embedded) {
-                if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
-                    for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
-                        var item = responseData._embedded[rel].messages[j];
-                        if(item.context in propertiesObject){
-                            propertiesObject[item.context].statusMessages[item.severity].push(item);
-                            if(item.severity !== 'information'){
-                                propertiesObject[item.context].consistent = false;
-                                propertiesObject[item.context].statusMessages.errorCount++;
+            if(responseData._embedded){
+                for(var rel in responseData._embedded) {
+                    if(rel.indexOf('status_report') >= 0 && responseData._embedded[rel].messages){
+                        for(var j = 0; j < responseData._embedded[rel].messages.length; j++){
+                            var item = responseData._embedded[rel].messages[j];
+                            if(item.context in propertiesObject){
+                                propertiesObject[item.context].statusMessages[item.severity].push(item);
+                                if(item.severity !== 'information'){
+                                    propertiesObject[item.context].consistent = false;
+                                    propertiesObject[item.context].statusMessages.errorCount++;
+                                }
                             }
                         }
+                        break;
                     }
-
-                    break;
-                }
+                }    
             }
+            
         }
 
         return propertiesObject;
@@ -376,15 +445,18 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             resource.items = _extractItemDependencies(responseData, summaryData);
 
             // Process CRUD operations to check whether or not we can PATCH, DELETE...
-            responseData._options.links.forEach(function(apiOperation){
-                if(apiOperation.rel === 'update'){
-                    resource.patchable = true;
-                } else if(apiOperation.rel === 'delete'){
-                    resource.deletable = true;
-                } else if(apiOperation.rel === 'create'){
-                    resource.creatable = true;
-                }
-            });
+            if(responseData._options.links){
+                responseData._options.links.forEach(function(apiOperation){
+                    if(apiOperation.rel === 'update'){
+                        resource.patchable = true;
+                    } else if(apiOperation.rel === 'delete'){
+                        resource.deletable = true;
+                    } else if(apiOperation.rel === 'create'){
+                        resource.creatable = true;
+                    }
+                });     
+            }
+           
         }
 
         return resource;
@@ -427,6 +499,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+        
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
@@ -445,6 +518,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
             responseGET.then(function success(httpResponse){
+                
                 var responseData = httpResponse.data || httpResponse;
                 var summaryData = {};
                 resultSet.pending--;
@@ -455,9 +529,11 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Build the right href. When there are url parameters, they are not included in the href so we need to include them
                 resultSet[rootURL].href = rootURL.substring(0, rootURL.lastIndexOf('/')+1)+resultSet[rootURL].identifier;
                 resultSet[rootURL].identifier = dependencyName || resultSet[rootURL].identifier;
+               // $rootScope.resourceUrl = rootURL;
 
                 // Analyze business dependencies in order to extract them
                 resultSet[rootURL].dependencies.forEach(function(url){
+                    console.log('Invoked for dependencies - '+url.href);
                     resultSet.pending++;
                     self.prepareToRender(url.href, metamodel, resultSet, url.resource);
                 });
@@ -465,6 +541,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
+                        console.log('Invoked for items details - '+url.href);
                         resultSet.pending++;
                         self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
@@ -590,11 +667,12 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                                     optiondataobj = data2._options.links;
                                     setOptionsMapForResource(optiondataobj, optionsMapForResource);
                                     scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                                    if(action !== undefined){
-                                        options = optionsMapForResource.get(action);
+                                    if(action !== undefined || $rootScope.actionAfterNavigation !== undefined){
+                                        options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                         if(options !== undefined && patchFieldName !== undefined){
                                             options = sanitizeSchema(patchFieldName, options);
                                             httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                            $rootScope.actionAfterNavigation = undefined;
                                         }
                                         else{
                                             if(resolve) {
@@ -607,20 +685,23 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                 options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
+                                
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
                         } else {
                             setOptionsMapForResource(optiondataobj, optionsMapForResource);
                             scope.optionsMap[keyForOptionsMap] = optionsMapForResource;
-                            if(action !== undefined){
-                                options = optionsMapForResource.get(action);
+                            if(action !== undefined  || $rootScope.actionAfterNavigation !== undefined){
+                                options = optionsMapForResource.get(action) || optionsMapForResource.get($rootScope.actionAfterNavigation);
                                 if(options !== undefined){
                                     httpMethodToBackEnd(growl, item, scope, resourceFactory, $rootScope, options, resolve);
+                                    $rootScope.actionAfterNavigation = undefined;
                                 }
                             }
                         }
@@ -658,30 +739,29 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
     console.log(options.action + ' Action : Perform '+httpmethod +' operation on URL - '+url +' with following params - ');
     //$scope.resourceUrl = url;
     var params={};
-
-    options.properties = setDataIntoProperties(options.properties, properties);
-    //Set the params data from the screen per the schema object for the given action (from the options object)
-    params = setDataToParams($scope, options.properties, params);
-
     if(httpmethod==='GET'){
+        //Set the params data from the screen per the schema object for the given action (from the options object)
+        params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;    
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-        console.log('Invoke GET Call---');
-        resourceFactory.get(url,params,$rootScope.headers).success(function(response){
-            var responseData = response.data || response;
-	    console.log('GET Call Successful---');
-            $rootScope.loader.loading=false;
 
+        resourceFactory.get(url,params,$rootScope.headers).success(function(response){
+            $scope.resourceUrl= url;
+            $rootScope.resourceUrl = url;
+            var responseData = response.data || response;
+            $rootScope.loader.loading=false;
+            if(actionURL){
+                $rootScope.navigate(actionURL);
+            }
             //Load the results into the search results table
-            if(options.action==='search'){
-                
+            if(options.action==='search'){                
                 return responseData._links.item;   
             }
         }).error(function(){
@@ -690,46 +770,39 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
+        properties = loadFromDefaultSet(properties, defaultValues);
+        params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;
         //Call the post method on the Data Factory
         resourceFactory.post(url,params,$rootScope.headers).success(function(httpResponse){
             var data = httpResponse.data || httpResponse;
         if (data) {
-                if($rootScope.regionId === 'us' ){
-                     if(data._links.self.quoteNumber !== undefined){
-                        $scope.data['quote:identifier']=data._links.self.quoteNumber;
-                        $scope.data['quote:annual_cost'] =data._links.self.premium;                        
-                     } 
-                     if(data.outcome === 'success'){
-                            angular.forEach(data.messages, function(value){
-                            growl.success(value.message);
-                        });
-                     } else{
-                        //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
-                        growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
-                     }  
-                } else {
-                    $rootScope.resourceHref = data._links.self.href;
-                    $rootScope.loader.loading=false;
-                    if(resolve) {
-                        resolve();
-                    }                    
-                }
+            $scope.resourceUrl= data._links.self.href;
+            $rootScope.resourceUrl= data._links.self.href;
+            if(actionURL){
+                $rootScope.navigate(actionURL);
             }
+           // $scope.optionUrl = data._links.self.href;
+            $rootScope.resourceHref = data._links.self.href;
+            $rootScope.loader.loading=false;
+            if(resolve) {
+                resolve();
+            }                    
+        }
         }).error(function(){
             $rootScope.loader.loading=false;
         });
     } else if(httpmethod==='PATCH'){
+
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
+        //Set the params data from the screen per the schema object for the given action (from the options object)
+        params = setDataToParams(properties, params);
+
         resourceFactory.patch(url,params,$rootScope.headers).success(function(responseData){
             var data = responseData.data || responseData;
             if (data) { 
-                if(data.outcome === 'success'){
-                    angular.forEach(data.messages, function(value){
-                        growl.success(value.message);
-                    });
-                }else{
+                if(data.outcome === 'failure'){
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
@@ -740,6 +813,9 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     resolve();
                 }
             }
+            if(actionURL){
+                $location.path(actionURL);    
+            }
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
@@ -748,15 +824,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
     } else if(httpmethod==='DELETE'){
         resourceFactory.delete(url,$rootScope.headers).success(function(responseData){
 	       var data=responseData.data || responseData ;
-            if(data.outcome === 'success'){  
-                var index=0;
-                angular.forEach($scope.stTableList, function(field){
-                    if(item.$$hashKey===field.$$hashKey){
-                        $scope.stTableList.splice(index, 1);    
-                    } else{
-                        index=index+1;     
-                    }
-                });
+            if(data.outcome === 'success'){
                 angular.forEach(data.messages, function(value){
                     growl.success(value.message);
                 });
@@ -789,7 +857,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
             $rootScope.loader.loading=false;
             //Load the results into the search results table
             if(options.action==='search'){
-                if(data._links.item){
+                if(data._links.item && Object.keys(data._links.item).length > 0){
                     $scope.stTableList = convertToArray(data._links.item);
                     $scope.displayed = data._links.item;
                     $scope.stTableList.showResult = true;
@@ -853,6 +921,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                     resolve();
                 }
             }
+           resourceFactory.refresh(url,params,$rootScope.headers); 
         }).error(function(){
             $rootScope.loader.loading=false;
             //showMessage($rootScope.locale.PATCH_OPERATION_FAILED);
@@ -916,7 +985,12 @@ function setScreenData($rootScope, scope, m, screenId, $browser, onSuccess, reso
     }
     $rootScope.metamodel = scope.metamodel = scope.metamodel || {};
     scope.metamodel[screenId] = m.metamodel;
-
+    
+    if(m.metamodel.showHeader === undefined){
+        m.metamodel.showHeader = true;
+    }
+    $rootScope.metamodel.showHeader = m.metamodel.showHeader;
+    
     $browser.notifyWhenNoOutstandingRequests(function() {
         changeMandatoryColor($rootScope);
         $rootScope.$apply();
@@ -971,13 +1045,25 @@ function setData($scope, schema, object){
     return object;
 }
 
-function setDataIntoProperties(properties, propertiesData){
-    
-    if(propertiesData !== undefined && properties !== undefined){
-        angular.forEach(propertiesData, function(val, key){
-            var value = propertiesData[key].value;
+function loadFromDefaultSet(properties, defaultValues){
+    if(properties !== undefined && defaultValues !== undefined){
+        for (var key in properties) {
+            if (!properties[key].value) {
+                if(defaultValues[key] !== undefined){
+                    properties[key].value = defaultValues[key].value;    
+                }
+            }
+        }
+    }
+    return properties;
+}
+
+function setDataToParams(properties, params){
+    if(properties !== undefined){
+        angular.forEach(properties, function(val, key){
+            var value = properties[key].value;
             var type = properties[key].metainfo.type;
-            
+
             if(type !== undefined && type==='static'){
                 value = properties[key].metainfo.value;
             }
@@ -1000,30 +1086,11 @@ function setDataIntoProperties(properties, propertiesData){
                         value = value.value;
                     }
                 }
-                properties[key].value = value;
-            }
-        });
-    }
-    return properties;
-}
-function setDataToParams($scope, properties, params){
-     if(properties !== undefined){
-        angular.forEach(properties, function(val, key){  
-           // var href = properties[key].self;
-
-            var value = properties[key].value;
-            //JsHint issues. Varialbe definde but not used
-            // var type = properties[key].metainfo.type;
-            
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
-                //continue
-            }else{
                 console.log(key +' : '+value);
                 params[key] = value;
             }
         });    
     }
-    
     return params;
 }
 
