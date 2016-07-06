@@ -125,6 +125,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
     return {
         navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
             if(inputComponent.actionURL === '/login'){
                 $rootScope.nextURL = inputComponent.actionURL;
                 $rootScope.navigate(inputComponent.actionURL);    
@@ -153,7 +154,6 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
 app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     return {
         navigateToScreen: function($scope, inputComponent){
-            $rootScope.resourceHref = undefined;
             anonymousFactory.navigateToScreen($scope, inputComponent);
         }
     };
@@ -165,7 +165,6 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             MetaModel.handleAction($rootScope, $scope, inputComponent, rootURL, properties, resourceFactory, defaultValues, $location);
         },
         navigateToScreen: function($scope, inputComponent){
-            $rootScope.resourceHref = undefined;
             anonymousFactory.navigateToScreen($scope, inputComponent);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
@@ -188,7 +187,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
-app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, resourceFactory){
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             if(inputComponent.action){
@@ -196,6 +195,9 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, re
             } else if(inputComponent.actionURL){
                 $location.path(inputComponent.actionURL);
             }
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotessearchFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -204,6 +206,9 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -212,6 +217,9 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -220,6 +228,9 @@ app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -228,6 +239,9 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -236,15 +250,20 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
-
 
 app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent, rootURL, properties){
             quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -253,6 +272,9 @@ app.factory('premiumInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent){
             quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
@@ -261,6 +283,9 @@ app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function($scope, inputComponent){
             quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            quotescreateFactory.navigateToScreen($scope, inputComponent);
         }
     };
 });
