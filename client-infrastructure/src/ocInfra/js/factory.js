@@ -51,8 +51,17 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     };
 
 
-    this.handleAction=function($rootScope, $scope, action, actionURL, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
+this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properties, resourceFactory, defaultValues, $location, resolve){        
     var options = {};
+    if(rootURL === undefined){
+        var url = $rootScope.hostURL + inputComponent.resource;
+        //Retrieve regionToSORMap from the rootScope
+        var regionToSORMap = $rootScope.regionToSoR;
+        //Retrieve the application name for the given region Id
+        var applName = regionToSORMap[$rootScope.regionId];
+        //Replace the regionId with application name in the URL
+        rootURL = url.replace(':regionId',applName);
+    }
     //Pick the URL for the business dependency on which your metamodel depends. 
     if(properties !== undefined){
         angular.forEach(properties, function(val, key) {
@@ -65,27 +74,31 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     
     console.log('Invoke options on - '+rootURL);
 
+    if(!$rootScope.optionsMapForURL){
+        $rootScope.optionsMapForURL = new Map();
+    }
+
     if(!$rootScope.optionsMapForURL.get(rootURL)){
     
             callOptions($rootScope, rootURL, function(optionsObj){
-                options = optionsObj.get(action);
+                options = optionsObj.get(inputComponent.action);
                 if(!properties){
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
                 }
             });
     }else{
-        options = $rootScope.optionsMapForURL.get(rootURL).get(action);
+        options = $rootScope.optionsMapForURL.get(rootURL).get(inputComponent.action);
         if(!properties){
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
         } 
     } 
-    };
+};
 
     this.prepareOptions = function($rootScope, rootURL, optionsMap){
         if(!$rootScope.optionsMapForURL){
