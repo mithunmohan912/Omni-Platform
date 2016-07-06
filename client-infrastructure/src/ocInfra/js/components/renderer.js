@@ -360,18 +360,19 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
-					if(inputComponent.action){
-						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
+					if(inputComponent.method){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.method, $scope.metamodelObject);
 					}
 
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[inputComponent.method]({'scope': $scope, 'inputComponent': inputComponent, 
+							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues});
 
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[inputComponent.method]($scope.resourcesToBind.properties);
+							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
 						}
 					}
 				}
@@ -406,12 +407,17 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									promises.push(resourceFactory.patch(url, payloadToPatch));
 									$q.all(promises).then(function() {
 										if (data.callback) {
-											$scope.execute(data.callback);
+											$scope.execute({ 'method': data.callback});
 										}
 									});
+								}else if (data.callback){
+									$scope.execute({ 'method': data.callback});
 								}
 							});
 						});
+						if (payloadKeys.length === 0 && data.callback){
+							$scope.execute({ 'method': data.callback});
+						}
 					}
 				}
 			});

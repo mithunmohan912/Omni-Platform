@@ -6,7 +6,7 @@ global app
 
 app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 
-	function getOperationsResource(properties){
+	function _getOperationsResource(properties){
 		var urls = {};
 		for(var key in properties){
 			if (properties[key].self.indexOf('operations') > -1){
@@ -77,7 +77,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 
 			//We need to check ifsome operations resource has been patched. In that case we have to call 
 			//execute to confitrm this resource. 
-			var operationsURL = getOperationsResource(properties);
+			var operationsURL = _getOperationsResource(properties);
 			Object.keys(operationsURL).forEach(function(key){
 				resourceFactory.post(operationsURL[key] + '/execute', {}, $rootScope.headers).then(function(response) {
 					resourceFactory.get(operationsURL[key]).then(function(response) {
@@ -90,15 +90,19 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			
 
 			//update dependencies
-			$rootScope.$broadcast('refreshTable', { name: 'quote_risk_owner_list'});
-			$rootScope.$broadcast('refreshTable', { name: 'quote_driver_list'});
+			$rootScope.$broadcast('refresh_table', { name: 'quote_risk_owner_list'});
+			$rootScope.$broadcast('refresh_table', { name: 'quote_driver_list'});
 		},
 		addAddress: function(params){
-			if (params && params.dependencies){
+
+
+			if (params && params.scope.resultSet[params.scope.resourceUrl] &&
+				params.scope.resultSet[params.scope.resourceUrl].dependencies){
+				var dependencies = params.scope.resultSet[params.scope.resourceUrl].dependencies;
 				var personUrl;
-				for(var i=0; i< params.dependencies.length; i++){
-					if(params.dependencies[i].resource === 'quote_owner:person_link'){
-						personUrl = params.dependencies[i].href;
+				for(var i=0; i< dependencies.length; i++){
+					if(dependencies[i].resource === 'quote_owner:person_link'){
+						personUrl = dependencies[i].href;
 						break;
 					}
 				}

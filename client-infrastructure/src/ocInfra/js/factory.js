@@ -105,6 +105,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             $rootScope.optionsMapForURL = new Map();
         }
         if($rootScope.optionsMapForURL.get(rootURL)){
+            optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             return;
         } 
         var methodResourceFactory = resourceFactory.refresh;
