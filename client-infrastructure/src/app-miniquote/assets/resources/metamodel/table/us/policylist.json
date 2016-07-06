@@ -1,0 +1,140 @@
+{
+    "tableMetaModel": {
+        "id": "policylist",
+        "title": "Policy Search List",
+        "searching": true,
+        "name":"policyList",
+        "actionurl": "/screen/insuredlogin",
+        "element": [
+             {
+                "quoteField": "symbol",
+                "displayName": "_SYMBOL",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },        
+             {
+                "quoteField": "policyNumber",
+                "displayName": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },  
+            {
+                "quoteField": "moduleNumber",
+                "displayName": "_MODULE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"   
+            },      
+            {
+                "quoteField": "firstName",
+                "displayName": "_FIRST_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"   
+            },
+            
+            {
+                "quoteField": "lastName",                
+                "displayName": "_LAST_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "effectiveDate",                
+                "displayName": "_EFFECTIVE_DATE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "quoteField": "expiryDate",                
+                "displayName": "_EXPIRATION_DATE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+           
+        {
+                "type": "dropdownus",
+                "align": "left",
+                "visible": true,
+                "displayName": "_ACTION",
+                "width": "10%",
+                "options": [
+                    {
+                        
+                        "icon": "flaticon-credit-card",
+                        "title": "_MAKE_A_PAYMENT",
+                        "visible":"true"
+                    },
+                    {
+                        "value": "navigate",
+                        "icon": "flaticon-nb",
+                        "title": "_GO_PAPERLESS",
+                        "actionurl":"/us/screen/gopaperless",
+                        "visibleWhen":{
+                            "expression":{
+                                "operator":"OR",
+                                "conditions":[
+                                    {
+                                        "field":"gogreenind",
+                                        "value":""
+                                    },
+                                    {
+                                        "field":"gogreenind",
+                                        "value":"0"
+                                    },
+                                    {
+                                        "field":"gogreenind",
+                                        "value":"P"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "value": "navigate",
+                        "icon": "flaticon-contract",
+                        "title": "_PREFER_PAPER",
+                        "actionurl":"/us/screen/preferpaper",
+                        "visibleWhen":{
+                            "expression":{
+                                "field":"gogreenind",
+                                "value":"E"
+                            }
+                        }
+                    },
+                    {
+                        "value": "search",   
+                        "action":"search",                    
+                        "icon": "flaticon-info",
+                        "title": "_VIEW",
+                        "actionurl":"/us/screen/policydocuments",
+                        "visible":"true"
+                    }
+                ]
+            }
+             
+        ],
+    "iconList": 
+            {
+                "MC011": "flaticon-car95", 
+                "MD005": "flaticon-delivery50", 
+                "MA002": "flaticon-motorbike", 
+                "MC002": "flaticon-single17", 
+                "IN005": "flaticon-home168", 
+                "AX009": "flaticon-adults"
+            }
+        
+    }
+}

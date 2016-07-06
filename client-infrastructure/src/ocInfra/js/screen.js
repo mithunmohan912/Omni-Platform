@@ -23,9 +23,8 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
    
     screenname  = 'OmniChannel';
-    $rootScope.showHeader = true;
     $scope.disableNext = false;
-
+    
     $scope.rulesDataList = [];
     var reqParmScreen = null;
     var reqParmRegion = null;
@@ -42,14 +41,16 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $rootScope.typeahead =[];
 
     if($routeParams.regionId !== undefined && $routeParams.regionId.length > 0){
-    if ($routeParams.regionId.indexOf(':') !== -1) {
-        reqParmRegion = $routeParams.regionId.split(':');
-        $rootScope.regionId = reqParmRegion[1];
-        regionExist = true;
+        if ($routeParams.regionId.indexOf(':') !== -1) {
+            reqParmRegion = $routeParams.regionId.split(':');
+            $rootScope.regionId = reqParmRegion[1];
+            regionExist = true;
+        }else{
+            reqParmRegion = $routeParams.regionId;
+            $rootScope.regionId = reqParmRegion;
+        }
     }else{
-        reqParmRegion = $routeParams.regionId;
-        $rootScope.regionId = reqParmRegion;
-    }
+        $rootScope.regionId = undefined;
     }
 
     if ($routeParams.screenId.indexOf(':') !== -1) {
@@ -246,6 +247,10 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
+            if ($scope.isValid()) {
+            if(msg !== undefined){
+                msg.destroy();    
+            }
             if(tab === undefined){
                 $rootScope.resourceHref = undefined;
             }
@@ -320,7 +325,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                     EnumerationService.loadEnumerationByTab();
                 }
             });
-        }
+        } }
     };
 
     $scope.getRelationshipOfNavigateStep = function(step){
@@ -527,7 +532,15 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.loadmandatoryField = function(){
         var mandatoryField = [];
-        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        var arrparent;
+        if($rootScope.currName)
+        {
+        arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        }
+        else
+        {
+        arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+        }
         for(var i = 0; i < arrparent.length; i++){
             var arr = arrparent[i].elements;
             for(var j = 0; j < arr.length; j++){
@@ -541,7 +554,14 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.translateKeyToLabelByTab = function(key){
-        var arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+         var arrparent;
+        if($rootScope.currName){
+        arrparent = $rootScope.metamodel[$rootScope.currName].sections;
+        }
+        else
+        {
+         arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+        }
         for(var i = 0; i < arrparent.length; i++){
             var arr = arrparent[i].elements;
             for(var j = 0; j < arr.length; j++){

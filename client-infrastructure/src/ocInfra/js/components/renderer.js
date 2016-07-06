@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if (!metamodelObject) {
+			if ($rootScope.regionId !== undefined || !metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
@@ -31,7 +31,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if(newValue !== oldValue){
 					if($scope.metamodelObject){
 						//_processMetamodel($scope.metamodelObject);
-						//_options($scope.metamodelObject);
 						_init($scope.metamodelObject);
 					}
 				}
@@ -128,7 +127,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				var resource = $scope.metamodelObject.resource;
 				$scope.resourcesToBind = { properties : {} };
 				var newURL = {};
-				if($rootScope.regionId !== undefined && resource !== undefined){
+				if($rootScope.resourceHref){
+					 $scope.optionUrl = $rootScope.resourceHref;
+                    $scope.resourceUrlToRender = $rootScope.resourceHref;
+				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = $rootScope.hostURL + resource;
                     //Retrieve regionToSORMap from the rootScope
                     var regionToSORMap = $rootScope.regionToSoR;
@@ -136,20 +138,21 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     var applName = regionToSORMap[$rootScope.regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
-                    $scope.metamodelObject.optionUrl = newURL;
+                    $scope.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
                   
                   //we need to check the sesssion storage just in case we are coming from another SPA
                   newURL = sessionStorage.getItem(resource + '_url') ? sessionStorage.getItem(resource + '_url') : newURL;
-                	$scope.metamodelObject.optionUrl = newURL ;
+                  $scope.metamodelObject.optionUrl = newURL ;
                   $scope.resourceUrlToRender = newURL;
                   $scope.resourceUrl = newURL;
                 }
 
 				$scope.optionUrl = $scope.metamodelObject.optionUrl;
-       
+
+
 				if($scope.optionUrl === undefined){
 					return;
 				}
@@ -168,9 +171,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									var params = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
 									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_data');
-									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');
-
-                  
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');                  
 
 									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
 										if (optionsObj.httpmethod === 'POST') {
@@ -191,7 +192,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						
 					}
 				});
-				MetaModel.prepareOptions($scope.optionUrl, $scope.optionsMap);
+				MetaModel.prepareOptions($rootScope, $scope.optionUrl, $scope.optionsMap);
 			}
 
 			function _init(metamodelObject){
@@ -215,7 +216,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
-
 
 				$scope.screenName = $location.path().substring($location.path().lastIndexOf('/')+1);
  
@@ -356,36 +356,25 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 
-			$scope.execute = function(action, actionURL) {
+			$scope.execute = function(inputComponent) {
+				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
+					
+					var defaultValues = {};
+					if(inputComponent.action){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
+					}
 
-				if($scope.actionFactory && $scope.actionFactory[action]){
-					var defaultValues = MetaModel.getDefaultValues(action, $scope.metamodelObject);
 					if($scope.resourcesToBind.properties !== undefined){
-						$scope.actionFactory[action]({ 'scope':$scope, 'actionURL':actionURL, 'optionsMap':$scope.optionsMap[$scope.optionUrl], 'properties':$scope.resourcesToBind.properties, 'defaultValues':defaultValues });
+						$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
+
 					}
 				} else {
-					if ($scope[action]) {
+					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[action]($scope.resourcesToBind.properties);
+							$scope[inputComponent.method]($scope.resourcesToBind.properties);
 						}
 					}
-				}			
-				var optionsMapForResource = $scope.optionsMap[$scope.optionUrl];
-				if(optionsMapForResource !== undefined  && actionURL !== undefined){
-					var optionsObj = optionsMapForResource.get(actionURL);
-					if(optionsObj !== undefined){
-						/*
-						$rootScope.resourceUrlToRender = optionsObj.href;	
-						$scope.metamodelObject.resourceUrl = optionsObj.href;
-						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-						$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
-						_init($scope.metamodelObject);
-						*/
-						$scope.resourceUrl = optionsObj.href;
-					}
-					
 				}
-
 			};
 
 			$scope.$on('patch_renderer', function(event, data){

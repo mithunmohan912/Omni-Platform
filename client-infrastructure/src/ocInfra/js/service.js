@@ -8,7 +8,9 @@ exported checkVisibility
 app.service('OCInfraConfig', function($resource, $rootScope){	
     this.load = function() {
     	$rootScope.infraConfig = {};
-        $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+
 			$rootScope.infraConfig = data.config.base;
 			$rootScope.metamodelPath = data.config.base.templates.metaModel;
 			angular.forEach($rootScope.infraConfig.properties, function(key) {
@@ -151,6 +153,38 @@ app.service('CheckVisibleService', function(){
         }    
         return true;
     };
+    this.checkVisibleOnRowValue = function(field, row, $scope) {
+        if (field.visibleWhen) {
+            var response = evaluateRowExpression(field.visibleWhen.expression, row, $scope);
+            return response;
+        }    
+        return true;
+    };
+    function evaluateRowExpression(expression, row, $scope) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && evaluateRowExpression(val, row, $scope);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || evaluateRowExpression(val, row, $scope);
+                    }
+                });
+            }
+        } else //Base case
+        {
+            response = row.summary[expression.field] === expression.value;
+        }
+        
+        return response;
+    }
 
     function evaluateExpression(expression, $scope) {
         var response = true;
