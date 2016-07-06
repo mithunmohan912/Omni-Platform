@@ -105,6 +105,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             $rootScope.optionsMapForURL = new Map();
         }
         if($rootScope.optionsMapForURL.get(rootURL)){
+            optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             return;
         } 
         var methodResourceFactory = resourceFactory.refresh;
@@ -527,7 +528,9 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
-        var responseGET = methodResourceFactory(rootURL);
+        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+        sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
+        var responseGET = methodResourceFactory(rootURL, payload);
         // Cached response (resource directory) or not, we always get a promise
         if(responseGET.then){
             responseGET.then(function success(httpResponse){

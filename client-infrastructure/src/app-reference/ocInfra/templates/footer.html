@@ -1,10 +1,13 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" ng-if="showHeader" ng-controller="HeaderController" >
   <div class="container">
-  	<p style="margin-top:10px;">{{locale["_COPYRIGHT"]}}
-  	<button class="oc-btn oc-btn-small" style="float:right" ng-click="tour.restart(true)">
-  		{{locale["_START_TOUR"]}}
-  	</button>
+  	<p style="margin-top:10px;"> {{locale["_COPYRIGHT"]}} 
+      <div class="tourLandingFooter">
+        <div class="" ng-click="tour.restart(true)">
+            <span class="flaticon-take-a-tour"> </span><br/>
+             <span>{{locale["_START_TOUR"]}}</span>
+        </div>
+    </div>
   	</p>
   </div>
   

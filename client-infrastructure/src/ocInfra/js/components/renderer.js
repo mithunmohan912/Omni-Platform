@@ -142,9 +142,16 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
-                	$scope.optionUrl = newURL;
-                    $scope.resourceUrlToRender = newURL;
+                  
+                  //we need to check the sesssion storage just in case we are coming from another SPA
+                  newURL = sessionStorage.getItem(resource + '_url') ? sessionStorage.getItem(resource + '_url') : newURL;
+                  $scope.metamodelObject.optionUrl = newURL ;
+                  $scope.resourceUrlToRender = newURL;
+                  $scope.resourceUrl = newURL;
                 }
+
+				$scope.optionUrl = $scope.metamodelObject.optionUrl;
+
 
 				if($scope.optionUrl === undefined){
 					return;
@@ -158,16 +165,23 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if(optionsMapForResource !== undefined && $scope.metamodelObject.actionOnScreen){
 								var optionsObj = optionsMapForResource.get($scope.metamodelObject.actionOnScreen);
 								if(optionsObj !== undefined){
-									var data = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_data'));
-									var params = JSON.parse(localStorage.getItem(resource + '_' + optionsObj.action + '_params'));
+									console.log('optionsMap action' + optionsObj.action);
 
-									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
-									localStorage.removeItem(resource + '_' + optionsObj.action + '_params');
+									var data = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_data'));
+									var params = JSON.parse(sessionStorage.getItem(resource + '_' + optionsObj.action + '_params'));
 
-									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(){
-										$scope.metamodelObject.resourceUrl = optionsObj.href;
-										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-										$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_data');
+									sessionStorage.removeItem(resource + '_' + optionsObj.action + '_params');                  
+
+									resourceFactory.execute(optionsObj.href, data, params, null, optionsObj.httpmethod).then(function(response){
+										if (optionsObj.httpmethod === 'POST') {
+											$scope.resourceUrl = response.data._links.self.href;
+										} else {
+											$scope.resourceUrl = optionsObj.href;
+											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
+											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+										}
+
 										_init($scope.metamodelObject);
 
 									});									
@@ -192,6 +206,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 
 				$scope.resourcesToBind = { properties: {} };
+
+				$scope.boundUrls.push($scope.resourceUrl);
+
 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
@@ -229,6 +246,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 
 						$scope.boundUrls = [];
+						$scope.boundUrls.push($scope.resourceUrl);
 						//This var will contain the properties names. In case we found the same property in different resources, we keep the one defined first in metamodel
 						$scope.propertiesCollection = [];
 						var searchIdsInAttributes = function(property) {
@@ -296,13 +314,16 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 							$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
 							//if we have found a value in one of the resources, we are done and no need to go on. 
-							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){	
-								$scope.resourcesToBind.properties[property.id[k]] = 
-									$scope.resourcesToBind[resourceSelected.resource].properties[property.id[k]];
-									// storeProperty($scope.metamodelObject.sections[i].properties[j].id[k]);
+							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
-								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[property.id[k]].self) < 0) {
-									$scope.boundUrls.push($scope.resourcesToBind.properties[property.id[k]].self);	
+				                var id = property.id[k];
+							
+				                  $scope.resourcesToBind.properties[id] = 
+				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
+                
+
+								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
+									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
 								}
 								break;
 							}
@@ -311,6 +332,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					} 
 				}
 			}
+
 
 			function seekSelectorInResource(resource, selector, resourceSelected){
 				var selectors = Array.isArray(selector)?selector:[selector];
@@ -338,17 +360,19 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
-					if(inputComponent.action){
-						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
+					if(inputComponent.method){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.method, $scope.metamodelObject);
 					}
 
 					if($scope.resourcesToBind.properties !== undefined){
-							$scope.actionFactory[inputComponent.method]($scope, inputComponent, $scope.optionUrl, $scope.resourcesToBind.properties, defaultValues);
+						$scope.actionFactory[inputComponent.method]({'scope': $scope, 'inputComponent': inputComponent, 
+							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues});
+
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[inputComponent.method]($scope.resourcesToBind.properties);
+							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
 						}
 					}
 				}
@@ -383,12 +407,17 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									promises.push(resourceFactory.patch(url, payloadToPatch));
 									$q.all(promises).then(function() {
 										if (data.callback) {
-											$scope.execute(data.callback);
+											$scope.execute({ 'method': data.callback});
 										}
 									});
+								}else if (data.callback){
+									$scope.execute({ 'method': data.callback});
 								}
 							});
 						});
+						if (payloadKeys.length === 0 && data.callback){
+							$scope.execute({ 'method': data.callback});
+						}
 					}
 				}
 			});

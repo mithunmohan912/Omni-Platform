@@ -298,7 +298,9 @@ This sections specifies the available properties within the _attributes_and _opt
 * __capitalize__: Boolean. Whether or not the values should be upper case. If it is false, then the dropdown values will be the same returned by the search method without any modification.
 
 ###### Options
-* __getData__: String. Name of the method that will be in charge of getting the data for the autocomplete’s dropdown. The directive cannot infer any default behavior.
+* __getData__: String. Name of the method that will be in charge of getting the data for the autocomplete’s dropdown. The directive infers a default behavior defining the following options:
+    - href: url to get the data for the autocomplete’s dropdown
+    - params: name of the parameter to include in the request
 * __select__: String. Name of the method to use when a value of the dropdown has been selected. Again the directive cannot provide a default functionality in this case.
 * __typeaheadBlur__: String. Name of the method to invoke when the typeahead loses the focus. By default, the method configures the dropdown to not be shown again, preventing this way the possibility that an asynchronous getData makes it displays when the user is no longer on that input. Please notice two things:
     - The onUpdate (potentially the default patch on blur) method gets invoked first and then the typeaheadBlur gets invoked.
@@ -540,11 +542,18 @@ The metamodel definition by default is as follows, a metamodel element that coul
 * __searching__: flag to show the searching input at the top of the table.
 * __pagination__: flag to show the pagination footer.
 * __header__: flag to indicate whether the table has to shown a header or not.
-* __buttons__: flag to indicate if there will be buttons at the bottom of the table.
-* __buttonLabel__: label for the button that could be included at the bottom of the table to add a new item to the collection.
-* __buttonMethod__: optional, name of the function in the custom factory that is going to overwrite the default action.
-* __buttonCallback__: optional, name of the function in the custom factory that is going to be executed after the default action.
+* __buttons__: object to indicate if there will be buttons at the bottom of the table.
+    - __label__: label for the button that could be included at the bottom of the table to add a new item to the collection.
+    - __method__: optional, name of the function in the custom factory that is going to overwrite the default action.
+    - __callback__: optional, name of the function in the custom factory that is going to be executed after the default action.
+
 * __modalRef__: metadata file relative path that includes the metadata definition for the popup.
+* __filters__: optional, valid values to filter the collection, a pair key/value that indicates the property and an array of possible values. For example:
+
+        {
+            "filters": { "party_role:role_type": ["owner"] }
+        }
+
 * __properties__: list of fields that the table is going to include, one for each table column.
 
 Example:
