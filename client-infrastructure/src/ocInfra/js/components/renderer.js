@@ -360,8 +360,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
-					if(inputComponent.method){
-						defaultValues = MetaModel.getDefaultValues(inputComponent.method, $scope.metamodelObject);
+					if(inputComponent.action){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
 
 					if($scope.resourcesToBind.properties !== undefined){
