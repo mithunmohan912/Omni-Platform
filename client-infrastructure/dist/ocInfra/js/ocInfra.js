@@ -519,7 +519,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			$scope.patch = function(params, next){
 				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
 				//there is one patch when selecting the value in the dropdown and when losing the focus.
-				if (!$scope.timeout) {git 
+				if (!$scope.timeout) {
 					$scope.timeout = true;
 					$timeout(function() {
 						$scope.timeout = false;
@@ -3041,6 +3041,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return params;
     }
 
+    function _getFromResourceDirectory(url) {
+      return angular.copy(resourceDirectory[url]);
+    }
+
     function _get(url, params, headers) {
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
@@ -3202,6 +3206,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         'delete' : _delete,
         'patch': _patch,
         'execute': _execute,
+        'getFromResourceDirectory': _getFromResourceDirectory,
 
         'getData' : function (urlBase) {
             return $http.get(urlBase);
