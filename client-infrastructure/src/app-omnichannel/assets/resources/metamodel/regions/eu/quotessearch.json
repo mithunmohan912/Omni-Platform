@@ -1,17 +1,37 @@
 {
     "metamodel": {
-        "formid": "quotesearch",
         "resource": "quotes",
+        "summary": true,
+        "showHeader": true,
+        "defaultValue": [
+            {
+                "field": "quote:contract_start_date",
+                "value": "Date",
+                "action": "create"
+            },
+            {
+                "field": "quote:distributor_id",
+                "value": "gtmoni",
+                "action": "create"
+            },
+            {
+                "field": "quote:product_id",
+                "value": "IN005",
+                "action": "create"
+            }
+        ],
         "sections": [
             {
-                           "properties": [
+                "title": "_HOME_QUOTE_EU_SEARCH",
+                "properties": [
                             {
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
-                                        "action": "actionHandling",
-                                        "actionURL": "create",
-                                        "label": "_CREATE_QUOTE"
+                                        "method": "actionHandling",
+                                        "action": "create",
+                                        "label": "_CREATE_QUOTE",
+                                        "actionURL": "/eu/screen/quotescreate"
                                     }
                                 ]
                             }
@@ -62,13 +82,6 @@
                                 "uiInput" : true                      
                             },
                             {
-                                "id":"quote:status",
-                                "type":"text",
-                                "label":"_QUOTE_STATUS",                                
-                                "row": 3,
-                                "uiInput" : true
-                            },
-                            {
                                 "id": "quote:product_id",
                                 "type": "text",
                                 "label": "_PRODUCT",                                
@@ -86,7 +99,7 @@
                                 "id":"quote_home:street_name",
                                 "type":"text",
                                 "label":"_STREET_NAME",                                
-                                "row": 4,
+                                "row": 3,
                                 "uiInput" : true
                             },
                                             
@@ -108,7 +121,7 @@
                                 "id": "quote_home:postal_code",
                                 "type": "text",
                                 "label": "_POSTAL_CODE",
-                                "row": 5,
+                                "row": 4,
                                 "uiInput" : true
                             }
                         
@@ -121,8 +134,8 @@
                                 "buttons" : [
                                     {
                                         "label": "_SEARCH",
-                                        "action":"actionHandling",
-                                        "actionURL":"search"
+                                        "method":"actionHandling",
+                                        "action":"search"
                                     }
                                 ]
                             }
@@ -131,10 +144,9 @@
                     {
                            "properties": [
                             {
-                                "id": "quotes",
+                                "id": "quotes?_inquiry=ci_saved_items",
                                 "metamodel": "searchlist",
-                                "type": "table",
-                                "uiInput" : true
+                                "type": "table"
                             }
                         ]
                     }

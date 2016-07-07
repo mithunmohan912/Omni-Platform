@@ -145,5 +145,4 @@ There are some ground rules set up to Contribute. Please follow instructions pos
 ###CodeReviews - Common Issues
 ---
 
-We have observed some of the common mistakes that a developer makes while commiting his code. This issues are reported in JsHint CodeReview as well. If you are facing one of such issue
-, we recommend you to look at this document [here](https://bitbucket.org/cscdev/omnichannel-client/src/43a16ce441b12bb24ae2284aa6002f448d955ad3/docs/CodeReviews.md?at=develop-Sprint5)
+We have observed some of the common mistakes that a developer makes while commiting his code. This issues are reported in JsHint CodeReview as well. If you are facing one of such issue, we recommend you to look at this document [here](https://bitbucket.org/cscdev/omnichannel-client/src/43a16ce441b12bb24ae2284aa6002f448d955ad3/docs/CodeReviews.md?at=develop-Sprint5)

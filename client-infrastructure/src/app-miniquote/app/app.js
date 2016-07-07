@@ -56,13 +56,17 @@ TourConfigProvider.set('prefixOptions', false);
             'responseError': function(rejection) {
                 console.log('rejection!!' + rejection.statusText + 'error' + rejection.status);
                 //console.log(JSON.stringify(rejection));
-                if(rejection.status){
+               
+                if($rootScope.regionId === 'eu' && rejection.data.messages){
+                    growl.error(rejection.data.messages[0].message +'<br>' +rejection.data.messages[1].message );
+                }
+                if(rejection.status && rejection.status !== -1 && rejection.statusText && $rootScope.regionId !== 'eu'){
                     growl.error(rejection.statusText);
                 }
 
-                 if(rejection.status === '-1')
+                 if(rejection.status === -1)
                  {
-                    growl.error('Gateway Timedout/InSecure Response');
+                    growl.error('Gateway Timeout');
 
                  }
                 $rootScope.loader.loading = false;

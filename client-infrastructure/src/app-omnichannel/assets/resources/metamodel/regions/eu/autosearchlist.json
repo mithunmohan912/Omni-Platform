@@ -1,0 +1,93 @@
+{
+    "metamodel": {
+        "summary": true,
+        "searching": true,
+        "pagination": true,
+        "properties": [
+            {
+                "id": "quote_risk:risk_type",
+                "label_header": "_PRODUCT_TYPE",
+                "type": "icon",
+                "align": "center",
+                "visible": true,
+                "width": "5%"
+            },
+            {
+                "id": "quote:identifier",
+                "label_header": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "id": "quote_owner:name",
+                "label_header": "_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "id": "quote:contract_start_date",
+                "label_header": "_Effective_Date",
+                "type": "date",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "id": "quote:distributor_id",                
+                "label_header": "_DISTRIBUTOR_ID",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "id": "quote:description",                
+                "label_header": "_DESCRIPTION",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "15%"
+            },
+            {
+                "id": "quote_risk:display_id",
+                "label_header": "_RISK_DATA",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "15%"
+            },
+            {
+                "id": "quote:product_id",
+                "label_header": "_PRODUCT_ID",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+            {
+                "type": "actions",
+                "label_header": "_ACTION",
+                "options": [
+                    {
+                        "value": "fetch",
+                        "action": "fetch",
+                        "icon": "fa fa-edit",
+                        "method": "itemActionHandling",
+                        "actionURL": "/eu/screen/autocreate"
+                    },
+                    {
+                        "value": "delete",
+                        "action": "delete",
+                        "icon": "fa fa-trash-o",
+                        "method": "itemActionHandling",
+                        "action": "delete"                        
+                    }
+                ]
+            }
+        ]
+    }
+}

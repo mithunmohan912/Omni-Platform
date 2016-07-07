@@ -26,8 +26,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			$scope.$on('resource_directory', function(event, params) {
 				if ((params.url === $scope.resourceUrl) ||
 					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
-					(params.response.data._links && params.response.data._links.up.href === $scope.resourceUrl) ||
+					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
+
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -246,7 +247,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					}
 				} else {
 					if (action.method) {
-						$scope.actionFactory[action.method](displayedItem);
+						$scope.actionFactory[action.method](displayedItem, action, $scope);
 					} else {
 						$scope[action.value](displayedItem, action.callback);
 					}

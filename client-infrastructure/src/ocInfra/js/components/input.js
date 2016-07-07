@@ -170,7 +170,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 			defaults.textMask = {
 				'attributes': {
-					'capitalize': true,
+					'capitalize': false,
 					'mask': ''
 				},
 				'options': {}
@@ -178,7 +178,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 			defaults.text = {
 				'attributes': {
-					'capitalize': true,
+					'capitalize': false,
 					'maxlength': 9999999
 				},
 				'options': {},
@@ -261,7 +261,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
 									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-								}					
+								}													
 							}
 							if(Object.keys(payload).length > 0){
 								resourceFactory.patch(params.property.self, payload, {}).then(function(){

@@ -1,53 +1,93 @@
 {
     "metamodel": {
-        "formid": "AddHomeQuote",
-        "resourcelist": ["quotes"], 
-        "category":"tabs",
-        "hidetitle": false,
-        "title": "_HOME_QUOTE_EU_CREATE",
-        "icon":"flaticon-home",
-        "viewAs": "menu",
-        "createButton": false,
-        "name": "AddHomeQuote",
+        "showHeader": true,
         "sections": [
             {
-                "$ref": "quoteInfo",
-                "name": "_QUOTE_INFO_TAB",
-                "link" : "itself",
-                "renderAsTab":true,
-                "step": 1
+                "title": "_HOME_QUOTE_EU",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quotescreate",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/quotescreate",
+                                "title": "_QUOTE_INFO_TAB"   
+                            },
+                            {
+                                "screenId":"ownerInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo",
+                                "title": "_OWNER_INFO_TAB"
+                            },
+                            {
+                                "screenId":"riskInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/riskInfo",
+                                "title": "_RISK_INFO_TAB"
+                            },
+                            {
+                                "screenId": "additionalInfo",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/additionalInfo",
+                                "title": "_ADDITIONAL_INFO_TAB"
+                            },
+                            {
+                                "screenId": "premiumInfo",
+                                "method": "navigateToTab",
+                                "actionURL": "/eu/screen/premiumInfo",
+                                "title": "_PREMIUM_INFO_TAB"
+                            }
+                        ]
+                    }
+                ]
             },
             {
-                "$ref":"ownerInfo",
-                "name": "_OWNER_INFO_TAB",
-                "link" : "quote:quote_owner_list",
-                "renderAsTab": true,
-                "step": 2
+                "properties": [
+                    {
+                        "id": "quote:description",
+                        "type": "textarea",
+                        "label": "_EXTERNAL_CONTRACT_NUMBER",
+                        "patchOnBlur": true,
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:contract_start_date",
+                        "mask": "dd/mm/yy",
+                        "type": "date",
+                        "label": "_START_DATE_OF_THE_CONTRACT",
+                        "patchOnBlur": true,
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:language",
+                        "type": "select",
+                        "label": "_CONTRACT_LANGUAGE",
+                        "row": 2
+                    }
+                ]
             },
             {
-                "$ref":"riskInfo",
-                "name": "_RISK_INFO_TAB",
-                "link" : "quote:quote_risk_list",
-                "renderAsTab": true,
-                "step": 3
-            },
-            {
-                "$ref": "additionalInfo",
-                "name": "_ADDITIONAL_INFO_TAB",
-                "link" : "quote:quote_risk_list",
-                "renderAsTab": true,
-                "step": 4
-            },
-            {
-                "$ref": "premiumInfo",
-                "name": "_PREMIUM_INFO_TAB",
-                "renderAsTab": true,
-                "link" : "undefined",
-                "step": 5
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/eu/screen/ownerInfo"
+                            }
+                        ]
+                    }
+                ]
             }
         ] 
-    },
-    "include":[
-        "quoteInfo", "ownerInfo", "riskInfo", "additionalInfo", "premiumInfo"
-    ]
+    }
 }
