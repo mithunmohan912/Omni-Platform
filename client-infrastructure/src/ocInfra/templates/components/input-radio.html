@@ -2,9 +2,7 @@
 	<span class="form-group" 
 		  ng-show="field.isVisible()">
 
-		<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label  col-md-6 col-sm-8 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
-
-		<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-12 ' : '')" class=" col-md-6 col-xs-12">
+		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-12">
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
 				<div ng-repeat="option in field.attributes.enum track by $index" class="radio">
