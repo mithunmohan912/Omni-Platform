@@ -1,6 +1,6 @@
 <div class="col-md-12">
-	<table st-table="displayedItems" st-safe-src="table.items" class="table table-striped table-condensed">
-		<thead ng-if="metamodelObject.header !== false">
+	<table st-table="displayedItems" st-safe-src="table.items" class="table table-striped table-condensed cf">
+		<thead ng-if="metamodelObject.header !== false" class="cf">
 			<tr>
 				<th ng-repeat="column in metamodelObject.properties" ng-attr-style="text-align : {{column.align}}; width: {{column.width}} !important; ">{{ column.label_header | translate }}</th>
 			</tr>
@@ -44,6 +44,7 @@
 						            	<a><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
 						            </span>
+		                		</ng-switch>
 						        </span>
 				        	</span>
 		                </span>
@@ -55,7 +56,7 @@
 		            </ng-switch>
 		            
 				</td>
-			<tr>
+			</tr>
 		</tbody>
 		<tfoot ng-if="metamodelObject.pagination">
 			<tr>
@@ -73,3 +74,4 @@
 	</div>
 
 	<popup-render ng-if="modalMetamodelObject" ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+</div>

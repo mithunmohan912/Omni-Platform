@@ -2,18 +2,20 @@
 	<div ng-repeat="section in metamodelObject.sections track by $index" class="section col-xs-12 {{section.class}}" ng-class="section.colspan ? 'col-sm-{{section.colspan}} col-sm-offset-{{section.offset}}': 'col-sm-12'" ng-switch on="section.type">	
 		<div ng-if="section.title || section.logodir" class="oc-modal-header border-none">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center"></div>
-        	<h3 class="text-left">{{ section.title | translate }}</h3>
-        	<hr ng-if="section.title" class="onl_hrOr_1">
-        	<hr class="onl_hrOr_2">
+        	<h3 class="section-Title">{{ section.title | translate }}</h3>        	
+			<div class="hr_margin">
+                <hr ng-if="section.title" class="onl_hrOr_1">
+        		<hr class="onl_hrOr_2">
+            </div>
     	</div>
 		<div ng-switch-when="reference" class="linkedRenderer">
 			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
 		</div>
-		<div ng-switch-default>
+		<div ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
 			<form>
 				<div ng-repeat="row in section.rows" class="row">
 					<div ng-repeat="column in row track by $index" class="oc-column {{column.class}}" ng-class="column.colspan ? 'col-sm-{{column.colspan}} col-sm-offset-{{column.offset}}': 'col-sm-12'">
-						<div ng-if="column" ng-switch on="column.type">
+						<div ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 							<div ng-switch-when="tabs">
 								<ul class="nav nav-tabs">
 									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
