@@ -2,17 +2,17 @@
     "metamodel": {
         "summary": true,
         "resource": "quotes",
-        "actionOnScreen" :"search",
+        "actionOnScreen": "search",
         "defaultValue": [
             {
-                "field": "quote:product_id",
-                "value": "MC011",
-                "action": "create"
+                "method": "createQuote",
+                "field": "quote:distributor_id",
+                "value": "998877"
             },
             {
-                "field": "quote:distributor_id",
-                "value": "998877",
-                "action": "create"
+                "method": "createQuote",
+                "field": "quote:product_id",
+                "value": "MC011"
             }
         ],
         "sections": [
@@ -23,8 +23,7 @@
                         "buttons": [
                             {
                                 "label": "_CREATE_QUOTE",
-                                "method": "createQuote",
-                                "action": "create"
+                                "method": "createQuote"
                             }
                         ]
                     }
@@ -39,8 +38,14 @@
                         "label": "Quote Nr",
                         "type": "text",
                         "uiInput": true,
-                        "row": 1,
-                        "colspan": 4
+                        "row": 1
+                    },
+                    {
+                        "id": "quote:product_id",
+                        "label": "Product Id",
+                        "type": "text",
+                        "uiInput": true,
+                        "row": 1
                     },
                     {
                         "id": "quote:distributor_id",
@@ -55,8 +60,7 @@
                         "buttons": [
                             {
                                 "label": "_SEARCH",
-                                "method": "searchQuotes",
-                                "action": "search"
+                                "method": "searchQuotes"
                             }
                         ],
                         "row": 2
