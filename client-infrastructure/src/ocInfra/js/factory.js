@@ -766,23 +766,22 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         //Set the params data from the screen per the schema object for the given action (from the options object)
         params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;    
+        
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
             $scope.resourceUrl= url;
             $rootScope.resourceUrl = url;
-            var responseData = response.data || response;
+            
             $rootScope.loader.loading=false;
+            if(resolve) {
+                resolve();
+            }
+
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
-            //Load the results into the search results table
-            if(options.action==='search'){                
-                return responseData._links.item;   
-            }
         }).error(function(){
             $rootScope.loader.loading=false;
-            //showMessage($rootScope.locale.GET_OPERATION_FAILED);
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){

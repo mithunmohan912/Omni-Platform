@@ -11,7 +11,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     var urlParams = {};
     
     function _addApiGatewayApiKeys(params) {
-        if (params === undefined) {
+        if (params === null || params === undefined) {
             params = {};
         }
         if ($rootScope.config.apiGatewayApiKeys) {
