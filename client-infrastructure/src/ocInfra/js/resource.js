@@ -95,9 +95,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });
-
+                if(response.data._links && response.data._links.self && response.data._links.self.href){
+                    resourceDirectory[data._links.self.href] = response;
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });    
+                }
             }, function(error) {
                 //console.error(error);
                 return error;

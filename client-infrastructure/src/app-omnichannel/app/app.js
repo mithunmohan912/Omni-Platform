@@ -145,8 +145,13 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                 var arr = params.inputComponent.actionURL.split('/');
                 $rootScope.regionId = arr[1];
             }
-        
-            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+            new Promise(function(resolve) {
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
+            }).then(function(){
+                if(params.inputComponent.actionURL){
+                    $location.path(params.inputComponent.actionURL);
+                }
+            });
         }
     };
 });
@@ -191,7 +196,13 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
     return {
         navigateToTab: function(params){
             if(params.inputComponent.action){
-                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location);
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        $location.path(params.inputComponent.actionURL);
+                    }
+                });
             } else if(params.inputComponent.actionURL){
                 $location.path(params.inputComponent.actionURL);
             }
@@ -246,24 +257,32 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
+        },
+        calculatePremium: function(params){
+            additionalInfoFactory.calculatePremium(params);
         }
     };
 });
 
-app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory){
+app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory, MetaModel, resourceFactory, $location){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
+        },
+        calculatePremium: function(params){
+            if(params.inputComponent.action){
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location);
+            }    
         }
     };
 });

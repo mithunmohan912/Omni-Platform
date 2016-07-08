@@ -37,7 +37,8 @@
                             },
                             {
                                 "screenId": "premiumInfo",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
                                 "action": "update",
                                 "actionURL": "/asia/screen/premiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
@@ -78,7 +79,8 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
                                 "action": "update",
                                 "actionURL": "/asia/screen/premiumInfo"
                             },
@@ -87,6 +89,13 @@
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/asia/screen/riskInfo"
+                            },
+                            {
+                                "label": "_CALCULATE",
+                                "method": "calculatePremium",
+                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
+                                "action": "update",
+                                "actionURL": "/asia/screen/premiumInfo"
                             }
                         ]
                     }
