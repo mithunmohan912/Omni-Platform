@@ -154,6 +154,15 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 				var data = response.data || response;
 				return data._links.item;
 			});
+		},
+
+		getPDF: function(element){
+			//FIXME: remove harcoded url 
+			element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
+			
+			element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl})
+			//Implement API calls to retrieve the PDF from backend. 
+
 		}
 
 	};
