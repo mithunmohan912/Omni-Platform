@@ -49,7 +49,7 @@
 		                </span>
 		                <div ng-switch-default>
 	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
-	                			<input-render ng-if="displayedItem.properties[fieldId]" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
 		                </div>
 		            </ng-switch>
