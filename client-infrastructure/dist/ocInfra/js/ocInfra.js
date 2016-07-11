@@ -3903,7 +3903,7 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
     this.load = function() {
     	$rootScope.infraConfig = {};
 
-        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+        $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
 			$rootScope.infraConfig = data.config.base;
 			$rootScope.metamodelPath = data.config.base.templates.metaModel;
