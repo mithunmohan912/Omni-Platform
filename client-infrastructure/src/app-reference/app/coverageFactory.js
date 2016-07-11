@@ -20,8 +20,9 @@ app.factory('coverageFactory', function($rootScope, $location, resourceFactory){
 				}
 			});
 		},
-		toQuote: function() {
-			$location.path('/screen/quote');
+		toQuote: function(params) {
+			//$location.path('/screen/quote');
+			params.scope.activeTab = 'quote';
 		}
 	};
 });
