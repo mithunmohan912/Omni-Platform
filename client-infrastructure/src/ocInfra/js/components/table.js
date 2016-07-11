@@ -27,7 +27,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				if ((params.url === $scope.resourceUrl) ||
 					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
-					(params.url in $scope.resultSet)) {
+					($scope.resultSet && params.url in $scope.resultSet)) {
+
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -38,8 +39,10 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					} else {
 						//refresh items
 						if (!$scope.inProgress) {
+							$scope.inProgress = true;
 							MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}).then(function(resultSet) {
 								$scope.resultSet = resultSet;
+								$scope.inProgress = false;
 							});
 						}
 					}
@@ -81,37 +84,16 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
-							var newItem = angular.copy(newValue[item.href]);
-							var newValueItem = _getResultSetItem(newValue, newItem);
-
-							$scope.itemResourcesToBind = { properties : {} };
-							for(var resource in newValueItem) {
-								$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
-							}
-
-							for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
-								var metamodelProperty = $scope.metamodelObject.properties[i];
-								var idValues = metamodelProperty.id; 
-								if (!Array.isArray(metamodelProperty.id)) {
-									idValues = [metamodelProperty.id];
-								}
-								if (_isInput(metamodelProperty.type)) {
-									metamodelProperty.id = idValues;
-								}
-								for(var j = 0; j < idValues.length; j++) {
-									var resourceSelected = _getResourceSelected(idValues[j]);
-									if (resourceSelected && resourceSelected.properties && idValues[j] in resourceSelected.properties) {	
-										$scope.itemResourcesToBind.properties[idValues[j]] = resourceSelected.properties[idValues[j]];			
-									}
-								}
-							}
-
-							if (Object.keys($scope.itemResourcesToBind.properties).length > 0) {
-								newItem.properties = $scope.itemResourcesToBind.properties;
-							}
-							if (newItem) {
-								$scope.table.items.push(newItem);
-							}
+							if ($scope.metamodelObject.filters) {
+								_isFiltered(item).then(function(filtered) {
+					                if (!filtered) {
+					                	_addItem(newValue, item);
+					                }
+					            });
+							} else {
+								_addItem(newValue, item);
+							} 
+							
 						});
 					}
 
@@ -127,10 +109,62 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			}
 
+			function _addItem(newValue, item) {
+				var newItem = angular.copy(newValue[item.href]);
+              	var newValueItem = _getResultSetItem(newValue, newItem);
+
+              	$scope.itemResourcesToBind = { properties : {} };
+              	for(var resource in newValueItem) {
+                	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
+              	}
+
+              	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
+               		var metamodelProperty = $scope.metamodelObject.properties[i];
+                	var idValues = metamodelProperty.id; 
+                	if (!Array.isArray(metamodelProperty.id)) {
+                  		idValues = [metamodelProperty.id];
+                	}
+                	if (_isInput(metamodelProperty.type)) {
+                  		metamodelProperty.id = idValues;
+                	}
+               		for(var j = 0; j < idValues.length; j++) {
+                  		var resourceSelected = _getResourceSelected(idValues[j]);
+                  		if (resourceSelected && resourceSelected.properties && idValues[j] in resourceSelected.properties) {  
+                    		$scope.itemResourcesToBind.properties[idValues[j]] = resourceSelected.properties[idValues[j]];      
+                  		}
+                	}
+              	}
+
+              	if (Object.keys($scope.itemResourcesToBind.properties).length > 0) {
+                	newItem.properties = $scope.itemResourcesToBind.properties;
+              	}
+              	if (newItem) {
+                	$scope.table.items.push(newItem);
+              	}
+			}
+
+			function _isFiltered(item) {
+		        var filters = $scope.metamodelObject.filters;
+		        return resourceFactory.get(item.href).then(function(resource) {
+		          if (filters) {
+		            for (var filter in filters) {
+		              var values = $scope.metamodelObject.filters[filter];
+		              if (values.indexOf(resource.data[filter]) !== -1) {
+		                return false;
+		              } else {
+		                return true;
+		              }
+		            }
+		          } else {
+		            return false;
+		          }
+		        });
+		    }
+
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
 				if ($scope.metamodelObject.buttons) {
-					var label = $scope.metamodelObject.buttonLabel;
+					var label = $scope.metamodelObject.buttons.label;
 					//look for the POST operation by default to create the possible buttons
 					resourceFactory.get($scope.resourceUrl).then(function(response) {
 						response.data._options.links.forEach(function(link) {
@@ -206,10 +240,10 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			$scope.execute = function(action, displayedItem) {
 				if(action.buttonAction){
-					if ($scope.metamodelObject.buttonMethod) {
-						$scope.actionFactory[$scope.metamodelObject.buttonMethod](action.params);
+					if ($scope.metamodelObject.buttons.method) {
+						$scope.actionFactory[$scope.metamodelObject.buttons.method](action.params);
 					} else {
-						$scope[action.value](action.params, $scope.metamodelObject.buttonCallback);
+						$scope[action.value](action.params, $scope.metamodelObject.buttons.callback);
 					}
 				} else {
 					if (action.method) {
