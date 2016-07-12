@@ -17,8 +17,13 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 	}
 
 	return {
-		toCoverage: function() {
-			$location.path('/screen/coverage');
+		toCoverage: function(params) {
+			//$location.path('/screen/coverage');
+			params.scope.activeTab='coverage';
+		},
+		toQuote: function(params) {
+			//$location.path('/screen/quote');
+			params.scope.activeTab = 'quote';
 		},
 		back: function() {
 			$location.path('/screen/dashboard');

@@ -1215,8 +1215,9 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 					console.log($scope.factoryName + ' not found');
 				}
 
-				$scope.screenName = $location.path().substring($location.path().lastIndexOf('/')+1);
- 
+				if(!$scope.activeTab){
+					$scope.activeTab = $location.path().substring($location.path().lastIndexOf('/')+1);
+				} 
 
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined || $scope.resourceUrlToRender === '') {
@@ -3902,7 +3903,7 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
     this.load = function() {
     	$rootScope.infraConfig = {};
 
-        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+        $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
 			$rootScope.infraConfig = data.config.base;
 			$rootScope.metamodelPath = data.config.base.templates.metaModel;
