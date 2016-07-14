@@ -510,7 +510,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
-        
+        console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
