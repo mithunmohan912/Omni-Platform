@@ -1,7 +1,7 @@
 'use strict';
 /*global app*/
 
-app.controller('pdfController', function($scope, $rootScope) {
+app.controller('pdfController', function($scope) {
    
 
 
