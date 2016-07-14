@@ -586,9 +586,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					console.warn($scope.factoryName + ' not found');
 				}
 
-				if(!$scope.property && $scope.resources){
+				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
 					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
@@ -1460,7 +1460,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 global angular
 */
 
-angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource', '$location', '$injector', '$rootScope', 'resourceFactory', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory){
+angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource', '$location', '$injector', '$rootScope', 'resourceFactory', 'stConfig', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory, stConfig){
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -1519,6 +1519,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 				$scope.resultSet = {};
 				$scope.itemSelected = {};
 				$scope.metamodelObject = metamodelObject;
+				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
 
 				var modalRef = $scope.metamodelObject.modalRef;
                 if (modalRef) {
@@ -3899,26 +3900,48 @@ global app
 /*
 exported checkVisibility
 */
-app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $rootScope){	
+app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $rootScope){   
     this.load = function() {
-    	$rootScope.infraConfig = {};
+        $rootScope.infraConfig = {};
 
-        $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
+      // $resource('assets/resources/config/OCInfraConfig.json').get(function(data) {  
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {  
+           $rootScope.infraConfig = data.config.base;
+              $rootScope.metamodelPath = data.config.base.templates.metaModel;
+              angular.forEach($rootScope.infraConfig.properties, function(key) {
+                  if (key.name === 'language') {
+                      $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                      angular.forEach($rootScope.localeOpts.options, function(key) {
+                          key.description = key.description;
+                          //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
+                      });
+                   } 
+              });
+      },
+        function(data) {  
+              $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
-			$rootScope.infraConfig = data.config.base;
-			$rootScope.metamodelPath = data.config.base.templates.metaModel;
-			angular.forEach($rootScope.infraConfig.properties, function(key) {
-                    if (key.name === 'language') {
-                        $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
-                        angular.forEach($rootScope.localeOpts.options, function(key) {
-                            key.description = key.description;
-                            //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
-                        });
-                    } 
+                $rootScope.infraConfig = data.config.base;
+                $rootScope.metamodelPath = data.config.base.templates.metaModel;
+                angular.forEach($rootScope.infraConfig.properties, function(key) {
+                      if (key.name === 'language') {
+                          $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                          angular.forEach($rootScope.localeOpts.options, function(key) {
+                              key.description = key.description;
+                              //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
+                          });
+                        } 
+                    });
                 });
-            });
+        }
+
+      );
+
+
+    
     };
 }]);
+
 
 app.service ('FieldService', function() {
     this.checkVisibility = function (field, $scope) {
