@@ -484,7 +484,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     var msg;
 
-    $scope.isPending = function(fieldName){
+    $scope.isPending = function(){
         var message = '';
         if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
             $scope.pendingFields.forEach(function(key) {
@@ -495,7 +495,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             return true;
         } 
         return false;
-    }
+    };
 
     $scope.isValid = function(){
         var dataField = [];
