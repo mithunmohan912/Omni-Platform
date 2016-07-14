@@ -160,7 +160,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 			//FIXME: remove harcoded url 
 			element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
 			
-			element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl})
+			element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl});
 			//Implement API calls to retrieve the PDF from backend. 
 
 		}
