@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('tableRender', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory){
+angular.module('omnichannel').directive('tableRender', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory, stConfig){
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -63,6 +63,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				$scope.resultSet = {};
 				$scope.itemSelected = {};
 				$scope.metamodelObject = metamodelObject;
+				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
 
 				var modalRef = $scope.metamodelObject.modalRef;
                 if (modalRef) {
