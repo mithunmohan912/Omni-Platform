@@ -38,7 +38,8 @@
                             },
                             {
                                 "screenId": "autoPremiumInfo",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoPremiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
@@ -216,7 +217,8 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoPremiumInfo"
                             },
@@ -225,6 +227,13 @@
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo"
+                            },
+                            {
+                                "label": "_CALCULATE",
+                                "method": "calculatePremium",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
+                                "action": "update",
+                                "actionURL": "/eu/screen/autoPremiumInfo"
                             }
                         ]
                     }

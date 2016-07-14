@@ -128,7 +128,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.resourcesToBind = { properties : {} };
 				var newURL = {};
 				if($rootScope.resourceHref){
-					 $scope.optionUrl = $rootScope.resourceHref;
+					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
                     $scope.resourceUrlToRender = $rootScope.resourceHref;
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = $rootScope.hostURL + resource;
@@ -138,7 +138,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     var applName = regionToSORMap[$rootScope.regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
-                    $scope.optionUrl = newURL;
+                    $scope.metamodelObject.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;

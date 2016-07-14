@@ -247,7 +247,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
-            if ($scope.isValid()) {
+            if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -359,6 +359,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.preRel = undefined;
     $rootScope.currRel = undefined;
     $rootScope.currName = undefined;
+    $scope.pendingFields = [];
 
     function loadRelationshipByStep(step){
         var list = $rootScope.metamodel[$rootScope.screenId].sections;
@@ -400,7 +401,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     });
 
     $scope.selecttab = function(step1, rel) {
-        if ($scope.isValid()) {
+        if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -427,12 +428,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.patchField = function(fieldName){
-
+        if($.inArray(fieldName, $scope.pendingFields) === -1){
+            $scope.pendingFields.push(fieldName);
+        }        
         $scope.patchFieldName = fieldName;
         // not apply patch field for us
         if ($rootScope.regionId !== 'us') { 
             if($scope.isValidByField(fieldName)){
-                MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true);
+                new Promise(function(resolve) {
+                    MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true, resolve);                  
+                }).then(function(){
+                    var index = $scope.pendingFields.indexOf(fieldName);
+                    $scope.pendingFields.splice(index, 1);
+                });
             }
         }
     };
@@ -475,6 +483,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     var msg;
+
+    $scope.isPending = function(){
+        var message = '';
+        if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
+            $scope.pendingFields.forEach(function(key) {
+                var label = $scope.translateKeyToLabelByTab(key);
+                message += $rootScope.locale[label] + $rootScope.locale.IS_BEING_PATCHED + '<br />';
+            });            
+            msg = growl.error(message);
+            return true;
+        } 
+        return false;
+    };
 
     $scope.isValid = function(){
         var dataField = [];
