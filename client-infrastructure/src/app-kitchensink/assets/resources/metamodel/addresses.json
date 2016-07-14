@@ -1,45 +1,100 @@
 {
     "metamodel": {
-        "formid": "addresses",
-        "title": "",
-        "name": "addresses",
+        "businessObject": {
+            "quote": [
+                "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "title": "_ADDRESS",
-                "name": "addresses",
-                "category": "nonaccordion",
-                "elements": [
-                   {
-                        "name": "addresses.address",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                           {
+                                "screenId": "partiesDetail",
+                                "method": "navigateToTab",
+                                "actionURL": "partiesDetail",
+                                "title": "_PARTIES"
+                            },
+                            {
+                                "screenId": "addresses",
+                                "method": "navigateToTab",
+                                "actionURL": "addresses",
+                                "title": "_ADDRESSES"
+                            },
+                            {
+                                "screenId": "contacts",
+                                "method": "navigateToTab",
+                                "actionURL": "contacts",
+                                "title": "_CONTACTS"
+                            },
+                            {
+                                "screenId": "emails",
+                                "method": "navigateToTab",
+                                "actionURL": "emails",
+                                "title": "_EMAIL"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties":   [
+                    {
+                        "id": "addresses.address",
                         "type": "text",
                         "label": "_ADDRESS1",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
-                    }, 
-					{
-                        "name": "addresses.city",
-                        "type": "text",
-                        "label": "_CITY",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
+                        "row": 1,
+                        "patchOnBlur": true,
+                        "uiInput" : true
                     },
                     {
-                        "name": "addresses.country",
+                        "id": "addresses.city",
+                        "type": "text",
+                        "label": "_CITY",
+                        "row": 1,
+                        "patchOnBlur": true,
+                        "uiInput" : true
+                    },
+                    {
+                        "id": "addresses.country",
                         "type": "text",
                         "label": "_COUNTRY",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
+                        "row": 1,
+                        "patchOnBlur": true,
+                        "uiInput" : true
                     },
-					 {
-                        "name": "addresses.state",
+                    {
+                        "id": "addresses.state",
                         "type": "text",
                         "label": "_STATE",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
+                        "row": 1,
+                        "patchOnBlur": true,
+                        "uiInput" : true
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "additionalInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "quotescreate"
+                            }
+                        ]
                     }
                 ]
             }
