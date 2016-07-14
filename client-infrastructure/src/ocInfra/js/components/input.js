@@ -314,9 +314,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					console.warn($scope.factoryName + ' not found');
 				}
 
-				if(!$scope.property && $scope.resources){
+				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
 					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
