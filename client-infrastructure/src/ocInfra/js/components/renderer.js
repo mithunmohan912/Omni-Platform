@@ -376,6 +376,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 					}
 				}
+
+				if (inputComponent.method){
+					$scope.$broadcast(inputComponent.method, $scope);
+				}
 			};
 
 			$scope.$on('patch_renderer', function(event, data){
