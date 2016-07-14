@@ -260,7 +260,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
