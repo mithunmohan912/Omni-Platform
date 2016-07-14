@@ -1,129 +1,117 @@
 {
     "metamodel": {
-        "formid": "Sample",
-        "title": "",
-        "name": "Sample",
+        "resource": "quotes",
+        "summary": true,
         "sections": [
             {
                 "title": "_SAMPLE",
-                "name": "Sample",
-                "category": "nonaccordion",
-                "elements": [
-                   
-                   {
-                        "name": "sample.buttonLarge",
-                        "type": "buttonLarge",
-                        "label": "Growl Demo",
-                        "visible": true,
-                        "columnsize": 12
+                "properties": [
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {   "id" : "sample.buttonLarge",
+                                        "method": "actionHandling",
+                                        "action": "create",
+                                        "label": "Growl Demo"
+                                    }
+                                ]
+                            }
+                        ]
                     },
-
-                    {
-                        "name": "sample.text",
-                        "type": "text",
-                        "label": "Text",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 5
-                    },
-                     {
-                        "name": "sample.textarea",
-                        "type": "textarea",
-                        "label": "Textarea",
-                        "visible": true,
-                        "columnsize": 5
-                    }, 
-                     {
-                        "name": "sample.toggle",
-                        "type": "toggle",
-                        "label": "Toggle",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 5
-                    },
-                    
-                    {
-                        "name": "sample.number",
-                        "type": "number",
-                        "label": "Number",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 5,
-                        "min":3,
-                        "max":10
-                    },
-                    {
-                        "name": "sample.autocomplete",
-                        "type": "autocomplete",
-                        "label": "Autocomplete",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 5,
-                        "min":3,
-                        "max":10
-                    },
-                      {
-                        "name": "sample.date",
-                        "type": "date",
-                        "label": "Date",
-                        "visible": true,
-                        "required": "required",
-                        "columnsize": 5
-                    },
-                    {
-                                "name": "sample.select",
-                                "type": "select",
-                                "label": "Select",
-                                "visible":true,
-                                "columnsize": 5
-                                
-                                
+            {
+                "properties": [
+                            {
+                                "id": "sample.text",
+                                "type": "text",
+                                "label": "Text",
+                                "row": 1,
+                                "uiInput" : true
+                            },
+                            {
+                                "id": "sample.textarea",
+                                "type": "textarea",
+                                "label": "Textarea",
+                                "row": 1,
+                                "uiInput" : true
+                            },
+                            {
+                                "id": "sample.toggle",
+                                "type": "toggle",
+                                "label": "Toggle",
+                                "row": 1,
+                                "uiInput" : true
                             },
                              {
-                        "name": "sample.buttonSmall",
-                        "type": "buttonSmall",
-                        "label": "Button Small",
-                        "visible": true,
-                        "columnsize": 12
-                    }, {
-                        "name": "sample.buttonLarge",
-                        "type": "buttonLarge",
-                        "label": "Button Large",
-                        "visible": true,
-                        "columnsize": 12
-                    }, {
-                        "name": "sample.buttonXs",
-                        "type": "buttonXs",
-                        "label": "Button Extra Small",
-                        "visible": true,
-                        "columnsize": 12
-                    },
+                                "id": "sample.number",
+                                "type": "number",
+                                "label": "Number",                             
+                                "min":3,
+                                "max":10,
+                                "row": 1,
+                                "uiInput" : true
+                            },
                             {
-                        "name": "sample.litcheckbox",
-                        "type": "litcheckbox",
-                        "label": "CheckBox",
-                        "visible": true,
-                         "columnsize": 5
-                    },
-                    {
-                        "name": "submit",
-                        "type": "buttonSmall",
-                        "label": "_SUBMIT",
-                        "action":"submit",
-                        "visible": true,
-                        "columnsize": 12
-                },
-                {
-                        "name": "sample.richtext",
-                        "type": "richtext",
-                        "label": "Richtext",
-                        "visible": true,
-                        "columnsize": 5
-                }
-
-                
+                                "id": "sample.autocomplete",
+                                "type": "autocomplete",
+                                "label": "Autocomplete",                               
+                                "min":3,
+                                "max":10,
+                                "row": 2,
+                                "uiInput" : true
+                            },
+                             {
+                                "id": "sample.date",
+                                "type": "date",
+                                "label": "Date",
+                                "row": 2,
+                                "uiInput" : true                                
+                            },
+                            {
+                                "id": "sample.select",
+                                "type": "select",
+                                "label": "Select",
+                                "row": 2,
+                                "uiInput" : true  
+                            },
+                             {
+                                "id": "sample.litcheckbox",
+                                "type": "litcheckbox",
+                                "label": "CheckBox",
+                                "row": 2,
+                                "uiInput" : true  
+                            },
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "id": "sample.buttonSmall",                                      
+                                        "label": "Button Small"                                       
+                                    }
+                                ],
+                                "row": 2,
+                                "uiInput" : true  
+                            },
+                            {
+                                    "id": "sample.richtext",
+                                    "type": "richtext",
+                                    "label": "Richtext",
+                                    "row": 3,
+                                    "uiInput" : true  
+                            },
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+                                        "id": "_SUBMIT",                                       
+                                        "label": "_SUBMIT"                                       
+                                    }
+                                    
+                                ],
+                                "row": 3,
+                                "uiInput" : true  
+                            }
                 ]
             }
-        ] 
+        ]
     }
 }

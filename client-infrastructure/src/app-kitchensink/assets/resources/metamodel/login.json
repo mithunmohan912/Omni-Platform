@@ -1,0 +1,40 @@
+{
+    "metamodel": {
+        "showHeader" :false,
+        "sections": [
+            {
+                "title": "_LOGIN",
+                "logodir": true,
+                "row": 1,
+                "colspan" : 3,
+                "properties": [
+                                {
+                                   "id": "inputUsername",
+                                    "type": "text",
+                                    "label": "_USERNAME",
+                                    "uiInput" : true
+                                }, 
+                                {
+                                    "id": "inputPassword",
+                                    "type": "textMask",
+                                    "label": "_PASSWORD",
+                                    "uiInput" : true
+                                },
+                                {
+                                    "id": "submit",
+                                    "method":"submit",
+                                    "type": "buttonGroup",
+                                    "buttons": [
+                                        {
+                                            "label": "_SIGNIN",
+                                            "icon": "flaticon-adults",
+                                            "method":"navigateToScreen",
+                                            "actionURL" : "/screen/dashboard"
+                                        }
+                                    ]
+                                }
+                ]
+            }
+        ]
+    }
+}

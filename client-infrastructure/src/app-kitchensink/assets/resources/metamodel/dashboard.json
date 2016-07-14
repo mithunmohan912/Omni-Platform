@@ -1,171 +1,29 @@
 {
     "metamodel": {
-        "title": "_DASHBOARD",
-        "name": "dashboard",
-        "formid": "dashboard",
-        "groupid": "",
-        "viewAs": "menu",
+        "showHeader" :true,
         "sections": [
+        { 
+        "properties":[
             {
-                "title": "_RESOURCE_MANAGEMENT",
-                "hidetitle": true,
-                "name": "resource_management",
-                "category": "nonaccordion",
-                "columnsize": 4,    
-                "visible" : true,
-                "showButton": true,
-                "label": "_SAMPLE",
-                "icon": "glyphicon glyphicon-user",
-                "txtCenter":"dashboard-txtCenter",
-                "modaledit": true,
-                "division":"dashboard_panel",
-                "elements" : [
-                       
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "_SAMPLE",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                            "actionurl": "/screen/sample",
-                            "visible": true
-                            } ,
-
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "Tabs Example",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                           "actionurl": "/screen/partiesDetail",
-                            "visible": true
-                            }
-                    ]
-            },
-            {
-                "title": "_RESOURCE_MANAGEMENT",
-                "hidetitle": true,
-                "name": "resource_management",
-                "category": "nonaccordion",
-                "columnsize": 4,    
-                "visible" : true,
-                "showButton": true,
-                "label": "_SAMPLE",
-                "icon": "glyphicon glyphicon-time",
-                "txtCenter":"dashboard-txtCenter",
-                "modaledit": true,
-                "division":"dashboard_panel",
-                "elements" : [
-                       
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "_SAMPLE",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                            "actionurl": "/screen/sample",
-                            "visible": true
-                            } ,
-
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "Tabs Example",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                           "actionurl": "/screen/partiesDetail",
-                            "visible": true
-                            }
-                    ]
-            },
-            {
-                "title": "_RESOURCE_MANAGEMENT",
-                "hidetitle": true,
-                "name": "resource_management",
-                "category": "nonaccordion",
-                "columnsize": 4,    
-                "visible" : true,
-                "showButton": true,
-                "label": "_SAMPLE",
-                "icon": "glyphicon glyphicon-tasks",
-                "txtCenter":"dashboard-txtCenter",
-                "modaledit": true,
-                "division":"dashboard_panel",
-                "elements" : [
-                       
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "_SAMPLE",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                            "actionurl": "/screen/sample",
-                            "visible": true
-                            } ,
-
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "Tabs Example",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                           "actionurl": "/screen/partiesDetail",
-                            "visible": true
-                            }
-                    ]
-            },
-            {
-                "title": "_RESOURCE_MANAGEMENT",
-                "hidetitle": true,
-                "name": "resource_management",
-                "category": "nonaccordion",
-                "columnsize": 4,    
-                "visible" : true,
-                "showButton": true,
-                "label": "_SAMPLE",
-                "icon": "glyphicon glyphicon-cog",
-                "txtCenter":"dashboard-txtCenter",
-                "modaledit": true,
-                "division":"dashboard_panel",
-                "elements" : [
-                       
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "_SAMPLE",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                            "actionurl": "/screen/sample",
-                            "visible": true
-                            } ,
-
-                            {
-                            "subtitle": "Sample",
-                            "name": "Sample",
-                            "type": "buttonSmall",
-                            "label": "Tabs Example",
-                            "columnsize": 6,
-                            "icon": "flaticon-adults",
-                            "method":"navigate",
-                           "actionurl": "/screen/partiesDetail",
-                            "visible": true
-                            }
-                    ]
+            "type": "iconGroup",
+            "icons":[
+            {                            
+                "id": "Sample",
+                "label": "_SAMPLE",                           
+                "icon": "glyphicon flaticon-adults",
+                "method":"navigateToScreen",
+                "actionURL": "sample"
+            } ,
+            {                            
+                "id": "_TABS_EXAMPLE",
+                "label": "_TABS_EXAMPLE",                           
+                "icon": "glyphicon flaticon-adults",
+                "method":"navigateToScreen",
+                "actionURL": "partiesDetail"
             }
+             
         ]
+         }]
+        }]
     }
 }

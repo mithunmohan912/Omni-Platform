@@ -1,51 +1,97 @@
-    {
+{
     "metamodel": {
-        "formid": "partiesdetail",
-        "title": "_PARTY_DETAIL",
-        "name": "partiesdetail",
+        "businessObject": {
+            "quote": [ 
+                    "quote:quote_owner_list"
+            ]
+        },
         "sections": [
             {
-              "$ref": "parties",
-              "renderAsTab":true,
-              "name":"Parties",
-              "step":1
-           } , {
-              
-              "$ref": "addresses",
-              "renderAsTab":true,
-              "name":"Address",
-              "step":2
-       } , {
-              
-              "$ref": "contacts",
-              "renderAsTab":true,
-              "name":"Contacts",
-              "step":3
-       } , {
-              
-              "$ref": "emails",
-              "renderAsTab":true,
-              "name":"E-mail",
-              "step":4
-       }  , {
-              
-              "$ref": "submit",
-              "step":4
-
-              
-       } , {
-              
-              "$ref": "empty"
-             
-       } , {
-              
-              "$ref": "empty"
-              
-       } 
-            
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "partiesDetail",
+                                "method": "navigateToTab",
+                                "actionURL": "partiesDetail",
+                                "title": "_PARTIES"
+                            },
+                            {
+                                "screenId": "addresses",
+                                "method": "navigateToTab",
+                                "actionURL": "addresses",
+                                "title": "_ADDRESSES"
+                            },
+                            {
+                                "screenId": "contacts",
+                                "method": "navigateToTab",
+                                "actionURL": "contacts",
+                                "title": "_CONTACTS"
+                            },
+                            {
+                                "screenId": "emails",
+                                "method": "navigateToTab",
+                                "actionURL": "emails",
+                                "title": "_EMAIL"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties":   [
+                    {
+                        "id": "quote-party-type",
+                        "type": "select",
+                        "label": "_QUOTE_PARTY_TYPE",
+                        "patchOnBlur": true,
+                        "row": 1,                         
+                        "uiInput" : true  
+                    },
+                    {
+                         "id": "quote-full-name",
+                         "type": "text",
+                         "label": "_QUOTE_FULL_NAME",
+                         "patchOnBlur": true,
+                        "row": 1,                         
+                        "uiInput" : true 
+                    },
+                    {
+                        "id": "quote-gender",
+                        "type": "select",
+                        "label": "_GENDER",
+                        "patchOnBlur": true,
+                        "row": 2,                         
+                        "uiInput" : true 
+                    },
+                    {
+                        "id": "quote-birth-date",
+                        "type": "date",
+                        "label": "_DOB",
+                        "patchOnBlur": true,
+                        "row": 2,                         
+                        "uiInput" : true 
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "/asia/screen/riskInfo"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-    },
-    "include": [
-        "parties", "addresses","contacts","emails","submit","empty"
-    ]
+    }
 }
