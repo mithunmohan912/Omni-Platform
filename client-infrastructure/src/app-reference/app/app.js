@@ -6,8 +6,8 @@ exported showHostErrorMessage
 */
 
 
-var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate']).
-config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', '$translateProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider, $translateProvider) {
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate', 'pdf']).
+config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider', '$translateProvider',  function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider, $translateProvider) {
     $routeProvider.when('/screen/:screenId', {
         templateUrl: function() {
             return 'ocInfra/templates/components/screen.html';

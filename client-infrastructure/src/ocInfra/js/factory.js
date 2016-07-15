@@ -510,7 +510,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
-        
+        console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
@@ -966,7 +966,23 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                      if(data.outcome === 'success'){
                             angular.forEach(data.messages, function(value){
                             growl.success(value.message);
-                        });
+                             
+                             params=undefined;
+                             if(data && data._links && data._links.self && data._links.self.href){
+                             resourceFactory.refresh(data._links.self.href, params, $rootScope.headers).success(function(responseData){
+                             var data = responseData.data || responseData;
+                             $rootScope.loader.loading=false;
+                             if(data.outcome==='success')
+                             {}
+                              else if(data.outcome === 'failure'){
+                              angular.forEach(data.messages, function(value){
+                              growl.error(value.message);
+                          });
+                      }
+
+                           });
+                        }
+                    });
                      } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
@@ -982,7 +998,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
         });
-    } else if(httpmethod==='PATCH'){
+    }else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         resourceFactory.patch(url,params,$rootScope.headers).success(function(data){

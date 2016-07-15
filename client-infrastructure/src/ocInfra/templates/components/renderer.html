@@ -25,6 +25,9 @@
 					      	<div ng-switch-when="table" class="table-responsive">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
+							<div ng-switch-when="pdf" ng-controller="pdfController">
+							 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
+							</div>	
 							<div ng-switch-when="buttonGroup">
 								<div ng-repeat="button in column.buttons" class="renderer-button-div">
 									<button ng-if="button.label || button.icon" class="btn btn-primary renderer-button" ng-click="execute(button)">
@@ -46,7 +49,7 @@
 								</div>
 							</div>
 							<div ng-switch-when="popup">
-								 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup.action)" class="btn btn-primary btn-mg"> 
+								 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
 								 	{{ column.popup.label | translate }} 
 								 </button>
 								<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="resourcesToBind[column.popup.id].href" factory-name="factoryName"></popup-render>
