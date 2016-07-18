@@ -366,13 +366,15 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.pendingFields = [];
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metamodel[$rootScope.screenId].sections;
-        angular.forEach(list, function(tabObj){
-            if(step === tabObj.step){
-                $rootScope.currRel = tabObj.link;
-                $rootScope.currName = tabObj.$ref;
-            } 
-        });
+        if($rootScope.metamodel[$rootScope.screenId]){
+            var list = $rootScope.metamodel[$rootScope.screenId].sections;
+            angular.forEach(list, function(tabObj){
+                if(step === tabObj.step){
+                    $rootScope.currRel = tabObj.link;
+                    $rootScope.currName = tabObj.$ref;
+                } 
+            });
+        }
     }
     new Promise(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
