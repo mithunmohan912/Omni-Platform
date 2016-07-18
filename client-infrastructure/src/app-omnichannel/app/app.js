@@ -77,26 +77,25 @@ TourConfigProvider.set('prefixOptions', false);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
 
-
     if(sessionStorage.username === null || sessionStorage.username === undefined) {
         $location.url('/screen/anonymous');
     }
 
-   $rootScope.$on('$locationChangeStart', function () {
-     var screenId = $rootScope.screenId;
+    $rootScope.$on('$locationChangeStart', function () {
+    var screenId = $rootScope.screenId;
 
-     if($rootScope.screenId === undefined){
+    if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
-     } else if (screenId === 'anonymous'){
-             if(sessionStorage.username === null || sessionStorage.username === undefined) {
+    } else if (screenId === 'anonymous'){
+        if(sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url($rootScope.nextURL);
         }
-   } else {
-     if(sessionStorage.username === null || sessionStorage.username === undefined) {
-        $location.url('/screen/anonymous');
-     }
-   }
-   });
+    } else {
+        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+            $location.url('/screen/anonymous');
+        }
+    }
+});
    
     //persist few objects at app level
     $rootScope.routeParams = {};
@@ -319,6 +318,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, growl){
                 }).success(function(data) {
                     //extract user
                     var user = [];
+
                     $rootScope.isAuthSuccess = false;
                     angular.forEach(data.users, function(key) {
                         if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
@@ -331,8 +331,12 @@ app.factory('loginFactory', function($rootScope, $filter, $http, growl){
                         growl.error($filter('translate')('INVALID_CREDENTIALS'));
                         return false;
                     }
-                    $rootScope.user = user;
-                    sessionStorage.username = user.name;
+                    
+                    if($rootScope.isAuthSuccess){
+                        $rootScope.user = user;
+                        sessionStorage.username = user.name;    
+                    }
+                    
                     $rootScope.nextURL = params.inputComponent.actionURL;
                     $rootScope.navigate(params.inputComponent.actionURL);  
                 }).error(function(data) {

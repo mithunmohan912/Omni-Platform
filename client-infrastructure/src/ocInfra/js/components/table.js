@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		},
 		controller: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if (!metamodelObject) {
+			if ($rootScope.regionId !== undefined || !metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_init(data);
 				});
