@@ -4,6 +4,8 @@
         "searching": true,
         "pagination": true,
         "summary": true,
+        "resource": "quotes",
+        "actionOnScreen": "search",
 
         "properties": [
             {
@@ -72,6 +74,12 @@
                         "icon": "fa fa-edit",
                         "title": "_EDIT",
                         "method": "dashboardToQuote"
+                    },
+                    {
+                        "value": "remove",
+                        "icon": "fa fa-trash-o",
+                        "title": "_DELETE",
+                        "method": "deleteQuote"
                     }
                 ]
             }

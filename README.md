@@ -29,11 +29,14 @@ Install grunt using below command
  $ npm install -g grunt-cli	
 ```
 
-Fork this Repository to your Bitbucket Account then :
+Fork this Repository to your GitHub Account then :
    
 ```
-    $ git clone https://bitbucket.org/<your-bitbucket-id>/omnichannel-infrastructure.git
-    $ cd omnichannel-infrastructure
+    $ git clone https://github.csc.com/<your id>/omnichannel-platform
+
+git clone will ask for password,put the generated token here that can be get from the settings option within github.
+
+    $ cd omnichannel-platform
     $ git checkout '<sprintx>'
     $ cd client-infrastructure
     $ npm start
@@ -133,7 +136,7 @@ grunt buildMobilePkg
 
 This task will copy only the required files from vendors folder and change the path in index.html to match the change in the folder location
 This task will copy the files to mobile folder at this location:
-sprint#\omnichannel-infrastructure\client-infrastructure\mobile
+sprint#\omnichannel-platform\client-infrastructure\mobile
   
 ###Contributions.
 ---

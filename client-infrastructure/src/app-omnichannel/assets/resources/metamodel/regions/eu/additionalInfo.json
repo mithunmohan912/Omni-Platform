@@ -45,7 +45,9 @@
                             },
                             {
                                 "screenId": "premiumInfo",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "action": "update",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "actionURL": "/eu/screen/premiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
@@ -89,7 +91,8 @@
                         "buttons": [
                             {
                                 "label": "_NEXT",
-                                "method": "navigateToTab",
+                                "method": "calculatePremium",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
                                 "actionURL": "/eu/screen/premiumInfo"
                             },
@@ -98,6 +101,13 @@
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/riskInfo"
+                            },
+                            {
+                                "label": "_CALCULATE",
+                                "method": "calculatePremium",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
+                                "action": "update",
+                                "actionURL": "/eu/screen/premiumInfo"
                             }
                         ]
                     }

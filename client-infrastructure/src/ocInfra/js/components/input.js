@@ -29,7 +29,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			updateMode: '@',
 			onUpdate: '@',
 			baseUrl: '@',
-			factoryName: '='
+			factoryName: '=',
+			resourceUrl: '='
 		},
 		controller: function($scope){
 			/* Default attributes and actions for inputs */
@@ -46,7 +47,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'_getData': function($viewValue, id, field){
 						// If the user defined an action for getting the data, we invoke it
 						if(field.options.getData){
-							return field.options.getData( {'$viewValue': $viewValue, 'field': field}).then(function(data){
+							return field.options.getData( {'$viewValue': $viewValue, 'field': field, 'resources': $scope.resources}).then(function(data){
 								data = data || [];
 								if(data && !Array.isArray(data)){
 									return [data];
@@ -57,7 +58,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						} else {
 							//default action
 							if (field.options.href && field.options.params) {
-								return $scope.getData({'$viewValue': $viewValue, 'field': field});
+								return $scope.getData({'$viewValue': $viewValue, 'field': field, 'resources': $scope.resources});
 							}
 							//console.warn('input.js -> autocomplete_getData(): No getData method for autocomplete input.');
 						}
@@ -65,7 +66,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'_select': function($item, id, field){
 						// field.options.select is the action defined by the user to be invoked when a value from the dropdown is selected
 						if(field.options.select){
-							field.options.select( {'$item': $item, 'id': id, 'property': field.property, '$injector': $injector} );
+							field.options.select( {'$item': $item, 'id': id, 'field': field, 'property': field.property, '$injector': $injector, 'resources': $scope.resources} );
 						} else {
 							console.warn('input.js -> autocomplete_select(): No select callback for autocomplete input.');
 						}
@@ -258,11 +259,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							*/
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
-								if(property.indexOf(':') > 0 || property.indexOf('_') !== 0 || property.indexOf('-') !== 0){
-									if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-										payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
-									}
-								}
+								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
+									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+								}													
 							}
 							if(Object.keys(payload).length > 0){
 								resourceFactory.patch(params.property.self, payload, {}).then(function(){
@@ -279,6 +278,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 				
 			};
+
 
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
@@ -345,6 +345,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
+					'resourceUrl': $scope.resourceUrl,
+					'selector': $scope.metamodel.selector,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
@@ -379,7 +381,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
-					'class': $scope.metamodel.class,
+					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || defaults[inputType].format,
 					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
 				};
@@ -427,7 +429,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					
 					// Get the action for the options from the factory of the current screen
 
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]] || _searchInParents($scope, $scope.metamodel.options[key]) || $scope.metamodel.options[key]; 
+					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					/*if (validKey === 'getData') {
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
 					} else {

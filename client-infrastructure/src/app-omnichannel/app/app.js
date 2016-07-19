@@ -77,26 +77,25 @@ TourConfigProvider.set('prefixOptions', false);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
 
-
     if(sessionStorage.username === null || sessionStorage.username === undefined) {
         $location.url('/screen/anonymous');
     }
 
-   $rootScope.$on('$locationChangeStart', function () {
-     var screenId = $rootScope.screenId;
+    $rootScope.$on('$locationChangeStart', function () {
+    var screenId = $rootScope.screenId;
 
-     if($rootScope.screenId === undefined){
+    if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
-     } else if (screenId === 'anonymous'){
-             if(sessionStorage.username === null || sessionStorage.username === undefined) {
+    } else if (screenId === 'anonymous'){
+        if(sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url($rootScope.nextURL);
         }
-   } else {
-     if(sessionStorage.username === null || sessionStorage.username === undefined) {
-        $location.url('/screen/anonymous');
-     }
-   }
-   });
+    } else {
+        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+            $location.url('/screen/anonymous');
+        }
+    }
+});
    
     //persist few objects at app level
     $rootScope.routeParams = {};
@@ -122,55 +121,69 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     }, function() {});
 });
 
-app.factory('anonymousFactory', function($rootScope){
+app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
     return {
-        navigateToScreen: function($scope, inputComponent){
-            if(inputComponent.actionURL === '/login'){
-                $rootScope.nextURL = inputComponent.actionURL;
-                $rootScope.navigate(inputComponent.actionURL);    
+        navigateToScreen: function(params){
+            $rootScope.resourceHref = undefined;
+            if(params.inputComponent.actionURL === '/login'){
+                $rootScope.nextURL = params.inputComponent.actionURL;
+                $rootScope.navigate(params.inputComponent.actionURL);    
             }else{
-               $rootScope.nextURL = inputComponent.actionURL;
-                $rootScope.navigate(inputComponent.actionURL);
+                $rootScope.nextURL = params.inputComponent.actionURL;
+                $rootScope.navigate(params.inputComponent.actionURL);
                 if($rootScope.regionId === undefined){
-                    var arr = inputComponent.actionURL.split('/');
+                    var arr = params.inputComponent.actionURL.split('/');
                     $rootScope.regionId = arr[1];
                 }
             }
+        },
+        actionHandling: function(params){
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            
+             if($rootScope.regionId === undefined){
+                var arr = params.inputComponent.actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
+            new Promise(function(resolve) {
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
+            }).then(function(){
+                if(params.inputComponent.actionURL){
+                    $location.path(params.inputComponent.actionURL);
+                }
+            });
         }
     };
 });
 
 app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     return {
-        navigateToScreen: function($scope, inputComponent){
-            $rootScope.resourceHref = undefined;
-            anonymousFactory.navigateToScreen($scope, inputComponent);
+        navigateToScreen: function(params){
+            anonymousFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
-        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
-            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, $location);
+        actionHandling: function(params){
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
         },
-        navigateToScreen: function($scope, inputComponent){
-            $rootScope.resourceHref = undefined;
-            anonymousFactory.navigateToScreen($scope, inputComponent);
+        navigateToScreen: function(params){
+            anonymousFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
-            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined, $location);
+            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         }
     };
 });
 
 app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     return {
-        actionHandling: function($scope, inputComponent, optionsMap, properties){
-            quotessearchFactory.actionHandling($scope, inputComponent, optionsMap, properties);
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
         },
-        navigateToScreen: function($scope, inputComponent){
-            quotessearchFactory.navigateToScreen($scope, inputComponent);
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
             quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
@@ -178,86 +191,134 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
-app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, resourceFactory){
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            if(inputComponent.action){
-                MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, undefined, $location);    
-            } else if(inputComponent.actionURL){
-                $location.path(inputComponent.actionURL);
+        navigateToTab: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        quotessearchFactory.navigateToScreen(params);
+                    }
+                });
+            } else if(params.inputComponent.actionURL){
+               quotessearchFactory.navigateToScreen(params);
             }
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        calculatePremium: function(params){
+            additionalInfoFactory.calculatePremium(params);
         }
     };
 });
 
-
-app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory){
+app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory, quotessearchFactory, MetaModel, resourceFactory, $location){
     return {
-        navigateToTab: function($scope, inputComponent, rootURL, properties){
-            quotescreateFactory.navigateToTab($scope, inputComponent, rootURL, properties);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        calculatePremium: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        quotessearchFactory.navigateToScreen(params);
+                    }
+                });
+            } else if(params.inputComponent.actionURL){
+               quotessearchFactory.navigateToScreen(params);
+            } 
         }
     };
 });
 
 app.factory('premiumInfoFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent){
-            quotescreateFactory.navigateToTab($scope, inputComponent);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
     return {
-        navigateToTab: function($scope, inputComponent){
-            quotescreateFactory.navigateToTab($scope, inputComponent);
+        navigateToTab: function(params){
+            quotescreateFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
         }
     };
 });
 
 app.factory('loginFactory', function($rootScope, $filter, $http, growl){
     return {
-        navigateToScreen: function($scope, inputComponent){
+        navigateToScreen: function(params){
             $rootScope.showIcon = true;
                  $http({
                     url: 'assets/resources/config/users.json',
@@ -265,22 +326,27 @@ app.factory('loginFactory', function($rootScope, $filter, $http, growl){
                 }).success(function(data) {
                     //extract user
                     var user = [];
+
                     $rootScope.isAuthSuccess = false;
                     angular.forEach(data.users, function(key) {
-                        if (key.name === $scope.resourcesToBind.properties.inputUsername.value && key.password === $scope.resourcesToBind.properties.inputPassword.value) {
+                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
                             $rootScope.isAuthSuccess = true;
                             user = key;
                         }
                     });
 
-                    if (!$rootScope.isAuthSuccess) {
+                        if (!$rootScope.isAuthSuccess) {
                         growl.error($filter('translate')('INVALID_CREDENTIALS'));
                         return false;
                     }
-                    $rootScope.user = user;
-                    sessionStorage.username = user.name;
-                    $rootScope.nextURL = inputComponent.actionURL;
-                    $rootScope.navigate(inputComponent.actionURL);  
+                    
+                    if($rootScope.isAuthSuccess){
+                        $rootScope.user = user;
+                        sessionStorage.username = user.name;    
+                    }
+                    
+                    $rootScope.nextURL = params.inputComponent.actionURL;
+                    $rootScope.navigate(params.inputComponent.actionURL);  
                 }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
