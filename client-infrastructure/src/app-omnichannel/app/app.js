@@ -129,7 +129,7 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                 $rootScope.nextURL = params.inputComponent.actionURL;
                 $rootScope.navigate(params.inputComponent.actionURL);    
             }else{
-               $rootScope.nextURL = params.inputComponent.actionURL;
+                $rootScope.nextURL = params.inputComponent.actionURL;
                 $rootScope.navigate(params.inputComponent.actionURL);
                 if($rootScope.regionId === undefined){
                     var arr = params.inputComponent.actionURL.split('/');
@@ -199,11 +199,11 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
                     MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
                 }).then(function(){
                     if(params.inputComponent.actionURL){
-                        $location.path(params.inputComponent.actionURL);
+                        quotessearchFactory.navigateToScreen(params);
                     }
                 });
             } else if(params.inputComponent.actionURL){
-                $location.path(params.inputComponent.actionURL);
+               quotessearchFactory.navigateToScreen(params);
             }
         },
         navigateToScreen: function(params){
@@ -270,7 +270,7 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
     };
 });
 
-app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory, MetaModel, resourceFactory, $location){
+app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory, quotessearchFactory, MetaModel, resourceFactory, $location){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -280,8 +280,16 @@ app.factory('additionalInfoFactory', function($rootScope, quotescreateFactory, M
         },
         calculatePremium: function(params){
             if(params.inputComponent.action){
-                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location);
-            }    
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        quotessearchFactory.navigateToScreen(params);
+                    }
+                });
+            } else if(params.inputComponent.actionURL){
+               quotessearchFactory.navigateToScreen(params);
+            } 
         }
     };
 });
