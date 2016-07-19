@@ -82,17 +82,28 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
+						var previousTable = [];
+						if($scope.table){
+							previousTable = $scope.table.items;
+						}
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
+							var oldItem;
+							for(var obj in previousTable){
+								if(obj.href === item.href){
+									oldItem = obj;
+								}
+							}
+
 							if ($scope.metamodelObject.filters) {
 								_isFiltered(item).then(function(filtered) {
 					                if (!filtered) {
-					                	_addItem(newValue, item);
+					                	_addItem(newValue, item, oldItem);
 					                }
 					            });
 							} else {
-								_addItem(newValue, item);
+								_addItem(newValue, item, oldItem);
 							} 
 							
 						});
@@ -110,11 +121,20 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			}
 
-			function _addItem(newValue, item) {
+			function _addItem(newValue, item, oldItem) {
 				var newItem = angular.copy(newValue[item.href]);
               	var newValueItem = _getResultSetItem(newValue, newItem);
-
               	$scope.itemResourcesToBind = { properties : {} };
+
+              	// Process previous properties to keep ui input values
+              	if(oldItem){
+	              	for(var property in oldItem.properties){
+	              		if(oldItem.properties[property].metainfo.uiInput){
+	              			$scope.itemResourcesToBind[property] = oldItem.properties[property];
+	              		}
+	              	}
+	            }
+              	
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
