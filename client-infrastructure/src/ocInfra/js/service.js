@@ -23,7 +23,7 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
                    } 
               });
       },
-        function(data) {  
+        function() {  
               $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
                 $rootScope.infraConfig = data.config.base;

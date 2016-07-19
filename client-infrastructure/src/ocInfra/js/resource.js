@@ -7,6 +7,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     var resourceDirectory = {};
     var PENDING_REQUEST = '0';
+    var defaultHeaders = {
+            'Accept': 'application/vnd.hal+json, application/json',
+            'Content-Type': 'application/json'
+    };
 
     function _addApiGatewayApiKeys(params) {
         if (params === undefined) {
@@ -24,6 +28,21 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
       return angular.copy(resourceDirectory[url]);
     }
 
+    function _prepareHeaders(headers){
+        if(!headers){
+            headers = defaultHeaders;
+            var appHeaders;
+
+            if(sessionStorage.getItem('_headers')){
+                appHeaders = JSON.parse(sessionStorage.getItem('_headers'));
+                for(var key in appHeaders){
+                    headers[key] = appHeaders[key];
+                }
+            }
+        }
+        return headers;
+    }
+
     function _get(url, params, headers) {
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
@@ -38,7 +57,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                     method : 'GET',
                     url : url,
                     params : params,
-                    headers : headers
+                    headers : _prepareHeaders(headers)
             });
             if (promise.then) {
                 promise.then(function(response) {
@@ -79,7 +98,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     function _refresh(url, params, headers) {
         resourceDirectory[url] = null;
-        return _get(url, params, headers);
+        return _get(url, params, _prepareHeaders(headers));
     }
 
     function _post(url, data, headers) {
@@ -87,7 +106,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'POST',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
@@ -109,7 +128,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
             method : 'DELETE',
             url : url,
-            headers : headers,
+            headers : _prepareHeaders(headers),
             params: params
         });
         if (promise.then) {
@@ -132,7 +151,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'PATCH',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
@@ -160,7 +179,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: method,
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 data: data,
                 params: params
         });
@@ -203,7 +222,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 {
                     method : 'GET',
                     url : urlBase,
-                    headers : headers,
+                    headers : _prepareHeaders(headers),
                     params: params
                 }
             );   
