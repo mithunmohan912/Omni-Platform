@@ -5,26 +5,44 @@ global app
 /*
 exported checkVisibility
 */
-app.service('OCInfraConfig', function($resource, $rootScope){	
+app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $rootScope){   
     this.load = function() {
-    	$rootScope.infraConfig = {};
+        $rootScope.infraConfig = {};
 
-        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {
+      // $resource('assets/resources/config/OCInfraConfig.json').get(function(data) {  
+        $resource('ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) {  
+           $rootScope.infraConfig = data.config.base;
+              $rootScope.metamodelPath = data.config.base.templates.metaModel;
+              angular.forEach($rootScope.infraConfig.properties, function(key) {
+                  if (key.name === 'language') {
+                      $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                      angular.forEach($rootScope.localeOpts.options, function(key) {
+                          key.description = key.description;
+                          //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
+                      });
+                   } 
+              });
+      },
+        function() {  
+              $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
-			$rootScope.infraConfig = data.config.base;
-			$rootScope.metamodelPath = data.config.base.templates.metaModel;
-			angular.forEach($rootScope.infraConfig.properties, function(key) {
-                    if (key.name === 'language') {
-                        $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
-                        angular.forEach($rootScope.localeOpts.options, function(key) {
-                            key.description = key.description;
-                            //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
-                        });
-                    } 
+                $rootScope.infraConfig = data.config.base;
+                $rootScope.metamodelPath = data.config.base.templates.metaModel;
+                angular.forEach($rootScope.infraConfig.properties, function(key) {
+                      if (key.name === 'language') {
+                          $rootScope.localeOpts = angular.fromJson('{"options":' + angular.toJson(key.options) + '}');
+                          angular.forEach($rootScope.localeOpts.options, function(key) {
+                              key.description = key.description;
+                              //key.description = '<img src=\'' + key.image +'\'/>' + key.description;
+                          });
+                        } 
+                    });
                 });
-            });
+        });
+
     };
-});
+}]);
+
 
 app.service ('FieldService', function() {
     this.checkVisibility = function (field, $scope) {
