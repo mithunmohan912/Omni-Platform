@@ -291,6 +291,36 @@ global app
   */
 app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
+	function _backendToFrontendType(typeObject){
+		switch(typeObject.type){
+			case 'integer':
+			case 'number':
+				return 'number';
+			case 'boolean':
+				return 'toggle';
+			case 'string':
+				if(!typeObject.enum){
+					return 'text';
+				}
+				break;
+			default:
+				break;
+		}
+
+
+		switch(typeObject.format){
+			case 'uri':
+			case 'time':
+				return 'text';
+			case 'date':
+				return 'date';
+			default:
+				break;
+		}
+
+		return typeObject.enum ? 'select' : 'text';
+	}
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -596,7 +626,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 
 				// Get the url of the template we will use based on input type
-				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
+				var inputType = $scope.metamodel.type || _backendToFrontendType($scope.property.metainfo) || $scope.property.metainfo.type;
 				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
@@ -1509,6 +1539,11 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
 
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -1531,6 +1566,11 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 
 			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					$scope.inProgress = true;
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
 						$scope.resultSet = resultSet;
@@ -1562,19 +1602,17 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
-						var previousTable = [];
-						if($scope.table){
-							previousTable = $scope.table.items;
-						}
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 
 							var oldItem;
-							for(var obj in previousTable){
-								if(obj.href === item.href){
-									oldItem = obj;
-								}
+							if($scope && $scope.previousTable){
+								$scope.previousTable.forEach(function(obj){
+									if(obj.href === item.href){
+										oldItem = obj;
+									}
+								});
 							}
 
 							if ($scope.metamodelObject.filters) {
@@ -1607,18 +1645,18 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
               	var newValueItem = _getResultSetItem(newValue, newItem);
               	$scope.itemResourcesToBind = { properties : {} };
 
-              	// Process previous properties to keep ui input values
-              	if(oldItem){
-	              	for(var property in oldItem.properties){
-	              		if(oldItem.properties[property].metainfo.uiInput){
-	              			$scope.itemResourcesToBind[property] = oldItem.properties[property];
-	              		}
-	              	}
-	            }
-
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
+
+              	// Process previous properties to keep ui input values
+              	if(oldItem){
+	              	for(var property in oldItem.properties){
+	              		if(oldItem.properties[property].metainfo && oldItem.properties[property].metainfo.uiInput){
+	              			$scope.itemResourcesToBind[newValueItem[resource].identifier].properties[property] = oldItem.properties[property];
+	              		}
+	              	}
+	            }
 
               	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
                		var metamodelProperty = $scope.metamodelObject.properties[i];
