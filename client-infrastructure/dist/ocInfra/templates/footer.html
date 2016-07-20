@@ -1,12 +1,14 @@
 
-<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" ng-if="showHeader" ng-controller="HeaderController" >
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" ng-if="metamodel.showHeader" ng-controller="HeaderController" >
   <div class="container">
-     
-       <ul class="nav navbar-nav navbar-left" >
-     
-		<li><a href ng-click="about();" >{{locale["_ABOUT_US"]}}</a></li>
-		<li><a href ng-click="faq();" >{{locale["_FAQ"]}}</a></li>
-      </ul>
-
-  
+  	<p style="margin-top:10px;margin-right:73%"> {{locale["_COPYRIGHT"]}} 
+      
+  	</p>
+    <div class="tourLandingFooter">
+        <div class="" ng-click="tour.restart(true)">
+            <span class="flaticon-take-a-tour"> </span><br/>
+             <span>{{locale["_TAKE_A_TOUR"]}}</span>
+        </div>
+    </div>
   </div>
+  
