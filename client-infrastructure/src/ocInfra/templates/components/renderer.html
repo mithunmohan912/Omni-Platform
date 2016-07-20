@@ -27,7 +27,7 @@
 								</ul>
 								<div ng-repeat="tab in column.tabs" ng-if="tab.id === activeTab" ng-class="tab.include ? 'tabs-content' : ''">
 									<div ng-if="tab.include" ng-include="tab.include"></div>
-									<renderer class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
+									<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 								</div>
 							</div>
 					      	<div ng-switch-when="table" class="table-responsive">

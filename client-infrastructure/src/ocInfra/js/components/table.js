@@ -29,6 +29,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
 
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -51,6 +56,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					$scope.inProgress = true;
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
 						$scope.resultSet = resultSet;
@@ -82,19 +92,17 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
-						var previousTable = [];
-						if($scope.table){
-							previousTable = $scope.table.items;
-						}
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 
 							var oldItem;
-							for(var obj in previousTable){
-								if(obj.href === item.href){
-									oldItem = obj;
-								}
+							if($scope && $scope.previousTable){
+								$scope.previousTable.forEach(function(obj){
+									if(obj.href === item.href){
+										oldItem = obj;
+									}
+								});
 							}
 
 							if ($scope.metamodelObject.filters) {
@@ -127,18 +135,18 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               	var newValueItem = _getResultSetItem(newValue, newItem);
               	$scope.itemResourcesToBind = { properties : {} };
 
-              	// Process previous properties to keep ui input values
-              	if(oldItem){
-	              	for(var property in oldItem.properties){
-	              		if(oldItem.properties[property].metainfo.uiInput){
-	              			$scope.itemResourcesToBind[property] = oldItem.properties[property];
-	              		}
-	              	}
-	            }
-
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
+
+              	// Process previous properties to keep ui input values
+              	if(oldItem){
+	              	for(var property in oldItem.properties){
+	              		if(oldItem.properties[property].metainfo && oldItem.properties[property].metainfo.uiInput){
+	              			$scope.itemResourcesToBind[newValueItem[resource].identifier].properties[property] = oldItem.properties[property];
+	              		}
+	              	}
+	            }
 
               	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
                		var metamodelProperty = $scope.metamodelObject.properties[i];
