@@ -1,0 +1,9 @@
+<span class="form-group">
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+	<span ng-repeat="range in field.attributes.range" style="display:inline-block">
+		<span ng-repeat="id in range.id track by $index">
+			<input-render ng-if="resources[id]" id="id" property="resources[id]" metamodel="range" update-mode="{{range.updateMode}}" on-update="{{range.onUpdate}}" base-url="{{range.baseUrl}}" resources="resources" factory-name="factoryName"></input-render>
+		</span>
+	</span>
+</span>
