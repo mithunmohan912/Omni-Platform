@@ -223,7 +223,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.displayed = [];
     $scope.stTableList.showResult = true;
 
-    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab, tabNavigate) {
 
        console.log(nextScreenId);
         var screenId = $rootScope.screenId;
@@ -321,7 +321,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                 });
                             });
                         });
-                }else{
+                }else if (tabNavigate !== undefined) {
+                    $rootScope.step = $rootScope.step + 1;
+                    loadRelationshipByStep($rootScope.step);
+                    $scope.preStep = $rootScope.step;
+                } else{
                     EnumerationService.loadEnumerationByTab();
                 }
             });
@@ -362,13 +366,15 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.pendingFields = [];
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metamodel[$rootScope.screenId].sections;
-        angular.forEach(list, function(tabObj){
-            if(step === tabObj.step){
-                $rootScope.currRel = tabObj.link;
-                $rootScope.currName = tabObj.$ref;
-            } 
-        });
+        if($rootScope.metamodel[$rootScope.screenId]){
+            var list = $rootScope.metamodel[$rootScope.screenId].sections;
+            angular.forEach(list, function(tabObj){
+                if(step === tabObj.step){
+                    $rootScope.currRel = tabObj.link;
+                    $rootScope.currName = tabObj.$ref;
+                } 
+            });
+        }
     }
     new Promise(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
@@ -486,14 +492,16 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
 
     $scope.isPending = function(){
         var message = '';
-        if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
-            $scope.pendingFields.forEach(function(key) {
-                var label = $scope.translateKeyToLabelByTab(key);
-                message += $rootScope.locale[label] + $rootScope.locale.IS_BEING_PATCHED + '<br />';
-            });            
-            msg = growl.error(message);
-            return true;
-        } 
+        if ($rootScope.regionId !== 'us') { 
+            if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
+                $scope.pendingFields.forEach(function(key) {
+                    var label = $scope.translateKeyToLabelByTab(key);
+                    message += $rootScope.locale[label] + $rootScope.locale.IS_BEING_PATCHED + '<br />';
+                });            
+                msg = growl.error(message);
+                return true;
+            } 
+        }
         return false;
     };
 

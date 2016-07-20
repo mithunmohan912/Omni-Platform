@@ -29,7 +29,7 @@ Install grunt using below command
  $ npm install -g grunt-cli	
 ```
 
-Fork this Repository to your Bitbucket Account then :
+Fork this Repository to your GitHub Account then :
    
 ```
     $ git clone https://github.csc.com/<your id>/omnichannel-platform

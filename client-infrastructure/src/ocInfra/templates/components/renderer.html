@@ -19,6 +19,8 @@
 									<li ng-repeat="tab in column.tabs" ng-class="tab.screenId === screenName ? 'active':''">
 										<a ng-if="tab.screenId === screenName">{{ tab.title | translate }}</a>
 										<a ng-if="tab.screenId !== screenName" ng-click="execute(tab)">{{ tab.title | translate }}</a>
+										<span ng-show="true" class="tab-icon flaticon-incomplete"> </span>
+										<span ng-show="false" class="tab-icon flaticon-complete"></span>
 									</li>
 								</ul>
 							</div>

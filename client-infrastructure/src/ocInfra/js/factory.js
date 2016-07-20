@@ -856,13 +856,6 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                                                     growl.error(value.message);
                                                 });
                                             }
-                                            if(actionURL !== undefined){
-                                                if(resolve){
-                                                    resolve();
-                                                }
-                                                $rootScope.loader.loading=false;
-                                                $location.path(actionURL);    
-                                            }
                                         });
                                     } else if(data.outcome === 'failure'){
                                         angular.forEach(data.messages, function(value){
@@ -886,13 +879,15 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                         });
                     });
                 }else if(actionURL !== undefined){ 
+                    $rootScope.loader.loading=false;           
                     if(resolve) {
                         resolve();
                     }
-                    $rootScope.loader.loading=false;           
-                    $location.path(actionURL);    
                 }
                 $rootScope.loader.loading=false;
+                if(actionURL !== undefined){ 
+                    $rootScope.navigate(actionURL);
+                }
                 if(resolve) {
                     resolve();
                 }
@@ -964,29 +959,30 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
                      } 
                      if(data.outcome === 'success'){
-                            angular.forEach(data.messages, function(value){
-                            growl.success(value.message);
-                             
-                             params=undefined;
-                             if(data && data._links && data._links.self && data._links.self.href){
-                             resourceFactory.refresh(data._links.self.href, params, $rootScope.headers).success(function(responseData){
-                             var data = responseData.data || responseData;
-                             $rootScope.loader.loading=false;
-                             if(data.outcome==='success')
-                             {}
-                              else if(data.outcome === 'failure'){
-                              angular.forEach(data.messages, function(value){
-                              growl.error(value.message);
-                          });
-                      }
+                            //angular.forEach(data.messages, function(value){
+                            //growl.success(value.message);
+                            //});
+                            params=undefined;
+                            if(data && data._links && data._links.self && data._links.self.href){
+                                resourceFactory.refresh(data._links.self.href, params, $rootScope.headers).success(function(responseData){
+                                    var data = responseData.data || responseData;
+                                    $rootScope.loader.loading=false;
+                                    if(data.outcome==='success'){
 
-                           });
-                        }
-                    });
-                     } else{
+                                    }else if(data.outcome === 'failure'){
+                                        angular.forEach(data.messages, function(value){
+                                            growl.error(value.message);
+                                        });
+                                    }
+                                });
+                            }
+                    } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
-                     }  
+                     } 
+                    if(resolve) {
+                        resolve();
+                    }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;

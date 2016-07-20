@@ -7,7 +7,7 @@ describe('HeaderController', function() {
 
  beforeEach(function(){
    // injecting all required modules ....
-     angular.mock.module('ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'ngCookies','omnichannel');
+     angular.mock.module('ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'ngCookies','omnichannel','pascalprecht.translate');
 });
 
 
@@ -22,9 +22,10 @@ describe('HeaderController', function() {
   var $routeParams;
   var $cookieStore;
   var createController;
+  var $translate;
 
   beforeEach(inject(function(_$controller_, _$rootScope_ , _$location_ ,_$http_ ,
-                             _$resource_ ,OCRoles,tmhDynamicLocale,_$routeParams_,_$cookieStore_ ){
+                             _$resource_ ,OCRoles,tmhDynamicLocale,_$routeParams_,_$cookieStore_,_$translate_ ){
     // The injector unwraps the underscores (_) from around the parameter names when matching
    
     $controller = _$controller_;
@@ -37,6 +38,7 @@ describe('HeaderController', function() {
     $tmh_DynamicLocale = tmhDynamicLocale;
     $routeParams = _$routeParams_;
     $cookieStore= _$cookieStore_;
+    $translate=_$translate_;
 
 	
 	createController = function() {
@@ -44,7 +46,7 @@ describe('HeaderController', function() {
 		$cookieStore.put('userid','kkdrensk');
 		$rootScope.routeParams=$routeParams;
             return $controller('HeaderController', {
-               '$scope': $scope,'$rootScope': $rootScope,'$http':$http,'$location' : $location, '$cookieStore' :$cookieStore
+               '$scope': $scope,'$rootScope': $rootScope,'$http':$http,'$location' : $location, '$cookieStore' :$cookieStore,'$translate' :$translate
             });
         };
 	
