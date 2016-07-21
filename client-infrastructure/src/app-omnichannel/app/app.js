@@ -274,8 +274,8 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
             var newUrl = '';
             return element.field.getParentResource().then(function(response){
                 var data = response.data || response;
-                if($rootScope.regionId === "eu"){
-                    var url = $rootScope.hostURL;
+                if(data){
+                    url = $rootScope.hostURL;
                     var regionToSORMap = $rootScope.regionToSoR;
                     var applName = regionToSORMap[$rootScope.regionId];
                     newUrl = url.replace(':regionId',applName);
@@ -295,18 +295,14 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
         selectOption: function(element){
             var payload = {};
             var link = '';
-            var value;
             return element.field.getParentResource().then(function(response){
                 var data = response.data || response;
                 if (data){                   
-                        link = element.id;
-                        value = element.$item.name.replace("(Car)", "");              
-                        payload[link] = value;
-                        resourceFactory.patch(element.property.self, payload).then(function() {                       
-                    });                    
+                        link = element.id;       
+                        payload[link] = element.$item.name;                   
                 }
             }); 
-        },
+        }
     };
 });
 
