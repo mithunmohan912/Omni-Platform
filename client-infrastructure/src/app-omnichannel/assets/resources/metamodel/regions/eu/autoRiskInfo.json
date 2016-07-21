@@ -52,9 +52,16 @@
                 "properties": [
                     {
                         "id": "quote_automobile:make",
-                        "type": "text",
+                        "type": "autocomplete",
+                        "options": {
+                            "getData": "search",
+                            "apiTypeAhead":"referential_vehicle_makes?",
+                            "fieldTypeAhead": ["referential_vehicle:make=", "quote_automobile:make"],
+                            "select":"selectOption"
+                        },
                         "label": "_MAKE",
-                        "row": 1
+                        "row": 1,
+                        "patchOnBlur": true
                     },
                     {
                         "id": "quote_automobile:power",
@@ -70,7 +77,13 @@
                     },
                     {
                         "id": "quote_automobile:ext_model",
-                        "type": "text",
+                        "type": "autocomplete",
+                        "options":{
+                            "getData": "search",
+                            "apiTypeAhead":"referential_vehicle_models?",
+                            "fieldTypeAhead": ["referential_vehicle:make=", "quote_automobile:make", "&referential_vehicle:model=", "quote_automobile:ext_model"],
+                            "select":"selectOption"
+                        },
                         "label": "_EXT_MODEL",
                         "patchOnBlur": true,
                         "row": 2
