@@ -1,63 +1,6 @@
 {
-    "metamodel": {
+    "metamodel":{
         "sections": [
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 12,
-                        "buttons": [
-                            {
-                                "icon": "fa-save",
-                                "tooltip": "Save quote",
-                                "method": "saveQuote",
-                                "label": ""
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "tabs",
-                        "colspan": 8,
-                        "row": 1,
-                        "tabs": [
-                            {
-                                "id": "quote",
-                                "method": "toQuote",
-                                "title": "_QUOTE_TAB"
-                            },
-                            {
-                                "id": "coverage",
-                                "method": "toCoverage",
-                                "title": "_COVERAGE_TAB"
-                            },
-                            {
-                                "id": "offer",
-                                "method": "toOffer",
-                                "title": "_OFFER_TAB"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "buttonGroup",
-                        "colspan": 4,
-                        "row": 1,
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "toCoverage"
-                            },
-                            {
-                                "label": "_BACK",
-                                "method": "back"
-                            }
-                        ]
-                    }
-                ]
-            },
             {
                 "row": 1,
                 "colspan": 9,
@@ -247,24 +190,7 @@
                         "row": 6
                     }
                 ]
-            },
-            {
-                "title": "PDF",
-                "properties":[
-                    {
-                        "type": "popup",
-                        "colspan": 6,
-                        "popup": {
-                            "name": "openPDF",
-                            "label": "_PDF_POP_UP",
-                            "metamodel": "pdf_popup",
-                            "method": "getPDF"
-                        }
-                    }
-                    
-                ]
             }
-
         ],
         "businessObject": {
             "quote": [ 
