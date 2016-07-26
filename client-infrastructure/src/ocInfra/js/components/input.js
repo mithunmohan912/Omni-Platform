@@ -49,6 +49,20 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		return typeObject.enum ? 'select' : 'text';
 	}
 
+	function _getValueForUiInput($scope){
+		if($scope.metamodel.value){
+			return $scope.metamodel.value;
+		} else if($scope.metamodel.init){
+			if($scope.actionFactory && $scope.actionFactory[$scope.metamodel.init]){
+				return $scope.actionFactory[$scope.metamodel.init]();
+			} else if(_searchInParents($scope, $scope.metamodel.init)){
+				return _searchInParents($scope, $scope.metamodel.init)();
+			}
+		} else {
+			return undefined;
+		}
+	}
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -349,7 +363,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: $scope.metamodel.value || $scope.actionFactory[$scope.metamodel.init] || _searchInParents($scope, $scope.metamodel.init) };
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
@@ -361,7 +375,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
-				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
+				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
 				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
@@ -415,13 +429,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
-					'format': $scope.metamodel.format || defaults[inputType].format,
+					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
 					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
 				};
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
-				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : angular.copy(defaults[inputType].attributes);
+				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};
 				$scope.field.attributes = attributes;
 
 				// In case that we have several default values in an array, we select the first one
@@ -450,7 +464,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 
 				// Union of ui options and default options. First we put the default options and then the user options defined in the UI metadata
-				var options = angular.copy(defaults[inputType].options);
+				var options = (defaults[inputType]) ? angular.copy(defaults[inputType].options) : {};
 				$scope.field.options = options;
 
 				for(var options_key in $scope.metamodel.options){
@@ -464,7 +478,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					if(inputType !== 'toggle'){
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					} else {
-						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || defaults[inputType].options[validKey];
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;
 					}
 
 					/*if (validKey === 'getData') {
