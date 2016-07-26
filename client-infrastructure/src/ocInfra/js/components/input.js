@@ -197,7 +197,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'true_label': '_TRUE',
 					'false_label': '_FALSE'
 				},
-				'options': {},
+				'options': {
+					'true_label': true,
+					'false_label': false
+				},
 				'updateMode': 'change'
 			};
 
@@ -260,7 +263,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
@@ -314,9 +317,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					console.warn($scope.factoryName + ' not found');
 				}
 
-				if(!$scope.property && $scope.resources){
+				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: $scope.metamodel.value || $scope.actionFactory[$scope.metamodel.init] || _searchInParents($scope, $scope.metamodel.init) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
@@ -388,7 +391,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
-				var attributes = angular.copy(defaults[inputType].attributes);
+				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : angular.copy(defaults[inputType].attributes);
 				$scope.field.attributes = attributes;
 
 				// In case that we have several default values in an array, we select the first one
@@ -428,8 +431,12 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					}while(validKey.indexOf('_') === 0);
 					
 					// Get the action for the options from the factory of the current screen
+					if(inputType !== 'toggle'){
+						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
+					} else {
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || defaults[inputType].options[validKey];
+					}
 
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					/*if (validKey === 'getData') {
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
 					} else {
