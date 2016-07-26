@@ -7,9 +7,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     var resourceDirectory = {};
     var PENDING_REQUEST = '0';
+
     //used to distinct between GET method with and without params
     var urlParams = {};
-    
+
+    var defaultHeaders = {
+            'Accept': 'application/vnd.hal+json, application/json',
+            'Content-Type': 'application/json'
+    };
+
     function _addApiGatewayApiKeys(params) {
         if (params === null || params === undefined) {
             params = {};
@@ -20,6 +26,25 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             }
         }
         return params;
+    }
+
+    function _getFromResourceDirectory(url) {
+      return angular.copy(resourceDirectory[url]);
+    }
+
+    function _prepareHeaders(headers){
+        if(!headers){
+            headers = defaultHeaders;
+            var appHeaders;
+
+            if(sessionStorage.getItem('_headers')){
+                appHeaders = JSON.parse(sessionStorage.getItem('_headers'));
+                for(var key in appHeaders){
+                    headers[key] = appHeaders[key];
+                }
+            }
+        }
+        return headers;
     }
 
     function _get(url, params, headers) {
@@ -40,7 +65,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                     method : 'GET',
                     url : url,
                     params : params,
-                    headers : headers
+                    headers : _prepareHeaders(headers)
             });
             if (promise.then) {
                 promise.then(function(response) {
@@ -81,7 +106,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     function _refresh(url, params, headers) {
         resourceDirectory[url] = null;
-        return _get(url, params, headers);
+        return _get(url, params, _prepareHeaders(headers));
     }
 
     function _post(url, data, headers) {
@@ -89,7 +114,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'POST',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
@@ -112,7 +137,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
             method : 'DELETE',
             url : url,
-            headers : headers,
+            headers : _prepareHeaders(headers),
             params: params
         });
         if (promise.then) {
@@ -135,7 +160,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'PATCH',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
@@ -163,7 +188,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: method,
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 data: data,
                 params: params
         });
@@ -190,6 +215,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         'delete' : _delete,
         'patch': _patch,
         'execute': _execute,
+        'getFromResourceDirectory': _getFromResourceDirectory,
 
         'getData' : function (urlBase) {
             return $http.get(urlBase);
@@ -207,7 +233,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 {
                     method : 'GET',
                     url : urlBase,
-                    headers : headers,
+                    headers : _prepareHeaders(headers),
                     params: params
                 }
             );   

@@ -21,7 +21,7 @@ module.exports = {
       {
       expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'dist/ocInfra/' ,
-      src: ['templates/**']
+      src: ['templates/**/*']
      },
    ]
   },
