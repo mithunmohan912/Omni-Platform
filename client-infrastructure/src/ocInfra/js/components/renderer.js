@@ -217,8 +217,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					console.log($scope.factoryName + ' not found');
 				}
 
-				$scope.screenName = $location.path().substring($location.path().lastIndexOf('/')+1);
- 
+				if(!$scope.activeTab){
+					$scope.activeTab = $location.path().substring($location.path().lastIndexOf('/')+1);
+				} 
 
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined || $scope.resourceUrlToRender === '') {
@@ -318,9 +319,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				                var id = property.id[k];
 							
-				                  $scope.resourcesToBind.properties[id] = 
-				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
-                
+				                $scope.resourcesToBind.properties[id] = 
+				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
