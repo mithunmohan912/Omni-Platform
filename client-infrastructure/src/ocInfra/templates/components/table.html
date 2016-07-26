@@ -21,7 +21,7 @@
 										{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
 									</span>
 									<span ng-switch-default>
-	 									{{ displayedItem.properties[fieldId].value }}&nbsp;
+	 									{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
 	 								</span>
 	 							</ng-switch>
  							</span>
