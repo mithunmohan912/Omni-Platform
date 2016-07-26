@@ -5,11 +5,10 @@
         "pagination": true,
         "properties": [
             {
-                "id": "quote_risk:risk_type",
+                "id": "quote:product_id",
                 "label_header": "_PRODUCT_TYPE",
                 "type": "icon",
                 "align": "center",
-                "visible": true,
                 "width": "5%"
             },
             {
@@ -17,7 +16,6 @@
                 "label_header": "_NUMBER",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "10%"
             },
             {
@@ -25,15 +23,14 @@
                 "label_header": "_NAME",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "10%"
             },
             {
                 "id": "quote:contract_start_date",
                 "label_header": "_Effective_Date",
                 "type": "date",
+                "format": "dd/MM/yyyy",
                 "align": "left",
-                "visible": true,
                 "width": "10%"
             },
             {
@@ -41,7 +38,6 @@
                 "label_header": "_DISTRIBUTOR_ID",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "10%"
             },
             {
@@ -49,7 +45,6 @@
                 "label_header": "_DESCRIPTION",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "15%"
             },
             {
@@ -57,7 +52,6 @@
                 "label_header": "_RISK_DATA",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "15%"
             },
             {
@@ -65,7 +59,6 @@
                 "label_header": "_PRODUCT_ID",
                 "type": "label",
                 "align": "left",
-                "visible": true,
                 "width": "10%"
             },
             {
@@ -83,11 +76,19 @@
                         "value": "delete",
                         "action": "delete",
                         "icon": "fa fa-trash-o",
-                        "method": "itemActionHandling",
-                        "action": "delete"                        
+                        "method": "itemActionHandling"                      
                     }
                 ]
             }
-        ]
+        ],
+        "iconList": 
+            {
+                "MC011": "flaticon-car95", 
+                "MD005": "flaticon-delivery50", 
+                "MA002": "flaticon-motorbike", 
+                "MC002": "flaticon-single17", 
+                "AX009": "flaticon-adults"
+            }
+        
     }
 }
