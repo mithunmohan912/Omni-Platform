@@ -16,28 +16,28 @@
                         "row": 1,
                         "tabs": [
                             {
-                                "screenId": "autocreate",
+                                "id": "autocreate",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/autocreate",
                                 "title": "_QUOTE_INFO_TAB"
                             },
                             {
-                                "screenId":"autoOwnerInfo",
+                                "id":"autoOwnerInfo",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "screenId":"autoRiskInfo",
+                                "id":"autoRiskInfo",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoRiskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "screenId": "autoPremiumInfo",
+                                "id": "autoPremiumInfo",
                                 "method": "calculatePremium",
                                 "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
@@ -229,7 +229,7 @@
                         "type": "buttonGroup",
                         "buttons": [
                             {
-                                "label": "_NEXT",
+                                "label": "_CALCULATE",
                                 "method": "calculatePremium",
                                 "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
@@ -240,13 +240,6 @@
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/autoOwnerInfo"
-                            },
-                            {
-                                "label": "_CALCULATE",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoPremiumInfo"
                             }
                         ]
                     }

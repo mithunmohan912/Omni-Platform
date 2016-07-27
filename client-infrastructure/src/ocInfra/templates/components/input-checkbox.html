@@ -1,19 +1,25 @@
 <span class="form-group" 
 	  ng-show="field.isVisible()">
 
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-8 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-8 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
 	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-2 col-sm-offset-2' : '')" class="col-xs-12">
 
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		<input 	type="checkbox"
-				id="{{field.id}}"
-				name="{{field.name}}"
-				
-				ng-model="field.property.value"
-				ng-disabled="!field.property.editable"
-				ng-change="field.onChange()"
-				ng-blur="field.onBlur()" />
+		 <div class="checkbox">
+                    <label>
+                    	 <input type="checkbox"
+							id="{{field.id}}"
+							name="{{field.name}}"
+							
+							ng-model="field.property.value"
+							ng-disabled="!field.property.editable"
+							ng-change="field.onChange()"
+							ng-blur="field.onBlur()" />
+                      <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    </label>
+                  </div>
+		
 
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>

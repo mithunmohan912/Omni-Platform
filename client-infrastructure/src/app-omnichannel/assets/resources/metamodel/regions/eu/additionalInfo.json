@@ -16,35 +16,35 @@
                         "row": 1,
                         "tabs": [
                             {
-                                "screenId": "quotescreate",
+                                "id": "quotescreate",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/quotescreate",
                                 "title": "_QUOTE_INFO_TAB"   
                             },
                             {
-                                "screenId":"ownerInfo",
+                                "id":"ownerInfo",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/ownerInfo",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "screenId":"riskInfo",
+                                "id":"riskInfo",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/riskInfo",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "screenId": "additionalInfo",
+                                "id": "additionalInfo",
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/additionalInfo",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
                             {
-                                "screenId": "premiumInfo",
+                                "id": "premiumInfo",
                                 "method": "calculatePremium",
                                 "action": "update",
                                 "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
@@ -90,7 +90,7 @@
                         "type": "buttonGroup",
                         "buttons": [
                             {
-                                "label": "_NEXT",
+                                "label": "_CALCULATE",
                                 "method": "calculatePremium",
                                 "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "action": "update",
@@ -101,13 +101,6 @@
                                 "method": "navigateToTab",
                                 "action": "update",
                                 "actionURL": "/eu/screen/riskInfo"
-                            },
-                            {
-                                "label": "_CALCULATE",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/premiumInfo"
                             }
                         ]
                     }

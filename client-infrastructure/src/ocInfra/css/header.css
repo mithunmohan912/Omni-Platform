@@ -1,0 +1,123 @@
+@CHARSET "ISO-8859-1";
+/**********************************
+Responsive navbar-brand image CSS
+- Remove navbar-brand padding for firefox bug workaround
+- add 100% height and width auto ... similar to how bootstrap img-responsive class works
+***********************************/
+@media (min-width: 1200px){
+
+.container {/* width: 1170px; */ width: 970px;}
+
+}
+
+.navbar-default {background-color: #fff;border-color: #E7E5E2;}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #555;
+    background-color: #fff;
+}
+
+.navbar-default {
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 1);
+    border-width: 1px;
+    border-radius: 0px;
+    font-family: "source_sans_proregular";
+}
+.navbar-default .navbar-nav>li>a {
+    color: rgba(85, 85, 85, 1);
+    background-color: rgba(255, 255, 255, 1);
+}
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(0, 154, 175, 1);
+    background-color: rgba(248, 248, 248, 0);
+}
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(0, 154, 175, 1);
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.navbar-brand { padding: 0px;}
+.navbar-brand>img { height: 100%;  padding: 15px;  width: auto;margin-top:13px;}
+
+/* line height is 20px by default so add 10px top and bottom to equal the new .navbar-brand 80px height  */
+
+.navbar-brand { height: 80px;}
+
+
+
+/* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
+.navbar-alignit .navbar-header {
+	-webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+ 	transform-style: preserve-3d;
+  height: 50px;
+}
+.navbar-alignit .navbar-brand {
+	top: 50%;
+	display: block;
+	position: relative;
+	height: auto;
+	transform: translate(0,-50%);
+	margin-right: 15px;
+  margin-left: 15px;
+}
+.navbar-nav>li>.dropdown-menu {	z-index: 9999;}
+.clear-right{clear: right; margin-right: 15px;}
+.nav>li> a.navLag{display: inline-block;}
+
+/* top navbar */
+.navbar .brand {
+max-height: 40px;
+overflow: visible;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-nav>li.language a{       
+    padding: 2px 7px;
+    margin: 12px 2px;
+    font-size: 12px;
+    color: #050d9e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.languageActive{ border: 1px solid #050d9e; } 
+
+.broker{
+    padding: 15px 25px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.broker span:nth-child(2) {color: #050d9e; font-weight: bold;}
+.navbar-nav>li.logout a{
+    padding-right: 0px;
+    color: #050d9e;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 13px 0px;
+}
+
+/* ipad */
+@media (min-width: 768px) and (max-width: 768px){
+.navbar-brand {height: 70px;}
+.navbar-brand>img {padding: 14px 0px;}
+.header-Nav .nav >li >a { padding: 8px;}
+.title-quote {font-size: 23px !important;margin-left:0px !important;}
+.ownerFont {padding-left: 0px;}
+.broker { margin-top: 6px;}
+.clear-right {margin-right: 0px;}
+.navbar-nav>li.logout a { margin-top: 10px;}
+}
+
+@media (min-width: 375px) and (max-width: 375px){
+.navbar-brand{height: 40px}
+.navbar-brand>img {padding: 0px; margin-left: 10px;margin-top: 3px;}
+.header-Nav .nav >li >a { padding: 8px;}
+.title-quote {font-size: 23px !important;margin-left:0px !important;}
+.ownerFont {padding-left: 0px;}
+
+}
