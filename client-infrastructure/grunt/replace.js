@@ -45,8 +45,8 @@ module.exports = {
      src: ['src/app-omnichannel/index.html'],
        overwrite: true,                
          replacements: [{
-         from: '.\/vendors',
-         to: '..\/vendors'
+         from: '".\/vendors',
+         to: '"..\/vendors'
       }]
    },
    replace_mobile: {

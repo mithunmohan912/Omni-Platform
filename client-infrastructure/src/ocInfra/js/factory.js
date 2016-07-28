@@ -19,6 +19,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
+        if(screenId !== undefined && screenId !== 'undefined'){
         if(regionId){
              path='assets/resources/metamodel/regions/'+regionId+'/'+ screenId + '.json';
         }
@@ -48,6 +49,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             growl.error($rootScope.appConfig.timeoutMsg);
             return;
         });
+      }
     };
 
 
