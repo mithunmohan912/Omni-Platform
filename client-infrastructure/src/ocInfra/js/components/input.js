@@ -23,7 +23,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		switch(typeObject.type){
 			case 'integer':
 			case 'number':
-				return 'number';
+				if(!typeObject.enum){
+					return 'number';
+				}
 			case 'boolean':
 				return 'toggle';
 			case 'string':
