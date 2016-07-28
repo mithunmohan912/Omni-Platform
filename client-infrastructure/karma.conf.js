@@ -37,6 +37,7 @@ module.exports = function(config) {
             'src/vendors/angular-mocks/angular-mocks.js',
             'src/vendors/angular-ui-date/src/date.js',
             'src/vendors/angular-ui-mask/dist/mask.min.js',
+            'src/vendors/angular-wizard/dist/angular-wizard.min.js',
             'src/vendors/jquery-ui/jquery-ui.min.js',
             'src/vendors/modernizr/modernizr.js',
             'src/vendors/quick-ng-repeat/quick-ng-repeat.js',

@@ -56,7 +56,8 @@ module.exports = {
                                              'src/app-omnichannel/assets/css/*.css',
                                              'src/app-omnichannel/ocInfra/js/ocInfra.js',
                                              'src/app-omnichannel/ocInfra/dist/*.js',
-                                             'src/ocInfra/css/*.css'
+                                             'src/ocInfra/css/*.css',
+                                             'src/ocInfra/css/Omni_Iconfont/font/flaticon.css'
             ]
         }
 

@@ -6,7 +6,7 @@ exported showHostErrorMessage
 */
 
 
-var app = angular.module('app', ['bm.bsTour','ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate']).
+var app = angular.module('app', ['bm.bsTour','ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate', 'mgo-angular-wizard']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','TourConfigProvider', '$translateProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,TourConfigProvider, $translateProvider) {
     
 TourConfigProvider.set('prefixOptions', false);
@@ -228,6 +228,14 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
                quotessearchFactory.navigateToScreen(params);
             }
         },
+        navigateToWizard: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                });
+            } 
+        },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         }
@@ -238,6 +246,9 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
+        },
+        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
