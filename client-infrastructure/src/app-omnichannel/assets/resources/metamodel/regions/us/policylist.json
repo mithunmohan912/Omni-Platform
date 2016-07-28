@@ -1,0 +1,120 @@
+{
+    "metamodel": {
+        "summary": true,
+        "searching": true,
+        "pagination": true,
+        "properties": [{
+                "id": "symbol",
+                "label_header": "_SYMBOL",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "policyNumber",
+                "label_header": "_NUMBER",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "moduleNumber",
+                "label_header": "_MODULE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "firstName",
+                "label_header": "_FIRST_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "lastName",
+                "label_header": "_LAST_NAME",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "effectiveDate",
+                "label_header": "_EFFECTIVE_DATE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            }, {
+                "id": "expiryDate",
+                "label_header": "_EXPIRATION_DATE",
+                "type": "label",
+                "align": "left",
+                "visible": true,
+                "width": "10%"
+            },
+
+            {
+                "type": "actions",
+                "options": [{
+
+                        "icon": "flaticon-make-pmt",
+                        "title": "_MAKE_A_PAYMENT"
+                        
+                    },
+                    {
+                    "value": "fetchInquire",
+                    "icon": "flaticon-paperless",
+                    "title": "_GO_PAPERLESS",
+                    "action": "fetchInquire",
+                    "method": "itemActionHandling",
+                        "actionURL":"/us/screen/gopaperless",
+                        "visibleWhen":{
+                            "expression":{
+                                "operator":"OR",
+                                "conditions":[
+                                    {
+                                        "field":"gogreenind",
+                                        "value":""
+                                    },
+                                    {
+                                        "field":"gogreenind",
+                                        "value":"0"
+                                    },
+                                    {
+                                        "field":"gogreenind",
+                                        "value":"P"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                    "value": "fetchInquire",
+                    "icon": "flaticon-paper",
+                    "title": "_PREFER_PAPER",
+                    "action": "fetchInquire",
+                    "method": "itemActionHandling",
+                        "actionURL":"/us/screen/preferpaper",
+                        "visibleWhen":{
+                            "expression":{
+                                "field":"gogreenind",
+                                "value":"E"
+                            }
+                        }
+                    },
+                    {
+                    "value": "search",
+                    "icon": "flaticon-view",
+                    "title": "_VIEW",
+                    "action":"fetch",
+                    "method": "itemActionHandling",
+                    "actionURL":"/us/screen/policydocuments"
+                       
+                    }
+                ]
+            }
+        ]
+
+    }
+}
