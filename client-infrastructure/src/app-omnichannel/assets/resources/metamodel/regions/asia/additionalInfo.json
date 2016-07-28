@@ -8,46 +8,7 @@
         },
         "sections": [
             {
-                "properties": [
-                    {
-                        "type": "tabs",
-                        "colspan": 8,
-                        "row": 1,
-                        "tabs": [
-                            {
-                                "id": "quotescreate",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/asia/screen/quotescreate",
-                                "title": "_OWNER_INFO_TAB"
-                            },
-                            {
-                                "id": "riskInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/asia/screen/riskInfo",
-                                "title": "_RISK_INFO_TAB"
-                            },
-                            {
-                                "id": "additionalInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/asia/screen/additionalInfo",
-                                "title": "_ADDITIONAL_INFO_TAB"
-                            },
-                            {
-                                "id": "premiumInfo",
-                                "method": "calculatePremium",
-                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/asia/screen/premiumInfo",
-                                "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
+
                 "properties": [
                     {
                         "id": "quote-additional-premium",
@@ -69,29 +30,6 @@
                         "label": "_QUOTE_ADDITIONAL_LIMIT",
                         "row": 2,
                         "patchOnBlur": true
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                 "id":"btn_auto_additionalinfo_asia_next",
-                                "label": "_CALCULATE",
-                                "method": "calculatePremium",
-                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/asia/screen/premiumInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/asia/screen/riskInfo"
-                            }
-                        ]
                     }
                 ]
             }
