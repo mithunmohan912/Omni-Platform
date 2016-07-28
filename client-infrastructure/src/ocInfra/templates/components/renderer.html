@@ -30,6 +30,17 @@
 									<renderer class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 								</div>
 							</div>
+							<div ng-switch-when="wizards">
+								<wizard template="ocInfra/templates/components/wizard.html">
+									<div ng-repeat="wizard in column.wizards">
+										<wz-step wz-title="{{wizard.title | translate}}">
+        									<renderer metamodel="wizard.screenId" factory-name="wizard.screenId+'Factory'"></renderer>
+        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="Next"/ >
+        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="Reset" />
+    									</wz-step>
+									</div>
+								</wizard>
+							</div>
 					      	<div ng-switch-when="table" class="table-responsive">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
