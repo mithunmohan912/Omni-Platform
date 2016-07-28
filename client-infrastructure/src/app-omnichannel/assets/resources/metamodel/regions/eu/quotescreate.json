@@ -6,83 +6,44 @@
                 "title": "_HOME_QUOTE_EU",
                 "properties": [
                     {
-                        "type": "tabs",
-                        "colspan": 8,
+                        "type": "wizards",
+                        "colspan": 12,
                         "row": 1,
-                        "tabs": [
+                        "wizards": [
                             {
-                                "id": "quotescreate",
-                                "method": "navigateToTab",
+                                "screenId": "quoteInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/quotescreate",
+                                "next": "true",
+                                "method": "navigateToWizard",
                                 "title": "_QUOTE_INFO_TAB"   
                             },
                             {
-                                "id":"ownerInfo",
-                                "method": "navigateToTab",
+                                "screenId":"ownerInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/ownerInfo",
+                                "next": "true",
+                                "method": "navigateToWizard",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "id":"riskInfo",
-                                "method": "navigateToTab",
+                                "screenId":"riskInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/riskInfo",
+                                "next": "true",
+                                "method": "navigateToWizard",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "id": "additionalInfo",
-                                "method": "navigateToTab",
+                                "screenId": "additionalInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/additionalInfo",
+                                "next": "true",
+                                "method": "navigateToWizard",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
                             {
-                                "id": "premiumInfo",
-                                "method": "navigateToTab",
-                                "actionURL": "/eu/screen/premiumInfo",
+                                "screenId": "premiumInfo",
+                                "method": "navigateToWizard",
+                                "reset": "true",
                                 "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "id": "quote:description",
-                        "type": "textarea",
-                        "label": "_EXTERNAL_CONTRACT_NUMBER",
-                        "patchOnBlur": true,
-                        "row": 1
-                    },
-                    {
-                        "id": "quote:contract_start_date",
-                        "mask": "dd/mm/yy",
-                        "type": "date",
-                        "label": "_START_DATE_OF_THE_CONTRACT",
-                        "patchOnBlur": true,
-                        "row": 1
-                    },
-                    {
-                        "id": "quote:language",
-                        "type": "select",
-                        "label": "_CONTRACT_LANGUAGE",
-                        "row": 2
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/ownerInfo"
                             }
                         ]
                     }

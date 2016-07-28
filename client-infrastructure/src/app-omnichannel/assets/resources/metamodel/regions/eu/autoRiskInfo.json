@@ -8,47 +8,6 @@
         },
         "sections": [
             {
-                "title": "_AUTO_QUOTE_EU",
-                "properties": [
-                    {
-                        "type": "tabs",
-                        "colspan": 8,
-                        "row": 1,
-                        "tabs": [
-                            {
-                                "id": "autocreate",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autocreate",
-                                "title": "_QUOTE_INFO_TAB"
-                            },
-                            {
-                                "id":"autoOwnerInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoOwnerInfo",
-                                "title": "_OWNER_INFO_TAB"
-                            },
-                            {
-                                "id":"autoRiskInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoRiskInfo",
-                                "title": "_RISK_INFO_TAB"
-                            },
-                            {
-                                "id": "autoPremiumInfo",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoPremiumInfo",
-                                "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-                },
-            {
                 "properties": [
                     {
                         "id": "quote_automobile:make",
@@ -222,29 +181,7 @@
                         "row": 13
                     }
                 ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                "label": "_CALCULATE",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoPremiumInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoOwnerInfo"
-                            }
-                        ]
-                    }
-                ]
             }
-        ] 
+       ] 
     }
 }

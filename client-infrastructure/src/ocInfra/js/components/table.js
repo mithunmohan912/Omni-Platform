@@ -325,6 +325,45 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	 			}
 	 		};
 
+    $scope.checkShowItemRow = function(action, displayedItem) {
+        if (action.visibleWhen) {
+            return $scope.checkVisibleOnItemRowValue(action, displayedItem, $scope);
+        }
+        return true;
+    };
+    $scope.checkVisibleOnItemRowValue = function(action, displayedItem, $scope) {
+        if (action.visibleWhen) {
+            var response = evaluateItemRowExpression(action.visibleWhen.expression, displayedItem, $scope);
+            return response;
+        }    
+        return true;
+    };
+    function evaluateItemRowExpression(expression, row, $scope) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && evaluateItemRowExpression(val, row, $scope);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || evaluateItemRowExpression(val, row, $scope);
+                    }
+                });
+            }
+        } else //Base case
+        {
+        	var id= row.href;
+            var val= expression.field;
+            response = $scope.resultSet[id].properties[val].value === expression.value;
+        }
+        return response;
+    }
 	 		$scope.add = function(params, callback) {
 	 			resourceFactory.get($scope.resourceUrl).then(function(response) {
 	 				response.data._options.links.forEach(function(link) {

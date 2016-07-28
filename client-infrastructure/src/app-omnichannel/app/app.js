@@ -165,8 +165,8 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
 
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
-        actionHandling: function(params){
-            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
+        actionHandling: function(params){      
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
         },
         navigateToScreen: function(params){
             anonymousFactory.navigateToScreen(params);
@@ -191,6 +191,28 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
+app.factory('insuredloginFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+             
+            quotessearchFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        }
+    };
+});
 app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
         navigateToTab: function(params){
@@ -206,6 +228,14 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
                quotessearchFactory.navigateToScreen(params);
             }
         },
+        navigateToWizard: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                });
+            } 
+        },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         }
@@ -216,6 +246,9 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
+        },
+        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
@@ -233,6 +266,7 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
         }
     };
 });
+
 
 app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
     return {

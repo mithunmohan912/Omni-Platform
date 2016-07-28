@@ -6,77 +6,37 @@
                 "title": "_AUTO_QUOTE_EU",
                 "properties": [
                     {
-                        "type": "tabs",
-                        "colspan": 8,
+                        "type": "wizards",
+                        "colspan": 12,
                         "row": 1,
-                        "tabs": [
+                        "wizards": [
                             {
-                                "id": "autocreate",
-                                "method": "navigateToTab",
+                                "screenId": "autoQuoteInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/autocreate",
-                                "title": "_QUOTE_INFO_TAB"
+                                "next": "true",
+                                "method": "navigateToWizard",
+                                "title": "_QUOTE_INFO_TAB"   
                             },
                             {
-                                "id":"autoOwnerInfo",
-                                "method": "navigateToTab",
+                                "screenId":"autoOwnerInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/autoOwnerInfo",
+                                "next": "true",
+                                "method": "navigateToWizard",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "id":"autoRiskInfo",
-                                "method": "navigateToTab",
+                                "screenId":"autoRiskInfo",
                                 "action": "update",
-                                "actionURL": "/eu/screen/autoRiskInfo",
+                                "next": "true",
+                                "method": "navigateToWizard",
+                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "id": "autoPremiumInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoPremiumInfo",
+                                "screenId": "autoPremiumInfo",
+                                "method": "navigateToWizard",
+                                "reset": "true",
                                 "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "id": "quote:description",
-                        "type": "textarea",
-                        "row": 1,
-                        "patchOnBlur": true,
-                        "label": "_EXTERNAL_CONTRACT_NUMBER"
-                    },
-                    {
-                        "id": "quote:contract_start_date",
-                        "mask": "dd/mm/yy",
-                        "type": "date",
-                        "row": 1,
-                        "patchOnBlur": true,
-                        "label": "_START_DATE_OF_THE_CONTRACT"
-                    },
-                    {
-                        "id": "quote:language",
-                        "type": "select",
-                        "row": 2,
-                        "label": "_CONTRACT_LANGUAGE"
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/autoOwnerInfo"
                             }
                         ]
                     }
