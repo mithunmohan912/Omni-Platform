@@ -1,7 +1,7 @@
 <div class="pagination" ng-if="pages.length >= 1">
     <nav>
         <ul class="pagination">
-            <li><a ng-click="selectPage(1)">{{ '_FIRST_PAGE' | translate }}</a></li>
+            <li><a ng-click="selectPage(1)">{{ '_FIRST' | translate }}</a></li>
             <li><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
             <li>
                 <a>
@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
-            <li><a ng-click="selectPage(numPages)">{{ '_LAST_PAGE' | translate }}</a></li>
+            <li><a ng-click="selectPage(numPages)">{{ '_LAST' | translate }}</a></li>
         </ul>
     </nav>
 </div>

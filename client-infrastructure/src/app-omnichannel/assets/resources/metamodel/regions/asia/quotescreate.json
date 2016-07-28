@@ -7,87 +7,41 @@
         },
         "sections": [
             {
+                "title": "_ASIA_AUTO_QS",
                 "properties": [
                     {
-                        "type": "tabs",
-                        "colspan": 8,
+                        "type": "wizards",
+                        "colspan": 12,
                         "row": 1,
-                        "tabs": [
+                        "wizards": [
                             {
-                                "id": "quotescreate",
-                                "method": "navigateToTab",
+                                "screenId": "ownerInfo",
                                 "action": "update",
-                                "actionURL": "/asia/screen/quotescreate",
+                                "next": "true",
+                                "method": "navigateToWizard",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "id": "riskInfo",
-                                "method": "navigateToTab",
+                                "screenId": "riskInfo",
+                                "method": "navigateToWizard",
                                 "action": "update",
-                                "actionURL": "/asia/screen/riskInfo",
+                                "next": "true",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "id": "additionalInfo",
-                                "method": "navigateToTab",
+                                "screenId": "additionalInfo",
+                                "method": "navigateToWizard",
+                                "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
                                 "action": "update",
-                                "actionURL": "/asia/screen/additionalInfo",
+                                "next": "true",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
                             {
-                                "id": "premiumInfo",
-                                "method": "navigateToTab",
+                                "screenId": "premiumInfo",
+                                "method": "navigateToWizard",
+                                "reset": "true",
                                 "action": "update",
-                                "actionURL": "/asia/screen/premiumInfo",
                                 "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "properties":   [
-                    {
-                        "id": "quote-party-type",
-                        "type": "select",
-                        "label": "_QUOTE_PARTY_TYPE",
-                        "patchOnBlur": true,
-                        "row": 1
-                    },
-                    {
-                         "id": "quote-full-name",
-                         "type": "text",
-                         "label": "_QUOTE_FULL_NAME",
-                         "patchOnBlur": true,
-                        "row": 1
-                    },
-                    {
-                        "id": "quote-gender",
-                        "type": "select",
-                        "label": "_GENDER",
-                        "patchOnBlur": true,
-                        "row": 2
-                    },
-                    {
-                        "id": "quote-birth-date",
-                        "type": "date",
-                        "label": "_DOB",
-                        "patchOnBlur": true,
-                        "row": 2
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {   
-                                 "id":"btn_autocreate_ownerinfo_asia_next",
-                                "label": "_NEXT",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/asia/screen/riskInfo"
                             }
                         ]
                     }
