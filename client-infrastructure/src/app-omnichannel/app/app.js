@@ -165,16 +165,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
 
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
-        actionHandling: function(params){
-            var scope = params.scope;
-           var resourceUrl =scope.optionUrl;           
-            params.optionUrl = resourceUrl;
-            for(var key in params.defaultValues){
-                if(!params.properties[key]){
-                    params.defaultValues[key].metainfo = {};
-                    params.properties[key]= params.defaultValues[key];
-                }
-            } 
+        actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
         },
         navigateToScreen: function(params){
@@ -203,6 +194,15 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
 app.factory('insuredloginFactory', function($rootScope, quotessearchFactory){
     return {
         actionHandling: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+             
             quotessearchFactory.actionHandling(params);
         },
         navigateToScreen: function(params){
