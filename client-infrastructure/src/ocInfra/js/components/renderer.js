@@ -455,6 +455,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+		
+		    $scope.$on('pdf_update', function(event, params){
+
+		        $scope.pdfUrl = params.url;
+		        
+		    });
 		},
 		templateUrl: $rootScope.templatesURL + 'renderer.html'
 	};
