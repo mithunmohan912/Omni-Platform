@@ -1,32 +1,152 @@
 {
     "metamodel": {
-        "formid": "InquireHomeQuote",
-        "title": "_INQUIRE_HOME_QUOTE",
-        "resourcelist": ["quotes"], 
-        "category":"tabs",
-        "name": "InquireHomeQuote",
+        "showHeader": true,
         "sections": [
             {
-                "$ref":"inqpolicyInfo",
-                "name": "_POLICY",
-                "renderAsTab": true,
-                "step": 1
+                 "title": "_INQUIRE_HOME_QUOTE",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "hoquoteinquire",
+                                "method": "navigateToTab",
+                             
+                                "actionURL": "/us/screen/hoquoteinquire",
+                                "title": "_POLICYINFO"
+                            },
+                            {
+                                "screenId":"inqlocationInfo",
+                                "method": "navigateToTab",
+                               
+                                "actionURL": "/us/screen/inqlocationInfo",
+                                "title": "_LOCATION"
+                            },
+                            {
+                                "screenId":"inqcoverageInfo",
+                                "method": "navigateToTab",
+                               
+                                "actionURL": "/us/screen/inqcoverageInfo",
+                                "title": "_COVERAGE"
+                            }
+                       ]
+                    }
+                ]
             },
+                            
             {
-                "$ref":"inqlocationInfo",
-                "name": "_LOCATION",
-                "renderAsTab": true,
-                "step": 2
-            },
-            {
-                "$ref": "inqcoverageInfo",
-                "name": "_COVERAGE",
-                "renderAsTab": true,
-                "step": 3
+             "properties": [
+                            
+                    {
+                        "id": "QuoteSyncRs-persPolicy-lobCd",
+                        "type": "text",
+                        "label": "_LINE_OF_BUSINESS_CODE",
+                       
+                        "disabled":true,
+                        
+                        "row": 1
+                       
+                    },
+
+                    {
+                        "id": "QuoteSyncRs-prod-item-agencyId",
+
+                        "type": "text",
+                        "label": "_AGENCY_ID",
+                        
+                        "disabled":true,
+                        "row": 1
+                       
+                        
+                    },
+                     {
+                        "id": "QuoteSyncRs-prod-party-nameInfo-commlName-commName",
+
+                        "type": "text",
+                        "label": "_COMPANY_NAME",
+                       
+                        "disabled":true,
+                        "row": 2
+                      
+                       
+                    },
+                    {
+                        "id": "QuoteSyncRs-persPolicy-policyNumber",
+                        "type": "text",
+                        "label": "_QUOTE_NUMBER",
+                       
+                        "disabled":true,
+                        "row": 2
+                    
+                    },
+                   
+                     {
+                        "id": "QuoteSyncRs-loc-addr-city",
+
+                        "type": "text",
+                        "label": "_ADDRESS_CITY",
+                       
+                         "disabled":true,
+                        "row": 3
+                       
+                        
+                    },
+ 
+                     {
+                        "id": "QuoteSyncRs-loc-addr-state",
+                        "type": "text",
+                        "label": "_STATE",
+                       
+                         "disabled":true,
+                       
+                        "row": 3
+                       
+                       
+                    },
+                     {
+                        "id": "QuoteSyncRs-loc-addr-addr1",
+                        "type": "text",
+                        "label": "_ADDRESS",
+                     
+                         "disabled":true,
+                        "row": 4
+                      
+                       
+                    },
+                   
+ 
+                     {
+                        "id": "QuoteSyncRs-loc-addr-postalCode",
+                        "type": "text",
+                        "label": "_POSTAL_CODE",
+                       
+                        "disabled":true,
+                        "row": 4
+                     
+                       
+                    }
+
+                    ]
+                   },
+                    
+                {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToScreen",
+                                "action": "update",
+                                "actionURL": "/us/screen/inqlocationInfo"
+                                 }
+                        ]
+                    }
+                ]
             }
+                        
         ] 
-    },
-    "include":[
-        "inqpolicyInfo", "inqlocationInfo", "inqcoverageInfo"
-    ]
+    }
 }

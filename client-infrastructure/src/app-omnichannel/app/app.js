@@ -299,6 +299,100 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
         }
     };
 });
+
+app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
+   return {
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(params){
+            quotessearchFactory.itemActionHandling(params);
+        }
+    };
+});
+
+app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
+    return {
+        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, $location);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
+            anonymousFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        navigateToTab: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        anonymousFactory.navigateToScreen(params);
+                    }
+                });
+            } else if(params.inputComponent.actionURL){
+               anonymousFactory.navigateToScreen(params);
+            }
+        }
+    };
+});
+
+app.factory('clientinquireFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        actionHandling: function(params){
+            hoquoteinquireFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(params){
+            hoquoteinquireFactory.itemActionHandling(params);
+        },
+          navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        }
+    };
+});
+
+app.factory('inqlocationInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        }
+    };
+});
+
+
+app.factory('inqcoverageInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        }
+    };
+});
+
+app.factory('inqadditClientInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        }
+    };
+});
+
 app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function(params){
