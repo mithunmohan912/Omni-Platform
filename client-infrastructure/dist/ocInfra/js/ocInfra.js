@@ -624,13 +624,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
 					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: $scope.metamodel.value || $scope.actionFactory[$scope.metamodel.init] || _searchInParents($scope, $scope.metamodel.init) };
-
+					$scope.property = $scope.resources[$scope.metamodel.id];
 					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
-
 						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
 					}
-
-					$scope.property = $scope.resources[$scope.metamodel.id];
 				}
 
 				// Get the url of the template we will use based on input type
