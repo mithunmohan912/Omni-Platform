@@ -1,0 +1,89 @@
+ {
+        "metamodel": {
+              "resource": "policies", 
+            "showHeader": true,
+            "sections": [
+                {
+                     "title": "_PAYMENT_OPTION",
+                    
+                               
+                    
+                                "properties": [  
+                                  {
+                            "id": "routingNum",
+                            "type": "text",
+                            "label": "_ROUTING_NUM",
+
+                            "uiInput" : true,
+                            "row": 1
+                            
+                       
+                      
+                      
+                        },
+                           {
+                            "id": "accountNum",
+                            "type": "text",
+                            "label": "_ACCOUNT_NUM",
+
+                            "uiInput" : true,
+                            "row": 1
+                            
+                       
+                      
+                      
+                        },
+                        {
+                            "id": "accName",
+                            "type": "text",
+                            "label": "_ACCOUNT_NAME",
+                         "uiInput" : true,
+                            "row": 2
+                        },
+                        {
+                            "id": "bankName",
+                            "type": "text",
+                            "label": "_BANK_NAME",
+                            "uiInput" : true,
+                            "row": 2
+                                } ,
+
+                                {
+                            "id": "checkNum",
+                            "type": "text",
+                            "label": "_CHECK_NUM",
+                            "uiInput" : true,
+                            "row": 3
+                                } ,
+
+                                 {
+                            "id": "paymentAmt",
+                            "type": "text",
+                            "label": "_PAYMENT_AMT",
+                            "uiInput" : true,
+                            "row": 3
+                                } 
+                                ]
+                                }          
+                                  ,
+                                   {
+                    "properties": [
+                        {
+                            "type": "buttonGroup",
+                            "buttons": [
+                               
+                     {
+                                    "label": "_PREVIOUS",
+                                    "method": "navigateToTab",
+                                  
+                                    "actionURL": "/us/screen/makepayment"
+                                }
+                     
+                            ]
+                        }
+                    ]
+                }
+                            
+            ] 
+        }
+    }
