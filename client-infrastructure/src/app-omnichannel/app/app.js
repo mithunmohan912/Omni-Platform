@@ -191,7 +191,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
-app.factory('insuredloginFactory', function($rootScope, quotessearchFactory){
+app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
     return {
         actionHandling: function(params){
             if(params.defaultValues !== undefined){
