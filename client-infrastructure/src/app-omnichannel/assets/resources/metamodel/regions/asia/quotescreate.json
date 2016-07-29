@@ -16,31 +16,34 @@
                         "row": 1,
                         "wizards": [
                             {
-                                "screenId": "ownerInfo",
+                                "id": "ownerInfo",
                                 "action": "update",
                                 "next": "true",
                                 "method": "navigateToWizard",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "screenId": "riskInfo",
+                                "id": "riskInfo",
                                 "method": "navigateToWizard",
                                 "action": "update",
                                 "next": "true",
+                                "back": "true",
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "screenId": "additionalInfo",
+                                "id": "additionalInfo",
                                 "method": "navigateToWizard",
                                 "tab": ["quote:quote_operations", "quote:quote-execute", "tariff_calculation"],
                                 "action": "update",
                                 "next": "true",
+                                "back": "true",
                                 "title": "_ADDITIONAL_INFO_TAB"
                             },
                             {
-                                "screenId": "premiumInfo",
+                                "id": "premiumInfo",
                                 "method": "navigateToWizard",
                                 "reset": "true",
+                                "back": "true",
                                 "action": "update",
                                 "title": "_PREMIUM_INFO_TAB"
                             }

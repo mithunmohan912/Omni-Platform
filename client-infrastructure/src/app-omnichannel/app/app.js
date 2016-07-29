@@ -172,6 +172,7 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             anonymousFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
+            $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         }
     };

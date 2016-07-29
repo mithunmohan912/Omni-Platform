@@ -12,31 +12,34 @@
                         "row": 1,
                         "wizards": [
                             {
-                                "screenId": "autoQuoteInfo",
+                                "id": "autoQuoteInfo",
                                 "action": "update",
                                 "next": "true",
                                 "method": "navigateToWizard",
                                 "title": "_QUOTE_INFO_TAB"   
                             },
                             {
-                                "screenId":"autoOwnerInfo",
+                                "id":"autoOwnerInfo",
                                 "action": "update",
                                 "next": "true",
+                                "back": "true",
                                 "method": "navigateToWizard",
                                 "title": "_OWNER_INFO_TAB"
                             },
                             {
-                                "screenId":"autoRiskInfo",
+                                "id":"autoRiskInfo",
                                 "action": "update",
                                 "next": "true",
+                                "back": "true",
                                 "method": "navigateToWizard",
                                 "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
                                 "title": "_RISK_INFO_TAB"
                             },
                             {
-                                "screenId": "autoPremiumInfo",
+                                "id": "autoPremiumInfo",
                                 "method": "navigateToWizard",
                                 "reset": "true",
+                                "back": "true",
                                 "title": "_PREMIUM_INFO_TAB"
                             }
                         ]
