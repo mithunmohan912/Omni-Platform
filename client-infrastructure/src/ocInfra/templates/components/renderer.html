@@ -1,13 +1,12 @@
 <div class="renderer renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
 	<div ng-repeat="section in metamodelObject.sections track by $index" class="section col-xs-12 {{section.class}}" ng-class="section.colspan ? 'col-sm-{{section.colspan}} col-sm-offset-{{section.offset}}': 'col-sm-12'" ng-switch on="section.type">	
-		<div ng-if="section.title || section.logodir" class="oc-modal-header border-none">
+		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center"></div>
-        	<h3 class="text-left section-Title">{{ section.title | translate }}</h3>        	
-			<div class="hr_margin">
-                <hr ng-if="section.title" class="onl_hrOr_1">
-        		<hr class="onl_hrOr_2">
-            </div>
-    	</div>
+		    <span ng-if="section.icon" class="flaticon-hexagon"></span>
+            <span ng-if="section.icon" class="{{section.icon}} icon-color"></span>
+            <span class="tabTitle">{{ section.title | translate }}</span>
+        	<hr class="onl_hrOr_2">
+    	</h3>
 		<div ng-switch-when="reference" class="linkedRenderer">
 			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
 		</div>
