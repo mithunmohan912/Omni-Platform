@@ -1,0 +1,135 @@
+{
+    "metamodel": {
+        "showHeader": true,
+        "sections": [
+            {
+                 "title": "_INQUIRE_CLIENT",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "clientinquire",
+                                "method": "navigateToTab",
+                             
+                                "actionURL": "/us/screen/clientinquire",
+                                "title": "_CLIENT_INFO"
+                            },
+                            {
+                                "screenId":"inqadditClientInfo",
+                                "method": "navigateToTab",
+                              
+                                "actionURL": "/us/screen/inqadditClientInfo",
+                                "title": "_ADDITIONAL_CLIENT_INFO"
+                            }
+                       ]
+                    }
+                ]
+            },
+                            
+            {
+             "properties": [
+                            
+                   {
+                    "id": "A_BUSINESS_TAX_ID",
+                    "type": "text",
+                    "label": "_BUSINESS_TAX_ID",
+                    "visible": true,
+                    "placeholder": "##-#######",
+                    "row": 1,
+                    "disabled": true
+                }, {
+
+                    "id": "A_INDIVIDUAL_SSN",
+                    "type": "text",
+                    "label": "_INDIVIDUAL_SSN",
+                    "visible": true,
+                    "placeholder": "###-##-####",
+                    "row": 1,
+                    "disabled": true
+                },
+
+                {
+
+                    "id": "A_PHONE_1",
+                    "type": "text",
+                    "label": "_PHONE_1",
+                    "visible": true,
+                    "placeholder": "###-###-####",
+                    "row": 1,
+                    "disabled": true
+
+                },
+
+
+                {
+                    "id": "A_PHONE_2",
+                    "type": "text",
+                    "label": "_PHONE_2",
+                    "visible": true,
+                    "placeholder": "###-###-####",
+                    "row": 2,
+                    "disabled": true
+
+                }, {
+                    "id": "A_SEX",
+                    "type": "text",
+                    "label": "_SEX",
+                    "visible": true,
+                    "row": 2,
+                    "disabled": true
+
+                },
+
+                {
+                    "id": "A_DATE_OF_BIRTH",
+                    "type": "text",
+                    "label": "_DATE_OF_BIRTH",
+                    "visible": true,
+                    "placeholder": "mm/dd/yyyy",
+                    "row": 2,
+                    "disabled": true
+
+                },
+
+
+                {
+                    "id": "A_EMAIL_ADDRESS_1",
+                    "type": "text",
+                        "label": "_EMAIL_ADDRESS_1",
+                    "visible": true,
+                    "row": 3,
+                    "disabled": true
+                }, {
+                    "id": "A_EMAIL_ADDRESS_1",
+                    "type": "text",
+                        "label": "_EMAIL_ADDRESS_2",
+                    "visible": true,
+                    "row": 3,
+                    "disabled": true
+
+                }
+
+                    ]
+                   },
+                    
+                {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/us/screen/clientinquire"
+                                 }
+                        ]
+                    }
+                ]
+            }
+                        
+        ] 
+    }
+}
