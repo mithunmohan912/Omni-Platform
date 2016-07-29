@@ -209,7 +209,7 @@ app.factory('insuredloginFactory', function($rootScope, quotessearchFactory){
             quotessearchFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
-            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         }
     };
 });
@@ -266,8 +266,29 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
         }
     };
 });
-
-
+app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+            var scope = params.scope;
+            var resourceUrl = scope.resourceUrlToRender;
+            params.optionUrl = resourceUrl;
+            for(var key in params.defaultValues){
+                if(!params.properties[key]){
+                    params.defaultValues[key].metainfo = {};
+                    params.properties[key]= params.defaultValues[key];
+                }
+            } 
+            quotessearchFactory.actionHandling(params);
+        }
+    };
+});
+app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
+   return {
+        actionHandling:function(params){ 
+        gopaperlessFactory.actionHandling(params);
+        }
+    };
+});
 app.factory('autoOwnerInfoFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function(params){
