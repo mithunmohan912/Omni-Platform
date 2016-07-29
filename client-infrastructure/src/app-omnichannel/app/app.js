@@ -282,19 +282,10 @@ app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
         }
     };
 });
-app.factory('preferpaperFactory', function($rootScope, quotessearchFactory){
+app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
    return {
-        actionHandling: function(params){
-            var scope = params.scope;
-            var resourceUrl = scope.resourceUrlToRender;
-            params.optionUrl = resourceUrl;
-            for(var key in params.defaultValues){
-                if(!params.properties[key]){
-                    params.defaultValues[key].metainfo = {};
-                    params.properties[key]= params.defaultValues[key];
-                }
-            } 
-            quotessearchFactory.actionHandling(params);
+        actionHandling:function(params){ 
+        gopaperlessFactory.actionHandling(params);
         }
     };
 });
