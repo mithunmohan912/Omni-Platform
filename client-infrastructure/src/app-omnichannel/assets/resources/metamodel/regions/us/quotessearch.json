@@ -2,25 +2,18 @@
     "metamodel": {
         "resource": "quotes",
         "summary": true,
+"defaultValue": [
+            {
+                "field": "MAXRECORDS",
+                "value": "30",
+                "action": "search"              
+            }
+           ], 
         "sections": [
-            {
+            
+        
+            { 
                 "title": "_HOME_QUOTE_US_SEARCH",
-                "icon":"flaticon-home",
-                "properties": [
-                            {
-                                "type": "buttonGroup",
-                                "buttons" : [
-                                    {
-                                        "id":"btn_home_quote_us_create",
-                                        "method": "navigateToScreen",
-                                        "label": "_CREATE_QUOTE",
-                                        "actionURL": "/us/screen/quotescreate"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-            {
                 "properties": [
                                {
                                     "id": "symbol",
@@ -58,7 +51,6 @@
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
-                                        "id":"btn_home_quote_eu_search",
                                         "label": "_SEARCH",
                                         "method":"actionHandling",
                                         "action":"search"
@@ -79,3 +71,11 @@
         ]
     }
 }
+
+
+
+
+
+
+
+

@@ -1,62 +1,87 @@
 {
-    "tableMetaModel": {
-        "id": "clientlist",
-        "title": "Client Search List",
+    "metamodel": {
+        "summary": true,
         "searching": true,
-        "name":"clientList",
-        "actionurl": "/screen/clientssearch",
-        "element": [
-             {
-                "quoteField": "CLIENTNAME",
-                "displayName": "_LAST_NAME",
-                "type": "label",
-                "align": "left",
-                "visible": true,
-                "width": "10%"
-            },        
+        "pagination": true,
+        "properties": [
             {
-                "quoteField": "FIRSTNAME",
-                "displayName": "_FIRST_NAME",
-                "type": "label",
-                "align": "left",
-                "visible": true,
-                "width": "10%"   
+               "id": "CLIENTNAME",
+                "label_header": "_LAST_NAME",
+               "type": "label",
+               "align": "left",
+               "visible": true,
+               "width": "10%"   
             },
-            
             {
-                "quoteField": "ADDRLN1",                
-                "displayName": "_ADDRESS",
+               
+                "id": "FIRSTNAME",
+                "label_header": "_FIRST_NAME",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
             {
-                "quoteField": "CITY",                
-                "displayName": "_CITY",
+                
+               "id": "ADDRLN1",                
+                "label_header": "_ADDRESS",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
             {
-                "quoteField": "STATE",                
-                "displayName": "_STATE",
+                
+                "id": "CITY",                
+                "label_header": "_CITY",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
-            {
-                "quoteField": "ZIPCODE",                
-                "displayName": "_POSTAL_CODE",
+            {    "id": "STATE",                
+                "label_header": "_STATE",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
+            },
+            {  
+               "id": "ZIPCODE",                
+                "label_header": "_POSTAL_CODE",
+                "type": "text",
+                "align": "left",
+                "visible": true,
+                "width": "15%"
+            },
+            {
+                "type": "actions",
+                "label_header": "_ACTION",
+                "options": [
+                   
+                    
+                    {
+                        "value": "fetch",
+                        "action": "fetch",
+                        "icon": "flaticon-question",
+                        "method": "itemActionHandling",
+                        "actionURL": "/us/screen/clientinquire" ,
+                             "title": "_INQUIRE"                       
+                    },
+                    {
+                        "value": "delete",
+                        "action": "delete",
+                        "icon": "flaticon-delete",
+                        "method": "itemActionHandling",
+                        
+                        "title": "_DELETE"                        
+                    }
+                ]
             }
-             
         ]
-        
     }
 }
+
+
+
+           
