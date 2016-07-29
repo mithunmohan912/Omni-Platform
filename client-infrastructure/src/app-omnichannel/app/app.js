@@ -283,6 +283,15 @@ app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
         }
     };
 });
+
+app.factory('makepaymentFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
+        }
+    };
+});
+
 app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
    return {
         actionHandling:function(params){ 
