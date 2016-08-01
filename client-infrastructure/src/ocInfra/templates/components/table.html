@@ -6,7 +6,7 @@
 			</tr>
 			<tr ng-show="metamodelObject.searching">
 				<th colspan="{{metamodelObject.properties.length}}">
-					<input st-search placeholder="Enter text to search ..." class="input-sm form-control" type="search"/>
+					<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
 				</th>
 			</tr>
 		</thead>
@@ -21,7 +21,7 @@
 										{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
 									</span>
 									<span ng-switch-default>
-	 									{{ displayedItem.properties[fieldId].value }}&nbsp;
+	 									{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
 	 								</span>
 	 							</ng-switch>
  							</span>
@@ -41,7 +41,7 @@
 						               </a>
 						            </span>
 						            <span ng-switch-default>
-						            	<a><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						            	<a ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
 						            </span>
 		                		</ng-switch>

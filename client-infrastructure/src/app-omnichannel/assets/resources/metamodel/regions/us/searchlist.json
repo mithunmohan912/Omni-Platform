@@ -5,22 +5,25 @@
         "pagination": true,
         "properties": [
             {
-    	       "label_header": "_QUOTE_STATUS",
-    	       "type": "label",
-    	       "align": "left",
-    	       "visible": true,
-    	       "width": "10%"   
+                "id": "policyStatus",
+               "label_header": "_QUOTE_STATUS",
+               "type": "label",
+               "align": "left",
+               "visible": true,
+               "width": "10%"   
             },
             {
-                "id": "contract:number",
+               
+                "id": "policyNumber",
                 "label_header": "_NUMBER",
-                "type": "label",
+                "type": "text",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
             {
-                "id": "person:last_name",
+                
+                "id": "lastName",
                 "label_header": "_NAME",
                 "type": "label",
                 "align": "left",
@@ -28,21 +31,23 @@
                 "width": "10%"
             },
             {
-                "id": "contract:start_date",
+                
+                "id": "effectiveDate",
                 "label_header": "_Effective_Date",
                 "type": "date",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
-            {              
+            {    "id": "addressLine4",            
                 "label_header": "_CITY",
                 "type": "label",
                 "align": "left",
                 "visible": true,
                 "width": "10%"
             },
-            {            
+            {  
+               "id": "state",        
                 "label_header": "_STATE",
                 "type": "label",
                 "align": "left",
@@ -50,65 +55,32 @@
                 "width": "15%"
             },
             {
-                "type": "dropdown",
-                "align": "left",
-                "visible": true,
+                "type": "actions",
                 "label_header": "_ACTION",
-                "width": "10%",
-                "space":"nowrap",
                 "options": [
+                   
+                    
                     {
-                        "value": "inquire",
+                        "value": "fetch",
+                        "action": "fetch",
                         "icon": "flaticon-question",
-                        "title": "_INQUIRE",
-                        "actionurl": "/us/screen/hoquoteinquire"
-                    },
-                    {
-                        "value": "edit",
-                        "icon": "fa fa-edit",
-			            "title": "_EDIT",
-			            "actionurl": "/us/screen/quotesedit",
-                        "visibleWhen": {
-                            "expression": {
-                                "operator": "OR",
-                                "conditions": [
-                                    {
-                                        "field": "quote:product_id",
-                                        "value": "MC011"
-                                    },
-                                    {
-                                        "field": "quote:product_id",
-                                        "value": "MD005"
-                                    },
-                                    {
-                                        "field": "quote:product_id",
-                                        "value": "MA002"
-                                    },
-                                    {
-                                        "field": "quote:product_id",
-                                        "value": "MC002"
-                                    }
-                                ]
-                            }
-                        }
+                        "method": "itemActionHandling",
+                        "actionURL": "/us/screen/hoquoteinquire" ,
+                             "title": "_INQUIRE"                       
                     },
                     {
                         "value": "delete",
                         "action": "delete",
-                        "icon": "glyphicon glyphicon-trash",
-                        "title": "_DELETE"
+                        "icon": "flaticon-delete",
+                        "method": "itemActionHandling",
+                        "title": "_DELETE"                        
                     }
                 ]
             }
-        ],
-        "iconList": 
-            {
-                "MC011": "flaticon-auto", 
-                "MD005": "flaticon-auto", 
-                "MA002": "flaticon-auto", 
-                "MC002": "flaticon-auto", 
-                "IN005": "flaticon-home", 
-                "AX009": "flaticon-auto"  
-            }
+        ]
     }
 }
+
+
+
+           

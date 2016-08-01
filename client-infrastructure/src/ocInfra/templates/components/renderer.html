@@ -1,13 +1,12 @@
-<div class="renderer renderer-{{activeTab}}">
+<div class="renderer renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
 	<div ng-repeat="section in metamodelObject.sections track by $index" class="section col-xs-12 {{section.class}}" ng-class="section.colspan ? 'col-sm-{{section.colspan}} col-sm-offset-{{section.offset}}': 'col-sm-12'" ng-switch on="section.type">	
-		<div ng-if="section.title || section.logodir" class="oc-modal-header border-none">
+		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center"></div>
-        	<h3 class="text-left section-Title">{{ section.title | translate }}</h3>        	
-			<div class="hr_margin">
-                <hr ng-if="section.title" class="onl_hrOr_1">
-        		<hr class="onl_hrOr_2">
-            </div>
-    	</div>
+		    <span ng-if="section.icon" class="flaticon-hexagon"></span>
+            <span ng-if="section.icon" class="{{section.icon}} icon-color"></span>
+            <span class="tabTitle">{{ section.title | translate }}</span>
+        	<hr class="onl_hrOr_2">
+    	</h3>
 		<div ng-switch-when="reference" class="linkedRenderer">
 			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
 		</div>
@@ -30,6 +29,18 @@
 									<renderer class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 								</div>
 							</div>
+							<div ng-switch-when="wizards">
+								<wizard template="ocInfra/templates/components/wizard.html">
+									<div ng-repeat="wizard in column.wizards">
+										<wz-step wz-title="{{wizard.title | translate}}">
+        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
+        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="Next"/ >
+        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="Back"/ >
+        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="Start Over" />
+    									</wz-step>
+									</div>
+								</wizard>
+							</div>
 					      	<div ng-switch-when="table" class="table-responsive">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
@@ -38,11 +49,17 @@
 							</div>	
 							<div ng-switch-when="buttonGroup">
 								<div ng-repeat="button in column.buttons" class="renderer-button-div">
-									<button ng-if="button.label || button.icon" class="btn btn-primary renderer-button" ng-click="execute(button)">
+									<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
+									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true">
 										<span ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 									</button>
+									<button ng-if="button.type == 'tourButton'" class="btn btn-primary renderer-button" ng-click="tour.restart(true)">
+										<span ng-if="button.icon" class="fa fa-2x {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
+										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
+									</button>
 								</div>
+
 							</div>
 							<div ng-switch-when="iconGroup">
 								<div class="col-xs-6 col-md-6" ng-repeat="icon in column.icons">

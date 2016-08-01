@@ -4,12 +4,34 @@
 **To build this project use**
 _mvn install_
 
+
 **To install this project** 
 * Copy the application WAR on to a folder on the server.
 * Download and copy the jetty-runner.jar file on the same folder as application WAR.
 * Open command prompt and set the current working directory to the above folder location (where WAR and JAR has been placed).
 * Run the following command - 
 _java -jar jetty-runner.jar ocintegration.war_
+
+
+**To build this project as a Docker image** 
+_docker build -t <username>/ocintegration ._
+
+**To explore the ocintegration image as a Docker container** 
+_docker run -t -i <username>/ocintegration /bin/bash_
+
+**To run the ocintegration image as a Docker container** 
+_docker run --name ocintegration -d -p 8888:8888 <username>/ocintegration_
+
+
+**To build this project as a Bluemix IBM container Docker image** 
+_cf ic build -t registry.ng.bluemix.net/docker4you/ocintegration ._
+
+**To run the ocintegration image as a Bluemix IBM container** 
+_cf ic run --name ocintegration -p 8888 -m 128 registry.ng.bluemix.net/docker4you/ocintegration_
+
+**To bind an ip address to the ocintegration Bluemix IBM container** 
+_cf ic ip bind <ip-address> ocintegration_
+
 
 **To run a test on the project**
 * Use Postman to invoke the rest service.

@@ -151,11 +151,28 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							field.options.getData: action defined by the user that will be invoked to fill the dropdown options.
 							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
 						*/
+						var enumeration = {};
+						var data = null;
 						if(field.options.getData){
-							return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
 						} else {
 							//console.warn('input.js -> select_getData(): No getData method for select input.');
-							return field.attributes.enum;
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
 						}
 					}
 				}

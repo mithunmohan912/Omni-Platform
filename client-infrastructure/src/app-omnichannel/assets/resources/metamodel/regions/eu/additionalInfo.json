@@ -8,54 +8,6 @@
         },
         "sections": [
             {
-                 "title": "_HOME_QUOTE_EU",
-                "properties": [
-                    {
-                        "type": "tabs",
-                        "colspan": 8,
-                        "row": 1,
-                        "tabs": [
-                            {
-                                "screenId": "quotescreate",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/quotescreate",
-                                "title": "_QUOTE_INFO_TAB"   
-                            },
-                            {
-                                "screenId":"ownerInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/ownerInfo",
-                                "title": "_OWNER_INFO_TAB"
-                            },
-                            {
-                                "screenId":"riskInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/riskInfo",
-                                "title": "_RISK_INFO_TAB"
-                            },
-                            {
-                                "screenId": "additionalInfo",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/additionalInfo",
-                                "title": "_ADDITIONAL_INFO_TAB"
-                            },
-                            {
-                                "screenId": "premiumInfo",
-                                "method": "calculatePremium",
-                                "action": "update",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "actionURL": "/eu/screen/premiumInfo",
-                                "title": "_PREMIUM_INFO_TAB"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
                 "properties": [
                     {
                         "id": "quote_home:ext_above_ground_floor",
@@ -81,35 +33,6 @@
                         "type": "toggle",
                         "label": "_FLOODING_Q4",
                         "row": 2
-                    }
-                ]
-            },
-            {
-                "properties": [
-                    {
-                        "type": "buttonGroup",
-                        "buttons": [
-                            {
-                                "label": "_NEXT",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/premiumInfo"
-                            },
-                            {
-                                "label": "_PREVIOUS",
-                                "method": "navigateToTab",
-                                "action": "update",
-                                "actionURL": "/eu/screen/riskInfo"
-                            },
-                            {
-                                "label": "_CALCULATE",
-                                "method": "calculatePremium",
-                                "tab": ["cscaia:operations", "cscaia:execute", "tariff_calculation"],
-                                "action": "update",
-                                "actionURL": "/eu/screen/premiumInfo"
-                            }
-                        ]
                     }
                 ]
             }

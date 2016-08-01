@@ -1,0 +1,250 @@
+{
+    "metamodel": {
+        "showHeader": true,
+        "sections": [
+            {
+                 "title": "_INQUIRE_CLIENT",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                           
+                           
+                             {
+                                "screenId": "clientinquire",
+                                "method": "navigateToTab",
+                             
+                                "actionURL": "/us/screen/clientinquire",
+                                "title": "_CLIENT_INFO"
+                            },
+                             {
+                                "screenId":"inqadditClientInfo",
+                                "method": "navigateToTab",
+                               
+                                "actionURL": "/us/screen/inqadditClientInfo",
+                                "title": "_ADDITIONAL_CLIENT_INFO"
+                            }
+                       ]
+                    }
+                ]
+            },
+                            
+            {
+             "properties": [
+                            
+                    {
+                        "id": "A_GROUP_NUMBER",
+                        "type": "text",
+                        "label": "_GROUP_NUMBER",
+                      
+                        "disabled":true,
+                        "row": 1
+                    },
+                     {
+                        "id": "A_CONTRACT_NUMBER",
+                        "type": "text",
+                        "label": "_CONTRACT_NUMBER",
+                       
+                        "disabled":true,
+                        "row": 1
+                    },
+
+                     {
+                        "id": "A_NAME_STATUS",
+                        "type": "text",
+                        "label": "_NAME_STATUS",
+                      
+                        "disabled":true,
+                        "row": 1
+                        
+                        
+                    },
+                      {
+                        "id": "A_TITLE_PREFIX_NAME",
+                        "type": "text",
+                        "label": "_TITLE",
+                      
+                        "row": 2,
+                        "disabled":true
+                    },
+                     {
+
+                        "id": "A_FIRST_NAME",
+                        "type": "text",
+                        "label": "_FIRST_NAME",
+ 
+                       
+                        
+                        "row": 2,
+                        "disabled":true
+                    },
+
+                    {
+
+                        "id": "A_MIDDLE_NAME",
+                        "type": "text",
+                        "label": "_MIDDLE_NAME",
+                       "row": 2,
+                
+                        "disabled":true
+
+                    },
+                    {
+                        "id": "A_CLIENT_NAME",
+                        
+                        "type": "text",
+                        "label": "_LAST_NAME",
+                       
+                         
+                        "row": 3,
+                        "disabled":true
+                        
+                    },
+                     {
+                        "id": "A_SUFFIX_NAME",
+                        "type": "text",
+                        "label": "_SUFFIX_NAME",
+                      
+                        "row": 3,
+                        "disabled":true
+                        
+                    },
+                     {
+                        "id": "A_DOING_BUSINESS_AS",
+                        "type": "text",
+                        "label": "_DOING_BUSINESS_AS",
+ 
+                       
+                        "row": 3,
+                        "disabled":true
+                        
+                    },
+                    {
+                        "id": "A_ADDRESS_TYPE",
+                        "type": "text",
+                        "label": "_ADDRESS_TYPE",
+                       
+                        
+                        "row": 4,
+                        "disabled":true
+                        
+                        
+                    },
+                     
+                     {
+                        "id": "A_ADDRESS_LINE_1",
+                        "type": "text",
+                        "label": "_ADDRESS_LINE_1",
+                        
+                                               
+                        "disabled":true,                                          
+                        "row": 4
+                    },
+                     {
+                        "id": "A_ADDRESS_LINE_2",
+                        "type": "text",
+                        "label": "_ADDRESS_LINE_2",
+                    
+                        "row": 4,
+                        "disabled":true
+                        
+                    },
+                     
+                    {
+                        "id": "A_ADDRESS_LINE_3",
+                        "type": "text",
+                        "label": "_ADDRESS_LINE_3",
+                     
+                        "disabled":true,
+                        "row": 5
+                        
+                    },
+                    {
+                        "id": "A_ADDRESS_LINE_4",
+                        "type": "text",
+  
+                        "label": "Mailing Address 3",
+                        "disabled":true, 
+                        "row": 5
+                        
+                    },
+                    {
+                        "id": "A_CITY",
+                        "type": "text",
+                        "label": "_CITY",
+                      
+                                               
+                        "disabled":true,                          
+                        "row": 5
+                        
+                    },
+                     
+                    {
+                        "id": "A_STATE",
+                        "type": "text",
+                        "label": "_STATE",
+                       
+                                                     
+                        "disabled":true,                         
+                        "row": 6
+                           
+                       
+                        
+                    },  {
+                        "id": "A_COUNTY",
+                        "type": "text",
+                        "label": "_COUNTY",
+                      
+                        "row": 6,
+                        "disabled":true
+                        
+                    },
+                      {
+                        "id": "A_COUNTRY",
+                        "type": "text",
+                        "label": "_COUNTRY",
+ 
+                     
+                       
+                       "row": 6,
+                       "disabled":true
+                       
+                       
+                        
+                    },
+                    {
+                        "id": "A_ZIP_CODE",
+                        "type": "text",
+                        "label": "_ZIP_CODE",
+                     
+                          
+                       "row": 6,
+                       "disabled":true
+                       
+                        
+                    }
+
+                    ]
+                   },
+                    
+                {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToScreen",
+                                "action": "update",
+                                "actionURL": "/us/screen/inqadditClientInfo"
+                                 }
+                        ]
+                    }
+                ]
+            }
+                        
+        ] 
+    }
+}
