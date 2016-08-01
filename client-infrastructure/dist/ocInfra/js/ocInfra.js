@@ -295,7 +295,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 		switch(typeObject.type){
 			case 'integer':
 			case 'number':
-				return 'number';
+				if(!typeObject.enum){
+					return 'number';
+				}
 			case 'boolean':
 				return 'toggle';
 			case 'string':
@@ -623,6 +625,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
 					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: $scope.metamodel.value || $scope.actionFactory[$scope.metamodel.init] || _searchInParents($scope, $scope.metamodel.init) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
+					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
+						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
+					}
 				}
 
 				// Get the url of the template we will use based on input type
@@ -1701,41 +1706,64 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 		        });
 		    }
 
+		    function _createButtonFromOptions(label, params, creatable) {
+		    	var button = {};
+		    	button.label = label;
+		    	button.action =  { 
+		    		value: 'add', 
+		    		buttonAction: true, 
+		    		params: params 
+		    	};
+		    	button.creatable = creatable !== undefined? creatable : true;
+		    	return button;
+		    }
+
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
+
 				if ($scope.metamodelObject.buttons) {
 					var label = $scope.metamodelObject.buttons.label;
-					//look for the POST operation by default to create the possible buttons
-					resourceFactory.get($scope.resourceUrl).then(function(response) {
-						response.data._options.links.forEach(function(link) {
-							if (link.rel === 'create') {
-								var params = {};
-								if (link.schema.required && link.schema.required.length > 0) {
-									//FIXME. if there is more than one attribute required
-									var required = link.schema.required[0];
-									if (link.schema.properties && required in link.schema.properties) {
-										var property = link.schema.properties[required];
-										if (property.enum) {
-											property.enum.forEach(function(value) {
-												params = {};
-												params[required] = value;
-												$scope.buttons.push({
-													label: 'ADD_'+value.toUpperCase().trim(),
-													action: { value: 'add', buttonAction: true, params: params }
-												});
-											});
+					var values = $scope.metamodelObject.buttons.values;
+
+					if (label) {
+						$scope.buttons.push(_createButtonFromOptions(label, {}));
+					} else {
+						//look for the POST operation by default to create the possible buttons
+						resourceFactory.get($scope.resourceUrl).then(function(response) {
+							response.data._options.links.forEach(function(link) {
+								if (link.rel === 'create') {
+									var params = {};
+									if (link.schema.required && link.schema.required.length > 0) {
+										//FIXME. if there is more than one attribute required
+										var required = link.schema.required[0];
+										if (link.schema.properties && required in link.schema.properties) {
+											var property = link.schema.properties[required];
+											if (property.enum) {
+												//if there is a list of possible values
+												if (values) {
+													values.forEach(function(value) {
+														var creatable = property.enum.indexOf(value) !== -1;
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params, creatable));
+													});
+
+												} else {
+													property.enum.forEach(function(value) {
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params));
+													});
+												}
+											}
 										}
 									}
 								}
-								if ($scope.buttons.length === 0) {
-									$scope.buttons.push({
-										label: label,
-										action: { value: 'add', buttonAction: true, params: params }
-									});
-								}
-							}
+							});
 						});
-					});
+					}
 				}
 			}
 

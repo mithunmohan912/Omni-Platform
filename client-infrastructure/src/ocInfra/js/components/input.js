@@ -23,7 +23,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		switch(typeObject.type){
 			case 'integer':
 			case 'number':
-				return 'number';
+				if(!typeObject.enum){
+					return 'number';
+				}
 			case 'boolean':
 				return 'toggle';
 			case 'string':
@@ -382,6 +384,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
 					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
+					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
+						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
+					}
 				}
 
 				// Get the url of the template we will use based on input type
