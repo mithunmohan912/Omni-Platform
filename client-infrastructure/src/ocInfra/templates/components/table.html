@@ -1,9 +1,11 @@
+<!-- OC-711 Start Added the Fix to show the Results count -->
 <div>
     <div class="col-md-12">
 <div name="table-header" class="row">
     <label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 </div>
 </div>
+<!-- OC-711 End Added the Fix to show the Results count -->
 <div class="col-md-12">
 	<table st-table="displayedItems" st-safe-src="table.items" class="table table-striped table-condensed cf">
 		<thead ng-if="metamodelObject.header !== false" class="cf">
@@ -12,9 +14,11 @@
 					<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
 				</th>
 			</tr>
+			<!-- OC-711 Start Added Column Lable Header-->
 			<tr>
 				<th ng-repeat="column in metamodelObject.properties" ng-attr-style="text-align : {{column.align}}; width: {{column.width}} !important; ">{{ column.label_header | translate }}</th>
 			</tr>
+			<!-- OC-711 End -->
 		</thead>
 		<tbody>
 			<tr ng-repeat="displayedItem in displayedItems track by $index">
