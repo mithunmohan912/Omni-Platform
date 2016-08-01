@@ -34,9 +34,9 @@
 									<div ng-repeat="wizard in column.wizards">
 										<wz-step wz-title="{{wizard.title | translate}}">
         									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
-        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="Next"/ >
-        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="Back"/ >
-        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="Start Over" />
+        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
+        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
+        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
     									</wz-step>
 									</div>
 								</wizard>
