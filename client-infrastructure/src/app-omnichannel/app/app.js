@@ -163,7 +163,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -174,11 +174,14 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         itemActionHandling: function(resource, inputComponent, $scope){
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        homeOwnerDropdown: function(params){
+            return [$filter('translate')('_IN005')];
         }
     };
 });
 
-app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filter){
     return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
@@ -188,6 +191,13 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
         },
         itemActionHandling: function(resource, inputComponent, $scope){
             quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        },
+        autoQuoteDropdown: function(params){
+            return [$filter('translate')('_MC011'),
+                    $filter('translate')('_MD005'),
+                    $filter('translate')('_MA002'),
+                    $filter('translate')('_MC002'),
+                    $filter('translate')('_AX009')];
         }
     };
 });
