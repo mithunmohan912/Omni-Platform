@@ -470,8 +470,7 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
         },
         calculatePremium: function(params){
             additionalInfoFactory.calculatePremium(params);
-        },
-	   
+        }
         
     };
 });
