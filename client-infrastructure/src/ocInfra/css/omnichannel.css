@@ -615,7 +615,7 @@ select[multiple].input-lg {
 
 .form-control-feedback {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
   z-index: 2;
   display: block;
@@ -1946,6 +1946,7 @@ body {
     margin: 0px auto
 }
 
+
 h3{color: #555555;font-size: 20pt;}
 
 .list-buttons>li { display: inline-block; padding: 5px;}
@@ -2029,12 +2030,14 @@ a.thumbnail span.glyphicon:before {
     text-align: center;
 }
 
+
 @media only screen and (max-width: 768px) {
 /*#no-more-tables{
   margin-top: 240px;
 }*/
 
 }
+
 @media only screen and (min-width:780px) and (max-width:1024px) {
 .oc-logo {margin-top: 12px;}
 .sectionlabel {margin-left: 12px !important;}
@@ -2070,12 +2073,17 @@ label {display: inline-flex !important;min-height:2px; }
 .eu{background-image: url("../assets/images/flags/european.png") !important;}
 .eu1{background-image: url("../assets/images/flags/european.png") !important;}
 
+.oc-column .label {
+    font-size: inherit;
+    color: inherit;
+}
 
+.required-star::before {
+    font-weight: bold;
 }
 
 @media only screen and (min-width: 790px) and (max-width: 1024px) {
 .header-margin-wide {
     margin: 10px 0px 0px 0px;
 }
-
 
