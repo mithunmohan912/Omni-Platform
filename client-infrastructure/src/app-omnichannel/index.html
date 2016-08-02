@@ -9,9 +9,9 @@
   <!-- bower_injector:css -->
   <link rel="stylesheet" href="../vendors/angular-bootstrap-colorpicker/css/colorpicker.css">
   <link rel="stylesheet" href="../vendors/angular-ui-select/dist/select.css">
+  <link rel="stylesheet" href="../vendors/angular-wizard/dist/angular-wizard.min.css">
   <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="../vendors/jasny-bootstrap/dist/css/jasny-bootstrap.css">
-  <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="../vendors/open-sans/css/open-sans.css">
   <link rel="stylesheet" href="../vendors/select2/select2.css">
   <link rel="stylesheet" href="../vendors/angular-growl-v2/build/angular-growl.css">
@@ -21,23 +21,26 @@
   <!-- injector:css -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="../ocInfra/css/angular-growl.css">
+  <link rel="stylesheet" href="../ocInfra/css/checkbox.css">
   <link rel="stylesheet" href="../ocInfra/css/custom-style.css">
+  <link rel="stylesheet" href="../ocInfra/css/header.css">
+  <link rel="stylesheet" href="../ocInfra/css/modal.css">
   <link rel="stylesheet" href="../ocInfra/css/oc-bootstrap-tour-standalone.css">
   <link rel="stylesheet" href="../ocInfra/css/omniColors.css">
   <link rel="stylesheet" href="../ocInfra/css/omnichannel.css">
+  <link rel="stylesheet" href="../ocInfra/css/slider.css">
   <link rel="stylesheet" href="../ocInfra/css/tab-style.css">
+  <link rel="stylesheet" href="../ocInfra/css/table.css">
   <link rel="stylesheet" href="../ocInfra/css/Omni_Iconfont/font/flaticon.css">
   <!-- endinjector -->
 </head>
 
-  <body  hidemessage tour storage="false">
+  <body  hidemessage tour storage="false" template-url="ocInfra/templates/tour_template.html">
     <div growl></div>
 
-    <div ng-include="'ocInfra/templates/homeheader.html'" >
+    <div ng-include="'ocInfra/templates/components/homeheader.html'" >
     </div>
-    <div ng-include="'ocInfra/templates/footer.html'" >
-    
-    </div>
+   
     <div class="header-margin-wide"></div>
     <!-- loading... -->
     <div class="loading" ng-show="loader.loading">
@@ -55,8 +58,9 @@
 
     </div>
 
-    
     <div ng-include="'ocInfra/templates/errorDialog.html'" >
+    </div>
+     <div ng-include="'ocInfra/templates/components/footer.html'" >
     </div>
   <!-- bower_injector:js -->
   <script src="../vendors/modernizr/modernizr.js"></script>
@@ -74,6 +78,7 @@
   <script src="../vendors/angular-ui-select/dist/select.js"></script>
   <script src="../vendors/jquery-ui/jquery-ui.js"></script>
   <script src="../vendors/angular-ui-date/src/date.js"></script>
+  <script src="../vendors/angular-wizard/dist/angular-wizard.min.js"></script>
   <script src="../vendors/bootstrap/dist/js/bootstrap.js"></script>
   <script src="../vendors/bootbox/bootbox.js"></script>
   <script src="../vendors/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
@@ -91,6 +96,10 @@
   <script src="../vendors/angular-strap/dist/angular-strap.tpl.js"></script>
   <script src="../vendors/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="../vendors/angular-ui-mask/dist/mask.js"></script>
+  <script src="../vendors/es6-shim/es6-shim.js"></script>
+  <script src="../vendors/pdfjs-dist/build/pdf.js"></script>
+  <script src="../vendors/pdfjs-dist/build/pdf.worker.js"></script>
+  <script src="../vendors/angular-pdf/dist/angular-pdf.js"></script>
   <!-- endbower_injector -->
   <!-- injector:js -->
   <script src="app/app.js"></script>

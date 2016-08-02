@@ -1,180 +1,177 @@
 {
     "metamodel": {
-        "formid": "Sample",
-        "title": "",
-        "name": "Sample",
+        "showHeader": true,
         "sections": [
-         {
-                "name": "Coverage",
-                "category": "nonaccordion",
-                "elements": [
-                {
-                    "label":"_COVERAGEINFO"
-
-                },
-                {
-                    "label":""
-                },
-                  {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|1-covCd",
+            {
+                  "title": "_INQUIRE_HOME_QUOTE",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                           {
+                                "screenId": "hoquoteinquire",
+                                "method": "navigateToTab",
+                             
+                                "actionURL": "/us/screen/hoquoteinquire",
+                                "title": "_POLICYINFO"
+                            },
+                            {
+                                "screenId":"inqlocationInfo",
+                                "method": "navigateToTab",
+                                
+                                "actionURL": "/us/screen/inqlocationInfo",
+                                "title": "_LOCATION"
+                            },
+                            {
+                                "screenId":"inqcoverageInfo",
+                                "method": "navigateToTab",
+                               
+                                "actionURL": "/us/screen/inqcoverageInfo",
+                                "title": "_COVERAGE"
+                            }
+                       ]
+                    }
+                ]
+            },
+            {
+                "properties":   [
+                    {
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|1-covCd",
                         "type": "text",
                         "label": "_COVERAGE_CODE",
                         "visible": true,   
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 1
                     
                        
                     },
                   {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|1-ded-deductibleAppliesToCd",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|1-covCd",
                         "type": "text",
                         "label": "_DEDUCTIBLE_APPLIES_TO_CODE",
                         "visible": true,
                          "disabled":true,   
-                        "columnsize": 2
+                        "row": 1
                       
                        
                     },
                    
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|1-ded-dedTypeCd",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|2-ded-dedTypeCd",
                         "type": "text",
                         "label": "_DEDUCTIBLE_TYPE_CODE",
                         "visible": true,
                          "disabled":true,   
-                        "columnsize": 2
+                        "row": 1
                       
                        
                     },
-                    {
-                        "label":""
-                    },
-                     {
-                        "label":""
-                    },
 
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|3-covCd",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|3-covCd",
                         "type": "text",
                         "label": "_COVERAGE_CODE",
                         "visible": true,
                          "disabled":true,   
-                        "columnsize": 2
+                        "row": 2
                        
                        
                     },
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|3-CurrentTermamt-amt",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-dwellInspectVal-marketValAmt-amt",
                         "type": "text",
                         "label": "_CURRENT_TERM_AMOUNT",
                         "visible": true,   
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 2
                      
                        
                     },
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|3-lim-formatCurrencyamt-amt",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|3-lim-formatCurrencyamt-amt",
                         "type": "text",
                         "label": "_FORMAT_CURRENCY_AMOUNT",
                         "visible": true, 
                          "disabled":true,  
-                        "columnsize": 2
+                        "row": 2
                     
                        
                     },
-                      {
-                        "label":""
-                    },
-                     {
-                        "label":""
-                    },
                     {
-                       "name": "QuoteSyncRs-homeLineBus-dwell-cov|6-covCd",
+                       "id": "QuoteSyncRs-homeLineBus-dwell-cov|6-covCd",
                         "type": "text",
                         "label": "_COVERAGE_CODE",
                         "visible": true,   
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 3
                         
                        
                     },
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|6-CurrentTermamt-amt",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-purPriceAmt-amt",
                         "type": "text",
                         "label": "_CURRENT_TERM_AMOUNT",
                         "visible": true,   
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 3
                         
                     },
                     {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-cov|6-lim-formatCurrencyamt-amt",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-cov|6-lim-formatCurrencyamt-amt",
                         "type": "text",
                         "label": "_FORMAT_CURRENCY_AMOUNT",
                         "visible": true,  
                          "disabled":true, 
-                        "columnsize": 2
+                        "row": 3
                        
                        
                     },
-                      {
-                        "label":""
-                    },
-                     {
-                        "label":""
-                    },
-                      {
-                    "label":"_OPTIONAL_COVERAGE_INFORMATION"
-
-                },
                 {
-                    "label":""
-                },
-                {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDevBurglar",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDevBurglar",
                         "type": "text",
                         "label": "_BURGLAR_ALARM",
                         "visible": true,
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 4
                       
                     },
                      {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDevSprinkler",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDevSprinkler",
                         "type": "text",
                         "label": "_SPRINKLER",
                         "visible": true,
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 4
                        
                         
                     },
                     {
-                        "name": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDeviceFire",
+                        "id": "QuoteSyncRs-homeLineBus-dwell-bldgProtect-protDeviceFire",
                         "type": "text",
                         "label": "_FIRE_DEVICE",
                         "visible": true,
                          "disabled":true,
-                        "columnsize": 2
+                        "row": 4
                       
-                    },
- 
-                    
-                     {
-                    "label":""
-                },
-                 {
-                    "label":""
-                },
-                 {
-                    "label":""
-                },
-                 {
-                    "label":""
-                }
-                    ]
-                }
+                    }
                 ]
-                }
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "actionURL": "/us/screen/inqlocationInfo"
+                            }
+                        ]
+                    }
+                ]
             }
+        ] 
+    }
+}

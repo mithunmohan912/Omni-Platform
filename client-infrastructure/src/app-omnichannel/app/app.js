@@ -165,13 +165,14 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
 
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
-        actionHandling: function(params){
-            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
+        actionHandling: function(params){      
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
         },
         navigateToScreen: function(params){
             anonymousFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
+            $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         }
     };
@@ -191,6 +192,28 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
+app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
+    return {
+        actionHandling: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+             
+            quotessearchFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        }
+    };
+});
 app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
         navigateToTab: function(params){
@@ -206,6 +229,14 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
                quotessearchFactory.navigateToScreen(params);
             }
         },
+        navigateToWizard: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                });
+            } 
+        },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         }
@@ -216,6 +247,9 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
+        },
+        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
@@ -230,6 +264,131 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
+        }
+    };
+});
+app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+            var scope = params.scope;
+            var resourceUrl = scope.resourceUrlToRender;
+            params.optionUrl = resourceUrl;
+            for(var key in params.defaultValues){
+                if(!params.properties[key]){
+                    params.defaultValues[key].metainfo = {};
+                    params.properties[key]= params.defaultValues[key];
+                }
+            } 
+            quotessearchFactory.actionHandling(params);
+        }
+    };
+});
+
+app.factory('makepaymentFactory', function($rootScope, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
+        }
+    };
+});
+
+app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
+   return {
+        actionHandling:function(params){ 
+        gopaperlessFactory.actionHandling(params);
+        }
+    };
+});
+
+app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
+   return {
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(params){
+            quotessearchFactory.itemActionHandling(params);
+        }
+    };
+});
+
+app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
+    return {
+        actionHandling: function($scope, inputComponent, rootURL, properties, defaultValues){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, rootURL, properties, resourceFactory, defaultValues, $location);
+        },
+        navigateToScreen: function($scope, inputComponent){
+            $rootScope.resourceHref = undefined;
+            anonymousFactory.navigateToScreen($scope, inputComponent);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            MetaModel.handleAction($rootScope, $scope, inputComponent.action, inputComponent.actionURL, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        navigateToTab: function(params){
+            if(params.inputComponent.action){
+                new Promise(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
+                }).then(function(){
+                    if(params.inputComponent.actionURL){
+                        anonymousFactory.navigateToScreen(params);
+                    }
+                });
+            } else if(params.inputComponent.actionURL){
+               anonymousFactory.navigateToScreen(params);
+            }
+        }
+    };
+});
+
+app.factory('clientinquireFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        actionHandling: function(params){
+            hoquoteinquireFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(params){
+            hoquoteinquireFactory.itemActionHandling(params);
+        },
+          navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        }
+    };
+});
+
+app.factory('inqlocationInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        }
+    };
+});
+
+
+app.factory('inqcoverageInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
+        }
+    };
+});
+
+app.factory('inqadditClientInfoFactory', function($rootScope, hoquoteinquireFactory){
+    return {
+        navigateToTab: function(params){
+            hoquoteinquireFactory.navigateToTab(params);
+        },
+        navigateToScreen: function(params){
+            hoquoteinquireFactory.navigateToScreen(params);
         }
     };
 });
@@ -256,7 +415,7 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory, resourceFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -266,6 +425,42 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
         },
         calculatePremium: function(params){
             additionalInfoFactory.calculatePremium(params);
+        },
+	   
+        //typeAhead function OC-672
+        search: function(element){
+            var url = '';
+            var newUrl = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if(data){
+                    url = $rootScope.hostURL;
+                    var regionToSORMap = $rootScope.regionToSoR;
+                    var applName = regionToSORMap[$rootScope.regionId];
+                    newUrl = url.replace(':regionId',applName);
+                    url = newUrl + element.field.options.apiTypeAhead;
+                    for(var i=0; i<element.field.options.fieldTypeAhead.length; i=i+2){
+                        url = url + element.field.options.fieldTypeAhead[i] + element.resources[element.field.options.fieldTypeAhead[i+1]].value;
+                    }
+                }
+                return resourceFactory.get(url).then(function(response){
+                    var data = response.data || response;
+                    return data._links.item;
+                
+                });
+            });
+        },
+        
+        selectOption: function(element){
+            var payload = {};
+            var link = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if (data){                   
+                        link = element.id;       
+                        payload[link] = element.$item.name;                   
+                }
+            }); 
         }
     };
 });

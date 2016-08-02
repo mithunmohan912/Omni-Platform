@@ -1,0 +1,85 @@
+ {
+        "metamodel": {
+              "resource": "policies", 
+            "showHeader": true,
+            "sections": [
+                {
+                     "title": "_PAYMENT_OPTION",
+                   
+                      
+                                "properties": [  
+                                  {
+                            "id": "creditCardNum",
+                            "type": "text",
+                            "label": "_CREDIT_CARD_NUM",
+
+                            "uiInput" : true,
+                            "row": 1
+                            
+                       
+                      
+                      
+                        },
+                        {
+                            "id": "expirationDate",
+                             "uiInput" : true,
+                            "type": "date",
+                            "mask": "dd/mm/yy",
+
+                            "label": "_EXPIRATION_DATE",
+                         
+                            "row": 1
+                        },
+                        {
+                            "id": "cardVerfNum",
+                            "type": "text",
+                            "label": "_CARD_VERIFICATION_NUM",
+                         "uiInput" : true,
+                            "row": 2
+                        },
+                        {
+                            "id": "firstName",
+                            "type": "text",
+                            "label": "_FIRST_NAME",
+                            "uiInput" : true,
+                            "row": 2
+                                } ,
+
+                         {
+                            "id": "lastName",
+                            "type": "text",
+                            "label": "_LAST_NAME",
+                            "uiInput" : true,
+                            "row": 3
+                        } ,
+                         {
+                            "id": "paymentAmt",
+                            "type": "text",
+                            "label": "_PAYMENT_AMT",
+                            "uiInput" : true,
+                            "row": 3
+                        } 
+                    ]
+                  }   
+                                 ,
+                                   {
+                    "properties": [
+                        {
+                            "type": "buttonGroup",
+                            "buttons": [
+                               
+                     {
+                                    "label": "_PREVIOUS",
+                                    "method": "navigateToTab",
+                                  
+                                    "actionURL": "/us/screen/makepayment"
+                                }
+                     
+                            ]
+                        }
+                    ]
+                }
+                            
+            ] 
+        }
+    }       

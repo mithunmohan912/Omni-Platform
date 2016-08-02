@@ -1,0 +1,105 @@
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #DADADA;
+    border-radius:0px;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: .5em;
+    color: #050d9e;
+    background-color: #fff;
+}
+
+.radio .cr {
+    border-radius: 0px;
+}
+
+.checkbox .cr .cr-icon{
+    position: absolute;
+    font-size: 10px;
+    line-height: 0;
+    top: 50%;
+    left: 15%;
+}
+
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: 28px;
+    line-height: 0;
+    top: 50%;
+    left: -50%;
+    margin-top: 1px;
+}
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+.checkbox label, .radio label {padding-left: 0px;}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    /*transform: scale(3) rotateZ(-20deg);*/
+    opacity: 0;
+    /*transition: all .3s ease-in;*/
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    /*transform: scale(1) rotateZ(0deg);*/
+    opacity: 1;
+
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+.checkbox-right{float: right !important; margin-left: .5em !important;}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-button {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #009ca9;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00C9D9;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #00C9D9;
+}
+::-webkit-scrollbar-track {
+  background: #fdfdff;
+  border: 0px none #ffffff;
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-track:active {
+  background: #ffffff;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
