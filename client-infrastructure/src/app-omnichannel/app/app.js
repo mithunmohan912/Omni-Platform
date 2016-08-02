@@ -163,7 +163,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -174,11 +174,14 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         itemActionHandling: function(resource, inputComponent, $scope){
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        homeOwnerDropdown: function(){
+            return [$filter('translate')('_IN005')];
         }
     };
 });
 
-app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filter){
     return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
@@ -188,6 +191,13 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
         },
         itemActionHandling: function(resource, inputComponent, $scope){
             quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        },
+        autoQuoteDropdown: function(){
+            return [$filter('translate')('_MC011'),
+                    $filter('translate')('_MD005'),
+                    $filter('translate')('_MA002'),
+                    $filter('translate')('_MC002'),
+                    $filter('translate')('_AX009')];
         }
     };
 });
@@ -243,7 +253,7 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
     };
 });
 
-app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
+app.factory('autocreateFactory', function($rootScope, quotescreateFactory, resourceFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -253,6 +263,41 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
+        },
+        //typeAhead function OC-672
+        search: function(element){
+            var url = '';
+            var newUrl = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if(data){
+                    url = $rootScope.hostURL;
+                    var regionToSORMap = $rootScope.regionToSoR;
+                    var applName = regionToSORMap[$rootScope.regionId];
+                    newUrl = url.replace(':regionId',applName);
+                    url = newUrl + element.field.options.apiTypeAhead;
+                    for(var i=0; i<element.field.options.fieldTypeAhead.length; i=i+2){
+                        url = url + element.field.options.fieldTypeAhead[i] + element.resources[element.field.options.fieldTypeAhead[i+1]].value;
+                    }
+                }
+                return resourceFactory.get(url).then(function(response){
+                    var data = response.data || response;
+                    return data._links.item;
+                
+                });
+            });
+        },
+        
+        selectOption: function(element){
+            var payload = {};
+            var link = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if (data){                   
+                        link = element.id;       
+                        payload[link] = element.$item.name;                   
+                }
+            }); 
         }
     };
 });
@@ -415,7 +460,7 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory, resourceFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -427,41 +472,7 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
             additionalInfoFactory.calculatePremium(params);
         },
 	   
-        //typeAhead function OC-672
-        search: function(element){
-            var url = '';
-            var newUrl = '';
-            return element.field.getParentResource().then(function(response){
-                var data = response.data || response;
-                if(data){
-                    url = $rootScope.hostURL;
-                    var regionToSORMap = $rootScope.regionToSoR;
-                    var applName = regionToSORMap[$rootScope.regionId];
-                    newUrl = url.replace(':regionId',applName);
-                    url = newUrl + element.field.options.apiTypeAhead;
-                    for(var i=0; i<element.field.options.fieldTypeAhead.length; i=i+2){
-                        url = url + element.field.options.fieldTypeAhead[i] + element.resources[element.field.options.fieldTypeAhead[i+1]].value;
-                    }
-                }
-                return resourceFactory.get(url).then(function(response){
-                    var data = response.data || response;
-                    return data._links.item;
-                
-                });
-            });
-        },
         
-        selectOption: function(element){
-            var payload = {};
-            var link = '';
-            return element.field.getParentResource().then(function(response){
-                var data = response.data || response;
-                if (data){                   
-                        link = element.id;       
-                        payload[link] = element.$item.name;                   
-                }
-            }); 
-        }
     };
 });
 
