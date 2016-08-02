@@ -1,0 +1,39 @@
+<span class="form-group" 
+	  ng-if="field.isVisible()">
+
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8 col-md-6' : '')" class="col-xs-12">
+		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
+		<input	type="text"
+				class="form-control"
+				autocomplete="off"
+				id="{{field.id}}"
+				name="{{field.name}}"
+				placeholder="{{field.placeholder | translate}}"
+				maxlength="{{field.attributes.maxlength}}"
+
+				ng-model="field.property.value"
+				ng-required="field.property.required"
+				ng-disabled="!field.property.editable"
+				ng-change="field.onChange()"
+				ng-blur="field.onBlur();field.options._typeaheadBlur($event, field)"
+				ng-focus="field.options._typeaheadFocus($event, field)"
+
+				uib-typeahead="obj.title for obj in field.options._getData($viewValue, field.id, field)"
+				typeahead-on-select="field.options._select($item, field.id, field)"
+				typeahead-focus-first="field.attributes['typeahead-focus-first']"
+				typeahead-min-length="field.attributes['typeahead-min-length']"
+				typeahead-wait-ms="field.attributes['typeahead-wait-ms']"
+				
+				capitalize="{{field.attributes.capitalize}}"/>
+		
+		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+	</span>
+</span>
+
+<!--
+	TODO:
+		ng-keydown
+		typeahead promise
+-->
