@@ -26,7 +26,7 @@
 								</ul>
 								<div ng-repeat="tab in column.tabs" ng-if="tab.id === activeTab" ng-class="tab.include ? 'tabs-content' : ''">
 									<div ng-if="tab.include" ng-include="tab.include"></div>
-									<renderer class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
+									<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 								</div>
 							</div>
 							<div ng-switch-when="wizards">
@@ -81,11 +81,11 @@
 							</div>
 							<!-- Commented code as a reminder of cases we may need to consider -->
 							<!-- <div ng-switch-when="_blank">
-							</div>
+							</div>-->
 							<div ng-switch-when="subtitle">
 								<h5 class="color-primary">{{column.label | translate}}</h5>
 							</div>
-							<div ng-switch-when="renderer">
+							<!--<div ng-switch-when="renderer">
 								<div ng-repeat="item in entityToBind[column.id].parent[column.id].items">
 									<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
 									<renderer entity="item.entity" metadata="column.metadata" ready="true"><renderer/>

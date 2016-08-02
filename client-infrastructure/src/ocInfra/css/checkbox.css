@@ -21,6 +21,9 @@
 
 .radio .cr {
     border-radius: 0px;
+    position: absolute !important;
+    left: 25px;
+    top: 3px;
 }
 
 .checkbox .cr .cr-icon{
@@ -41,8 +44,13 @@
 }
 .radio .cr .cr-icon {
     margin-left: 0.04em;
+    color: #2c4269
 }
-.checkbox label, .radio label {padding-left: 0px;}
+.checkbox label {
+  padding-left: 0px !important;
+  font-weight: bold  !important;
+}
+.checkbox > div{margin-left: 0em !important};
 
 .checkbox label input[type="checkbox"],
 .radio label input[type="radio"] {

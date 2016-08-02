@@ -3,9 +3,10 @@
         "name": "offer_partyroles_list",
         "modalRef": "offer_partyroles",
         "buttons": {
-            "callback": "callbackPartyRole"
+            "callback": "callbackPartyRole",
+            "values": ["Syndic", "contact", "representative"]
         },
-        "filters": { "party_role:role_type": ["owner"] },
+        "filters": { "party_role:role_type": ["owner", "representative"] },
 
         "properties": [
             {
