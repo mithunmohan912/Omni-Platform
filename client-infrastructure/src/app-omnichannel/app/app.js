@@ -175,7 +175,7 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         },
-        homeOwnerDropdown: function(params){
+        homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
         }
     };
@@ -192,7 +192,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
         itemActionHandling: function(resource, inputComponent, $scope){
             quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         },
-        autoQuoteDropdown: function(params){
+        autoQuoteDropdown: function(){
             return [$filter('translate')('_MC011'),
                     $filter('translate')('_MD005'),
                     $filter('translate')('_MA002'),
@@ -460,7 +460,7 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory, resourceFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
