@@ -26,6 +26,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				if(!typeObject.enum){
 					return 'number';
 				}
+				break;
 			case 'boolean':
 				return 'toggle';
 			case 'string':
@@ -64,6 +65,71 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			return undefined;
 		}
 	}
+
+	function _searchInParents(scope, fieldName){
+		if(typeof fieldName !== 'string'){
+			return undefined;
+		}
+		if(fieldName in scope){
+			return scope[fieldName];
+		} else if(fieldName.indexOf('.') > 0){
+			var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+			if(firstObj in scope){
+				return scope.$eval(fieldName);
+			} else if(scope.$parent){
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		} else if(scope.$parent){
+			if(scope.$parent.resourcesToBind){
+				if (fieldName in scope.$parent.resourcesToBind.properties) {
+					return scope.$parent.resourcesToBind.properties[fieldName];
+				} else {
+					return _searchInParents(scope.$parent, fieldName);
+				}
+			} else {
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		}
+
+		return undefined;
+	}
+	
+	function _evaluateExpression(expression, $scope, resource) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            }
+        } else //Base case
+        {
+        	if (expression.existsInEntity){
+        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+        	}else{
+        		var field; 
+        		if (resource && resource[expression.field]) {
+					field = resource[expression.field];
+        		} else {
+        			field = _searchInParents($scope, expression.field);
+        		}
+        		var value = field instanceof Object? field.value: field;
+        		response = value === expression.value;
+        	}
+            
+        }
+        return response;
+    }
 
 	return {
 		restrict: 'E',
@@ -518,72 +584,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					$scope.load();
 				}
 			});
-
-
-
-			function _searchInParents(scope, fieldName){
-				if(typeof fieldName !== 'string'){
-					return undefined;
-				}
-				if(fieldName in scope){
-					return scope[fieldName];
-				} else if(fieldName.indexOf('.') > 0){
-					var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
-					if(firstObj in scope){
-						return scope.$eval(fieldName);
-					} else if(scope.$parent){
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				} else if(scope.$parent){
-					if(scope.$parent.resourcesToBind){
-						if (fieldName in scope.$parent.resourcesToBind.properties) {
-							return scope.$parent.resourcesToBind.properties[fieldName];
-						} else {
-							return _searchInParents(scope.$parent, fieldName);
-						}
-					} else {
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				}
-
-				return undefined;
-			}
-			function _evaluateExpression(expression, $scope, resource) {
-		        var response = true;
-		        if (expression.operator) //Recursive case
-		        {
-		            if (expression.operator === 'AND') {
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (response) {
-		                        response = response && _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            } else if (expression.operator === 'OR') {
-		                response = false;
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (!response) {
-		                        response = response || _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            }
-		        } else //Base case
-		        {
-		        	if (expression.existsInEntity){
-		        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
-		        	}else{
-		        		var field; 
-		        		if (resource && resource[expression.field]) {
-							field = resource[expression.field];
-		        		} else {
-		        			field = _searchInParents($scope, expression.field);
-		        		}
-		        		var value = field instanceof Object? field.value: field;
-		        		response = value === expression.value;
-		        	}
-		            
-		        }
-		        return response;
-		    }
 		},
 		link: function($scope, element){
 			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){
