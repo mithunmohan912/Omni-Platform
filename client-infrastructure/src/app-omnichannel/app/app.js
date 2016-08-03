@@ -175,7 +175,18 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         },
-        homeOwnerDropdown: function(){
+        usactionHandling: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
+        },
+         homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
         }
     };
@@ -205,25 +216,17 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
 app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
     return {
         actionHandling: function(params){
-            if(params.defaultValues !== undefined){
-                for(var key in params.defaultValues){
-                    if(!params.properties[key]){
-                        params.defaultValues[key].metainfo = {};
-                        params.properties[key]= params.defaultValues[key];
-                    }
-                } 
-            }
-             
-            quotessearchFactory.actionHandling(params);
+          quotessearchFactory.usactionHandling(params); 
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
-            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
 });
+
 app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
         navigateToTab: function(params){
@@ -348,16 +351,16 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
 app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
    return {
         actionHandling: function(params){
-            quotessearchFactory.actionHandling(params);
+            quotessearchFactory.usactionHandling(params);
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         },
-        itemActionHandling: function(params){
-            quotessearchFactory.itemActionHandling(params);
+       itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
-});
+}); 
 
 app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
@@ -414,7 +417,6 @@ app.factory('inqlocationInfoFactory', function($rootScope, hoquoteinquireFactory
         }
     };
 });
-
 
 app.factory('inqcoverageInfoFactory', function($rootScope, hoquoteinquireFactory){
     return {
