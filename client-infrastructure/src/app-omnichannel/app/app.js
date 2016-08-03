@@ -163,7 +163,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
+/*app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -178,6 +178,38 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
         }
+    };
+});  */
+
+
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory,$location){
+    return {
+        actionHandling: function(params){      
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+        },
+        navigateToScreen: function(params){
+            anonymousFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            $rootScope.resourceHref = resource.href;
+            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        usactionHandling: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+
+        },
+         homeOwnerDropdown: function(){
+            return [$filter('translate')('_IN005')];
+        }
+      
     };
 });
 
@@ -202,7 +234,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
     };
 });
 
-app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
+/*app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
     return {
         actionHandling: function(params){
             if(params.defaultValues !== undefined){
@@ -221,6 +253,21 @@ app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFa
         },
         itemActionHandling: function(resource, inputComponent, $scope){
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        }
+    };
+}); 
+*/
+
+app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
+    return {
+        actionHandling: function(params){
+          quotessearchFactory.usactionHandling(params); 
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
 });
@@ -345,7 +392,7 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
     };
 });
 
-app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
+/*app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
    return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
@@ -357,7 +404,21 @@ app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
             quotessearchFactory.itemActionHandling(params);
         }
     };
-});
+});  */
+
+app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
+   return {
+        actionHandling: function(params){
+            quotessearchFactory.usactionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+       itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        }
+    };
+}); 
 
 app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
