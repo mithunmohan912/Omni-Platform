@@ -163,7 +163,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -175,7 +175,35 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
         },
-        usactionHandling: function(params){
+        actionHandlingWithValidation: function(params){
+            var validation = false;
+            //Iterate through the properties to determine if atleast one is valued
+            angular.forEach(params.properties, function(val, key){
+                var value = params.properties[key].value;
+
+                if(value === null || value === undefined || value === '' || value === 'undefined'){
+                    //continue
+                }else{
+                    validation = true;
+                }
+            });
+
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            
+            if(validation){
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+            }else{
+                growl.error('Please enter atleast one search criteria.');
+            }
+        },
+        actionHandlingWithDefaults: function(params){
             if(params.defaultValues !== undefined){
                 for(var key in params.defaultValues){
                     if(!params.properties[key]){
@@ -186,7 +214,7 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             }
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
         },
-         homeOwnerDropdown: function(){
+        homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
         }
     };
@@ -216,7 +244,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
 app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchFactory){
     return {
         actionHandling: function(params){
-          quotessearchFactory.usactionHandling(params); 
+          quotessearchFactory.actionHandlingWithDefaults(params); 
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
@@ -351,7 +379,7 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
 app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
    return {
         actionHandling: function(params){
-            quotessearchFactory.usactionHandling(params);
+            quotessearchFactory.actionHandlingWithDefaults(params);
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
