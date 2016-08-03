@@ -213,7 +213,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
     };
 });
 
-app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
+app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchFactory){
     return {
         actionHandling: function(params){
           quotessearchFactory.usactionHandling(params); 
