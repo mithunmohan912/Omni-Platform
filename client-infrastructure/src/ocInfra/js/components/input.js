@@ -307,7 +307,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							return enumeration;
 						}
 					}
-				}
+				},
+				'updateMode': 'change'
 			};
 
 			defaults.radio = {
@@ -598,6 +599,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					} else {
 						$scope.field.options[validKey] = $scope.metamodel.options[key];
 					}*/
+				}
+
+				if(inputType === 'toggle'){
+					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
