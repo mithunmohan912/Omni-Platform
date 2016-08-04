@@ -403,6 +403,26 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
         return response;
     }
 
+    function _prepareColspanAndOffset(element){
+    	var colspan = {
+    		xs: {},
+    		sm: {},
+    		md: {},
+    		lg: {}
+    	};
+
+    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	colspan.xs.label = 12 - colspan.xs.input;
+    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.label = 12 - colspan.sm.input;
+    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.label = 12 - colspan.md.input;
+    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.label = 12 - colspan.lg.input;
+
+    	element.colspan = colspan;
+    }
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -559,7 +579,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							return enumeration;
 						}
 					}
-				}
+				},
+				'updateMode': 'change'
 			};
 
 			defaults.radio = {
@@ -790,8 +811,12 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
-					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
+					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
+					'colspan': $scope.metamodel.colspan,
+					'offset': $scope.metamodel.offset
 				};
+
+				_prepareColspanAndOffset($scope.field);
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
@@ -838,7 +863,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					if(inputType !== 'toggle'){
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					} else {
-						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;						
 					}
 
 					/*if (validKey === 'getData') {
@@ -846,6 +871,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					} else {
 						$scope.field.options[validKey] = $scope.metamodel.options[key];
 					}*/
+				}
+
+				if(inputType === 'toggle'){
+					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
@@ -1130,6 +1159,37 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				return true;
 			};
 
+			function _prepareColspanAndOffset(element){
+				if(element.colspan){
+					var initialColspan = 12;
+					if(!(element.colspan instanceof Object)){
+						initialColspan = element.colspan;
+						element.colspan = {};
+					}
+
+					element.colspan.xs = element.colspan.xs || initialColspan;
+					element.colspan.sm = element.colspan.sm || element.colspan.xs;
+					element.colspan.md = element.colspan.md || element.colspan.sm;
+					element.colspan.lg = element.colspan.lg || element.colspan.md;
+				}
+
+				if(element.offset){
+					var initialOffset = 0;
+					if(!(element.offset instanceof Object)){
+						initialOffset = element.offset;
+						element.offset = {};
+					}
+
+					element.offset.xs = element.offset.xs || initialOffset;
+					element.offset.sm = element.offset.sm || element.offset.xs;
+					element.offset.md = element.offset.md || element.offset.sm;
+					element.offset.lg = element.offset.lg || element.offset.md;
+				}
+
+				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+				element.offset = element.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+			}
+
 			function _processMetamodel(metamodel){
 				if(metamodel && metamodel.sections){
 					metamodel.sections.forEach(function(section){
@@ -1137,6 +1197,11 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 						if(!section.type || section.type !== 'reference'){
 							var rowNumbers = [];
 							section.rows = [];
+
+							_prepareColspanAndOffset(section);
+
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12 };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0 };
 							
 							section.properties.forEach(function(property){
 								if(property.row !== undefined){
@@ -1174,7 +1239,19 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
 											}
 
-											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
+											if(!propertiesInRow[j].colspan){
+												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan};
+											}
+											_prepareColspanAndOffset(propertiesInRow[j]);
+
+											if(propertiesInRow[j].type === 'iconGroup'){
+												propertiesInRow[j].icons.forEach(function(icon){
+													_prepareColspanAndOffset(icon);
+
+													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12 };
+													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0 };
+												});
+											}
 
 											section.properties.push(propertiesInRow[j]);
 										}
@@ -1185,6 +1262,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 							for(var index = section.properties.length - 1; index >= 0; index--){
 								if(section.properties[index].row === undefined){
 									section.rows.unshift([section.properties[index]]);
+									_prepareColspanAndOffset(section.properties[index]);
 								}
 							}
 

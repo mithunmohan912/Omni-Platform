@@ -1,9 +1,9 @@
 <span class="form-group" 
 	  ng-show="field.isVisible()">
 
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.colspan.xs.label}} col-sm-{{field.colspan.sm.label}} col-md-{{field.colspan.md.label}} col-lg-{{field.colspan.lg.label}} col-xs-offset-{{field.offset.xs}} col-sm-offset-{{field.offset.sm}} col-md-offset-{{field.offset.md}} col-lg-offset-{{field.offset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
-	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8 col-md-6' : '')" class="col-xs-12">
+	<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="col-xs-{{field.colspan.xs.input}} col-sm-{{field.colspan.sm.input}} col-md-{{field.colspan.md.input}} col-lg-{{field.colspan.lg.input}}">
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 		<input  type="number"
 				class="form-control"
