@@ -131,6 +131,26 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
         return response;
     }
 
+    function _prepareColspanAndOffset(element){
+    	var colspan = {
+    		xs: {},
+    		sm: {},
+    		md: {},
+    		lg: {}
+    	};
+
+    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	colspan.xs.label = 12 - colspan.xs.input;
+    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.label = 12 - colspan.sm.input;
+    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.label = 12 - colspan.md.input;
+    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.label = 12 - colspan.lg.input;
+
+    	element.colspan = colspan;
+    }
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -518,8 +538,12 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
-					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
+					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
+					'colspan': $scope.metamodel.colspan,
+					'offset': $scope.metamodel.offset
 				};
+
+				_prepareColspanAndOffset($scope.field);
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
@@ -566,7 +590,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					if(inputType !== 'toggle'){
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					} else {
-						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;						
 					}
 
 					/*if (validKey === 'getData') {

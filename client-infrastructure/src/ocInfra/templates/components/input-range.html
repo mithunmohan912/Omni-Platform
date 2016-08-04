@@ -1,5 +1,5 @@
 <span class="form-group">
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.colspan.xs.label}} col-sm-{{field.colspan.sm.label}} col-md-{{field.colspan.md.label}} col-lg-{{field.colspan.lg.label}} col-xs-offset-{{field.offset.xs}} col-sm-offset-{{field.offset.sm}} col-md-offset-{{field.offset.md}} col-lg-offset-{{field.offset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
 	<span ng-repeat="range in field.attributes.range" style="display:inline-block">
 		<span ng-repeat="id in range.id track by $index">
