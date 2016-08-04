@@ -200,7 +200,7 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             if(validation){
                 MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
             }else{
-                growl.error('Please enter atleast one search criteria.');
+                growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
             }
         },
         actionHandlingWithDefaults: function(params){
