@@ -163,7 +163,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -174,6 +174,45 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         itemActionHandling: function(resource, inputComponent, $scope){
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        actionHandlingWithValidation: function(params){
+            var validation = false;
+            //Iterate through the properties to determine if atleast one is valued
+            angular.forEach(params.properties, function(val, key){
+                var value = params.properties[key].value;
+
+                if(value === null || value === undefined || value === '' || value === 'undefined'){
+                    //continue
+                }else{
+                    validation = true;
+                }
+            });
+
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            
+            if(validation){
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+            }else{
+                growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
+            }
+        },
+        actionHandlingWithDefaults: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
         },
         homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
@@ -202,28 +241,20 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filt
     };
 });
 
-app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
+app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchFactory){
     return {
         actionHandling: function(params){
-            if(params.defaultValues !== undefined){
-                for(var key in params.defaultValues){
-                    if(!params.properties[key]){
-                        params.defaultValues[key].metainfo = {};
-                        params.properties[key]= params.defaultValues[key];
-                    }
-                } 
-            }
-             
-            quotessearchFactory.actionHandling(params);
+          quotessearchFactory.actionHandlingWithDefaults(params); 
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         },
         itemActionHandling: function(resource, inputComponent, $scope){
-            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
 });
+
 app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
     return {
         navigateToTab: function(params){
@@ -348,16 +379,16 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
 app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
    return {
         actionHandling: function(params){
-            quotessearchFactory.actionHandling(params);
+            quotessearchFactory.actionHandlingWithDefaults(params);
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         },
-        itemActionHandling: function(params){
-            quotessearchFactory.itemActionHandling(params);
+       itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
-});
+}); 
 
 app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
@@ -414,7 +445,6 @@ app.factory('inqlocationInfoFactory', function($rootScope, hoquoteinquireFactory
         }
     };
 });
-
 
 app.factory('inqcoverageInfoFactory', function($rootScope, hoquoteinquireFactory){
     return {
