@@ -76,8 +76,8 @@ TourConfigProvider.set('prefixOptions', false);
 }]);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
-
-    if(sessionStorage.username === null || sessionStorage.username === undefined) {
+    
+    if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
         $location.url('/screen/anonymous');
     }
 
@@ -87,11 +87,11 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
     } else if (screenId === 'anonymous'){
-        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
             $location.url($rootScope.nextURL);
         }
     } else {
-        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
             $location.url('/screen/anonymous');
         }
     }
@@ -123,21 +123,36 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
 app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
     return {
+        navigateAsAnonymous: function(params){
+            $rootScope.user = undefined;
+            sessionStorage.username = undefined;
+            
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);
+            
+            if($rootScope.regionId === undefined){
+                var arr = params.inputComponent.actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
+        },
+        navigateToLogin: function(params){
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
         navigateToScreen: function(params){
             $rootScope.resourceHref = undefined;
-            if(params.inputComponent.actionURL === '/login'){
-                $rootScope.nextURL = params.inputComponent.actionURL;
-                $rootScope.navigate(params.inputComponent.actionURL);    
-            }else{
-                $rootScope.nextURL = params.inputComponent.actionURL;
-                $rootScope.navigate(params.inputComponent.actionURL);
-                if($rootScope.regionId === undefined){
-                    var arr = params.inputComponent.actionURL.split('/');
-                    $rootScope.regionId = arr[1];
-                }
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);
+            if($rootScope.regionId === undefined){
+                var arr = params.inputComponent.actionURL.split('/');
+                $rootScope.regionId = arr[1];
             }
         },
         actionHandling: function(params){
+            $rootScope.user = undefined;
+            sessionStorage.username = undefined;
+            
             $rootScope.nextURL = params.inputComponent.actionURL;
             
              if($rootScope.regionId === undefined){
@@ -145,7 +160,7 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                 $rootScope.regionId = arr[1];
             }
             new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, undefined, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
             }).then(function(){
                 if(params.inputComponent.actionURL){
                     $location.path(params.inputComponent.actionURL);
