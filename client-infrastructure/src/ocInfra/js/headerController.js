@@ -6,6 +6,7 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
         delete $rootScope.user;
         delete localStorage.username;
         delete $http.defaults.headers.common.Authentication;
+        $rootScope.isAuthSuccess = false;
         localStorage.clear();
         sessionStorage.clear();
         $cookieStore.remove('userid');
