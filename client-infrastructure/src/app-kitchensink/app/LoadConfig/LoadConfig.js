@@ -10,6 +10,13 @@ app.service('OCAppConfig', function($resource, $rootScope){
                 if (!$rootScope.HostURL) {
                     $rootScope.HostURL = $rootScope.config.hostURL;
                 }
+                if (!$rootScope.templatesURL) {
+                    $rootScope.templatesURL = $rootScope.config.templatesURL;
+                }
+                if(!$rootScope.apiGatewayApiKeys){
+                    $rootScope.apiGatewayApiKeys = $rootScope.config.apiGatewayApiKeys;
+                }
+                $rootScope.regionToSoR = $rootScope.config.regionToSoR;
                 $rootScope.cleanAPIURL = $rootScope.config.cleanAPIURL;
 				if(!data.config.base)	{
                     showMessage('This application \'s configuration is not available', '30');

@@ -19,6 +19,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
+        if(screenId !== undefined && screenId !== 'undefined'){
         if(regionId){
              path='assets/resources/metamodel/regions/'+regionId+'/'+ screenId + '.json';
         }
@@ -48,6 +49,7 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
             growl.error($rootScope.appConfig.timeoutMsg);
             return;
         });
+      }
     };
 
 
@@ -71,22 +73,19 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
         });
     }
-    
-    console.log('Invoke options on - '+rootURL);
 
     if(!$rootScope.optionsMapForURL){
         $rootScope.optionsMapForURL = new Map();
     }
 
-    if(!$rootScope.optionsMapForURL.get(rootURL)){
-    
+    if(rootURL !== undefined && !$rootScope.optionsMapForURL.get(rootURL)){
             callOptions($rootScope, rootURL, function(optionsObj){
                 options = optionsObj.get(inputComponent.action);
                 if(!properties){
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
                 }
             });
     }else{
@@ -95,7 +94,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
         } 
     } 
 };
@@ -113,7 +112,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
           if(responseGET.then){
             responseGET.then(function success(httpResponse){
-                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                console.log('prepareOptions - OPTIONS CALL - '+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
                 $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
@@ -197,7 +196,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
           if(responseGET.then){
             responseGET.then(function success(httpResponse){
-                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                console.log('callOptions - OPTIONS CALL - '+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
                 $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
@@ -513,7 +512,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
-        
+        console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
@@ -557,7 +556,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
-                        console.log('Invoked for items details - '+url.href);
+                        console.log('Invoked for item details - '+url.href);
                         resultSet.pending++;
                         self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
@@ -755,7 +754,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -766,23 +765,22 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         //Set the params data from the screen per the schema object for the given action (from the options object)
         params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;    
+        
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
+            var data = response || response.data;
+            if(data.outcome === 'success'){
+
+            }
             $scope.resourceUrl= url;
             $rootScope.resourceUrl = url;
-            var responseData = response.data || response;
+            
             $rootScope.loader.loading=false;
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
-            //Load the results into the search results table
-            if(options.action==='search'){                
-                return responseData._links.item;   
-            }
         }).error(function(){
             $rootScope.loader.loading=false;
-            //showMessage($rootScope.locale.GET_OPERATION_FAILED);
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
@@ -822,15 +820,79 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
-                }  
+                } else if(tab !== undefined){
+                    resourceFactory.options($rootScope.resourceUrl, $rootScope.headers).success(function(responseData){
+                        var data = responseData.data || responseData;
+                        var urlOperations = data._links[tab[0]].href;
+                        resourceFactory.options(urlOperations, $rootScope.headers).success(function(responseData){
+                            var data = responseData.data || responseData;
+                            var urlCalculation;
+                            var items = data._links.item;
+                            if(items && Array.isArray(items)){
+                                angular.forEach(items, function(item){
+                                    if(item.name=== tab[2]){
+                                        urlCalculation = item.href;
+                                    }
+                                });
+                            } else {
+                                urlCalculation = items.href;
+                            }
+                            resourceFactory.options(urlCalculation, $rootScope.headers).success(function(responseData){
+                                var data = responseData.data || responseData;
+                                var urlExecute = data._links[tab[1]].href;
+                                var params = {};
+                                resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(responseData){
+                                    var data = responseData.data || responseData;
+                                    var urlDetail;
+                                    if(Array.isArray(data.messages)){
+                                        // get last element of array
+                                        urlDetail = data.messages[data.messages.length - 1].message[0];
+                                    } else {
+                                        urlDetail = data.messages.context;
+                                    }
+                                    if(data.outcome === 'success'){
+                                        resourceFactory.refresh(urlDetail, params, $rootScope.headers).success(function(responseData){
+                                            var data = responseData.data || responseData;
+                                            if(data.outcome === 'failure'){
+                                                angular.forEach(data.messages, function(value){
+                                                    growl.error(value.message);
+                                                });
+                                            }
+                                        });
+                                    } else if(data.outcome === 'failure'){
+                                        angular.forEach(data.messages, function(value){
+                                            growl.error(value.message);
+                                        });
+                                    }
+                                }).error(function(err){
+                                    // Show error message when Calculate Premium failed 
+                                    var mess = '';
+                                    if(err.Errors){
+                                        var arrayErr = convertToArray(err.Errors);                                           
+                                        mess = arrayErr.map(function(elem){
+                                            return elem.Reason;
+                                        }).join('\n');                                            
+                                    } else{
+                                        mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
+                                    } 
+                                    growl.error(mess); 
+                                });
+                            });
+                        });
+                    });
+                }else if(actionURL !== undefined){ 
+                    $rootScope.loader.loading=false;           
+                    if(resolve) {
+                        resolve();
+                    }
+                }
                 $rootScope.loader.loading=false;
-       
+                if(actionURL !== undefined){ 
+                    $rootScope.navigate(actionURL);
+                }
                 if(resolve) {
                     resolve();
                 }
-            }
-            if(actionURL){
-                $location.path(actionURL);    
             }
         }).error(function(){
             $rootScope.loader.loading=false;
@@ -899,13 +961,30 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
                      } 
                      if(data.outcome === 'success'){
-                            angular.forEach(data.messages, function(value){
-                            growl.success(value.message);
-                        });
-                     } else{
+                            //angular.forEach(data.messages, function(value){
+                            //growl.success(value.message);
+                            //});
+                            params=undefined;
+                            if(data && data._links && data._links.self && data._links.self.href){
+                                resourceFactory.refresh(data._links.self.href, params, $rootScope.headers).success(function(responseData){
+                                    var data = responseData.data || responseData;
+                                    $rootScope.loader.loading=false;
+                                    if(data.outcome==='success'){
+
+                                    }else if(data.outcome === 'failure'){
+                                        angular.forEach(data.messages, function(value){
+                                            growl.error(value.message);
+                                        });
+                                    }
+                                });
+                            }
+                    } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
-                     }  
+                     } 
+                    if(resolve) {
+                        resolve();
+                    }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
@@ -917,7 +996,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
         });
-    } else if(httpmethod==='PATCH'){
+    }else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         resourceFactory.patch(url,params,$rootScope.headers).success(function(data){

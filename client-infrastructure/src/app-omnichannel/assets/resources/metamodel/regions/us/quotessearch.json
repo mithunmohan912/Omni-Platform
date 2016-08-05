@@ -2,23 +2,18 @@
     "metamodel": {
         "resource": "quotes",
         "summary": true,
+"defaultValue": [
+            {
+                "field": "MAXRECORDS",
+                "value": "30",
+                "action": "search"              
+            }
+           ], 
         "sections": [
-            {
+            
+        
+            { 
                 "title": "_HOME_QUOTE_US_SEARCH",
-                "properties": [
-                            {
-                                "type": "buttonGroup",
-                                "buttons" : [
-                                    {
-                                        "method": "navigateToScreen",
-                                        "label": "_CREATE_QUOTE",
-                                        "actionURL": "/us/screen/quotescreate"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-            {
                 "properties": [
                                {
                                     "id": "symbol",
@@ -46,13 +41,6 @@
                                     "type": "text",
                                     "label": "_LASTNAME",
                                     "row": 2,
-                                    "uiInput" : true
-                                },
-                                {
-                                    "text": "_ADDITIONAL_INFO",
-                                    "id": "searchriskdetails",
-                                    "type": "view",
-                                    "row": 3,
                                     "uiInput" : true
                                 }
                 ]
@@ -83,3 +71,11 @@
         ]
     }
 }
+
+
+
+
+
+
+
+

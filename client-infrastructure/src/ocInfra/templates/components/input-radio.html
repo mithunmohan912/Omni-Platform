@@ -2,23 +2,23 @@
 	<span class="form-group" 
 		  ng-show="field.isVisible()">
 
-		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-12">
+		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-{{field.colspan.xs.input}} col-sm-{{field.colspan.sm.input}} col-md-{{field.colspan.md.input}} col-lg-{{field.colspan.lg.input}}">
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
-				<div ng-repeat="option in field.attributes.enum track by $index" class="radio">
+				<div ng-repeat="option in field.attributes.enum track by $index">
 					<div class="radio pad-left15 padtop3px">
-                                                             
-						<input 	type="radio"
-							id="{{option}}"
-							name="{{option}}"
-						
-							ng-model="field.property.value"
-							ng-disabled="!field.property.editable"
-							ng-change="field.onChange()"
-							ng-blur="field.onBlur()" 
-							value = "{{option}}" >{{option | translate}}</input>
-						<span class="cr"><i class="cr-icon icon-icons_toggle"></i></span>
-                              
+                        <label>                                  
+							<input 	type="radio"
+								id="{{option}}"
+								name="{{option}}"
+							
+								ng-model="field.property.value"
+								ng-disabled="!field.property.editable"
+								ng-change="field.onChange()"
+								ng-blur="field.onBlur()" 
+								value = "{{option}}" >{{option | translate}}</input>
+							 <span class="cr"><i class="cr-icon glyphicon glyphicon-stop"></i></span>	
+                        </label>      
                     </div>
 					
 				</div>

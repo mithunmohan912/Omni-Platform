@@ -223,7 +223,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.displayed = [];
     $scope.stTableList.showResult = true;
 
-    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab, tabNavigate) {
 
        console.log(nextScreenId);
         var screenId = $rootScope.screenId;
@@ -247,7 +247,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
-            if ($scope.isValid()) {
+            if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -321,7 +321,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                 });
                             });
                         });
-                }else{
+                }else if (tabNavigate !== undefined) {
+                    $rootScope.step = $rootScope.step + 1;
+                    loadRelationshipByStep($rootScope.step);
+                    $scope.preStep = $rootScope.step;
+                } else{
                     EnumerationService.loadEnumerationByTab();
                 }
             });
@@ -359,15 +363,18 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.preRel = undefined;
     $rootScope.currRel = undefined;
     $rootScope.currName = undefined;
+    $scope.pendingFields = [];
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metamodel[$rootScope.screenId].sections;
-        angular.forEach(list, function(tabObj){
-            if(step === tabObj.step){
-                $rootScope.currRel = tabObj.link;
-                $rootScope.currName = tabObj.$ref;
-            } 
-        });
+        if($rootScope.metamodel[$rootScope.screenId]){
+            var list = $rootScope.metamodel[$rootScope.screenId].sections;
+            angular.forEach(list, function(tabObj){
+                if(step === tabObj.step){
+                    $rootScope.currRel = tabObj.link;
+                    $rootScope.currName = tabObj.$ref;
+                } 
+            });
+        }
     }
     new Promise(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
@@ -400,7 +407,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     });
 
     $scope.selecttab = function(step1, rel) {
-        if ($scope.isValid()) {
+        if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -427,12 +434,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.patchField = function(fieldName){
-
+        if($.inArray(fieldName, $scope.pendingFields) === -1){
+            $scope.pendingFields.push(fieldName);
+        }        
         $scope.patchFieldName = fieldName;
         // not apply patch field for us
         if ($rootScope.regionId !== 'us') { 
             if($scope.isValidByField(fieldName)){
-                MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true);
+                new Promise(function(resolve) {
+                    MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true, resolve);                  
+                }).then(function(){
+                    var index = $scope.pendingFields.indexOf(fieldName);
+                    $scope.pendingFields.splice(index, 1);
+                });
             }
         }
     };
@@ -475,6 +489,21 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     var msg;
+
+    $scope.isPending = function(){
+        var message = '';
+        if ($rootScope.regionId !== 'us') { 
+            if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
+                $scope.pendingFields.forEach(function(key) {
+                    var label = $scope.translateKeyToLabelByTab(key);
+                    message += $rootScope.locale[label] + $rootScope.locale.IS_BEING_PATCHED + '<br />';
+                });            
+                msg = growl.error(message);
+                return true;
+            } 
+        }
+        return false;
+    };
 
     $scope.isValid = function(){
         var dataField = [];

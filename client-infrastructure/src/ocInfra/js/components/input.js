@@ -19,6 +19,138 @@ global app
   */
 app.directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
+	function _backendToFrontendType(typeObject){
+		switch(typeObject.type){
+			case 'integer':
+			case 'number':
+				if(!typeObject.enum){
+					return 'number';
+				}
+				break;
+			case 'boolean':
+				return 'toggle';
+			case 'string':
+				if(!typeObject.enum){
+					return 'text';
+				}
+				break;
+			default:
+				break;
+		}
+
+
+		switch(typeObject.format){
+			case 'uri':
+			case 'time':
+				return 'text';
+			case 'date':
+				return 'date';
+			default:
+				break;
+		}
+
+		return typeObject.enum ? 'select' : 'text';
+	}
+
+	function _getValueForUiInput($scope){
+		if($scope.metamodel.value){
+			return $scope.metamodel.value;
+		} else if($scope.metamodel.init){
+			if($scope.actionFactory && $scope.actionFactory[$scope.metamodel.init]){
+				return $scope.actionFactory[$scope.metamodel.init]();
+			} else if(_searchInParents($scope, $scope.metamodel.init)){
+				return _searchInParents($scope, $scope.metamodel.init)();
+			}
+		} else {
+			return undefined;
+		}
+	}
+
+	function _searchInParents(scope, fieldName){
+		if(typeof fieldName !== 'string'){
+			return undefined;
+		}
+		if(fieldName in scope){
+			return scope[fieldName];
+		} else if(fieldName.indexOf('.') > 0){
+			var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+			if(firstObj in scope){
+				return scope.$eval(fieldName);
+			} else if(scope.$parent){
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		} else if(scope.$parent){
+			if(scope.$parent.resourcesToBind){
+				if (fieldName in scope.$parent.resourcesToBind.properties) {
+					return scope.$parent.resourcesToBind.properties[fieldName];
+				} else {
+					return _searchInParents(scope.$parent, fieldName);
+				}
+			} else {
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		}
+
+		return undefined;
+	}
+	
+	function _evaluateExpression(expression, $scope, resource) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            }
+        } else //Base case
+        {
+        	if (expression.existsInEntity){
+        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+        	}else{
+        		var field; 
+        		if (resource && resource[expression.field]) {
+					field = resource[expression.field];
+        		} else {
+        			field = _searchInParents($scope, expression.field);
+        		}
+        		var value = field instanceof Object? field.value: field;
+        		response = value === expression.value;
+        	}
+            
+        }
+        return response;
+    }
+
+    function _prepareColspanAndOffset(element){
+    	var colspan = {
+    		xs: {},
+    		sm: {},
+    		md: {},
+    		lg: {}
+    	};
+
+    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	colspan.xs.label = 12 - colspan.xs.input;
+    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.label = 12 - colspan.sm.input;
+    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.label = 12 - colspan.md.input;
+    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.label = 12 - colspan.lg.input;
+
+    	element.colspan = colspan;
+    }
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -151,14 +283,32 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							field.options.getData: action defined by the user that will be invoked to fill the dropdown options.
 							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
 						*/
+						var enumeration = {};
+						var data = null;
 						if(field.options.getData){
-							return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
 						} else {
 							//console.warn('input.js -> select_getData(): No getData method for select input.');
-							return field.attributes.enum;
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
 						}
 					}
-				}
+				},
+				'updateMode': 'change'
 			};
 
 			defaults.radio = {
@@ -197,7 +347,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'true_label': '_TRUE',
 					'false_label': '_FALSE'
 				},
-				'options': {},
+				'options': {
+					'true_label': true,
+					'false_label': false
+				},
 				'updateMode': 'change'
 			};
 
@@ -260,7 +413,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
@@ -316,19 +469,22 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
+					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
+						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
+					}
 				}
 
 				// Get the url of the template we will use based on input type
-				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
+				var inputType = $scope.metamodel.type || _backendToFrontendType($scope.property.metainfo) || $scope.property.metainfo.type;
 				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
 				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
-				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
+				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
 				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
@@ -382,13 +538,17 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
-					'format': $scope.metamodel.format || defaults[inputType].format,
-					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
+					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
+					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
+					'colspan': $scope.metamodel.colspan,
+					'offset': $scope.metamodel.offset
 				};
+
+				_prepareColspanAndOffset($scope.field);
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
-				var attributes = angular.copy(defaults[inputType].attributes);
+				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};
 				$scope.field.attributes = attributes;
 
 				// In case that we have several default values in an array, we select the first one
@@ -417,7 +577,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 
 				// Union of ui options and default options. First we put the default options and then the user options defined in the UI metadata
-				var options = angular.copy(defaults[inputType].options);
+				var options = (defaults[inputType]) ? angular.copy(defaults[inputType].options) : {};
 				$scope.field.options = options;
 
 				for(var options_key in $scope.metamodel.options){
@@ -428,13 +588,21 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					}while(validKey.indexOf('_') === 0);
 					
 					// Get the action for the options from the factory of the current screen
+					if(inputType !== 'toggle'){
+						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
+					} else {
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;						
+					}
 
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					/*if (validKey === 'getData') {
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
 					} else {
 						$scope.field.options[validKey] = $scope.metamodel.options[key];
 					}*/
+				}
+
+				if(inputType === 'toggle'){
+					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
@@ -445,72 +613,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					$scope.load();
 				}
 			});
-
-
-
-			function _searchInParents(scope, fieldName){
-				if(typeof fieldName !== 'string'){
-					return undefined;
-				}
-				if(fieldName in scope){
-					return scope[fieldName];
-				} else if(fieldName.indexOf('.') > 0){
-					var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
-					if(firstObj in scope){
-						return scope.$eval(fieldName);
-					} else if(scope.$parent){
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				} else if(scope.$parent){
-					if(scope.$parent.resourcesToBind){
-						if (fieldName in scope.$parent.resourcesToBind.properties) {
-							return scope.$parent.resourcesToBind.properties[fieldName];
-						} else {
-							return _searchInParents(scope.$parent, fieldName);
-						}
-					} else {
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				}
-
-				return undefined;
-			}
-			function _evaluateExpression(expression, $scope, resource) {
-		        var response = true;
-		        if (expression.operator) //Recursive case
-		        {
-		            if (expression.operator === 'AND') {
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (response) {
-		                        response = response && _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            } else if (expression.operator === 'OR') {
-		                response = false;
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (!response) {
-		                        response = response || _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            }
-		        } else //Base case
-		        {
-		        	if (expression.existsInEntity){
-		        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
-		        	}else{
-		        		var field; 
-		        		if (resource && resource[expression.field]) {
-							field = resource[expression.field];
-		        		} else {
-		        			field = _searchInParents($scope, expression.field);
-		        		}
-		        		var value = field instanceof Object? field.value: field;
-		        		response = value === expression.value;
-		        	}
-		            
-		        }
-		        return response;
-		    }
 		},
 		link: function($scope, element){
 			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){

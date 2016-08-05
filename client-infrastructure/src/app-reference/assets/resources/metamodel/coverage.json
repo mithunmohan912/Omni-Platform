@@ -2,6 +2,61 @@
     "metamodel": {
         "sections": [
             {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "icon": "fa-save",
+                                "tooltip": "Save quote",
+                                "method": "saveQuote"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                            {
+                                "screenId": "quote",
+                                "method": "toQuote",
+                                "title": "_QUOTE_TAB"
+                            },
+                            {
+                                "screenId": "coverage",
+                                "method": "toCoverage",
+                                "title": "_COVERAGE_TAB"
+                            },
+                            {
+                                "screenId": "offer",
+                                "method": "toOffer",
+                                "title": "_OFFER_TAB"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "buttonGroup",
+                        "colspan": 4,
+                        "row": 1,
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "toOffer"
+                            },
+                            {
+                                "label": "_BACK",
+                                "method": "toQuote"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "title":"Summary",
                 "underline": true,
                 "properties": []
@@ -30,6 +85,10 @@
                 "row":"1",
                 "colspan": 6,
                 "properties": [
+                    {
+                        "label": "_ANNUAL_PREMIUM",
+                        "type": "subtitle"
+                    },
                     {
                         "id": "quote:ext_cost_without_reduction",
                         "label": "_ANNUAL_PREMIUM",

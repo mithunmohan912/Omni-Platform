@@ -23,11 +23,13 @@
         "sections": [
             {
                 "title": "_AUTO_QUOTE_EU_SEARCH",
+                "icon":"flaticon-auto",
                 "properties": [
                             {
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
+                                        "id":"btn_auto_quote_eu_create",
                                         "method": "actionHandling",
                                         "action": "create",
                                         "label": "_CREATE_QUOTE",
@@ -70,10 +72,14 @@
                             },
                             {
                                 "id": "quote:product_id",
-                                "type": "text",
+                                "type": "select",
                                 "label": "_PRODUCT",
                                 "row": 2,
-                                "uiInput" : true
+                                "uiInput" : true,
+                                "value" : "MC011",
+                                "options" : {
+                                    "getData" : "autoQuoteDropdown"
+                                }
                             },
                             {
                                 "id": "quote:start_date",
@@ -132,6 +138,7 @@
                                 "type": "buttonGroup",
                                 "buttons" : [
                                     {
+                                        "id":"btn_auto_quote_eu_create",
                                         "label": "_SEARCH",
                                         "method":"actionHandling",
                                         "action":"search"

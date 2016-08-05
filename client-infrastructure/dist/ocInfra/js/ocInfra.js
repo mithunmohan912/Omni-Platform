@@ -40,7 +40,7 @@ exported showHostErrorMessage
 
 
 
-var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl']).
+var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl','mgo-angular-wizard']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','growlProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,growlProvider) {
 
 growlProvider.globalTimeToLive(30000);
@@ -291,6 +291,138 @@ global app
   */
 app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
+	function _backendToFrontendType(typeObject){
+		switch(typeObject.type){
+			case 'integer':
+			case 'number':
+				if(!typeObject.enum){
+					return 'number';
+				}
+				break;
+			case 'boolean':
+				return 'toggle';
+			case 'string':
+				if(!typeObject.enum){
+					return 'text';
+				}
+				break;
+			default:
+				break;
+		}
+
+
+		switch(typeObject.format){
+			case 'uri':
+			case 'time':
+				return 'text';
+			case 'date':
+				return 'date';
+			default:
+				break;
+		}
+
+		return typeObject.enum ? 'select' : 'text';
+	}
+
+	function _getValueForUiInput($scope){
+		if($scope.metamodel.value){
+			return $scope.metamodel.value;
+		} else if($scope.metamodel.init){
+			if($scope.actionFactory && $scope.actionFactory[$scope.metamodel.init]){
+				return $scope.actionFactory[$scope.metamodel.init]();
+			} else if(_searchInParents($scope, $scope.metamodel.init)){
+				return _searchInParents($scope, $scope.metamodel.init)();
+			}
+		} else {
+			return undefined;
+		}
+	}
+
+	function _searchInParents(scope, fieldName){
+		if(typeof fieldName !== 'string'){
+			return undefined;
+		}
+		if(fieldName in scope){
+			return scope[fieldName];
+		} else if(fieldName.indexOf('.') > 0){
+			var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+			if(firstObj in scope){
+				return scope.$eval(fieldName);
+			} else if(scope.$parent){
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		} else if(scope.$parent){
+			if(scope.$parent.resourcesToBind){
+				if (fieldName in scope.$parent.resourcesToBind.properties) {
+					return scope.$parent.resourcesToBind.properties[fieldName];
+				} else {
+					return _searchInParents(scope.$parent, fieldName);
+				}
+			} else {
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		}
+
+		return undefined;
+	}
+	
+	function _evaluateExpression(expression, $scope, resource) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || _evaluateExpression(val, $scope, resource);
+                    }
+                });
+            }
+        } else //Base case
+        {
+        	if (expression.existsInEntity){
+        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+        	}else{
+        		var field; 
+        		if (resource && resource[expression.field]) {
+					field = resource[expression.field];
+        		} else {
+        			field = _searchInParents($scope, expression.field);
+        		}
+        		var value = field instanceof Object? field.value: field;
+        		response = value === expression.value;
+        	}
+            
+        }
+        return response;
+    }
+
+    function _prepareColspanAndOffset(element){
+    	var colspan = {
+    		xs: {},
+    		sm: {},
+    		md: {},
+    		lg: {}
+    	};
+
+    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	colspan.xs.label = 12 - colspan.xs.input;
+    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.label = 12 - colspan.sm.input;
+    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.label = 12 - colspan.md.input;
+    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.label = 12 - colspan.lg.input;
+
+    	element.colspan = colspan;
+    }
+
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -423,14 +555,32 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							field.options.getData: action defined by the user that will be invoked to fill the dropdown options.
 							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
 						*/
+						var enumeration = {};
+						var data = null;
 						if(field.options.getData){
-							return field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
 						} else {
 							//console.warn('input.js -> select_getData(): No getData method for select input.');
-							return field.attributes.enum;
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
 						}
 					}
-				}
+				},
+				'updateMode': 'change'
 			};
 
 			defaults.radio = {
@@ -469,7 +619,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'true_label': '_TRUE',
 					'false_label': '_FALSE'
 				},
-				'options': {},
+				'options': {
+					'true_label': true,
+					'false_label': false
+				},
 				'updateMode': 'change'
 			};
 
@@ -532,7 +685,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = $scope.resources[property].value?$scope.resources[property].value:null;
+									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
@@ -588,19 +741,22 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{}, value: $scope.metamodel.value};
+					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
 					$scope.property = $scope.resources[$scope.metamodel.id];
+					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
+						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
+					}
 				}
 
 				// Get the url of the template we will use based on input type
-				var inputType = $scope.metamodel.type || $scope.property.metainfo.type;
+				var inputType = $scope.metamodel.type || _backendToFrontendType($scope.property.metainfo) || $scope.property.metainfo.type;
 				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
 				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
 
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
-				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? defaults[inputType].updateMode : $scope.updateMode;
+				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
 				if($scope.onUpdate && $scope.onUpdate !== '' && !$scope.update){
 					// Get the callback function from the action factory of the current screen
@@ -654,13 +810,17 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
-					'format': $scope.metamodel.format || defaults[inputType].format,
-					'tooltip': $scope.metamodel.tooltip	// Check for backend values. It may be that the backend give us this value already translated??
+					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
+					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
+					'colspan': $scope.metamodel.colspan,
+					'offset': $scope.metamodel.offset
 				};
+
+				_prepareColspanAndOffset($scope.field);
 
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
-				var attributes = angular.copy(defaults[inputType].attributes);
+				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};
 				$scope.field.attributes = attributes;
 
 				// In case that we have several default values in an array, we select the first one
@@ -689,7 +849,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 
 				// Union of ui options and default options. First we put the default options and then the user options defined in the UI metadata
-				var options = angular.copy(defaults[inputType].options);
+				var options = (defaults[inputType]) ? angular.copy(defaults[inputType].options) : {};
 				$scope.field.options = options;
 
 				for(var options_key in $scope.metamodel.options){
@@ -700,13 +860,21 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					}while(validKey.indexOf('_') === 0);
 					
 					// Get the action for the options from the factory of the current screen
+					if(inputType !== 'toggle'){
+						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
+					} else {
+						$scope.field.options[validKey] = $scope.metamodel.options[validKey] || (defaults[inputType]) ? defaults[inputType].options[validKey] : undefined;						
+					}
 
-					$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[options_key]] || _searchInParents($scope, $scope.metamodel.options[options_key]) || $scope.metamodel.options[options_key]; 
 					/*if (validKey === 'getData') {
 						$scope.field.options[validKey] = $scope.actionFactory[$scope.metamodel.options[key]];
 					} else {
 						$scope.field.options[validKey] = $scope.metamodel.options[key];
 					}*/
+				}
+
+				if(inputType === 'toggle'){
+					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
@@ -717,72 +885,6 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.load();
 				}
 			});
-
-
-
-			function _searchInParents(scope, fieldName){
-				if(typeof fieldName !== 'string'){
-					return undefined;
-				}
-				if(fieldName in scope){
-					return scope[fieldName];
-				} else if(fieldName.indexOf('.') > 0){
-					var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
-					if(firstObj in scope){
-						return scope.$eval(fieldName);
-					} else if(scope.$parent){
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				} else if(scope.$parent){
-					if(scope.$parent.resourcesToBind){
-						if (fieldName in scope.$parent.resourcesToBind.properties) {
-							return scope.$parent.resourcesToBind.properties[fieldName];
-						} else {
-							return _searchInParents(scope.$parent, fieldName);
-						}
-					} else {
-						return _searchInParents(scope.$parent, fieldName);
-					}
-				}
-
-				return undefined;
-			}
-			function _evaluateExpression(expression, $scope, resource) {
-		        var response = true;
-		        if (expression.operator) //Recursive case
-		        {
-		            if (expression.operator === 'AND') {
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (response) {
-		                        response = response && _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            } else if (expression.operator === 'OR') {
-		                response = false;
-		                angular.forEach(expression.conditions, function(val) {
-		                    if (!response) {
-		                        response = response || _evaluateExpression(val, $scope, resource);
-		                    }
-		                });
-		            }
-		        } else //Base case
-		        {
-		        	if (expression.existsInEntity){
-		        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
-		        	}else{
-		        		var field; 
-		        		if (resource && resource[expression.field]) {
-							field = resource[expression.field];
-		        		} else {
-		        			field = _searchInParents($scope, expression.field);
-		        		}
-		        		var value = field instanceof Object? field.value: field;
-		        		response = value === expression.value;
-		        	}
-		            
-		        }
-		        return response;
-		    }
 		}],
 		link: function($scope, element){
 			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){
@@ -815,6 +917,20 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			});
 		}
 	};
+}]);
+
+'use strict';
+/*global app*/
+
+app.controller('pdfController', ['$scope', function($scope) {
+   
+
+
+    $scope.$on('pdf_update', function(event, params){
+
+        $scope.pdfUrl = params.url;
+        
+    });
 }]);
 
 'use strict';
@@ -1043,6 +1159,37 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				return true;
 			};
 
+			function _prepareColspanAndOffset(element){
+				if(element.colspan){
+					var initialColspan = 12;
+					if(!(element.colspan instanceof Object)){
+						initialColspan = element.colspan;
+						element.colspan = {};
+					}
+
+					element.colspan.xs = element.colspan.xs || initialColspan;
+					element.colspan.sm = element.colspan.sm || element.colspan.xs;
+					element.colspan.md = element.colspan.md || element.colspan.sm;
+					element.colspan.lg = element.colspan.lg || element.colspan.md;
+				}
+
+				if(element.offset){
+					var initialOffset = 0;
+					if(!(element.offset instanceof Object)){
+						initialOffset = element.offset;
+						element.offset = {};
+					}
+
+					element.offset.xs = element.offset.xs || initialOffset;
+					element.offset.sm = element.offset.sm || element.offset.xs;
+					element.offset.md = element.offset.md || element.offset.sm;
+					element.offset.lg = element.offset.lg || element.offset.md;
+				}
+
+				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+				element.offset = element.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+			}
+
 			function _processMetamodel(metamodel){
 				if(metamodel && metamodel.sections){
 					metamodel.sections.forEach(function(section){
@@ -1050,6 +1197,11 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 						if(!section.type || section.type !== 'reference'){
 							var rowNumbers = [];
 							section.rows = [];
+
+							_prepareColspanAndOffset(section);
+
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12 };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0 };
 							
 							section.properties.forEach(function(property){
 								if(property.row !== undefined){
@@ -1087,7 +1239,19 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
 											}
 
-											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
+											if(!propertiesInRow[j].colspan){
+												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan};
+											}
+											_prepareColspanAndOffset(propertiesInRow[j]);
+
+											if(propertiesInRow[j].type === 'iconGroup'){
+												propertiesInRow[j].icons.forEach(function(icon){
+													_prepareColspanAndOffset(icon);
+
+													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12 };
+													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0 };
+												});
+											}
 
 											section.properties.push(propertiesInRow[j]);
 										}
@@ -1098,6 +1262,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 							for(var index = section.properties.length - 1; index >= 0; index--){
 								if(section.properties[index].row === undefined){
 									section.rows.unshift([section.properties[index]]);
+									_prepareColspanAndOffset(section.properties[index]);
 								}
 							}
 
@@ -1126,7 +1291,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				$scope.resourcesToBind = { properties : {} };
 				var newURL = {};
 				if($rootScope.resourceHref){
-					 $scope.optionUrl = $rootScope.resourceHref;
+					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
                     $scope.resourceUrlToRender = $rootScope.resourceHref;
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = $rootScope.hostURL + resource;
@@ -1136,7 +1301,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
                     var applName = regionToSORMap[$rootScope.regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
-                    $scope.optionUrl = newURL;
+                    $scope.metamodelObject.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
@@ -1317,9 +1482,8 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 
 				                var id = property.id[k];
 							
-				                  $scope.resourcesToBind.properties[id] = 
-				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
-                
+				                $scope.resourcesToBind.properties[id] = 
+				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
@@ -1359,8 +1523,8 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
-					if(inputComponent.method){
-						defaultValues = MetaModel.getDefaultValues(inputComponent.method, $scope.metamodelObject);
+					if(inputComponent.action){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
 
 					if($scope.resourcesToBind.properties !== undefined){
@@ -1374,6 +1538,10 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
 						}
 					}
+				}
+
+				if (inputComponent.method){
+					$scope.$broadcast(inputComponent.method, $scope);
 				}
 			};
 
@@ -1471,7 +1639,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 		},
 		controller: ['$scope', function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if (!metamodelObject) {
+			if ($rootScope.regionId !== undefined || !metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_init(data);
 				});
@@ -1484,6 +1652,11 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
+
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
 
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
@@ -1507,6 +1680,11 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 
 			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					$scope.inProgress = true;
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
 						$scope.resultSet = resultSet;
@@ -1541,14 +1719,24 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
+
+							var oldItem;
+							if($scope && $scope.previousTable){
+								$scope.previousTable.forEach(function(obj){
+									if(obj.href === item.href){
+										oldItem = obj;
+									}
+								});
+							}
+
 							if ($scope.metamodelObject.filters) {
 								_isFiltered(item).then(function(filtered) {
 					                if (!filtered) {
-					                	_addItem(newValue, item);
+					                	_addItem(newValue, item, oldItem);
 					                }
 					            });
 							} else {
-								_addItem(newValue, item);
+								_addItem(newValue, item, oldItem);
 							} 
 							
 						});
@@ -1566,14 +1754,23 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 				}
 			}
 
-			function _addItem(newValue, item) {
+			function _addItem(newValue, item, oldItem) {
 				var newItem = angular.copy(newValue[item.href]);
               	var newValueItem = _getResultSetItem(newValue, newItem);
-
               	$scope.itemResourcesToBind = { properties : {} };
+
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
+
+              	// Process previous properties to keep ui input values
+              	if(oldItem){
+	              	for(var property in oldItem.properties){
+	              		if(oldItem.properties[property].metainfo && oldItem.properties[property].metainfo.uiInput){
+	              			$scope.itemResourcesToBind[newValueItem[resource].identifier].properties[property] = oldItem.properties[property];
+	              		}
+	              	}
+	            }
 
               	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
                		var metamodelProperty = $scope.metamodelObject.properties[i];
@@ -1618,41 +1815,64 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 		        });
 		    }
 
+		    function _createButtonFromOptions(label, params, creatable) {
+		    	var button = {};
+		    	button.label = label;
+		    	button.action =  { 
+		    		value: 'add', 
+		    		buttonAction: true, 
+		    		params: params 
+		    	};
+		    	button.creatable = creatable !== undefined? creatable : true;
+		    	return button;
+		    }
+
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
+
 				if ($scope.metamodelObject.buttons) {
 					var label = $scope.metamodelObject.buttons.label;
-					//look for the POST operation by default to create the possible buttons
-					resourceFactory.get($scope.resourceUrl).then(function(response) {
-						response.data._options.links.forEach(function(link) {
-							if (link.rel === 'create') {
-								var params = {};
-								if (link.schema.required && link.schema.required.length > 0) {
-									//FIXME. if there is more than one attribute required
-									var required = link.schema.required[0];
-									if (link.schema.properties && required in link.schema.properties) {
-										var property = link.schema.properties[required];
-										if (property.enum) {
-											property.enum.forEach(function(value) {
-												params = {};
-												params[required] = value;
-												$scope.buttons.push({
-													label: 'ADD_'+value.toUpperCase().trim(),
-													action: { value: 'add', buttonAction: true, params: params }
-												});
-											});
+					var values = $scope.metamodelObject.buttons.values;
+
+					if (label) {
+						$scope.buttons.push(_createButtonFromOptions(label, {}));
+					} else {
+						//look for the POST operation by default to create the possible buttons
+						resourceFactory.get($scope.resourceUrl).then(function(response) {
+							response.data._options.links.forEach(function(link) {
+								if (link.rel === 'create') {
+									var params = {};
+									if (link.schema.required && link.schema.required.length > 0) {
+										//FIXME. if there is more than one attribute required
+										var required = link.schema.required[0];
+										if (link.schema.properties && required in link.schema.properties) {
+											var property = link.schema.properties[required];
+											if (property.enum) {
+												//if there is a list of possible values
+												if (values) {
+													values.forEach(function(value) {
+														var creatable = property.enum.indexOf(value) !== -1;
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params, creatable));
+													});
+
+												} else {
+													property.enum.forEach(function(value) {
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params));
+													});
+												}
+											}
 										}
 									}
 								}
-								if ($scope.buttons.length === 0) {
-									$scope.buttons.push({
-										label: label,
-										action: { value: 'add', buttonAction: true, params: params }
-									});
-								}
-							}
+							});
 						});
-					});
+					}
 				}
 			}
 
@@ -1760,6 +1980,45 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 	 			}
 	 		};
 
+    $scope.checkShowItemRow = function(action, displayedItem) {
+        if (action.visibleWhen) {
+            return $scope.checkVisibleOnItemRowValue(action, displayedItem, $scope);
+        }
+        return true;
+    };
+    $scope.checkVisibleOnItemRowValue = function(action, displayedItem, $scope) {
+        if (action.visibleWhen) {
+            var response = evaluateItemRowExpression(action.visibleWhen.expression, displayedItem, $scope);
+            return response;
+        }    
+        return true;
+    };
+    function evaluateItemRowExpression(expression, row, $scope) {
+        var response = true;
+        if (expression.operator) //Recursive case
+        {
+            if (expression.operator === 'AND') {
+                angular.forEach(expression.conditions, function(val) {
+                    if (response) {
+                        response = response && evaluateItemRowExpression(val, row, $scope);
+                    }
+                });
+            } else if (expression.operator === 'OR') {
+                response = false;
+                angular.forEach(expression.conditions, function(val) {
+                    if (!response) {
+                        response = response || evaluateItemRowExpression(val, row, $scope);
+                    }
+                });
+            }
+        } else //Base case
+        {
+        	var id= row.href;
+            var val= expression.field;
+            response = $scope.resultSet[id].properties[val].value === expression.value;
+        }
+        return response;
+    }
 	 		$scope.add = function(params, callback) {
 	 			resourceFactory.get($scope.resourceUrl).then(function(response) {
 	 				response.data._options.links.forEach(function(link) {
@@ -1839,6 +2098,7 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
+        if(screenId !== undefined && screenId !== 'undefined'){
         if(regionId){
              path='assets/resources/metamodel/regions/'+regionId+'/'+ screenId + '.json';
         }
@@ -1868,6 +2128,7 @@ app.factory('MetaModel', ['$resource', '$rootScope', '$location', '$browser', '$
             growl.error($rootScope.appConfig.timeoutMsg);
             return;
         });
+      }
     };
 
 
@@ -1891,22 +2152,19 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
         });
     }
-    
-    console.log('Invoke options on - '+rootURL);
 
     if(!$rootScope.optionsMapForURL){
         $rootScope.optionsMapForURL = new Map();
     }
 
-    if(!$rootScope.optionsMapForURL.get(rootURL)){
-    
+    if(rootURL !== undefined && !$rootScope.optionsMapForURL.get(rootURL)){
             callOptions($rootScope, rootURL, function(optionsObj){
                 options = optionsObj.get(inputComponent.action);
                 if(!properties){
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
                 }
             });
     }else{
@@ -1915,7 +2173,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
         } 
     } 
 };
@@ -1933,7 +2191,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
           if(responseGET.then){
             responseGET.then(function success(httpResponse){
-                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                console.log('prepareOptions - OPTIONS CALL - '+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
                 $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
@@ -2017,7 +2275,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
          var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
           if(responseGET.then){
             responseGET.then(function success(httpResponse){
-                console.log('OPTIONS CALL INVOKED URL:'+rootURL);
+                console.log('callOptions - OPTIONS CALL - '+rootURL);
                 var responseData = httpResponse.data || httpResponse;
                 // Add the resource to the result set
                 $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
@@ -2333,7 +2591,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - None. It will insert the results in the third parameter.
     */
     this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
-        
+        console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
             return $q(function(resolve, reject){
@@ -2377,7 +2635,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
                     resultSet[rootURL].items.forEach(function(url){
-                        console.log('Invoked for items details - '+url.href);
+                        console.log('Invoked for item details - '+url.href);
                         resultSet.pending++;
                         self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
                     });
@@ -2575,7 +2833,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -2586,23 +2844,22 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         //Set the params data from the screen per the schema object for the given action (from the options object)
         params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;    
+        
         //Call the get method on the Data Factory with the URL, Http Method, and parameters
-
         resourceFactory.get(url,params,$rootScope.headers).success(function(response){
+            var data = response || response.data;
+            if(data.outcome === 'success'){
+
+            }
             $scope.resourceUrl= url;
             $rootScope.resourceUrl = url;
-            var responseData = response.data || response;
+            
             $rootScope.loader.loading=false;
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
-            //Load the results into the search results table
-            if(options.action==='search'){                
-                return responseData._links.item;   
-            }
         }).error(function(){
             $rootScope.loader.loading=false;
-            //showMessage($rootScope.locale.GET_OPERATION_FAILED);
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
@@ -2642,15 +2899,79 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
-                }  
+                } else if(tab !== undefined){
+                    resourceFactory.options($rootScope.resourceUrl, $rootScope.headers).success(function(responseData){
+                        var data = responseData.data || responseData;
+                        var urlOperations = data._links[tab[0]].href;
+                        resourceFactory.options(urlOperations, $rootScope.headers).success(function(responseData){
+                            var data = responseData.data || responseData;
+                            var urlCalculation;
+                            var items = data._links.item;
+                            if(items && Array.isArray(items)){
+                                angular.forEach(items, function(item){
+                                    if(item.name=== tab[2]){
+                                        urlCalculation = item.href;
+                                    }
+                                });
+                            } else {
+                                urlCalculation = items.href;
+                            }
+                            resourceFactory.options(urlCalculation, $rootScope.headers).success(function(responseData){
+                                var data = responseData.data || responseData;
+                                var urlExecute = data._links[tab[1]].href;
+                                var params = {};
+                                resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(responseData){
+                                    var data = responseData.data || responseData;
+                                    var urlDetail;
+                                    if(Array.isArray(data.messages)){
+                                        // get last element of array
+                                        urlDetail = data.messages[data.messages.length - 1].message[0];
+                                    } else {
+                                        urlDetail = data.messages.context;
+                                    }
+                                    if(data.outcome === 'success'){
+                                        resourceFactory.refresh(urlDetail, params, $rootScope.headers).success(function(responseData){
+                                            var data = responseData.data || responseData;
+                                            if(data.outcome === 'failure'){
+                                                angular.forEach(data.messages, function(value){
+                                                    growl.error(value.message);
+                                                });
+                                            }
+                                        });
+                                    } else if(data.outcome === 'failure'){
+                                        angular.forEach(data.messages, function(value){
+                                            growl.error(value.message);
+                                        });
+                                    }
+                                }).error(function(err){
+                                    // Show error message when Calculate Premium failed 
+                                    var mess = '';
+                                    if(err.Errors){
+                                        var arrayErr = convertToArray(err.Errors);                                           
+                                        mess = arrayErr.map(function(elem){
+                                            return elem.Reason;
+                                        }).join('\n');                                            
+                                    } else{
+                                        mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
+                                    } 
+                                    growl.error(mess); 
+                                });
+                            });
+                        });
+                    });
+                }else if(actionURL !== undefined){ 
+                    $rootScope.loader.loading=false;           
+                    if(resolve) {
+                        resolve();
+                    }
+                }
                 $rootScope.loader.loading=false;
-       
+                if(actionURL !== undefined){ 
+                    $rootScope.navigate(actionURL);
+                }
                 if(resolve) {
                     resolve();
                 }
-            }
-            if(actionURL){
-                $location.path(actionURL);    
             }
         }).error(function(){
             $rootScope.loader.loading=false;
@@ -2719,13 +3040,30 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
                         $scope.data['quote:annual_cost'] =data._links.self.premium;                        
                      } 
                      if(data.outcome === 'success'){
-                            angular.forEach(data.messages, function(value){
-                            growl.success(value.message);
-                        });
-                     } else{
+                            //angular.forEach(data.messages, function(value){
+                            //growl.success(value.message);
+                            //});
+                            params=undefined;
+                            if(data && data._links && data._links.self && data._links.self.href){
+                                resourceFactory.refresh(data._links.self.href, params, $rootScope.headers).success(function(responseData){
+                                    var data = responseData.data || responseData;
+                                    $rootScope.loader.loading=false;
+                                    if(data.outcome==='success'){
+
+                                    }else if(data.outcome === 'failure'){
+                                        angular.forEach(data.messages, function(value){
+                                            growl.error(value.message);
+                                        });
+                                    }
+                                });
+                            }
+                    } else{
                         //showMessage($rootScope.locale.CREATE_OPERATION_FAILED);
                         growl.error($rootScope.locale.CREATE_OPERATION_FAILED);
-                     }  
+                     } 
+                    if(resolve) {
+                        resolve();
+                    }  
                 } else {
                     $rootScope.resourceHref = data._links.self.href;
                     $rootScope.loader.loading=false;
@@ -2737,7 +3075,7 @@ function httpMethodToBackEnd(growl, item, $scope, resourceFactory, $rootScope, o
         }).error(function(){
             $rootScope.loader.loading=false;
         });
-    } else if(httpmethod==='PATCH'){
+    }else if(httpmethod==='PATCH'){
         $rootScope.loader.loading=true;
         //Call the patch method on the Data Factory
         resourceFactory.patch(url,params,$rootScope.headers).success(function(data){
@@ -2958,7 +3296,7 @@ function changeMandatoryColor($rootScope) {
 'use strict';
 /*global app*/
 
-app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location', '$cookieStore', '$resource', 'tmhDynamicLocale', function($scope, $rootScope, $http, $location, $cookieStore, $resource, tmhDynamicLocale) {
+app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location', '$cookieStore', '$resource', 'tmhDynamicLocale', '$translate', function($scope, $rootScope, $http, $location, $cookieStore, $resource, tmhDynamicLocale, $translate) {
     $rootScope.logout = function() {
         delete $rootScope.user;
         delete localStorage.username;
@@ -2982,6 +3320,7 @@ app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location'
         $resource('ocInfra/assets/resources/i18n/' + newlocale + '.json').get(function(data) {
             $rootScope.locale = data;
             tmhDynamicLocale.set(newlocale);
+            $translate.use(newlocale);  
 
         }, function() {});
 
@@ -3114,8 +3453,16 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     var resourceDirectory = {};
     var PENDING_REQUEST = '0';
 
+    //used to distinct between GET method with and without params
+    var urlParams = {};
+
+    var defaultHeaders = {
+            'Accept': 'application/vnd.hal+json, application/json',
+            'Content-Type': 'application/json'
+    };
+
     function _addApiGatewayApiKeys(params) {
-        if (params === undefined) {
+        if (params === null || params === undefined) {
             params = {};
         }
         if ($rootScope.config.apiGatewayApiKeys) {
@@ -3130,10 +3477,29 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
       return angular.copy(resourceDirectory[url]);
     }
 
+    function _prepareHeaders(headers){
+        if(!headers){
+            headers = defaultHeaders;
+            var appHeaders;
+
+            if(sessionStorage.getItem('_headers')){
+                appHeaders = JSON.parse(sessionStorage.getItem('_headers'));
+                for(var key in appHeaders){
+                    headers[key] = appHeaders[key];
+                }
+            }
+        }
+        return headers;
+    }
+
     function _get(url, params, headers) {
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
             resourceDirectory[url] = null;
+            urlParams[url] = true;
+        }else if(angular.isObject(params) && urlParams[url]){
+            resourceDirectory[url] = null;
+            urlParams[url] = false;
         }
 
         params = _addApiGatewayApiKeys(params);
@@ -3144,7 +3510,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                     method : 'GET',
                     url : url,
                     params : params,
-                    headers : headers
+                    headers : _prepareHeaders(headers)
             });
             if (promise.then) {
                 promise.then(function(response) {
@@ -3185,7 +3551,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     function _refresh(url, params, headers) {
         resourceDirectory[url] = null;
-        return _get(url, params, headers);
+        return _get(url, params, _prepareHeaders(headers));
     }
 
     function _post(url, data, headers) {
@@ -3193,15 +3559,16 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'POST',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });
-
+                if(response.data !== undefined && response.data._links !== undefined && response.data._links.self !== undefined && response.data._links.self.href !== undefined){
+                    resourceDirectory[response.data._links.self.href] = response;
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });    
+                }
             }, function(error) {
                 //console.error(error);
                 return error;
@@ -3215,7 +3582,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
             method : 'DELETE',
             url : url,
-            headers : headers,
+            headers : _prepareHeaders(headers),
             params: params
         });
         if (promise.then) {
@@ -3238,7 +3605,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: 'PATCH',
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 params: params,
                 data: data
         });
@@ -3266,14 +3633,16 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         var promise = $http({
                 method: method,
                 url: url,
-                headers: headers,
+                headers: _prepareHeaders(headers),
                 data: data,
                 params: params
         });
         if (promise.then) {
             promise.then(function(response) {
-                resourceDirectory[response.data._links.self.href] = response;
-                $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });
+                if (response.data && response.data._links && response.data._links.self){
+                    resourceDirectory[response.data._links.self.href] = response;
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response });    
+                }
 
             }, function(error) {
                 console.error(error);
@@ -3309,7 +3678,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 {
                     method : 'GET',
                     url : urlBase,
-                    headers : headers,
+                    headers : _prepareHeaders(headers),
                     params: params
                 }
             );   
@@ -3543,7 +3912,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.displayed = [];
     $scope.stTableList.showResult = true;
 
-    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab) {
+    $scope.doaction = function(method, subsections, action, actionURL, nextScreenId, tab, tabNavigate) {
 
        console.log(nextScreenId);
         var screenId = $rootScope.screenId;
@@ -3567,7 +3936,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             var preLink = $scope.getRelationshipOfNavigateStep(preStep);
             $scope.selecttab(preStep, preLink);
         } else {
-            if ($scope.isValid()) {
+            if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -3641,7 +4010,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
                                 });
                             });
                         });
-                }else{
+                }else if (tabNavigate !== undefined) {
+                    $rootScope.step = $rootScope.step + 1;
+                    loadRelationshipByStep($rootScope.step);
+                    $scope.preStep = $rootScope.step;
+                } else{
                     EnumerationService.loadEnumerationByTab();
                 }
             });
@@ -3679,15 +4052,18 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     $scope.preRel = undefined;
     $rootScope.currRel = undefined;
     $rootScope.currName = undefined;
+    $scope.pendingFields = [];
 
     function loadRelationshipByStep(step){
-        var list = $rootScope.metamodel[$rootScope.screenId].sections;
-        angular.forEach(list, function(tabObj){
-            if(step === tabObj.step){
-                $rootScope.currRel = tabObj.link;
-                $rootScope.currName = tabObj.$ref;
-            } 
-        });
+        if($rootScope.metamodel[$rootScope.screenId]){
+            var list = $rootScope.metamodel[$rootScope.screenId].sections;
+            angular.forEach(list, function(tabObj){
+                if(step === tabObj.step){
+                    $rootScope.currRel = tabObj.link;
+                    $rootScope.currName = tabObj.$ref;
+                } 
+            });
+        }
     }
     new Promise(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
@@ -3720,7 +4096,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     });
 
     $scope.selecttab = function(step1, rel) {
-        if ($scope.isValid()) {
+        if ($scope.isValid() && !$scope.isPending()) {
             if(msg !== undefined){
                 msg.destroy();    
             }
@@ -3747,12 +4123,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     $scope.patchField = function(fieldName){
-
+        if($.inArray(fieldName, $scope.pendingFields) === -1){
+            $scope.pendingFields.push(fieldName);
+        }        
         $scope.patchFieldName = fieldName;
         // not apply patch field for us
         if ($rootScope.regionId !== 'us') { 
             if($scope.isValidByField(fieldName)){
-                MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true);
+                new Promise(function(resolve) {
+                    MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true, resolve);                  
+                }).then(function(){
+                    var index = $scope.pendingFields.indexOf(fieldName);
+                    $scope.pendingFields.splice(index, 1);
+                });
             }
         }
     };
@@ -3795,6 +4178,21 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     };
 
     var msg;
+
+    $scope.isPending = function(){
+        var message = '';
+        if ($rootScope.regionId !== 'us') { 
+            if ($scope.pendingFields && $scope.pendingFields.length > 0) {            
+                $scope.pendingFields.forEach(function(key) {
+                    var label = $scope.translateKeyToLabelByTab(key);
+                    message += $rootScope.locale[label] + $rootScope.locale.IS_BEING_PATCHED + '<br />';
+                });            
+                msg = growl.error(message);
+                return true;
+            } 
+        }
+        return false;
+    };
 
     $scope.isValid = function(){
         var dataField = [];
@@ -3918,7 +4316,7 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
                    } 
               });
       },
-        function(data) {  
+        function() {  
               $resource('vendors/OcInfra/client-infrastructure/dist/ocInfra/assets/resources/config/OCInfraConfig.json').get(function(data) { 
 
                 $rootScope.infraConfig = data.config.base;
@@ -3933,12 +4331,8 @@ app.service('OCInfraConfig', ['$resource', '$rootScope', function($resource, $ro
                         } 
                     });
                 });
-        }
+        });
 
-      );
-
-
-    
     };
 }]);
 

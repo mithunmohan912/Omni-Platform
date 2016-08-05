@@ -1,29 +1,85 @@
 {
     "metamodel": {
-        "formid": "contacts",
-        "title": "",
-        "name": "contacts",
+        "showHeader": true,
+        "businessObject": {
+           "quote": [
+                   "quote:quote_risk_list"
+            ]
+        },
         "sections": [
             {
-                "title": "_CONTACTS",
-                "name": "contacts",
-                "category": "nonaccordion",
-                "elements": [
-                   {
-                        "name": "contacts.contact_number",
+                "properties": [
+                    {
+                        "type": "tabs",
+                        "colspan": 8,
+                        "row": 1,
+                        "tabs": [
+                             {
+                                "screenId": "partiesDetail",
+                                "method": "navigateToTab",
+                                "actionURL": "partiesDetail",
+                                "title": "_PARTIES"
+                            },
+                            {
+                                "screenId": "addresses",
+                                "method": "navigateToTab",
+                                "actionURL": "addresses",
+                                "title": "_ADDRESSES"
+                            },
+                            {
+                                "screenId": "contacts",
+                                "method": "navigateToTab",
+                                "actionURL": "contacts",
+                                "title": "_CONTACTS"
+                            },
+                            {
+                                "screenId": "emails",
+                                "method": "navigateToTab",
+                                "actionURL": "emails",
+                                "title": "_EMAIL"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "id": "contacts.contact_number",
                         "type": "text",
                         "label": "_CONTACT_NUMBER",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
-                    }, 
-					{
-                        "name": "contacts.contact_type",
+                        "row": 1,
+                        "patchOnBlur": true,
+                        "uiInput" : true
+                    },
+                    {
+                        "id": "contacts.contact_type",
                         "type": "text",
                         "label": "_CONTACT_TYPE",
-                        "visible": true,
-						"required": "required",
-                        "columnsize": 3
+                        "row": 1,
+                        "patchOnBlur": true,
+                         "uiInput" : true
+                    }
+                ]
+            },
+            {
+                "properties": [
+                    {
+                        "type": "buttonGroup",
+                        "buttons": [
+                            {
+                                "label": "_NEXT",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "premiumInfo"
+                            },
+                            {
+                                "label": "_PREVIOUS",
+                                "method": "navigateToTab",
+                                "action": "update",
+                                "actionURL": "riskInfo"
+                            }
+                        ]
                     }
                 ]
             }

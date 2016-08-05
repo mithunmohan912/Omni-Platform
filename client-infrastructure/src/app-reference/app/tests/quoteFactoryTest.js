@@ -1,11 +1,9 @@
 'use strict';
 
-/*
-global spyOn, searchVehicleMake
-*/
+
 
 describe('quoteFactoryTest', function(){
-  var _quoteFactory, _resourceFactory;
+  /* var _quoteFactory, _resourceFactory;
 
   beforeEach(function(){
     angular.mock.module('ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','omnichannel', 'pascalprecht.translate');
@@ -64,7 +62,7 @@ describe('quoteFactoryTest', function(){
 
    
   });
-
+*/
 
 });
  

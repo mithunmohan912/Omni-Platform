@@ -1,8 +1,11 @@
 <span class="form-group">
-    <label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
-    <span class="col-xs-12" ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8 col-md-6' : '')">
+    <label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.colspan.xs.label}} col-sm-{{field.colspan.sm.label}} col-md-{{field.colspan.md.label}} col-lg-{{field.colspan.lg.label}} col-xs-offset-{{field.offset.xs}} col-sm-offset-{{field.offset.sm}} col-md-offset-{{field.offset.md}} col-lg-offset-{{field.offset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+    <span ng-class="(!field.label && field.property.required) ? ' required-star' : ''" class="col-xs-{{field.colspan.xs.input}} col-sm-{{field.colspan.sm.input}} col-md-{{field.colspan.md.input}} col-lg-{{field.colspan.lg.input}}">
         <div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-        <label  class="btn btn-default col-xs-6"
+        <label  ng-repeat="(key, value) in field.attributes track by $index"
+                class="btn btn-default col-xs-{{field.colspan.toggles}}"
+                ng-class="field.options[key] === field.property.value ? 'btn-active' : ''"
                 name="{{field.name}}"
 
                 ng-model="field.property.value"
@@ -10,20 +13,8 @@
                 ng-disabled="!field.property.editable"
                 ng-change="field.onChange()"
 
-                uib-btn-radio="false">
-            <span>{{field.attributes.false_label | translate}}</span>
-        </label>
-
-        <label  class="btn btn-default col-xs-6"
-                name="{{field.name}}"
-                
-                ng-model="field.property.value"
-                ng-required="field.property.required"
-                ng-disabled="!field.property.editable"
-                ng-change="field.onChange()"
-
-                uib-btn-radio="true" >
-            <span>{{field.attributes.true_label | translate}}</span>
+                uib-btn-radio="field.options[key]">
+            <span>{{value | translate}}</span>
         </label>
             
         <div ng-include="baseUrl + 'backend-error-display.html'"></div>

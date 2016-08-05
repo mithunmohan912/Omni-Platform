@@ -1,9 +1,9 @@
 <span class="form-group" 
 	  ng-show="field.isVisible()">
 	
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-sm-{{field.labelsize}} col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.colspan.xs.label}} col-sm-{{field.colspan.sm.label}} col-md-{{field.colspan.md.label}} col-lg-{{field.colspan.lg.label}} col-xs-offset-{{field.offset.xs}} col-sm-offset-{{field.offset.sm}} col-md-offset-{{field.offset.md}} col-lg-offset-{{field.offset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
-	<span ng-class="field.label ? 'col-sm-'+(12-field.labelsize): ''" class="col-xs-12">
+	<span class="col-xs-{{field.colspan.xs.input}} col-sm-{{field.colspan.sm.input}} col-md-{{field.colspan.md.input}} col-lg-{{field.colspan.lg.input}}">
 		<span ng-class="field.class ? field.class : ''">
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 			<ng-switch on="property.metainfo.format">
@@ -11,7 +11,7 @@
 					{{ field.property.value | date:field.format }}<i ng-if="field.icon" class="fa fa-{{field.icon}}"></i>
 				</span>
 				<span ng-switch-default>
-					{{ field.property.value }}<i ng-if="field.icon" class="fa fa-{{field.icon}}"></i>
+					{{ field.property.value}}<i ng-if="field.icon" class="fa fa-{{field.icon}}"></i>
 				</span>
 			</ng-switch>
 		</span>

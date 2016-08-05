@@ -1,0 +1,6 @@
+<span class="form-group">	
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.colspan.xs.label}} col-sm-{{field.colspan.sm.label}} col-md-{{field.colspan.md.label}} col-lg-{{field.colspan.lg.label}} col-xs-offset-{{field.offset.xs}} col-sm-offset-{{field.offset.sm}} col-md-offset-{{field.offset.md}} col-lg-offset-{{field.offset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+		<textarea class="ck-editor" ng-model="data[field.name]"></textarea>
+		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+	</span>
+</span>

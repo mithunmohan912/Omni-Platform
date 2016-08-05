@@ -45,6 +45,37 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return true;
 			};
 
+			function _prepareColspanAndOffset(element){
+				if(element.colspan){
+					var initialColspan = 12;
+					if(!(element.colspan instanceof Object)){
+						initialColspan = element.colspan;
+						element.colspan = {};
+					}
+
+					element.colspan.xs = element.colspan.xs || initialColspan;
+					element.colspan.sm = element.colspan.sm || element.colspan.xs;
+					element.colspan.md = element.colspan.md || element.colspan.sm;
+					element.colspan.lg = element.colspan.lg || element.colspan.md;
+				}
+
+				if(element.offset){
+					var initialOffset = 0;
+					if(!(element.offset instanceof Object)){
+						initialOffset = element.offset;
+						element.offset = {};
+					}
+
+					element.offset.xs = element.offset.xs || initialOffset;
+					element.offset.sm = element.offset.sm || element.offset.xs;
+					element.offset.md = element.offset.md || element.offset.sm;
+					element.offset.lg = element.offset.lg || element.offset.md;
+				}
+
+				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+				element.offset = element.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+			}
+
 			function _processMetamodel(metamodel){
 				if(metamodel && metamodel.sections){
 					metamodel.sections.forEach(function(section){
@@ -52,6 +83,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						if(!section.type || section.type !== 'reference'){
 							var rowNumbers = [];
 							section.rows = [];
+
+							_prepareColspanAndOffset(section);
+
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12 };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0 };
 							
 							section.properties.forEach(function(property){
 								if(property.row !== undefined){
@@ -89,7 +125,19 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
 											}
 
-											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
+											if(!propertiesInRow[j].colspan){
+												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan};
+											}
+											_prepareColspanAndOffset(propertiesInRow[j]);
+
+											if(propertiesInRow[j].type === 'iconGroup'){
+												propertiesInRow[j].icons.forEach(function(icon){
+													_prepareColspanAndOffset(icon);
+
+													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12 };
+													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0 };
+												});
+											}
 
 											section.properties.push(propertiesInRow[j]);
 										}
@@ -100,6 +148,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							for(var index = section.properties.length - 1; index >= 0; index--){
 								if(section.properties[index].row === undefined){
 									section.rows.unshift([section.properties[index]]);
+									_prepareColspanAndOffset(section.properties[index]);
 								}
 							}
 
@@ -128,7 +177,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.resourcesToBind = { properties : {} };
 				var newURL = {};
 				if($rootScope.resourceHref){
-					 $scope.optionUrl = $rootScope.resourceHref;
+					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
                     $scope.resourceUrlToRender = $rootScope.resourceHref;
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = $rootScope.hostURL + resource;
@@ -138,7 +187,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     var applName = regionToSORMap[$rootScope.regionId];
                     //Replace the regionId with application name in the URL
                     newURL = url.replace(':regionId',applName);
-                    $scope.optionUrl = newURL;
+                    $scope.metamodelObject.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
@@ -319,9 +368,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				                var id = property.id[k];
 							
-				                  $scope.resourcesToBind.properties[id] = 
-				                  $scope.resourcesToBind[resourceSelected.resource].properties[id];
-                
+				                $scope.resourcesToBind.properties[id] = 
+				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
@@ -361,8 +409,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
-					if(inputComponent.method){
-						defaultValues = MetaModel.getDefaultValues(inputComponent.method, $scope.metamodelObject);
+					if(inputComponent.action){
+						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
 
 					if($scope.resourcesToBind.properties !== undefined){
@@ -376,6 +424,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
 						}
 					}
+				}
+
+				if (inputComponent.method){
+					$scope.$broadcast(inputComponent.method, $scope);
 				}
 			};
 
