@@ -67,9 +67,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 
 					element.offset.xs = element.offset.xs || initialOffset;
-					element.offset.sm = element.offset.sm || element.offset.xs;
-					element.offset.md = element.offset.md || element.offset.sm;
-					element.offset.lg = element.offset.lg || element.offset.md;
+					element.offset.sm = element.offset.sm || initialOffset;
+					element.offset.md = element.offset.md || initialOffset;
+					element.offset.lg = element.offset.lg || initialOffset;
 				}
 
 				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
@@ -86,8 +86,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 							_prepareColspanAndOffset(section);
 
-							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12 };
-							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0 };
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 							
 							section.properties.forEach(function(property){
 								if(property.row !== undefined){
@@ -126,17 +126,18 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											}
 
 											if(!propertiesInRow[j].colspan){
-												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan};
+												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan, default: true};
 											}
 											_prepareColspanAndOffset(propertiesInRow[j]);
 
 											if(propertiesInRow[j].type === 'iconGroup'){
-												propertiesInRow[j].icons.forEach(function(icon){
+												for(var iconIndex = 0; iconIndex < propertiesInRow[j].icons.length; iconIndex++){
+													var icon = propertiesInRow[j].icons[iconIndex];
 													_prepareColspanAndOffset(icon);
 
-													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12 };
-													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0 };
-												});
+													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+												}
 											}
 
 											section.properties.push(propertiesInRow[j]);
