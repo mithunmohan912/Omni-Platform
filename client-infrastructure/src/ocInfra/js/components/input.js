@@ -139,16 +139,50 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     		lg: {}
     	};
 
-    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	var offset = {
+    		xs: 0,
+    		sm: 0,
+    		md: 0,
+    		lg: 0
+    	};
+
+    	if(element.inputColspan && !(element.inputColspan instanceof Object)){
+    		var initialColspan = element.inputColspan;
+    		element.inputColspan = {
+    			xs: initialColspan,
+    			sm: initialColspan,
+    			md: initialColspan,
+    			lg: initialColspan
+    		};
+    	}
+
+    	if(element.inputOffset && !(element.inputOffset instanceof Object)){
+    		var initialOffset = element.inputOffset;
+    		element.inputOffset = {
+    			xs: initialOffset,
+    			sm: initialOffset,
+    			md: initialOffset,
+    			lg: initialOffset
+    		};
+    	}
+
+
+    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.xs;
     	colspan.xs.label = 12 - colspan.xs.input;
-    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.sm;
     	colspan.sm.label = 12 - colspan.sm.input;
-    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.md;
     	colspan.md.label = 12 - colspan.md.input;
-    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
-    	element.colspan = colspan;
+    	offset.xs = element.inputOffset.xs || 0;
+    	offset.sm = element.inputOffset.sm || 0;
+    	offset.md = element.inputOffset.md || 0;
+    	offset.lg = element.inputOffset.lg || 0;
+
+    	element.inputColspan = colspan;
+    	element.inputOffset = offset;
     }
 
 	return {
@@ -539,8 +573,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
-					'colspan': $scope.metamodel.colspan,
-					'offset': $scope.metamodel.offset
+					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : 8,
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : 0
 				};
 
 				_prepareColspanAndOffset($scope.field);
