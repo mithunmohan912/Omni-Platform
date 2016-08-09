@@ -81,8 +81,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					metamodel.sections.forEach(function(section){
 						// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
 						if(!section.type || section.type !== 'reference'){
-							var rowNumbers = [];
-							section.rows = [];
 
 							_prepareColspanAndOffset(section);
 
@@ -90,72 +88,21 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 							
 							section.properties.forEach(function(property){
-								if(property.row !== undefined){
-									if(rowNumbers[property.row] === undefined){
-										rowNumbers[property.row] = 0;
+								_prepareColspanAndOffset(property);
+
+								if(property.type === 'iconGroup'){
+									for(var iconIndex = 0; iconIndex < property.icons.length; iconIndex++){
+										var icon = property.icons[iconIndex];
+										_prepareColspanAndOffset(icon);
+
+										icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+										icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 									}
-									rowNumbers[property.row]++;
 								}
 
 								//we need to process an array even if id is a single value. 
 								if (property.id && !Array.isArray(property.id)){
 									property.id = [property.id]; 
-								}
-							});
-
-							var propertyMapFilter = function(property){
-								if(property.row !== undefined && property.row === i){
-									return property;
-								}
-							};
-
-							for(var i = 0; i < rowNumbers.length; i++){
-								if(rowNumbers[i] !== undefined){
-									var propertiesInRow = section.properties.map(propertyMapFilter);
-
-									section.rows.push(propertiesInRow);
-
-									for(var j = 0; j < propertiesInRow.length; j++){
-										if(propertiesInRow[j] !== undefined){
-											section.properties.splice(section.properties.indexOf(propertiesInRow[j]), 1);
-											
-											var calculatedColspan = 12;
-								
-											if(section.properties.length > 1 && propertiesInRow[j].row){
-												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
-											}
-
-											if(!propertiesInRow[j].colspan){
-												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan, default: true};
-											}
-											_prepareColspanAndOffset(propertiesInRow[j]);
-
-											if(propertiesInRow[j].type === 'iconGroup'){
-												for(var iconIndex = 0; iconIndex < propertiesInRow[j].icons.length; iconIndex++){
-													var icon = propertiesInRow[j].icons[iconIndex];
-													_prepareColspanAndOffset(icon);
-
-													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
-													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
-												}
-											}
-
-											section.properties.push(propertiesInRow[j]);
-										}
-									}
-								}
-							}
-
-							for(var index = section.properties.length - 1; index >= 0; index--){
-								if(section.properties[index].row === undefined){
-									section.rows.unshift([section.properties[index]]);
-									_prepareColspanAndOffset(section.properties[index]);
-								}
-							}
-
-							section.rows.forEach(function(properties){
-								while(properties.indexOf(undefined) >= 0) {
-									properties.splice(properties.indexOf(undefined), 1);
 								}
 							});
 						}

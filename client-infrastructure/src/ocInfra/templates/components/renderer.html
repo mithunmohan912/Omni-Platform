@@ -16,8 +16,7 @@
 
 		<div ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
 			<form>
-				<div id="section-row-{{$index}}" ng-repeat="row in section.rows track by $index" class="row section-row">
-					<div id="component-{{column.uid}}" ng-repeat="column in row track by $index" class="section-row-column {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
+					<div id="component-{{column.uid}}" ng-repeat="column in section.properties track by $index" class="section-row-column {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
 						<div ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 							<div ng-switch-when="tabs" class="infra-tabs-container">
 								<ul class="nav nav-tabs">
@@ -108,5 +107,4 @@
 				</div>
 			</form>
 		</div>
-	</div>
 </div>
