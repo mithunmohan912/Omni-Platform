@@ -1,0 +1,104 @@
+{
+    "metamodel": {
+        "showHeader" :true,
+        "sections": [
+        { 
+        "properties":[
+            {
+            "type": "iconGroup",
+            "icons":[
+                {
+                "label": "_AUTO_QUOTE_ASIA",
+                "method": "navigateToScreen",
+                "actionURL": "asia/screen/quotessearch",
+                "icon": "glyphicon flaticon-auto",
+                "iconflags":"malaysia"
+            },
+            {
+                "label": "_AUTO_QUOTE_EU",
+                "method": "navigateToScreen",
+                "actionURL": "eu/screen/autosearch",
+                "icon": "glyphicon flaticon-auto",
+                "iconflags":"eu"
+            },            
+            {
+                "label": "_HOME_QUOTE_US",
+                "method": "navigateToScreen",
+                "actionURL": "us/screen/quotessearch",
+                "icon": "glyphicon flaticon-home",
+                "iconflags":"usa"
+            },
+            {
+                "label": "_HOME_QUOTE_EU",
+                "method": "navigateToScreen",
+                "actionURL": "eu/screen/quotessearch",
+                "icon": "glyphicon flaticon-home",
+                "iconflags":"eu1"
+            },
+             {
+                "label": "_HOME_CLIENT_US",
+                "method": "navigateToScreen",
+                "actionURL": "us/screen/clientssearch",
+                "icon": "glyphicon flaticon-client",
+                "iconflags":"usa",
+                "elements" : [
+                    {
+                        "name": "_ASIA_AUTO_QS",
+                        "type": "buttonSmall",
+                        "label": "_ASIA_AUTO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigateToScreen",
+                        "actionURL": "asia/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_EU_AUTO_QS",
+                        "type": "buttonSmall",
+                        "label": "_EU_AUTO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigateToScreen",
+                        "actionURL": "eu/screen/autosearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_US_HO_QS",
+                        "type": "buttonSmall",
+                        "label": "_US_HO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigateToScreen",
+                        "actionURL": "us/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_EU_HO_QS",
+                        "type": "buttonSmall",
+                        "label": "_EU_HO_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigateToScreen",
+                        "actionURL": "eu/screen/quotessearch",
+                        "visible": "true"
+                    },
+                    {
+                        "name": "_US_CL_QS",
+                        "type": "buttonSmall",
+                        "label": "_US_CL_QS",
+                        "icon": "flaticon-adults",
+                        "method":"navigateToScreen",
+                        "actionURL": "us/screen/clientssearch",
+                        "visible": "true"
+                    }
+                ]
+            },
+            {
+                "label": "_INSURED_ACCESS",
+                "method": "navigateToScreen",
+                "actionURL": "us/screen/insuredlogin",
+                "icon": "glyphicon flaticon-insured-access",
+                "iconflags":"usa"
+            }
+             
+        ]
+         }]
+        }]
+    }
+}
