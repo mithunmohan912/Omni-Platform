@@ -6,26 +6,56 @@
                 "title": "_LOGIN",
                 "logodir": true,
                 "row": 1,
-                "colspan" : 4,
-                "offset": 4,
+                "class":"container-center",
+                "colspan" : {
+                    "xs":12,
+                    "sm":12,
+                    "md":12,
+                    "lg":12
+                },
+                "offset": 0,
                 "properties": [
                                 {
                                    "id": "inputUsername",
                                     "type": "text",
                                     "label": "_USERNAME",
-                                    "uiInput" : true
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "colspan":{
+                                                "xs":12,
+                                                "sm" :8,
+                                                "md":8
+                                            }
+                                    },
+                                    "colspan":12
+                                    
                                 }, 
                                 {
                                     "id": "inputPassword",
                                     "type": "text",
                                     "label": "_PASSWORD",
                                     "uiInput" : true,
+                                    "attributes":{
+                                        "colspan":{
+                                                "xs":12,
+                                                "sm" :8,
+                                                "md":8
+                                            }
+                                    },
+                                    "colspan":12,
                                     "format":"password"
                                 },
                                 {
                                     "id": "submit",
                                     "method":"submit",
                                     "type": "buttonGroup",
+                                    "attributes":{
+                                        "colspan":{
+                                                "xs":12,
+                                                "sm" :8,
+                                                "md":8
+                                            }
+                                    },
                                     "buttons": [
                                         {
                                             "id":"btn_submit",
