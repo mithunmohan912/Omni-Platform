@@ -45,6 +45,37 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return true;
 			};
 
+			function _prepareColspanAndOffset(element){
+				if(element.colspan){
+					var initialColspan = 12;
+					if(!(element.colspan instanceof Object)){
+						initialColspan = element.colspan;
+						element.colspan = {};
+					}
+
+					element.colspan.xs = element.colspan.xs || initialColspan;
+					element.colspan.sm = element.colspan.sm || element.colspan.xs;
+					element.colspan.md = element.colspan.md || element.colspan.sm;
+					element.colspan.lg = element.colspan.lg || element.colspan.md;
+				}
+
+				if(element.offset){
+					var initialOffset = 0;
+					if(!(element.offset instanceof Object)){
+						initialOffset = element.offset;
+						element.offset = {};
+					}
+
+					element.offset.xs = element.offset.xs || initialOffset;
+					element.offset.sm = element.offset.sm || initialOffset;
+					element.offset.md = element.offset.md || initialOffset;
+					element.offset.lg = element.offset.lg || initialOffset;
+				}
+
+				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+				element.offset = element.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+			}
+
 			function _processMetamodel(metamodel){
 				if(metamodel && metamodel.sections){
 					metamodel.sections.forEach(function(section){
@@ -52,6 +83,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						if(!section.type || section.type !== 'reference'){
 							var rowNumbers = [];
 							section.rows = [];
+
+							_prepareColspanAndOffset(section);
+
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 							
 							section.properties.forEach(function(property){
 								if(property.row !== undefined){
@@ -89,7 +125,20 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
 											}
 
-											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
+											if(!propertiesInRow[j].colspan){
+												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan, default: true};
+											}
+											_prepareColspanAndOffset(propertiesInRow[j]);
+
+											if(propertiesInRow[j].type === 'iconGroup'){
+												for(var iconIndex = 0; iconIndex < propertiesInRow[j].icons.length; iconIndex++){
+													var icon = propertiesInRow[j].icons[iconIndex];
+													_prepareColspanAndOffset(icon);
+
+													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+												}
+											}
 
 											section.properties.push(propertiesInRow[j]);
 										}
@@ -100,6 +149,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							for(var index = section.properties.length - 1; index >= 0; index--){
 								if(section.properties[index].row === undefined){
 									section.rows.unshift([section.properties[index]]);
+									_prepareColspanAndOffset(section.properties[index]);
 								}
 							}
 
