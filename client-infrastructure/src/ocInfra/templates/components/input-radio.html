@@ -2,7 +2,7 @@
 	<span class="form-group" 
 		  ng-show="field.isVisible()">
 
-		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-12">
+		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
 				<div ng-repeat="option in field.attributes.enum track by $index">
