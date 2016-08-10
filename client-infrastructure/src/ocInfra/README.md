@@ -468,7 +468,7 @@ This type uses the same attributes as the [decimal input](#442-decimal).
 ##### 2.4.13 Checkbox
 
 ###### Attributes
->_None._
+* __postion__: String. Defines the position of the checkbox and his label. If position is defined as "after". Checkbox position is shown before than label. By default is shown first label and second checkbox component. 
 
 ###### Options
 >_None._
