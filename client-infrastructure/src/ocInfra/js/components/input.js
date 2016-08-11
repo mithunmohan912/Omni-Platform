@@ -532,6 +532,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				$scope.field = {
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
+					'position':$scope.metamodel.position,
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
