@@ -349,6 +349,38 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				'attributes': {
 					'capitalize': false
 				},
+				'options': {
+					_getData: function(id, field){
+						/*           
+							FIXME: Copy/paste from select inputs
+							field.options.getData: action defined by the user that will be invoked to fill the radio values.
+							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
+						*/
+						var enumeration = {};
+						var data = null;
+						if(field.options.getData){
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
+						} else {
+							//console.warn('input.js -> radio_getData(): No getData method for radio input.');
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
+						}
+					}
+				},
 				'updateMode': 'change'
 			};
 
