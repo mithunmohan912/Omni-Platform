@@ -53,7 +53,7 @@
 							<div ng-switch-when="buttonGroup" class="infra-buttons-container">
 								<div ng-repeat="button in column.buttons" class="renderer-button-div">
 									<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
-									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true">
+									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
 										<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 									</button>
