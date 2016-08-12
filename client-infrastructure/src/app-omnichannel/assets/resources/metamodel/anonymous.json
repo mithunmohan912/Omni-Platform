@@ -1,13 +1,13 @@
 {
     "metamodel": {
-        "showHeader" :false,
+        
         "sections": [
             {
-                "logodir": true,
+                
                 "properties": [
                     {
-                        "type": "buttonGroup",
-                        "buttons": [
+                        "type": "iconGroup",
+                        "icons": [
                                 {
                                     "id":"btn_auto_quote_asia",
                                     "label": "_ASIA_AUTO_QS",
@@ -20,6 +20,14 @@
                                     "columnsize": 12 ,
                                     "title":"_ANONYMOUS",
                                     "tourcontent":"_ANONYMOUS_AISA_CONTENT",
+                                    "iconflags":"malaysia",
+                                    "icon": "glyphicon flaticon-car",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
                                     "position":"bottom"
                                 },  
                                 {
@@ -32,6 +40,14 @@
                                     "columnsize": 12 ,
                                     "title":"_ANONYMOUS",
                                     "tourcontent":"_ANONYMOUS_US_CONTENT",
+                                    "iconflags":"usa",
+                                    "icon": "glyphicon flaticon-home",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
                                     "position":"bottom"
                                 },  
                                 {
@@ -43,15 +59,16 @@
                                     "type": "tourstep",
                                     "columnsize": 12 ,
                                     "title":"_LOGIN",
+                                    "iconflags":"displayNon",
                                     "tourcontent":"_LOGIN_CONTENT",
+                                    "icon": "glyphicon flaticon-unlocked",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
                                     "position":"bottom"
-                                },
-                                {
-                                    "id":"btn_take_a_tour",
-                                    "type": "tourButton",
-                                    "icon": "flaticon-take-a-tour",
-                                    "method":"starttour",
-                                    "label" : "_TAKE_A_TOUR"
                                 }
                             ]
                     }
