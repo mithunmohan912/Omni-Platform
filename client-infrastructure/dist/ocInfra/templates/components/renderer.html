@@ -4,20 +4,31 @@
 
 		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
+		    <span ng-if="section.accordion">
+				<div class="checkbox custom-checkbox">
+                    <label>
+                    	 <input type="checkbox"
+							id="{{section.title}}_checkbox" 
+		    				name="{{section.title}}_checkbox"
+							ng-checked="!section.collapse"
+		    				ng-click="opened(section)"/>
+                      <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    </label>
+                  </div>
+			</span>
 		    <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span>
             <span ng-if="section.icon" class="{{section.icon}} icon-color section-icon-2"></span>
             <span class="tabTitle section-title-text">{{ section.title | translate }}</span>
         	<hr class="onl_hrOr_2 section-title-underline">
     	</h3>
+    	<div  uib-collapse="section.collapse">
+			<div ng-switch-when="reference" class="linked-renderer-container">
+				<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
+			</div>
 
-		<div ng-switch-when="reference" class="linked-renderer-container">
-			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
-		</div>
-
-		<div ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
-			<form>
-				<div id="section-row-{{$index}}" ng-repeat="row in section.rows track by $index" class="row section-row">
-					<div id="component-{{column.uid}}" ng-repeat="column in row track by $index" class="section-row-column {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
+			<div ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
+				<form>
+					<div id="component-{{column.uid}}" ng-repeat="column in section.properties track by $index" class="section-row-column {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
 						<div ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 							<div ng-switch-when="tabs" class="infra-tabs-container">
 								<ul class="nav nav-tabs">
@@ -37,11 +48,11 @@
 								<wizard template="ocInfra/templates/components/wizard.html">
 									<div ng-repeat="wizard in column.wizards">
 										<wz-step wz-title="{{wizard.title | translate}}">
-        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
-        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
-        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
-        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
-    									</wz-step>
+	    									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
+	    									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
+	    									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
+	    									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
+										</wz-step>
 									</div>
 								</wizard>
 							</div>
@@ -68,13 +79,13 @@
 							<div ng-switch-when="iconGroup" class="infra-icons-container">
 								<div class="col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
 									<div ng-click="execute(icon)" class="text-center ">
-            							<a ng-click="execute(icon)" class="thumbnail text-center">
-            							<div class="text-center">
-              								<span class="{{icon.icon}}"></span>
-              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
-            							</div>
-            							</a>
-          							</div>
+	        							<a ng-click="execute(icon)" class="thumbnail text-center">
+	        							<div class="text-center">
+	          								<span class="{{icon.icon}}"></span>
+	          								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
+	        							</div>
+	        							</a>
+	      							</div>
 								</div>
 							</div>
 							<div ng-switch-when="popup" class="infra-popup-container">
@@ -105,8 +116,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

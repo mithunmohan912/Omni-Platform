@@ -411,16 +411,50 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     		lg: {}
     	};
 
-    	colspan.xs.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.xs;
+    	var offset = {
+    		xs: 0,
+    		sm: 0,
+    		md: 0,
+    		lg: 0
+    	};
+
+    	if(element.inputColspan && !(element.inputColspan instanceof Object)){
+    		var initialColspan = element.inputColspan;
+    		element.inputColspan = {
+    			xs: initialColspan,
+    			sm: initialColspan,
+    			md: initialColspan,
+    			lg: initialColspan
+    		};
+    	}
+
+    	if(element.inputOffset && !(element.inputOffset instanceof Object)){
+    		var initialOffset = element.inputOffset;
+    		element.inputOffset = {
+    			xs: initialOffset,
+    			sm: initialOffset,
+    			md: initialOffset,
+    			lg: initialOffset
+    		};
+    	}
+
+
+    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.xs;
     	colspan.xs.label = 12 - colspan.xs.input;
-    	colspan.sm.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.sm;
+    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.sm;
     	colspan.sm.label = 12 - colspan.sm.input;
-    	colspan.md.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.md;
+    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.md;
     	colspan.md.label = 12 - colspan.md.input;
-    	colspan.lg.input = (!element.colspan || element.colspan.default) ? ((element.label) ? 8 : 12) : element.colspan.lg;
+    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
-    	element.colspan = colspan;
+    	offset.xs = element.inputOffset.xs || 0;
+    	offset.sm = element.inputOffset.sm || 0;
+    	offset.md = element.inputOffset.md || 0;
+    	offset.lg = element.inputOffset.lg || 0;
+
+    	element.inputColspan = colspan;
+    	element.inputOffset = offset;
     }
 
 	return {
@@ -586,6 +620,38 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			defaults.radio = {
 				'attributes': {
 					'capitalize': false
+				},
+				'options': {
+					_getData: function(id, field){
+						/*           
+							FIXME: Copy/paste from select inputs
+							field.options.getData: action defined by the user that will be invoked to fill the radio values.
+							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
+						*/
+						var enumeration = {};
+						var data = null;
+						if(field.options.getData){
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
+						} else {
+							//console.warn('input.js -> radio_getData(): No getData method for radio input.');
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
+						}
+					}
 				},
 				'updateMode': 'change'
 			};
@@ -770,6 +836,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				$scope.field = {
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
+					'position':$scope.metamodel.position,
 					'id': $scope.metamodel.id,
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
@@ -812,8 +879,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
-					'colspan': $scope.metamodel.colspan,
-					'offset': $scope.metamodel.offset
+					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : 8,
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : 0
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -1159,6 +1226,17 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 				return true;
 			};
 
+			$scope.opened= function (section){
+
+				if (typeof section.collapse !== 'undefined'){
+					if (section.collapse){
+						section.collapse = false;
+					}else{
+						section.collapse = true;
+					}	
+				}
+			};
+
 			function _prepareColspanAndOffset(element){
 				if(element.colspan){
 					var initialColspan = 12;
@@ -1181,9 +1259,9 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 					}
 
 					element.offset.xs = element.offset.xs || initialOffset;
-					element.offset.sm = element.offset.sm || element.offset.xs;
-					element.offset.md = element.offset.md || element.offset.sm;
-					element.offset.lg = element.offset.lg || element.offset.md;
+					element.offset.sm = element.offset.sm || initialOffset;
+					element.offset.md = element.offset.md || initialOffset;
+					element.offset.lg = element.offset.lg || initialOffset;
 				}
 
 				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
@@ -1195,80 +1273,28 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 					metamodel.sections.forEach(function(section){
 						// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
 						if(!section.type || section.type !== 'reference'){
-							var rowNumbers = [];
-							section.rows = [];
 
 							_prepareColspanAndOffset(section);
 
-							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12 };
-							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0 };
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 							
 							section.properties.forEach(function(property){
-								if(property.row !== undefined){
-									if(rowNumbers[property.row] === undefined){
-										rowNumbers[property.row] = 0;
+								_prepareColspanAndOffset(property);
+
+								if(property.type === 'iconGroup'){
+									for(var iconIndex = 0; iconIndex < property.icons.length; iconIndex++){
+										var icon = property.icons[iconIndex];
+										_prepareColspanAndOffset(icon);
+
+										icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+										icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 									}
-									rowNumbers[property.row]++;
 								}
 
 								//we need to process an array even if id is a single value. 
 								if (property.id && !Array.isArray(property.id)){
 									property.id = [property.id]; 
-								}
-							});
-
-							var propertyMapFilter = function(property){
-								if(property.row !== undefined && property.row === i){
-									return property;
-								}
-							};
-
-							for(var i = 0; i < rowNumbers.length; i++){
-								if(rowNumbers[i] !== undefined){
-									var propertiesInRow = section.properties.map(propertyMapFilter);
-
-									section.rows.push(propertiesInRow);
-
-									for(var j = 0; j < propertiesInRow.length; j++){
-										if(propertiesInRow[j] !== undefined){
-											section.properties.splice(section.properties.indexOf(propertiesInRow[j]), 1);
-											
-											var calculatedColspan = 12;
-								
-											if(section.properties.length > 1 && propertiesInRow[j].row){
-												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
-											}
-
-											if(!propertiesInRow[j].colspan){
-												propertiesInRow[j].colspan = propertiesInRow[j].colspan || {xs: calculatedColspan, sm: calculatedColspan, md: calculatedColspan, lg:calculatedColspan};
-											}
-											_prepareColspanAndOffset(propertiesInRow[j]);
-
-											if(propertiesInRow[j].type === 'iconGroup'){
-												propertiesInRow[j].icons.forEach(function(icon){
-													_prepareColspanAndOffset(icon);
-
-													icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12 };
-													icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0 };
-												});
-											}
-
-											section.properties.push(propertiesInRow[j]);
-										}
-									}
-								}
-							}
-
-							for(var index = section.properties.length - 1; index >= 0; index--){
-								if(section.properties[index].row === undefined){
-									section.rows.unshift([section.properties[index]]);
-									_prepareColspanAndOffset(section.properties[index]);
-								}
-							}
-
-							section.rows.forEach(function(properties){
-								while(properties.indexOf(undefined) >= 0) {
-									properties.splice(properties.indexOf(undefined), 1);
 								}
 							});
 						}
