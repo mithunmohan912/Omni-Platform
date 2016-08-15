@@ -65,7 +65,6 @@
 
 							</div>
 							<div ng-switch-when="iconGroup" class="infra-icons-container">
-							<div ng-if="showIcon">
 								<div class="col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
 									<div ng-click="execute(icon)" class="text-center ">
             							<a ng-click="execute(icon)" class="thumbnail text-center">
@@ -75,21 +74,6 @@
             							</div>
             							</a>
           							</div>
-								</div>
-							</div>
-							<div ng-if="!showIcon">
-								<div class="col-xs-6 col-md-6" ng-repeat="icon in column.icons">	
-									<div ng-if="icon.showButton">
-										<div ng-click="execute(icon)" class="text-center ">
-	            							<a ng-click="execute(icon)" class="thumbnail text-center">
-	            							<div class="text-center">
-	              								<span class="{{icon.icon}}"></span>
-	              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
-	            							</div>
-	            							</a>
-	          							</div>
-	          						</div>
-								</div>
 								</div>
 							</div>
 							<div ng-switch-when="popup" class="infra-popup-container">
