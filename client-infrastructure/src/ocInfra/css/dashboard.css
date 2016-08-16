@@ -7,10 +7,12 @@ a.thumbnail span.glyphicon:before {
     width: 100%;
     text-align: center;
 }
+.displayNon{display: none !important;}
 
 .glyphicon:empty {
     width: auto !important;
     padding: 5px 0px;
+    margin-top: 10px;
 }
 .thumbnail{min-height: 120px;margin-top: 10px;padding: 0px;font-weight: bold;border-radius: 0 !important; border-color: #0096bb}
 a.thumbnail span.glyphicon.flaticon-auto:before {font-size: 80px;}
@@ -24,6 +26,9 @@ a {color: #0096bb;text-decoration: none;}
     margin-left: 0px !important;
     padding: 5px 0px;
 }
+@media only screen and (min-width: 1024px) {
+.header-margin-wide {margin: 90px 0px 0px 0px;}
+}
 
 @media only screen and (max-width: 1024px) and (min-width: 790px) {
 .header-margin-wide {margin: 55px 0px 0px 0px;}
@@ -33,8 +38,16 @@ a {color: #0096bb;text-decoration: none;}
 .header-margin-wide {margin: 20px 0px 0px 0px;}
 }
 
-@media only screen and (min-width: 320px) and (max-width: 600px) {
-.header-margin-wide {margin: 20px 0px 0px 0px;}
+@media only screen and (min-width: 320px) and (max-width: 736px) {
+.header-margin-wide {margin: 40px 0px 0px 0px;}
 .copyRight {text-align: left !important;padding: 5px 10px !important;}
 }
 
+@media only screen and (max-width: 1024px) and (min-height: 768px){
+.header-margin-wide {
+    margin: 90px 0px 0px 0px;
+}
+
+}
+
+/*temp*/
