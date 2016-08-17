@@ -37,8 +37,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right " class="navbar navbar-default navbar-fixed-top" >
-      <div tour-step order="0" title="{{ '_LANGUAGE' | translate }}" backdrop="true" content="{{ '_LANGUAGECONTENT' | translate }}" placement="bottom"></div>
-        <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{ '_SPANISH' | translate }}</a>
+        <li class="language"><a href tour-step order="0" title="{{ '_LANGUAGE' | translate }}" backdrop="true" content="{{ '_LANGUAGECONTENT' | translate }}" placement="bottom" ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{ '_SPANISH' | translate }}</a>
 
 
         </li>
@@ -49,9 +48,8 @@
       </ul>
 
       <div>
-      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >
-      <div tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true"></div>      
-      <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
+      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
+      <li  tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
           
       </li>
