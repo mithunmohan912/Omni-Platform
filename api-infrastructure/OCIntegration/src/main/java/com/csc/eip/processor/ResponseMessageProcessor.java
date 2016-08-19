@@ -21,9 +21,21 @@ public class ResponseMessageProcessor implements Processor {
 		
 		String message = exchange.getIn().getBody(String.class);
 		
+		log.debug("message: " + message);
+		
 		Matcher matcher = pattern.matcher(message);
+		
+		if (!matcher.find(0))
+			log.debug("regex not found");
+		
+		log.debug("replace");
 		message = matcher.replaceAll(replacement);
+		log.debug("replace ended");
 
+		matcher = pattern.matcher(message);
+		if (matcher.find(0))
+			log.error("regex found after replace");
+		
 		exchange.getIn().setBody(message);
 		
 		postprocess();
