@@ -47,7 +47,7 @@
 					      	<div ng-switch-when="table" class="table-responsive infra-table-container">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
-							<div ng-switch-when="pdf" ng-controller="pdfController" class="infra-pdf-container">
+							<div ng-switch-when="pdf">
 							 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 							</div>	
 							<div ng-switch-when="buttonGroup" class="infra-buttons-container">
