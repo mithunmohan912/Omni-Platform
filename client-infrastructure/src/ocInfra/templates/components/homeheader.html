@@ -11,26 +11,6 @@
       <a href ng-click="navigate('/screen/dashboard')" >
       <div class="oc-navbar-brand oc-logo" href="#"></div>
     </a>
-    <!--
-       <span ng-show="regionId=='asia' && screenId!=='dashboard'">
-        <span class="bannerFlag malaysia"></span>
-        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-auto"></span></span>
-      </span>
-
-       <span ng-show="regionId=='us'&& screenId!=='dashboard'">
-        <span class="bannerFlag usa"></span>
-        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-home"></span></span>
-      </span>
-
-      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='autocreate' || screenId == 'autosearch')">
-        <span class="bannerFlag eu-flag"></span>
-        <span class="bannerTitle">CSC Assurance <span class="bannerIcon flaticon-auto"></span></span>
-      </span>
-      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='quotessearch' || screenId == 'quotescreate')">
-        <span class="bannerFlag eu"></span>
-        <span class="bannerTitle">CSC Insurance<span class="bannerIcon flaticon-home"></span></span>
-      </span> -->
-
     </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,25 +28,29 @@
       </ul>
 
       <div>
-      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
+      <ul class="nav navbar-nav navbar-left" style="clear:both" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
       <li  tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
           
       </li>
-        <li class="dropdown" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+        <li class="dropdown mega-dropdown text-center" style="width:75px;" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{ application.label | translate }} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
            </span>
          </a>
-         <ul class="dropdown-menu right-links" role="menu" ng-if="application.elements && application.elements.length > 0">
-           <li ng-repeat="element in application.elements">
-            <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
-              <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-              {{ element.label | translate }}
-            </a>
-           </li>
-
+         <ul class="dropdown-menu mega-dropdown-menu row" role="menu" ng-if="application.elements && application.elements.length > 0">
+          <li class="container subMenu ">
+            <ul>
+               <li class="dropdown-header col-sm-2 text-center" ng-repeat="element in application.elements">
+                <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
+                  <div class="margaNavIcon {{element.icon}}"></div>
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  {{ element.label | translate }}
+                </a>
+               </li>
+            </ul>
+          </li>
 
          </ul>
        </div>  
