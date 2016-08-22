@@ -155,7 +155,8 @@ return {
 			function checkReset(){
 
 				//Check links defined in metamodel
-				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset 
+					&& $scope.metamodelObject.actions.reset.links){
 					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
 
 						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){

@@ -176,10 +176,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
-    	offset.xs = element.inputOffset.xs || 0;
-    	offset.sm = element.inputOffset.sm || 0;
-    	offset.md = element.inputOffset.md || 0;
-    	offset.lg = element.inputOffset.lg || 0;
+    	offset.xs = (element.inputOffset && element.inputOffset.xs) ? element.inputOffset.xs : 0;
+    	offset.sm = (element.inputOffset && element.inputOffset.sm) ? element.inputOffset.sm : 0;
+    	offset.md = (element.inputOffset && element.inputOffset.md) ? element.inputOffset.md : 0;
+    	offset.lg = (element.inputOffset && element.inputOffset.lg) ? element.inputOffset.lg : 0;
 
     	element.inputColspan = colspan;
     	element.inputOffset = offset;
@@ -607,8 +607,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'class': $scope.metamodel.classInput,
 					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
-					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : 8,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : 0
+					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -669,7 +669,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 
 				if(inputType === 'toggle'){
-					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
+					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};

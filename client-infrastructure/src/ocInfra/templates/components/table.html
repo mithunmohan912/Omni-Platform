@@ -17,8 +17,13 @@
 			</tr>
 			<!-- OC-711 End -->
 		</thead>
-		<tbody>
-			<tr class="table-row-{{$index}}" ng-repeat="displayedItem in displayedItems track by $index">
+		<tbody ng-repeat="(key, collection) in groupedTable">
+			<tr class="table-row-title-group" ng-if="key !== 'infra_default_group_table'">
+				<td colspan="{{metamodelObject.properties.length}}">
+					<span class="table-title-group">{{key | translate}}</span>
+				</td>
+			</tr>
+			<tr class="table-row-{{key}}-{{$index}}" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
 		            <ng-switch on="field.type">
  						<span ng-switch-when="label" class="table-cell-label">
