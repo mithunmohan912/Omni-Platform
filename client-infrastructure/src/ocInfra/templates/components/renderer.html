@@ -21,6 +21,7 @@
             <span class="tabTitle section-title-text">{{ section.title | translate }}</span>
         	<hr class="onl_hrOr_2 section-title-underline">
     	</h3>
+
     	<div  uib-collapse="section.collapse">
 			<div ng-switch-when="reference" class="linked-renderer-container">
 				<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
@@ -48,24 +49,26 @@
 								<wizard template="ocInfra/templates/components/wizard.html">
 									<div ng-repeat="wizard in column.wizards">
 										<wz-step wz-title="{{wizard.title | translate}}">
-	    									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
-	    									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
-	    									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
-	    									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
-										</wz-step>
+        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
+        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
+        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button pull-left" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
+        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
+    									</wz-step>
+
 									</div>
 								</wizard>
 							</div>
 					      	<div ng-switch-when="table" class="table-responsive infra-table-container">
 								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 							</div>
-							<div ng-switch-when="pdf" ng-controller="pdfController" class="infra-pdf-container">
+
+							<div ng-switch-when="pdf">
 							 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 							</div>	
 							<div ng-switch-when="buttonGroup" class="infra-buttons-container">
 								<div ng-repeat="button in column.buttons" class="renderer-button-div">
 									<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
-									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true">
+									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
 										<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 									</button>
@@ -119,5 +122,4 @@
 				</form>
 			</div>
 		</div>
-	</div>
 </div>
