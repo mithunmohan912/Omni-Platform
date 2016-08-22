@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if ($rootScope.regionId !== undefined || !metamodelObject) {
+			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
@@ -45,67 +45,64 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return true;
 			};
 
+			function _prepareColspanAndOffset(element){
+				if(element.colspan){
+					var initialColspan = 12;
+					if(!(element.colspan instanceof Object)){
+						initialColspan = element.colspan;
+						element.colspan = {};
+					}
+
+					element.colspan.xs = element.colspan.xs || initialColspan;
+					element.colspan.sm = element.colspan.sm || element.colspan.xs;
+					element.colspan.md = element.colspan.md || element.colspan.sm;
+					element.colspan.lg = element.colspan.lg || element.colspan.md;
+				}
+
+				if(element.offset){
+					var initialOffset = 0;
+					if(!(element.offset instanceof Object)){
+						initialOffset = element.offset;
+						element.offset = {};
+					}
+
+					element.offset.xs = element.offset.xs || initialOffset;
+					element.offset.sm = element.offset.sm || initialOffset;
+					element.offset.md = element.offset.md || initialOffset;
+					element.offset.lg = element.offset.lg || initialOffset;
+				}
+
+				element.colspan = element.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+				element.offset = element.offset || { xs:0, sm:0, md:0, lg:0, default: true };
+			}
+
 			function _processMetamodel(metamodel){
 				if(metamodel && metamodel.sections){
 					metamodel.sections.forEach(function(section){
 						// We don't want to process sections of type 'reference' because they will be processed by its own instance of the renderer directive
 						if(!section.type || section.type !== 'reference'){
-							var rowNumbers = [];
-							section.rows = [];
+
+							_prepareColspanAndOffset(section);
+
+							section.colspan = section.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+							section.offset = section.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 							
 							section.properties.forEach(function(property){
-								if(property.row !== undefined){
-									if(rowNumbers[property.row] === undefined){
-										rowNumbers[property.row] = 0;
+								_prepareColspanAndOffset(property);
+
+								if(property.type === 'iconGroup'){
+									for(var iconIndex = 0; iconIndex < property.icons.length; iconIndex++){
+										var icon = property.icons[iconIndex];
+										_prepareColspanAndOffset(icon);
+
+										icon.colspan = icon.colspan || { xs:12, sm:12, md:12, lg:12, default: true };
+										icon.offset = icon.offset || { xs:0, sm:0, md:0, lg:0, default: true };
 									}
-									rowNumbers[property.row]++;
 								}
 
 								//we need to process an array even if id is a single value. 
 								if (property.id && !Array.isArray(property.id)){
 									property.id = [property.id]; 
-								}
-							});
-
-							var propertyMapFilter = function(property){
-								if(property.row !== undefined && property.row === i){
-									return property;
-								}
-							};
-
-							for(var i = 0; i < rowNumbers.length; i++){
-								if(rowNumbers[i] !== undefined){
-									var propertiesInRow = section.properties.map(propertyMapFilter);
-
-									section.rows.push(propertiesInRow);
-
-									for(var j = 0; j < propertiesInRow.length; j++){
-										if(propertiesInRow[j] !== undefined){
-											section.properties.splice(section.properties.indexOf(propertiesInRow[j]), 1);
-											
-											var calculatedColspan = 12;
-								
-											if(section.properties.length > 1 && propertiesInRow[j].row){
-												calculatedColspan = 12 / ((rowNumbers[propertiesInRow[j].row] > 4) ? 4 : rowNumbers[propertiesInRow[j].row]);
-											}
-
-											propertiesInRow[j].colspan = propertiesInRow[j].colspan || calculatedColspan;
-
-											section.properties.push(propertiesInRow[j]);
-										}
-									}
-								}
-							}
-
-							for(var index = section.properties.length - 1; index >= 0; index--){
-								if(section.properties[index].row === undefined){
-									section.rows.unshift([section.properties[index]]);
-								}
-							}
-
-							section.rows.forEach(function(properties){
-								while(properties.indexOf(undefined) >= 0) {
-									properties.splice(properties.indexOf(undefined), 1);
 								}
 							});
 						}
@@ -455,6 +452,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+		
+		    $scope.$on('pdf_update', function(event, params){
+
+		        $scope.pdfUrl = params.url;
+		        
+		    });
 		},
 		templateUrl: $rootScope.templatesURL + 'renderer.html'
 	};

@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		},
 		controller: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if ($rootScope.regionId !== undefined || !metamodelObject) {
+			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_init(data);
 				});
@@ -28,6 +28,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
+
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
 
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
@@ -51,6 +56,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
+					$scope.previousTable = [];
+					if($scope.table){
+						$scope.previousTable = $scope.table.items;
+					}
+
 					$scope.inProgress = true;
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
 						$scope.resultSet = resultSet;
@@ -82,19 +92,17 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
-						var previousTable = [];
-						if($scope.table){
-							previousTable = $scope.table.items;
-						}
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 
 							var oldItem;
-							for(var obj in previousTable){
-								if(obj.href === item.href){
-									oldItem = obj;
-								}
+							if($scope && $scope.previousTable){
+								$scope.previousTable.forEach(function(obj){
+									if(obj.href === item.href){
+										oldItem = obj;
+									}
+								});
 							}
 
 							if ($scope.metamodelObject.filters) {
@@ -127,18 +135,18 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               	var newValueItem = _getResultSetItem(newValue, newItem);
               	$scope.itemResourcesToBind = { properties : {} };
 
-              	// Process previous properties to keep ui input values
-              	if(oldItem){
-	              	for(var property in oldItem.properties){
-	              		if(oldItem.properties[property].metainfo.uiInput){
-	              			$scope.itemResourcesToBind[property] = oldItem.properties[property];
-	              		}
-	              	}
-	            }
-
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
+
+              	// Process previous properties to keep ui input values
+              	if(oldItem){
+	              	for(var property in oldItem.properties){
+	              		if(oldItem.properties[property].metainfo && oldItem.properties[property].metainfo.uiInput){
+	              			$scope.itemResourcesToBind[newValueItem[resource].identifier].properties[property] = oldItem.properties[property];
+	              		}
+	              	}
+	            }
 
               	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
                		var metamodelProperty = $scope.metamodelObject.properties[i];
@@ -183,41 +191,64 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		        });
 		    }
 
+		    function _createButtonFromOptions(label, params, creatable) {
+		    	var button = {};
+		    	button.label = label;
+		    	button.action =  { 
+		    		value: 'add', 
+		    		buttonAction: true, 
+		    		params: params 
+		    	};
+		    	button.creatable = creatable !== undefined? creatable : true;
+		    	return button;
+		    }
+
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
+
 				if ($scope.metamodelObject.buttons) {
 					var label = $scope.metamodelObject.buttons.label;
-					//look for the POST operation by default to create the possible buttons
-					resourceFactory.get($scope.resourceUrl).then(function(response) {
-						response.data._options.links.forEach(function(link) {
-							if (link.rel === 'create') {
-								var params = {};
-								if (link.schema.required && link.schema.required.length > 0) {
-									//FIXME. if there is more than one attribute required
-									var required = link.schema.required[0];
-									if (link.schema.properties && required in link.schema.properties) {
-										var property = link.schema.properties[required];
-										if (property.enum) {
-											property.enum.forEach(function(value) {
-												params = {};
-												params[required] = value;
-												$scope.buttons.push({
-													label: 'ADD_'+value.toUpperCase().trim(),
-													action: { value: 'add', buttonAction: true, params: params }
-												});
-											});
+					var values = $scope.metamodelObject.buttons.values;
+
+					if (label) {
+						$scope.buttons.push(_createButtonFromOptions(label, {}));
+					} else {
+						//look for the POST operation by default to create the possible buttons
+						resourceFactory.get($scope.resourceUrl).then(function(response) {
+							response.data._options.links.forEach(function(link) {
+								if (link.rel === 'create') {
+									var params = {};
+									if (link.schema.required && link.schema.required.length > 0) {
+										//FIXME. if there is more than one attribute required
+										var required = link.schema.required[0];
+										if (link.schema.properties && required in link.schema.properties) {
+											var property = link.schema.properties[required];
+											if (property.enum) {
+												//if there is a list of possible values
+												if (values) {
+													values.forEach(function(value) {
+														var creatable = property.enum.indexOf(value) !== -1;
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params, creatable));
+													});
+
+												} else {
+													property.enum.forEach(function(value) {
+														label = 'ADD_'+value.toUpperCase().trim();
+														params = {};
+														params[required] = value;
+														$scope.buttons.push(_createButtonFromOptions(label, params));
+													});
+												}
+											}
 										}
 									}
 								}
-								if ($scope.buttons.length === 0) {
-									$scope.buttons.push({
-										label: label,
-										action: { value: 'add', buttonAction: true, params: params }
-									});
-								}
-							}
+							});
 						});
-					});
+					}
 				}
 			}
 

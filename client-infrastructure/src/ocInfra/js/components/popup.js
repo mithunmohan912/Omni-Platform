@@ -169,7 +169,13 @@ return {
 					action();
 					
 				} else if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					if ($scope.resourceUrl){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					}
+					else{
+						$scope.actionFactory[action]();
+					}
+					
 				}
 
 			};

@@ -1,12 +1,10 @@
-<div class="col-md-12">
-
-
-	<div name="table-header" class="row">
+<div class="col-xs-12">
+	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
+	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row">
     	<label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 	</div>
-
 	<table st-table="displayedItems" st-safe-src="table.items" class="table table-striped table-condensed cf">
-		<thead ng-if="metamodelObject.header !== false" class="cf">
+		<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 			<tr ng-show="metamodelObject.searching">
 				<th colspan="{{metamodelObject.properties.length}}">
 					<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
@@ -19,29 +17,30 @@
 			<!-- OC-711 End -->
 		</thead>
 		<tbody>
-			<tr ng-repeat="displayedItem in displayedItems track by $index">
-				<td ng-repeat="field in metamodelObject.properties" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important; ">
+			<tr class="table-row-{{$index}}" ng-repeat="displayedItem in displayedItems track by $index">
+				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
 		            <ng-switch on="field.type">
- 						<span ng-switch-when="label">
+ 						<span ng-switch-when="label" class="table-cell-label">
  							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId]">
 	 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
 					 		        <span ng-switch-when="date">
 										{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
 									</span>
 									<span ng-switch-default>
-	 									{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
+	 									<span ng-if="field.format">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
+	 									<span ng-if="!field.format">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
 	 								</span>
 	 							</ng-switch>
  							</span>
 		                </span>
-		                <span ng-switch-when="literal">{{ field.id | translate }}</span>
-		                <span ng-switch-when="blank">&nbsp;</span>
-		                <span ng-switch-when="status"><i class="{{isValidStatus(displayedItem) ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
+		                <span ng-switch-when="literal" class="table-cell-literal">{{ field.id | translate }}</span>
+		                <span ng-switch-when="blank" class="table-cell-blank">&nbsp;</span>
+		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus(displayedItem) ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
 		                <span ng-switch-when="icon">
 		                	<span ng-if="field.icon" class="{{field.icon}} iconText"></span>	
 		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} iconText"></span>		
 		                </span>
-		                <span ng-switch-when="actions">
+		                <span ng-switch-when="actions" class="table-cell-actions">
 		                	<span ng-repeat="action in field.options">
 		                		<ng-switch on="action.value">
 						            <span ng-switch-when="edit">
@@ -55,7 +54,7 @@
 		                		</ng-switch>
 						    </span>
 				        </span>
-		                <div ng-switch-default>
+		                <div ng-switch-default class="table-cell-input">
 	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
 	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
@@ -65,7 +64,7 @@
 				</td>
 			</tr>
 		</tbody>
-		<tfoot ng-if="metamodelObject.pagination">
+		<tfoot ng-if="metamodelObject.pagination" class="table-footer">
 			<tr>
 				<td colspan="{{metamodelObject.properties.length}}">
 					<div class="pull-right" st-pagination=""  st-items-by-page="5"></div>
@@ -75,7 +74,7 @@
 	</table>
 
 	<div class="btn-group">
-	    <button data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute(button.action)" class="btn btn-primary btn-mg" ng-disabled="!table.creatable" ng-repeat="button in buttons">
+	    <button data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute(button.action)" class="btn btn-primary btn-mg" ng-disabled="!table.creatable || !button.creatable" ng-repeat="button in buttons">
 	    	{{ button.label | translate }}
 	    </button>
 	</div>

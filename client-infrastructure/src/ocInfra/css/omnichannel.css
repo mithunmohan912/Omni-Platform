@@ -1,3 +1,16 @@
+.tour-step-background{
+  background : transparent !important;
+}
+.label{
+  color: grey;
+  font-size: 14px;
+}
+.load{
+  color: white;
+}
+.acttoggle{
+  background-color: #008490 !important; 
+}
 .renderer-button-icon, .renderer-button-text {
   display: block;
 }
@@ -615,7 +628,7 @@ select[multiple].input-lg {
 
 .form-control-feedback {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
   z-index: 2;
   display: block;
@@ -902,11 +915,7 @@ select[multiple].input-lg {
   filter: alpha(opacity=50);
 }
 
-.modal-header, .oc-modal-header {
-  padding: 15px;
-  border-bottom: 1px solid #e5e5e5;
-  min-height: 16.42857px;
-}
+
 
 .modal-header .close, .oc-modal-header .close {
   margin-top: -2px;
@@ -1110,13 +1119,7 @@ select[multiple].input-lg {
   border-width: 1px 0 0;
 }
 
-.navbar-brand, .oc-navbar-brand {
-  float: left;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
-  height: 50px;
-}
+
 .navbar-brand:hover, .oc-navbar-brand:hover, .navbar-brand:focus, .oc-navbar-brand:focus {
   text-decoration: none;
 }
@@ -1349,7 +1352,7 @@ select[multiple].input-lg {
 }
 .navbar-default .navbar-brand:hover, .oc-navbar-default .navbar-brand:hover, .navbar-default .oc-navbar-brand:hover, .oc-navbar-default .oc-navbar-brand:hover, .navbar-default .navbar-brand:focus, .oc-navbar-default .navbar-brand:focus, .navbar-default .oc-navbar-brand:focus, .oc-navbar-default .oc-navbar-brand:focus {
   color: #5e5e5e;
-  background-color: transparent;
+  background-color: #fff;
 }
 .navbar-default .navbar-text, .oc-navbar-default .navbar-text {
   color: #777;
@@ -1359,7 +1362,7 @@ select[multiple].input-lg {
 }
 .navbar-default .navbar-nav > li > a:hover, .oc-navbar-default .navbar-nav > li > a:hover, .navbar-default .oc-navbar-nav > li > a:hover, .oc-navbar-default .oc-navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .oc-navbar-default .navbar-nav > li > a:focus, .navbar-default .oc-navbar-nav > li > a:focus, .oc-navbar-default .oc-navbar-nav > li > a:focus {
   color: #333;
-  background-color: transparent;
+  background-color: #fff;
 }
 .navbar-default .navbar-nav > .active > a, .oc-navbar-default .navbar-nav > .active > a, .navbar-default .oc-navbar-nav > .active > a, .oc-navbar-default .oc-navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .oc-navbar-default .navbar-nav > .active > a:hover, .navbar-default .oc-navbar-nav > .active > a:hover, .oc-navbar-default .oc-navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .oc-navbar-default .navbar-nav > .active > a:focus, .navbar-default .oc-navbar-nav > .active > a:focus, .oc-navbar-default .oc-navbar-nav > .active > a:focus {
   color: #555;
@@ -1367,7 +1370,7 @@ select[multiple].input-lg {
 }
 .navbar-default .navbar-nav > .disabled > a, .oc-navbar-default .navbar-nav > .disabled > a, .navbar-default .oc-navbar-nav > .disabled > a, .oc-navbar-default .oc-navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .oc-navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .oc-navbar-nav > .disabled > a:hover, .oc-navbar-default .oc-navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus, .oc-navbar-default .navbar-nav > .disabled > a:focus, .navbar-default .oc-navbar-nav > .disabled > a:focus, .oc-navbar-default .oc-navbar-nav > .disabled > a:focus {
   color: #ccc;
-  background-color: transparent;
+  background-color: #fff;
 }
 .navbar-default .navbar-toggle, .oc-navbar-default .navbar-toggle, .navbar-default .oc-navbar-toggle, .oc-navbar-default .oc-navbar-toggle {
   border-color: #ddd;
@@ -1383,10 +1386,7 @@ select[multiple].input-lg {
 .oc-navbar-default .navbar-form {
   border-color: #e7e7e7;
 }
-.navbar-default .navbar-nav > .open > a, .oc-navbar-default .navbar-nav > .open > a, .navbar-default .oc-navbar-nav > .open > a, .oc-navbar-default .oc-navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .oc-navbar-default .navbar-nav > .open > a:hover, .navbar-default .oc-navbar-nav > .open > a:hover, .oc-navbar-default .oc-navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .oc-navbar-default .navbar-nav > .open > a:focus, .navbar-default .oc-navbar-nav > .open > a:focus, .oc-navbar-default .oc-navbar-nav > .open > a:focus {
-  background-color: #e7e7e7;
-  color: #555;
-}
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a, .oc-navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .oc-navbar-nav .open .dropdown-menu > li > a, .oc-navbar-default .oc-navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .oc-dropdown-menu > li > a, .oc-navbar-default .navbar-nav .open .oc-dropdown-menu > li > a, .navbar-default .oc-navbar-nav .open .oc-dropdown-menu > li > a, .oc-navbar-default .oc-navbar-nav .open .oc-dropdown-menu > li > a {
     color: #777;
@@ -1870,59 +1870,6 @@ select[multiple].input-lg {
   position: fixed;
 }
 
-
-.oc-logo {
-		  
-		  margin-left: 10px;
-		  margin-top: 5px;
-		  background: url("../assets/images/cscLogo.png");
-		  background-repeat: no-repeat;
-		  min-height: 60px;
-      min-width: 100px;
-		  background-size: 100% 100%;
-
-    width: 97px;
-    margin-left: 10px;
-    height: 54px;
-    margin-top: 20px;
-    background: url("../assets/images/cscLogo.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-	}
-
-@media only screen and (max-width: 375px) {
-.oc-logo {
-    width: 14%;
-    margin-left: 0px;
-    margin: 5px;
-    min-height: 40px;
-    min-width: 65px;
-    height: 40px;
-
-	}
-}
-@media only screen and (min-width: 421px) {
-.oc-logo {
-width: 15%;
-    margin-left: 0px;
-    margin-top: 5px;
-    min-height: 40px;
-    height: 40px;
-    min-width: 75px;
-	}
-}
-@media only screen and (min-width: 769px) {
-.oc-logo {
-		  width: 97px;
-		  margin-left: 10px;
-		  margin-top: 5px;
-      height: 57px;
-	
-	}
-}
-
-
-
 #loginModal{
 
     background: url("");
@@ -1946,6 +1893,7 @@ body {
     margin: 0px auto
 }
 
+
 h3{color: #555555;font-size: 20pt;}
 
 .list-buttons>li { display: inline-block; padding: 5px;}
@@ -1962,12 +1910,6 @@ h3{color: #555555;font-size: 20pt;}
 .right-links>li> a {color: #094fa3;font-family: 'source_sans_proregular'}
 .right-links>li> a>span.glyphicon, a>span.glyphicon {font-size: 10px;color:#0096bb; padding-right: 4px;}
 .source_sans-bold {}
-.thumbnail{margin-top: 10px;padding: 0px;font-weight: bold;border-radius: 0 !important; border-color: #0096bb}
-a.thumbnail span.glyphicon.flaticon-auto:before {font-size: 80px;}
-a:hover span.glyphicon {color: #cceaf1}
-
-a:hover, a:focus {color: #0096bb;}
-a {color: #0096bb;text-decoration: none;}
 
 
 .complete {
@@ -2019,15 +1961,8 @@ border-bottom: 1px solid #d7d7d7;
     
 }
 
-.dashboard-txtCenter span.glyphicon
-{    font-size: 45px;
-    width: 100%;
-    text-align: center;}
-a.thumbnail span.glyphicon:before {
-   font-size: 60px;
-    width: 100%;
-    text-align: center;
-}
+
+
 
 @media only screen and (max-width: 768px) {
 /*#no-more-tables{
@@ -2035,6 +1970,7 @@ a.thumbnail span.glyphicon:before {
 }*/
 
 }
+
 @media only screen and (min-width:780px) and (max-width:1024px) {
 .oc-logo {margin-top: 12px;}
 .sectionlabel {margin-left: 12px !important;}
@@ -2070,12 +2006,14 @@ label {display: inline-flex !important;min-height:2px; }
 .eu{background-image: url("../assets/images/flags/european.png") !important;}
 .eu1{background-image: url("../assets/images/flags/european.png") !important;}
 
-
+.oc-column .label {
+    font-size: inherit;
+    color: inherit;
 }
 
-@media only screen and (min-width: 790px) and (max-width: 1024px) {
-.header-margin-wide {
-    margin: 10px 0px 0px 0px;
+.required-star::before {
+    font-weight: bold;
 }
+
 
 
