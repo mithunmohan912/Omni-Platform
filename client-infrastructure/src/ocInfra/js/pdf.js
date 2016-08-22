@@ -1,9 +1,9 @@
 'use strict';
 /*
-global app
+global app, define, self
 */
 
-app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource',  function($http, $rootScope, resourceFactory, $resource) {
+app.factory('pdfFactory', ['$http', '$rootScope', function($http, $rootScope) {
 
 	function _getPDF(element){
 
@@ -11,12 +11,11 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 				//element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
 
 				var headers = $rootScope.headers;
-				headers['Accept'] = 'application/pdf'; 
+				headers.Accept = 'application/pdf'; 
 				// headers['Cookie'] ='ASP.NET_SessionId=a3cwmg4wpjkjh1biz0w4msi0; _culture=french; .FIDEAAUTH=967953C4ADEDCFD5BDB04E6C157CE900A003C9ED806064A093A72CE8215BB147A4B0BC3F50E1E784525F2D54D2C065E840632310F70C9BEC998D22C620E26E0FF108F7EAC597BECEC99A6EE6EF48CDEED7FB0790061DE89673BEDBDCD70CC836';
 				// headers['NSP_USERID'] = 'gtmoni';
 				var pdf;
 				var file;
-				var fileURL;
 				var responseType = 'arraybuffer';
 
 
@@ -66,7 +65,7 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 		var iframe = document.createElement('iframe');
 		iframe.setAttribute('id', 'pdfIframe');
 		iframe.setAttribute('src', blobUrl);
-		iframe.style.display = "none";
+		iframe.style.display = 'none';
 	    iframe.focus();
 	    document.body.appendChild(iframe);
 	    iframe.contentWindow.print();
@@ -78,9 +77,8 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 	}
 
 	var saveAs = saveAs || (function(view) {
-	"use strict";
 	// IE <10 is explicitly unsupported
-	if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+	if (typeof view === 'undefined' || typeof navigator !== 'undefined' && /MSIE [1-9]\./.test(navigator.userAgent)) {
 		return;
 	}
 	var
@@ -89,10 +87,10 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 		, get_URL = function() {
 			return view.URL || view.webkitURL || view;
 		}
-		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-		, can_use_save_link = "download" in save_link
+		, save_link = doc.createElementNS('http://www.w3.org/1999/xhtml', 'a')
+		, can_use_save_link = 'download' in save_link
 		, click = function(node) {
-			var event = new MouseEvent("click");
+			var event = new MouseEvent('click');
 			node.dispatchEvent(event);
 		}
 		, is_safari = /constructor/i.test(view.HTMLElement)
@@ -102,12 +100,12 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 				throw ex;
 			}, 0);
 		}
-		, force_saveable_type = "application/octet-stream"
+		, force_saveable_type = 'application/octet-stream'
 		// the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
 		, arbitrary_revoke_timeout = 1000 * 40 // in ms
 		, revoke = function(file) {
 			var revoker = function() {
-				if (typeof file === "string") { // file is an object URL
+				if (typeof file === 'string') { // file is an object URL
 					get_URL().revokeObjectURL(file);
 				} else { // file is a File
 					file.remove();
@@ -119,8 +117,8 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 			event_types = [].concat(event_types);
 			var i = event_types.length;
 			while (i--) {
-				var listener = filesaver["on" + event_types[i]];
-				if (typeof listener === "function") {
+				var listener = filesaver['on' + event_types[i]];
+				if (typeof listener === 'function') {
 					try {
 						listener.call(filesaver, event || filesaver);
 					} catch (ex) {
@@ -148,7 +146,7 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 				, force = type === force_saveable_type
 				, object_url
 				, dispatch_all = function() {
-					dispatch(filesaver, "writestart progress write writeend".split(" "));
+					dispatch(filesaver, 'writestart progress write writeend'.split(' '));
 				}
 				// on any filesys errors revert to saving with object URLs
 				, fs_error = function() {
@@ -158,7 +156,9 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 						reader.onloadend = function() {
 							var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
 							var popup = view.open(url, '_blank');
-							if(!popup) view.location.href = url;
+							if(!popup){
+								view.location.href = url;
+							}
 							url=undefined; // release reference before dispatching
 							filesaver.readyState = filesaver.DONE;
 							dispatch_all();
@@ -174,7 +174,7 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 					if (force) {
 						view.location.href = object_url;
 					} else {
-						var opened = view.open(object_url, "_blank");
+						var opened = view.open(object_url, '_blank');
 						if (!opened) {
 							// Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
 							view.location.href = object_url;
@@ -204,13 +204,13 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 		}
 		, FS_proto = FileSaver.prototype
 		, saveAs = function(blob, name, no_auto_bom) {
-			return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+			return new FileSaver(blob, name || blob.name || 'download', no_auto_bom);
 		}
 	;
 	// IE 10+ (native saveAs)
-	if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+	if (typeof navigator !== 'undefined' && navigator.msSaveOrOpenBlob) {
 		return function(blob, name, no_auto_bom) {
-			name = name || blob.name || "download";
+			name = name || blob.name || 'download';
 
 			if (!no_auto_bom) {
 				blob = auto_bom(blob);
@@ -234,18 +234,14 @@ app.factory('pdfFactory', ['$http', '$rootScope', 'resourceFactory', '$resource'
 		null;
 
 	return saveAs;
-}(
-	   typeof self !== "undefined" && self
-	|| typeof window !== "undefined" && window
-	|| this.content
-));
+}(typeof self !== 'undefined' && self || typeof window !== 'undefined' && window || this.content));
 // `self` is undefined in Firefox for Android content script context
 // while `this` is nsIContentFrameMessageManager
 // with an attribute `content` that corresponds to the window
 
-if (typeof module !== "undefined" && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports.saveAs = saveAs;
-} else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
+} else if ((typeof define !== 'undefined' && define !== null) && (define.amd !== null)) {
   define([], function() {
     return saveAs;
   });

@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="no-padding col-xs-12">
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 
 	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row">
@@ -55,11 +55,11 @@
 		                		</ng-switch>
 						    </span>
 				        </span>
-		                <div ng-switch-default class="table-cell-input">
+		                <span ng-switch-default class="table-cell-input">
 	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
 	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
-		                </div>
+		                </span>
 		            </ng-switch>
 		            
 				</td>
