@@ -162,7 +162,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		},
 
 		savePDF: function(){
-			pdfFactory.savePDF($rootScope.pdfBlob, "OCPDF.pdf")
+			pdfFactory.savePDF($rootScope.pdfBlob, 'OCPDF.pdf');
 		},
 
 		printPDF: function(){
