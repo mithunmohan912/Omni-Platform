@@ -1,0 +1,112 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "KEY"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {},
+    "gridType": "editableGrid",
+    "element": [
+      
+      {
+        "field": "STATUS",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Status"
+      },
+      {
+        "field": "WSSYMBOL",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "WSPOLICY",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Policy"
+      },
+      {
+        "field": "WSMODULE",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Mod"
+      },
+      {
+        "field": "WSACCTPER",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Acct Date"
+      },
+      {
+        "field": "WSTRSEFFDATE",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Trans Date"
+      },
+      {
+        "field": "WSTRSDESC",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Trans Code"
+      },
+      {
+        "field": "WSCOMMPCT",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Comm %"
+      },
+      {
+        "field": "WSERRORIND",
+        "visible": "true",
+        "width": "5%",
+        "align": "left",
+        "displayName": "*"
+      },
+      {
+        "field": "WSDUEAMT",
+        "visible": "true",
+        "width": "15%",
+        "cellTemplate": "ux/template/CurrencyTemplate.html",
+        "align": "left",
+        "displayName": "Amount Due"
+      },
+      {
+        "field": "WSPOSTAMT",
+        "visible": "true",
+        "type" :"money",
+        "enableCellEdit": true,
+        "width": "15%",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "align": "left",
+        "displayName": "Post Amount"
+      },
+      {
+        "field": "WSCOMMENT",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "cellTemplate": "ux/template/inputCellTemplate.html",
+        "enableCellEdit": true,
+        "displayName": "Comment"
+      }
+      
+    ],
+    "title": "Statement Items"
+  }
+}

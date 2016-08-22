@@ -1,0 +1,187 @@
+{
+  "gridMetaData": {
+    "title": "Payment Adjustment Search",
+    "element": [
+      {
+        "field": "WSCHECKNUM",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Check Number",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "WSPOLORCUST",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Customer Number/ Policy Number",
+        "editable": "false",
+        "width": "25%"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "MCO",
+        "editable": "false",
+        "width": "5%"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "LOC",
+        "editable": "false",
+        "width": "5%"
+      },
+      {
+        "field": "WSDATEENT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Date Entered",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "WSCASHACT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Tran",
+        "editable": "false",
+        "width": "5%"
+      },
+      {
+        "field": "WSPYMTAMT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Payment Amount",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "WSAVAILAMT",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Available Amount",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "WSRCPTTYPDESC",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Receipt Type",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "WSNSFDATE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "displayName": "NSF Date",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "WSCORRDTE",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "cellTemplate": "ux/template/DateTemplate.html",
+        "displayName": "Correct Date",
+        "editable": "false",
+        "width": "10%"
+      },
+      {
+        "field": "WSSTATDESC",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Status",
+        "editable": "false",
+        "width": "10%"
+      }
+    ],
+    "operation": {
+      "selectfield": "radio",
+      "jsfunction": "selectPolicy",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASSYSGRID(@querystr@)",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL058"
+        },
+        {
+          "name": "USER",
+          "length": "10",
+          "order": "1",
+          "fill": " "
+        },
+        {
+          "name": "WSCHECKNUM",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "name": "LOCATION",
+          "length": "2",
+          "order": "2",
+          "fill": " "
+        },
+        {
+          "name": "MASTERCO",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "SYMBOL",
+          "length": "3",
+          "fill": " "
+        },
+        {
+          "name": "POLICY0NUM",
+          "length": "7",
+          "fill": " "
+        },
+        {
+          "name": "MODULE",
+          "length": "2",
+          "fill": " "
+        },
+        {
+          "name": "CUST0NO",
+          "length": "10",
+          "fill": " "
+        },
+        {
+          "name": "WSDATEENT",
+          "length": "8",
+          "fill": " "
+        },
+        {
+          "type": "VALUE",
+          "value": "100"
+        }
+      ]
+    }
+  }
+}

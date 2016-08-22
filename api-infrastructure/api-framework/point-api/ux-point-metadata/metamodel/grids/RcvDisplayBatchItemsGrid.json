@@ -1,0 +1,135 @@
+{
+	"dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL064"
+        },
+        {
+          "name": "D4_BATCH_WRITTEN_DATE"
+        },
+        {
+          "name": "WSBATSEQNBR"
+        }
+      ]
+    }
+  },
+  
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Full Record Display",
+          "value": "FRD"
+        },
+        {
+          "name": "Audit Trail",
+          "value": "AT"
+        }
+        
+	  ],
+      "rowactionfunction": "RcvDisplayBatchSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "WSSYM",
+        "visible": "true",
+        "width": "7%",
+        "align": "centre",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "WSPOLICYNUM",
+        "visible": "true",
+        "width": "9%",
+        "align": "centre",
+        "displayName": "Policy"
+      },
+      {
+        "field": "WSMOD",
+        "visible": "true",
+        "width": "10%",
+        "align": "right",
+        "displayName": "Module"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": "true",
+        "width": "12%",
+        "align": "centre",
+        "displayName": "Master Company"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": "true",
+        "width": "9%",
+        "align": "centre",
+        "displayName": "Location"
+      },
+      {
+        "field": "WSCUSTOMERNUM",
+        "visible": "false",
+        "width": "7%",
+        "align": "centre",
+        "displayName": "Customer"
+      },
+      {
+        "field": "WSAGENCYNUM",
+        "visible": "false",
+        "width": "8%",
+        "align": "centre",
+        "displayName": "Agency"
+      },
+      {
+        "field": "WSRCPTTYPE",
+        "visible": "false",
+        "width": "12%",
+        "align": "centre",
+        "displayName": "Receipt Type"
+      },
+      {
+        "field": "WSAMOUNT",
+        "visible": "false",
+		"type":"money",
+        "width": "7%",
+        "align": "centre",
+        "displayName": "Amount",
+		"cellTemplate": "ux/template/CurrencyTemplate.html"
+      },
+      {
+        "field": "WSCHECKNUM",
+        "visible": "false",
+        "width": "9%",
+        "align": "centre",
+        "displayName": "Check"
+      },
+      {
+        "field": "WSTRANSACTION",
+        "visible": "false",
+		"type":"text",
+        "width": "11%",
+        "align": "centre",
+        "displayName": "Transaction"
+	  },
+      {
+        "field": "WSORIGWRTDTE",
+        "visible": "true",
+        "width": "0%",
+        "displayName": ""
+      },
+      {
+        "field": "WSORIGRECSEQ",
+        "visible": "true",
+        "width": "0%",
+        "displayName": ""
+      }
+    ],
+    "title": ""
+  }
+}

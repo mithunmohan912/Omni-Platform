@@ -1,0 +1,79 @@
+{
+  "gridMetaData": {
+    "title": "Error List",
+    "element": [
+      {
+        "field": "ERRCODE",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Code",
+        "editable": "false",
+        "width": "20%"
+      },
+      {
+        "field": "ERRDESCRIPTION",
+        "visible": true,
+        "align": "center",
+        "type": "text",
+        "displayName": "Description",
+        "editable": "false",
+        "width": "80%"
+      }
+    ],
+    "operation": {
+      "selectfield": "",
+      "jsfunction": "",
+      "options": ""
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "UXPTRATERR(@query@)",
+    "pagesize": "20",
+    "maxKeySize":"17",
+    "params": 
+      {
+        "query": [
+          {
+            "name": "loc",
+			"type":"KEY",
+            "startIndex": "1",
+            "endIndex": "3",
+            "order": "1"
+          },
+          {
+            "name": "mco",
+			"type":"KEY",
+            "startIndex": "3",
+            "endIndex": "5",
+            "order": "2"
+          },
+          {
+            "name": "sym",
+			"type":"KEY",
+            "startIndex": "5",
+            "endIndex": "8",
+            "order": "3"
+          },
+          {
+            "name": "polno",
+			"type":"KEY",
+            "startIndex": "8",
+            "endIndex": "15",
+            "order": "4"
+          },
+          {
+            "name": "mod",
+			"type":"KEY",
+            "startIndex": "15",
+            "endIndex": "17",
+            "order": "5"
+          }
+        ]
+      }
+    
+  }
+}

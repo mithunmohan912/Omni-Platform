@@ -1,0 +1,41 @@
+@objects
+    div                 xpath    //*[@id="loginModal"]/div/div
+
+    logo                xpath    //*[@id="loginModal"]/div/div/div[1]/div
+    
+    autoQuoteAsiaField             id       _ASIA_AUTO_QS
+    homeownerQuoteAsiaField        id       _HOME_QUOTE_US
+    loginField          xpath       /html/body/div[5]/div/div/ng-include/form/div/div[2]/div[2]/div/div[4]/div/ng-switch/div/div/div/div/div[2]/div/div[2]/div/ng-switch[2]/div/div[5]/ng-switch[2]/div/button
+    startTourField      id       starttour         
+    
+
+@groups
+    div_elements   logo,autoQuoteAsiaField,homeownerQuoteAsiaField,loginField,startTourField
+    
+= Skeleton =
+    &div_elements:
+        centered horizontally inside div
+
+
+
+= Main Section =
+    
+    @on desktop
+            div:
+                centered horizontally inside screen
+
+            logo: 
+                centered horizontally inside div 
+
+            autoQuoteAsiaField:
+                aligned vertically all homeownerQuoteAsiaField
+
+            homeownerQuoteAsiaField:
+                aligned vertically all loginField
+
+            loginField:
+                aligned vertically all startTourField                
+
+
+          
+       

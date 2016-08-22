@@ -1,0 +1,79 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "rowactionfunction": "",
+      "listfunction": "",
+      "jsfunction": "select"
+    },
+    "title": "",
+    "element": [
+      {
+        "field": "AMENDNUM",
+        "visible": "true",
+        "width": "40%",
+        "align": "center",
+        "displayName": "Amend Seq#",
+        "editable": "false"
+      },
+      {
+        "field": "REASAMNDDS",
+        "visible": "true",
+        "width": "30%",
+        "align": "left",
+        "displayName": "Transaction",
+        "autoformat": "true",
+        "maxlength": "2",
+        "editable": "true"
+      },
+      {
+        "field": "STATUS",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Commission Amount",
+        "editable": "false"
+      },
+      {
+        "field": "SEQNUMB",
+        "visible": false,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Activity Date"
+      }
+    ]
+  },
+  "dataSource": {
+    "type": "SQL",
+    "SQL": "SELECT TOP 1 AMENDNUM,REASAMNDDS,TOT0AG0PRM,ENTERDATE,REASAMNDCD FROM PMSP0200A WHERE LOCATION=@location@ and POLICY0NUM= @policyNo@ and SYMBOL= @symbol@ and MASTER0CO= @masterLocation@ and MODULE= @moduleNo@ ORDER BY AMENDNUM DESC , ENTERDATE DESC",
+    "params": {
+      "location": [
+        {
+          "name":"location"
+        }
+      ],
+      "policyNo": [
+        {
+          "name":"policyNo"
+        }
+      ],
+      "symbol": [
+        {
+         "name":"symbol"
+        }
+      ],
+      "masterLocation": [
+        {
+          "name":"masterLocation"
+        }
+      ],
+      "moduleNo": [
+        {
+         "name":"moduleNo"
+        }
+      ]
+    }
+  }
+}

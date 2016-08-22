@@ -1,0 +1,163 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvCBBulkPaymentUpd",
+                     "title":  "Payment Allocated to Policies",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "WSCUSTNBR",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer #",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSPYMTAMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Payment Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "required":  "required",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSCUSTNAME",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Name",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "12",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSALLOCAMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Allocated Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSRCPTTYPE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Receipt Type",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSAVAILAMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Amount Available",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSCHECKNBR",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Check Number",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "13",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "BATSPACER",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSCUSTBAL",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Customer Balance",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WSCUSTMINDUE",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Minimum Due Amount",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RcvCBPaymentAllocDspGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "label":  "",
+                                                                                    "gridId":  "RcvCBPaymentAllocDspGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "PAYMENTENTRY",
+                                                                                    "type":  "hidden",
+                                                                                    "label":  "HiddenFldsOnPage",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvCBPaymentAllocDsp",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

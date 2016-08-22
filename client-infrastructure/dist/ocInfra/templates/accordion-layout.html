@@ -9,7 +9,7 @@
         <div class="form-group marginbottom0px col-md-{{section.columnsize}}">
             <div quick-ng-repeat="field in section.elements" quick-repeat-list="field in section.elements" ng-show="checkvisible(field)">
                 <div ng-if="field.$ref !== ''">
-                    <div quick-ng-repeat="field in metamodel[field.$ref].sections[0].elements" quick-repeat-list="field in metamodel[field.$ref].sections[0].elements">
+                    <div quick-ng-repeat="field in metadata[field.$ref].sections[0].elements" quick-repeat-list="field in metadata[field.$ref].sections[0].elements">
                         <div ng-include src="config.templates.layout"></div>
                     </div>
                 </div>

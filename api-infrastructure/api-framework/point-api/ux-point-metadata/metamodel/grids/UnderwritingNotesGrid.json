@@ -1,0 +1,108 @@
+{
+  "dataSource": {
+    "pagesize": "20",
+    "SP": "BASIUN03(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "name": "User",
+          "length": "10",
+          "fill": " "
+        },
+        {
+          "name": "strkey",
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "16",
+          "order": "2"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {},
+    "element": [
+      {
+        "field": "OUTPUTNOTEKEY",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "null"
+      },
+      {
+        "field": "OUTPUTNOTESUB",
+        "visible": true,
+        "cellTemplate" : "ux/template/cell_link_template.html",
+        "function":"showUndNotes",
+        "width": "30%",
+        "align": "center",
+        "displayName": "Subject"
+      },
+      {
+        "field": "OUTPUTRECDATE",
+        "visible": true,
+        "width": "20%",
+        "align": "center",
+        "displayName": "Date Added"
+      },
+      {
+        "field": "OUTPUTLASTNAME",
+        "visible": true,
+        "width": "50%",
+        "align": "center",
+        "displayName": "By User"
+      },
+      {
+        "field": "OUTPUTAUTHORITY",
+        "visible": false,
+        "width": "0%",
+        "align": "center",
+        "displayName": "Authority"
+      },
+      {
+        "field": "OUTPUTLOCATION",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "LOC"
+      },
+      {
+        "field": "OUTPUTMASTERCO",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "MCO"
+      },
+      {
+        "field": "OUTPUTSYMBOL",
+        "visible": false,
+        "width": "0%",
+        "align": "center",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "OUTPUTPOLICYNO",
+        "visible": false,
+        "width": "0%",
+        "align": "center",
+        "displayName": "Policy Number"
+      },
+      {
+        "field": "OUTPUTMODULE",
+        "visible": false,
+        "width": "0%",
+        "align": "center",
+        "displayName": "Module"
+      },
+      {
+        "field": "OUTPUTUNDSEQNO",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "Und Seq No."
+      }
+    ],
+    "title": "Underwriting Notes"
+  }
+}

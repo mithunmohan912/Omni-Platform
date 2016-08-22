@@ -1,0 +1,210 @@
+{
+	"dataSource": {
+    "SP": "BASRCVL000(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVI01 "
+        },
+        {
+          "name": "EntryDate"
+        },
+        {
+          "name": "SeqNbr"
+        },
+        {
+          "name": "PaymentUser"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Inst Balance",
+          "value": "IB"
+        },
+        {
+          "name": "Policy Level",
+          "value": "PL"
+        },
+        {
+          "name": "Add Notes",
+          "value": "AN"
+        }
+	  ],
+      "rowactionfunction": "RcvDBBulkPaymentUpdate",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+	"gridType": "editableGrid",
+    "title": "",
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": "true",
+        "width": "4%",
+        "align": "center",
+        "displayName": "Error",
+		"editable": "false"
+      },
+      {
+        "field": "WSSYMBOL",
+        "visible": "true",
+        "width": "3%",
+        "align": "left",
+        "displayName": "Sym",
+		"autoformat" : "true",
+		"maxlength" : "3",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPOLICY",
+        "visible": "true",
+        "width": "5%",
+        "align": "left",
+        "displayName": "Policy",
+		"type" : "text",
+		"maxlength" : "7",
+		"autoformat" : "true",
+		"regexp" : "^[.]?[0-9]+[.]?[0-9]*$",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSMODULE",
+        "visible": "true",
+        "width": "3%",
+        "align": "left",
+        "displayName": "Mod",
+		"autoformat" : "true",
+		"regexp" : "^[.]?[0-9]+[.]?[0-9]*$",
+		"maxlength" : "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": "true",
+        "width": "4%",
+        "align": "left",
+        "displayName": "MCO",
+		"maxlength" : "2",
+		"autoformat" : "true",
+		"regexp" : "^[.]?[0-9]+[.]?[0-9]*$",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPAYMENTAMT",
+        "visible": "true",
+        "width": "8%",
+        "align": "right",
+        "displayName": "Payment Amount",
+		"maxlength" : "19",
+		"type": "money",
+		"decimalLen": "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCHECKNBR",
+        "visible": "true",
+        "width": "8%",
+        "align": "left",
+        "displayName": "Check Number",
+		"autoformat": "true",
+		"regexp" : "^[.]?[a-z0-9]+[.]?[a-z0-9]*$",
+		"maxlength" : "8",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSRCPTTYPE",
+        "visible": "true",
+        "width": "6%",
+        "align": "left",
+        "displayName": "Receipt Type",
+		"maxlength" : "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSEDITCODES",
+        "visible": "true",
+        "width": "6%",
+        "align": "left",
+        "displayName": "New Mode",
+        "regexp": "^[a-zA-Z]*$",
+        "autoformat": "true",
+		"maxlength" : "1",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSSTATUS",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Status",
+		"editable": "false"
+      },
+      {
+        "field": "WSAMTDUE",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Amount Due",
+		"editable": "false"
+      },
+      {
+        "field": "WSINSNAME",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Insured Name",
+		"editable": "false"
+      },
+	  {
+        "field": "WSCASHRECSEQ",
+        "visible": false,
+        "width": "18%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      },
+	  {
+        "field": "WSCASHRECDTE",
+        "visible": false,
+        "width": "18%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      },
+	  {
+        "field": "WSLOCATION",
+        "visible": false,
+        "width": "18%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      },
+	  {
+        "field": "TRAN_SUCCESS_INDIC",
+        "visible": false,
+		"width": "15%",
+        "align": "left",
+        "editable": "false"
+      }
+    ]
+  }
+}

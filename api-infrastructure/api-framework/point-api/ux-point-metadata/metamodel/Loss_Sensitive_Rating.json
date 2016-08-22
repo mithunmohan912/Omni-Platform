@@ -1,0 +1,314 @@
+{
+    "metadata":  {
+                     "groupid":  "WCV",
+                     "formid":  "Loss_Sensitive_Rating",
+                     "title":  "Workers Compensation Voluntary - Loss Sensitive Rating",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_LOCATION_COMPANY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Location Company",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_LOCATION",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "COMMON_DESC_LOCATION_COMPANY",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  8,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "COM_STATUS_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Status",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_MASTER_COMPANY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Master Company",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_MCO",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "COMMON_DESC_MASTER_COMPANY",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  8,
+                                                                                                             "disabled":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "spacer1",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GROUP_POLICY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEY_POLICY_SYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_POLICY_NUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  5,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEY_POLICY_MODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "size":  3,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "Loss_Sensitive_Rating",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "RATING_METHOD",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Rating Method",
+                                                                                    "fieldspan":  "12",
+                                                                                    "disabled":  "false",
+                                                                                    "required":  "required",
+                                                                                    "size":  4,
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "RCC",
+                                                                                                        "description":  "Retention Factor - Combined"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "RCS",
+                                                                                                        "description":  "Retention Factor - Split"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "TRC",
+                                                                                                        "description":  "Target Rate - Combined"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "TRS",
+                                                                                                        "description":  "Target Rate - Split"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "TP",
+                                                                                                        "description":  "Target Premium"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "label1",
+                                                                                    "type":  "label",
+                                                                                    "label":  "State Act",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "label2",
+                                                                                    "type":  "label",
+                                                                                    "label":  "Federal Act(USL\u0026H, Admiralty and FELA)",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ST_RETENTION_AMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Retention Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "21",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FD_RETENTION_AMOUNT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Retention Amount",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "21",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RETENTION_AGG_INDICATOR",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Deductible/Retention Aggregate Indicator",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "19",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "Y",
+                                                                                                        "description":  "Yes"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "No"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "spacer1",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ST_TARGET_RATE",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Target Rate",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "13",
+                                                                                    "decimal":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FD_TARGET_RATE",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Target Rate",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "13",
+                                                                                    "decimal":  "6",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TARGET_PREMIUM",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Target Premium",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "21",
+                                                                                    "decimal":  "2",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "spacer2",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "6",
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ST_RETE_FACTOR",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Retention Factor",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "13",
+                                                                                    "decimal":  "10",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "FD_RETE_FACTOR",
+                                                                                    "type":  "number",
+                                                                                    "label":  "Retention Factor",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "13",
+                                                                                    "decimal":  "10",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "Loss_Sensitive_Rating",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

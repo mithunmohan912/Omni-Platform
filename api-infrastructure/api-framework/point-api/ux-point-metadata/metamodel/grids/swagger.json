@@ -1,0 +1,631 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "APIs for basic operations of Clients on POINT",
+        "version": "1.0.0"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/omnichannel/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/clients": {
+            "post": {
+                "description": "api to add client.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "ADDRESSTYPE",
+                        "description": "address type of client.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "TITLEPREFIXNAME",
+                        "description": "title prefix name of client.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "DATEOFBIRTH",
+                        "description": "date of birth of client.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "GROUPNUMBER",
+                        "description": "group number.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "CONTACTNAME",
+                        "description": "contact name.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ZIPCODE",
+                        "description": "postal code.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "CITY",
+                        "description": "city.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "REQUESTCODE",
+                        "description": "tag to identify request type of message.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "STATE",
+                        "description": "state.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "SSN",
+                        "description": "social security number.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "COUNTY",
+                        "in": "query",
+                        "type": "string",
+                        "description": "county code.",
+                        "required": false
+                    },
+                    {
+                        "name": "CONTRACTNO",
+                        "in": "query",
+                        "type": "string",
+                        "description": "contract number.",
+                        "required": false
+                    },
+                    {
+                        "name": "NAMESTATUS",
+                        "in": "query",
+                        "type": "string",
+                        "description": "name status of client.",
+                        "required": true
+                    },
+                    {
+                        "name": "ADDRESSLINE1",
+                        "in": "query",
+                        "type": "string",
+                        "description": "address line 1.",
+                        "required": true
+                    },
+                    {
+                        "name": "ADDRESSLINE2",
+                        "in": "query",
+                        "type": "string",
+                        "description": "address line 2.",
+                        "required": false
+                    },
+                    {
+                        "name": "ADDRESSLINE3",
+                        "in": "query",
+                        "type": "string",
+                        "description": "address line 3.",
+                        "required": false
+                    },
+                    {
+                        "name": "ADDRESSLINE4",
+                        "in": "query",
+                        "type": "string",
+                        "description": "address line 4.",
+                        "required": false
+                    },
+                    {
+                        "name": "SEX",
+                        "in": "query",
+                        "type": "string",
+                        "description": "gender.",
+                        "required": false
+                    },
+                    {
+                        "name": "COUNTRY",
+                        "in": "query",
+                        "type": "string",
+                        "description": "country.",
+                        "required": true
+                    },
+                    {
+                        "name": "CLIENTNAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "client name.",
+                        "required": true
+                    },
+                    {
+                        "name": "PHONE1",
+                        "in": "query",
+                        "type": "string",
+                        "description": "phone number 1.",
+                        "required": false
+                    },
+                    {
+                        "name": "PHONE2",
+                        "in": "query",
+                        "type": "string",
+                        "description": "phone number 2.",
+                        "required": false
+                    },
+                    {
+                        "name": "EMAILADDRESS1",
+                        "in": "query",
+                        "type": "string",
+                        "description": "email address 1.",
+                        "required": false
+                    },
+                    {
+                        "name": "EMAILADDRESS2",
+                        "in": "query",
+                        "type": "string",
+                        "description": "email address 2.",
+                        "required": false
+                    },
+                    {
+                        "name": "FIRSTNAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "first name of client.",
+                        "required": false
+                    },
+                    {
+                        "name": "LASTNAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "last name of client.",
+                        "required": false
+                    },
+                    {
+                        "name": "DBA",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Doing Business AS.",
+                        "required": false
+                    },
+                    {
+                        "name": "TAXID",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Tax ID.",
+                        "required": false
+                    },
+                    {
+                        "name": "SUFFIXNAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "suffix name of client.",
+                        "required": false
+                    },
+                    {
+                        "name": "LONGNAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "long name of client.",
+                        "required": false
+                    },
+                    {
+                        "name": "NAMETYPE",
+                        "in": "query",
+                        "type": "string",
+                        "description": "name type of client.",
+                        "required": true
+                    },
+                    {
+                        "name": "MIDDLENAME",
+                        "in": "query",
+                        "type": "string",
+                        "description": "middle name of client.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns details of client added.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/_clients"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "options": {
+                "summary": "Return schema of the clients.",
+                "description": "Return schema of the clients.",
+                "responses": {
+                    "200": {
+                        "description": "returns a schema1.",
+                        "schema": {
+                            "$ref": "#/definitions/_clients"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "api to get a client identified by firstName and lastName or dob.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "FIRSTNAME",
+                        "description": "first name of client.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "LASTNAME",
+                        "description": "last name of client.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "DBA",
+                        "description": "Doing Business As.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "CITY",
+                        "description": "city.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "STATE",
+                        "description": "state.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ZIP",
+                        "description": "postal code.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "GROUPNO",
+                        "description": "group number.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "SSN/FEIN",
+                        "description": "ssn/fein.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "PHONE",
+                        "description": "group Number.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "NAMETYPE",
+                        "description": "client type.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "_page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "tags to filter Clients.",
+                        "required": false
+                    },
+                    {
+                        "name": "_limit",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "tags to filter Clients.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of Clients.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/_clients"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "_clients": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/_link"
+                },
+                {
+                    "$ref": "#/definitions/clients"
+                }
+            ]
+        },
+        "_link": {
+            "properties": {
+                "CLTSEQNO": {
+                    "$ref": "#/definitions/hypermedia"
+                }
+            }
+        },
+        "hypermedia": {
+            "required": [
+                "href"
+            ],
+            "properties": {
+                "href": {
+                    "type": "string"
+                }
+            }
+        },
+        "clients": {
+            "required": [
+                "FIRSTNAME",
+                "LASTNAME",
+                "CLIENTNAME",
+                "CLIENTSEQNUMBER",
+                "ADDRESSSEQNUMBER",
+                "ERROR1",
+                "ERROR2",
+                "ADDRSTATUS",
+                "STATE",
+                "PHONE2",
+                "MARITALST",
+                "SUFFIXNM",
+                "PREFIXNM",
+                "PHONE1",
+                "GROUPNO",
+                "ADDRLN1",
+                "ADDRLN2",
+                "NAMETYPE",
+                "MIDNAME",
+                "COUNTY",
+                "PHNFIRST",
+                "SEX",
+                "C00020",
+                "PHNCLIENT",
+                "C00024",
+                "LONGNAME",
+                "FEDTAXID",
+                "PHNCITY",
+                "BAS1IND1",
+                "DBA",
+                "COUNTRY",
+                "SSN",
+                "PHNDBA",
+                "ADDRTYPE",
+                "CONTRACTNO",
+                "CONTACT",
+                "ZIPCODE",
+                "ADDRLN4",
+                "ADDRLN3",
+                "FAXNUM1",
+                "CLTSEQNO",
+                "CITY",
+                "NAMESTATUS"
+            ],
+            "properties": {
+                "FIRSTNAME": {
+                    "type": "string"
+                },
+                "LASTNAME": {
+                    "type": "string"
+                },
+                "CLIENTNAME": {
+                    "type": "string"
+                },
+                "CLIENTSEQNUMBER": {
+                    "type": "string"
+                },
+                "ADDRESSSEQNUMBER": {
+                    "type": "string"
+                },
+                "ERROR1": {
+                    "type": "string"
+                },
+                "ERROR2": {
+                    "type": "string"
+                },
+                "ADDRSTATUS": {
+                    "type": "string"
+                },
+                "STATE": {
+                    "type": "string"
+                },
+                "PHONE2": {
+                    "type": "string"
+                },
+                "MARITALST": {
+                    "type": "string"
+                },
+                "SUFFIXNM": {
+                    "type": "string"
+                },
+                "PREFIXNM": {
+                    "type": "string"
+                },
+                "PHONE1": {
+                    "type": "string"
+                },
+                "GROUPNO": {
+                    "type": "string"
+                },
+                "ADDRLN1": {
+                    "type": "string"
+                },
+                "ADDRLN2": {
+                    "type": "string"
+                },
+                "NAMETYPE": {
+                    "type": "string"
+                },
+                "MIDNAME": {
+                    "type": "string"
+                },
+                "COUNTY": {
+                    "type": "string"
+                },
+                "PHNFIRST": {
+                    "type": "string"
+                },
+                "SEX": {
+                    "type": "string"
+                },
+                "C00020": {
+                    "type": "string"
+                },
+                "PHNCLIENT": {
+                    "type": "string"
+                },
+                "C00024": {
+                    "type": "string"
+                },
+                "LONGNAME": {
+                    "type": "string"
+                },
+                "FEDTAXID": {
+                    "type": "string"
+                },
+                "PHNCITY": {
+                    "type": "string"
+                },
+                "BAS1IND1": {
+                    "type": "string"
+                },
+                "DBA": {
+                    "type": "string"
+                },
+                "COUNTRY": {
+                    "type": "string"
+                },
+                "SSN": {
+                    "type": "string"
+                },
+                "PHNDBA": {
+                    "type": "string"
+                },
+                "ADDRTYPE": {
+                    "type": "string"
+                },
+                "CONTRACTNO": {
+                    "type": "string"
+                },
+                "CONTACT": {
+                    "type": "string"
+                },
+                "ZIPCODE": {
+                    "type": "string"
+                },
+                "ADDRLN4": {
+                    "type": "string"
+                },
+                "ADDRLN3": {
+                    "type": "string"
+                },
+                "FAXNUM1": {
+                    "type": "string"
+                },
+                "CLTSEQNO": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/hypermedia"
+                    }
+                },
+                "CITY": {
+                    "type": "string"
+                },
+                "NAMESTATUS": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "maritalStatus": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

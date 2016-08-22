@@ -1,0 +1,145 @@
+{
+  "gridMetaData": {
+    "title": "",
+    "gridType":"editableGrid",
+    "rowTemplate": "",
+    "element": [
+       {
+        "field": "WSACTDATE",
+        "displayName": "Activity Date",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "WSACTSTATUS",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "WSACTTYPE",
+        "displayName": "Activity Type",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "WSINST",
+        "displayName": "Inst",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "5%"
+      },
+	  {
+        "field": "WSTRAN",
+        "displayName": "Tran",
+        "type": "TEXT",
+        "align": "center",
+        "visible": false,
+        "width": "8%"
+      },
+      {
+        "field": "WSACCTDATE",
+        "displayName": "Acct Date",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "WSMCO",
+        "displayName": "MCO",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "5%"
+      },
+      {
+        "field": "WSAGENCY",
+        "displayName": "Agency Number",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "WSSYMBOL",
+        "displayName": "Symbol",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "5%"
+      },
+      {
+        "field": "WSPOLICY",
+        "displayName": "Policy",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "8%"
+      },
+      {
+        "field": "WSMODULE",
+        "displayName": "Mod",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "5%"
+      },
+      {
+        "field": "WSACTAMNT",
+        "displayName": "Activity Amount",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "10%"
+      },
+      {
+        "field": "WSCURRAMTSUSP",
+        "displayName": "Amt in Susp",
+        "type": "TEXT",
+        "align": "center",
+        "visible": true,
+        "width": "10%"
+      }
+    ],
+	"operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Display",
+          "value": "Display"
+        },
+        {
+          "name": "Change",
+          "value": "Change"
+        }
+      ],
+      "rowactionfunction": "DisplayorChangeAP",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+   "dataSource": {
+    "type": "SP",
+    "SP": "BASSYSGRID(@query@)",
+    "params": {
+      "query": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL053"
+        },
+        {
+          "type": "KEY"
+        }
+      ]
+    }
+  }
+}
+}

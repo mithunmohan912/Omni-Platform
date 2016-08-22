@@ -1,0 +1,237 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "ChangeRcvPriorToInvoice",
+                     "title":  "Receivables - Change Receivables Prior to Invoicing ",
+                     "gridid":  "ChangeRcvPriorToInvoiceGrid",
+                     "defaultsubmitresetbuttons":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "POLICY_LEVEL_KEY_FULL_POLICY_NUMBER",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "12",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "symbol",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[a-zA-Z ]*$",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "required":  "false",
+                                                                                                             "placeholder":  "Sym",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ChangeRcvPriorToInvoice",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "policyNo",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "size":  "3",
+                                                                                                             "label":  "Policy Number",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "placeholder":  "Pol Num",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ChangeRcvPriorToInvoice",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "moduleNo",
+                                                                                                             "type":  "text",
+                                                                                                             "disabled":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "label":  "Policy Module",
+                                                                                                             "size":  "1",
+                                                                                                             "maxlength":  "2",
+                                                                                                             "placeholder":  "Mod",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "ChangeRcvPriorToInvoice",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DER_PAYPLAN_DESCRIPTION",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "labeltype":  "linklabel",
+                                                                                    "label":  "Pay Plan",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Effective_Date",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Effective Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Insured",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Insured",
+                                                                                    "disabled":  "true",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "11",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Expiration_Date",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Expiration Date",
+                                                                                    "fieldspan":  "6",
+                                                                                    "disabled":  "true",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "autoformat":  "true",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AMENDNUM",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Amend Seq#",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REASAMNDDS",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Transaction",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Total_Amount",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Total Amount",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "commissionAmt",
+                                                                                    "type":  "money",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Commission Amount",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ENTERDATE",
+                                                                                    "type":  "text",
+                                                                                    "disabled":  "true",
+                                                                                    "label":  "Activity Date",
+                                                                                    "fieldspan":  "3",
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "size":  "10",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ChangeRcvPriorToInvoiceGrid1",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "test",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "ChangeRcvPriorToInvoiceGrid1",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ChangeRcvPriorToInvoiceGrid",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "ChangeRcvPriorToInvoiceGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ChangeRcvPriorToInvoiceGrid2",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "test",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "ChangeRcvPriorToInvoiceGrid2",
+                                                                                    "reference":  "",
+                                                                                    "page":  "ChangeRcvPriorToInvoice",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

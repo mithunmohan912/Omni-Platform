@@ -1,0 +1,44 @@
+<div class="container-fluid">
+	<form class="span11 form-horizontal">
+		<p>
+			<span class="subheader">{{subHeader}}</span>
+		</p>
+		<div class="sectiondiv">
+			<fieldset>
+				<div class="row-fluid">
+					<div class="controls span5" ng-repeat="prop in newattrscreenArr">
+						<ng-switch on="prop.type"> <label
+							class="control-label span12"><span> {{prop.name}}:</span>
+						</label> <input ng-switch-when="text" id="{{prop.idStr}}" type="text" class="span10" ng-change="cUpper(prop);"
+							ng-model="prop.value"  maxlength="{{prop.length}}" />
+							<input ng-switch-when="minSpance" id="{{prop.idStr}}" type="text" class="span10" ng-change="cUpper(prop);"
+							ng-model="prop.value"  maxlength="{{prop.length}}" onblur="minSpace(this);" />
+							<input ng-switch-when="disabled" id="{{prop.idStr}}" type="text" class="span10" disabled="disabled"
+							ng-model="prop.value" /> 
+							<input ng-switch-when="elementType" id="{{prop.idStr}}" type="text" class="span10"
+							ng-model="ElementType" disabled="disabled" /> 
+							<input ng-switch-when="number" id="{{prop.idStr}}" type="number" class="span10"
+							ng-model="prop.value"  max="99999" min="0" onblur="minNum(this);" />
+							<select ng-switch-when="dataType" id="{{prop.idStr}}"  class="span10" ng-model="prop.value" >
+							<option value="D">D: Date</option>
+							<option value="F">F: Factor</option>
+							<option value="N">N: Number</option>
+							<option value="P">P: Percent</option>
+							<option value="T">T: Text</option>
+							<option value="V">V: Value</option>
+							</select>							
+							</ng-switch>
+					</div>
+				</div>
+
+			</fieldset>
+			<div align="center">
+				<input id="subbtn" type="submit" class="btn-primary" value="Submit"
+					ng-click="submitNewAttr('submit')"> <input id="resbtn" type="reset"
+					class="btn-primary" value="Back" ng-click="submitNewAttr('back')" style="display:none">
+				<input id="delbtn" type="submit" class="btn-primary btn-small" value="Delete"
+					ng-click="submitNewAttr('delete')" style="display:none" >	
+			</div>
+		</div>
+	</form>
+</div>

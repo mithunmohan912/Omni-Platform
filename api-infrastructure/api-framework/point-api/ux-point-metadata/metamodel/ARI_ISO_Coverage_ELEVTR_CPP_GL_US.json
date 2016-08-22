@@ -1,0 +1,665 @@
+{
+  "metadata": {
+    "title": "Elevator or Escalator Insp Chg",
+    "properties": [
+      {
+        "name": "DISPLAYSEQ",
+        "value": 99999
+      },
+      {
+        "name": "SCREENIND1",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND2",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND3",
+        "value": "L"
+      },
+      {
+        "name": "SCREENIND4",
+        "value": ""
+      },
+      {
+        "name": "SCREENIND5",
+        "value": ""
+      }
+    ],
+    "groupid": "CPP",
+    "section": [{
+      "sectionsize": 12,
+      "subsection": [
+        {
+          "element": [
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 4,
+              "name": "COMMON_DESC_RECORD_STATUS",
+              "label": "Status",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "controlgroup": [
+                {
+                  "fieldspan": 6,
+                  "order": 6,
+                  "name": "COVERAGE_KEY_SYMBOL",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 3
+                },
+                {
+                  "fieldspan": 6,
+                  "order": 7,
+                  "name": "COVERAGE_KEY_POLICY_NUMBER",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 6
+                },
+                {
+                  "fieldspan": 6,
+                  "order": 8,
+                  "name": "COVERAGE_KEY_MODULE",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 2
+                }
+              ],
+              "name": "GROUP_COVERAGE_KEY_SYMBOL",
+              "label": "Policy Number",
+              "type": "grouptext"
+            },
+            {
+              "fieldspan": 6,
+              "order": 10,
+              "name": "COVERAGE_KEY_INSURANCE_LINE",
+              "label": "Insurance Line",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 12,
+              "name": "COVERAGE_KEY_PRODUCT",
+              "label": "Product",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 14,
+              "name": "COVERAGE_KEY_RISK_LOCATION_NUMBER",
+              "label": "Location",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 16,
+              "name": "COVERAGE_KEY_COVERAGE",
+              "label": "Coverage",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 18,
+              "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+              "label": "Sequence",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            }
+          ],
+          "subsectiontitle": ""
+        },
+        {
+          "element": [
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 1,
+              "order": 20,
+              "autoformat": true,
+              "name": "A_COVERAGE_RATEBOOK_RATEFILE",
+              "label": "RateBook",
+              "type": "text",
+              "size": 10
+            },
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 19,
+              "order": 22,
+              "name": "A_COVERAGE_RATE_PREMIUM",
+              "label": "Premium",
+              "type": "money",
+              "decimal": 2,
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 24,
+              "name": "GC_STATE",
+              "label": "State",
+              "type": "text",
+              "disabled": true,
+              "size": 10
+            },
+            {
+              "minlength": 0,
+              "fieldspan": 6,
+              "maxlength": 30,
+              "order": 26,
+              "autoformat": true,
+              "name": "SEARCH_CLASS_CODE_COVERAGE",
+              "label": "Enter the beginning characters of a Class Code or Description to search on",
+              "type": "text",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "buttonid": "ID_Class_Search",
+              "order": 28,
+              "name": "ID_Class_Search",
+              "action": "doClassSearch();",
+              "label": "Class Search",
+              "type": "button",
+              "size": 10
+            },
+            {
+              "fieldspan": 12,
+              "controlgroup": [
+                {
+                  "fieldspan": 1,
+                  "order": 51,
+                  "name": "GC_COVER_CLASS_CODE",
+                  "type": "text",
+                  "disabled": true,
+                  "size": 1
+                },
+                {
+                  "minlength": 0,
+                  "fieldspan": 11,
+                  "maxlength": 60,
+                  "order": 30,
+                  "name": "GC_COVER_CLASS_DESCRIPTION",
+                  "type": "text",
+                  "size": 10
+                }
+              ],
+              "name": "GROUP_GC_COVER_CLASS_CODE",
+              "label": "Class Code",
+              "type": "grouptext"
+            },
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 32,
+              "autoformat": true,
+              "name": "GC_USER_INDICATOR_4",
+              "label": "Exposure Basis",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 440
+                },
+                {
+                  "name": "datatype",
+                  "value": "T"
+                },
+                {
+                  "name": "reclength",
+                  "value": 1
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": "R"
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "select",
+              "required": "required",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 35,
+              "autoformat": true,
+              "name": "GC_USER_CODE_3",
+              "label": "PMA Code",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 479
+                },
+                {
+                  "name": "datatype",
+                  "value": "T"
+                },
+                {
+                  "name": "reclength",
+                  "value": 6
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": "R"
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "select",
+              "required": "required",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "order": 36,
+              "name": "GC_USER_FACTOR_2",
+              "label": "CAT Transition Factor",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 535
+                },
+                {
+                  "name": "datatype",
+                  "value": "P"
+                },
+                {
+                  "name": "reclength",
+                  "value": 8
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": ""
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "text",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 38,
+              "autoformat": true,
+              "name": "GC_USER_CODE_13",
+              "label": "CAT Rate Territory",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 1218
+                },
+                {
+                  "name": "datatype",
+                  "value": "T"
+                },
+                {
+                  "name": "reclength",
+                  "value": 6
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": ""
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "select",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 40,
+              "autoformat": true,
+              "name": "GC_USER_CODE_12",
+              "label": "Texas Stat Territory",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 1212
+                },
+                {
+                  "name": "datatype",
+                  "value": "T"
+                },
+                {
+                  "name": "reclength",
+                  "value": 6
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": ""
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "select",
+              "size": 10
+            },
+            {
+              "fieldspan": 6,
+              "support": "true",
+              "order": 42,
+              "name": "GC_TERRITORY",
+              "label": "Territory",
+              "properties": [
+                {
+                  "name": "USRENTRYFIELD",
+                  "value": {}
+                },
+                {
+                  "name": "position",
+                  "value": 264
+                },
+                {
+                  "name": "datatype",
+                  "value": "T"
+                },
+                {
+                  "name": "reclength",
+                  "value": 3
+                },
+                {
+                  "name": "ERRORCD",
+                  "value": ""
+                },
+                {
+                  "name": "PRINTIND",
+                  "value": ""
+                },
+                {
+                  "name": "SC_CODE",
+                  "value": ""
+                },
+                {
+                  "name": "REQUIRED_PT",
+                  "value": "R"
+                },
+                {
+                  "name": "INDD",
+                  "value": ""
+                }
+              ],
+              "type": "select",
+              "required": "required",
+              "size": 10
+            }
+          ],
+          "subsectiontitle": ""
+        },
+        {
+          "element": [
+            {
+              "name": "DB_BEAN_COVERAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "GC_STDFT_ADDRESS_CITY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "GC_STDFT_COUNTY_CODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "TEMPHASHDATA",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "PROC_LDA_SET_TYPE_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "PROC_MESSAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_EXPIRATION_DATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_MASTER_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_UNIT_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_INSURANCE_LINE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_SYMBOL",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_LOCATION_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_EFFECTIVE_DATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RECORD_STATUS",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_POLICY_COMPANY",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_MODULE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_AGENT_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_COVERAGE_SEQUENCE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RISK_SUBLOCATION_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_STATE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_COVERAGE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_RISK_LOCATION_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_PRODUCT",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "COVERAGE_KEY_POLICY_NUMBER",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "BC_LINE_OF_BUSINESS",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "REQUESTCODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "TMPREQUESTCODE",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "target",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "tmptarget",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "fullkey",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "Refresh",
+              "type": "hidden",
+              "size": 0
+            },
+            {
+              "name": "DisplayTable",
+              "type": "hidden",
+              "size": 0
+            }
+          ],
+          "subsectiontitle": "hiddenfields"
+        }
+      ]
+    }],
+    "formid": "Coverage"
+  }
+}

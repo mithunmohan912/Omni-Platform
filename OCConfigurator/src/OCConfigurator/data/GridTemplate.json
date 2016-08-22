@@ -1,0 +1,237 @@
+{
+	"gridMetaData":{
+		"title":"New Grid",
+		"draggability": false,
+		"resizableColumn" : false,
+		"enableSorting" : false,
+		"pinnableColumn" : false,
+		"showColumnMenu" : false,
+		"enableSearching" : "none",
+		"enablePaging" : true,
+		"pageSize" : "",
+		"element":[
+			{
+				"field":"",
+				"visible":false,
+				"align":"left",
+				"type":"select",
+				"displayName":"FirstColumn",
+				"editable":"true",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":true,
+				"align":"center",
+				"type":"text",
+				"displayName":"SecondColumn",
+				"editable":"false",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":true,
+				"align":"center",
+				"type":"text",
+				"displayName":"ThirdColumn",
+				"editable":"false",
+				"width":"20%"
+			},
+			{
+				"field":"",
+				"visible":false,
+				"align":"center",
+				"type":"text",
+				"displayName":"FourthColumn",
+				"editable":"false",
+				"width":"0%"
+			}
+		],
+        "operation": {
+            "selectfield": "radio",
+            "jsfunction": "selectPolicy",
+            "options": ""
+        },
+        "buttons": []
+	},
+    "dataSource": {
+        "type": "GRIDSPSEARCH",
+        "SP": "BASDBIO040",
+        "params": [
+            {
+                "name": "querystr",
+                "value": [
+                	{
+                        "name": "user",
+                        "length": "10",
+                        "order":"1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "SYMBOL",
+                        "length": "3",
+                        "order":"1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "POLICY0NUM",
+                        "length": "7",
+                        "order":"2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "MODULE",
+                        "length": "2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "LASTNAME",
+                        "length": "256",
+                        "fill": " "
+                    },
+                    {
+                        "name": "LASTNAMEBW",
+                        "length": "1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "FIRSTNAME",
+                        "length": "40",
+                        "fill": " "
+                    },
+                    {
+                        "name": "FIRSTNAMEBW",
+                        "length": "1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "STATE",
+                        "length": "2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "LOB",
+                        "length": "3",
+                        "fill": " "
+                    },
+                    {
+                        "name": "CUSTNO",
+                        "length": "10",
+                        "fill": " "
+                    },
+                    {
+                        "name": "CITY",
+                        "length": "28",
+                        "fill": " "
+                    },
+                    {
+                        "name": "ZIP",
+                        "length": "10",
+                        "fill": " "
+                    },
+                    {
+                        "name": "SORTNAME",
+                        "length": "4",
+                        "fill": " "
+                    },
+                    {
+                        "name": "LOC",
+                        "length": "2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "MCO",
+                        "length": "2",
+                        "fill": " "
+                    },
+                    {
+                        "name": "AGENCY",
+                        "length": "7",
+                        "fill": " "
+                    },
+                    {
+                        "name": "TELEPHONE",
+                        "length": "32",
+                        "fill": " "
+                    },
+                    {
+                        "name": "SSN",
+                        "length": "11",
+                        "fill": " "
+                    },
+                    {
+                        "name": "GROUPNO",
+                        "length": "10",
+                        "fill": " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "2",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "30",
+                    	"fill" : " "
+                    },
+                    {
+                        "name": "FEINCHK",
+                        "length": "1",
+                        "fill": " "
+                    },
+                    {
+                        "name": "FEINCHK2",
+                        "length": "1",
+                        "fill": " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "30",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "28",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "2",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "10",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "30",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "25",
+                    	"fill" : " "
+                    },
+                    {
+                        "name": "MAXRECORDS",
+                        "length": "3",
+                        "fill": " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "6",
+                    	"fill" : " "
+                    },
+                    {
+                    	"name" :"spacer",
+                    	"length" : "20",
+                    	"fill" : " "
+                    }
+                ]
+            }
+        ]
+    }
+}
+

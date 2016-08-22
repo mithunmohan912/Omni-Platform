@@ -1,0 +1,20 @@
+<div class="span8">
+	<h2>Screens List</h2>
+	<table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Screens</th>
+            <!-- 
+            <th><a href="#/admin/screens/new"><i class="icon-plus-sign"></i></a></th>
+             -->
+        </tr>
+		<tr ng-repeat="screen in screens">
+			<td>{{screen.title}}</td>
+            <!-- <td>
+                <a href="#/admin/screens/edit/{{screen._id.$oid}}"><i class="icon-pencil"></i></a>
+            </td> -->
+		</tr>
+	</table>	
+	<!-- <a class="btn btn-primary btn-large" href="#/admin/screens/new">New Screen</a> -->
+</div>
+
+<ng-include src="sidebarTemplate"></ng-include>

@@ -1,0 +1,164 @@
+{
+	"dataSource": {
+    "SP": "BASRCVL000(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVR02 "
+        },
+        {
+          "name": "EntryDate"
+        },
+        {
+          "name": "SeqNbr"
+        },
+        {
+          "name": "PaymentUser"
+        }
+      ]
+    }
+  },
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Display Audit Trail",
+          "value": "DS"
+        }
+	  ],
+      "rowactionfunction": "RcvABBulkPaymentUpdate",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+	"gridType": "editableGrid",
+    "title": "Agency Payment Update",
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": "true",
+        "width": "5%",
+        "align": "center",
+        "displayName": "Error",
+		"editable": "false"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": "false",
+        "width": "0%",
+        "align": "left",
+        "displayName": "Location",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"editable": "true"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": "true",
+        "width": "5%",
+        "align": "left",
+        "displayName": "MCO",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSAGENCYNBR",
+        "visible": "true",
+        "width": "10%",
+        "align": "left",
+        "displayName": "Agency Number",
+		"type" : "text",
+		"maxlength" : "7",
+		"autoformat" : "true",
+		"regexp" : "^[.]?[0-9]+[.]?[0-9]*$",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSPAYMENTAMT",
+        "visible": "true",
+        "width": "20%",
+        "align": "right",
+        "displayName": "Payment Amount",
+		"maxlength" : "19",
+		"type": "money",
+		"decimalLen": "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCHECKNBR",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Check Number",
+		"autoformat": "true",
+		"regexp" : "^[.]?[a-z0-9]+[.]?[a-z0-9]*$",
+		"maxlength" : "8",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCHECKDATE",
+        "visible": "true",
+        "width": "8%",
+        "align": "right",
+        "displayName": "Check Date",
+		"maxlength" : "8",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSRCPTTYPE",
+        "visible": "true",
+        "width": "15%",
+        "align": "left",
+        "displayName": "Receipt Type",
+		"maxlength" : "2",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCOMMENT",
+        "visible": "true",
+        "width": "20%",
+        "align": "left",
+        "displayName": "Comment",
+		"editable": "true",
+		"cellTemplate": "ux/template/inputCellTemplate.html"
+      },
+      {
+        "field": "WSCASHRECSEQ",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      },
+	  {
+        "field": "WSCASHRECDTE",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      },
+	  {
+        "field": "ROW_INDEX",
+        "visible": false,
+        "width": "0%",
+        "align": "left",
+        "displayName": "",
+		"editable": "false"
+      }
+    ]
+  }
+}

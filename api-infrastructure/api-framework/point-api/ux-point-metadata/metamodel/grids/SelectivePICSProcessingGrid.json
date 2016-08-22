@@ -1,0 +1,143 @@
+{
+	"gridMetaData":{
+		"title":"",
+		    "rowTemplate": "rowTemplateDblClick.html",
+    "rowAction": {
+      "rowFunction": "selectAction",
+      "options": [
+        {
+          "value": "CH",
+          "description": "Change",
+          "id": "SelectivePICSProcessingGrid.json",
+          "reqcode": "WCVSITESCHGRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "",
+              "end": ""
+            }
+          ]
+        },
+         {
+          "value": "DL",
+          "description": "Delete",
+          "id": "SelectivePICSProcessingGrid.json",
+          "reqcode": "WCVSITESDLTRq",
+          "keyParams": [
+            {
+              "type": "KEY",
+              "start": "",
+              "end": ""
+            }
+          ]
+        }
+      ]
+    },
+		"element":
+		[
+			{
+			    "field": "button",
+			    "displayName": "Actions",
+			    "cellTemplate": "ux/template/row_action_template.html",
+			    "align": "center",
+			    "editable": "false",
+			    "visible": false,
+			    "width": "6%"
+			  },
+			{
+				"ROW": "",
+				"visible": "false",
+				"align": "center",
+				"type": "text",
+				"editable": "false",
+				"width":"0%"
+			},
+			{
+				"field": "RESPONSE_MESSAGE",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Error",
+				"editable": "false",
+				"width":"10%"
+			},
+			{
+				"field": "Symbol",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Symbol",
+				"editable": "false",
+				"width":"9%"
+			},
+			{
+				"field": "Policy",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Policy",
+				"editable": "false",
+				"width":"15%"
+			},
+			{
+				"field": "Module",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Module",
+				"editable": "false",
+				"width":"15%"
+			},
+			{
+				"field": "Location",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Location",
+				"editable": "false",
+				"width":"15%"
+			},
+			{
+				"field": "MasterCo",
+				"visible": "true",
+				"align": "center",
+				"type": "text",
+				"displayName": "Company",
+				"editable": "false",
+				"width":"15%"
+			},
+			{
+				"field": "TransDate",
+				"visible": "true",
+				"align": "center",
+				"type": "date",
+				"displayName": "Trans Date",
+				"editable": "false",
+				"width":"15%"
+			}
+		],
+        "operation": {
+         "selectfield": "select",
+            "options": [
+	        {
+	          "name": "Change",
+	          "value": "CH"
+	        },
+	        {
+	          "name": "Delete",
+	          "value": "DL"
+	        }
+	      ],
+	      "rowactionfunction": "SelectivePICSProcessingListAction",
+	      "listfunction": "SelectivePICSProcessingListFilter",
+            "jsfunction": "selectRowforAction"
+        },
+        "buttons": []
+	},
+    "dataSource": {
+    "pagesize": "10",
+    "SQL": "SELECT SYMBOL as Symbol, POLICYNO as Policy, MODULE as Module, LOCATION as Location, MASTERCO as MasterCo, TRANDATE as TransDate FROM BASPIC01 order by TRANDATE",
+    "filename": "BASPIC01",
+    "type": "SQL"
+  }       
+}

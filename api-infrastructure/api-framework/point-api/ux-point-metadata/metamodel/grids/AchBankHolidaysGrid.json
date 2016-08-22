@@ -1,0 +1,61 @@
+{
+  "dataSource" : {
+    "pagesize" : "22",
+    "SP" : "BASSYSGRID(@query@)",
+    "type" : "SP",
+	"params": {
+      "query": [
+		{
+          "name": "VALUE",
+          "type": "VALUE",
+          "value": "BASACHL002",
+          "order": "1"
+        },
+        {
+          "name": "LOC"
+        },
+        {
+          "name": "MCO"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : {
+	"selectfield": "select",
+     "options": [
+        {
+          "name": "Change",
+          "value": "Change"
+        },
+        {
+          "name": "Delete",
+          "value": "Delete"
+        }
+      ],
+	  "rowactionfunction": "RcvACHBankHolOpts",
+      "listfunction": "",
+      "jsfunction" : "selectRowforAction"
+    },
+    "element" : [ {
+      "field" : "WSYEAR",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Year "
+    }, {
+      "field" : "WSHOLIDAYDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Holiday Date"
+    }, {
+      "field" : "WSDESC",
+      "visible" : "true",
+      "width" : "60%",
+      "align" : "center",
+      "displayName" : "Holiday Description"
+    } ],
+    "title" : "ACH Bank Holidays"
+  }
+}

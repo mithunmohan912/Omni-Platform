@@ -1,0 +1,29 @@
+# OmniChannel Integrator Dockerfile
+FROM jetty:9.3.10
+MAINTAINER Cole Puryear <cpuryear@csc.com>
+
+# setup directory
+RUN mkdir /home/ocintegration
+
+# setup log file
+RUN \
+	mkdir /home/ocintegration/logs \
+	&& cd /home/ocintegration/logs \
+	&& touch log.out \
+	&& chmod 777 log.out
+
+# setup certs
+COPY /security /home/ocintegration/security
+RUN \
+	cd $JAVA_HOME/lib/security \
+	&& keytool \
+		-keystore cacerts \
+		-storepass changeit \
+		-noprompt \
+		-trustcacerts \
+		-importcert \
+		-alias aiaawskey \
+		-file /home/ocintegration/security/aia/crt/aiaaws.cer
+		
+# deploy webapp
+COPY /target/ocintegration /var/lib/jetty/webapps/ocintegration 

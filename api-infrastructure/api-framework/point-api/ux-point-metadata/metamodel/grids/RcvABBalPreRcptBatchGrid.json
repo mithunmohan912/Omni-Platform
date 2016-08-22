@@ -1,0 +1,79 @@
+{
+  "dataSource": {
+    "SP": "BASSYSGRID(@querystr@)",
+    "type": "SP",
+    "params": {
+      "querystr": [
+        {
+          "type": "VALUE",
+          "value": "BASRCVL048"
+        },
+        {
+          "name": "strLOC"
+        },
+        {
+          "name": "strMCO"
+        },
+        {
+          "name": "strAgency"
+        }
+      ]
+    }
+  },
+  "gridMetaData" : {
+    "operation" : {
+      "options" : [
+        {
+          "name": "Select Batch for Balancing",
+          "value": "Select Batch for Balancing"
+        },
+        {
+          "name": "Display Batch Details",
+          "value": "Display Batch Details"
+        }
+      ],
+      "rowactionfunction": "RcvABBalPreRcptBatchSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element" : [ {
+      "field" : "WSBATWRTDATE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Batch Date"
+    }, {
+      "field" : "WSBATSEQNBR",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Batch Seq#"
+    }, {
+      "field" : "WSBATENTUSER",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Entered by"
+    }, {
+      "field" : "WSBATENTAMOUNT",
+      "visible" : "true",
+      "width" : "20%",
+       "cellTemplate": "ux/template/CurrencyTemplate.html",
+      "align" : "right",
+      "displayName" : "Entered Amount"
+    }, {
+      "field" : "WSBATRCDCOUNT",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "center",
+      "displayName" : "Record Count"
+    }, {
+      "field" : "WSBATLSTUPDDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Last Updated"
+    } ],
+    "title" : "Balance Batch with Payment"
+  }
+}

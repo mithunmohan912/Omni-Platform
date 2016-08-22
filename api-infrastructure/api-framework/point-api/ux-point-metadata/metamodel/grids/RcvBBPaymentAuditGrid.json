@@ -1,0 +1,146 @@
+{
+  "dataSource": {
+	  "SP": "BASSYSGRID(@querystr@)",
+	  "type": "SP",
+	  "params": {
+      "querystr": [
+         {
+          "type": "VALUE",
+          "value": "BASRCVL127"
+         },
+         {
+          "type": "KEY",
+          "startIndex": "0",
+          "endIndex": "2"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        },
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        },
+         {
+          "type": "KEY",
+          "startIndex": "16",
+          "endIndex": "23"
+        },
+         {
+          "type": "KEY",
+          "startIndex": "23",
+          "endIndex": "29"
+        },
+	{
+         "type": "VALUE",
+          "value": "0000/00/00"
+         
+	}
+        ]
+      }
+    },
+  "gridMetaData" : {
+    "operation" : { },
+    "element" : [ {
+      "field" : "WSAGENCY",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : ""
+    }, {
+
+      "field" : "WSAGENCYNAME",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : ""
+    }, {
+      "field" : "WSBANKNBR",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : ""
+    }, {
+      "field" : "WSCHECKNBR",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : ""
+    }, {
+      "field" : "WSPAYAMT",
+      "visible" : "false",
+      "width" : "0%",
+      "align" : "left",
+      "displayName" : ""
+    }, {
+      "field" : "WSACTDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Activity Date"
+    }, {
+      "field" : "WSTRANDESC",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "left",
+      "displayName" : "Activity Type"
+    }, {
+      "field" : "WSINSTNBR",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "right",
+      "displayName" : "IN"
+    }, {
+      "field" : "WSTRANCODE",
+      "visible" : "true",
+      "width" : "15%",
+      "align" : "left",
+      "displayName" : "Tran"
+    }, {
+      "field" : "WSACCTDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Acct Date"
+    }, {
+      "field" : "WSEFFDATE",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "center",
+      "displayName" : "Eff Date"
+    }, {
+      "field" : "WSCOMMPCT",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "right",
+      "displayName" : "Comm%"
+    }, {
+      "field" : "WSTRANAMT",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "right",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+	  "displayName" : "Activity Amount"
+    }, {
+      "field" : "WSAVAILBAL",
+      "visible" : "true",
+      "width" : "20%",
+      "align" : "right",
+      "cellTemplate": "ux/template/CurrencyTemplate.html",
+	  "displayName" : "Amount Applied"
+    } ],
+    "title" : "Item Payment Audit Trail"
+  }
+}

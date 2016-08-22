@@ -1,0 +1,213 @@
+{
+  "gridMetaData": {
+    "title": "Class List",
+    "rowTemplate": "rowTemplateDblClick.html",
+    "element": [
+      {
+        "field": "CLCLASSCODE",
+        "displayName": "Class Code",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "CLCLASSSEQ",
+        "displayName": "Seq",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "7%"
+      },
+      {
+        "field": "CLCLASSDESC",
+        "displayName": "Class Description",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "40%"
+      },
+      {
+        "field": "CLCOVSTATUS",
+        "displayName": "Status",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "12%"
+      },
+      {
+        "field": "CLEXPOSURE",
+        "displayName": "Exposure",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      },
+      {
+        "field": "CLPREMIUM",
+        "displayName": "Manual Premium",
+        "type": "TEXT",
+        "align": "center",
+        "editable": "false",
+        "visible": true,
+        "width": "15%"
+      }
+    ],
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Inquire",
+          "value": "IN"
+        },
+        {
+          "name": "Change",
+          "value": "CH"
+        },
+        {
+          "name": "Delete",
+          "value": "DL"
+        },
+        {
+          "name": "Restore",
+          "value": "RS"
+        },
+        {
+          "name": "Undo",
+          "value": "UN"
+        }
+      ],
+      "rowactionfunction": "WcpClassListAction",
+      "listfunction": "WcpClassListFilter",
+      "jsfunction": "selectRowforAction"
+    },
+    "buttons": []
+  },
+  "dataSource": {
+    "type": "SP",
+    "SP": "BASDBIO075(@query@)",
+    "pagesize": "10",
+    "maxKeySize": "290",
+    "params": {
+      "query": [
+        {
+          "name": "loc",
+          "type": "KEY",
+          "startIndex": "1",
+          "endIndex": "3",
+          "order": "1"
+        },
+        {
+          "name": "mco",
+          "type": "KEY",
+          "startIndex": "3",
+          "endIndex": "5",
+          "order": "2"
+        },
+        {
+          "name": "sym",
+          "type": "KEY",
+          "startIndex": "5",
+          "endIndex": "8",
+          "order": "3"
+        },
+        {
+          "name": "polno",
+          "type": "KEY",
+          "startIndex": "8",
+          "endIndex": "15",
+          "order": "4"
+        },
+        {
+          "name": "mod",
+          "type": "KEY",
+          "startIndex": "15",
+          "endIndex": "17",
+          "order": "5"
+        },
+        {
+          "name": "lob",
+          "type": "KEY",
+          "startIndex": "17",
+          "endIndex": "20",
+          "order": "5"
+        },
+        {
+          "name": "wcstate",
+          "type": "KEY",
+          "startIndex": "94",
+          "endIndex": "96",
+          "order": "5"
+        },
+        {
+          "name": "wcsite",
+          "type": "KEY",
+          "startIndex": "96",
+          "endIndex": "101",
+          "order": "6"
+        },
+        {
+          "name": "transtype",
+          "type": "KEY",
+          "startIndex": "31",
+          "endIndex": "33",
+          "order": "7"
+        },
+        {
+          "name": "effdate",
+          "type": "KEY",
+          "startIndex": "43",
+          "endIndex": "50",
+          "order": "8"
+        },
+        {
+          "name": "wcclcdsearch",
+          "type": "KEY",
+          "startIndex": "195",
+          "endIndex": "201",
+          "order": "8"
+        },
+        {
+          "name": "wccldessearch",
+          "type": "KEY",
+          "startIndex": "201",
+          "endIndex": "262",
+          "order": "8"
+        },
+        {
+          "name": "wccovsqcsearch",
+          "type": "KEY",
+          "startIndex": "262",
+          "endIndex": "266",
+          "order": "8"
+        },
+        {
+          "name": "wctrnssqsearch",
+          "type": "KEY",
+          "startIndex": "266",
+          "endIndex": "270",
+          "order": "8"
+        },
+        {
+          "name": "wcexpsearch",
+          "type": "KEY",
+          "startIndex": "270",
+          "endIndex": "279",
+          "order": "8"
+        },
+        {
+          "name": "wcpremsearch",
+          "type": "KEY",
+          "startIndex": "279",
+          "endIndex": "290",
+          "order": "8"
+        }
+      ]
+    }
+  }
+}

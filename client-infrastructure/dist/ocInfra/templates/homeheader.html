@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-if="metamodel.showHeader">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-if="showHeader">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,54 +8,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href ng-click="navigate('/dashboard')" >
+	    <a href ng-click="navigate('/dashboard')" >
       <div class="oc-navbar-brand oc-logo" href="#"></div>
     </a>
-    <!--
-       <span ng-show="regionId=='asia' && screenId!=='dashboard'">
-        <span class="bannerFlag malaysia"></span>
-        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-auto"></span></span>
-      </span>
-
-       <span ng-show="regionId=='us'&& screenId!=='dashboard'">
-        <span class="bannerFlag usa"></span>
-        <span class="bannerTitle">CSC Insurance <span class="bannerIcon flaticon-home"></span></span>
-      </span>
-
-      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='autocreate' || screenId == 'autosearch')">
-        <span class="bannerFlag eu-flag"></span>
-        <span class="bannerTitle">CSC Assurance <span class="bannerIcon flaticon-auto"></span></span>
-      </span>
-      <span ng-show="regionId=='eu'&& screenId!=='dashboard' && (screenId=='quotessearch' || screenId == 'quotescreate')">
-        <span class="bannerFlag eu"></span>
-        <span class="bannerTitle">CSC Insurance<span class="bannerIcon flaticon-home"></span></span>
-      </span> -->
+ 
 
     </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <ul class="nav navbar-nav navbar-right " class="navbar navbar-default navbar-fixed-top" >
-      <div tour-step order="0" title="{{locale['_LANGUAGE']}}" backdrop="true" content="{{locale['_LANGUAGECONTENT']}}" placement="bottom"></div>
-        <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a>
-
-
-        </li>
+      <ul class="nav navbar-nav navbar-right " >
+        <li class="language"><a href ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{locale["_SPANISH"]}}</a></li>
         <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{locale["_ENGLISH"]}}</a></li>
-        <li class="language"><a href ng-click="setLocate('fr-fr')" ng-class="(newlocale === 'fr-fr') ? 'languageActive' : ''">{{locale["_FRENCH"]}}</a></li>
-        <li ng-show="isAuthSuccess" class="broker"><span>{{user.name}}</span> 
-        <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
+        <li class="broker"><span>{{user.name}}</span> 
+        <li class="logout"><a href ng-click="logout();" >{{locale["_LOGOUT"]}}</a></li>
       </ul>
 
-      <div>
-      <ul class="nav navbar-nav navbar-right" style="clear:right" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >
-      <div tour-step order="0" title="{{locale['_HOME']}}" content="{{locale['_HOMECONTENT']}}" placement="left" backdrop="true"></div>      
-      <li  ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{locale['_HOME']}}"><a ng-show="isAuthSuccess" href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a>
-           <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/')" >{{locale["_HOME"]}}</a>
-          
-      </li>
-        <li class="dropdown" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+      <div ng-if="metadata[screenId].viewAs === 'menu'" >
+      <ul class="nav navbar-nav navbar-right hidden-sm" style="clear:right">      
+      <!-- <li><a href ng-click="navigate('/dashboard')" >{{locale["_HOME"]}}</a></li>  -->
+        <li class="dropdown" ng-repeat="application in metadata[screenId].sections">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{locale[application.label]}} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">

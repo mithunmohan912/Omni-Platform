@@ -1,0 +1,248 @@
+{
+    "metadata":  {
+                     "groupid":  "BASE",
+                     "formid":  "Basic_Contract",
+                     "title":  "Customer Search",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "custno",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Number",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "10",
+                                                                                    "placeholder":  "",
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "autoformat":  "true",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "size":  11,
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "longName",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer Name",
+                                                                                    "required":  "false",
+                                                                                    "fieldspan":  5,
+                                                                                    "options":  {
+
+                                                                                                },
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "sortname",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Sort Name ",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "256",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "optional",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Optional",
+                                                                                    "fieldspan":  4,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Address",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "City/State/Postal Code ",
+                                                                                    "fieldspan":  7,
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "city",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  6,
+                                                                                                             "maxlength":  "5",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolCustomerSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "state",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  "2",
+                                                                                                             "maxlength":  "7",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolCustomerSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "zipcode",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  3,
+                                                                                                             "maxlength":  "5",
+                                                                                                             "parentField":  "SubField",
+                                                                                                             "help":  "none",
+                                                                                                             "properties":  [
+
+                                                                                                                            ],
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolCustomerSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "controlCount":  3
+                                                                                },
+                                                                                {
+                                                                                    "name":  "phoneno",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Phone Number (H)",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fedtaxid",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Federal Tax ID Number",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "groupno",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Group Number",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "billtype",
+                                                                                    "type":  "select",
+                                                                                    "label":  "Billing Type",
+                                                                                    "fieldspan":  3,
+                                                                                    "maxlength":  "40",
+                                                                                    "placeholder":  "",
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "C",
+                                                                                                        "description":  "Customer Bill"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "E",
+                                                                                                        "description":  "EFT"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "N",
+                                                                                                        "description":  "NSF"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "W",
+                                                                                                        "description":  "Waiting on EFT Information"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "parentField":  "Field",
+                                                                                    "help":  "none",
+                                                                                    "properties":  [
+
+                                                                                                   ],
+                                                                                    "selectedoption":  {
+                                                                                                           "value":  "C",
+                                                                                                           "description":  "Customer Bill"
+                                                                                                       },
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "GroupButton",
+                                                                                    "type":  "grouptext",
+                                                                                    "fieldspan":  "11",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "type":  "search_button",
+                                                                                                             "label":  "Search",
+                                                                                                             "labelReset":  "Reset",
+                                                                                                             "nameReset":  "ID_Customer_Search_Reset_Button",
+                                                                                                             "size":  "6",
+                                                                                                             "gridId":  "PolCustomerSearchGrid",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolCustomerSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "ID_Add_Customer_Button",
+                                                                                                             "label":  "Add Customer",
+                                                                                                             "type":  "button",
+                                                                                                             "fieldspan":  "2",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "PolCustomerSearchHeader",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CustomerSearch",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "PolCustomerSearchGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "PolCustomerSearchHeader",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ],
+                     "properties":  [
+                                        {
+                                            "name":  "DISPLAYSEQ",
+                                            "value":  99999
+                                        },
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                    ]
+                 }
+}

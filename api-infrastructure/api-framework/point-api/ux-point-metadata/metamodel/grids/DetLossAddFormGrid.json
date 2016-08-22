@@ -1,0 +1,131 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Change",
+          "value": "CHG"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        }
+	  ],
+      "rowactionfunction": "detailLossAddSelect",
+	  "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "title": "",
+    "element": [
+      {
+        "field": "PAIDNOUTLOSS",
+        "visible": "true",
+        "width": "40%",
+        "align": "center",
+        "displayName": "Paid And Outstanding Losses",
+		"editable": "false"
+      },
+      {
+        "field": "EXPPAIDNOUT",
+        "visible": "true",
+        "width": "30%",
+        "align": "left",
+        "displayName": "Expense Paid",
+		"autoformat" : "true",
+		"maxlength" : "2",
+		"editable": "true"
+      },
+      {
+        "field": "STATUS",
+        "visible": true,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": "Status",
+        "editable": "false",
+        "cellTemplate": "app/template/GL_status_template.html"
+      },
+      {
+        "field": "SEQNUMB",
+        "visible": false,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": ""
+      },
+      {
+        "field": "ACTIONTOPERFORM",
+        "visible": false,
+        "pinned": false,
+        "align": "center",
+        "type": "text",
+        "displayName": ""
+      }
+    ]
+  },
+    "dataSource": {
+    "type": "SQL",
+    "filename": "PMSP1200",
+    "SQL": "select * from BASPPLE001 where LOCATION=@location@ and MATERCO=@mco@ and SYMBOL=@symbol@ and POLICYNO=@policyno@ and MODULE=@module@ and LOB=@lob@ and INSLINE=@insline@ and COVERAGE=@coverage@ and YEAR=@year@ and  DETLOSSSUMMIND='D'",	
+    "params": {
+      "location": [
+        {
+          "type": "KEY",
+	  	  "startIndex": "0",
+          "endIndex": "2"
+        }
+      ],
+      "mco": [
+        {
+          "type": "KEY",
+          "startIndex": "2",
+          "endIndex": "4"
+        }
+      ],
+      "symbol": [
+        {
+          "type": "KEY",
+          "startIndex": "4",
+          "endIndex": "7"
+        }
+      ],
+      "policyno": [
+        {
+          "type": "KEY",
+          "startIndex": "7",
+          "endIndex": "14"
+        }
+      ],
+      "module": [
+        {
+          "type": "KEY",
+          "startIndex": "14",
+          "endIndex": "16"
+        }
+      ],
+      "lob": [
+        {
+          "type": "KEY",
+          "startIndex": "16",
+          "endIndex": "19"
+        }
+      ],
+      "insline": [
+        {
+          "name": "insline"
+        }
+      ],
+      "coverage": [
+        {
+          "name": "coverage"
+        }
+      ],
+      "year": [
+        {
+          "name": "year"
+        }
+      ]
+    }
+  }
+}

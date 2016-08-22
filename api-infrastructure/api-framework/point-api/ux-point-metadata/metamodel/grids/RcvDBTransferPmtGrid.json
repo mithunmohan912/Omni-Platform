@@ -1,0 +1,73 @@
+{
+  "gridMetaData": {
+    "operation": {
+      "selectfield": "select",
+      "options": [
+        {
+          "name": "Change",
+          "value": "CHG"
+        },
+        {
+          "name": "Delete",
+          "value": "DLT"
+        }
+      ],
+      "rowactionfunction": "RcvDBTransferPmtSelect",
+      "listfunction": "",
+      "jsfunction": "selectRowforAction"
+    },
+    "element": [
+      {
+        "field": "ERROR",
+        "visible": true,
+        "width": "13%",
+        "align": "center",
+        "displayName": "Error"
+      },
+      {
+        "field": "WSSYMBOL",
+        "visible": true,
+        "width": "8%",
+        "align": "left",
+        "displayName": "Symbol"
+      },
+      {
+        "field": "WSPOLICY",
+        "visible": true,
+        "width": "13%",
+        "align": "left",
+        "displayName": "Policy"
+      },
+      {
+        "field": "WSMODULE",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Module"
+      },
+      {
+        "field": "WSMASTERCO",
+        "visible": true,
+        "width": "15%",
+        "align": "left",
+        "displayName": "Master Company"
+      },
+      {
+        "field": "WSLOCATION",
+        "visible": true,
+        "width": "10%",
+        "align": "left",
+        "displayName": "Location"
+      },
+      {
+        "field": "WSTRANSFERAMT",
+        "visible": true,
+        "width": "15%",
+        "align": "right",
+	"cellTemplate": "ux/template/CurrencyTemplate.html",
+        "displayName": "Transfer Amount"
+      }
+    ],
+    "title": ""
+  }
+}

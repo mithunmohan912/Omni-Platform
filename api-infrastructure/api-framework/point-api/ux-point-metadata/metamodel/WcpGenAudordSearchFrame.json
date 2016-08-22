@@ -1,0 +1,157 @@
+{
+    "metadata":  {
+                     "groupid":  "WCV",
+                     "formid":  "WcpGenAudordSearchFrame",
+                     "title":  "Generated Audit Orders",
+                     "defaultsubmitresetbuttons":  "No",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "GROUP_POLICY",
+                                                                                    "type":  "grouptext",
+                                                                                    "label":  "Policy Number",
+                                                                                    "fieldspan":  "6",
+                                                                                    "controlgroup":  [
+                                                                                                         {
+                                                                                                             "name":  "KEYSYMBOL",
+                                                                                                             "type":  "text",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "maxlength":  "3",
+                                                                                                             "size":  2,
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "WcpGenAudordSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEYPOLICYNUMBER",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  4,
+                                                                                                             "maxlength":  "7",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "WcpGenAudordSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "KEYMODULE",
+                                                                                                             "type":  "text",
+                                                                                                             "size":  2,
+                                                                                                             "maxlength":  "2",
+                                                                                                             "autoformat":  "true",
+                                                                                                             "reference":  "",
+                                                                                                             "page":  "WcpGenAudordSearchFrame",
+                                                                                                             "defaultValue":  ""
+                                                                                                         }
+                                                                                                     ]
+                                                                                },
+                                                                                {
+                                                                                    "name":  "VENDORNAME",
+                                                                                    "type":  "text",
+                                                                                    "fieldspan":  "6",
+                                                                                    "label":  "Vendor Name",
+                                                                                    "autoformat":  "true",
+                                                                                    "maxlength":  "30",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SITE",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Site",
+                                                                                    "fieldspan":  "6",
+                                                                                    "maxlength":  "5",
+                                                                                    "autoformat":  "true",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AUDITTYPE",
+                                                                                    "type":  "select",
+                                                                                    "fieldspan":  "6",
+                                                                                    "label":  "Audit Type",
+                                                                                    "size":  8,
+                                                                                    "options":  [
+                                                                                                    {
+                                                                                                        "value":  "I",
+                                                                                                        "description":  "Interim"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "C",
+                                                                                                        "description":  "Check"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "value":  "F",
+                                                                                                        "description":  "Final"
+                                                                                                    }
+                                                                                                ],
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AUDIT_ORD_DATE_FROM",
+                                                                                    "type":  "date",
+                                                                                    "label":  "Audit Ordered Date From",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "AUDIT_ORD_DATE_TO",
+                                                                                    "type":  "date",
+                                                                                    "label":  "To",
+                                                                                    "fieldspan":  "6",
+                                                                                    "size":  8,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "SEARCHAUDITORDER",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Search",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "RESETAUDITORDER",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Reset",
+                                                                                    "fieldspan":  "10",
+                                                                                    "size":  2,
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "WcpGenAudordSearchGrid",
+                                                                                    "type":  "grid",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "WcpGenAudordSearchGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "WcpGenAudordSearchFrame",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

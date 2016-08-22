@@ -1,0 +1,426 @@
+{
+    "metadata":  {
+                     "groupid":  "RCV",
+                     "formid":  "RcvDBCorrectionPmtProcessingCustomer",
+                     "title":  "Correct Customer Payment",
+                     "section":  [
+                                     {
+                                         "sectionsize":  "12",
+                                         "subsection":  [
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "HDR_CUST_NO",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Customer",
+                                                                                    "required":  "required",
+                                                                                    "order":  "1",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "10",
+                                                                                    "minlength":  "10",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_MCO",
+                                                                                    "type":  "number",
+                                                                                    "label":  "MCO",
+                                                                                    "required":  "required",
+                                                                                    "order":  "4",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_LOC",
+                                                                                    "type":  "text",
+                                                                                    "label":  "LOC",
+                                                                                    "fieldspan":  "1",
+                                                                                    "order":  "5",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "2",
+                                                                                    "minlength":  "0",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_PYMT_AMT",
+                                                                                    "type":  "money",
+                                                                                    "label":  "Payment Amount",
+                                                                                    "order":  "6",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "19",
+                                                                                    "minlength":  "0",
+                                                                                    "fieldspan":  "3",
+                                                                                    "decimal":  "2",
+                                                                                    "size":  10,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CHK_NUM",
+                                                                                    "type":  "text",
+                                                                                    "label":  "Check Number",
+                                                                                    "required":  "required",
+                                                                                    "order":  "7",
+                                                                                    "regexp":  "^[.]?[0-9]+[.]?[0-9]*$",
+                                                                                    "placeholder":  "",
+                                                                                    "maxlength":  "8",
+                                                                                    "minlength":  "8",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  10,
+                                                                                    "autoformat":  "true",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "spacer",
+                                                                                    "type":  "spacer",
+                                                                                    "fieldspan":  "4",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Submit",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Submit",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Allocate",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Allocate",
+                                                                                    "fieldspan":  "2",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Exit",
+                                                                                    "type":  "button",
+                                                                                    "label":  "Exit",
+                                                                                    "fieldspan":  "1",
+                                                                                    "size":  12,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "RcvDBCorrectionPmtProcessingCustomerGrid",
+                                                                                    "type":  "grid",
+                                                                                    "label":  "",
+                                                                                    "fieldspan":  "12",
+                                                                                    "gridId":  "RcvDBCorrectionPmtProcessingCustomerGrid",
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            },
+                                                            {
+                                                                "subsectiontitle":  "hiddenfields",
+                                                                "element":  [
+                                                                                {
+                                                                                    "name":  "CTL_LOC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CTL_MCO",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CTL_CUST_NO",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CTL_PYMT_AMT",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "CTL_CHK_NUM",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CASH_WRT_DTE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CASH_REC_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_ORIG_WRT_DTE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_ORIG_REC_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_PAY_BY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_CHK_INDIC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "HDR_RCPT_TYPE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ST_BATCH_WRIT_DTE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_SUCCESS_INDIC",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "ST_BATCH_SEQ_NUM",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "PROC_MESSAGE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CASH_WRITTEN_DATE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_POLICY_MODULE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_SYMBOL",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_D1_INST_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_D1_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_LOCATION_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_D2_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_MASTER_COMPANY",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_D2_INST_NUMBER",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "KEY_CASH_RECORD_SEQ",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "REQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "TMPREQUESTCODE",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "target",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "tmptarget",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "fullkey",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "Refresh",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                },
+                                                                                {
+                                                                                    "name":  "DisplayTable",
+                                                                                    "type":  "hidden",
+                                                                                    "size":  0,
+                                                                                    "reference":  "",
+                                                                                    "page":  "RcvDBCorrectionPmtProcessingCustomer",
+                                                                                    "defaultValue":  ""
+                                                                                }
+                                                                            ]
+                                                            }
+                                                        ]
+                                     }
+                                 ]
+                 }
+}

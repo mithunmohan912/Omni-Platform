@@ -1,0 +1,56 @@
+<div class="homeDiv">
+	<br /> <br />
+	<div class="row-fluid">
+		<div ux-sortable ng-model="homeConfig.list">
+			<div ng-repeat="item in homeConfig.list" class="span3" align="center">
+				<div class="imgcontainer">
+					<div class="iconContainer"></div>
+					<div class="imghomeicons">
+						<div class="{{item.icon}}" id="{{item.icon}}">
+
+							<ng-switch on="item.type">
+							<div ng-switch-default>
+								<div class="homeIconContainerDiv"></div>
+							</div>
+							<div ng-switch-when="editor">
+								<div class="EPContainerDiv" targetDiv="editorPre"
+									showwidget='no'>
+									<div class="ux_bubble_autocomplete ux_canvas_bubble" style="visibility: hidden"
+										id="editorPre">
+										<div class="ux_EP_bubble_pointer_icon_border"></div>
+										<div class="ux_EP_bubble_pointer_icon"></div>
+										<div class="ux_expressprocessing_header"></div>
+										<div align="center" id="metaDiv">
+											<div style="display:none">
+												<label class="label" >View Type:</label> <input id="type" type="text"
+													class="input-medium" auto-complete
+													ui-items="allElementTypes" onblur="createURL(false);" />
+											</div>
+											<div class="input">
+												<label class="label">View Name:</label> <i title="Add New"
+													class="icon-plus-sign icon-large"
+													onclick="javascript:createURL(true);" /> <input id="model"
+													type="text" class="input-medium" auto-complete
+													ui-items="allJsonList" onblur="createURL(false);" />
+											</div>
+											<a href="#" id="launch">Launch  <i class="icon-youtube-play"></i></a>
+
+										</div>
+
+									</div>
+									<div style="height:80px" ng-click="showExpProcessingPopup('editorPre'); ">
+										<div class="iconExpressProcessing iconExpressProcessing_Canvas" ></div>
+									</div>
+								</div>
+							</div>
+							</ng-switch>
+						</div>
+					</div>
+				</div>
+				<h4>{{item.title}}</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+
