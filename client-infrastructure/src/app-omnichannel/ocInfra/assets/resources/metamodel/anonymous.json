@@ -1,0 +1,98 @@
+{
+    "metamodel": {
+        "formid": "login",
+        "resourcelist": ["quotes"], 
+        "title": "",
+        "showHeader": false,
+        "name": "login",
+        "sections": [
+            {
+                "title": "_ANONYMOUS_USER_SCREEN",
+                "name": "loginModal",
+                "category": "modal",
+                "division": "loginDiv",
+                "logodir": true,
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 12,
+                        "type": "columngroup",    
+                        "visible": true,
+                        "required": "required",
+                        "elementgroup": [
+                                 {
+                                    "name": "_ASIA_AUTO_QS",
+                                    "type": "buttonSmall",
+                                    "label": "_ASIA_AUTO_QS",
+                                    "icon": "flaticon-adults",
+                                    "method":"navigate",
+                                    "columnsize": 12,
+                                    "actionurl": "/asia/screen/quotescreate",
+                                    "visible": "true"
+                                  },
+                                  {
+                                    "order": "0",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_ANONYMOUS",
+                                     "tourcontent":"_ANONYMOUS_AISA_CONTENT",
+                                     "position":"bottom"
+
+                                },
+                                {
+                                    "name": "_HOME_QUOTE_US",
+                                    "type": "buttonSmall",
+                                    "label": "_HOME_QUOTE_US",
+                                    "icon": "flaticon-adults",
+                                    "method":"navigate",
+                                    "columnsize": 12,
+                                    "actionurl": "/us/screen/quotescreate",
+                                    "visible": "true"
+                                  },
+                                  {
+                                    "order": "1",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_ANONYMOUS",
+                                     "tourcontent":"_ANONYMOUS_US_CONTENT",
+                                     "position":"bottom"
+
+                                },
+                                                               
+                                  {
+                                    "name": "login",
+                                    "type": "buttonSmall",
+                                    "method":"login",
+                                    "label": "_SIGNIN",
+                                    "visible": true,
+                                    "columnsize": 12,
+                                    "actionurl": "/login",
+                                    "nextScreenId": "login"
+                                },
+                                {
+                                    "order": "2",
+                                    "type": "tourstep",
+                                     "columnsize": 12 ,
+                                     "title":"_LOGIN",
+                                     "tourcontent":"_LOGIN_CONTENT",
+                                     "position":"bottom"
+
+                                },
+                                {
+                                    "name": "starttour",
+                                    "type": "tourButton",
+                                     "visible": true,
+                                    "method":"starttour"
+                                
+                                }
+                                
+                                 
+                            ]
+                    }
+                    
+                ]
+            }
+        ]
+    }
+}

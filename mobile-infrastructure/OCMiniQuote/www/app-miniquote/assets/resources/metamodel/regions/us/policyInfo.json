@@ -1,0 +1,84 @@
+{
+    "metamodel": {
+        "formid": "policyInfo",
+        "title": "",
+        "name": "policyInfo",
+        "sections": [
+            {
+                "name": "Policy Information",
+                "category": "nonaccordion",
+                "elements": [
+                        {
+                        "name": "quote-insured|1-party-addr-state",
+                        "type": "usselect",
+                        "label": "_STATE",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata":[
+                        
+                             ]
+                    },
+                    {
+                        "name": "quote-persPolicy-contractTerm-effDt",
+                        "type": "date",
+                        "label": "_EFFECTIVE_DATE",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 2
+                    },
+                    {
+                        "name": "quote-persPolicy-polTermMon",
+                        "type": "usselect",
+                        "label": "_POLICY_PERIOD",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "default":"12",
+                        "enumdata": [
+                               
+                            ]
+                    },
+                    {
+                        "name": "quote-persPolicy-paymentOpt-paymentPlan",
+                        "type": "usselect",
+                        "label": "_PAYMENT_PLAN",
+                        "visible":true,
+                        "columnsize": 2,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                               
+                            ]
+                    }
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ]
+    }
+}

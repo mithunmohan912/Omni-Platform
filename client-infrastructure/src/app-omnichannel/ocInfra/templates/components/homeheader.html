@@ -1,0 +1,59 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-if="metamodel.showHeader">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href ng-click="navigate('/screen/dashboard')" >
+      <div class="oc-navbar-brand oc-logo" href="#"></div>
+    </a>
+    </div>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right " class="navbar navbar-default navbar-fixed-top" >
+        <li class="language"><a href tour-step order="0" title="{{ '_LANGUAGE' | translate }}" backdrop="true" content="{{ '_LANGUAGECONTENT' | translate }}" placement="bottom" ng-click="setLocate('es-us')" ng-class="(newlocale === 'es-us') ? 'languageActive' : ''">{{ '_SPANISH' | translate }}</a>
+
+
+        </li>
+        <li class="language"><a href  ng-click="setLocate('en-gb')" ng-class="(newlocale === 'en-gb') ? 'languageActive' : ''">{{ '_ENGLISH' | translate }}</a></li>
+        <li class="language"><a href ng-click="setLocate('fr-fr')" ng-class="(newlocale === 'fr-fr') ? 'languageActive' : ''">{{ '_FRENCH' | translate }}</a></li>
+        <li ng-show="isAuthSuccess" class="broker"><span>{{user.name}}</span> 
+        <li ng-show="isAuthSuccess" class="logout"><a href ng-click="logout();" >{{ '_LOGOUT' | translate }}</a></li>
+      </ul>
+
+      <div>
+      <ul class="nav navbar-nav navbar-left" style="clear:both" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
+      <li  tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
+           <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
+          
+      </li>
+        <li class="dropdown mega-dropdown text-center" style="width:75px;" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+         <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
+           {{ application.label | translate }} 
+           <span class="caret" ng-if="application.elements && application.elements.length > 0">
+           </span>
+         </a>
+         <ul class="dropdown-menu mega-dropdown-menu row" role="menu" ng-if="application.elements && application.elements.length > 0">
+          <li class="container subMenu ">
+            <ul>
+               <li class="dropdown-header col-sm-2 text-center" ng-repeat="element in application.elements">
+                <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
+                  <div class="margaNavIcon {{element.icon}}"></div>
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  {{ element.label | translate }}
+                </a>
+               </li>
+            </ul>
+          </li>
+
+         </ul>
+       </div>  
+       </div>
+     </div>
+   </nav>

@@ -1,0 +1,196 @@
+{
+    "metamodel": {
+        "formid": "generalInfo",
+        "title": "",
+        "name": "generalInfo",
+        "sections": [
+            {
+                "name": "General Information/Location Information",
+                "category": "nonaccordion",
+                "elements": [
+                  {
+                        "name": "quote-homeLineBus-dwell-dwellRating-terrCd",
+                        "type": "text",
+                        "label": "_TERR_CODE_DESC",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                  
+                    {
+                        "name": "quote-homeLineBus-dwell-bldgProtect-fireProtClass",
+                        "type": "usselect",
+                        "label": "_PROTECTION_CLASS",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                   
+                    {
+                        "name": "quote-homeLineBus-dwell-bldgProtect-distHyd-unitmeas",
+                        "type": "usselect",
+                        "label": "_DISTANCE_FIRE_STATION",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                    {
+                        "name": "quote-homeLineBus-dwell-bldgProtect-distHyd-numUnt",
+                        "type": "usselect",
+                        "label": "_DISTANCE_FIRE_HYDRANT",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                               
+                            ]
+                    },
+                    {
+                        "name": "quote-homeLineBus-dwell-const-yrBuilt",
+                        "type": "text",
+                        "label": "_CONSTRUCTION_YEAR",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                     
+                    {
+                        "name": "quote-homeLineBus-dwell-const-constCd",
+                        "type": "usselect",
+                        "label": "_CONSTRUCTION",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                    {
+                        "name": "dwellingType",
+                        "type": "usselect",
+                        "label": "_DWELLING_TYPE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                               
+                            ]
+                    },
+                   
+                    {
+                        "name": "quote-homeLineBus-dwell-dwellOcc-occType",
+                        "type": "usselect",
+                        "label": "_RESIDENT_TYPE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "required": "required",
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                     {
+                        "name": "quote-homeLineBus-dwell-dwellInspectVal-numFam",
+                        "type": "text",
+                        "label": "_NBR_FAMILIES",
+                        "visible": true,
+                        "required": "required",
+                        "columnsize": 3
+                    },
+                        
+                    {
+                        "name": "quote-insured|1-party-addr-country",
+                        "type": "usselect",
+                        "label": "_COUNTY",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                     {
+                        "name": "Inside City",
+                        "type": "litcheckbox1",
+                        "label": "_INSIDE_CITY",
+                        "visible": true,
+                         "columnsize": 3
+                    },
+                    {
+                        "name": "respondingfiredepartment",
+                        "type": "usselect",
+                        "label": "_RESPOND_FIRE_DEPT",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                
+                            ]
+                    },
+                    
+                   
+                    {
+                        "name": "quote-homeLineBus-dwell-bldgEffGrdType",
+                        "type": "usselect",
+                        "label": "_BUSINESS_CODE_EFF_CODE",
+                        "visible":true,
+                        "columnsize": 3,
+                        "support":"false",
+                        "enumdata": [
+                                
+
+                            ]
+                    },
+                     
+
+                    {
+                        "name": "quote-homeLineBus-dwell-bldgCdEffGrdCd",
+                        "type": "text",
+                        "label": "_BCEG_CERT_YEAR",
+                        "visible": true,
+                        "columnsize": 3
+                    }
+                  
+                    
+                ]
+
+
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    },
+                    {
+                        "name": "next1",
+                        "type": "buttonSmall",
+                        "label": "_NEXT",
+                        "action":"nextTab",
+                        "visible": true,
+                        "columnsize": "6"
+                    }
+                ]
+            }
+        ] 
+    }
+}

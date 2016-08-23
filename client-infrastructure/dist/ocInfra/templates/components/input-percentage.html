@@ -1,0 +1,32 @@
+<span class="form-group has-feedback" 
+	  ng-show="field.isVisible()">
+
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	
+	<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+
+		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
+		<input 	type="number"
+				class="form-control"
+				autocomplete="off"
+				id="{{field.id}}"
+				name="{{field.name}}"
+				placeholder="{{field.placeholder | translate}}"
+
+				ng-model="field.property.value"
+				ng-required="field.property.required"
+				ng-disabled="!field.property.editable"
+				ng-change="field.onChange()"
+				ng-blur="field.onBlur()"
+
+				decimal
+				decimal-precision="field.attributes.decimalprecision"
+				decimal-min="field.attributes.minimum"
+				decimal-max="field.attributes.maximum" /> 
+		
+		<i class="form-control-feedback fa fa-lg fa-percent"></i>
+		
+		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+    </span>
+
+</span>

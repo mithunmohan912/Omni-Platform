@@ -1,0 +1,23 @@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="{{ popup.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ popup.labels.title | translate }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-popup-close close" data-dismiss="modal" aria-label="{{ popup.labels.close | translate }}"><span aria-hidden="true" ng-click="execute(popup.actions._close)">&times;</span></button>
+                <h4 class="modal-title">{{ popup.labels.title | translate }}</h4>
+            </div>
+            <div class="modal-body">
+                
+               <renderer metamodel='metamodel' resource-url='resourceUrl' factory-name='factoryName'></renderer>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(popup.actions._cancel)" data-dismiss="modal">{{ popup.labels.cancel | translate }}</button>
+
+                <button type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(popup.actions._reset)">{{ popup.labels.reset | translate }}</button>
+
+                <button type="button" class="btn btn-primary btn-popup-save" ng-click="execute(popup.actions._ok)" data-dismiss="modal">{{ popup.labels.ok | translate }}</button>
+              </div>
+        </div>
+    </div>
+</div>

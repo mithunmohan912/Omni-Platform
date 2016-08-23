@@ -1,0 +1,25 @@
+<div style="position: absolute;z-index: 3" ng-hide="config.workflowStyle =='verticle'">
+    <div class="bs-wizard borderBtm0px " style="position: fixed;width: 96%;background-color: #fff">
+        <div class="col-xs-{{flow.columnsize}} bs-wizard-step {{flow.completed}}" ng-repeat="flow in workflowGrp.flowGrp">
+            <div class="text-center bs-wizard-stepnum fontBold">
+                <a ng-if="flow.actionURL != null" ng-click="navigate(flow.actionURL);" class="{{flow.doneclass}}">{{locale[flow.label]}}</a>
+                <a ng-if="flow.actionURL == null" class="{{flow.doneclass}}">{{locale[flow.label]}}</a>
+            </div>
+            <div class="progress">
+                <div class="progress-bar {{flow.classname}}"></div>
+            </div>
+            <a ng-if="flow.actionURL != null" ng-click="navigate(flow.actionURL);" class="{{flow.doneclass}}"></a>
+            <a ng-if="flow.actionURL == null" class="{{flow.doneclass}}"></a>
+        </div>
+    </div>
+</div>
+<div ng-show="config.workflowStyle =='verticle'" class="col-lg-2">
+    <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" ng-repeat="flow in workflowGrp.flowGrp">
+
+            <a ng-if="flow.actionURL != null" ng-click="navigate(flow.actionURL);" class="{{flow.doneclass}}">{{locale[flow.label]}}</a>
+            <a ng-if="flow.actionURL == null" class="{{flow.doneclass}}">{{locale[flow.label]}}</a>
+</div>
+</li>
+</ul>
+<div>
