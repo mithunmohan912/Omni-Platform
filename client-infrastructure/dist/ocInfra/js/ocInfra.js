@@ -5,7 +5,7 @@ exported OCController
 */
 
 LoginController.$inject = ['$scope', '$rootScope', '$location', '$cookieStore', '$http', '$resource', 'OCRoles', 'tmhDynamicLocale', 'LoginSrv', 'FieldService', 'OCInfraConfig', 'OCMetadata'];
-ScreenController.$inject = ['$http', '$scope', '$rootScope', '$controller', '$injector', '$routeParams', '$location', 'growl', 'MetaModel', 'resourceFactory', 'TableMetaModel', 'EnumerationService', 'CheckVisibleService'];
+ScreenController.$inject = ['$http', '$scope', '$rootScope', '$controller', '$injector', '$routeParams', '$location', 'growl', 'MetaModel', 'resourceFactory', 'TableMetaModel', 'EnumerationService', 'CheckVisibleService', '$q'];
 function OCController($scope, $rootScope, $routeParams, $location, $http, $resource,FieldService,OCMetadata) {  
 	$rootScope.showHeader = true;
     var reqParm = null;
@@ -4040,7 +4040,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService, $q) {
 
     $rootScope.enumData = {};
     $rootScope.typeaheadData = {};
@@ -4293,7 +4293,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             if(tab !== undefined && Array.isArray(tab)){
                 nameTab = tab[0];
             }
-            new Promise(function(resolve) {
+            $q(function(resolve) {
                 var optionFlag = false;
                 $scope.patchFieldName = undefined;
                 MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
@@ -4408,7 +4408,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             });
         }
     }
-    new Promise(function(resolve) {
+    $q(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
     }).then(function(){
     
@@ -4473,7 +4473,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         // not apply patch field for us
         if ($rootScope.regionId !== 'us') { 
             if($scope.isValidByField(fieldName)){
-                new Promise(function(resolve) {
+                $q(function(resolve) {
                     MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true, resolve);                  
                 }).then(function(){
                     var index = $scope.pendingFields.indexOf(fieldName);
