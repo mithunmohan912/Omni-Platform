@@ -14,6 +14,11 @@ module.exports = {
       src: ['css/*.css']
      },
      {
+      expand: true , cwd:'src/ocInfra/' , flatten: true,  filter: 'isFile',
+      dest: 'dist/ocInfra/css' ,
+      src: ['css/fonts/**/*', 'css/Omni_Iconfont/**/*']
+     },
+     {
       expand: true , cwd:'src/ocInfra/' , flatten: false,  filter: 'isFile',
       dest: 'dist/ocInfra/' ,
       src: ['assets/**']

@@ -45,6 +45,17 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return true;
 			};
 
+			$scope.opened= function (section){
+
+				if (typeof section.collapse !== 'undefined'){
+					if (section.collapse){
+						section.collapse = false;
+					}else{
+						section.collapse = true;
+					}	
+				}
+			};
+
 			function _prepareColspanAndOffset(element){
 				if(element.colspan){
 					var initialColspan = 12;
