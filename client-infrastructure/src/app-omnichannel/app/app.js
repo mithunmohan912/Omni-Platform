@@ -81,9 +81,11 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
         $location.url('/screen/anonymous');
     }
 
-    $rootScope.$on('$locationChangeStart', function () {
+    $rootScope.$on('$locationChangeStart', function (event,newUrl) {
     var screenId = $rootScope.screenId;
-
+    if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+    	return;
+    } 
     if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
     } else if (screenId === 'anonymous'){
@@ -566,46 +568,102 @@ app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('loginFactory', function($rootScope, $filter, $http, growl){
-    return {
-        navigateToScreen: function(params){
-            $rootScope.showIcon = true;
-                 $http({
-                    url: 'assets/resources/config/users.json',
-                    method: 'GET'
-                }).success(function(data) {
-                    //extract user
-                    var user = [];
+app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactory, growl){
+    var authnChain = {
+        authn: function(params){
+            $rootScope.isAuthSuccess = false;
+            if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
+                $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+            }
+            if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
+                $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
+            }
+            if (params.scope.resourcesToBind.properties.inputRealm === undefined || params.scope.resourcesToBind.properties.inputRealm.value === undefined) {
+                $rootScope.authnRealm = '';
+            } else {
+                $rootScope.authnRealm = params.scope.resourcesToBind.properties.inputRealm.value;
+            }
 
-                    $rootScope.isAuthSuccess = false;
-                    angular.forEach(data.users, function(key) {
-                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
-                            $rootScope.isAuthSuccess = true;
-                            user = key;
+            var authnCallbackData = {};
+            if ($rootScope.authnCallbackData !== undefined) {
+                authnCallbackData = $rootScope.authnCallbackData;
+                console.log('authnCallbackData.authId : '+authnCallbackData.authId);
+                var i;
+                if (authnCallbackData.stage === 'LDAP1' || authnCallbackData.stage === 'DataStore1') {
+                    for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                        if (authnCallbackData.callbacks[i].type === 'NameCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputUsername.value;
+                            continue;
                         }
-                    });
+                        if (authnCallbackData.callbacks[i].type === 'PasswordCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputPassword.value;
+                            continue;
+                        }
+                    }
+                } else if (authnCallbackData.stage === 'OATH1') {
+                    for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                        if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
+                            authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
+                            continue;
+                        }
+                    }
+                }
+            }
 
-                        if (!$rootScope.isAuthSuccess) {
-                        growl.error($filter('translate')('INVALID_CREDENTIALS'));
-                        return false;
+            // authenticate user
+            $http({
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json',
+                },
+                data : authnCallbackData,
+                url : $rootScope.config.authnURL + '/authenticate' + '?client_id=' + $rootScope.config.apiGatewayApiKeys.client_id + '&client_secret=' + $rootScope.config.apiGatewayApiKeys.client_secret
+            }).success(function(data) {
+                if (data.authId !== undefined) {
+                    console.log('Authenticate callback');
+                    console.log('OpenAM authId : '+data.authId);
+                    $rootScope.authnCallbackData = data;
+                    if (data.stage === 'LDAP1' || data.stage === 'DataStore1') {
+                        authnChain.authn(params);
                     }
-                    
-                    if($rootScope.isAuthSuccess){
-                        $rootScope.user = user;
-                        sessionStorage.username = user.name;    
+                    else if (data.stage === 'OATH1') {
+                        params.inputComponent.actionURL = '/screen/otp';
+                        anonymousFactory.navigateToLogin(params);
                     }
-                    
+                } else if (data.tokenId !== undefined) {
+                    console.log('Authenticate successful');
+                    console.log('OpenAM tokenId : '+data.tokenId);
+                    sessionStorage.tokenId = data.tokenId;
+                    sessionStorage.username = $rootScope.authnUsername;
+                    $rootScope.isAuthSuccess = true;
+                    $rootScope.authnUsername = undefined;
+                    $rootScope.authnPassword = undefined;
+                    $rootScope.authnCallbackData = undefined;
                     $rootScope.nextURL = params.inputComponent.actionURL;
                     $rootScope.navigate(params.inputComponent.actionURL);  
-                }).error(function(data) {
-                    $rootScope.showIcon = false;
-                    if (data && data.exception) {
-                        growl.error(data.exception.message, '30');
-                    } else {
-                        growl.error($filter('translate')('GENERAL_ERROR'));
-                    }
-                });
-    }
+            }).error(function(data) {
+                $rootScope.authnCallbackData = undefined;
+                $rootScope.showIcon = false;
+                if (data && data.exception) {
+                    growl.error(data.exception.message, '30');
+                } else {
+                    growl.error($filter('translate')('INVALID_CREDENTIALS'));
+                }
+            });
+        }
+    };
+    this.navigateToScreen = function(params) {
+        authnChain.authn(params);
+    };
+    return this;
+});
+
+app.factory('otpFactory', function($rootScope, loginFactory){
+    return {
+        navigateToScreen: function(params){
+            loginFactory.navigateToScreen(params);
+        }
     };
 });
 
