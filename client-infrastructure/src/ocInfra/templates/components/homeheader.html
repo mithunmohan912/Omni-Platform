@@ -28,7 +28,7 @@
       </ul>
 
       <div>
-      <ul class="nav navbar-nav navbar-left" style="clear:both" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
+      <ul class="nav navbar-nav navbar-left nav2" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
       <li  tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-if="screenId !== 'anonymous'" ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
            <a ng-if="screenId !== 'anonymous'" ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
           
