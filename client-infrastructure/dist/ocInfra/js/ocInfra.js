@@ -1038,13 +1038,15 @@ return {
 				}
 			});
 
-			$scope.$watch('resourceUrl', function(){
+			$scope.$watch('resourceUrl', function(newValue, oldValue){
 				if ($scope.metamodelObject) {
 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
-					if (!$scope.resourceUrl){
+					if (!$scope.resourceUrl && newValue !== oldValue){
 						$scope.resourceUrl = $rootScope.resourceUrl;
 					}	
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+					if ($scope.resourceUrl){
+						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+					}
 				}
 
 			});
