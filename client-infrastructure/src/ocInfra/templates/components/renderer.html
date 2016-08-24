@@ -1,110 +1,145 @@
 <div class="renderer renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
 
-	<div id="section-{{section.uid}}" ng-repeat="section in metamodelObject.sections track by $index" class="section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
+	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="no-padding section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
 
 		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
+		    <span ng-if="section.accordion">
+				<div class="checkbox custom-checkbox">
+                    <label>
+                    	 <input type="checkbox"
+							id="{{section.title}}_checkbox" 
+		    				name="{{section.title}}_checkbox"
+							ng-checked="!section.collapse"
+		    				ng-click="opened(section)"/>
+                      <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    </label>
+                  </div>
+			</span>
 		    <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span>
             <span ng-if="section.icon" class="{{section.icon}} icon-color section-icon-2"></span>
             <span class="tabTitle section-title-text">{{ section.title | translate }}</span>
         	<hr class="onl_hrOr_2 section-title-underline">
     	</h3>
 
-		<div ng-switch-when="reference" class="linked-renderer-container">
-			<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
-		</div>
 
-		<div ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
-			<form>
-					<div id="component-{{column.uid}}" ng-repeat="column in section.properties track by $index" class="section-row-column {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
-						<div ng-if="column" ng-switch on="column.type" class="{{column.type}}">
-							<div ng-switch-when="tabs" class="infra-tabs-container">
-								<ul class="nav nav-tabs">
-									<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="tab.id === activeTab ? 'active':''">
-										<a ng-if="tab.id === activeTab">{{ tab.title | translate }}</a>
-										<a ng-if="tab.id !== activeTab" ng-click="execute(tab)">{{ tab.title | translate }}</a>
-										<span ng-show="true" class="tab-icon flaticon-incomplete"> </span>
-										<span ng-show="false" class="tab-icon flaticon-complete"></span>
-									</li>
-								</ul>
-								<div ng-repeat="tab in column.tabs" ng-if="tab.id === activeTab" ng-class="tab.include ? 'tabs-content' : ''">
-									<div ng-if="tab.include" ng-include="tab.include"></div>
-									<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
-								</div>
-							</div>
-							<div ng-switch-when="wizards" class="infra-wizards-container">
-								<wizard template="ocInfra/templates/components/wizard.html">
-									<div ng-repeat="wizard in column.wizards">
-										<wz-step wz-title="{{wizard.title}}">
-        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
-        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
-        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button pull-left" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
-        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
-    									</wz-step>
+    	<div  uib-collapse="section.collapse">
+
+			<span ng-switch-when="reference" class="linked-renderer-container">
+				<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
+			</span>
+
+			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
+				<form>
+						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column no-padding {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
+							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
+								<span ng-switch-when="tabs" class="infra-tabs-container">
+
+									<ul class="nav nav-tabs">
+										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="tab.id === activeTab ? 'active':''">
+											<a ng-if="tab.id === activeTab">{{ tab.title | translate }}</a>
+											<a ng-if="tab.id !== activeTab" ng-click="execute(tab)">{{ tab.title | translate }}</a>
+											<span ng-show="true" class="tab-icon flaticon-incomplete"> </span>
+											<span ng-show="false" class="tab-icon flaticon-complete"></span>
+										</li>
+									</ul>
+									<div ng-repeat="tab in column.tabs" ng-if="tab.id === activeTab" ng-class="tab.include ? 'tabs-content' : ''">
+										<span ng-if="tab.include" ng-include="tab.include"></span>
+										<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 									</div>
-								</wizard>
-							</div>
-					      	<div ng-switch-when="table" class="table-responsive infra-table-container">
-								<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
-							</div>
-							<div ng-switch-when="pdf">
-							 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
-							</div>	
-							<div ng-switch-when="buttonGroup" class="infra-buttons-container">
-								<div ng-repeat="button in column.buttons" class="renderer-button-div">
-									<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
-									tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
-										<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
-										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
-									</button>
-									<button ng-if="button.type == 'tourButton'" class="btn btn-primary renderer-button" ng-click="tour.restart(true)">
-										<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
-										<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
-									</button>
-								</div>
+								</span>
+								<span ng-switch-when="wizards" class="infra-wizards-container">
+									<wizard template="ocInfra/templates/components/wizard.html">
+										<div ng-repeat="wizard in column.wizards">
+											<wz-step wz-title="{{wizard.title | translate}}">
+	        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
+	        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
+	        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button pull-left" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
+	        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
+	    									</wz-step>
 
-							</div>
-							<div ng-switch-when="iconGroup" class="infra-icons-container">
-								<div class="col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
-									<div ng-click="execute(icon)" class="text-center ">
-            							<a ng-click="execute(icon)" class="thumbnail text-center">
-            							<div class="text-center">
-              								<span class="{{icon.icon}}"></span>
-              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
-            							</div>
-            							</a>
-          							</div>
-								</div>
-							</div>
-							<div ng-switch-when="popup" class="infra-popup-container">
-								 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
-								 	{{ column.popup.label | translate }} 
-								 </button>
-								<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="resourcesToBind[column.popup.id].href" factory-name="factoryName"></popup-render>
-							</div>
-							<!-- Commented code as a reminder of cases we may need to consider -->
-							<!-- <div ng-switch-when="_blank">
-							</div>-->
-							<div ng-switch-when="subtitle" class="infra-subtitle-container">
-								<h5 class="color-primary infra-subtitle-text">{{column.label | translate}}</h5>
-							</div>
-							<!--<div ng-switch-when="renderer">
-								<div ng-repeat="item in entityToBind[column.id].parent[column.id].items">
-									<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
-									<renderer entity="item.entity" metadata="column.metadata" ready="true"><renderer/>
-								</div>
-							</div> -->
-							<div ng-switch-when="custom" class="infra-custom-container">
-								<div ng-include="column.templateUrl"></div>
-							</div>
-							<div ng-switch-default>
-								<div ng-repeat="id in column.id" class="infra-input-container">
-									<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
-								</div>
-							</div>
+										</div>
+									</wizard>
+								</span>
+						      	<span ng-switch-when="table" class="table-responsive infra-table-container">
+									<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
+
+								</span>
+								<span ng-switch-when="pdf">
+								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
+								</span>	
+								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
+									<span ng-repeat="button in column.buttons" class="renderer-button-div">
+										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
+										tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
+											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
+											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
+										</button>
+										<button ng-if="button.type == 'tourButton'" class="btn btn-primary renderer-button" ng-click="tour.restart(true)">
+											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
+											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
+										</button>
+									</span>
+
+								</span>
+								<span ng-switch-when="iconGroup" class="infra-icons-container">
+								<div ng-if="showIcon">
+									<span id="{{icon.uid}}" class="infra-icon no-padding col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+										<div ng-click="execute(icon)" class="text-center ">
+	            							<a ng-click="execute(icon)" class="thumbnail text-center">
+	            							<div class="text-center">
+	              								<span class="{{icon.icon}}"></span>
+	              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
+	            							</div>
+	            							</a>
+	          							</div>
+									</span>
+									</div>
+									<div ng-if="!showIcon">
+ 								<div class="col-xs-6 col-md-6" ng-repeat="icon in column.icons">	
+ 									<div ng-if="icon.showButton">
+ 										<div ng-click="execute(icon)" class="text-center ">
+ 	            							<a ng-click="execute(icon)" class="thumbnail text-center">
+ 	            							<div class="text-center">
+ 	              								<span class="{{icon.icon}}"></span>
+ 	              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
+ 	            							</div>
+ 	            							</a>
+ 	          							</div>
+ 	          						</div>
+ 								</div>
+ 								</div>
+								</span>
+								<span ng-switch-when="popup" class="infra-popup-container">
+									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
+									 	{{ column.popup.label | translate }} 
+									 </button>
+									<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="resourcesToBind[column.popup.id].href" factory-name="factoryName"></popup-render>
+								</span>
+								<!-- Commented code as a reminder of cases we may need to consider -->
+								<!-- <div ng-switch-when="_blank">
+								</div>-->
+								<span ng-switch-when="subtitle" class="infra-subtitle-container">
+									<h5 class="color-primary infra-subtitle-text">{{column.label | translate}}</h5>
+								</span>
+								<!--<div ng-switch-when="renderer">
+									<div ng-repeat="item in entityToBind[column.id].parent[column.id].items">
+										<h5 ng-if="item.title" class="color-primary">{{ item.title }}</h5>
+										<renderer entity="item.entity" metadata="column.metadata" ready="true"><renderer/>
+									</div>
+								</div> -->
+								<span ng-switch-when="custom" class="infra-custom-container">
+									<span ng-include="column.templateUrl"></span>
+								</span>
+								<span ng-switch-default>
+									<span ng-repeat="id in column.id" class="infra-input-container">
+										<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
+									</span>
+								</span>
+							</span>
 						</div>
-					</div>
-				</div>
-			</form>
+				</form>
+			</span>
 		</div>
+	</div>
 </div>

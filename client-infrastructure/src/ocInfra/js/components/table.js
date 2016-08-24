@@ -94,6 +94,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					if(newValue && newValue[$scope.resourceUrl]) {
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
+						// Reset the collection that is bound to the table
+						$scope.groupedTable = {};
+
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 
 							var oldItem;
@@ -166,9 +169,25 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               	}
 
               	if (Object.keys($scope.itemResourcesToBind.properties).length > 0) {
+              		// If we have groupBy property we will be grouping the table items, so we need to save the property to the bound properties
+              		if($scope.metamodelObject.groupBy){
+              			$scope.itemResourcesToBind.properties[$scope.metamodelObject.groupBy] = newItem.properties[$scope.metamodelObject.groupBy];
+              		}
                 	newItem.properties = $scope.itemResourcesToBind.properties;
               	}
               	if (newItem) {
+              		/*
+						The table component will behave always as a grouped table. In case there is no groupBy filter specified, items will go to the
+						default group (which name should never appear as a property within the item properties). Then in the table template we iterate
+						over the groups using the value of the property used for grouping to display a title for the group (default group does not print a title).
+              		*/
+              		if($scope.metamodelObject.groupBy){
+              			$scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value] = $scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value] || {};
+              			$scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value][newItem.identifier] = newItem;
+              		} else {
+              			$scope.groupedTable.infra_default_group_table = $scope.groupedTable.infra_default_group_table || {};
+              			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
+              		}
                 	$scope.table.items.push(newItem);
               	}
 			}
@@ -421,4 +440,32 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		},
 		templateUrl: $rootScope.templatesURL + 'table.html'
 	};
+});
+
+/*
+	Directive to group the elements of the smart table used within the table component. Some points to keep in mind:
+		- Attribute st-safe-src of the smart table should be an array. If you pass an object, then st-table attribute will get an array wrapping that object.
+		- Elements within st-table collection will not point to the same elements inside st-safe-src. I suppose the smart table is copying them not pointing
+		to the same elements.
+		- We iterate over the $scope.groupedTable to get every group.
+		- Finally we iterate over the st-table and we filter it to get the same items that we have in our groups. If we don't use the same objects contained
+		within the st-table collection... pagination will not work.
+	Warning: This filter directive is tighly coupled to the resource representation of backend resources since it uses the 'identifier' property which is
+	created when parsing the responses inside the MetaData factory's prepareToRender method.
+*/
+angular.module('omnichannel').filter('infraGroupBy', function(){
+	return function(collection, alreadyGrouped){
+		if(collection && alreadyGrouped){
+
+			var result = [];
+
+			collection.forEach(function(elem){
+				if(elem.identifier in alreadyGrouped){
+					result.push(elem);
+				}
+			});
+
+			return result;
+		}
+	}
 });
