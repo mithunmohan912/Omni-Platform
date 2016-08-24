@@ -282,6 +282,23 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 							}
 						}
+
+						var isSectionConsistent = function(properties) {
+							var consistent = true;
+							angular.forEach(properties, function(currentProperty){
+								if (currentProperty.consistent === false){
+									consistent = false;
+								}
+							});
+
+							return consistent;
+						};
+
+						$rootScope.consistentInd = $rootScope.consistentInd || {};
+						 
+						if (!_.isEmpty($scope.resourcesToBind.properties)){
+							$rootScope.consistentInd[$scope.metamodel] = isSectionConsistent($scope.resourcesToBind.properties);	
+						}
 					}
 				});
 	
