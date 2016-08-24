@@ -615,7 +615,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
             $http({
                 method : 'POST',
                 headers : {
-                    'Content-Type' : 'application/json',
+                    'Content-Type' : 'application/json'
                 },
                 data : authnCallbackData,
                 url : $rootScope.config.authnURL + '/authenticate' + '?client_id=' + $rootScope.config.apiGatewayApiKeys.client_id + '&client_secret=' + $rootScope.config.apiGatewayApiKeys.client_secret
@@ -642,6 +642,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                     $rootScope.authnCallbackData = undefined;
                     $rootScope.nextURL = params.inputComponent.actionURL;
                     $rootScope.navigate(params.inputComponent.actionURL);  
+                }
             }).error(function(data) {
                 $rootScope.authnCallbackData = undefined;
                 $rootScope.showIcon = false;
