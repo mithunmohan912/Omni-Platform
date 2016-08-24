@@ -5,7 +5,7 @@ exported OCController
 */
 
 LoginController.$inject = ['$scope', '$rootScope', '$location', '$cookieStore', '$http', '$resource', 'OCRoles', 'tmhDynamicLocale', 'LoginSrv', 'FieldService', 'OCInfraConfig', 'OCMetadata'];
-ScreenController.$inject = ['$http', '$scope', '$rootScope', '$controller', '$injector', '$routeParams', '$location', 'growl', 'MetaModel', 'resourceFactory', 'TableMetaModel', 'EnumerationService', 'CheckVisibleService'];
+ScreenController.$inject = ['$http', '$scope', '$rootScope', '$controller', '$injector', '$routeParams', '$location', 'growl', 'MetaModel', 'resourceFactory', 'TableMetaModel', 'EnumerationService', 'CheckVisibleService', '$q'];
 function OCController($scope, $rootScope, $routeParams, $location, $http, $resource,FieldService,OCMetadata) {  
 	$rootScope.showHeader = true;
     var reqParm = null;
@@ -448,10 +448,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
-    	offset.xs = element.inputOffset.xs || 0;
-    	offset.sm = element.inputOffset.sm || 0;
-    	offset.md = element.inputOffset.md || 0;
-    	offset.lg = element.inputOffset.lg || 0;
+    	offset.xs = (element.inputOffset && element.inputOffset.xs) ? element.inputOffset.xs : 0;
+    	offset.sm = (element.inputOffset && element.inputOffset.sm) ? element.inputOffset.sm : 0;
+    	offset.md = (element.inputOffset && element.inputOffset.md) ? element.inputOffset.md : 0;
+    	offset.lg = (element.inputOffset && element.inputOffset.lg) ? element.inputOffset.lg : 0;
 
     	element.inputColspan = colspan;
     	element.inputOffset = offset;
@@ -877,10 +877,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
-					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
+					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
-					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : 8,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : 0
+					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -941,7 +941,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 
 				if(inputType === 'toggle'){
-					$scope.field.colspan.toggles = 12/Object.keys($scope.field.options).length;
+					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
@@ -987,20 +987,6 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 }]);
 
 'use strict';
-/*global app*/
-
-app.controller('pdfController', ['$scope', function($scope) {
-   
-
-
-    $scope.$on('pdf_update', function(event, params){
-
-        $scope.pdfUrl = params.url;
-        
-    });
-}]);
-
-'use strict';
 
 /*
 global app
@@ -1029,6 +1015,10 @@ return {
 
 			$scope.resetDisabled = false;
 
+			if (_.isEmpty($scope.resourceUrl)){
+				$scope.resourceUrl = $rootScope.resourceUrl;
+			}
+
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
@@ -1048,13 +1038,17 @@ return {
 				}
 			});
 
-			$scope.$watch('resourceUrl', function(){
+			$scope.$watch('resourceUrl', function(newValue, oldValue){
 				if ($scope.metamodelObject) {
 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+					if (!$scope.resourceUrl && newValue !== oldValue){
+						$scope.resourceUrl = $rootScope.resourceUrl;
+					}	
 					if ($scope.resourceUrl){
 						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-					}	
-				}				
+					}
+				}
+
 			});
 
 			$scope.$on('refresh_popUp', function(event, params) {
@@ -1151,7 +1145,8 @@ return {
 			function checkReset(){
 
 				//Check links defined in metamodel
-				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset 
+					&& $scope.metamodelObject.actions.reset.links){
 					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
 
 						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
@@ -1171,7 +1166,13 @@ return {
 					action();
 					
 				} else if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					if ($scope.resourceUrl){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					}
+					else{
+						$scope.actionFactory[action]();
+					}
+					
 				}
 
 			};
@@ -1196,7 +1197,7 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if ($rootScope.regionId !== undefined || !metamodelObject) {
+			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
@@ -1644,6 +1645,12 @@ angular.module('omnichannel').directive('renderer', ['MetaModel', '$resource', '
 					}
 				}
 			});
+		
+		    $scope.$on('pdf_update', function(event, params){
+
+		        $scope.pdfUrl = params.url;
+		        
+		    });
 		},
 		templateUrl: $rootScope.templatesURL + 'renderer.html'
 	};
@@ -1665,7 +1672,7 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 		},
 		controller: ['$scope', function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if ($rootScope.regionId !== undefined || !metamodelObject) {
+			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_init(data);
 				});
@@ -1744,6 +1751,9 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 					if(newValue && newValue[$scope.resourceUrl]) {
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
+						// Reset the collection that is bound to the table
+						$scope.groupedTable = {};
+
 						newValue[$scope.resourceUrl].items.forEach(function(item){
 
 							var oldItem;
@@ -1816,9 +1826,25 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
               	}
 
               	if (Object.keys($scope.itemResourcesToBind.properties).length > 0) {
+              		// If we have groupBy property we will be grouping the table items, so we need to save the property to the bound properties
+              		if($scope.metamodelObject.groupBy){
+              			$scope.itemResourcesToBind.properties[$scope.metamodelObject.groupBy] = newItem.properties[$scope.metamodelObject.groupBy];
+              		}
                 	newItem.properties = $scope.itemResourcesToBind.properties;
               	}
               	if (newItem) {
+              		/*
+						The table component will behave always as a grouped table. In case there is no groupBy filter specified, items will go to the
+						default group (which name should never appear as a property within the item properties). Then in the table template we iterate
+						over the groups using the value of the property used for grouping to display a title for the group (default group does not print a title).
+              		*/
+              		if($scope.metamodelObject.groupBy){
+              			$scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value] = $scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value] || {};
+              			$scope.groupedTable[newItem.properties[$scope.metamodelObject.groupBy].value][newItem.identifier] = newItem;
+              		} else {
+              			$scope.groupedTable.infra_default_group_table = $scope.groupedTable.infra_default_group_table || {};
+              			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
+              		}
                 	$scope.table.items.push(newItem);
               	}
 			}
@@ -2072,6 +2098,34 @@ angular.module('omnichannel').directive('tableRender', ['MetaModel', '$resource'
 		templateUrl: $rootScope.templatesURL + 'table.html'
 	};
 }]);
+
+/*
+	Directive to group the elements of the smart table used within the table component. Some points to keep in mind:
+		- Attribute st-safe-src of the smart table should be an array. If you pass an object, then st-table attribute will get an array wrapping that object.
+		- Elements within st-table collection will not point to the same elements inside st-safe-src. I suppose the smart table is copying them not pointing
+		to the same elements.
+		- We iterate over the $scope.groupedTable to get every group.
+		- Finally we iterate over the st-table and we filter it to get the same items that we have in our groups. If we don't use the same objects contained
+		within the st-table collection... pagination will not work.
+	Warning: This filter directive is tighly coupled to the resource representation of backend resources since it uses the 'identifier' property which is
+	created when parsing the responses inside the MetaData factory's prepareToRender method.
+*/
+angular.module('omnichannel').filter('infraGroupBy', function(){
+	return function(collection, alreadyGrouped){
+		if(collection && alreadyGrouped){
+
+			var result = [];
+
+			collection.forEach(function(elem){
+				if(elem.identifier in alreadyGrouped){
+					result.push(elem);
+				}
+			});
+
+			return result;
+		}
+	}
+});
 'use strict';
 
 /*
@@ -3327,6 +3381,7 @@ app.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location'
         delete $rootScope.user;
         delete localStorage.username;
         delete $http.defaults.headers.common.Authentication;
+        $rootScope.isAuthSuccess = false;
         localStorage.clear();
         sessionStorage.clear();
         $cookieStore.remove('userid');
@@ -3471,6 +3526,263 @@ app.service('OCRoles', ['$resource', '$rootScope', '$location', function($resour
 
 'use strict';
 /*
+global app, define, self
+*/
+
+app.factory('pdfFactory', ['$http', '$rootScope', function($http, $rootScope) {
+
+	function _getPDF(element){
+
+		//FIXME: remove harcoded url 
+				//element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
+
+				var headers = $rootScope.headers;
+				headers.Accept = 'application/pdf'; 
+				// headers['Cookie'] ='ASP.NET_SessionId=a3cwmg4wpjkjh1biz0w4msi0; _culture=french; .FIDEAAUTH=967953C4ADEDCFD5BDB04E6C157CE900A003C9ED806064A093A72CE8215BB147A4B0BC3F50E1E784525F2D54D2C065E840632310F70C9BEC998D22C620E26E0FF108F7EAC597BECEC99A6EE6EF48CDEED7FB0790061DE89673BEDBDCD70CC836';
+				// headers['NSP_USERID'] = 'gtmoni';
+				var pdf;
+				var file;
+				var responseType = 'arraybuffer';
+
+
+				// $resource('assets/resources/pdf/topography.pdf').get(function(m) {
+					
+				// 		pdf = m; //binary data
+    //                  	file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+    //                  	element.scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+    //                  	console.log(element.scope.pdfUrl);
+				// });
+
+				// resourceFactory.get($rootScope.resourceUrl, 
+				// 	{}, headers, responseType).then(function(response) {
+				// 	    pdf = response.data; //binary data
+    //                     file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+
+    //                     //TEST
+    //                     $rootScope.pdfBlob = file;
+
+    //                     element.scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+    //                     element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl});
+						
+				// });
+
+				$http.get('assets/resources/pdf/topography.pdf', 
+					{'headers': headers, 'responseType': responseType}).then(function(response) {
+					    pdf = response.data; //binary data
+                        file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+                        element.scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+                        $rootScope.pdfBlob = file;
+                        $rootScope.pdfUrl =  element.scope.pdfUrl;
+                        element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl});
+						
+				});
+
+			
+	}
+
+	function _savePDF(blob, name){
+			_saveAs(blob, name);
+	}
+
+	function _printPDF(blobUrl){
+		// var pdf = document.getElementById('pdf');
+		// pdf.print();
+
+		var iframe = document.createElement('iframe');
+		iframe.setAttribute('id', 'pdfIframe');
+		iframe.setAttribute('src', blobUrl);
+		iframe.style.display = 'none';
+	    iframe.focus();
+	    document.body.appendChild(iframe);
+	    iframe.contentWindow.print();
+
+	}
+
+	function _saveAs(blob, name){
+		saveAs(blob, name);
+	}
+
+	var saveAs = saveAs || (function(view) {
+	// IE <10 is explicitly unsupported
+	if (typeof view === 'undefined' || typeof navigator !== 'undefined' && /MSIE [1-9]\./.test(navigator.userAgent)) {
+		return;
+	}
+	var
+		  doc = view.document
+		  // only get URL when necessary in case Blob.js hasn't overridden it yet
+		, get_URL = function() {
+			return view.URL || view.webkitURL || view;
+		}
+		, save_link = doc.createElementNS('http://www.w3.org/1999/xhtml', 'a')
+		, can_use_save_link = 'download' in save_link
+		, click = function(node) {
+			var event = new MouseEvent('click');
+			node.dispatchEvent(event);
+		}
+		, is_safari = /constructor/i.test(view.HTMLElement)
+		, is_chrome_ios =/CriOS\/[\d]+/.test(navigator.userAgent)
+		, throw_outside = function(ex) {
+			(view.setImmediate || view.setTimeout)(function() {
+				throw ex;
+			}, 0);
+		}
+		, force_saveable_type = 'application/octet-stream'
+		// the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+		, arbitrary_revoke_timeout = 1000 * 40 // in ms
+		, revoke = function(file) {
+			var revoker = function() {
+				if (typeof file === 'string') { // file is an object URL
+					get_URL().revokeObjectURL(file);
+				} else { // file is a File
+					file.remove();
+				}
+			};
+			setTimeout(revoker, arbitrary_revoke_timeout);
+		}
+		, dispatch = function(filesaver, event_types, event) {
+			event_types = [].concat(event_types);
+			var i = event_types.length;
+			while (i--) {
+				var listener = filesaver['on' + event_types[i]];
+				if (typeof listener === 'function') {
+					try {
+						listener.call(filesaver, event || filesaver);
+					} catch (ex) {
+						throw_outside(ex);
+					}
+				}
+			}
+		}
+		, auto_bom = function(blob) {
+			// prepend BOM for UTF-8 XML and text/* types (including HTML)
+			// note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+			if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+				return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
+			}
+			return blob;
+		}
+		, FileSaver = function(blob, name, no_auto_bom) {
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			// First try a.download, then web filesystem, then object URLs
+			var
+				  filesaver = this
+				, type = blob.type
+				, force = type === force_saveable_type
+				, object_url
+				, dispatch_all = function() {
+					dispatch(filesaver, 'writestart progress write writeend'.split(' '));
+				}
+				// on any filesys errors revert to saving with object URLs
+				, fs_error = function() {
+					if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+						// Safari doesn't allow downloading of blob urls
+						var reader = new FileReader();
+						reader.onloadend = function() {
+							var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+							var popup = view.open(url, '_blank');
+							if(!popup){
+								view.location.href = url;
+							}
+							url=undefined; // release reference before dispatching
+							filesaver.readyState = filesaver.DONE;
+							dispatch_all();
+						};
+						reader.readAsDataURL(blob);
+						filesaver.readyState = filesaver.INIT;
+						return;
+					}
+					// don't create more object URLs than needed
+					if (!object_url) {
+						object_url = get_URL().createObjectURL(blob);
+					}
+					if (force) {
+						view.location.href = object_url;
+					} else {
+						var opened = view.open(object_url, '_blank');
+						if (!opened) {
+							// Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+							view.location.href = object_url;
+						}
+					}
+					filesaver.readyState = filesaver.DONE;
+					dispatch_all();
+					revoke(object_url);
+				}
+			;
+			filesaver.readyState = filesaver.INIT;
+
+			if (can_use_save_link) {
+				object_url = get_URL().createObjectURL(blob);
+				setTimeout(function() {
+					save_link.href = object_url;
+					save_link.download = name;
+					click(save_link);
+					dispatch_all();
+					revoke(object_url);
+					filesaver.readyState = filesaver.DONE;
+				});
+				return;
+			}
+
+			fs_error();
+		}
+		, FS_proto = FileSaver.prototype
+		, saveAs = function(blob, name, no_auto_bom) {
+			return new FileSaver(blob, name || blob.name || 'download', no_auto_bom);
+		}
+	;
+	// IE 10+ (native saveAs)
+	if (typeof navigator !== 'undefined' && navigator.msSaveOrOpenBlob) {
+		return function(blob, name, no_auto_bom) {
+			name = name || blob.name || 'download';
+
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			return navigator.msSaveOrOpenBlob(blob, name);
+		};
+	}
+
+	FS_proto.abort = function(){};
+	FS_proto.readyState = FS_proto.INIT = 0;
+	FS_proto.WRITING = 1;
+	FS_proto.DONE = 2;
+
+	FS_proto.error =
+	FS_proto.onwritestart =
+	FS_proto.onprogress =
+	FS_proto.onwrite =
+	FS_proto.onabort =
+	FS_proto.onerror =
+	FS_proto.onwriteend =
+		null;
+
+	return saveAs;
+}(typeof self !== 'undefined' && self || typeof window !== 'undefined' && window || this.content));
+// `self` is undefined in Firefox for Android content script context
+// while `this` is nsIContentFrameMessageManager
+// with an attribute `content` that corresponds to the window
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.saveAs = saveAs;
+} else if ((typeof define !== 'undefined' && define !== null) && (define.amd !== null)) {
+  define([], function() {
+    return saveAs;
+  });
+}
+
+
+	return {
+        'getPDF': _getPDF,
+        'savePDF': _savePDF,
+        'printPDF': _printPDF
+    };
+
+}]);
+'use strict';
+/*
 global app
 */
 
@@ -3518,7 +3830,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return headers;
     }
 
-    function _get(url, params, headers) {
+    function _get(url, params, headers, responseType) {
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
             resourceDirectory[url] = null;
@@ -3530,20 +3842,25 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
         params = _addApiGatewayApiKeys(params);
         var promise;
-        if (!resourceDirectory[url]) {
+        //We add the responseType condition because otherwise, if we want to get a PDF, 
+        //since we already fetched the quote, we would be looking into the resourceDirectory
+        if (!resourceDirectory[url] || responseType) {
             resourceDirectory[url] = PENDING_REQUEST;
             promise = $http({
                     method : 'GET',
                     url : url,
                     params : params,
-                    headers : _prepareHeaders(headers)
+                    headers : _prepareHeaders(headers),
+                    responseType: responseType
             });
             if (promise.then) {
                 promise.then(function(response) {
-                    var previous = resourceDirectory[url];
-                    resourceDirectory[url] = response;
-                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
-
+                    if (!responseType){
+                        var previous = resourceDirectory[url];
+                        resourceDirectory[url] = response;
+                        $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
+                    }
+                    return response;
                 }, function(error) {
                     console.error(error);
                     throw error;
@@ -3723,7 +4040,7 @@ exported ScreenController
 */
 
 var screenname;
-function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService) {
+function ScreenController($http, $scope, $rootScope,$controller, $injector,$routeParams, $location, growl,MetaModel, resourceFactory, TableMetaModel, EnumerationService, CheckVisibleService, $q) {
 
     $rootScope.enumData = {};
     $rootScope.typeaheadData = {};
@@ -3739,7 +4056,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
    
     screenname  = 'OmniChannel';
     $scope.disableNext = false;
-    
+    $rootScope.metamodel= {}; 
     $scope.rulesDataList = [];
     var reqParmScreen = null;
     var reqParmRegion = null;
@@ -3976,7 +4293,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             if(tab !== undefined && Array.isArray(tab)){
                 nameTab = tab[0];
             }
-            new Promise(function(resolve) {
+            $q(function(resolve) {
                 var optionFlag = false;
                 $scope.patchFieldName = undefined;
                 MetaModel.actionHandling(undefined, $scope, regionId, screenId, action, resourceFactory, nameTab, optionFlag, resolve);
@@ -4091,7 +4408,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             });
         }
     }
-    new Promise(function(resolve) {
+    $q(function(resolve) {
         MetaModel.load($scope, (regionExist ? reqParmRegion[1] : reqParmRegion), (screenExist ? reqParmScreen[1] : reqParmScreen), resolve);
     }).then(function(){
     
@@ -4156,7 +4473,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         // not apply patch field for us
         if ($rootScope.regionId !== 'us') { 
             if($scope.isValidByField(fieldName)){
-                new Promise(function(resolve) {
+                $q(function(resolve) {
                     MetaModel.actionHandling(undefined, $scope, $rootScope.regionId, $rootScope.screenId, 'update', resourceFactory, $rootScope.currRel, true, resolve);                  
                 }).then(function(){
                     var index = $scope.pendingFields.indexOf(fieldName);

@@ -4,7 +4,7 @@
 global app
 */
 
-app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
+app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $resource, $http, pdfFactory){
 
 	function _getOperationsResource(properties){
 		var urls = {};
@@ -157,11 +157,16 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory){
 		},
 
 		getPDF: function(element){
-			//FIXME: remove harcoded url 
-			element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
-			
-			element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl});
-			//Implement API calls to retrieve the PDF from backend. 
+			//TODO extract the url and send it as parameter
+			pdfFactory.getPDF(element);
+		},
+
+		savePDF: function(){
+			pdfFactory.savePDF($rootScope.pdfBlob, 'OCPDF.pdf');
+		},
+
+		printPDF: function(){
+			pdfFactory.printPDF($rootScope.pdfUrl);
 
 		}
 

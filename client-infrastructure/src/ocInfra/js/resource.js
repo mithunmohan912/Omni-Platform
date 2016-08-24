@@ -47,7 +47,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return headers;
     }
 
-    function _get(url, params, headers) {
+    function _get(url, params, headers, responseType) {
         // Since the url params are not considered when updating the resource directory, we just reset it for the concrete URL if we have params
         if(params && Object.keys(params).length > 0){
             resourceDirectory[url] = null;
@@ -59,20 +59,25 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
         params = _addApiGatewayApiKeys(params);
         var promise;
-        if (!resourceDirectory[url]) {
+        //We add the responseType condition because otherwise, if we want to get a PDF, 
+        //since we already fetched the quote, we would be looking into the resourceDirectory
+        if (!resourceDirectory[url] || responseType) {
             resourceDirectory[url] = PENDING_REQUEST;
             promise = $http({
                     method : 'GET',
                     url : url,
                     params : params,
-                    headers : _prepareHeaders(headers)
+                    headers : _prepareHeaders(headers),
+                    responseType: responseType
             });
             if (promise.then) {
                 promise.then(function(response) {
-                    var previous = resourceDirectory[url];
-                    resourceDirectory[url] = response;
-                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
-
+                    if (!responseType){
+                        var previous = resourceDirectory[url];
+                        resourceDirectory[url] = response;
+                        $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
+                    }
+                    return response;
                 }, function(error) {
                     console.error(error);
                     throw error;

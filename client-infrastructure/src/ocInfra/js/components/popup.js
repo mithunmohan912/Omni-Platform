@@ -50,13 +50,15 @@ return {
 				}
 			});
 
-			$scope.$watch('resourceUrl', function(){
+			$scope.$watch('resourceUrl', function(newValue, oldValue){
 				if ($scope.metamodelObject) {
 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
-					if (!$scope.resourceUrl){
+					if (!$scope.resourceUrl && newValue !== oldValue){
 						$scope.resourceUrl = $rootScope.resourceUrl;
 					}	
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+					if ($scope.resourceUrl){
+						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+					}
 				}
 
 			});
@@ -155,7 +157,8 @@ return {
 			function checkReset(){
 
 				//Check links defined in metamodel
-				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset 
+					&& $scope.metamodelObject.actions.reset.links){
 					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
 
 						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
@@ -175,7 +178,13 @@ return {
 					action();
 					
 				} else if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					if ($scope.resourceUrl){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					}
+					else{
+						$scope.actionFactory[action]();
+					}
+					
 				}
 
 			};

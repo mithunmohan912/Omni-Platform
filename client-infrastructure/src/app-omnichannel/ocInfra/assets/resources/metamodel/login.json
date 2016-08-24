@@ -1,0 +1,60 @@
+{
+    "metamodel": {
+        "formid": "login",
+        "title": "",
+        "name": "login",
+        "showHeader": false,
+        "sections": [
+            {
+                "title": "_LOGIN",
+                "name": "loginModal",
+                "category": "modal",
+                "division": "loginDiv",
+                "logodir": true,
+                "elements": [
+                    {
+                        "subtitle": "",
+                        "name": "",
+                        "columnsize": 12,
+                        "type": "columngroup",    
+                        "visible": true,
+                        "required": "required",
+                        "elementgroup": [
+                               {
+                                    "name": "inputUsername",
+                                    "type": "text",
+                                    "label": "_USERNAME",
+                                    "placeholder":"Enter Username",
+                                    "visible": true,
+                                    "required": "required",
+                                    "columnsize": 4,
+                                    "maxlength": 20
+                                }, 
+                                {
+                                    "name": "inputPassword",
+                                    "type": "password",
+                                    "label": "_PASSWORD",
+                                    "placeholder":"Enter Password",
+                                    "visible": true,
+                                    "required": "required",
+                                    "columnsize": 4,
+                                    "maxlength": 12
+                                  },
+                                  {
+                                    "name": "submit",
+                                    "method":"submit",
+                                    "type": "buttonSmall",
+                                    "label": "_SIGNIN",
+                                    "visible": true,
+                                    "columnsize": 12,
+                                    "nextScreenId": "dashboard"
+                                }
+                                 
+                            ]
+                    }
+                    
+                ]
+            }
+        ]
+    }
+}

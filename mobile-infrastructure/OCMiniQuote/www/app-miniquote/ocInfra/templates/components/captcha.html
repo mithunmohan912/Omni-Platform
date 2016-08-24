@@ -1,0 +1,14 @@
+<script
+  src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit"
+  async defer
+></script>
+<div>
+  <form name="myForm" ng-submit="mySubmit(fields)">
+  
+	  <div
+	      vc-recaptcha
+	      ng-model="fields.myRecaptchaResponse" key="6Lc2cSUTAAAAAPJwTrdwxPg8aGvrSEhrJOlc5B">
+	  </div>
+
+  </form>
+</div>

@@ -15,7 +15,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
-			if ($rootScope.regionId !== undefined || !metamodelObject) {
+			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_processMetamodel(data);
 					_options(data);
@@ -480,6 +480,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+		
+		    $scope.$on('pdf_update', function(event, params){
+
+		        $scope.pdfUrl = params.url;
+		        
+		    });
 		},
 		templateUrl: $rootScope.templatesURL + 'renderer.html'
 	};

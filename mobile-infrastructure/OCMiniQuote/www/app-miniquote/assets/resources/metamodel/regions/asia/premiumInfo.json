@@ -1,0 +1,47 @@
+{
+    "metamodel": {
+        "formid": "premiumInfo",
+        "title": "",
+        "resourcelist": "",
+        "name": "premiumInfo",
+        "sections": [
+            {
+                "name": "premiumInfo",
+                "category": "nonaccordion",
+                "elements":   [
+                    {
+                        "name": "quote-identifier",
+                        "type": "label",
+                        "label": "_QUOTE_IDENTIFIER",
+                        "columnsize": 3,
+                        "disabled" : true
+                    },
+                    {
+                        "name": "quote-annual-cost",
+                        "type": "costLabelAsia",
+                        "label": "_QUOTE_ANNUAL_COST",
+                        "currencyField": "quote-currency",
+                        "columnsize": 3,
+                        "disabled" : true
+                    }
+                ]
+            },
+            {
+                "title": "",
+                "name": "additional_info",
+                "category": "nonaccordion",
+                "elements": [
+                    {
+                        "name": "previous1",
+                        "type": "buttonSmall",
+                        "label": "_PREVIOUS",
+                        "action":"previousTab",
+                        "visible": true,
+                        "columnsize": "6",
+                        "style" : "float : left;"
+                    }
+                ]
+            }
+        ]
+    }
+}

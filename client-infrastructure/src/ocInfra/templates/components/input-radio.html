@@ -1,28 +1,31 @@
 <span class="form-group" 
 	  ng-show="field.isVisible()">
 
-	<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-{{field.colspan.xs.input}} col-sm-{{field.colspan.sm.input}} col-md-{{field.colspan.md.input}} col-lg-{{field.colspan.lg.input}}">
+	<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 	
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
-		<div ng-repeat="(key, option) in field.options._getData(option, field) track by $index">
-			<div class="radio pad-left15 padtop3px">
-				<label>
-					<input  type="radio"
-							id="{{field.id + '_' + key}}"
-							name="{{field.name}}"
+		<span ng-class="(field.property.required) ? 'required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
-							ng-model="field.property.value"
-							ng-disabled="!field.property.editable"
-							ng-change="field.onChange()"
-							ng-blur="field.onBlur()" 
-							value = "{{key}}" >{{option | translate}}</input>
-
-					<span class="cr"><i class="cr-icon glyphicon glyphicon-stop"></i></span>         
-				</label>
-			</div>
-		</div>
-
-		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+				<div ng-repeat="(key, option) in field.options._getData(option, field) track by $index">
+					<div class="radio pad-left15 padtop3px">
+                        <label>                                  
+							<input 	type="radio"
+									id="{{field.id + '_' + key}}"
+									name="{{field.name}}"
+									ng-model="field.property.value"
+									ng-disabled="!field.property.editable"
+									ng-change="field.onChange()"
+									ng-blur="field.onBlur()" 
+									value = "{{key}}" >{{option | translate}}</input>
+							 <span class="cr"><i class="cr-icon glyphicon glyphicon-stop"></i></span>	
+                        </label>      
+                    </div>
+					
+				</div>
+			<div ng-include="baseUrl + 'backend-error-display.html'"></div>
+		</span>
 	</span>
 </span>
+

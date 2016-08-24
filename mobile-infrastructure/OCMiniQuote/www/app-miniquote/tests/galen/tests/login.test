@@ -1,0 +1,12 @@
+@@ import config.test
+
+@@ Parameterized using devices
+Home page on ${deviceName} device in ${browser} browser
+		selenium ${browser}  ${domain}   ${size}
+			check   ../specs/loginpage.gspec --include ${tags}
+			run ../pages/LoginPage.js '{url:"${domain}"}'
+			run ../pages/LandingPage.js '{url:"${domain}", screenSize:"${deviceName}"}'
+			check   ../specs/landingpage.gspec --include ${tags}
+			run ../pages/QuotePage.js '{url:"${domain}"}'
+			check   ../specs/quotepage.gspec --include ${tags}
+			
