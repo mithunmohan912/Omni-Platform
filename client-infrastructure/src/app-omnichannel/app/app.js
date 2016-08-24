@@ -637,11 +637,63 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                     sessionStorage.tokenId = data.tokenId;
                     sessionStorage.username = $rootScope.authnUsername;
                     $rootScope.isAuthSuccess = true;
+
+                    // OAuth2 token service
+                    // OAuth2 password flow
+                    $http({
+                        method : 'POST',
+                        withCredentials : true,
+                        headers : {
+                            'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                            'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
+                            'Authorization' : 'Basic b2NkZXY6QzdENTZCODVFRjE1OTg3',
+                            'Content-Type' : 'application/x-www-form-urlencoded'
+                        },
+                        data : 'grant_type=password&username='+$rootScope.authnUsername+'&password='+$rootScope.authnPassword,
+                        url : $rootScope.config.oauth2URL + '/access_token'
+                    }).success(function(data) {
+                        console.log('OAuth2 token service successful');
+                        console.log('OAuth2 access_token : '+data.access_token);
+                        console.log('OIDC id_token : '+data.id_token);
+                        sessionStorage.access_token = data.access_token;
+                        sessionStorage.id_token = data.id_token;
+
+                        // OAuth2 userinfo service
+                        // default OIDC profile
+                        $http({
+                            method : 'POST',
+                            withCredentials : true,
+                            headers : {
+                                'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                                'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
+                                'Authorization' : 'Bearer '+sessionStorage.access_token
+                            },
+                            url : $rootScope.config.oauth2URL + '/userinfo'
+                        }).success(function(data) {
+                            console.log('OAuth2 userinfo service successful');
+                            console.log('OIDC profile name : '+data.name);
+                        });
+         
+                        // OAuth2 tokeninfo service
+                        // validate OAuth2 token
+                        $http({
+                            method : 'GET',
+                            headers : {
+                                'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                                'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret
+                            },
+                            url : $rootScope.config.oauth2URL + '/tokeninfo?access_token='+sessionStorage.access_token
+                        }).success(function(data) {
+                            console.log('OAuth2 tokeninfo service successful');
+                            console.log('OAuth2 tokeninfo expires_in : '+data.expires_in);
+                        });         
+                    });
+
                     $rootScope.authnUsername = undefined;
                     $rootScope.authnPassword = undefined;
                     $rootScope.authnCallbackData = undefined;
                     $rootScope.nextURL = params.inputComponent.actionURL;
-                    $rootScope.navigate(params.inputComponent.actionURL);  
+                    $rootScope.navigate(params.inputComponent.actionURL);
                 }
             }).error(function(data) {
                 $rootScope.authnCallbackData = undefined;
