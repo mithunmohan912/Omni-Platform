@@ -100,8 +100,6 @@ The renderer metamdel is made out of sections. Those sections are objects with d
 * __colspan__: Number that represents the number of columns that the section will use. It uses bootstrap underneath, so the maximum colspan is 12. The minimum colspan is not 1, as it could be expected, but 3 because we do not want to allow more than 4 sections per row (more sections wouldn’t be user friendly since the content would be so small).
 * __properties__: Array containing json objects that define the content displayed within the section. The object attributes vary from one to another depending on the directive that is going to interpret them (table, input, etc.)
 * __resourceUrl__: This is intended to be used in the first screen. It represents the first API call when launching the application. 
-* __accordion__: Flag that allows you to toggle content on the current section
-* __collapse__: Flag property of accordion that define if section is collapse by default or not
 The renderer could include other renderer component. This is handled using a section type reference in the metamodel:
 * __$ref and type__: This twon properties allows to link antoher metamodel file that will be handled by another render instance. 
 
@@ -112,9 +110,7 @@ Example:
 	        "sections": [
 	            {
 	                "$ref": "quote_data",
-	                "type": "reference",
-                    "accordion":true,
-                    "collapse":true,
+	                "type": "reference"
 	            },
 	            {
 	                "title":"Interested parties",
@@ -468,7 +464,7 @@ This type uses the same attributes as the [decimal input](#442-decimal).
 ##### 2.4.13 Checkbox
 
 ###### Attributes
-* __postion__: String. Defines the position of the checkbox and his label. If position is defined as "after". Checkbox position is shown before than label. By default is shown first label and second checkbox component. 
+>_None._
 
 ###### Options
 >_None._
