@@ -434,35 +434,36 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 
+			//OC-958 and OC-957	
 
-			$scope.$on('close_popUp_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					if (data.callback) {
-						$scope.execute(data.callback);
-					}
-				}
-			});
+			// $scope.$on('close_popUp_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		if (data.callback) {
+			// 			$scope.execute(data.callback);
+			// 		}
+			// 	}
+			// });
 
-			$scope.$on('reset_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					var payloads = {};
+			// $scope.$on('reset_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		var payloads = {};
 					
-					if ($scope.resourcesToBind) {
+			// 		if ($scope.resourcesToBind) {
 
-					 	for(var key in data.links){
-							if($scope.resourcesToBind[data.links[key]]){
-								payloads[data.links[key]] = '';
-							}
-						}
-						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
-							if (data.callback) {
-								$scope.execute(data.callback);
-							}
-						});
+			// 		 	for(var key in data.links){
+			// 				if($scope.resourcesToBind[data.links[key]]){
+			// 					payloads[data.links[key]] = '';
+			// 				}
+			// 			}
+			// 			resourceFactory.patch(data.resourceUrl, payloads).then(function() {
+			// 				if (data.callback) {
+			// 					$scope.execute(data.callback);
+			// 				}
+			// 			});
 						
-					}
-				}
-			});
+			// 		}
+			// 	}
+			// });
 		
 		    $scope.$on('pdf_update', function(event, params){
 
