@@ -1,18 +1,32 @@
 'use strict';
 /*global app*/
 
-app.controller('HeaderController', function($scope, $rootScope, $http, $location, $cookieStore, $resource, tmhDynamicLocale, $translate) {
+app.controller('HeaderController', function($scope, $rootScope, $http, $location, $resource, tmhDynamicLocale, $translate) {
     $rootScope.logout = function() {
+        // logout user
+        if ($rootScope.config !== undefined && $rootScope.config.authnURL !== undefined) {
+            $http({
+                method : 'POST',
+                headers : {
+                    'iPlanetDirectoryPro' : sessionStorage.tokenId,
+                    'Content-Type' : 'application/json'
+                },
+                data : {},
+                url : $rootScope.config.authnURL + '/sessions?_action=logout' + '&client_id=' + $rootScope.config.apiGatewayApiKeys.client_id + '&client_secret=' + $rootScope.config.apiGatewayApiKeys.client_secret
+            }).success(function(data) {
+                console.log('Logout successful');
+                console.log('DATA='+data.result);
+            });
+        }
+
         delete $rootScope.user;
         delete localStorage.username;
         delete $http.defaults.headers.common.Authentication;
         $rootScope.isAuthSuccess = false;
         localStorage.clear();
         sessionStorage.clear();
-        $cookieStore.remove('userid');
         $rootScope.staticInfo = {};
         $location.url('/');
-
     };
 
     $scope.setLocate = function(newlocale) {

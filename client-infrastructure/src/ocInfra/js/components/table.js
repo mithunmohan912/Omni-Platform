@@ -467,5 +467,5 @@ angular.module('omnichannel').filter('infraGroupBy', function(){
 
 			return result;
 		}
-	}
+	};
 });

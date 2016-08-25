@@ -548,7 +548,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
 				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
-
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
@@ -566,6 +565,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
 					'id': $scope.metamodel.id,
+					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
