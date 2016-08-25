@@ -28,12 +28,14 @@
       </ul>
 
       <div>
+
       <ul class="nav navbar-nav navbar-left nav2" id="mainMenu" class="navbar navbar-default navbar-fixed-top" >     
       <li  tour-step order="0" title="{{ '_HOME' | translate }}" content="{{ '_HOMECONTENT' | translate }}" placement="left" backdrop="true" ng-class="(screenId === 'dashboard') ? 'homeactive' : ''" title="{{ '_HOME' | translate }}"><a ng-show="isAuthSuccess" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
            <a ng-hide="isAuthSuccess" class="homeactive" href ng-click="navigate('/screen/dashboard')" >{{ '_HOME' | translate }}</a>
+
           
       </li>
-        <li class="dropdown mega-dropdown text-center" style="width:15%;white-space: nowrap;" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
+        <li class="dropdown mega-dropdown text-center" style="width:75px;" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
          <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
            {{ application.label | translate }} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
