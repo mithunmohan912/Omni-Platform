@@ -1,13 +1,13 @@
 <div class="no-padding col-xs-12">
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 
-	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row">
+	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row col-md-12">
     	<label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 	</div>
 	<table st-table="displayedItems" st-safe-src="table.items" class="table table-striped table-condensed cf">
 		<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 			<tr ng-show="metamodelObject.searching">
-				<th colspan="{{metamodelObject.properties.length}}" class="no-padding">
+				<th colspan="{{metamodelObject.properties.length}}" class="padding-none">
 					<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
 				</th>
 			</tr>
@@ -72,7 +72,7 @@
 		</tbody>
 		<tfoot ng-if="metamodelObject.pagination" class="table-footer">
 			<tr>
-				<td colspan="{{metamodelObject.properties.length}}" class="no-padding">
+				<td colspan="{{metamodelObject.properties.length}}" class="padding-none">
 					<div class="pull-right" st-pagination=""  st-items-by-page="5"></div>
 				</td>
 			</tr>
