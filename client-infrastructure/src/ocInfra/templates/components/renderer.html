@@ -1,4 +1,4 @@
-<div class="renderer renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
+<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
 
 	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="no-padding section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
 
