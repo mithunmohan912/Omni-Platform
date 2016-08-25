@@ -27,6 +27,10 @@ return {
 
 			$scope.resetDisabled = false;
 
+			if (_.isEmpty($scope.resourceUrl)){
+				$scope.resourceUrl = $rootScope.resourceUrl;
+			}
+
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
@@ -49,10 +53,12 @@ return {
 			$scope.$watch('resourceUrl', function(){
 				if ($scope.metamodelObject) {
 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
-					if ($scope.resourceUrl){
-						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+					if (!$scope.resourceUrl){
+						$scope.resourceUrl = $rootScope.resourceUrl;
 					}	
-				}				
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+				}
+
 			});
 
 			$scope.$on('refresh_popUp', function(event, params) {
@@ -149,7 +155,7 @@ return {
 			function checkReset(){
 
 				//Check links defined in metamodel
-				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
+				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.links){
 					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
 
 						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
