@@ -8,11 +8,13 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
             $http({
                 method : 'POST',
                 headers : {
+                    'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                    'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
                     'iPlanetDirectoryPro' : sessionStorage.tokenId,
                     'Content-Type' : 'application/json'
                 },
                 data : {},
-                url : $rootScope.config.authnURL + '/sessions?_action=logout' + '&client_id=' + $rootScope.config.apiGatewayApiKeys.client_id + '&client_secret=' + $rootScope.config.apiGatewayApiKeys.client_secret
+                url : $rootScope.config.authnURL + '/sessions?_action=logout'
             }).success(function(data) {
                 console.log('Logout successful');
                 console.log('DATA='+data.result);
