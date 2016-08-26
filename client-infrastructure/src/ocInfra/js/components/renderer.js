@@ -438,7 +438,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			$scope.$on('close_popUp_renderer', function(event, data){
 				if (data.resourceUrl === $scope.resourceUrlToRender) {
 					if (data.callback) {
-						$scope.execute(data.callback);
+						$scope.execute({ 'method': data.callback });
 					}
 				}
 			});
@@ -456,7 +456,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						}
 						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
 							if (data.callback) {
-								$scope.execute(data.callback);
+								$scope.execute({ 'method': data.callback });
 							}
 						});
 						
