@@ -318,6 +318,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         Output:
             - Object containing the processed properties.
     */
+    this.processProperties = _processProperties;
     function _processProperties(responseData){
         var propertiesObject = {};
 
@@ -815,7 +816,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             $rootScope.resourceHref = data._links.self.href;
             $rootScope.loader.loading=false;
             if(resolve) {
-                resolve();
+                resolve(httpResponse);
             }                    
         }
         }).error(function(){

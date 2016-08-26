@@ -7,7 +7,7 @@ global app
 
 app.factory('dashboardFactory', function($rootScope, resourceFactory){
 	return {
-		isRequired: function req(params){
+		isRequired: function req(){
 			// just logging to see how many times the bound function is executed
 			req.memo = (req.memo !== undefined) ? req.memo : 1;
 			console.log(req.memo++);
