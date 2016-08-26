@@ -615,10 +615,12 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
             $http({
                 method : 'POST',
                 headers : {
+                    'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                    'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
                     'Content-Type' : 'application/json'
                 },
                 data : authnCallbackData,
-                url : $rootScope.config.authnURL + '/authenticate' + '?client_id=' + $rootScope.config.apiGatewayApiKeys.client_id + '&client_secret=' + $rootScope.config.apiGatewayApiKeys.client_secret
+                url : $rootScope.config.authnURL + '/authenticate'
             }).success(function(data) {
                 if (data.authId !== undefined) {
                     console.log('Authenticate callback');
