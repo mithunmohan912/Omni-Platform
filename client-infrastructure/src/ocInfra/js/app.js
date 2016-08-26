@@ -41,8 +41,10 @@ $routeProvider.
 
 app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
-   $rootScope.$on('$locationChangeStart', function () {
-   
+   $rootScope.$on('$locationChangeStart', function (event,newUrl) {
+   if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+       return;
+   } 
    if (sessionStorage.username === null || sessionStorage.username === undefined) {
             $location.url('/');
        }

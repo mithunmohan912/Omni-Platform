@@ -1,6 +1,6 @@
-<div class="renderer renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
+<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
 
-	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="no-padding section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
+	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
 
 		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
@@ -31,7 +31,7 @@
 
 			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
 				<form>
-						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column no-padding {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
+						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column padding-none {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
 							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 								<span ng-switch-when="tabs" class="infra-tabs-container">
 
@@ -83,6 +83,7 @@
 
 								</span>
 								<span ng-switch-when="iconGroup" class="infra-icons-container">
+								<div ng-if="showIcon">
 									<span id="{{icon.uid}}" class="infra-icon no-padding col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
 										<div ng-click="execute(icon)" class="text-center ">
 	            							<a ng-click="execute(icon)" class="thumbnail text-center">
@@ -93,6 +94,21 @@
 	            							</a>
 	          							</div>
 									</span>
+									</div>
+									<div ng-if="!showIcon">
+ 								<div class="col-xs-6 col-md-6" ng-repeat="icon in column.icons">	
+ 									<div ng-if="icon.showButton">
+ 										<div ng-click="execute(icon)" class="text-center ">
+ 	            							<a ng-click="execute(icon)" class="thumbnail text-center">
+ 	            							<div class="text-center">
+ 	              								<span class="{{icon.icon}}"></span>
+ 	              								<div class="text-center">{{ icon.label | translate }}  <span class="flag {{icon.iconflags}}"></span></div>
+ 	            							</div>
+ 	            							</a>
+ 	          							</div>
+ 	          						</div>
+ 								</div>
+ 								</div>
 								</span>
 								<span ng-switch-when="popup" class="infra-popup-container">
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 

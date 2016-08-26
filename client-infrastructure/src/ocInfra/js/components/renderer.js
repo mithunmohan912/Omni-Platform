@@ -207,8 +207,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.metamodelObject = metamodelObject;
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
+				$scope.showIcon  = {};
 				//Initial resource specified in metamodel?
-
+				 if($rootScope.user && $rootScope.user.roles && $rootScope.user.roles[0] === 'ROLE_DEV'){
+                     $scope.showIcon = true;
+                 }else{
+                 	$scope.showIcon = false;	
+                 }
 				if ($scope.metamodelObject.resourceUrl && $scope.metamodelObject.resourceUrl.indexOf($rootScope.hostURL) === -1){
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
@@ -217,7 +222,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
-
+ 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
