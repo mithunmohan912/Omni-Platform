@@ -1158,9 +1158,10 @@ function setData($scope, schema, object){
 
 function loadFromDefaultSet(properties, defaultValues){
     if(properties !== undefined && defaultValues !== undefined){
-        for (var key in properties) {
-            if (!properties[key].value) {
+        for (var key in defaultValues) {
+            if (!properties[key] || !properties[key].value || properties[key].value === '') {
                 if(defaultValues[key] !== undefined){
+                    properties[key] = properties[key] || defaultValues[key] || {};
                     properties[key].value = defaultValues[key].value;    
                 }
             }
