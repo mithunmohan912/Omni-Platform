@@ -34,7 +34,7 @@
 			<tr class="table-row-{{key}}-{{$index}}" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 
 				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
-				<div ng-show="table.items.length==0">no criteria</div>
+				
 		            <ng-switch on="field.type">
  						<span ng-switch-when="label" class="table-cell-label">
  							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId]">
