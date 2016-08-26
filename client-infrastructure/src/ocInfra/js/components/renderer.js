@@ -287,6 +287,23 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 							}
 						}
+
+						var isSectionConsistent = function(properties) {
+							var consistent = true;
+							angular.forEach(properties, function(currentProperty){
+								if (currentProperty.consistent === false){
+									consistent = false;
+								}
+							});
+
+							return consistent;
+						};
+
+						$rootScope.consistentInd = $rootScope.consistentInd || {};
+						 
+						if (!_.isEmpty($scope.resourcesToBind.properties)){
+							$rootScope.consistentInd[$scope.metamodel] = isSectionConsistent($scope.resourcesToBind.properties);	
+						}
 					}
 				});
 	
@@ -439,35 +456,37 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 
+			//OC-958 and OC-957	
 
-			$scope.$on('close_popUp_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					if (data.callback) {
-						$scope.execute({ 'method': data.callback });
-					}
-				}
-			});
+			// $scope.$on('close_popUp_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		if (data.callback) {
+			// 			$scope.execute(data.callback);
+			// 		}
+			// 	}
+			// });
 
-			$scope.$on('reset_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					var payloads = {};
+			// $scope.$on('reset_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		var payloads = {};
 					
-					if ($scope.resourcesToBind) {
 
-					 	for(var key in data.links){
-							if($scope.resourcesToBind[data.links[key]]){
-								payloads[data.links[key]] = '';
-							}
-						}
-						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
-							if (data.callback) {
-								$scope.execute({ 'method': data.callback });
-							}
-						});
+			// 		if ($scope.resourcesToBind) {
+
+			// 		 	for(var key in data.links){
+			// 				if($scope.resourcesToBind[data.links[key]]){
+			// 					payloads[data.links[key]] = '';
+			// 				}
+			// 			}
+			// 			resourceFactory.patch(data.resourceUrl, payloads).then(function() {
+			// 				if (data.callback) {
+			// 					$scope.execute(data.callback);
+			// 				}
+			// 			});
 						
-					}
-				}
-			});
+			// 		}
+			// 	}
+			// });
 		
 		    $scope.$on('pdf_update', function(event, params){
 
