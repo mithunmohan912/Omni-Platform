@@ -15,16 +15,26 @@
 			<tr>
 				<th ng-repeat="column in metamodelObject.properties" ng-attr-style="text-align : {{column.align}}; width: {{column.width}} !important; ">{{ column.label_header | translate }}</th>
 			</tr>
+			
 			<!-- OC-711 End -->
+
+			<tr ng-show="table.items.length==0">
+			 
+            <td colspan="8" class="greybg"><span>{{ '_Quote_data_not _found' | translate}}.</span></td>
+        </tr>
 		</thead>
 		<tbody ng-repeat="(key, collection) in groupedTable">
+
+			 
 			<tr class="table-row-title-group" ng-if="key !== 'infra_default_group_table'">
 				<td colspan="{{metamodelObject.properties.length}}">
 					<span class="table-title-group">{{key | translate}}</span>
 				</td>
 			</tr>
 			<tr class="table-row-{{key}}-{{$index}}" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
+
 				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
+				
 		            <ng-switch on="field.type">
  						<span ng-switch-when="label" class="table-cell-label">
  							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId]">
