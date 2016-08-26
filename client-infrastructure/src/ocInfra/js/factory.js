@@ -815,7 +815,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             $rootScope.resourceHref = data._links.self.href;
             $rootScope.loader.loading=false;
             if(resolve) {
-                resolve();
+                resolve(httpResponse);
             }                    
         }
         }).error(function(){
