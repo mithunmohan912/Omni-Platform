@@ -52,20 +52,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		return typeObject.enum ? 'select' : 'text';
 	}
 
-	function _getValueForUiInput($scope){
-		if($scope.metamodel.value){
-			return $scope.metamodel.value;
-		} else if($scope.metamodel.init){
-			if($scope.actionFactory && $scope.actionFactory[$scope.metamodel.init]){
-				return $scope.actionFactory[$scope.metamodel.init]();
-			} else if(_searchInParents($scope, $scope.metamodel.init)){
-				return _searchInParents($scope, $scope.metamodel.init)();
-			}
-		} else {
-			return undefined;
-		}
-	}
-
 	function _searchInParents(scope, fieldName){
 		if(typeof fieldName !== 'string'){
 			return undefined;
@@ -184,6 +170,103 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     	element.inputColspan = colspan;
     	element.inputOffset = offset;
     }
+
+    var defaultUIProperties = {
+    	required: {
+    		value: false
+    	},
+    	editable: {
+    		value: true
+    	},
+    	value: {
+    		value:undefined
+    	}
+    };
+
+    function _initUiInput(element, metamodel, $scope){
+    	var properties = ['required', 'editable', 'value'];
+    	properties.forEach(function(propertyName){
+    		var metamodelInitObject = metamodel[propertyName] || defaultUIProperties[propertyName];
+    		var value = _getValueForUiInput(metamodelInitObject, propertyName, $scope);
+    		var previousFnValue;
+	    	Object.defineProperty(element, propertyName, {
+	    		get: function(){
+	    			if(previousFnValue === undefined && typeof value === 'function' && metamodelInitObject.events){
+						previousFnValue = value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    			}
+
+	    			if(typeof value === 'function' && !metamodelInitObject.events){
+	    				return value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    			} else if(typeof value === 'function' && metamodelInitObject.events){
+	    				return previousFnValue;
+	    			} else{
+	    				return value;
+	    			}
+	    		},
+	    		set: function(newValue){
+	    			if(typeof value === 'function'){
+	    				return newValue;
+	    			} else {
+	    				value = newValue;
+	    				return value;
+	    			}
+	    		},
+	    		configurable: true,
+	    		enumerable: true
+	    	});
+
+	    	// Optimized: We can decide to re-evaluate the bound function on the passed events
+	    	if(metamodelInitObject && metamodelInitObject.events && metamodelInitObject.bind){
+	    		metamodelInitObject.events.forEach(function(event){
+	    			$scope.$on(event, function(){
+	    				previousFnValue = value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    				if(metamodelInitObject.forceUpdate){
+	    					setTimeout(function(){
+	    						$scope.$digest();	
+	    					}, 0);
+	    					
+	    				}
+	    			});
+	    		});
+	    	}
+    	});
+    	
+    	if(metamodel.metainfo){
+    		if(typeof metamodel.metainfo === 'object'){
+    			element.metainfo = metamodel.metainfo;
+    		} else if(typeof metamodel.metainfo === 'string'){
+    			if($scope.actionFactory && $scope.actionFactory[metamodel.metainfo]){
+					element.metainfo = $scope.actionFactory[metamodel.metainfo]();
+				} else if(_searchInParents($scope, metamodel.metainfo)){
+					element.metainfo = _searchInParents($scope, metamodel.metainfo)();
+				}
+    		}
+    	}
+    	element.metainfo = element.metainfo || {};
+    	element.metainfo.uiInput = true;
+    }
+
+
+	function _getValueForUiInput(element, propertyName, $scope){
+		if(element && element.value){
+			return element.value;
+		} else if(element && element.init){
+			var initMethod;
+			if($scope.actionFactory && $scope.actionFactory[element.init]){
+				initMethod = $scope.actionFactory[element.init];
+			} else if(_searchInParents($scope, element.init)){
+				initMethod = _searchInParents($scope, element.init);
+			}
+
+			if(!element.bind){
+				return initMethod({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
+			} else {
+				return initMethod;
+			}
+		} else {
+			return $scope.property ? $scope.property[propertyName] : (element) ? element.default : undefined;
+		}
+	}
 
 	return {
 		restrict: 'E',
@@ -535,11 +618,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
+					$scope.resources[$scope.metamodel.id] = {};
+					_initUiInput($scope.resources[$scope.metamodel.id], $scope.metamodel, $scope);
+					
 					$scope.property = $scope.resources[$scope.metamodel.id];
-					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
-						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
-					}
 				}
 
 				// Get the url of the template we will use based on input type

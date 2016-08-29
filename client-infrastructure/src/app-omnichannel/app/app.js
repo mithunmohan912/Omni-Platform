@@ -272,7 +272,7 @@ app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchF
     };
 });
 
-app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory, $q){
     return {
         navigateToTab: function(params){
             if(params.inputComponent.action){
@@ -289,9 +289,9 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
         },
         navigateToWizard: function(params){
             if(params.inputComponent.action){
-                new Promise(function(resolve) {
-                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
-                }).then(function(){
+                // We shouldn't have .then that does nothing because we break the promise chain. new Promise doesn't work in IE, we use $q instead
+                return $q(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve);
                 });
             } 
         },

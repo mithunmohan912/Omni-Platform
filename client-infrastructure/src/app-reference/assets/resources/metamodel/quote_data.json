@@ -8,24 +8,31 @@
                     {
                         "id": "quote:product_id",
                         "label": "_PRODUCT_TYPE",
-                        "row": 1
+                        "colspan": 6
                     },
                     {
                         "id": "quote:description",
                         "label": "_DESCRIPTION",
-                        "row": 1
+                        "colspan": {
+                            "xs": 12,
+                            "sm": 8,
+                            "md": 6
+                        }
                     },
                     {
                         "id": "quote:distributor_id",
                         "label": "_DISTRIBUTOR_ID",
-                        "type": "text",
-                        "row": 2
+                        "type": "text"
                     },
                     {
                         "id": "quote:language",
                         "label": "_LANGUAGE",
-                        "row": 2,
-                        "patchOnBlur": true
+                        "patchOnBlur": true,
+                        "offset": {
+                            "xs": 0,
+                            "sm": 0,
+                            "md": 6
+                        }
                     },
                     {
                         "id": "startDate",
@@ -47,31 +54,32 @@
                                 }
                             ]
                         },
-                        "row": 4
+                        "offset": 0,
+                        "colspan": 6
                     },
                     {
                         "id": "quote:status",
                         "label": "_STATUS",
                         "type": "text",
-                        "row": 4
+                        "colspan": 6
                     },
                     {
                         "id": "quote:identifier",
                         "label": "_IDENTIFIER",
                         "type": "text",
-                        "row": 3
+                        "colspan": 6
                     },
                     {
                         "id": "quote:type",
                         "label": "_TYPE",
                         "type": "select",
-                        "row": 3,
                         "visibleWhen": {
                             "expression": {
                                 "field": "showMinimalInformation",
                                 "value": false
                             }
-                        }
+                        },
+                        "colspan": 6
                     }
                 ]
             }
