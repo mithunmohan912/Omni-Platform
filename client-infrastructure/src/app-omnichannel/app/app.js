@@ -691,6 +691,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                         });         
                     });
 
+
                     $rootScope.authnUsername = undefined;
                     $rootScope.authnPassword = undefined;
                     $rootScope.authnCallbackData = undefined;
@@ -710,6 +711,29 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
     };
     this.navigateToScreen = function(params) {
         authnChain.authn(params);
+        $http({
+                    url: 'assets/resources/config/users.json',
+                    method: 'GET'
+                     }).success(function(data) {
+                    //extract user
+                    var user = [];
+                    angular.forEach(data.users, function(key) {
+                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
+                            $rootScope.isAuthSuccess = true;
+                            user = key;
+                        }});
+                        if($rootScope.isAuthSuccess){
+                            $rootScope.user = user;
+                            sessionStorage.username = user.name;    
+                        }
+                      }).error(function(data) {
+                    $rootScope.showIcon = false;
+                    if (data && data.exception) {
+                        growl.error(data.exception.message, '30');
+                    } else {
+                        growl.error($filter('translate')('GENERAL_ERROR'));
+                        }
+                    });
     };
     return this;
 });
