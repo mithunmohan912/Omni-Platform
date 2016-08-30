@@ -1,5 +1,5 @@
 <span class="form-group">	
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 		<textarea class="ck-editor" ng-model="data[field.name]"></textarea>
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>

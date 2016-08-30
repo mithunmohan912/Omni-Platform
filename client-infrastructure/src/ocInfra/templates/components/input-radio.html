@@ -1,30 +1,33 @@
+<span class="form-group" 
+	  ng-show="field.isVisible()">
 
-	<span class="form-group" 
-		  ng-show="field.isVisible()">
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label> 
 
-		<span ng-class="(field.property.required) ? 'required-star' : ''" class="col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
-			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
+	<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+	
+		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>
 
-				<div ng-repeat="option in field.attributes.enum track by $index">
+		<!--<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>-->
+
+				<div ng-repeat="(key, option) in field.options._getData(option, field) track by $index">
 					<div class="radio pad-left15 padtop3px">
                         <label>                                  
 							<input 	type="radio"
-								id="{{option}}"
-								name="{{option}}"
-							
-								ng-model="field.property.value"
-								ng-disabled="!field.property.editable"
-								ng-change="field.onChange()"
-								ng-blur="field.onBlur()" 
-								value = "{{option}}" >{{option | translate}}</input>
-							 <span class="cr"><i class="cr-icon glyphicon glyphicon-stop"></i></span>	
+									id="{{field.id + '_' + key}}"
+									name="{{field.name}}"
+									ng-model="field.property.value"
+									ng-disabled="!field.property.editable"
+									ng-change="field.onChange()"
+									ng-blur="field.onBlur()" 
+									value = "{{key}}" >{{option | translate}}</input>
+							 <span ng-class="metamodel.position==='before'? 'cr right':'cr left'"><i class="cr-icon glyphicon glyphicon-stop"></i></span>	
                         </label>      
                     </div>
 					
 				</div>
 			<div ng-include="baseUrl + 'backend-error-display.html'"></div>
-		</span>
+		<!--</span>-->
 	</span>
+</span>
 
-
-	

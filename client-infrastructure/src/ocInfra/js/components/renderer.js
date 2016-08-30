@@ -45,6 +45,17 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return true;
 			};
 
+			$scope.opened= function (section){
+
+				if (typeof section.collapse !== 'undefined'){
+					if (section.collapse){
+						section.collapse = false;
+					}else{
+						section.collapse = true;
+					}	
+				}
+			};
+
 			function _prepareColspanAndOffset(element){
 				if(element.colspan){
 					var initialColspan = 12;
@@ -196,8 +207,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.metamodelObject = metamodelObject;
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
+				$scope.showIcon  = {};
 				//Initial resource specified in metamodel?
-
+				 if($rootScope.user && $rootScope.user.roles && $rootScope.user.roles[0] === 'ROLE_DEV'){
+                     $scope.showIcon = true;
+                 }else{
+                 	$scope.showIcon = false;	
+                 }
 				if ($scope.metamodelObject.resourceUrl && $scope.metamodelObject.resourceUrl.indexOf($rootScope.hostURL) === -1){
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
@@ -206,7 +222,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
-
+ 
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
@@ -270,6 +286,23 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									}
 								}
 							}
+						}
+
+						var isSectionConsistent = function(properties) {
+							var consistent = true;
+							angular.forEach(properties, function(currentProperty){
+								if (currentProperty.consistent === false){
+									consistent = false;
+								}
+							});
+
+							return consistent;
+						};
+
+						$rootScope.consistentInd = $rootScope.consistentInd || {};
+						 
+						if (!_.isEmpty($scope.resourcesToBind.properties)){
+							$rootScope.consistentInd[$scope.metamodel] = isSectionConsistent($scope.resourcesToBind.properties);	
 						}
 					}
 				});
@@ -423,35 +456,37 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 
+			//OC-958 and OC-957	
 
-			$scope.$on('close_popUp_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					if (data.callback) {
-						$scope.execute(data.callback);
-					}
-				}
-			});
+			// $scope.$on('close_popUp_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		if (data.callback) {
+			// 			$scope.execute(data.callback);
+			// 		}
+			// 	}
+			// });
 
-			$scope.$on('reset_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender) {
-					var payloads = {};
+			// $scope.$on('reset_renderer', function(event, data){
+			// 	if (data.resourceUrl === $scope.resourceUrlToRender) {
+			// 		var payloads = {};
 					
-					if ($scope.resourcesToBind) {
 
-					 	for(var key in data.links){
-							if($scope.resourcesToBind[data.links[key]]){
-								payloads[data.links[key]] = '';
-							}
-						}
-						resourceFactory.patch(data.resourceUrl, payloads).then(function() {
-							if (data.callback) {
-								$scope.execute(data.callback);
-							}
-						});
+			// 		if ($scope.resourcesToBind) {
+
+			// 		 	for(var key in data.links){
+			// 				if($scope.resourcesToBind[data.links[key]]){
+			// 					payloads[data.links[key]] = '';
+			// 				}
+			// 			}
+			// 			resourceFactory.patch(data.resourceUrl, payloads).then(function() {
+			// 				if (data.callback) {
+			// 					$scope.execute(data.callback);
+			// 				}
+			// 			});
 						
-					}
-				}
-			});
+			// 		}
+			// 	}
+			// });
 		
 		    $scope.$on('pdf_update', function(event, params){
 

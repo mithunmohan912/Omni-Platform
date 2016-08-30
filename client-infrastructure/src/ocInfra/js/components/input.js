@@ -52,20 +52,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		return typeObject.enum ? 'select' : 'text';
 	}
 
-	function _getValueForUiInput($scope){
-		if($scope.metamodel.value){
-			return $scope.metamodel.value;
-		} else if($scope.metamodel.init){
-			if($scope.actionFactory && $scope.actionFactory[$scope.metamodel.init]){
-				return $scope.actionFactory[$scope.metamodel.init]();
-			} else if(_searchInParents($scope, $scope.metamodel.init)){
-				return _searchInParents($scope, $scope.metamodel.init)();
-			}
-		} else {
-			return undefined;
-		}
-	}
-
 	function _searchInParents(scope, fieldName){
 		if(typeof fieldName !== 'string'){
 			return undefined;
@@ -176,14 +162,111 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
-    	offset.xs = element.inputOffset.xs || 0;
-    	offset.sm = element.inputOffset.sm || 0;
-    	offset.md = element.inputOffset.md || 0;
-    	offset.lg = element.inputOffset.lg || 0;
+    	offset.xs = (element.inputOffset && element.inputOffset.xs) ? element.inputOffset.xs : 0;
+    	offset.sm = (element.inputOffset && element.inputOffset.sm) ? element.inputOffset.sm : 0;
+    	offset.md = (element.inputOffset && element.inputOffset.md) ? element.inputOffset.md : 0;
+    	offset.lg = (element.inputOffset && element.inputOffset.lg) ? element.inputOffset.lg : 0;
 
     	element.inputColspan = colspan;
     	element.inputOffset = offset;
     }
+
+    var defaultUIProperties = {
+    	required: {
+    		value: false
+    	},
+    	editable: {
+    		value: true
+    	},
+    	value: {
+    		value:undefined
+    	}
+    };
+
+    function _initUiInput(element, metamodel, $scope){
+    	var properties = ['required', 'editable', 'value'];
+    	properties.forEach(function(propertyName){
+    		var metamodelInitObject = metamodel[propertyName] || defaultUIProperties[propertyName];
+    		var value = _getValueForUiInput(metamodelInitObject, propertyName, $scope);
+    		var previousFnValue;
+	    	Object.defineProperty(element, propertyName, {
+	    		get: function(){
+	    			if(previousFnValue === undefined && typeof value === 'function' && metamodelInitObject.events){
+						previousFnValue = value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    			}
+
+	    			if(typeof value === 'function' && !metamodelInitObject.events){
+	    				return value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    			} else if(typeof value === 'function' && metamodelInitObject.events){
+	    				return previousFnValue;
+	    			} else{
+	    				return value;
+	    			}
+	    		},
+	    		set: function(newValue){
+	    			if(typeof value === 'function'){
+	    				return newValue;
+	    			} else {
+	    				value = newValue;
+	    				return value;
+	    			}
+	    		},
+	    		configurable: true,
+	    		enumerable: true
+	    	});
+
+	    	// Optimized: We can decide to re-evaluate the bound function on the passed events
+	    	if(metamodelInitObject && metamodelInitObject.events && metamodelInitObject.bind){
+	    		metamodelInitObject.events.forEach(function(event){
+	    			$scope.$on(event, function(){
+	    				previousFnValue = value({ 'scope': $scope, 'metamodel': metamodelInitObject, 'propertyName': propertyName, 'previousValue': previousFnValue });
+	    				if(metamodelInitObject.forceUpdate){
+	    					setTimeout(function(){
+	    						$scope.$digest();	
+	    					}, 0);
+	    					
+	    				}
+	    			});
+	    		});
+	    	}
+    	});
+    	
+    	if(metamodel.metainfo){
+    		if(typeof metamodel.metainfo === 'object'){
+    			element.metainfo = metamodel.metainfo;
+    		} else if(typeof metamodel.metainfo === 'string'){
+    			if($scope.actionFactory && $scope.actionFactory[metamodel.metainfo]){
+					element.metainfo = $scope.actionFactory[metamodel.metainfo]();
+				} else if(_searchInParents($scope, metamodel.metainfo)){
+					element.metainfo = _searchInParents($scope, metamodel.metainfo)();
+				}
+    		}
+    	}
+    	element.metainfo = element.metainfo || {};
+    	element.metainfo.uiInput = true;
+    }
+
+
+	function _getValueForUiInput(element, propertyName, $scope){
+		if(element && element.value){
+			return element.value;
+		} else if(element && element.init){
+			var initMethod;
+			if($scope.actionFactory && $scope.actionFactory[element.init]){
+				initMethod = $scope.actionFactory[element.init];
+			} else if(_searchInParents($scope, element.init)){
+				initMethod = _searchInParents($scope, element.init);
+			}
+
+			if(!element.bind){
+				return initMethod({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
+			} else {
+				return initMethod;
+			}
+		} else {
+			return $scope.property ? $scope.property[propertyName] : (element) ? element.default : undefined;
+		}
+	}
 
 	return {
 		restrict: 'E',
@@ -341,12 +424,45 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 							return enumeration;
 						}
 					}
-				}
+				},
+				'updateMode': 'change'
 			};
 
 			defaults.radio = {
 				'attributes': {
 					'capitalize': false
+				},
+				'options': {
+					_getData: function(id, field){
+						/*           
+							FIXME: Copy/paste from select inputs
+							field.options.getData: action defined by the user that will be invoked to fill the radio values.
+							By default, and because we are backend driven, we pull the data from the 'enum' property of the field we are binding to.
+						*/
+						var enumeration = {};
+						var data = null;
+						if(field.options.getData){
+							data = field.options.getData( {'id': id, 'property': field.property, '$injector': $injector} );
+							if(Array.isArray(data)){
+								data.forEach(function(item){
+									enumeration[item] = item;
+								});
+							} else {
+								enumeration = data;
+							}
+
+							return enumeration;
+						} else {
+							//console.warn('input.js -> radio_getData(): No getData method for radio input.');
+							if(Array.isArray(field.attributes.enum)){
+								field.attributes.enum.forEach(function(item){
+									enumeration[item] = item;
+								});
+							}
+
+							return enumeration;
+						}
+					}
 				},
 				'updateMode': 'change'
 			};
@@ -502,11 +618,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
 					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {'required': $scope.metamodel.required || false, 'editable': true, 'metainfo':{ 'uiInput': true }, value: _getValueForUiInput($scope) };
+					$scope.resources[$scope.metamodel.id] = {};
+					_initUiInput($scope.resources[$scope.metamodel.id], $scope.metamodel, $scope);
+					
 					$scope.property = $scope.resources[$scope.metamodel.id];
-					if (!$scope.metamodel.value && $scope.actionFactory[$scope.metamodel.init]){
-						$scope.property.value = $scope.actionFactory[$scope.metamodel.init]($scope);
-					}
 				}
 
 				// Get the url of the template we will use based on input type
@@ -515,7 +630,6 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
 				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
-
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
@@ -531,7 +645,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				$scope.field = {
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
+					'position':$scope.metamodel.position,
 					'id': $scope.metamodel.id,
+					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
 					'name': $scope.metamodel.name || $scope.metamodel.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
@@ -571,10 +687,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
 					'class': $scope.metamodel.classInput,
-					'format': $scope.metamodel.format || (defaults[inputType]) ? defaults[inputType].format : undefined,
+					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
-					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : 8,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : 0
+					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -632,6 +748,10 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					} else {
 						$scope.field.options[validKey] = $scope.metamodel.options[key];
 					}*/
+				}
+
+				if(inputType === 'toggle'){
+					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
 			};
