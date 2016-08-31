@@ -171,6 +171,10 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		},
 		callbackQuoteRisk: function() {
 			console.log('callbackQuoteRisk');
+		},
+		changeQuoteData: function(params) {
+			params.scope.itemSelected[params.inputComponent.name] = { href : $rootScope.resourceUrl };
 		}
+
 	};
 });

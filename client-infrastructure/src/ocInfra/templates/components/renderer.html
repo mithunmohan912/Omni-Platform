@@ -216,7 +216,7 @@
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
 									 	{{ column.popup.label | translate }} 
 									 </button>
-									<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="resourcesToBind[column.popup.id].href" factory-name="factoryName"></popup-render>
+									<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="itemSelected[column.popup.name].href" factory-name="factoryName"></popup-render>
 								</span>
 								<!-- Commented code as a reminder of cases we may need to consider -->
 								<!-- <div ng-switch-when="_blank">

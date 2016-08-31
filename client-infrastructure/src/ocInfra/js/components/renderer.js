@@ -141,6 +141,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									}
 								}
 
+								if(property.type === 'popup'){
+									//OC-948: object to save the resource url (href property) to be bound to the popup component (indexed by popup.name)
+									$scope.itemSelected = $scope.itemSelected || {};
+									$scope.itemSelected[property.popup.name] = {};
+								}
+
 								//we need to process an array even if id is a single value. 
 								if (property.id && !Array.isArray(property.id)){
 									property.id = [property.id]; 
