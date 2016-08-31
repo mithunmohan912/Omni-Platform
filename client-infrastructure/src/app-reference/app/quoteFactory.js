@@ -64,8 +64,8 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 					payload[link] = element.$item.href;
 					resourceFactory.patch(element.property.self, payload).then(function() {
 						//update dependencies
-						$rootScope.$broadcast('refreshTable', { name: 'quote_risk_owner_list'});
-						$rootScope.$broadcast('refreshTable', { name: 'quote_driver_list'});
+						$rootScope.$broadcast('refresh_table', { name: 'quote_risk_owner_list'});
+						$rootScope.$broadcast('refresh_table', { name: 'quote_driver_list'});
 					
 					});
 					
@@ -73,18 +73,18 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 
 			});	
 		},
-		callbackQuoteOwner: function(resource, properties) {
+		callbackQuoteOwner: function(params) {
 
 			//We need to check ifsome operations resource has been patched. In that case we have to call 
 			//execute to confitrm this resource. 
-			var operationsURL = _getOperationsResource(properties);
+			var operationsURL = _getOperationsResource(params.properties);
 			Object.keys(operationsURL).forEach(function(key){
 				resourceFactory.post(operationsURL[key] + '/execute', {}, $rootScope.headers).then(function(response) {
 					resourceFactory.get(operationsURL[key]).then(function(response) {
 						resourceFactory.refresh(response.data._links.up.href);
 					});
 					resourceFactory.refresh(response.data._links.up.href);
-					resourceFactory.refresh(resource.href);
+					resourceFactory.refresh(params.scope.resourceUrl);
 				});
 			});
 			
@@ -94,7 +94,6 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 			$rootScope.$broadcast('refresh_table', { name: 'quote_driver_list'});
 		},
 		addAddress: function(params){
-
 
 			if (params && params.scope.resultSet[params.scope.resourceUrl] &&
 				params.scope.resultSet[params.scope.resourceUrl].dependencies){
@@ -110,10 +109,9 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 				if(personUrl){
 					resourceFactory.post(personUrl + '/operations/createPostalAddress', {}, $rootScope.headers).then(function(response){
 						if (response){
-
 							resourceFactory.refresh(personUrl + '/operations/createPostalAddress', {}, $rootScope.headers).then(function(response){
 								if (response){
-									$rootScope.$broadcast('refreshPopUp', { name: 'quote_owner'});
+									$rootScope.$broadcast('refresh_popUp', { name: 'quote_owner'});
 								}
 							});
 						}
@@ -126,19 +124,19 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		/*
 		Check the existence of temporary resources and remove them just in case. 
 		*/
-		closeOwnerPopUp: function(params, resourceToRender){
-			if (resourceToRender){
-				var postalCode = resourceToRender['postal_address:postal_code'];
+		closeOwnerPopUp: function(params){
+			if (params.properties){
+				var postalCode = params.properties['postal_address:postal_code'];
 				//If editable means that it is a new 
 				if(postalCode && postalCode.editable){
 					resourceFactory.get(postalCode.self).then(function(response){
 						var parentResource = response.data._links.up.href;
-						resourceFactory.delete(postalCode.self, {}, $rootScope.headers).then(function(response){
+						resourceFactory.delete(postalCode.self, $rootScope.headers).then(function(response){
 							if (response){
 								//Refresh the Person/XXXX/Operations/CreatePostalAddress resource
 								resourceFactory.refresh(parentResource);
 								//Refresh the quoteOwner resource
-								resourceFactory.refresh(params.href);
+								resourceFactory.refresh(params.scope.resourceUrl);
 							}
 						});
 
@@ -174,6 +172,22 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		},
 		changeQuoteData: function(params) {
 			params.scope.itemSelected[params.inputComponent.name] = { href : $rootScope.resourceUrl };
+		},
+		resetOwnerPopUp: function(params) {
+			var payloads = {};
+			var links = ["quote_owner:person_link", "quote_owner:organization_link"];
+			if (params.dependencies) {
+			 	for(var key in links){
+			 		params.dependencies.forEach(function(dependency) {
+						if(dependency.resource === links[key]){
+							payloads[links[key]] = '';
+						}
+			 		});
+					
+				}
+				resourceFactory.patch(params.href, payloads).then(function() {
+				});
+			}
 		}
 
 	};
