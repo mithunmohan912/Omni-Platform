@@ -699,7 +699,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
 					'icon': $scope.metamodel.icon,
-					'class': $scope.metamodel.classInput,
+					'class': setClass(), //$scope.metamodel.classInput,
 					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
@@ -766,6 +766,21 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				if(inputType === 'toggle'){
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
+
+			};
+
+			var setClass = function(){
+				var classInput = '';
+
+				if (!$scope.metamodel.label && $scope.property.required){
+					classInput = classInput  + ' required-star '; 					
+				}
+
+				if ($scope.metamodel.classInput){
+					classInput = classInput  + $scope.metamodel.classInput;						
+				}
+
+				return classInput;
 
 			};
 
