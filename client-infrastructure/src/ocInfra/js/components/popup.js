@@ -107,14 +107,14 @@ return {
 			}	
 
 			function _defaultReset() {
-				if ($scope.metamodelObject.actions.reset.links){
+				//if ($scope.metamodelObject.actions.reset.links){
 					var callback = $scope.metamodelObject.actions.reset.callback? $scope.metamodelObject.actions.reset.callback: null;
 					//OC-958
 					// $scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links, callback: callback });
 					if (callback){
 						$scope.execute(callback);
 					}
-				}
+				//}
 			}
 			
 			function _init(metamodelObject){
