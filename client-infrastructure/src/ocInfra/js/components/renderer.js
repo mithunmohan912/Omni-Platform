@@ -6,6 +6,35 @@ global angular
 
 angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
 
+	// WARNING: Copied from input component controller
+	function _searchInParents(scope, fieldName){
+		if(typeof fieldName !== 'string'){
+			return undefined;
+		}
+		if(fieldName in scope){
+			return scope[fieldName];
+		} else if(fieldName.indexOf('.') > 0){
+			var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+			if(firstObj in scope){
+				return scope.$eval(fieldName);
+			} else if(scope.$parent){
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		} else if(scope.$parent){
+			if(scope.$parent.resourcesToBind){
+				if (fieldName in scope.$parent.resourcesToBind.properties) {
+					return scope.$parent.resourcesToBind.properties[fieldName];
+				} else {
+					return _searchInParents(scope.$parent, fieldName);
+				}
+			} else {
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		}
+
+		return undefined;
+	}
+
 	return {
 		restrict: 'E',
 		scope: {
@@ -126,7 +155,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									if(typeof visible === 'boolean'){
 										return visible;
 									} else {
-										return $scope.actionFactory[visible]({ 'scope': $scope, 'metamodel': metamodel, 'resources': $scope.resourcesToBind.properties });
+										return $scope.actionFactory[visible]({ 'scope': $scope, 'metamodel': metamodel, 'resources': $scope.resourcesToBind.properties, 'searchInParents': _searchInParents });
 									}
 								};
 							}(section.visible));
