@@ -40,7 +40,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		scope: {
 			metamodel: '=',
 			resourceUrl: '=?',
-			factoryName: '='
+			factoryName: '=',
+			parentResources: '='
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
@@ -145,6 +146,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									property.id = [property.id]; 
 								}
 							});
+						} else if (section.type === 'reference') {
+							//OC-956: new structure to save the resourcesToBind object for the children renderers (indexed by $ref)
+							$scope.resourcesToBindRef = $scope.resourcesToBindRef || {};
+							$scope.resourcesToBindRef[section.$ref] = { properties : {} };
 						}
 
 						// Now we prepare the visible functionality
@@ -176,7 +181,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.optionsMap = {};
 				$scope.metamodelObject = metamodelObject;
 				var resource = $scope.metamodelObject.resource;
-				$scope.resourcesToBind = { properties : {} };
+
+				//OC-956: if the resourcesToBind is passed by the parent renderer 
+				$scope.resourcesToBind = $scope.parentResources || { properties : {} };
+
 				var newURL = {};
 				if($rootScope.resourceHref){
 					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
@@ -263,7 +271,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
 
-				$scope.resourcesToBind = { properties: {} };
+				//OC-956: if the resourcesToBind is passed by the parent renderer 
+				$scope.resourcesToBind = $scope.parentResources || { properties: {} };
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
@@ -286,7 +295,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
-						//$scope.resourcesToBind = $scope.resourcesToBind || {};
 						//keep the ui inputs
 						var propertiesToKeep = {};
 						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
@@ -296,7 +304,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 							}
 						}
-						$scope.resourcesToBind = { properties: propertiesToKeep };
+
+						//OC-956: keep the resourcesToBind object in case it was passed by the parent renderer
+						var keys = Object.keys($scope.resourcesToBind);
+						keys.forEach(function(key){
+							if (key !== 'properties') {
+								delete $scope.resourcesToBind[key];
+							}
+						});
+						$scope.resourcesToBind.properties = propertiesToKeep;
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
@@ -432,6 +448,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 
 			$scope.execute = function(inputComponent) {
+				var propertiesBound = angular.copy($scope.resourcesToBind.properties);
+				//OC-956: extract the properties of the children renderer as well
+				if ($scope.resourcesToBindRef) {
+					for (var ref in $scope.resourcesToBindRef) {
+						angular.extend(propertiesBound, $scope.resourcesToBindRef[ref].properties);
+					}
+				}
+
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
@@ -439,15 +463,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
 
-					if($scope.resourcesToBind.properties !== undefined){
+					if(propertiesBound !== undefined){
 						$scope.actionFactory[inputComponent.method]({'scope': $scope, 'inputComponent': inputComponent, 
-							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues});
+							'optionUrl': $scope.optionUrl, 'properties': propertiesBound, 'defaultValues': defaultValues});
 
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
+							$scope[inputComponent.method]({'properties': propertiesBound});
 						}
 					}
 				}
@@ -458,10 +482,19 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			};
 
 			$scope.$on('patch_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender || data.save) {
+				//OC-956: to avoid multiple callbacks, adding condition by name
+				if (data.name === $scope.metamodelObject.name && data.resourceUrl === $scope.resourceUrlToRender) {
 					var payloads = {};
 					var promises = [];
-					var propertiesBound = $scope.resourcesToBind.properties;
+
+					var propertiesBound = angular.copy($scope.resourcesToBind.properties);
+					//OC-956: extract the properties of the children renderers as well
+					if ($scope.resourcesToBindRef) {
+						for (var ref in $scope.resourcesToBindRef) {
+							angular.extend(propertiesBound, $scope.resourcesToBindRef[ref].properties);
+						}
+					}
+
 					if (propertiesBound) {
 						for(var key in propertiesBound){
 							if(propertiesBound[key] && propertiesBound[key].self && propertiesBound[key].editable){
@@ -478,7 +511,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								for(var property in resourceToPatch){
 									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
 										if(property in propertiesBound && propertiesBound[property].value !== resourceToPatch[property]){
-											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
+											payloadToPatch[property] = propertiesBound[property].value? propertiesBound[property].value:null;
 										}
 									}
 								}

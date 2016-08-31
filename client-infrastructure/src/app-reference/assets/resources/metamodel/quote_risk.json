@@ -1,5 +1,6 @@
 {
     "metamodel": {
+        "name": "quote_risk",
         "labels": {
             "title": "_RISK_POPUP"
         },
@@ -24,18 +25,6 @@
                         "patchOnBlur": true
                     },
                     {
-                        "id": ["quote_automobile:usage", "quote_trailer:usage"],
-                        "type": "radio",
-                        "label": "_USAGE",
-                        "position": "before",
-                        "row": 1,
-                        "colspan": 6,
-                        "patchOnBlur": true,
-                        "attributes": {
-                            "colspan": 12
-                        }
-                    },
-                    {
                         "id": "quote_automobile:ext_model",
                         "label": "_MODEL",
                         "type": "autocomplete",
@@ -51,9 +40,17 @@
                         "label": "_TRAILER_TONNAGE",
                         "row": 2
                     }
-
                 ]
+            },
+            {
+                "$ref": "quote_risk_usage",
+                "type": "reference"
             }
-        ]
+        ],
+        "actions": {
+            "ok": {
+                "callback": "callbackQuoteRisk"
+            }
+        }
     }
 }

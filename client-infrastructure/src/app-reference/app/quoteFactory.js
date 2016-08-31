@@ -24,7 +24,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 			$location.path('/screen/dashboard');
 		},
 		saveQuote: function(){
-			$rootScope.$broadcast('patch_renderer', {save: true});
+			$rootScope.$broadcast('patch_renderer', {name: 'quote', resourceUrl: $rootScope.resourceUrl});
 		},
 		searchByName: function(element){
 
@@ -168,7 +168,9 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		printPDF: function(){
 			pdfFactory.printPDF($rootScope.pdfUrl);
 
+		},
+		callbackQuoteRisk: function() {
+			console.log('callbackQuoteRisk');
 		}
-
 	};
 });

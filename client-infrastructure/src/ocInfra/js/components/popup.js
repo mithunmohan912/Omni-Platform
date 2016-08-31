@@ -93,7 +93,8 @@ return {
 
 			function _defaultSave(){
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
-				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback});
+				//OC-956: to avoid multiple callbacks, adding condition by name
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name});
 
 			}
 
