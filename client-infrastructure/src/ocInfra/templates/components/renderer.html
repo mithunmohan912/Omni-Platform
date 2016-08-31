@@ -1,6 +1,6 @@
 <div class="padding-none renderer  renderer-{{activeTab}}">
 
-	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
+	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type" ng-if="section.visible()">
 
 		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>

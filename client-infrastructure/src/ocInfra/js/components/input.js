@@ -685,13 +685,12 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 						}
 					},
 					'isVisible': function(){
-						/*
-							Visibility should be at renderer level (or the directive that is going to include the input) to prevent empty spaces.
-							For example, the renderer creates a div with 'x' width to place the input, but the input is not visible. From the renderer point of view
-							it doesn't know that the input is hidden, so it preserves the space.
-						*/
-						//return true;
-						return $scope.metamodel.visible || (($scope.metamodel.visibleWhen) ? _evaluateExpression($scope.metamodel.visibleWhen.expression, $scope, $scope.resources) : true);
+						if($scope.metamodel.visible && (typeof $scope.metamodel.visible !== 'boolean') && $scope.actionFactory[$scope.metamodel.visible]){
+							return $scope.actionFactory[$scope.metamodel.visible]({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.metamodel.id });
+						} else if(typeof _searchInParents($scope, $scope.metamodel.visible) === 'function') {
+							return _searchInParents($scope, $scope.metamodel.visible)({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.metamodel.id });
+						}
+						return $scope.metamodel.visible || true;
 					},
 					'getParentResource' : function(){
 						return resourceFactory.get($scope.field.property.self);

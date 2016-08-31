@@ -117,6 +117,20 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 							});
 						}
+
+						// Now we prepare the visible functionality
+						section.visible = section.visible || true;
+						if(typeof section.visible !== 'function') {
+							(function(visible){
+								section.visible = function(){
+									if(typeof visible === 'boolean'){
+										return visible;
+									} else {
+										return $scope.actionFactory[visible]({ 'scope': $scope, 'metamodel': metamodel, 'resources': $scope.resourcesToBind.properties });
+									}
+								};
+							}(section.visible));
+						}
 					});
 				}
 			}
