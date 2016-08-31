@@ -691,6 +691,27 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                         });         
                     });
 
+                    // authorize
+                    $http({
+                    url: 'assets/resources/config/users.json',
+                    method: 'GET'
+                     }).success(function(data) {
+                    //extract user
+                        var user = [];
+                        angular.forEach(data.users, function(key) {
+                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value ) {
+                            user = key;
+                        }});
+                        
+                         $rootScope.user = user; 
+                      }).error(function(data) {
+                        $rootScope.showIcon = false;
+                        if (data && data.exception) {
+                            growl.error(data.exception.message, '30');
+                        } else {
+                            growl.error($filter('translate')('GENERAL_ERROR'));
+                        }
+                    });
 
                     $rootScope.authnUsername = undefined;
                     $rootScope.authnPassword = undefined;
