@@ -1,11 +1,12 @@
 <span class="form-group">
-    <label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-4 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
-    <span class="col-xs-12" ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-8 col-md-6' : '')">
+    <label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+    <span ng-class="(!field.label && field.property.required) ? ' required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
         <div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
         <label  ng-repeat="(key, value) in field.attributes track by $index"
-                class="btn btn-default col-xs-{{12/field.attributes.length}}"
+                class="btn btn-default col-xs-{{field.colspan.toggles}}"
+                ng-class="field.options[key] === field.property.value ? 'btn-active acttoggle' : ''"
                 name="{{field.name}}"
-
                 ng-model="field.property.value"
                 ng-required="field.property.required"
                 ng-disabled="!field.property.editable"

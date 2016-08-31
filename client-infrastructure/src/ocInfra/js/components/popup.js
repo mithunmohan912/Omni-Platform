@@ -27,6 +27,10 @@ return {
 
 			$scope.resetDisabled = false;
 
+			if (_.isEmpty($scope.resourceUrl)){
+				$scope.resourceUrl = $rootScope.resourceUrl;
+			}
+
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
@@ -46,13 +50,17 @@ return {
 				}
 			});
 
-			$scope.$watch('resourceUrl', function(){
+			$scope.$watch('resourceUrl', function(newValue, oldValue){
 				if ($scope.metamodelObject) {
 					//Since we share the same metamodel for different popups, screens, we must define a type to be able to difference the titles. 
+					if (!$scope.resourceUrl && newValue !== oldValue){
+						$scope.resourceUrl = $rootScope.resourceUrl;
+					}	
 					if ($scope.resourceUrl){
 						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-					}	
-				}				
+					}
+				}
+
 			});
 
 			$scope.$on('refresh_popUp', function(event, params) {
@@ -72,7 +80,11 @@ return {
 						}
 						
 						$scope.popUpResourceToBind = newValue[$scope.resourceUrl];
-						$scope.resetDisabled = checkReset();
+						
+						//OC-958 
+						$scope.resetDisabled = false;
+						// $scope.resetDisabled = checkReset();
+
 					}
 
 			});
@@ -87,13 +99,21 @@ return {
 
 			function _defaultClose() {
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.close && $scope.metamodelObject.actions.close.callback)? $scope.metamodelObject.actions.close.callback: null;
-				$scope.$broadcast('close_popUp_renderer', { resourceUrl: $scope.resourceUrl, callback: callback });
-			}
+				//OC-957
+				// $scope.$broadcast('close_popUp_renderer', { resourceUrl: $scope.resourceUrl, callback: callback });
+				if (callback){
+					$scope.execute(callback);
+				}
+			}	
 
 			function _defaultReset() {
 				if ($scope.metamodelObject.actions.reset.links){
 					var callback = $scope.metamodelObject.actions.reset.callback? $scope.metamodelObject.actions.reset.callback: null;
-					$scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links, callback: callback });
+					//OC-958
+					// $scope.$broadcast('reset_renderer', { resourceUrl: $scope.resourceUrl, links: $scope.metamodelObject.actions.reset.links, callback: callback });
+					if (callback){
+						$scope.execute(callback);
+					}
 				}
 			}
 			
@@ -146,22 +166,23 @@ return {
 
 			}
 
-			function checkReset(){
+			////OC-958
+			// function checkReset(){
 
-				//Check links defined in metamodel
-				if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset){
-					for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
+			// 	//Check links defined in metamodel
+			// 	if ($scope.popUpResourceToBind && $scope.metamodelObject.actions && $scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.links){
+			// 		for (var i=0; i<$scope.metamodelObject.actions.reset.links.length; i++){
 
-						for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
-							if ($scope.popUpResourceToBind.dependencies[j].resource === $scope.metamodelObject.actions.reset.links[i]){
-								//It means ther's al least one link to be reset, so we must not disable the reset button. 
-								return false;
-							}
-						}
-					}
-				}
-				return true;
-			}
+			// 			for (var j=0; j<$scope.popUpResourceToBind.dependencies.length; j++){
+			// 				if ($scope.popUpResourceToBind.dependencies[j].resource === $scope.metamodelObject.actions.reset.links[i]){
+			// 					//It means ther's al least one link to be reset, so we must not disable the reset button. 
+			// 					return false;
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// 	return true;
+			// }
 
 			$scope.execute = function(action) {
 				if (typeof action === 'function') {
@@ -169,7 +190,13 @@ return {
 					action();
 					
 				} else if($scope.actionFactory[action]){
-					$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					if ($scope.resourceUrl){
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+					}
+					else{
+						$scope.actionFactory[action]();
+					}
+					
 				}
 
 			};

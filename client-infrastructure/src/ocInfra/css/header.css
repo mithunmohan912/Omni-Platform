@@ -4,11 +4,7 @@ Responsive navbar-brand image CSS
 - Remove navbar-brand padding for firefox bug workaround
 - add 100% height and width auto ... similar to how bootstrap img-responsive class works
 ***********************************/
-@media (min-width: 1200px){
 
-.container {/* width: 1170px; */ width: 970px;}
-
-}
 
 .navbar-default {background-color: #fff;border-color: #E7E5E2;}
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
@@ -25,7 +21,6 @@ Responsive navbar-brand image CSS
 }
 .navbar-default .navbar-nav>li>a {
     color: rgba(85, 85, 85, 1);
-    background-color: rgba(255, 255, 255, 1);
 }
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus {
@@ -50,21 +45,28 @@ Responsive navbar-brand image CSS
 
 /* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
 .navbar-alignit .navbar-header {
-	-webkit-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
- 	transform-style: preserve-3d;
+    transform-style: preserve-3d;
   height: 50px;
 }
 .navbar-alignit .navbar-brand {
-	top: 50%;
-	display: block;
-	position: relative;
-	height: auto;
-	transform: translate(0,-50%);
-	margin-right: 15px;
+    top: 50%;
+    display: block;
+    position: relative;
+    height: auto;
+    transform: translate(0,-50%);
+    margin-right: 15px;
   margin-left: 15px;
 }
-.navbar-nav>li>.dropdown-menu {	z-index: 9999;}
+.navbar-nav>li>.dropdown-menu { z-index: 9999;}
+.homeactive {
+    background-color: #fafafa;
+}
+.navbar-default .navbar-nav > .open > a, .oc-navbar-default .navbar-nav > .open > a, .navbar-default .oc-navbar-nav > .open > a, .oc-navbar-default .oc-navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .oc-navbar-default .navbar-nav > .open > a:hover, .navbar-default .oc-navbar-nav > .open > a:hover, .oc-navbar-default .oc-navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .oc-navbar-default .navbar-nav > .open > a:focus, .navbar-default .oc-navbar-nav > .open > a:focus, .oc-navbar-default .oc-navbar-nav > .open > a:focus {
+    background-color: #fff !important;
+    color: #555;
+}
 .clear-right{clear: right; margin-right: 15px;}
 .nav>li> a.navLag{display: inline-block;}
 
@@ -121,3 +123,160 @@ padding-bottom: 0;
 .ownerFont {padding-left: 0px;}
 
 }
+@media (min-width: 768px) and (max-width: 1024px){
+.broker { margin-top: 0px;}
+.navbar-nav>li.logout a {margin-top: 0px;}
+}
+
+@media only screen and (min-width:411px) and (max-width: 731px)  {
+ .oc-logo   {
+    min-height: 45px;
+    min-width: 71px;
+    margin-top: 0px;
+    width: 75px;
+    height: 41px;
+    }
+}
+@media only screen and (min-width:412px) and (max-width: 736px)  {
+ .oc-logo   {
+    min-height: 45px;
+    min-width: 71px;
+    margin-top: 0px;
+    width: 75px;
+    height: 41px;
+    }
+}
+
+@media only screen and (min-width:736px) and (max-width: 414px)  {
+ .oc-logo   {width: 10%;}
+}
+
+.oc-logo {
+    background: url("../assets/images/cscLogo.png");
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+  }
+
+@media only screen and (max-width: 375px) {
+.oc-logo {
+    width: 14%;
+    margin-left: 0px;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 65px;
+    height: 40px;
+
+  }
+}
+@media only screen and (min-width: 421px) {
+.oc-logo {
+width: 15%;
+    margin-left: 0px;
+    margin-top: 5px;
+    min-height: 40px;
+    height: 40px;
+    min-width: 75px;
+  }
+}
+@media only screen and (min-width: 769px) {
+.oc-logo {
+      width: 97px;
+      margin-left: 10px;
+      margin-top: 5px;
+      height: 57px;
+  
+  }
+}
+
+
+.subMenu{margin: 0px auto;float: none; border:none;padding:0px;}
+
+
+.navbar-nav>li>.dropdown-menu {
+  margin-top: 1px !important;
+  border:none;
+
+
+}
+
+.navbar-default .navbar-nav>li>a {
+
+  font-weight: bold;
+}
+
+.mega-dropdown {
+  position: static !important;
+  width: 100%;
+}
+
+.mega-dropdown-menu {
+    padding: 0px !important;
+    width: 100%;
+    box-shadow: none !important;
+    -webkit-box-shadow: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px !important;
+}
+
+
+.mega-dropdown-menu > li > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.mega-dropdown-menu > li > ul > li {
+  list-style: none;
+  color: #0096bb;
+}
+.mega-dropdown-menu > li ul > li:hover,
+.mega-dropdown-menu > li ul > li:focus,
+.mega-dropdown-menu > li ul > li > a:hover,
+.mega-dropdown-menu > li ul > li > a:focus {
+    background-color: #ffffff;
+    color: #cceaf1;
+  text-decoration: none;
+}
+
+.mega-dropdown-menu > li > ul > li > a {
+  display: block;
+  clear: both;
+  font-weight: bold;
+  line-height: 1.428571429;
+  white-space: normal;
+  font-size: 14px;
+
+  padding-bottom: 5px
+}
+
+
+
+.mega-dropdown-menu .dropdown-header {
+  color: #0096bb;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0px;
+  background-color: #fff;
+  border: 1px solid #f4f4f4;
+}
+
+.mega-dropdown-menu form {
+  margin: 3px 20px;
+}
+
+.mega-dropdown-menu .form-group {
+  margin-bottom: 3px;
+}
+
+[class^="margaNavIcon flaticon-"]:before, [class*="margaNavIcon flaticon-"]:before, [class^="margaNavIcon flaticon-"]:after, [class*="margaNavIcon flaticon-"]:after {
+    font-family: Flaticon;
+    font-size: 50px !important;
+    font-style: normal;
+    margin-left: 0px;
+}
+
+.navbar-default, .oc-navbar-default {
+    border-color: #e7e7e7;
+    background-color: #fafafa !important;
+}
+.nav2{clear:both; width:100%}

@@ -318,6 +318,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         Output:
             - Object containing the processed properties.
     */
+    this.processProperties = _processProperties;
     function _processProperties(responseData){
         var propertiesObject = {};
 
@@ -476,25 +477,35 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     }
 
 
-    this.getDefaultValues = function(action, metaModel){
-        var properties = {};
+    this.getDefaultValues = function getDefaultValues(action, metaModel, properties){
+        properties = properties || {};
 
-            if(metaModel.defaultValue !== undefined){
-                angular.forEach(metaModel.defaultValue, function(resource) {
-                    if(action ===resource.action){
-                        if(resource.value === 'Date'){
-                            resource.value = formatIntoDate(new Date());    
-                        }
-
-                        properties[resource.field] = {value: resource.value};
-                        
+        if(metaModel.defaultValue !== undefined){
+            angular.forEach(metaModel.defaultValue, function(resource) {
+                if(action ===resource.action){
+                    if(resource.value === 'Date'){
+                        resource.value = formatIntoDate(new Date());    
                     }
-                });
-            }
 
+                    properties[resource.field] = {
+                        value: resource.value,
+                        metainfo:{}
+                    };
+                }
+            });
+        }
+
+        // In some cases the default values are not defined in the same metamodel that starts an action, like with wizards for example
+        // so we iterate over all the metamodels being used to get their default values
+        if(metaModel.linkedMetamodels){
+            metaModel.linkedMetamodels.forEach(function(elem){
+                if($rootScope.metamodel){
+                getDefaultValues(action, $rootScope.metamodel[elem], properties);
+                }
+            });
+        }
 
         return properties;
-
     };
 
     /*============================================= END Helper methods for components =============================================*/
@@ -784,6 +795,11 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             growl.error($rootScope.locale.GET_OPERATION_FAILED);
         });
     } else if(httpmethod==='POST'){
+        // First we get the default values into the options properties because thise properties
+        // are well constructed (with self, metainfo, etc)
+        defaultValues = loadFromDefaultSet(options.properties, defaultValues);
+        // Then we repeat the same process, but in this case with the property collection and the
+        // values returned from the previous operation
         properties = loadFromDefaultSet(properties, defaultValues);
         params = setDataToParams(properties, params);
         $rootScope.loader.loading=true;
@@ -800,7 +816,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
             $rootScope.resourceHref = data._links.self.href;
             $rootScope.loader.loading=false;
             if(resolve) {
-                resolve();
+                resolve(httpResponse);
             }                    
         }
         }).error(function(){
@@ -1142,9 +1158,10 @@ function setData($scope, schema, object){
 
 function loadFromDefaultSet(properties, defaultValues){
     if(properties !== undefined && defaultValues !== undefined){
-        for (var key in properties) {
-            if (!properties[key].value) {
+        for (var key in defaultValues) {
+            if (!properties[key] || !properties[key].value || properties[key].value === '') {
                 if(defaultValues[key] !== undefined){
+                    properties[key] = properties[key] || defaultValues[key] || {};
                     properties[key].value = defaultValues[key].value;    
                 }
             }

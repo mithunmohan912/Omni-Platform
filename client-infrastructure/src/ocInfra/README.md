@@ -100,6 +100,8 @@ The renderer metamdel is made out of sections. Those sections are objects with d
 * __colspan__: Number that represents the number of columns that the section will use. It uses bootstrap underneath, so the maximum colspan is 12. The minimum colspan is not 1, as it could be expected, but 3 because we do not want to allow more than 4 sections per row (more sections wouldn’t be user friendly since the content would be so small).
 * __properties__: Array containing json objects that define the content displayed within the section. The object attributes vary from one to another depending on the directive that is going to interpret them (table, input, etc.)
 * __resourceUrl__: This is intended to be used in the first screen. It represents the first API call when launching the application. 
+* __accordion__: Flag that allows you to toggle content on the current section
+* __collapse__: Flag property of accordion that define if section is collapse by default or not
 The renderer could include other renderer component. This is handled using a section type reference in the metamodel:
 * __$ref and type__: This twon properties allows to link antoher metamodel file that will be handled by another render instance. 
 
@@ -110,7 +112,9 @@ Example:
 	        "sections": [
 	            {
 	                "$ref": "quote_data",
-	                "type": "reference"
+	                "type": "reference",
+                    "accordion":true,
+                    "collapse":true,
 	            },
 	            {
 	                "title":"Interested parties",
@@ -464,7 +468,7 @@ This type uses the same attributes as the [decimal input](#442-decimal).
 ##### 2.4.13 Checkbox
 
 ###### Attributes
->_None._
+* __postion__: String. Defines the position of the checkbox and his label. If position is defined as "after". Checkbox position is shown before than label. By default is shown first label and second checkbox component. 
 
 ###### Options
 >_None._
@@ -546,6 +550,13 @@ The metamodel definition by default is as follows, a metamodel element that coul
     - __label__: label for the button that could be included at the bottom of the table to add a new item to the collection.
     - __method__: optional, name of the function in the custom factory that is going to overwrite the default action.
     - __callback__: optional, name of the function in the custom factory that is going to be executed after the default action.
+    - __values__: optional, list of the possible buttons, a value for each button that also indicates the order to be displayed. Example:
+
+            {   
+                "buttons": {
+                    "values": ["Syndic", "contact", "representative"]
+                }
+            }
 
 * __modalRef__: metadata file relative path that includes the metadata definition for the popup.
 * __filters__: optional, valid values to filter the collection, a pair key/value that indicates the property and an array of possible values. For example:
@@ -558,26 +569,26 @@ The metamodel definition by default is as follows, a metamodel element that coul
 
 Example:
 
-    {
-    "metamodel": {
-        "name":"quoteList",
-        "searching": true,
-        "pagination": "true",
-        "properties": [
-            {
-                "id": "quote:product_id",
-                "label_header": "_PRODUCT_TYPE",
-                "type": "icon",
-                "width": "5%"
-            },
-            {
-                "id": "quote:identifier",
-                "label_header": "_NUMBER",
-                "type": "label",
-                "align": "left",
-                "width": "10%"
-            },
-            ...
+        {
+            "metamodel": {
+                "name":"quoteList",
+                "searching": true,
+                "pagination": "true",
+                "properties": [
+                    {
+                        "id": "quote:product_id",
+                        "label_header": "_PRODUCT_TYPE",
+                        "type": "icon",
+                        "width": "5%"
+                    },
+                    {
+                        "id": "quote:identifier",
+                        "label_header": "_NUMBER",
+                        "type": "label",
+                        "align": "left",
+                        "width": "10%"
+                    },
+                    ...
 
 
 #### 3.3 Table metamodel properties

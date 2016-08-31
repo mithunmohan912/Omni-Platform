@@ -24,9 +24,11 @@
             {
                 "title": "_AUTO_QUOTE_EU_SEARCH",
                 "icon":"flaticon-auto",
+               
                 "properties": [
                             {
                                 "type": "buttonGroup",
+                                "class":"padding-none",
                                 "buttons" : [
                                     {
                                         "id":"btn_auto_quote_eu_create",
@@ -41,12 +43,20 @@
                         ]
             },
             {
+                "class":"padding-none padding-top-15px",
                 "properties": [
                             {
                                 "id": "contract:number",
                                 "type": "text",
                                 "label": "_CONTRACT",
                                 "row": 1,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -54,6 +64,13 @@
                                 "type": "text",
                                 "label": "_DESCRIPTION",
                                 "row": 1,
+                                "class":"padding-none",
+                                "colspan" : {
+                                         "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true  
                             },
                             {
@@ -61,6 +78,13 @@
                                 "type": "text",
                                 "label": "_DISTRIBUTOR_ID",
                                 "row": 1,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -68,20 +92,45 @@
                                 "type": "text",
                                 "label": "_QUOTE_NUMBER",
                                 "row": 2,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
                                 "id": "quote:product_id",
-                                "type": "text",
+                                "type": "select",
                                 "label": "_PRODUCT",
                                 "row": 2,
-                                "uiInput" : true
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
+                                "uiInput" : true,
+                                "value" : "MC011",
+                                "options" : {
+                                    "getData" : "autoQuoteDropdown"
+                                }
                             },
                             {
                                 "id": "quote:start_date",
                                 "type": "date",
                                 "label": "_Effective_Date",
                                 "row": 2,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -89,6 +138,13 @@
                                 "type":"text",
                                 "label":"_QUOTE_STATUS",
                                 "row": 3,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -96,6 +152,13 @@
                                 "type": "select",
                                 "label": "_QUOTE_TYPE",
                                 "row": 3,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true                                  
                             },
                             {
@@ -103,6 +166,13 @@
                                 "type": "text",
                                 "label": "_RISK_HOLDER",
                                 "row": 3,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -110,6 +180,13 @@
                                 "type":"text",
                                 "label":"_MAKE",
                                 "row": 4,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },
                             {
@@ -117,6 +194,13 @@
                                 "type":"text",
                                 "label":"_EXT_MODEL",
                                 "row": 4,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             },                        
                             {
@@ -124,14 +208,23 @@
                                 "type": "text",
                                 "label": "_REGISTRATION_NUMBER",
                                 "row": 4,
+                                "class":"padding-none",
+                                "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":4
+                                    },
                                 "uiInput" : true
                             }
                         ]
             },
             {
+                
                     "properties": [
                             {
                                 "type": "buttonGroup",
+                                "class":"padding-none",
                                 "buttons" : [
                                     {
                                         "id":"btn_auto_quote_eu_create",

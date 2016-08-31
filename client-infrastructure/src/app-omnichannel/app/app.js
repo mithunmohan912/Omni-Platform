@@ -76,22 +76,24 @@ TourConfigProvider.set('prefixOptions', false);
 }]);
 
 app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynamicLocale /*, $templateCache*/ , OCAppConfig) {
-
-    if(sessionStorage.username === null || sessionStorage.username === undefined) {
+    
+    if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
         $location.url('/screen/anonymous');
     }
 
-    $rootScope.$on('$locationChangeStart', function () {
+    $rootScope.$on('$locationChangeStart', function (event,newUrl) {
     var screenId = $rootScope.screenId;
-
+    if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+    	return;
+    } 
     if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
     } else if (screenId === 'anonymous'){
-        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
             $location.url($rootScope.nextURL);
         }
     } else {
-        if(sessionStorage.username === null || sessionStorage.username === undefined) {
+        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
             $location.url('/screen/anonymous');
         }
     }
@@ -123,21 +125,36 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 
 app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
     return {
+        navigateAsAnonymous: function(params){
+            $rootScope.user = undefined;
+            sessionStorage.username = undefined;
+            
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);
+            
+            if($rootScope.regionId === undefined){
+                var arr = params.inputComponent.actionURL.split('/');
+                $rootScope.regionId = arr[1];
+            }
+        },
+        navigateToLogin: function(params){
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
         navigateToScreen: function(params){
             $rootScope.resourceHref = undefined;
-            if(params.inputComponent.actionURL === '/login'){
-                $rootScope.nextURL = params.inputComponent.actionURL;
-                $rootScope.navigate(params.inputComponent.actionURL);    
-            }else{
-                $rootScope.nextURL = params.inputComponent.actionURL;
-                $rootScope.navigate(params.inputComponent.actionURL);
-                if($rootScope.regionId === undefined){
-                    var arr = params.inputComponent.actionURL.split('/');
-                    $rootScope.regionId = arr[1];
-                }
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);
+            if($rootScope.regionId === undefined){
+                var arr = params.inputComponent.actionURL.split('/');
+                $rootScope.regionId = arr[1];
             }
         },
         actionHandling: function(params){
+            $rootScope.user = undefined;
+            sessionStorage.username = undefined;
+            
             $rootScope.nextURL = params.inputComponent.actionURL;
             
              if($rootScope.regionId === undefined){
@@ -145,7 +162,7 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                 $rootScope.regionId = arr[1];
             }
             new Promise(function(resolve) {
-                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, undefined, params.properties, resourceFactory, params.defaultValues, $location, resolve); 
             }).then(function(){
                 if(params.inputComponent.actionURL){
                     $location.path(params.inputComponent.actionURL);
@@ -163,7 +180,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
-app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
+app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
             MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
@@ -174,14 +191,77 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         itemActionHandling: function(resource, inputComponent, $scope){
             $rootScope.resourceHref = resource.href;
             MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
+        },
+        actionHandlingWithValidation: function(params){
+            var validation = false;
+            //Iterate through the properties to determine if atleast one is valued
+            angular.forEach(params.properties, function(val, key){
+                var value = params.properties[key].value;
+
+                if(value === null || value === undefined || value === '' || value === 'undefined'){
+                    //continue
+                }else{
+                    validation = true;
+                }
+            });
+
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            
+            if(validation){
+                MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
+            }else{
+                growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
+            }
+        },
+        actionHandlingWithDefaults: function(params){
+            if(params.defaultValues !== undefined){
+                for(var key in params.defaultValues){
+                    if(!params.properties[key]){
+                        params.defaultValues[key].metainfo = {};
+                        params.properties[key]= params.defaultValues[key];
+                    }
+                } 
+            }
+            MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location);
+        },
+        homeOwnerDropdown: function(){
+            return [$filter('translate')('_IN005')];
         }
     };
 });
 
-app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
+app.factory('autosearchFactory', function($rootScope, quotessearchFactory, $filter){
     return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
+        },
+        navigateToScreen: function(params){
+            quotessearchFactory.navigateToScreen(params);
+        },
+        itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
+        },
+        autoQuoteDropdown: function(){
+            return [$filter('translate')('_MC011'),
+                    $filter('translate')('_MD005'),
+                    $filter('translate')('_MA002'),
+                    $filter('translate')('_MC002'),
+                    $filter('translate')('_AX009')];
+        }
+    };
+});
+
+app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchFactory){
+    return {
+        actionHandling: function(params){
+          quotessearchFactory.actionHandlingWithDefaults(params); 
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
@@ -192,29 +272,7 @@ app.factory('autosearchFactory', function($rootScope, quotessearchFactory){
     };
 });
 
-app.factory('insuredloginFactory', function($rootScope, MetaModel,quotessearchFactory,$location,resourceFactory){
-    return {
-        actionHandling: function(params){
-            if(params.defaultValues !== undefined){
-                for(var key in params.defaultValues){
-                    if(!params.properties[key]){
-                        params.defaultValues[key].metainfo = {};
-                        params.properties[key]= params.defaultValues[key];
-                    }
-                } 
-            }
-             
-            quotessearchFactory.actionHandling(params);
-        },
-        navigateToScreen: function(params){
-            quotessearchFactory.navigateToScreen(params);
-        },
-        itemActionHandling: function(resource, inputComponent, $scope){
-            MetaModel.handleAction($rootScope, $scope, inputComponent, resource.href, undefined, resourceFactory, undefined, $location);
-        }
-    };
-});
-app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory){
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory, $q){
     return {
         navigateToTab: function(params){
             if(params.inputComponent.action){
@@ -231,9 +289,9 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
         },
         navigateToWizard: function(params){
             if(params.inputComponent.action){
-                new Promise(function(resolve) {
-                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, undefined, $location, resolve);
-                }).then(function(){
+                // We shouldn't have .then that does nothing because we break the promise chain. new Promise doesn't work in IE, we use $q instead
+                return $q(function(resolve) {
+                    MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve);
                 });
             } 
         },
@@ -243,7 +301,7 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
     };
 });
 
-app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
+app.factory('autocreateFactory', function($rootScope, quotescreateFactory, resourceFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -253,6 +311,41 @@ app.factory('autocreateFactory', function($rootScope, quotescreateFactory){
         },
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
+        },
+        //typeAhead function OC-672
+        search: function(element){
+            var url = '';
+            var newUrl = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if(data){
+                    url = $rootScope.hostURL;
+                    var regionToSORMap = $rootScope.regionToSoR;
+                    var applName = regionToSORMap[$rootScope.regionId];
+                    newUrl = url.replace(':regionId',applName);
+                    url = newUrl + element.field.options.apiTypeAhead;
+                    for(var i=0; i<element.field.options.fieldTypeAhead.length; i=i+2){
+                        url = url + element.field.options.fieldTypeAhead[i] + element.resources[element.field.options.fieldTypeAhead[i+1]].value;
+                    }
+                }
+                return resourceFactory.get(url).then(function(response){
+                    var data = response.data || response;
+                    return data._links.item;
+                
+                });
+            });
+        },
+        
+        selectOption: function(element){
+            var payload = {};
+            var link = '';
+            return element.field.getParentResource().then(function(response){
+                var data = response.data || response;
+                if (data){                   
+                        link = element.id;       
+                        payload[link] = element.$item.name;                   
+                }
+            }); 
         }
     };
 });
@@ -303,16 +396,16 @@ app.factory('preferpaperFactory', function($rootScope, gopaperlessFactory){
 app.factory('clientssearchFactory', function($rootScope, quotessearchFactory){
    return {
         actionHandling: function(params){
-            quotessearchFactory.actionHandling(params);
+            quotessearchFactory.actionHandlingWithDefaults(params);
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
         },
-        itemActionHandling: function(params){
-            quotessearchFactory.itemActionHandling(params);
+       itemActionHandling: function(resource, inputComponent, $scope){
+            quotessearchFactory.itemActionHandling(resource, inputComponent, $scope);
         }
     };
-});
+}); 
 
 app.factory('hoquoteinquireFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location){
     return {
@@ -370,7 +463,6 @@ app.factory('inqlocationInfoFactory', function($rootScope, hoquoteinquireFactory
     };
 });
 
-
 app.factory('inqcoverageInfoFactory', function($rootScope, hoquoteinquireFactory){
     return {
         navigateToTab: function(params){
@@ -415,7 +507,7 @@ app.factory('riskInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory, resourceFactory){
+app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, additionalInfoFactory){
     return {
         navigateToTab: function(params){
             quotescreateFactory.navigateToTab(params);
@@ -425,43 +517,8 @@ app.factory('autoRiskInfoFactory', function($rootScope, quotescreateFactory, add
         },
         calculatePremium: function(params){
             additionalInfoFactory.calculatePremium(params);
-        },
-	   
-        //typeAhead function OC-672
-        search: function(element){
-            var url = '';
-            var newUrl = '';
-            return element.field.getParentResource().then(function(response){
-                var data = response.data || response;
-                if(data){
-                    url = $rootScope.hostURL;
-                    var regionToSORMap = $rootScope.regionToSoR;
-                    var applName = regionToSORMap[$rootScope.regionId];
-                    newUrl = url.replace(':regionId',applName);
-                    url = newUrl + element.field.options.apiTypeAhead;
-                    for(var i=0; i<element.field.options.fieldTypeAhead.length; i=i+2){
-                        url = url + element.field.options.fieldTypeAhead[i] + element.resources[element.field.options.fieldTypeAhead[i+1]].value;
-                    }
-                }
-                return resourceFactory.get(url).then(function(response){
-                    var data = response.data || response;
-                    return data._links.item;
-                
-                });
-            });
-        },
-        
-        selectOption: function(element){
-            var payload = {};
-            var link = '';
-            return element.field.getParentResource().then(function(response){
-                var data = response.data || response;
-                if (data){                   
-                        link = element.id;       
-                        payload[link] = element.$item.name;                   
-                }
-            }); 
         }
+        
     };
 });
 
@@ -511,46 +568,181 @@ app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
     };
 });
 
-app.factory('loginFactory', function($rootScope, $filter, $http, growl){
-    return {
-        navigateToScreen: function(params){
-            $rootScope.showIcon = true;
-                 $http({
+app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactory, growl){
+    var authnChain = {
+        authn: function(params){
+            $rootScope.isAuthSuccess = false;
+            if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
+                $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+            }
+            if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
+                $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
+            }
+            if (params.scope.resourcesToBind.properties.inputRealm === undefined || params.scope.resourcesToBind.properties.inputRealm.value === undefined) {
+                $rootScope.authnRealm = '';
+            } else {
+                $rootScope.authnRealm = params.scope.resourcesToBind.properties.inputRealm.value;
+            }
+
+            var authnCallbackData = {};
+            if ($rootScope.authnCallbackData !== undefined) {
+                authnCallbackData = $rootScope.authnCallbackData;
+                console.log('authnCallbackData.authId : '+authnCallbackData.authId);
+                var i;
+                if (authnCallbackData.stage === 'LDAP1' || authnCallbackData.stage === 'DataStore1') {
+                    for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                        if (authnCallbackData.callbacks[i].type === 'NameCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputUsername.value;
+                            continue;
+                        }
+                        if (authnCallbackData.callbacks[i].type === 'PasswordCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputPassword.value;
+                            continue;
+                        }
+                    }
+                } else if (authnCallbackData.stage === 'OATH1') {
+                    for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                        if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
+                            authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                            authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            // authenticate user
+            $http({
+                method : 'POST',
+                headers : {
+                    'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                    'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
+                    'Content-Type' : 'application/json'
+                },
+                data : authnCallbackData,
+                url : $rootScope.config.authnURL + '/authenticate'
+            }).success(function(data) {
+                if (data.authId !== undefined) {
+                    console.log('Authenticate callback');
+                    console.log('OpenAM authId : '+data.authId);
+                    $rootScope.authnCallbackData = data;
+                    if (data.stage === 'LDAP1' || data.stage === 'DataStore1') {
+                        authnChain.authn(params);
+                    }
+                    else if (data.stage === 'OATH1') {
+                        params.inputComponent.actionURL = '/screen/otp';
+                        anonymousFactory.navigateToLogin(params);
+                    }
+                } else if (data.tokenId !== undefined) {
+                    console.log('Authenticate successful');
+                    console.log('OpenAM tokenId : '+data.tokenId);
+                    sessionStorage.tokenId = data.tokenId;
+                    sessionStorage.username = $rootScope.authnUsername;
+                    $rootScope.isAuthSuccess = true;
+
+                    // OAuth2 token service
+                    // OAuth2 password flow
+                    $http({
+                        method : 'POST',
+                        withCredentials : true,
+                        headers : {
+                            'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                            'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
+                            'Authorization' : 'Basic b2NkZXY6QzdENTZCODVFRjE1OTg3',
+                            'Content-Type' : 'application/x-www-form-urlencoded'
+                        },
+                        data : 'grant_type=password&username='+$rootScope.authnUsername+'&password='+$rootScope.authnPassword,
+                        url : $rootScope.config.oauth2URL + '/access_token'
+                    }).success(function(data) {
+                        console.log('OAuth2 token service successful');
+                        console.log('OAuth2 access_token : '+data.access_token);
+                        console.log('OIDC id_token : '+data.id_token);
+                        sessionStorage.access_token = data.access_token;
+                        sessionStorage.id_token = data.id_token;
+
+                        // OAuth2 userinfo service
+                        // default OIDC profile
+                        $http({
+                            method : 'POST',
+                            withCredentials : true,
+                            headers : {
+                                'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                                'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret,
+                                'Authorization' : 'Bearer '+sessionStorage.access_token
+                            },
+                            url : $rootScope.config.oauth2URL + '/userinfo'
+                        }).success(function(data) {
+                            console.log('OAuth2 userinfo service successful');
+                            console.log('OIDC profile name : '+data.name);
+                        });
+         
+                        // OAuth2 tokeninfo service
+                        // validate OAuth2 token
+                        $http({
+                            method : 'GET',
+                            headers : {
+                                'X-IBM-Client-ID' : $rootScope.config.apiGatewayApiKeys.client_id,
+                                'X-IBM-Client-Secret' : $rootScope.config.apiGatewayApiKeys.client_secret
+                            },
+                            url : $rootScope.config.oauth2URL + '/tokeninfo?access_token='+sessionStorage.access_token
+                        }).success(function(data) {
+                            console.log('OAuth2 tokeninfo service successful');
+                            console.log('OAuth2 tokeninfo expires_in : '+data.expires_in);
+                        });         
+                    });
+
+
+                    $rootScope.authnUsername = undefined;
+                    $rootScope.authnPassword = undefined;
+                    $rootScope.authnCallbackData = undefined;
+                    $rootScope.nextURL = params.inputComponent.actionURL;
+                    $rootScope.navigate(params.inputComponent.actionURL);
+                }
+            }).error(function(data) {
+                $rootScope.authnCallbackData = undefined;
+                $rootScope.showIcon = false;
+                if (data && data.exception) {
+                    growl.error(data.exception.message, '30');
+                } else {
+                    growl.error($filter('translate')('INVALID_CREDENTIALS'));
+                }
+            });
+        }
+    };
+    this.navigateToScreen = function(params) {
+        authnChain.authn(params);
+        $http({
                     url: 'assets/resources/config/users.json',
                     method: 'GET'
-                }).success(function(data) {
+                     }).success(function(data) {
                     //extract user
                     var user = [];
-
-                    $rootScope.isAuthSuccess = false;
                     angular.forEach(data.users, function(key) {
                         if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
                             $rootScope.isAuthSuccess = true;
                             user = key;
+                        }});
+                        if($rootScope.isAuthSuccess){
+                            $rootScope.user = user;
+                            sessionStorage.username = user.name;    
                         }
-                    });
-
-                        if (!$rootScope.isAuthSuccess) {
-                        growl.error($filter('translate')('INVALID_CREDENTIALS'));
-                        return false;
-                    }
-                    
-                    if($rootScope.isAuthSuccess){
-                        $rootScope.user = user;
-                        sessionStorage.username = user.name;    
-                    }
-                    
-                    $rootScope.nextURL = params.inputComponent.actionURL;
-                    $rootScope.navigate(params.inputComponent.actionURL);  
-                }).error(function(data) {
+                      }).error(function(data) {
                     $rootScope.showIcon = false;
                     if (data && data.exception) {
                         growl.error(data.exception.message, '30');
                     } else {
                         growl.error($filter('translate')('GENERAL_ERROR'));
-                    }
-                });
-    }
+                        }
+                    });
+    };
+    return this;
+});
+
+app.factory('otpFactory', function($rootScope, loginFactory){
+    return {
+        navigateToScreen: function(params){
+            loginFactory.navigateToScreen(params);
+        }
     };
 });
 

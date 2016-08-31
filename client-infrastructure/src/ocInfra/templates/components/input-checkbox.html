@@ -1,26 +1,31 @@
 <span class="form-group" 
-	  ng-show="field.isVisible()">
+	  ng-show="field.isVisible()" ng-switch="field.position">
 
-	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="control-label col-md-6 col-sm-8 col-xs-12" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+	<label ng-switch-default ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class=" no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
-	<span ng-class="(!field.label && field.property.required) ? 'col-sm-12 required-star' : (field.label ?'col-sm-2 col-sm-offset-2' : '')" class="col-xs-12">
+	<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		 <div class="checkbox">
-                    <label>
-                    	 <input type="checkbox"
-							id="{{field.id}}"
-							name="{{field.name}}"
-							
-							ng-model="field.property.value"
-							ng-disabled="!field.property.editable"
-							ng-change="field.onChange()"
-							ng-blur="field.onBlur()" />
-                      <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                    </label>
-                  </div>
-		
+		<div class="checkbox custom-checkbox">
+			<label>
+				<input 	type="checkbox"
+						id="{{field.id}}"
+						name="{{field.name}}"
+
+						ng-model="field.property.value"
+						ng-disabled="!field.property.editable"
+						ng-change="field.onChange()"
+						ng-blur="field.onBlur()" />
+				
+				<span class="cr">
+					<i class="cr-icon glyphicon glyphicon-ok"></i>
+				</span>
+			</label>
+		</div>
 
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>
+
+	<label ng-switch-when="after" ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class=" no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
 </span>

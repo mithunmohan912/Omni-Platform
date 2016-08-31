@@ -38,22 +38,36 @@
                         "label": "Quote Nr",
                         "type": "text",
                         "uiInput": true,
-                        "row": 1
+                        "colspan": {
+                            "xs": 12,
+                            "md": 4
+                        },
+                        "required": {
+                            "init": "isRequired",
+                            "bind": true,
+                            "events": ["resource_directory"],
+                            "forceUpdate": true
+                        }
                     },
                     {
                         "id": "quote:product_id",
                         "label": "Product Id",
                         "type": "text",
                         "uiInput": true,
-                        "row": 1
+                        "colspan": {
+                            "xs": 12,
+                            "md": 4
+                        }
                     },
                     {
                         "id": "quote:distributor_id",
                         "label": "Distributor id",
                         "type": "text",
                         "uiInput": true,
-                        "row": 1,
-                        "colspan": 4
+                        "colspan": {
+                            "xs": 12,
+                            "md": 4
+                        }
                     },
                     {
                         "type": "buttonGroup",
@@ -63,7 +77,7 @@
                                 "method": "searchQuotes"
                             }
                         ],
-                        "row": 2
+                        "colspan": 12
                     }
                 ]
             },

@@ -40,5 +40,8 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('buildMobilePkg', ['clean:mobile','copy:dist_mobile','replace:replace_mobile','replace:replace_mobile_appjs','clean:cordova','copy:dist_cordova','clean:mobile']);
 
+	grunt.registerTask('buildOmniMobilePkg', ['clean:mobile','copy:dist_mobile_omnichannel','replace:replace_mobile_omnichannel','replace:replace_mobile_appjs_omnichannel','clean:cordovaomni','copy:dist_cordova_omni','clean:mobile']);
+
+
 
 };

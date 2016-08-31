@@ -21,6 +21,15 @@
 
 .radio .cr {
     border-radius: 0px;
+    position: absolute !important;
+    top: 3px;
+}
+
+.radio .cr.left {
+    left: 25px;
+}
+.radio .cr.right {
+    right: -25px;
 }
 
 .checkbox .cr .cr-icon{
@@ -41,8 +50,13 @@
 }
 .radio .cr .cr-icon {
     margin-left: 0.04em;
+    color: #2c4269
 }
-.checkbox label, .radio label {padding-left: 0px;}
+.checkbox label {
+  padding-left: 0px !important;
+  font-weight: bold  !important;
+}
+.checkbox > div{margin-left: 0em !important};
 
 .checkbox label input[type="checkbox"],
 .radio label input[type="radio"] {
@@ -102,4 +116,22 @@
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+.custom-checkbox {
+  margin: 0 !important;
+}
+
+.custom-checkbox>label{
+  float:right !important;
+  width: auto !important;
+}
+
+label[uib-btn-radio]{
+  background-color: #bdbdbd;
+  border-color:#bdbdbd;
+}
+label[uib-btn-radio].btn-active{
+  background-color: #4f88a1;
+  border-color:#4f88a1;
 }

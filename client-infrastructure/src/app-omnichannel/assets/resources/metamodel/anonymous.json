@@ -1,13 +1,13 @@
 {
     "metamodel": {
-        "showHeader" :false,
+        
         "sections": [
             {
-                "logodir": true,
+                
                 "properties": [
                     {
-                        "type": "buttonGroup",
-                        "buttons": [
+                        "type": "iconGroup",
+                        "icons": [
                                 {
                                     "id":"btn_auto_quote_asia",
                                     "label": "_ASIA_AUTO_QS",
@@ -20,38 +20,58 @@
                                     "columnsize": 12 ,
                                     "title":"_ANONYMOUS",
                                     "tourcontent":"_ANONYMOUS_AISA_CONTENT",
-                                    "position":"bottom"
+                                    "iconflags":"malaysia",
+                                    "icon": "glyphicon flaticon-car",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
+                                    "position":"bottom",
+                                    "showButton":true
                                 },  
                                 {
                                     "id":"btn_home_quote_us",
                                     "label": "_HOME_QUOTE_US",
-                                    "method":"navigateToScreen",
+                                    "method":"navigateAsAnonymous",
                                     "actionURL" : "/us/screen/quotescreate",
                                     "order": "1",
                                     "type": "tourstep",
                                     "columnsize": 12 ,
                                     "title":"_ANONYMOUS",
                                     "tourcontent":"_ANONYMOUS_US_CONTENT",
-                                    "position":"bottom"
+                                    "iconflags":"usa",
+                                    "icon": "glyphicon flaticon-home",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
+                                    "position":"bottom",
+                                    "showButton":true
                                 },  
                                 {
                                     "id":"btn_sign_in",
-                                    "method":"navigateToScreen",
+                                    "method":"navigateToLogin",
                                     "label": "_SIGNIN",
                                     "actionURL": "/screen/login",
                                     "order": "0",
                                     "type": "tourstep",
                                     "columnsize": 12 ,
                                     "title":"_LOGIN",
+                                    "iconflags":"displayNon",
                                     "tourcontent":"_LOGIN_CONTENT",
-                                    "position":"bottom"
-                                },
-                                {
-                                    "id":"btn_take_a_tour",
-                                    "type": "tourButton",
-                                    "icon": "flaticon-take-a-tour",
-                                    "method":"starttour",
-                                    "label" : "_TAKE_A_TOUR"
+                                    "icon": "glyphicon flaticon-unlocked",
+                                        "colspan" : {
+                                            "xs":12,
+                                            "sm":12,
+                                            "md":4,
+                                            "lg":4
+                                        },
+                                    "position":"bottom",
+                                    "showButton":true
                                 }
                             ]
                     }

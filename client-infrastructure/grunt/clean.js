@@ -11,6 +11,7 @@ module.exports = {
   miniquote : ['src/app-miniquote/ocInfra'],
   reference : ['src/app-reference/ocInfra'],
   omnichannel : ['src/app-omnichannel/ocInfra'],
-  mobile : ['mobile/app-miniquote'],
-  cordova : ['../mobile-infrastructure/OCMiniQuote/www']
+  mobile : ['mobile'],
+  cordova : ['../mobile-infrastructure/OCMiniQuote/www'],
+  cordovaomni : ['../mobile-infrastructure/OmniChannel/www']
 };
