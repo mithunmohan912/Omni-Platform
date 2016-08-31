@@ -16,17 +16,26 @@
                     </label>
                   </div>
 			</span>
+
 		    <!-- <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span> -->
             <span ng-if="section.icon" class=" {{section.iconclass}} {{section.icon}}  icon-color section-icon-2"></span>
             <span class="tabTitle section-title-text {{section.titleclass}}" >{{ section.title | translate }}</span>
         	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
+
+            <span class="tabTitle section-title-text">{{ section.title | translate }}</span>
+        	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
+        	<div class="hr_margin">
+                     <hr class="onl_hrOr_1">
+                     <hr class="onl_hrOr_2">
+            </div>
+
     	</h3>
 
 
     	<div  uib-collapse="section.collapse">
 
 			<span ng-switch-when="reference" class="linked-renderer-container">
-				<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl" parent-resources="resourcesToBindRef[section.$ref]"></renderer>
+				<renderer metamodel="section.$ref" factory-name="section.factoryName || factoryName" resource-url="resourceUrl" parent-resources="resourcesToBindRef[section.$ref]"></renderer>
 			</span>
 
 			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
