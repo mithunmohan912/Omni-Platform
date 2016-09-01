@@ -84,7 +84,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     $rootScope.$on('$locationChangeStart', function (event,newUrl) {
     var screenId = $rootScope.screenId;
     if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
-    	return;
+        return;
     } 
     if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
@@ -1064,6 +1064,7 @@ app.directive('ckEditor', [function () {
 
                 elm.bind('$destroy', function () {
                     ck.destroy(false);
+
                 });
 
                 if (model) {
@@ -1086,6 +1087,7 @@ app.directive('ckEditor', [function () {
                         data.push(model.$viewValue);
 
                         if (isReady) {
+                            
                             isReady = false;
                             setData();
                         }
