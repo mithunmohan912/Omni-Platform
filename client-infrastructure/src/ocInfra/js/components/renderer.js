@@ -245,8 +245,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											$scope.resourceUrl = response.data._links.self.href;
 										} else {
 											$scope.resourceUrl = optionsObj.href;
-											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+											$scope.resourcesToBind[$scope.resourceUrl] = optionsObj;
+											$scope.resourcesToBind[$scope.resourceUrl].properties = optionsObj.properties;
 										}
 
 										_init($scope.metamodelObject);
@@ -454,14 +454,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 
 			$scope.execute = function(inputComponent) {
-				var propertiesBound = angular.copy($scope.resourcesToBind.properties);
-				//OC-956: extract the properties of the children renderer as well
-				if ($scope.resourcesToBindRef) {
-					for (var ref in $scope.resourcesToBindRef) {
-						angular.extend(propertiesBound, $scope.resourcesToBindRef[ref].properties);
-					}
-				}
-
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
@@ -469,15 +461,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						defaultValues = MetaModel.getDefaultValues(inputComponent.action, $scope.metamodelObject);
 					}
 
-					if(propertiesBound !== undefined){
+					if($scope.resourcesToBind.properties !== undefined){
 						$scope.actionFactory[inputComponent.method]({'scope': $scope, 'inputComponent': inputComponent, 
-							'optionUrl': $scope.optionUrl, 'properties': propertiesBound, 'defaultValues': defaultValues});
+							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues, 'propertiesRef': $scope.resourcesToBindRef});
 
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[inputComponent.method]({'properties': propertiesBound});
+							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties, 'propertiesRef': $scope.resourcesToBindRef});
 						}
 					}
 				}
@@ -493,31 +485,45 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					var payloads = {};
 					var promises = [];
 
-					var propertiesBound = angular.copy($scope.resourcesToBind.properties);
-					//OC-956: extract the properties of the children renderers as well
-					if ($scope.resourcesToBindRef) {
-						for (var ref in $scope.resourcesToBindRef) {
-							angular.extend(propertiesBound, $scope.resourcesToBindRef[ref].properties);
-						}
-					}
-
-					if (propertiesBound) {
-						for(var key in propertiesBound){
-							if(propertiesBound[key] && propertiesBound[key].self && propertiesBound[key].editable){
-								var href = propertiesBound[key].self;
+					if ($scope.resourcesToBind.properties) {
+						for(var key in $scope.resourcesToBind.properties){
+							if($scope.resourcesToBind.properties[key] && $scope.resourcesToBind.properties[key].self && $scope.resourcesToBind.properties[key].editable){
+								var href = $scope.resourcesToBind.properties[key].self;
 								payloads[href] = payloads[href] || {};
+							}
+						}
+						//OC-956: extract the properties of the children renderers
+						if ($scope.resourcesToBindRef) {
+							for (var ref in $scope.resourcesToBindRef) {
+								for(var key in $scope.resourcesToBindRef[ref].properties){
+									if($scope.resourcesToBindRef[ref].properties[key] && $scope.resourcesToBindRef[ref].properties[key].self && $scope.resourcesToBindRef[ref].properties[key].editable){
+										var href = $scope.resourcesToBindRef[ref].properties[key].self;
+										payloads[href] = payloads[href] || {};
+									}
+								}
 							}
 						}
 
 						var payloadKeys = Object.keys(payloads);
-						payloadKeys.forEach(function(url){
+						payloadKeys.forEach(function(url, index){
 							resourceFactory.get(url).then(function(response) {
 								var resourceToPatch = response.data;
 								var payloadToPatch = payloads[url];
 								for(var property in resourceToPatch){
 									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
-										if(property in propertiesBound && propertiesBound[property].value !== resourceToPatch[property]){
-											payloadToPatch[property] = propertiesBound[property].value? propertiesBound[property].value:null;
+										if(property in $scope.resourcesToBind.properties && $scope.resourcesToBind.properties[property].value !== resourceToPatch[property] && 
+											$scope.resourcesToBind.properties[property].self == url){
+											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
+										} else {
+											//OC-956: extract the properties of the children renderers
+											if ($scope.resourcesToBindRef) {
+												for (var ref in $scope.resourcesToBindRef) {
+													if(property in $scope.resourcesToBindRef[ref].properties && $scope.resourcesToBindRef[ref].properties[property].value !== resourceToPatch[property] && 
+														$scope.resourcesToBindRef[ref].properties[property].self == url){
+														payloadToPatch[property] = $scope.resourcesToBindRef[ref].properties[property].value? $scope.resourcesToBindRef[ref].properties[property].value:null;
+													} 
+												}
+											}
 										}
 									}
 								}
@@ -528,7 +534,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											$scope.execute({ 'method': data.callback});
 										}
 									});
-								}else if (data.callback){
+								} else if (promises.length === 0 && data.callback && index === payloadKeys.length-1){
 									$scope.execute({ 'method': data.callback});
 								}
 							});
