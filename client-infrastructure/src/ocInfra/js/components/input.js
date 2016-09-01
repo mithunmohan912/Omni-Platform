@@ -250,18 +250,18 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 	function _getValueForUiInput(element, propertyName, $scope){
 		if(element && element.value){
 			return element.value;
-		} else if(element && element.init){
-			var initMethod;
-			if($scope.actionFactory && $scope.actionFactory[element.init]){
-				initMethod = $scope.actionFactory[element.init];
-			} else if(_searchInParents($scope, element.init)){
-				initMethod = _searchInParents($scope, element.init);
+		} else if(element && element.function){
+			var method;
+			if($scope.actionFactory && $scope.actionFactory[element.function]){
+				method = $scope.actionFactory[element.function];
+			} else if(_searchInParents($scope, element.function)){
+				method = _searchInParents($scope, element.function);
 			}
 
 			if(!element.bind){
-				return initMethod({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
+				return method({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
 			} else {
-				return initMethod;
+				return method;
 			}
 		} else {
 			return $scope.property ? $scope.property[propertyName] : (element) ? element.default : undefined;
