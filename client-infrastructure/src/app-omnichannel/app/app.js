@@ -661,6 +661,7 @@ app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
                     params.properties[key]= params.defaultValues[key];
                 }
             } 
+            params.inputComponent.msgForPatch='success';
             quotessearchFactory.actionHandling(params);
         }
     };
