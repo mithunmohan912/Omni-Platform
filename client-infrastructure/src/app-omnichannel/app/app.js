@@ -84,7 +84,7 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     $rootScope.$on('$locationChangeStart', function (event,newUrl) {
     var screenId = $rootScope.screenId;
     if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
-    	return;
+        return;
     } 
     if($rootScope.screenId === undefined){
         $location.url('/screen/anonymous');
@@ -309,14 +309,14 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
                    // console.log(httpResponse, params);
                     self.getAnnualCostUS.annualCost = httpResponse._links.self.premium;
                     self.getIdentifierUS.identifier = httpResponse._links.self.quoteNumber;
-                    $rootScope.$broadcast('custom'):
+                    $rootScope.$broadcast('custom');
                 });
             }
         },
-        getAnnualCostUS:function getAnnualCostUS(params){
+        getAnnualCostUS:function getAnnualCostUS(){
             return getAnnualCostUS.annualCost;
                 },
-        getIdentifierUS:function getIdentifierUS(params){
+        getIdentifierUS:function getIdentifierUS(){
             return getIdentifierUS.identifier;
                 }, 
         saveProperty:function saveProperty(params){
@@ -341,13 +341,13 @@ app.factory('applicantInfoFactory', function($rootScope, quotescreateFactory){
         navigateToWizard: function(params){
             quotescreateFactory.navigateToWizard(params);
         },
-         initDropdown: function(params){
-                                            return {    "000505":"PT HO (00,05,05)*"
+         initDropdown: function(){
+                                            return {    '000505':'PT HO (00,05,05)*'
                                                            };
 
                         },
-                         initDropdown1: function(params){
-             return { "SC":"South Carolina"
+                         initDropdown1: function(){
+             return { 'SC':'South Carolina'
             
                                                            };
                         }
@@ -356,7 +356,7 @@ app.factory('applicantInfoFactory', function($rootScope, quotescreateFactory){
 });
 
 
-app.factory('policyInfoFactory', function($rootScope, quotescreateFactory,$filter){
+app.factory('policyInfoFactory', function($rootScope, quotescreateFactory){
      return {
         saveProperty:function(params){
             quotescreateFactory.saveProperty(params);
@@ -367,24 +367,24 @@ app.factory('policyInfoFactory', function($rootScope, quotescreateFactory,$filte
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
         },
-        initDropdown: function(params){
-             return { "SC":"South Carolina"
+        initDropdown: function(){
+             return { 'SC':'South Carolina'
             
                                                            };
                         }
       ,
-        initDropdown2: function(params){
-            return { "12":"12 months",
-                "3":"3 months",
-                "6":"6 months",
-                "0":"Odd Term"
+        initDropdown2: function(){
+            return { '12':'12 months',
+                '3':'3 months',
+                '6':'6 months',
+                '0':'Odd Term'
                                                            };
 
                         } ,
-        initDropdown3: function(params){
-            return { "A0":"Agent Annually",
-                "A2":"Semi-Annual",
-                "C0":"Customer Annually"                         };
+        initDropdown3: function(){
+            return { 'A0':'Agent Annually',
+                'A2':'Semi-Annual',
+                'C0':'Customer Annually'                         };
 
                         },
         navigateToWizard: function(params){
@@ -407,14 +407,14 @@ app.factory('generalInfoFactory', function($rootScope, quotescreateFactory){
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
         },
-        initDropdown1: function(params){
-                                            return {  "01":"01",
-                "02":"02",
-                "03":"03",
-                "04":"04",
-                "05":"05",
-                "06":"06",
-                "07":"07"
+        initDropdown1: function(){
+                                            return {  '01':'01',
+                '02':'02',
+                '03':'03',
+                '04':'04',
+                '05':'05',
+                '06':'06',
+                '07':'07'
                                                            };
 
                         },
@@ -424,67 +424,67 @@ app.factory('generalInfoFactory', function($rootScope, quotescreateFactory){
 
 
 
-                         initDropdown2: function(params){
-                                            return {  "0":"Less Than 1 Mile",
-                "1":"1 to 5 Miles",
-                "2":"6 to 10 Miles",
-                "3":"Over 10 Miles"
+                         initDropdown2: function(){
+                                            return {  '0':'Less Than 1 Mile',
+                '1':'1 to 5 Miles',
+                '2':'6 to 10 Miles',
+                '3':'Over 10 Miles'
                                                            };
 
                         } ,
-                         initDropdown3: function(params){
-                                            return {  "0":"Not Applicable",
-                "1":"Less Than 500 feet",
-                "2":"Less Than 1000 feet",
-                "3":"Under 1000 feet and lessthan 5 miles"    };
+                         initDropdown3: function(){
+                                            return {  '0':'Not Applicable',
+                '1':'Less Than 500 feet',
+                '2':'Less Than 1000 feet',
+                '3':'Under 1000 feet and lessthan 5 miles'    };
 
                         },
 
-                        initDropdown4: function(params){
-                                            return {   "F":" FRAME",
-                "M":" MANSORY",
-                "S":"SUPERIOR CONST"
+                        initDropdown4: function(){
+                                            return {   'F':'FRAME',
+                'M':' MANSORY',
+                'S':'SUPERIOR CONST'
                                                            };
 
                         } ,
-                         initDropdown5: function(params){
-                                            return {    "7":"SINGLE FAMILY",
-                "1":"APPARTMENT",
-                "2":"CO-OP",
-                "3":"CONDIMINIUM",
-                "4":"DUPLEX",
-                "5":"OTHERS",
-                "6":"ROW HOUSE"
+                         initDropdown5: function(){
+                                            return {    '7':'SINGLE FAMILY',
+                '1':'APPARTMENT',
+                '2':'CO-OP',
+                '3':'CONDIMINIUM',
+                '4':'DUPLEX',
+                '5':'OTHERS',
+                '6':'ROW HOUSE'
                                                            };
 
                         } ,
-                           initDropdown6: function(params){
-                                            return {  "O":"OWN PRIMARY",
-                "T":"OWNER SEASONAL",
-                "X":"TENANT PRIMARY",
-                "S":"SECONDARY SEASONAL",
-                "N":"SECONDARY NONSEASONAL"    };
+                           initDropdown6: function(){
+                                            return {  'O':'OWN PRIMARY',
+                'T':'OWNER SEASONAL',
+                'X':'TENANT PRIMARY',
+                'S':'SECONDARY SEASONAL',
+                'N':'SECONDARY NONSEASONAL'    };
 
                         } ,
                         
-                        initDropdown7: function(params){
-                                            return {  "USA":"CAMDEN",
-                "001":"COLUMBIA_METRO",
-                "002":"UNGRADED",
-                "003":"ABBEVILLE"
+                        initDropdown7: function(){
+                                            return {  'USA':'CAMDEN',
+                '001':'COLUMBIA_METRO',
+                '002':'UNGRADED',
+                '003':'ABBEVILLE'
                                                            };
 
                         },
-                         initDropdown8: function(params){
-                                            return {  "CAMDEN FD":"CAMDEN FD",
-                "Metro FD":" COLUMBIAMETRO"
+                         initDropdown8: function(){
+                                            return {  'CAMDEN FD':'CAMDEN FD',
+                'Metro FD':' COLUMBIAMETRO'
                                                            };
 
                         } ,
-                         initDropdown9: function(params){
-                                            return {   "NG":"UNGRADED",
-                "NA":"NOT APPLICABLE",
-                "NP":" NON PARTICIPANT"    };
+                         initDropdown9: function(){
+                                            return {   'NG':'UNGRADED',
+                'NA':'NOT APPLICABLE',
+                'NP':' NON PARTICIPANT'    };
 
                         } ,
                         navigateToWizard: function(params){
@@ -506,69 +506,69 @@ app.factory('coverageInfoFactory', function($rootScope, quotescreateFactory,quot
         navigateToScreen: function(params){
             quotescreateFactory.navigateToScreen(params);
         },
-        initDropdown1: function(params){
-                                            return {    "2":"Homeowners 2 ",
-                "3":"Homeowners 3 ",
-                "4":"Homeowners 4 ",
-                "6":"Homeowners 6 "
+        initDropdown1: function(){
+                                            return {    '2':'Homeowners 2 ',
+                '3':'Homeowners 3 ',
+                '4':'Homeowners 4 ',
+                '6':'Homeowners 6 '
                                                            };
 
                         },
-                        initDropdown2: function(params){
-                                            return {    "100.00":"100 ",
-                "250.00":"250 ",
-                "500.00":"500 ",
-                "1000.00":"1000 ",
-                "2500.00":"2500 "
+                        initDropdown2: function(){
+                                            return {    '100.00':'100 ',
+                '250.00':'250 ',
+                '500.00':'500 ',
+                '1000.00':'1000 ',
+                '2500.00':'2500 '
                                                            };
 
                         },
-                         initDropdown3: function(params){
-                                            return {  "0":"NOT APPLICABLE",
-                "1":"1%",
-                "2":"2%",
-                "3":"5%"  };
+                         initDropdown3: function(){
+                                            return {  '0':'NOT APPLICABLE',
+                '1':'1%',
+                '2':'2%',
+                '3':'5%'  };
 
                         },
 
-                        initDropdown4: function(params){
-                                            return {    "100000":"100000",
-                "300000":"300000",
-                "500000":"500000"            };
+                        initDropdown4: function(){
+                                            return {    '100000':'100000',
+                '300000':'300000',
+                '500000':'500000'           };
 
                         } ,
-                         initDropdown5: function(params){
-                                            return {   "1000":"1000",
-                "5000":"5000"
+                         initDropdown5: function(){
+                                            return {   '1000':'1000',
+                '5000':'5000'
                                                            };
 
                         } ,
-                           initDropdown6: function(params){
-                                            return {    "0":"NOT APPLICABLE",
-                "1":"1% Annually",
-                "2":"2% Annually",
-                "3":"3% Annually",
-                "4":"4% Annually",
-                "6":"6% Annually",
-                "8":"8% Annually"    };
+                           initDropdown6: function(){
+                                            return {    '0':'NOT APPLICABLE',
+                '1':'1% Annually',
+                '2':'2% Annually',
+                '3':'3% Annually',
+                '4':'4% Annually',
+                '6':'6% Annually',
+                '8':'8% Annually'    };
 
                         },
-                         initDropdown7: function(params){
-                                            return {  "N":"NO BURGLAR ALARM",
-                "Y":"BURGLAR ALARM"
+                         initDropdown7: function(){
+                                            return {  'N':'NO BURGLAR ALARM',
+                'Y':'BURGLAR ALARM'
                 };
 
                         },
-                         initDropdown8: function(params){
-                                            return {  "N":"NO FIRE ALARM",
-                "Y":"FIRE ALARM"
+                         initDropdown8: function(){
+                                            return {  'N':'NO FIRE ALARM',
+                'Y':'FIRE ALARM'
                   };
 
                         },
-                         initDropdown9: function(params){
-                                            return {  "N":"NO SPRINKLER",
-                "A":"CLASS A SPRINKLER",
-                "B":"CLASS B SPRINKLER"
+                         initDropdown9: function(){
+                                            return {  'N':'NO SPRINKLER',
+                'A':'CLASS A SPRINKLER',
+                'B':'CLASS B SPRINKLER'
                 };
 
                         },
@@ -578,10 +578,10 @@ app.factory('coverageInfoFactory', function($rootScope, quotescreateFactory,quot
 
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
-        },
-        calculatePremium: function(params){
-            additionalInfoFactory.calculatePremium(params);
-        }
+        }//,
+      //  calculatePremium: function(params){
+       //     additionalInfoFactory.calculatePremium(params);
+       // }
     };
 });
 
@@ -1064,6 +1064,7 @@ app.directive('ckEditor', [function () {
 
                 elm.bind('$destroy', function () {
                     ck.destroy(false);
+
                 });
 
                 if (model) {
@@ -1086,6 +1087,7 @@ app.directive('ckEditor', [function () {
                         data.push(model.$viewValue);
 
                         if (isReady) {
+                            
                             isReady = false;
                             setData();
                         }
