@@ -173,13 +173,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 
     var defaultUIProperties = {
     	required: {
-    		value: false
+    		default: false
     	},
     	editable: {
-    		value: true
+    		default: true
     	},
     	value: {
-    		value:undefined
+    		default: undefined
     	}
     };
 

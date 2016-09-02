@@ -32,7 +32,7 @@
 					<span class="table-title-group">{{key | translate}}</span>
 				</td>
 			</tr>
-			<tr class="table-row-{{key}}-{{$index}}" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
+			<tr class="table-row table-row-{{key}}-{{$index}}" ng-class="key !== 'infra_default_group_table' ? 'table-row-grouped' : ''" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 
 				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
 				
