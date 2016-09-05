@@ -1,9 +1,9 @@
 'use strict';
 
 
-/*app
-global 
-*/
+/*
+global app
+*/ 
 
 /*
 exported ScreenController
