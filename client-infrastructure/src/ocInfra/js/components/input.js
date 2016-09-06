@@ -264,7 +264,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				return method;
 			}
 		} else {
-			return $scope.property ? $scope.property[propertyName] : (element) ? element.default : undefined;
+			//OC-1004: fixing when the uiInput has the same name than a backend property
+			return (element) ? element.default : undefined;
 		}
 	}
 
