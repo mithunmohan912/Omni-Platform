@@ -1,99 +1,235 @@
 {
-    "metamodel": {
-        
-        "resource": "policies", 
-        "summary": true,
-        "sections": [
-            {
-                "title": "_MAKE_PAYMENT",
-                "properties": [
-                        {
-                        "id": "billing:collectableAmount",
-                        "type": "text",
-                        "label": "_PREMIUM",
-                        "row":1
-                        
-                    },
-                    {
-                        "id": "billing:payPlan",
-                        "type": "text",
-                        "label": "_PLAN_NAME",
-                        "row":1
-                        
-                    },
-                    {
-                        "id": "billing:lastPayment",
-                        "type": "text",
-                        "label": "_LAST_PAYMENT",
-                        "row":2
-                        
-                    },
-                    {
-                        "id": "billing:paymentDate",
-                        "type": "text",
-                        "label": "_PAID_ON",
-                        "row":2
-                        
-                    },
-                    {
-                        "id": "billing:totalAmountPaid",
-                        "type": "text",
-                        "label": "_TOTAL_TO_DATE",
-                        "row":4
-                        
-                    },
-                    {
-                        "id": "billing:policyBalance",
-                        "type": "text",
-                        "label": "_BALANCE",
-                        "row":4
-                        
-                    },
-                    {
-                        "id": "billing:currentAmountDue",
-                        "type": "text",
-                        "label": "_MINIMUN_DUE",
-                        "row":4
-                        
-                    },
-                    {
-                        "id": "billing:dueDate",
-                        "type": "text",
-                        "label": "_DUE_BY",
-                        "row":4
-                        
-                    }
-
-                   ]
-                  },
-                  {
-                    "properties": [
-                            {
-                                "type": "buttonGroup",
-                                "buttons" : [
+  "metamodel": {
+    "resource": "policies",
+    "summary": true,
+    "sections": [
+      {
+        "title": "_MAKE_PAYMENT",
+        "properties": [
+          {
+            "id": "billing:collectableAmount",
+            "type": "text",
+            "label": "_PREMIUM",
+            "row": 1
+          },
+          {
+            "id": "billing:payPlan",
+            "type": "text",
+            "label": "_PLAN_NAME",
+            "row": 1
+          },
+          {
+            "id": "billing:lastPayment",
+            "type": "text",
+            "label": "_LAST_PAYMENT",
+            "row": 2
+          },
+          {
+            "id": "billing:paymentDate",
+            "type": "text",
+            "label": "_PAID_ON",
+            "row": 2
+          },
+          {
+            "id": "billing:totalAmountPaid",
+            "type": "text",
+            "label": "_TOTAL_TO_DATE",
+            "row": 4
+          },
+          {
+            "id": "billing:policyBalance",
+            "type": "text",
+            "label": "_BALANCE",
+            "row": 4
+          },
+          {
+            "id": "billing:currentAmountDue",
+            "type": "text",
+            "label": "_MINIMUN_DUE",
+            "row": 4
+          },
+          {
+            "id": "billing:dueDate",
+            "type": "text",
+            "label": "_DUE_BY",
+            "row": 4
+          },
+          {
+            "id": "paymentMethod",
+            "type": "radio",
+            "label":"_PAYMENT_METHOD",
+            "row": 3,
+            "uiInput": true,
+            "options": {
+              "getData": "makepaymentRadio"
+            },
+            "required":true
+          },
+          {
+            "id": "creditCardImage",
+            "type": "custom",
+            "templateUrl": "ocinfra/templates/imageForBillingUS.html",
+            "imgurl":"ocinfra/assets/images/cheque.jpg",
+            "row": 4,
+            "paymentMethodValue": "Credit Card"
+          },
+          {
+            "id": "bankAccountImage",
+            "type": "custom",
+            "templateUrl": "ocinfra/templates/imageForBillingUS.html",
+            "imgurl":"ocinfra/assets/images/accept-credit-cards-online.jpg",
+            "row": 4,
+            "paymentMethodValue": "Bank Account"
+          },
+          {
+            "id": "paymentAmount",
+            "type": "text",
+            "label": "_PAYMENT_AMOUNT",
+            "uiInput": true,
+            "required":true,
+             "visibleWhen":{
+                            "expression":{
+                                "operator":"OR",
+                                "conditions":[
                                     {
-                                        "label": "_SUBMIT",
-                                        "method":"actionHandling",
-                                        "action":"fetch"
+                                        "field":"paymentMethod",
+                                        "value":"Bank Account"
                                     },
-                                     {
-                                        "label": "_PAY_OPTION_CREDIT_CARD",
-                                        "method":"navigateToScreen",
-                                        "action":"fetch",
-                                          "actionURL": "/us/screen/creditCardInfo"
-                                    },
-                                     {
-                                        "label": "_PAY_OPTION_CHECK",
-                                        "method":"navigateToScreen",
-                                        "action":"fetch",
-                                       "actionURL": "/us/screen/chequeInfo"
-
-                                    }
-                                ]
+                                    {
+                                        "field":"paymentMethod",
+                                        "value":"Credit Card"
+                                    }]
                             }
-                    ]
-            }
-                 ]
+                        },
+            
+            "row": 3
+          },
+          {
+            "id": "routingNumber",
+            "type": "text",
+            "label": "_ROUTING_NO",
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Bank Account"
                 }
-                }   
+            },
+            "required":true,
+            "uiInput": true,
+            "row": 1
 
+          },
+          {
+            "id": "bankAccountNumber",
+            "type": "text",
+            "label": "_BANK_ACCOUNT_NO",
+             "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Bank Account"
+                }
+            },
+            "uiInput": true,
+            "required":true,
+            "row": 1
+          },
+          
+          {
+            "id": "accountType",
+            "type": "text",
+            "label": "_ACCOUNT_TYPE",
+            "visible":false,
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Bank Account"
+                }
+            },
+            "required":true,
+            "uiInput": true,
+            "row": 3
+          },
+          {
+            "id": "creditCardType",
+            "type": "text",
+            "label": "_CREDIT_CARD_TYPE",
+            "visible":false,
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Credit Card"
+                }
+            },
+            "required":true,
+            "uiInput": true,
+            "row": 3
+        },
+        {
+            "id": "creditCardNumber",
+            "type": "text",
+            "label": "_CREDIT_CARD_NUMBER",
+            "visible":false,
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Credit Card"
+                }
+            },
+            "required":true,
+            "uiInput": true,
+            "row": 3  
+        },
+        {
+            "id": "creditCardExpiryDate",
+            "type": "text",
+            "label": "_CREDIT_CARD_EXPIRY_DATE",
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Credit Card"
+                }
+            },
+            "required":true,
+            "uiInput": true,
+            "row": 3  
+        },
+         {
+            "id": "postalCode",
+            "type": "text",
+            "label": "Postal Code",
+            "uiInput": true,
+            "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Credit Card"
+                }
+            },
+            "required":true,
+            "row": 3  
+        }   
+        ]
+      },
+      {
+        "properties": [
+          {
+            "type": "buttonGroup",
+            "buttons": [
+              {
+                "label": "_SUBMIT",
+                "method": "actionHandling",
+                 "action": "create",
+                 "visibleWhen":{
+                "expression":{
+                    "field":"paymentMethod",
+                    "value":"Credit Card"
+                }
+            }
+
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
