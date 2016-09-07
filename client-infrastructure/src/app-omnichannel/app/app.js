@@ -179,7 +179,8 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
         }
     };
 });
-var msg
+
+var msg;
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
