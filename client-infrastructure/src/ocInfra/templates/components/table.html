@@ -38,16 +38,22 @@
 				
 		            <ng-switch on="field.type">
  						<span ng-switch-when="label" class="table-cell-label">
- 							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId]">
-	 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
-					 		        <span ng-switch-when="date">
-										{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
-									</span>
-									<span ng-switch-default>
-	 									<span ng-if="field.format">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
-	 									<span ng-if="!field.format">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
-	 								</span>
-	 							</ng-switch>
+ 							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId] || field.uiInput" style="display:inline-block;">
+ 								<!-- OC-1029: input label in table component-->
+ 								<span ng-if="field.input">
+ 									<input-render id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+ 								</span>
+ 								<span ng-if="!field.input">
+		 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
+						 		        <span ng-switch-when="date">
+											{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
+										</span>
+										<span ng-switch-default>
+			 								<span ng-if="field.format">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
+			 								<span ng-if="!field.format">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
+		 								</span>
+		 							</ng-switch>
+		 						</span>
  							</span>
 		                </span>
 		                <span ng-switch-when="literal" class="table-cell-literal">{{ field.id | translate }}</span>
