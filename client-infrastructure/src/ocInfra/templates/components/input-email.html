@@ -18,7 +18,8 @@
 				ng-required="field.property.required"
 				ng-disabled="!field.property.editable"
 				ng-change="field.onChange()"
-				ng-blur="field.onBlur()" />
+				ng-blur="field.onBlur()" 
+				consistent="{{field.property.consistent}}"/>
 		
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>

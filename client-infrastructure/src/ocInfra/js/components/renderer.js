@@ -263,6 +263,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 			function _init(metamodelObject){
+				//OC-947: new property to manage the message erros to be shown in the popup after clicking the ok button
+				$scope.submitted = false;
 				$scope.metamodelObject = metamodelObject;
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
@@ -504,6 +506,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						}
 
+						var consistent = true;
 						var payloadKeys = Object.keys(payloads);
 						payloadKeys.forEach(function(url, index){
 							resourceFactory.get(url).then(function(response) {
@@ -529,18 +532,55 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 								if(Object.keys(payloadToPatch).length > 0){
 									promises.push(resourceFactory.patch(url, payloadToPatch));
-									$q.all(promises).then(function() {
+									$q.all(promises).then(function(response) {
 										if (data.callback) {
 											$scope.execute({ 'method': data.callback});
 										}
+										if (response) {
+											response.forEach(function(resp) {
+												if (resp.data && resp.data['_embedded'] && resp.data['_embedded']['cscaia:status_report']) {
+													consistent = consistent && resp.data['_embedded']['cscaia:status_report'].consistent;
+												}
+											});
+										}
+										//OC-947: checking whether the resources are consistent
+										if (consistent && data.closePopup) {
+											data.closePopup();
+										}
+										//OC-947: mark the resource as submitted
+										$scope.submitted = true;
+										
 									});
-								} else if (promises.length === 0 && data.callback && index === payloadKeys.length-1){
-									$scope.execute({ 'method': data.callback});
+								} else {
+									if (response.data && response.data['_embedded'] && response.data['_embedded']['cscaia:status_report']) {
+										consistent = consistent && response.data['_embedded']['cscaia:status_report'].consistent;
+									}
+									if (promises.length === 0 && index === payloadKeys.length-1) {
+										if (data.callback) {
+											$scope.execute({ 'method': data.callback});
+										} 
+										
+										//OC-947: close the popup if there is no patches
+										if (consistent && data.closePopup){
+											data.closePopup();
+										}
+										//OC-947: mark the resource as submitted
+										$scope.submitted = true;
+									} 
 								}
 							});
 						});
-						if (payloadKeys.length === 0 && data.callback){
-							$scope.execute({ 'method': data.callback});
+						if (payloadKeys.length === 0) {
+							if (data.callback){
+								$scope.execute({ 'method': data.callback});
+							}
+							//OC-947: close the popup if there is no patches
+							if (data.closePopup) {
+								data.closePopup();
+							}
+
+							//OC-947: mark the resource as submitted
+							$scope.submitted = true;
 						}
 					}
 				}

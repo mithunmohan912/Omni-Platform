@@ -18,6 +18,7 @@
 				ng-blur="field.onBlur()"
 				ng-options="key as value for (key, value) in field.options._getData(field.id, field)"
 				capitalize="{{field.attributes.capitalize}}" 
+				consistent="{{field.property.consistent}}"
 				convert-to="{{field.property.metainfo.type}}"/>
 				<!-- OC-1027: enumeration type should be considered -->
 		</select>

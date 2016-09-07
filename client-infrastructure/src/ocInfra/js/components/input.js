@@ -273,6 +273,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		restrict: 'E',
 		replace: 'true',
 		scope: {
+			id: '=',
 			property: '=',
 			metamodel: '=',
 			resources: '=',
@@ -630,11 +631,11 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				}
 
 				if(!$scope.property && $scope.resources && $scope.metamodel.uiInput){
-					console.log('input.js -> load(): Property "' + $scope.metamodel.id + '" not found. Creating it...');
-					$scope.resources[$scope.metamodel.id] = {};
-					_initUiInput($scope.resources[$scope.metamodel.id], $scope.metamodel, $scope);
+					console.log('input.js -> load(): Property "' + $scope.id + '" not found. Creating it...');
+					$scope.resources[$scope.id] = {};
+					_initUiInput($scope.resources[$scope.id], $scope.metamodel, $scope);
 					
-					$scope.property = $scope.resources[$scope.metamodel.id];
+					$scope.property = $scope.resources[$scope.id];
 				}
 
 				// Get the url of the template we will use based on input type
@@ -659,9 +660,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
-					'id': $scope.metamodel.id,
+					'id': $scope.id,
 					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
-					'name': $scope.metamodel.name || $scope.metamodel.id || '',
+					'name': $scope.metamodel.name || $scope.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
 					'selector': $scope.metamodel.selector,
@@ -687,9 +688,9 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					},
 					'isVisible': function(){
 						if($scope.metamodel.visible && (typeof $scope.metamodel.visible !== 'boolean') && $scope.actionFactory[$scope.metamodel.visible]){
-							return $scope.actionFactory[$scope.metamodel.visible]({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.metamodel.id });
+							return $scope.actionFactory[$scope.metamodel.visible]({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.id });
 						} else if(typeof _searchInParents($scope, $scope.metamodel.visible) === 'function') {
-							return _searchInParents($scope, $scope.metamodel.visible)({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.metamodel.id });
+							return _searchInParents($scope, $scope.metamodel.visible)({ 'scope': $scope, 'metamodel': $scope.metamodel, 'id': $scope.id });
 						}
 						return $scope.metamodel.visible || true;
 					},

@@ -20,7 +20,8 @@
 									ng-disabled="!field.property.editable"
 									ng-change="field.onChange()"
 									ng-blur="field.onBlur()" 
-									value = "{{key}}" ></input>
+									value = "{{key}}" 
+									consistent="{{field.property.consistent}}"/>
 							 <span ng-class="metamodel.position==='before'? 'cr right':'cr left'"><i class="cr-icon glyphicon glyphicon-stop"></i></span>
 							 <span>{{option | translate}}</span>	
                         </label>      

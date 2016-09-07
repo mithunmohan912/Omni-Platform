@@ -90,12 +90,11 @@ return {
 			});
 
 
-
 			function _defaultSave(){
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
 				//OC-956: to avoid multiple callbacks, adding condition by name
-				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name});
-
+				//OC-947: sending the method to close the popup to the renderer
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name, closePopup: $scope.closePopup});
 			}
 
 			function _defaultClose() {
@@ -201,6 +200,12 @@ return {
 				}
 
 			};
+		},
+		link: function($scope, element){
+			//OC-947: method to close the popup when the resources is consistent
+			$scope.closePopup = function() {
+				element.find('.modal').modal('hide');
+			}
 		},
 		templateUrl: $rootScope.templatesURL + 'popup.html'
 	};
