@@ -37,28 +37,65 @@
                                     "type": "text",
                                     "label": "Symbol",
                                     "row": 1,
-                                    "uiInput" : true
+                                    "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":6
+                                    },
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 },
                                 {
                                     "id": "firstName",
                                     "type": "text",
                                     "label": "_FIRSTNAME",
                                     "row": 1,
-                                    "uiInput" : true
+                                    "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":6
+                                    },
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 },
                                 {
                                     "id": "quoteNumber",
                                     "type": "text",
                                     "label": "_QUOTE_NUMBER",
                                     "row": 2,
-                                    "uiInput" : true
+                                    "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":6
+                                    },
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "maxlength":7
+                                    },
+                                    "validation": true
                                 },
                                 {
                                     "id": "lastName",
                                     "type": "text",
                                     "label": "_LASTNAME",
                                     "row": 2,
-                                    "uiInput" : true
+                                    "colspan" : {
+                                        "xs":12,
+                                        "sm":6,
+                                        "md":6,
+                                        "lg":6
+                                    },
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 }
                 ]
             },
@@ -69,8 +106,12 @@
                                 "buttons" : [
                                     {
                                         "label": "_SEARCH",
-                                        "method":"actionHandlingWithDefaults",
+                                        "method":"actionHandlingWithValidation",
                                         "action":"search"
+                                    },
+                                    {
+                                        "label": "_RESET",
+                                        "method":"resetscreen"
                                     }
                                 ]
                             }

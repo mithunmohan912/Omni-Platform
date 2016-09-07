@@ -179,7 +179,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
         }
     };
 });
-
+var msg
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
@@ -215,9 +215,12 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             }
             
             if(validation){
+                 if(msg !== undefined){
+                   msg.destroy();
+                 }
                 MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
             }else{
-                growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
+                msg = growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
             }
         },
         actionHandlingWithDefaults: function(params){
@@ -233,7 +236,12 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         },
         homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
-        }
+        },
+        resetscreen: function(params){
+            angular.forEach(params.properties, function(val, key){
+                 params.properties[key].value=null;
+            });
+        },
     };
 });
 
@@ -861,6 +869,10 @@ app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
 app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactory, growl){
     var authnChain = {
         authn: function(params){
+            if(msg !== undefined)
+            {
+                msg.destroy();
+            }
             $rootScope.isAuthSuccess = false;
             if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
                 $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
@@ -1015,7 +1027,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                 if (data && data.exception) {
                     growl.error(data.exception.message, '30');
                 } else {
-                    growl.error($filter('translate')('INVALID_CREDENTIALS'));
+                   msg= growl.error($filter('translate')('INVALID_CREDENTIALS'));
                 }
             });
         }

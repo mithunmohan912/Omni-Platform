@@ -31,6 +31,13 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
         $location.url('/');
     };
 
+    $scope.userCheck = function() {
+        if($rootScope.user && $rootScope.user.roles && $rootScope.user.roles[0] === 'ROLE_DEV'){
+                     $scope.showIcon = true;
+                 }else{
+                    $scope.showIcon = false;    
+                 }
+             };
     $scope.setLocate = function(newlocale) {
 
         $rootScope.newlocale = newlocale;
