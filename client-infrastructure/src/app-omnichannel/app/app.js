@@ -658,7 +658,7 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
         }
     };
 });
-app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
+app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory,resourceFactory){
     return {
         actionHandling: function(params){
             var scope = params.scope;
@@ -671,15 +671,28 @@ app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
                 }
             } 
             params.inputComponent.msgForPatch='success';
+            this.paperlessActionhandling(params, function(){
+            resourceFactory.refresh(resourceUrl,params,$rootScope.headers); 
+            });
+            
+        },
+        paperlessActionhandling: function(params, callback){
             quotessearchFactory.actionHandling(params);
+            callback();
         }
     };
 });
 
 app.factory('makepaymentFactory', function($rootScope, quotessearchFactory){
-    return {
+     return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
+        },
+        makepaymentRadio:function(){
+            return[
+                'Bank Account',
+                'Credit Card'
+            ];
         }
     };
 });
