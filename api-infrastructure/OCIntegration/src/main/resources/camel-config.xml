@@ -77,15 +77,35 @@
 		<property name="proxyUriPrefix" value="/omnichannel/sandbox/point"/>
 	</bean>
 	<bean id="apiProxyRouterOmniChannelSandboxRma" class="com.csc.eip.route.ApiProxyRouter">
-		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sandbox/claims"/>
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sandbox/rma"/>
 		<property name="privateUriPrefix" value="http://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="privateUriPrefixHttp4" value="http4://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="proxyUriPrefix" value="/omnichannel/sandbox/rma"/>
+		<!--
 		<property name="customHeaders">
 			<map>
 				<entry key="Token" value="cf5249ea-66be-4dab-9397-02807d35d7f2"/>
 			</map>
 		</property>
+		-->
+	</bean>
+	<bean id="apiProxyRouterOmniChannelSandboxBillingPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sandbox/billing/pb360"/>
+		<property name="privateUriPrefix" value="https://billing.mybluemix.net/v1/billing/"/>
+		<property name="privateUriPrefixHttp4" value="https4://billing.mybluemix.net/v1/billing/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/sandbox/billing/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelSandboxPartyPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sandbox/party/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-parties.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-parties.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/sandbox/party/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelSandboxSearchPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sandbox/search/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-search.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-search.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/sandbox/search/pb360"/>
 	</bean>
 	
 	<!-- Development -->
@@ -113,15 +133,28 @@
 		<property name="proxyUriPrefix" value="/omnichannel/dev/point"/>
 	</bean>
 	<bean id="apiProxyRouterOmniChannelDevRma" class="com.csc.eip.route.ApiProxyRouter">
-		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sb/claims"/>
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-sb/omnichannel/sb/rma"/>
 		<property name="privateUriPrefix" value="http://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="privateUriPrefixHttp4" value="http4://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="proxyUriPrefix" value="/omnichannel/dev/rma"/>
-		<property name="customHeaders">
-			<map>
-				<entry key="Token" value="cf5249ea-66be-4dab-9397-02807d35d7f2"/>
-			</map>
-		</property>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDevBillingPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-dev/omnichannel/dev/billing/pb360"/>
+		<property name="privateUriPrefix" value="https://billing.mybluemix.net/v1/billing/"/>
+		<property name="privateUriPrefixHttp4" value="https4://billing.mybluemix.net/v1/billing/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/dev/billing/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDevPartyPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-dev/omnichannel/dev/party/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-parties.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-parties.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/dev/party/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDevSearchPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-dev/omnichannel/dev/search/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-search.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-search.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/dev/search/pb360"/>
 	</bean>
 	
 	<!-- Demo -->
@@ -149,15 +182,28 @@
 		<property name="proxyUriPrefix" value="/omnichannel/demo/point"/>
 	</bean>
 	<bean id="apiProxyRouterOmniChannelDemoRma" class="com.csc.eip.route.ApiProxyRouter">
-		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-demo/omnichannel/demo/claims"/>
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-demo/omnichannel/demo/rma"/>
 		<property name="privateUriPrefix" value="http://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="privateUriPrefixHttp4" value="http4://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="proxyUriPrefix" value="/omnichannel/demo/rma"/>
-		<property name="customHeaders">
-			<map>
-				<entry key="Token" value="cf5249ea-66be-4dab-9397-02807d35d7f2"/>
-			</map>
-		</property>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDemoBillingPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-demo/omnichannel/demo/billing/pb360"/>
+		<property name="privateUriPrefix" value="https://billing.mybluemix.net/v1/billing/"/>
+		<property name="privateUriPrefixHttp4" value="https4://billing.mybluemix.net/v1/billing/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/demo/billing/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDemoPartyPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-demo/omnichannel/demo/party/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-parties.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-parties.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/demo/party/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelDemoSearchPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-demo/omnichannel/demo/search/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-search.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-search.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/demo/search/pb360"/>
 	</bean>
 	
 	<!-- Release -->
@@ -185,15 +231,28 @@
 		<property name="proxyUriPrefix" value="/omnichannel/release/point"/>
 	</bean>
 	<bean id="apiProxyRouterOmniChannelReleaseRma" class="com.csc.eip.route.ApiProxyRouter">
-		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-release/omnichannel/release/claims"/>
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-release/omnichannel/release/rma"/>
 		<property name="privateUriPrefix" value="http://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="privateUriPrefixHttp4" value="http4://ec2-54-186-1-5.us-west-2.compute.amazonaws.com/rmaintegration"/>
 		<property name="proxyUriPrefix" value="/omnichannel/release/rma"/>
-		<property name="customHeaders">
-			<map>
-				<entry key="Token" value="cf5249ea-66be-4dab-9397-02807d35d7f2"/>
-			</map>
-		</property>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelReleaseBillingPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-release/omnichannel/release/billing/pb360"/>
+		<property name="privateUriPrefix" value="https://billing.mybluemix.net/v1/billing/"/>
+		<property name="privateUriPrefixHttp4" value="https4://billing.mybluemix.net/v1/billing/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/release/billing/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelReleasePartyPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-release/omnichannel/release/party/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-parties.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-parties.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/release/party/pb360"/>
+	</bean>
+	<bean id="apiProxyRouterOmniChannelReleaseSearchPb360" class="com.csc.eip.route.ApiProxyRouter">
+		<property name="publicUriPrefix" value="https://api.us.apiconnect.ibmcloud.com/csc-insurance-api-development/omnichannel-release/omnichannel/release/search/pb360"/>
+		<property name="privateUriPrefix" value="https://pb360-search.mybluemix.net/v1/"/>
+		<property name="privateUriPrefixHttp4" value="https4://pb360-search.mybluemix.net/v1/"/>
+		<property name="proxyUriPrefix" value="/omnichannel/release/search/pb360"/>
 	</bean>
 
 	<!-- APIManagement APIs -->	
@@ -235,26 +294,38 @@
 		<routeBuilder ref="apiProxyRouterOmniChannelSandboxIntegral"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelSandboxPoint"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelSandboxRma"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelSandboxBillingPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelSandboxPartyPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelSandboxSearchPb360"/>
 		
 		<routeBuilder ref="apiProxyRouterOmniChannelDevAia"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDevIntegral"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDevPoint"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDevRma"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDevBillingPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDevPartyPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDevSearchPb360"/>
 		
 		<routeBuilder ref="apiProxyRouterOmniChannelDemoAia"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDemoIntegral"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDemoPoint"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelDemoRma"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDemoBillingPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDemoPartyPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelDemoSearchPb360"/>
 		
 		<routeBuilder ref="apiProxyRouterOmniChannelReleaseAia"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelReleaseIntegral"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelReleasePoint"/>
 		<routeBuilder ref="apiProxyRouterOmniChannelReleaseRma"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelReleaseBillingPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelReleasePartyPb360"/>
+		<routeBuilder ref="apiProxyRouterOmniChannelReleaseSearchPb360"/>
 		
 		<routeBuilder ref="apiProxyRouterMiniQuoteAia"/>
 		<routeBuilder ref="apiProxyRouterMiniQuoteIntegral"/>
 		<routeBuilder ref="apiProxyRouterMiniQuotePoint"/>
-					
+		
 		<restConfiguration component="jetty" host="0.0.0.0" port="8888" bindingMode="json">
 			<dataFormatProperty key="prettyPrint" value="true" />
 		</restConfiguration>
