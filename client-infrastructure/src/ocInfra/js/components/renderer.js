@@ -384,9 +384,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								We use the promise to get all values into the resultSet before changing the scope's resultSet. This
 								way we prevent the screen from flashing (the screen was being left blank before starting the rendering process again).
 							*/
-							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, {}).then(function(resultSet){
-								$scope.resultSet = resultSet;
-							});
+							setTimeout(function(){
+								MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, {}).then(function(resultSet){
+									$scope.resultSet = resultSet;
+								});
+							}, 0);
+								
 						}
 					}
 				});
