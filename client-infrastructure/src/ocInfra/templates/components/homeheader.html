@@ -34,7 +34,7 @@
           
       </li>
         <li class="dropdown mega-dropdown text-center" style="width:15%;white-space: nowrap;" ng-repeat="application in headermetamodel.sections" ng-class="(screenId === 'dashboard') ? '' : 'homeactive'" ng-show="isAuthSuccess">
-         <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false">
+         <a id="{{application.label}}" class="dropdown-toggle" data-toggle="dropdown" style="padding-right: 0px;" role="button" aria-expanded="false" ng-click="userCheck()">
            {{ application.label | translate }} 
            <span class="caret" ng-if="application.elements && application.elements.length > 0">
            </span>
@@ -42,6 +42,7 @@
          <ul class="dropdown-menu mega-dropdown-menu row" role="menu" ng-if="application.elements && application.elements.length > 0">
           <li class="container subMenu ">
             <ul>
+            <div ng-if="showIcon">
                <li class="dropdown-header col-sm-2 text-center" ng-repeat="element in application.elements">
                 <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
                   <div class="margaNavIcon {{element.icon}}"></div>
@@ -49,6 +50,16 @@
                   {{ element.label | translate }}
                 </a>
                </li>
+               </div>
+               <div ng-if="!showIcon">
+               <li ng-if="element.showButton" class="dropdown-header col-sm-2 text-center" ng-repeat="element in application.elements">
+                <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
+                  <div class="margaNavIcon {{element.icon}}"></div>
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  {{ element.label | translate }}
+                </a>
+               </li>
+               </div>
             </ul>
           </li>
 

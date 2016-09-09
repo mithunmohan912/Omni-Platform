@@ -3,7 +3,7 @@
 
 /*
 global app
-*/
+*/ 
 
 /*
 exported ScreenController
@@ -85,7 +85,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.msgForPatch, resolve);       
                 }
             });
     }else{
@@ -94,7 +94,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.msgForPatch, resolve);       
         } 
     } 
 };
@@ -765,7 +765,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, msgForPatch ,resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -836,7 +836,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     angular.forEach(data.messages, function(value){
                         growl.error(value.message);
                     });
-                } else if(tab !== undefined){
+                }
+                if(msgForPatch !== undefined && data.outcome === msgForPatch){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value.message);
+                    });
+                }
+                else if(tab !== undefined){
                     resourceFactory.options($rootScope.resourceUrl, $rootScope.headers).success(function(responseData){
                         var data = responseData.data || responseData;
                         var urlOperations = data._links[tab[0]].href;
