@@ -82,22 +82,25 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     }
 
     $rootScope.$on('$locationChangeStart', function (event,newUrl) {
-    var screenId = $rootScope.screenId;
-    if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
-        return;
-    } 
-    if($rootScope.screenId === undefined){
-        $location.url('/screen/anonymous');
-    } else if (screenId === 'anonymous'){
-        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
-            $location.url($rootScope.nextURL);
+        var screenId = $rootScope.screenId;
+
+        // strong authn (hotp & oath)
+        if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+        	return;
         }
-    } else {
-        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+
+        if($rootScope.screenId === undefined){
             $location.url('/screen/anonymous');
+        } else if (screenId === 'anonymous'){
+            if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+                $location.url($rootScope.nextURL);
+            }
+        } else {
+            if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+                $location.url('/screen/anonymous');
+            }
         }
-    }
-});
+    });
    
     //persist few objects at app level
     $rootScope.routeParams = {};
@@ -124,6 +127,9 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 });
 
 app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
+    var authnService;
+    var authnModule;
+
     return {
         navigateAsAnonymous: function(params){
             $rootScope.user = undefined;
@@ -138,6 +144,22 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
             }
         },
         navigateToLogin: function(params){
+            authnService = undefined;
+            authnModule = undefined;
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
+        navigateToLoginOtpSms: function(params){
+            authnService = 'SMSTwoFactorChain';
+            authnModule = undefined;
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
+        navigateToLoginOtpEmail: function(params){
+            authnService = 'EmailTwoFactorChain';
+            authnModule = undefined;
             $rootScope.resourceHref = undefined;
             $rootScope.nextURL = params.inputComponent.actionURL;
             $rootScope.navigate(params.inputComponent.actionURL);    
@@ -168,6 +190,12 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                     $location.path(params.inputComponent.actionURL);
                 }
             });
+        },
+        getAuthnService: function(){
+            return authnService;
+        },
+        getAuthnModule: function(){
+            return authnModule;
         }
     };
 });
@@ -888,16 +916,21 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                 msg.destroy();
             }
             $rootScope.isAuthSuccess = false;
-            if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
-                $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+            var authnURL = $rootScope.config.authnURL + '/authenticate';
+
+            var authnModule = anonymousFactory.getAuthnModule();
+            var authnService = anonymousFactory.getAuthnService();
+            if (authnService !== undefined) {
+                authnURL = authnURL + '?authIndexType=service&authIndexValue=' + authnService;
             }
-            if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
-                $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
-            }
-            if (params.scope.resourcesToBind.properties.inputRealm === undefined || params.scope.resourcesToBind.properties.inputRealm.value === undefined) {
-                $rootScope.authnRealm = '';
-            } else {
-                $rootScope.authnRealm = params.scope.resourcesToBind.properties.inputRealm.value;
+
+            if (params.scope !== undefined) {
+                if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
+                    $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+                }
+                if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
+                    $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
+                }
             }
 
             var authnCallbackData = {};
@@ -906,6 +939,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                 console.log('authnCallbackData.authId : '+authnCallbackData.authId);
                 var i;
                 if (authnCallbackData.stage === 'LDAP1' || authnCallbackData.stage === 'DataStore1') {
+                    // AuthN
                     for (i=0; i<authnCallbackData.callbacks.length; i++) {
                         if (authnCallbackData.callbacks[i].type === 'NameCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
                             authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputUsername.value;
@@ -916,16 +950,49 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                             continue;
                         }
                     }
+                } else if (authnCallbackData.stage === 'HOTP2') {
+                    // MFA - HOTP
+                    if (params.scope.resourcesToBind.properties.inputOtpCode === undefined) {
+                        // request OTP
+                        for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                            if (authnCallbackData.callbacks[i].type === 'ConfirmationCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                                authnCallbackData.callbacks[i].input[0].value = 1;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        // submit OTP
+                        for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                            if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                                authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
+                                continue;
+                            }
+                            if (authnCallbackData.callbacks[i].type === 'ConfirmationCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                                authnCallbackData.callbacks[i].input[0].value = 0;
+                                continue;
+                            }
+                        }
+                    }
                 } else if (authnCallbackData.stage === 'OATH1') {
+                    // MFA - OATH
+                    // submit OTP
                     for (i=0; i<authnCallbackData.callbacks.length; i++) {
                         if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
                             authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
                             authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
-                            continue;
+                            break;
                         }
                     }
                 }
             }
+            else if (authnModule !== undefined) {
+                authnURL = authnURL + '?authIndexType=module&authIndexValue=' + authnModule;
+            }
+
 
             // authenticate user
             $http({
@@ -936,22 +1003,43 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                     'Content-Type' : 'application/json'
                 },
                 data : authnCallbackData,
-                url : $rootScope.config.authnURL + '/authenticate'
+                url : authnURL,
             }).success(function(data) {
                 if (data.authId !== undefined) {
                     console.log('Authenticate callback');
-                    console.log('OpenAM authId : '+data.authId);
+                    //console.log('authId : '+data.authId);
                     $rootScope.authnCallbackData = data;
+                    var i;
                     if (data.stage === 'LDAP1' || data.stage === 'DataStore1') {
+                        // AuthN
                         authnChain.authn(params);
                     }
+                    else if (data.stage === 'HOTP2') {
+                        // MFA - HOTP
+                        for (i=0; i<data.callbacks.length; i++) {
+                            if (data.callbacks[i].type === 'ConfirmationCallback' &&
+                                data.callbacks[i].input[0].name === 'IDToken2') {
+                                if (data.callbacks[i].input[0].value === 0) {
+                                    // auto request OTP
+                                    authnChain.authn(params);
+                                }
+                                else {
+                                    // submit OTP
+                                    params.inputComponent.actionURL = '/screen/otp';
+                                    anonymousFactory.navigateToLogin(params);
+                                }
+                                break;
+                            }
+                        }
+                    }
                     else if (data.stage === 'OATH1') {
+                        // MFA - OATH
                         params.inputComponent.actionURL = '/screen/otp';
                         anonymousFactory.navigateToLogin(params);
                     }
                 } else if (data.tokenId !== undefined) {
                     console.log('Authenticate successful');
-                    console.log('OpenAM tokenId : '+data.tokenId);
+                    //console.log('tokenId : '+data.tokenId);
                     sessionStorage.tokenId = data.tokenId;
                     sessionStorage.username = $rootScope.authnUsername;
                     $rootScope.isAuthSuccess = true;
@@ -971,8 +1059,8 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                         url : $rootScope.config.oauth2URL + '/access_token'
                     }).success(function(data) {
                         console.log('OAuth2 token service successful');
-                        console.log('OAuth2 access_token : '+data.access_token);
-                        console.log('OIDC id_token : '+data.id_token);
+                        //console.log('OAuth2 access_token : '+data.access_token);
+                        //console.log('OIDC id_token : '+data.id_token);
                         sessionStorage.access_token = data.access_token;
                         sessionStorage.id_token = data.id_token;
 
@@ -1048,29 +1136,6 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
     };
     this.navigateToScreen = function(params) {
         authnChain.authn(params);
-        $http({
-                    url: 'assets/resources/config/users.json',
-                    method: 'GET'
-                     }).success(function(data) {
-                    //extract user
-                    var user = [];
-                    angular.forEach(data.users, function(key) {
-                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
-                            $rootScope.isAuthSuccess = true;
-                            user = key;
-                        }});
-                        if($rootScope.isAuthSuccess){
-                            $rootScope.user = user;
-                            sessionStorage.username = user.name;    
-                        }
-                      }).error(function(data) {
-                    $rootScope.showIcon = false;
-                    if (data && data.exception) {
-                        growl.error(data.exception.message, '30');
-                    } else {
-                        growl.error($filter('translate')('GENERAL_ERROR'));
-                        }
-                    });
     };
     return this;
 });
