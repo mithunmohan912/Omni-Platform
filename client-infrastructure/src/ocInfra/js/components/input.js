@@ -153,13 +153,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     	}
 
 
-    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.xs;
+    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.xs;
     	colspan.xs.label = 12 - colspan.xs.input;
-    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.sm;
+    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.sm;
     	colspan.sm.label = 12 - colspan.sm.input;
-    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.md;
+    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.md;
     	colspan.md.label = 12 - colspan.md.input;
-    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
+    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
     	offset.xs = (element.inputOffset && element.inputOffset.xs) ? element.inputOffset.xs : 0;
