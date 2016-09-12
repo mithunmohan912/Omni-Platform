@@ -154,12 +154,18 @@
 
       <!-- Three columns of text below the carousel -->
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-repeat="icon in column.icons">
+        <div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
             <div class="box {{icon.class}}">
-            <div class="circle" ng-click="execute(icon)"><span class="dashBoardIcon {{icon.icon}}"></span></div>
-            <hr class="featurette-divider">
+
+
+            <div class="circle" ng-click="execute(icon)">
+            	<div ng-if="icon.flagicon" class="flagicon">
+            		<img class="img-responsive" src="{{icon.flagicon}}">
+                </div>
+            	<span class="dashBoardIcon {{icon.icon}}"></span>
+              </div>
             <h2 class="box-title" ng-click="execute(icon)">{{ icon.label | translate}}</h2>
-            <div class="form-inline text-left box-input-margin">
+<!--             <div class="form-inline text-left box-input-margin">
               <div class="form-group">
                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                 <div class="input-group">
@@ -167,7 +173,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-defult pull-right box-button">GO</button>
-            </div>
+            </div> -->
             <!-- <div class="input-group margin-bottom-20px">
                   <input type="text" class="form-control box-input" aria-describedby="sizing-addon2" placeholder="{{ '_ZIP_CODE' | translate}}">
                   <span class="input-group-addon btnGroup" id="inputEmail">
