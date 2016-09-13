@@ -533,6 +533,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										}
 									}
 								}
+
+
+								var combinedResourcesProperties = [];
+
 								if(Object.keys(payloadToPatch).length > 0){
 									promises.push(resourceFactory.patch(url, payloadToPatch));
 									$q.all(promises).then(function(response) {
@@ -540,16 +544,35 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											$scope.execute({ 'method': data.callback});
 										}
 										if (response) {
-											response.forEach(function(resp) {
-												if (resp.data && resp.data['_embedded'] && resp.data['_embedded']['cscaia:status_report']) {
-													consistent = consistent && resp.data['_embedded']['cscaia:status_report'].consistent;
+											response.forEach(function(resp){
+												var processedProperties = MetaModel.processProperties(resp.data);
+
+												if ($scope.resourcesToBindRef) {
+													combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
 												}
+												combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+
+
+												for (var ref in combinedResourcesProperties) {
+														for (var property in combinedResourcesProperties[ref].properties){	
+															if (processedProperties[property] && !processedProperties[property].consistent){
+																consistent = false;
+																break;  	
+															}		 
+														}
+														if (!consistent){
+															break;
+														}
+													}
+
+
 											});
+												
+											
+										
 										}
 										//OC-947: checking whether the resources are consistent
-										//Temporary rollback
-										//if (consistent && data.closePopup) {
-										if (data.closePopup) {	
+										if (consistent && data.closePopup) {
 											data.closePopup();
 										}
 										//OC-947: mark the resource as submitted
@@ -557,18 +580,38 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										
 									});
 								} else {
-									if (response.data && response.data['_embedded'] && response.data['_embedded']['cscaia:status_report']) {
-										consistent = consistent && response.data['_embedded']['cscaia:status_report'].consistent;
-									}
+									if (response) {
+											//Why is response an array here?
+											var processedProperties = MetaModel.processProperties(response.data);
+											if ($scope.resourcesToBindRef) {
+												combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
+											}
+											combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+											
+
+											for (var ref in combinedResourcesProperties) {
+												for (var property in combinedResourcesProperties[ref].properties){
+													
+													if (processedProperties[property] && !processedProperties[property].consistent){
+														consistent = false;
+														break;  	
+													}		 
+												}
+												if (!consistent){
+													break;
+												}
+													
+											}
+											
+											
+										}
 									if (promises.length === 0 && index === payloadKeys.length-1) {
 										if (data.callback) {
 											$scope.execute({ 'method': data.callback});
 										} 
 										
 										//OC-947: close the popup if there is no patches
-										//Temporary rollback
-										//if (consistent && data.closePopup) {
-										if (data.closePopup) {	
+										if (consistent && data.closePopup){
 											data.closePopup();
 										}
 										//OC-947: mark the resource as submitted
