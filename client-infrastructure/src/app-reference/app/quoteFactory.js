@@ -154,9 +154,9 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 			});
 		},
 
-		getPDF: function(element){
+		getPDF: function(element, scope){
 			//TODO extract the url and send it as parameter
-			pdfFactory.getPDF(element);
+			pdfFactory.getPDF(element, scope);
 		},
 
 		savePDF: function(){

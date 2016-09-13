@@ -547,7 +547,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											});
 										}
 										//OC-947: checking whether the resources are consistent
-										if (consistent && data.closePopup) {
+										//Temporary rollback
+										//if (consistent && data.closePopup) {
+										if (data.closePopup) {	
 											data.closePopup();
 										}
 										//OC-947: mark the resource as submitted
@@ -564,7 +566,9 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										} 
 										
 										//OC-947: close the popup if there is no patches
-										if (consistent && data.closePopup){
+										//Temporary rollback
+										//if (consistent && data.closePopup) {
+										if (data.closePopup) {	
 											data.closePopup();
 										}
 										//OC-947: mark the resource as submitted
