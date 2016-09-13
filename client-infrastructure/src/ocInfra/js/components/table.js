@@ -357,7 +357,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				//Bootstrap takes care of openin a pop up
 				if (callback) {
 					if ($scope.actionFactory[callback]) {
-						$scope.actionFactory[callback](itemSelected);
+						$scope.actionFactory[callback](itemSelected,$scope);
 					}
 				}
 			};
