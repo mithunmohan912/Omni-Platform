@@ -9,7 +9,7 @@ app.directive('convertTo', function() {
   return {
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
-      if (attrs.convertTo === 'integer') {
+      if (attrs.convertTo === 'integer' || attrs.convertTo === 'number') {
         ngModel.$parsers.push(function(val) {
           return parseInt(val, 10);
         });
