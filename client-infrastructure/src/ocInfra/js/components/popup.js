@@ -184,6 +184,11 @@ return {
 			// 	return true;
 			// }
 
+			$scope.$on('close_popup', function(event, params) {
+				$scope.closePopup();
+			});
+
+
 			$scope.execute = function(action) {
 				if (typeof action === 'function') {
 					//default actions case
@@ -191,10 +196,10 @@ return {
 					
 				} else if($scope.actionFactory[action]){
 					if ($scope.resourceUrl){
-						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties, $scope);
 					}
 					else{
-						$scope.actionFactory[action]();
+						$scope.actionFactory[action]($scope);
 					}
 					
 				}
