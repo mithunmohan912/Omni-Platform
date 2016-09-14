@@ -153,13 +153,13 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
     	}
 
 
-    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.xs;
+    	colspan.xs.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.xs;
     	colspan.xs.label = 12 - colspan.xs.input;
-    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.sm;
+    	colspan.sm.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.sm;
     	colspan.sm.label = 12 - colspan.sm.input;
-    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.md;
+    	colspan.md.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.md;
     	colspan.md.label = 12 - colspan.md.input;
-    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 8 : 12) : element.inputColspan.lg;
+    	colspan.lg.input = (!element.inputColspan) ? ((element.label) ? 12 : 12) : element.inputColspan.lg;
     	colspan.lg.label = 12 - colspan.lg.input;
 
     	offset.xs = (element.inputOffset && element.inputOffset.xs) ? element.inputOffset.xs : 0;
@@ -250,18 +250,18 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 	function _getValueForUiInput(element, propertyName, $scope){
 		if(element && element.value){
 			return element.value;
-		} else if(element && element.init){
-			var initMethod;
-			if($scope.actionFactory && $scope.actionFactory[element.init]){
-				initMethod = $scope.actionFactory[element.init];
-			} else if(_searchInParents($scope, element.init)){
-				initMethod = _searchInParents($scope, element.init);
+		} else if(element && element.function){
+			var method;
+			if($scope.actionFactory && $scope.actionFactory[element.function]){
+				method = $scope.actionFactory[element.function];
+			} else if(_searchInParents($scope, element.function)){
+				method = _searchInParents($scope, element.function);
 			}
 
 			if(!element.bind){
-				return initMethod({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
+				return method({ 'scope': $scope, 'metamodel': element, 'propertyName': propertyName, 'previousValue': undefined });
 			} else {
-				return initMethod;
+				return method;
 			}
 		} else {
 			return $scope.property ? $scope.property[propertyName] : (element) ? element.default : undefined;
@@ -581,7 +581,19 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				
 			};
 
-
+            $scope.quoteNumberValidate = function(params,$scope){
+            	 var value= params.value;
+            	 var maxlength=params.maxlength;
+            	 if(value.length < maxlength && !isNaN(value))
+            	 {
+	            	 value= new Array(Math.max(maxlength - String(value).length + 1, 0)).join(0) + value;
+	            	 $scope.field.property.value = value;
+	             }
+	             else if(isNaN(value))
+	             {
+	             	$scope.field.property.value = null;
+	             }	 
+            };
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
 				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
@@ -658,6 +670,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 								$scope.patch( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope}, $scope.update );
 							}else if($scope.update){
 								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
+							}else if($scope.metamodel.validation){
+								$scope.quoteNumberValidate({'value':$scope.property.value , 'maxlength':$scope.metamodel.attributes.maxlength},$scope);
 							}
 						}
 					},

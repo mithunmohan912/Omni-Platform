@@ -2,7 +2,7 @@
     "metamodel": {
         "resource": "quotes",
         "summary": true,
-"defaultValue": [
+    "defaultValue": [
             {
                 "field": "MAXRECORDS",
                 "value": "30",
@@ -10,10 +10,27 @@
             }
            ], 
         "sections": [
-            { 
-                "class":"no-padding",
+            {
                 "title": "_HOME_QUOTE_US_SEARCH",
                 "icon":"flaticon-home",
+                "properties": [
+                            {
+                                "type": "buttonGroup",
+                                "buttons" : [
+                                    {
+
+                                        "method": "navigateToScreen",
+                                      
+                                        "label": "_CREATE_QUOTE",
+                                        "actionURL": "/us/screen/quotescreate"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+        
+            { 
+                
                 "properties": [
                                {
                                     "id": "symbol",
@@ -26,7 +43,10 @@
                                         "md":6,
                                         "lg":6
                                     },
-                                    "uiInput" : true
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 },
                                 {
                                     "id": "firstName",
@@ -39,7 +59,10 @@
                                         "md":6,
                                         "lg":6
                                     },
-                                    "uiInput" : true
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 },
                                 {
                                     "id": "quoteNumber",
@@ -52,7 +75,11 @@
                                         "md":6,
                                         "lg":6
                                     },
-                                    "uiInput" : true
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "maxlength":7
+                                    },
+                                    "validation": true
                                 },
                                 {
                                     "id": "lastName",
@@ -65,7 +92,10 @@
                                         "md":6,
                                         "lg":6
                                     },
-                                    "uiInput" : true
+                                    "uiInput" : true,
+                                    "attributes":{
+                                        "capitalize":true 
+                                    }
                                 }
                 ]
             },
@@ -78,6 +108,10 @@
                                         "label": "_SEARCH",
                                         "method":"actionHandlingWithValidation",
                                         "action":"search"
+                                    },
+                                    {
+                                        "label": "_RESET",
+                                        "method":"resetscreen"
                                     }
                                 ]
                             }

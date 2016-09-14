@@ -82,22 +82,25 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
     }
 
     $rootScope.$on('$locationChangeStart', function (event,newUrl) {
-    var screenId = $rootScope.screenId;
-    if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
-    	return;
-    } 
-    if($rootScope.screenId === undefined){
-        $location.url('/screen/anonymous');
-    } else if (screenId === 'anonymous'){
-        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
-            $location.url($rootScope.nextURL);
+        var screenId = $rootScope.screenId;
+
+        // strong authn (hotp & oath)
+        if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+        	return;
         }
-    } else {
-        if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+
+        if($rootScope.screenId === undefined){
             $location.url('/screen/anonymous');
+        } else if (screenId === 'anonymous'){
+            if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+                $location.url($rootScope.nextURL);
+            }
+        } else {
+            if($rootScope.isAuthSuccess === undefined || $rootScope.isAuthSuccess === false) {
+                $location.url('/screen/anonymous');
+            }
         }
-    }
-});
+    });
    
     //persist few objects at app level
     $rootScope.routeParams = {};
@@ -124,6 +127,9 @@ app.run(function($rootScope, $http, $location, $resource,  $cookieStore,tmhDynam
 });
 
 app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory, $location){
+    var authnService;
+    var authnModule;
+
     return {
         navigateAsAnonymous: function(params){
             $rootScope.user = undefined;
@@ -138,6 +144,22 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
             }
         },
         navigateToLogin: function(params){
+            authnService = undefined;
+            authnModule = undefined;
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
+        navigateToLoginOtpSms: function(params){
+            authnService = 'SMSTwoFactorChain';
+            authnModule = undefined;
+            $rootScope.resourceHref = undefined;
+            $rootScope.nextURL = params.inputComponent.actionURL;
+            $rootScope.navigate(params.inputComponent.actionURL);    
+        },
+        navigateToLoginOtpEmail: function(params){
+            authnService = 'EmailTwoFactorChain';
+            authnModule = undefined;
             $rootScope.resourceHref = undefined;
             $rootScope.nextURL = params.inputComponent.actionURL;
             $rootScope.navigate(params.inputComponent.actionURL);    
@@ -168,6 +190,12 @@ app.factory('anonymousFactory', function($rootScope, MetaModel, resourceFactory,
                     $location.path(params.inputComponent.actionURL);
                 }
             });
+        },
+        getAuthnService: function(){
+            return authnService;
+        },
+        getAuthnModule: function(){
+            return authnModule;
         }
     };
 });
@@ -180,6 +208,7 @@ app.factory('dashboardFactory', function($rootScope, anonymousFactory){
     };
 });
 
+var msg;
 app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaModel, anonymousFactory, $location, $filter, growl){
     return {
         actionHandling: function(params){      
@@ -215,9 +244,12 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
             }
             
             if(validation){
+                 if(msg !== undefined){
+                   msg.destroy();
+                 }
                 MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location); 
             }else{
-                growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
+                msg = growl.error($filter('translate')('VALIDATION_ATLEAST_ERR_MSG'));
             }
         },
         actionHandlingWithDefaults: function(params){
@@ -233,7 +265,12 @@ app.factory('quotessearchFactory', function($rootScope, resourceFactory, MetaMod
         },
         homeOwnerDropdown: function(){
             return [$filter('translate')('_IN005')];
-        }
+        },
+        resetscreen: function(params){
+            angular.forEach(params.properties, function(val, key){
+                 params.properties[key].value=null;
+            });
+        },
     };
 });
 
@@ -297,9 +334,298 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
         },
         navigateToScreen: function(params){
             quotessearchFactory.navigateToScreen(params);
+        },
+        navigateToWizardUS: function navigateUS(params){
+            params.properties = this.saveProperty.propertiesForCreate;
+
+            // Check to be 100% sure we actually got the promise back
+            var promise = this.navigateToWizard(params);
+            if(promise && promise.then){
+                var self = this;
+                promise.then(function(httpResponse){
+                   // console.log(httpResponse, params);
+                    self.getAnnualCostUS.annualCost = httpResponse._links.self.premium;
+                    self.getIdentifierUS.identifier = httpResponse._links.self.quoteNumber;
+                    $rootScope.$broadcast('custom');
+                });
+            }
+        },
+        getAnnualCostUS:function getAnnualCostUS(){
+            return getAnnualCostUS.annualCost;
+                },
+        getIdentifierUS:function getIdentifierUS(){
+            return getIdentifierUS.identifier;
+                }, 
+        saveProperty:function saveProperty(params){
+            saveProperty.propertiesForCreate = saveProperty.propertiesForCreate || {};
+            saveProperty.propertiesForCreate[params.id[0]] = params.property;
+                }
+    };
+});
+
+
+app.factory('applicantInfoFactory', function($rootScope, quotescreateFactory){
+     return {
+        saveProperty:function(params){
+            quotescreateFactory.saveProperty(params);
+        },
+       navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
+        },
+         initDropdown: function(){
+                                            return {    '000505':'PT HO (00,05,05)*'
+                                                           };
+
+                        },
+                         initDropdown1: function(){
+             return { 'SC':'South Carolina'
+            
+                                                           };
+                        }
+
+    };
+});
+
+
+app.factory('policyInfoFactory', function($rootScope, quotescreateFactory){
+     return {
+        saveProperty:function(params){
+            quotescreateFactory.saveProperty(params);
+        },
+       navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        initDropdown: function(){
+             return { 'SC':'South Carolina'
+            
+                                                           };
+                        }
+      ,
+        initDropdown2: function(){
+            return { '12':'12 months',
+                '3':'3 months',
+                '6':'6 months',
+                '0':'Odd Term'
+                                                           };
+
+                        } ,
+        initDropdown3: function(){
+            return { 'A0':'Agent Annually',
+                'A2':'Semi-Annual',
+                'C0':'Customer Annually'                         };
+
+                        },
+        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
+        }
+
+    };
+});
+
+
+
+app.factory('generalInfoFactory', function($rootScope, quotescreateFactory){
+  return {
+         saveProperty:function(params){
+            quotescreateFactory.saveProperty(params);
+        },
+      navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        initDropdown1: function(){
+                                            return {  '01':'01',
+                '02':'02',
+                '03':'03',
+                '04':'04',
+                '05':'05',
+                '06':'06',
+                '07':'07'
+                                                           };
+
+                        },
+
+
+
+
+
+
+                         initDropdown2: function(){
+                                            return {  '0':'Less Than 1 Mile',
+                '1':'1 to 5 Miles',
+                '2':'6 to 10 Miles',
+                '3':'Over 10 Miles'
+                                                           };
+
+                        } ,
+                         initDropdown3: function(){
+                                            return {  '0':'Not Applicable',
+                '1':'Less Than 500 feet',
+                '2':'Less Than 1000 feet',
+                '3':'Under 1000 feet and lessthan 5 miles'    };
+
+                        },
+
+                        initDropdown4: function(){
+                                            return {   'F':'FRAME',
+                'M':' MANSORY',
+                'S':'SUPERIOR CONST'
+                                                           };
+
+                        } ,
+                         initDropdown5: function(){
+                                            return {    '7':'SINGLE FAMILY',
+                '1':'APPARTMENT',
+                '2':'CO-OP',
+                '3':'CONDIMINIUM',
+                '4':'DUPLEX',
+                '5':'OTHERS',
+                '6':'ROW HOUSE'
+                                                           };
+
+                        } ,
+                           initDropdown6: function(){
+                                            return {  'O':'OWN PRIMARY',
+                'T':'OWNER SEASONAL',
+                'X':'TENANT PRIMARY',
+                'S':'SECONDARY SEASONAL',
+                'N':'SECONDARY NONSEASONAL'    };
+
+                        } ,
+                        
+                        initDropdown7: function(){
+                                            return {  'USA':'CAMDEN',
+                '001':'COLUMBIA_METRO',
+                '002':'UNGRADED',
+                '003':'ABBEVILLE'
+                                                           };
+
+                        },
+                         initDropdown8: function(){
+                                            return {  'CAMDEN FD':'CAMDEN FD',
+                'Metro FD':' COLUMBIAMETRO'
+                                                           };
+
+                        } ,
+                         initDropdown9: function(){
+                                            return {   'NG':'UNGRADED',
+                'NA':'NOT APPLICABLE',
+                'NP':' NON PARTICIPANT'    };
+
+                        } ,
+                        navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
         }
     };
 });
+
+
+
+app.factory('coverageInfoFactory', function($rootScope, quotescreateFactory,quotessearchFactory){
+    return {
+         saveProperty:function(params){
+            quotescreateFactory.saveProperty(params);
+        },
+        navigateToTab: function($scope, inputComponent){
+            quotescreateFactory.navigateToTab($scope, inputComponent);
+        },
+        navigateToScreen: function(params){
+            quotescreateFactory.navigateToScreen(params);
+        },
+        initDropdown1: function(){
+                                            return {    '2':'Homeowners 2 ',
+                '3':'Homeowners 3 ',
+                '4':'Homeowners 4 ',
+                '6':'Homeowners 6 '
+                                                           };
+
+                        },
+                        initDropdown2: function(){
+                                            return {    '100.00':'100 ',
+                '250.00':'250 ',
+                '500.00':'500 ',
+                '1000.00':'1000 ',
+                '2500.00':'2500 '
+                                                           };
+
+                        },
+                         initDropdown3: function(){
+                                            return {  '0':'NOT APPLICABLE',
+                '1':'1%',
+                '2':'2%',
+                '3':'5%'  };
+
+                        },
+
+                        initDropdown4: function(){
+                                            return {    '100000':'100000',
+                '300000':'300000',
+                '500000':'500000'           };
+
+                        } ,
+                         initDropdown5: function(){
+                                            return {   '1000':'1000',
+                '5000':'5000'
+                                                           };
+
+                        } ,
+                           initDropdown6: function(){
+                                            return {    '0':'NOT APPLICABLE',
+                '1':'1% Annually',
+                '2':'2% Annually',
+                '3':'3% Annually',
+                '4':'4% Annually',
+                '6':'6% Annually',
+                '8':'8% Annually'    };
+
+                        },
+                         initDropdown7: function(){
+                                            return {  'N':'NO BURGLAR ALARM',
+                'Y':'BURGLAR ALARM'
+                };
+
+                        },
+                         initDropdown8: function(){
+                                            return {  'N':'NO FIRE ALARM',
+                'Y':'FIRE ALARM'
+                  };
+
+                        },
+                         initDropdown9: function(){
+                                            return {  'N':'NO SPRINKLER',
+                'A':'CLASS A SPRINKLER',
+                'B':'CLASS B SPRINKLER'
+                };
+
+                        },
+         navigateToWizard: function(params){
+            quotescreateFactory.navigateToWizard(params);
+        },
+
+        actionHandling: function(params){
+            quotessearchFactory.actionHandling(params);
+        }//,
+      //  calculatePremium: function(params){
+       //     additionalInfoFactory.calculatePremium(params);
+       // }
+    };
+});
+
+
+
+
+
 
 app.factory('autocreateFactory', function($rootScope, quotescreateFactory, resourceFactory){
     return {
@@ -360,7 +686,7 @@ app.factory('ownerInfoFactory', function($rootScope, quotescreateFactory){
         }
     };
 });
-app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
+app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory,resourceFactory){
     return {
         actionHandling: function(params){
             var scope = params.scope;
@@ -372,15 +698,29 @@ app.factory('gopaperlessFactory', function($rootScope, quotessearchFactory){
                     params.properties[key]= params.defaultValues[key];
                 }
             } 
+            params.inputComponent.msgForPatch='success';
+            this.paperlessActionhandling(params, function(){
+            resourceFactory.refresh(resourceUrl,params,$rootScope.headers); 
+            });
+            
+        },
+        paperlessActionhandling: function(params, callback){
             quotessearchFactory.actionHandling(params);
+            callback();
         }
     };
 });
 
 app.factory('makepaymentFactory', function($rootScope, quotessearchFactory){
-    return {
+     return {
         actionHandling: function(params){
             quotessearchFactory.actionHandling(params);
+        },
+        makepaymentRadio:function(){
+            return[
+                'Bank Account',
+                'Credit Card'
+            ];
         }
     };
 });
@@ -571,17 +911,26 @@ app.factory('autoPremiumInfoFactory', function($rootScope, quotescreateFactory){
 app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactory, growl){
     var authnChain = {
         authn: function(params){
+            if(msg !== undefined)
+            {
+                msg.destroy();
+            }
             $rootScope.isAuthSuccess = false;
-            if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
-                $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+            var authnURL = $rootScope.config.authnURL + '/authenticate';
+
+            var authnModule = anonymousFactory.getAuthnModule();
+            var authnService = anonymousFactory.getAuthnService();
+            if (authnService !== undefined) {
+                authnURL = authnURL + '?authIndexType=service&authIndexValue=' + authnService;
             }
-            if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
-                $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
-            }
-            if (params.scope.resourcesToBind.properties.inputRealm === undefined || params.scope.resourcesToBind.properties.inputRealm.value === undefined) {
-                $rootScope.authnRealm = '';
-            } else {
-                $rootScope.authnRealm = params.scope.resourcesToBind.properties.inputRealm.value;
+
+            if (params.scope !== undefined) {
+                if (params.scope.resourcesToBind.properties.inputUsername !== undefined && params.scope.resourcesToBind.properties.inputUsername.value !== undefined) {
+                    $rootScope.authnUsername = params.scope.resourcesToBind.properties.inputUsername.value;
+                }
+                if (params.scope.resourcesToBind.properties.inputPassword !== undefined && params.scope.resourcesToBind.properties.inputPassword.value !== undefined) {
+                    $rootScope.authnPassword = params.scope.resourcesToBind.properties.inputPassword.value;
+                }
             }
 
             var authnCallbackData = {};
@@ -590,6 +939,7 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                 console.log('authnCallbackData.authId : '+authnCallbackData.authId);
                 var i;
                 if (authnCallbackData.stage === 'LDAP1' || authnCallbackData.stage === 'DataStore1') {
+                    // AuthN
                     for (i=0; i<authnCallbackData.callbacks.length; i++) {
                         if (authnCallbackData.callbacks[i].type === 'NameCallback' && authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
                             authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputUsername.value;
@@ -600,16 +950,49 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                             continue;
                         }
                     }
+                } else if (authnCallbackData.stage === 'HOTP2') {
+                    // MFA - HOTP
+                    if (params.scope.resourcesToBind.properties.inputOtpCode === undefined) {
+                        // request OTP
+                        for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                            if (authnCallbackData.callbacks[i].type === 'ConfirmationCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                                authnCallbackData.callbacks[i].input[0].value = 1;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        // submit OTP
+                        for (i=0; i<authnCallbackData.callbacks.length; i++) {
+                            if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
+                                authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
+                                continue;
+                            }
+                            if (authnCallbackData.callbacks[i].type === 'ConfirmationCallback' &&
+                                authnCallbackData.callbacks[i].input[0].name === 'IDToken2') {
+                                authnCallbackData.callbacks[i].input[0].value = 0;
+                                continue;
+                            }
+                        }
+                    }
                 } else if (authnCallbackData.stage === 'OATH1') {
+                    // MFA - OATH
+                    // submit OTP
                     for (i=0; i<authnCallbackData.callbacks.length; i++) {
                         if (authnCallbackData.callbacks[i].type === 'PasswordCallback' &&
                             authnCallbackData.callbacks[i].input[0].name === 'IDToken1') {
                             authnCallbackData.callbacks[i].input[0].value = params.scope.resourcesToBind.properties.inputOtpCode.value;
-                            continue;
+                            break;
                         }
                     }
                 }
             }
+            else if (authnModule !== undefined) {
+                authnURL = authnURL + '?authIndexType=module&authIndexValue=' + authnModule;
+            }
+
 
             // authenticate user
             $http({
@@ -620,22 +1003,43 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                     'Content-Type' : 'application/json'
                 },
                 data : authnCallbackData,
-                url : $rootScope.config.authnURL + '/authenticate'
+                url : authnURL,
             }).success(function(data) {
                 if (data.authId !== undefined) {
                     console.log('Authenticate callback');
-                    console.log('OpenAM authId : '+data.authId);
+                    //console.log('authId : '+data.authId);
                     $rootScope.authnCallbackData = data;
+                    var i;
                     if (data.stage === 'LDAP1' || data.stage === 'DataStore1') {
+                        // AuthN
                         authnChain.authn(params);
                     }
+                    else if (data.stage === 'HOTP2') {
+                        // MFA - HOTP
+                        for (i=0; i<data.callbacks.length; i++) {
+                            if (data.callbacks[i].type === 'ConfirmationCallback' &&
+                                data.callbacks[i].input[0].name === 'IDToken2') {
+                                if (data.callbacks[i].input[0].value === 0) {
+                                    // auto request OTP
+                                    authnChain.authn(params);
+                                }
+                                else {
+                                    // submit OTP
+                                    params.inputComponent.actionURL = '/screen/otp';
+                                    anonymousFactory.navigateToLogin(params);
+                                }
+                                break;
+                            }
+                        }
+                    }
                     else if (data.stage === 'OATH1') {
+                        // MFA - OATH
                         params.inputComponent.actionURL = '/screen/otp';
                         anonymousFactory.navigateToLogin(params);
                     }
                 } else if (data.tokenId !== undefined) {
                     console.log('Authenticate successful');
-                    console.log('OpenAM tokenId : '+data.tokenId);
+                    //console.log('tokenId : '+data.tokenId);
                     sessionStorage.tokenId = data.tokenId;
                     sessionStorage.username = $rootScope.authnUsername;
                     $rootScope.isAuthSuccess = true;
@@ -655,8 +1059,8 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                         url : $rootScope.config.oauth2URL + '/access_token'
                     }).success(function(data) {
                         console.log('OAuth2 token service successful');
-                        console.log('OAuth2 access_token : '+data.access_token);
-                        console.log('OIDC id_token : '+data.id_token);
+                        //console.log('OAuth2 access_token : '+data.access_token);
+                        //console.log('OIDC id_token : '+data.id_token);
                         sessionStorage.access_token = data.access_token;
                         sessionStorage.id_token = data.id_token;
 
@@ -691,6 +1095,27 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                         });         
                     });
 
+                    // authorize
+                    $http({
+                    url: 'assets/resources/config/users.json',
+                    method: 'GET'
+                     }).success(function(data) {
+                    //extract user
+                        var user = [];
+                        angular.forEach(data.users, function(key) {
+                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value ) {
+                            user = key;
+                        }});
+                        
+                         $rootScope.user = user; 
+                      }).error(function(data) {
+                        $rootScope.showIcon = false;
+                        if (data && data.exception) {
+                            growl.error(data.exception.message, '30');
+                        } else {
+                            growl.error($filter('translate')('GENERAL_ERROR'));
+                        }
+                    });
 
                     $rootScope.authnUsername = undefined;
                     $rootScope.authnPassword = undefined;
@@ -704,36 +1129,13 @@ app.factory('loginFactory', function($rootScope, $filter, $http, anonymousFactor
                 if (data && data.exception) {
                     growl.error(data.exception.message, '30');
                 } else {
-                    growl.error($filter('translate')('INVALID_CREDENTIALS'));
+                   msg= growl.error($filter('translate')('INVALID_CREDENTIALS'));
                 }
             });
         }
     };
     this.navigateToScreen = function(params) {
         authnChain.authn(params);
-        $http({
-                    url: 'assets/resources/config/users.json',
-                    method: 'GET'
-                     }).success(function(data) {
-                    //extract user
-                    var user = [];
-                    angular.forEach(data.users, function(key) {
-                        if (key.name === params.scope.resourcesToBind.properties.inputUsername.value && key.password === params.scope.resourcesToBind.properties.inputPassword.value) {
-                            $rootScope.isAuthSuccess = true;
-                            user = key;
-                        }});
-                        if($rootScope.isAuthSuccess){
-                            $rootScope.user = user;
-                            sessionStorage.username = user.name;    
-                        }
-                      }).error(function(data) {
-                    $rootScope.showIcon = false;
-                    if (data && data.exception) {
-                        growl.error(data.exception.message, '30');
-                    } else {
-                        growl.error($filter('translate')('GENERAL_ERROR'));
-                        }
-                    });
     };
     return this;
 });
@@ -775,6 +1177,7 @@ app.directive('ckEditor', [function () {
 
                 elm.bind('$destroy', function () {
                     ck.destroy(false);
+
                 });
 
                 if (model) {
@@ -797,6 +1200,7 @@ app.directive('ckEditor', [function () {
                         data.push(model.$viewValue);
 
                         if (isReady) {
+                            
                             isReady = false;
                             setData();
                         }

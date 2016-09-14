@@ -16,10 +16,10 @@
                     </label>
                   </div>
 			</span>
-		    <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span>
-            <span ng-if="section.icon" class="{{section.icon}} icon-color section-icon-2"></span>
-            <span class="tabTitle section-title-text">{{ section.title | translate }}</span>
-        	<hr class="onl_hrOr_2 section-title-underline">
+		    <!-- <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span> -->
+            <span ng-if="section.icon" class="{{section.icon}} {{section.iconclass}} icon-color section-icon-2"></span>
+            <span class="tabTitle section-title-text {{section.titleclass}}" >{{ section.title | translate }}</span>
+        	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
     	</h3>
 
 
@@ -51,10 +51,37 @@
 								<span ng-switch-when="wizards" class="infra-wizards-container">
 									<wizard template="ocInfra/templates/components/wizard.html">
 										<div ng-repeat="wizard in column.wizards">
-											<wz-step wz-title="{{wizard.title | translate}}">
+                              <wz-step wz-title="{{wizard.title}}">
 	        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
-	        									<input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
+	        									<!-- <input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
 	        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button pull-left" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
+	      									 -->
+<div class="col-md-12 col-xs-12 padding-none wiz-btn-mrg">
+	 <!-- <div ng-if="wizard.back" class="pull-left col-md-6 padding-none" role="group" aria-label="...">
+        <button type="button" class="btn btn-info wiz-btn" wz-previous="execute(wizard)">
+          <span class="glyphicon glyphicon-chevron-left"></span> 
+          <span class="wiz-btn-pad">QUOTE INFO</span>
+          <span class="wiz-btn-inner hidden-xs-inline-block">PREV</span>
+        </button>
+      </div> -->
+
+      <div ng-if="wizard.back" class="pull-left text-left padding-none" role="group" aria-label="...">
+        <button type="button" class="btn pull-left wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
+        	<span  class="glyphicon glyphicon-chevron-left"></span> 
+      		<span class="wiz-btn-pad">{{wizard.prevtab | translate}}</span> 
+      		<span class="blue wiz-btn-inner hidden-xs-inline-block" >PREV</span>
+          
+        </button>
+      </div>
+
+      <div ng-if="wizard.next" class="pull-right text-right padding-none" role="group" aria-label="...">
+        <button type="button" class="pull-right btn btn-info wiz-btn wiz-btn-l-pad0" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}">
+          <span class="blue wiz-btn-inner hidden-xs-inline-block" >NEXT</span>
+          <span class="wiz-btn-pad">{{wizard.nexttab | translate}}</span> 
+          <span  class="glyphicon glyphicon-chevron-right"></span> 
+        </button>
+      </div> 
+ </div>
 	        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
 	    									</wz-step>
 
@@ -109,6 +136,77 @@
  	          						</div>
  								</div>
  								</div>
+								</span>
+								<span ng-switch-when="inslogo">
+									
+									 <div class="container p-l-r-none">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>OmniChannel Insurance</h1>
+       
+      </div>
+
+    </div>
+								</span>
+		<span ng-switch-when="groupicon">
+	<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+	   <div class="row">
+ <div ng-if="showIcon">
+        <div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+            <div class="box {{icon.class}}">
+
+
+            <div class="circle" ng-click="execute(icon)">
+            	<div ng-if="icon.flagicon" class="flagicon">
+            		<img class="img-responsive" src="{{icon.flagicon}}">
+                </div>
+            	<span class="dashBoardIcon {{icon.icon}}"></span>
+              </div>
+            <h2 class="box-title" ng-click="execute(icon)">{{ icon.label | translate}}</h2>
+<!--             <div class="form-inline text-left box-input-margin">
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                <div class="input-group">
+                  <input type="text" class="form-control box-input" id="exampleInputAmount" placeholder="{{ '_ZIP_CODE' | translate}}">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-defult pull-right box-button">GO</button>
+            </div> -->
+            <!-- <div class="input-group margin-bottom-20px">
+                  <input type="text" class="form-control box-input" aria-describedby="sizing-addon2" placeholder="{{ '_ZIP_CODE' | translate}}">
+                  <span class="input-group-addon btnGroup" id="inputEmail">
+                    <span class="btn btn-defult pull-right box-button">GO</span>
+                  </span>
+            </div> -->
+           <!--  <p class="hidden-xs">{{ icon.tourcontent | translate}} </p>
+            <p class="hidden-xs text-right"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+          </div>
+        </div><!-- /.col-lg-4 -->
+		</div>
+		<div ng-if="!showIcon">
+		<div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+		<div ng-if="icon.showButton">
+            <div class="box {{icon.class}}">
+
+
+            <div class="circle" ng-click="execute(icon)">
+            	<div ng-if="icon.flagicon" class="flagicon">
+            		<img class="img-responsive" src="{{icon.flagicon}}">
+                </div>
+            	<span class="dashBoardIcon {{icon.icon}}"></span>
+              </div>
+            <h2 class="box-title" ng-click="execute(icon)">{{ icon.label | translate}}</h2>
+          </div>
+		  </div>
+		  </div>
+        </div>
+      </div>
+      
+            </div>
+      
 								</span>
 								<span ng-switch-when="popup" class="infra-popup-container">
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
