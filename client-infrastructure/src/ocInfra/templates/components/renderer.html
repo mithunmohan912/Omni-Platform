@@ -156,7 +156,7 @@
 	<div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
-	   <div class="row">
+      <div class="row">
  <div ng-if="showIcon">
         <div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
             <div class="box {{icon.class}}">
@@ -191,25 +191,22 @@
 		</div>
 		<div ng-if="!showIcon">
 		<div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
-		<div ng-if="icon.showButton">
-            <div class="box {{icon.class}}">
 
-
+            <div ng-if="icon.showButton" class="box {{icon.class}}">
+       
             <div class="circle" ng-click="execute(icon)">
             	<div ng-if="icon.flagicon" class="flagicon">
             		<img class="img-responsive" src="{{icon.flagicon}}">
-                </div>
+      </div>
             	<span class="dashBoardIcon {{icon.icon}}"></span>
               </div>
             <h2 class="box-title" ng-click="execute(icon)">{{ icon.label | translate}}</h2>
           </div>
-		  </div>
+
 		  </div>
         </div>
       </div>
-      
             </div>
-      
 								</span>
 								<span ng-switch-when="popup" class="infra-popup-container">
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
