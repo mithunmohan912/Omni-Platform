@@ -13,6 +13,7 @@ app.factory('pdfFactory', ['$http', '$rootScope',function($http, $rootScope){
 		var pdf;
         var file;
         var pdfUrl=element.href;
+        pdfUrl = 'http://208.43.105.244:7070/ux-point-api/'+pdfUrl.substring(pdfUrl.indexOf('policies'), pdfUrl.length)
 		var params = {};
         if ($rootScope.config.apiGatewayApiKeys) {
             for(var key in $rootScope.config.apiGatewayApiKeys) {
