@@ -13,6 +13,9 @@ app.directive('convertTo', function() {
         ngModel.$parsers.push(function(val) {
           return parseInt(val, 10);
         });
+         ngModel.$formatters.push(function(val) {
+          return val.toString();
+        });
       }
     }
   }
