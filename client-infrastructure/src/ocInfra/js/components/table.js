@@ -732,6 +732,9 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 					}
 				}
 			};
+			$scope.move = function(url) {
+				$location.path(url);
+			};
 			$scope.isValidStatus = function(displayedItem){
  				var status = true;
  				if (displayedItem) {
