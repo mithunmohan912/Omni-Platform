@@ -3,7 +3,7 @@
 global app, define, self
 */
 
-app.factory('pdfFactory', ['$http', '$rootScope', function($http, $rootScope) {
+app.factory('pdfFactory', ['$http', '$rootScope',function($http, $rootScope){
 
 	function _getPDF(element){
 		
@@ -13,10 +13,17 @@ app.factory('pdfFactory', ['$http', '$rootScope', function($http, $rootScope) {
 		var pdf;
         var file;
         var pdfUrl=element.href;
-	
+        pdfUrl = 'http://208.43.105.244:7070/ux-point-api/'+pdfUrl.substring(pdfUrl.indexOf('policies'), pdfUrl.length)
+		var params = {};
+        if ($rootScope.config.apiGatewayApiKeys) {
+            for(var key in $rootScope.config.apiGatewayApiKeys) {
+                params[key] = $rootScope.config.apiGatewayApiKeys[key];
+            }
+        }
 		$http({
             method:'GET',
             url: pdfUrl,
+            params: params,
             responseType: 'arraybuffer'
             }).success(function(response){
 						pdf = response	;
