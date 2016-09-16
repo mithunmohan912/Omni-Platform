@@ -1,4 +1,4 @@
-<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html">
+<div class="padding-none renderer  renderer-{{activeTab}}">
 
 	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
 
@@ -17,7 +17,7 @@
                   </div>
 			</span>
 		    <!-- <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span> -->
-            <span ng-if="section.icon" class="{{section.icon}} {{section.iconclass}} icon-color section-icon-2"></span>
+            <span ng-if="section.icon" class=" {{section.iconclass}} {{section.icon}}  icon-color section-icon-2"></span>
             <span class="tabTitle section-title-text {{section.titleclass}}" >{{ section.title | translate }}</span>
         	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
     	</h3>
@@ -66,23 +66,24 @@
       </div> -->
 
       <div ng-if="wizard.back" class="pull-left text-left padding-none" role="group" aria-label="...">
-        <button type="button" class="btn pull-left wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
+        <button type="button" class="pull-left btn btn-info wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
         	<span  class="glyphicon glyphicon-chevron-left"></span> 
       		<span class="wiz-btn-pad">{{wizard.prevtab | translate}}</span> 
-      		<span class="blue wiz-btn-inner hidden-xs-inline-block" >PREV</span>
+      		<span class="blue wiz-btn-inner" >PREV</span>
           
         </button>
       </div>
 
       <div ng-if="wizard.next" class="pull-right text-right padding-none" role="group" aria-label="...">
         <button type="button" class="pull-right btn btn-info wiz-btn wiz-btn-l-pad0" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}">
-          <span class="blue wiz-btn-inner hidden-xs-inline-block" >NEXT</span>
+          <span class="blue wiz-btn-inner" >NEXT</span>
           <span class="wiz-btn-pad">{{wizard.nexttab | translate}}</span> 
           <span  class="glyphicon glyphicon-chevron-right"></span> 
         </button>
       </div> 
+      <input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
  </div>
-	        									<input ng-if="wizard.reset" type="button" class="btn btn-primary renderer-button" wz-reset value="{{ '_START_OVER' | translate }}" />
+	        									
 	    									</wz-step>
 
 										</div>
@@ -98,6 +99,9 @@
 								<span ng-switch-when="pdf">
 								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 								</span>	
+								<span ng-switch-when="anchor">
+                                   <a href class="{{column.class}}">{{column.text | translate}}</a>
+								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
 										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
@@ -156,10 +160,10 @@
 	<div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
-	   <div class="row">
+      <div class="row">
  <div ng-if="showIcon">
-        <div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
-            <div class="box {{icon.class}}">
+        <div class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+            <div class="box {{icon.class}}" tour-step order="{{icon.order}}" title="{{ icon.title | translate }}" backdrop="true" content="{{ icon.tourcontent | translate }}" placement="{{icon.position}}">
 
 
             <div class="circle" ng-click="execute(icon)">
@@ -190,26 +194,23 @@
         </div><!-- /.col-lg-4 -->
 		</div>
 		<div ng-if="!showIcon">
-		<div class=" marketingBox col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
-		<div ng-if="icon.showButton">
-            <div class="box {{icon.class}}">
+		<div class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
 
-
+            <div ng-if="icon.showButton" class="box {{icon.class}}" tour-step order="{{icon.order}}" title="{{ icon.title | translate }}" backdrop="true" content="{{ icon.tourcontent | translate }}" placement="{{icon.position}}">
+       
             <div class="circle" ng-click="execute(icon)">
             	<div ng-if="icon.flagicon" class="flagicon">
             		<img class="img-responsive" src="{{icon.flagicon}}">
-                </div>
+      </div>
             	<span class="dashBoardIcon {{icon.icon}}"></span>
               </div>
             <h2 class="box-title" ng-click="execute(icon)">{{ icon.label | translate}}</h2>
           </div>
-		  </div>
+
 		  </div>
         </div>
       </div>
-      
             </div>
-      
 								</span>
 								<span ng-switch-when="popup" class="infra-popup-container">
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
