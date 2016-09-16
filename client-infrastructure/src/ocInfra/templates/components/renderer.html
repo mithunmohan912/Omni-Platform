@@ -66,17 +66,17 @@
       </div> -->
 
       <div ng-if="wizard.back" class="pull-left text-left padding-none" role="group" aria-label="...">
-        <button type="button" class="btn pull-left wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
+        <button type="button" class="pull-left btn btn-info wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
         	<span  class="glyphicon glyphicon-chevron-left"></span> 
       		<span class="wiz-btn-pad">{{wizard.prevtab | translate}}</span> 
-      		<span class="blue wiz-btn-inner hidden-xs-inline-block" >PREV</span>
+      		<span class="blue wiz-btn-inner" >PREV</span>
           
         </button>
       </div>
 
       <div ng-if="wizard.next" class="pull-right text-right padding-none" role="group" aria-label="...">
         <button type="button" class="pull-right btn btn-info wiz-btn wiz-btn-l-pad0" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}">
-          <span class="blue wiz-btn-inner hidden-xs-inline-block" >NEXT</span>
+          <span class="blue wiz-btn-inner" >NEXT</span>
           <span class="wiz-btn-pad">{{wizard.nexttab | translate}}</span> 
           <span  class="glyphicon glyphicon-chevron-right"></span> 
         </button>
