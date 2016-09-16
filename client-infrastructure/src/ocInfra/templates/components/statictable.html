@@ -36,7 +36,8 @@
                <td>
                	<div class="col-md-4">
 			         <div class=" table-icon green mar-right-15px" >
-			            <span class="icon-white flaticon-home"></span>
+			            <span ng-if="displayedItem.properties.symbol.value === 'APV'" class="icon-white flaticon-car"></span>
+						<span ng-if="displayedItem.properties.symbol.value === 'HP'" class="icon-white flaticon-home"></span>
 			         </div>
 			         <a class="policy-text">{{displayedItem.properties.symbol.value}} {{displayedItem.properties.policyNumber.value}}-{{displayedItem.properties.moduleNumber.value}}</a>
 			         <div class="mic-info"><a class="text-green policy-status">{{displayedItem.properties.policyStatus.value}}</a></div>
