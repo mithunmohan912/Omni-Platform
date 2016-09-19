@@ -11,7 +11,7 @@ return {
 		scope: {
 			uiId: '@',
 			metamodel: '=',
-			resourceUrl: '=',
+			resourceUrl: '=?',
 			factoryName: '='
 		},
 
