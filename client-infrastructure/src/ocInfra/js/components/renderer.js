@@ -6,12 +6,42 @@ global angular
 
 angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
 
+	// WARNING: Copied from input component controller
+	function _searchInParents(scope, fieldName){
+		if(typeof fieldName !== 'string'){
+			return undefined;
+		}
+		if(fieldName in scope){
+			return scope[fieldName];
+		} else if(fieldName.indexOf('.') > 0){
+			var firstObj = fieldName.substring(0, fieldName.indexOf('.'));
+			if(firstObj in scope){
+				return scope.$eval(fieldName);
+			} else if(scope.$parent){
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		} else if(scope.$parent){
+			if(scope.$parent.resourcesToBind){
+				if (fieldName in scope.$parent.resourcesToBind.properties) {
+					return scope.$parent.resourcesToBind.properties[fieldName];
+				} else {
+					return _searchInParents(scope.$parent, fieldName);
+				}
+			} else {
+				return _searchInParents(scope.$parent, fieldName);
+			}
+		}
+
+		return undefined;
+	}
+
 	return {
 		restrict: 'E',
 		scope: {
 			metamodel: '=',
 			resourceUrl: '=?',
-			factoryName: '='
+			factoryName: '=',
+			parentResources: '='
 		},
 		link: function($scope){
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
@@ -111,11 +141,35 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									}
 								}
 
+								if(property.type === 'popup'){
+									//OC-948: object to save the resource url (href property) to be bound to the popup component (indexed by popup.name)
+									$scope.itemSelected = $scope.itemSelected || {};
+									$scope.itemSelected[property.popup.name] = {};
+								}
+
 								//we need to process an array even if id is a single value. 
 								if (property.id && !Array.isArray(property.id)){
 									property.id = [property.id]; 
 								}
 							});
+						} else if (section.type === 'reference') {
+							//OC-956: new structure to save the resourcesToBind object for the children renderers (indexed by $ref)
+							$scope.resourcesToBindRef = $scope.resourcesToBindRef || {};
+							$scope.resourcesToBindRef[section.$ref] = { properties : {} };
+						}
+
+						// Now we prepare the visible functionality
+						section.visible = section.visible || true;
+						if(typeof section.visible !== 'function') {
+							(function(visible){
+								section.visible = function(){
+									if(typeof visible === 'boolean'){
+										return visible;
+									} else {
+										return $scope.actionFactory[visible]({ 'scope': $scope, 'metamodel': metamodel, 'resources': $scope.resourcesToBind.properties, 'searchInParents': _searchInParents });
+									}
+								};
+							}(section.visible));
 						}
 					});
 				}
@@ -133,7 +187,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.optionsMap = {};
 				$scope.metamodelObject = metamodelObject;
 				var resource = $scope.metamodelObject.resource;
-				$scope.resourcesToBind = { properties : {} };
+
+				//OC-956: if the resourcesToBind is passed by the parent renderer 
+				$scope.resourcesToBind = $scope.parentResources || { properties : {} };
+
 				var newURL = {};
 				if($rootScope.resourceHref){
 					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
@@ -188,8 +245,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											$scope.resourceUrl = response.data._links.self.href;
 										} else {
 											$scope.resourceUrl = optionsObj.href;
-											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl] = optionsObj;
-											$scope.resourcesToBind[$scope.metamodelObject.resourceUrl].properties = optionsObj.properties;
+											$scope.resourcesToBind[$scope.resourceUrl] = optionsObj;
+											$scope.resourcesToBind[$scope.resourceUrl].properties = optionsObj.properties;
 										}
 
 										_init($scope.metamodelObject);
@@ -206,6 +263,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 			function _init(metamodelObject){
+				//OC-947: new property to manage the message erros to be shown in the popup after clicking the ok button
+				$scope.submitted = false;
 				$scope.metamodelObject = metamodelObject;
 				$scope.resultSet = {};
 				$scope.boundUrls = [];
@@ -220,7 +279,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.metamodelObject.resourceUrl = $rootScope.hostURL + $scope.metamodelObject.resourceUrl;
 				}
 
-				$scope.resourcesToBind = { properties: {} };
+				//OC-956: if the resourcesToBind is passed by the parent renderer 
+				$scope.resourcesToBind = $scope.parentResources || { properties: {} };
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
@@ -243,7 +303,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
-						//$scope.resourcesToBind = $scope.resourcesToBind || {};
 						//keep the ui inputs
 						var propertiesToKeep = {};
 						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
@@ -253,7 +312,15 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								}
 							}
 						}
-						$scope.resourcesToBind = { properties: propertiesToKeep };
+
+						//OC-956: keep the resourcesToBind object in case it was passed by the parent renderer
+						var keys = Object.keys($scope.resourcesToBind);
+						keys.forEach(function(key){
+							if (key !== 'properties') {
+								delete $scope.resourcesToBind[key];
+							}
+						});
+						$scope.resourcesToBind.properties = propertiesToKeep;
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
@@ -317,9 +384,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								We use the promise to get all values into the resultSet before changing the scope's resultSet. This
 								way we prevent the screen from flashing (the screen was being left blank before starting the rendering process again).
 							*/
-							MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, {}).then(function(resultSet){
-								$scope.resultSet = resultSet;
-							});
+							setTimeout(function(){
+								MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, {}).then(function(resultSet){
+									$scope.resultSet = resultSet;
+								});
+							}, 0);
+								
 						}
 					}
 				});
@@ -398,13 +468,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 					if($scope.resourcesToBind.properties !== undefined){
 						$scope.actionFactory[inputComponent.method]({'scope': $scope, 'inputComponent': inputComponent, 
-							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues});
+							'optionUrl': $scope.optionUrl, 'properties': $scope.resourcesToBind.properties, 'defaultValues': defaultValues, 'propertiesRef': $scope.resourcesToBindRef});
 
 					}
 				} else {
 					if ($scope[inputComponent.method]) {
 						if($scope.resultSet !== undefined && $scope.resourceUrlToRender !== undefined && $scope.resultSet[$scope.resourceUrlToRender] !== undefined && $scope.resourcesToBind.properties !== undefined){
-							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties});
+							$scope[inputComponent.method]({'properties': $scope.resourcesToBind.properties, 'propertiesRef': $scope.resourcesToBindRef});
 						}
 					}
 				}
@@ -415,44 +485,152 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			};
 
 			$scope.$on('patch_renderer', function(event, data){
-				if (data.resourceUrl === $scope.resourceUrlToRender || data.save) {
+				//OC-956: to avoid multiple callbacks, adding condition by name
+				if (data.name === $scope.metamodelObject.name && data.resourceUrl === $scope.resourceUrlToRender) {
 					var payloads = {};
 					var promises = [];
-					var propertiesBound = $scope.resourcesToBind.properties;
-					if (propertiesBound) {
-						for(var key in propertiesBound){
-							if(propertiesBound[key] && propertiesBound[key].self && propertiesBound[key].editable){
-								var href = propertiesBound[key].self;
+
+					if ($scope.resourcesToBind.properties) {
+						for(var key in $scope.resourcesToBind.properties){
+							if($scope.resourcesToBind.properties[key] && $scope.resourcesToBind.properties[key].self && $scope.resourcesToBind.properties[key].editable){
+								var href = $scope.resourcesToBind.properties[key].self;
 								payloads[href] = payloads[href] || {};
 							}
 						}
+						//OC-956: extract the properties of the children renderers
+						if ($scope.resourcesToBindRef) {
+							for (var ref in $scope.resourcesToBindRef) {
+								for(var key in $scope.resourcesToBindRef[ref].properties){
+									if($scope.resourcesToBindRef[ref].properties[key] && $scope.resourcesToBindRef[ref].properties[key].self && $scope.resourcesToBindRef[ref].properties[key].editable){
+										var href = $scope.resourcesToBindRef[ref].properties[key].self;
+										payloads[href] = payloads[href] || {};
+									}
+								}
+							}
+						}
 
+						var consistent = true;
 						var payloadKeys = Object.keys(payloads);
-						payloadKeys.forEach(function(url){
+						payloadKeys.forEach(function(url, index){
 							resourceFactory.get(url).then(function(response) {
 								var resourceToPatch = response.data;
 								var payloadToPatch = payloads[url];
 								for(var property in resourceToPatch){
 									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
-										if(property in propertiesBound && propertiesBound[property].value !== resourceToPatch[property]){
+										if(property in $scope.resourcesToBind.properties && $scope.resourcesToBind.properties[property].value !== resourceToPatch[property] && 
+											$scope.resourcesToBind.properties[property].self == url){
 											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
+										} else {
+											//OC-956: extract the properties of the children renderers
+											if ($scope.resourcesToBindRef) {
+												for (var ref in $scope.resourcesToBindRef) {
+													if(property in $scope.resourcesToBindRef[ref].properties && $scope.resourcesToBindRef[ref].properties[property].value !== resourceToPatch[property] && 
+														$scope.resourcesToBindRef[ref].properties[property].self == url){
+														payloadToPatch[property] = $scope.resourcesToBindRef[ref].properties[property].value? $scope.resourcesToBindRef[ref].properties[property].value:null;
+													} 
+												}
+											}
 										}
 									}
 								}
+
+
+								var combinedResourcesProperties = [];
+
 								if(Object.keys(payloadToPatch).length > 0){
 									promises.push(resourceFactory.patch(url, payloadToPatch));
-									$q.all(promises).then(function() {
+									$q.all(promises).then(function(response) {
 										if (data.callback) {
 											$scope.execute({ 'method': data.callback});
 										}
+										if (response) {
+											response.forEach(function(resp){
+												var processedProperties = MetaModel.processProperties(resp.data);
+
+												if ($scope.resourcesToBindRef) {
+													combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
+												}
+												combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+
+
+												for (var ref in combinedResourcesProperties) {
+														for (var property in combinedResourcesProperties[ref].properties){	
+															if (processedProperties[property] && !processedProperties[property].consistent){
+																consistent = false;
+																break;  	
+															}		 
+														}
+														if (!consistent){
+															break;
+														}
+													}
+
+
+											});
+												
+											
+										
+										}
+										//OC-947: checking whether the resources are consistent
+										if (consistent && data.closePopup) {
+											data.closePopup();
+										}
+										//OC-947: mark the resource as submitted
+										$scope.submitted = true;
+										
 									});
-								}else if (data.callback){
-									$scope.execute({ 'method': data.callback});
+								} else {
+									if (response) {
+											//Why is response an array here?
+											var processedProperties = MetaModel.processProperties(response.data);
+											if ($scope.resourcesToBindRef) {
+												combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
+											}
+											combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+											
+
+											for (var ref in combinedResourcesProperties) {
+												for (var property in combinedResourcesProperties[ref].properties){
+													
+													if (processedProperties[property] && !processedProperties[property].consistent){
+														consistent = false;
+														break;  	
+													}		 
+												}
+												if (!consistent){
+													break;
+												}
+													
+											}
+											
+											
+										}
+									if (promises.length === 0 && index === payloadKeys.length-1) {
+										if (data.callback) {
+											$scope.execute({ 'method': data.callback});
+										} 
+										
+										//OC-947: close the popup if there is no patches
+										if (consistent && data.closePopup){
+											data.closePopup();
+										}
+										//OC-947: mark the resource as submitted
+										$scope.submitted = true;
+									} 
 								}
 							});
 						});
-						if (payloadKeys.length === 0 && data.callback){
-							$scope.execute({ 'method': data.callback});
+						if (payloadKeys.length === 0) {
+							if (data.callback){
+								$scope.execute({ 'method': data.callback});
+							}
+							//OC-947: close the popup if there is no patches
+							if (data.closePopup) {
+								data.closePopup();
+							}
+
+							//OC-947: mark the resource as submitted
+							$scope.submitted = true;
 						}
 					}
 				}
