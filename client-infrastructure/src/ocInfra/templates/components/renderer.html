@@ -66,17 +66,17 @@
       </div> -->
 
       <div ng-if="wizard.back" class="pull-left text-left padding-none" role="group" aria-label="...">
-        <button type="button" class="btn pull-left wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
+        <button type="button" class="pull-left btn btn-info wiz-btn wiz-btn-r-pad0" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}">
         	<span  class="glyphicon glyphicon-chevron-left"></span> 
       		<span class="wiz-btn-pad">{{wizard.prevtab | translate}}</span> 
-      		<span class="blue wiz-btn-inner hidden-xs-inline-block" >PREV</span>
+      		<span class="blue wiz-btn-inner" >PREV</span>
           
         </button>
       </div>
 
       <div ng-if="wizard.next" class="pull-right text-right padding-none" role="group" aria-label="...">
         <button type="button" class="pull-right btn btn-info wiz-btn wiz-btn-l-pad0" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}">
-          <span class="blue wiz-btn-inner hidden-xs-inline-block" >NEXT</span>
+          <span class="blue wiz-btn-inner" >NEXT</span>
           <span class="wiz-btn-pad">{{wizard.nexttab | translate}}</span> 
           <span  class="glyphicon glyphicon-chevron-right"></span> 
         </button>
@@ -160,9 +160,9 @@
 	<div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
-      <div class="row">
- <div ng-if="showIcon">
-        <div class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+       <div class="row">
+
+        <div  ng-if="showIcon" class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
             <div class="box {{icon.class}}" tour-step order="{{icon.order}}" title="{{ icon.title | translate }}" backdrop="true" content="{{ icon.tourcontent | translate }}" placement="{{icon.position}}">
 
 
@@ -191,10 +191,10 @@
            <!--  <p class="hidden-xs">{{ icon.tourcontent | translate}} </p>
             <p class="hidden-xs text-right"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
           </div>
-        </div><!-- /.col-lg-4 -->
+
 		</div>
-		<div ng-if="!showIcon">
-		<div class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
+
+		<div  ng-if="!showIcon" ng-show="icon.showButton" class=" marketingBox {{icon.clear}} col-xs-{{icon.colspan.xs}} col-sm-{{icon.colspan.sm}} col-md-{{icon.colspan.md}} col-lg-{{icon.colspan.lg}} col-xs-offset-{{icon.offset.xs}} col-sm-offset-{{icon.offset.sm}} col-md-offset-{{icon.offset.md}} col-lg-offset-{{icon.offset.lg}}" ng-repeat="icon in column.icons">
 
             <div ng-if="icon.showButton" class="box {{icon.class}}" tour-step order="{{icon.order}}" title="{{ icon.title | translate }}" backdrop="true" content="{{ icon.tourcontent | translate }}" placement="{{icon.position}}">
        
@@ -208,7 +208,7 @@
           </div>
 
 		  </div>
-        </div>
+
       </div>
             </div>
 								</span>
