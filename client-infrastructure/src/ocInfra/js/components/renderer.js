@@ -148,6 +148,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                     newURL = url.replace(':regionId',applName);
                     $scope.metamodelObject.optionUrl = newURL;
                     $scope.resourceUrlToRender = newURL;
+                    //OC-1094
+                    $scope.resourceUrl = newURL;
                 } else if(resource !== undefined){
                 	newURL = $rootScope.hostURL + resource;
                   
@@ -233,7 +235,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				if(!$scope.activeTab){
 					$scope.activeTab = $location.path().substring($location.path().lastIndexOf('/')+1);
 				} 
-
+				
 				$scope.resourceUrlToRender = $scope.resourceUrl || $scope.metamodelObject.resourceUrl || $rootScope.resourceUrl;
 				if ($scope.resourceUrlToRender === undefined || $scope.resourceUrlToRender === '') {
 					return;
