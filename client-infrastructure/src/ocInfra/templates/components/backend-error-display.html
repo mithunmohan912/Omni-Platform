@@ -1,8 +1,10 @@
 <!-- Backend error display -->
-<i ng-if="field.property.statusMessages.errorCount > 0 || field.property.statusMessages.information.length > 0" class="backend-status fa fa-lg" ng-class="(field.property.statusMessages.errorCount > 0) ? 'fa-exclamation-circle color-error': 'fa-info-circle color-info'"></i>
-<div ng-if="field.property.statusMessages.errorCount > 0 || field.property.statusMessages.information.length > 0" class="arrow_box">
-	<i class="fa fa-exclamation-circle status-message color-error" ng-repeat="msg in field.property.statusMessages.error"><span>{{ msg.message }}<span></i>
-	<i class="fa fa-exclamation-triangle status-message color-warning" ng-repeat="msg in field.property.statusMessages.warning"><span>{{ msg.message }}<span></i>
-	<i class="fa fa-info-circle status-message color-info" ng-repeat="msg in field.property.statusMessages.information"><span>{{ msg.message }}<span></i>
+<!-- OC-947: Message errors to be shown in the popup after clicking the ok button -->
+<div ng-show="!field.property.consistent && ($parent.$parent.submitted || $parent.$parent.$parent.submitted)">
+	<div ng-if="field.property.statusMessages.errorCount > 0 || field.property.statusMessages.information.length > 0">
+		<i class="fa fa-exclamation-circle status-message color-error" ng-repeat="msg in field.property.statusMessages.error"><span>{{ msg.message }}<span></i>
+		<i class="fa fa-exclamation-triangle status-message color-warning" ng-repeat="msg in field.property.statusMessages.warning"><span>{{ msg.message }}<span></i>
+		<i class="fa fa-info-circle status-message color-info" ng-repeat="msg in field.property.statusMessages.information"><span>{{ msg.message }}<span></i>
+	</div>
 </div>
 <!-- End backend error display -->

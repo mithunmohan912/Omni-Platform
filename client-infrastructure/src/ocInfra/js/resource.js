@@ -32,6 +32,49 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
       return angular.copy(resourceDirectory[url]);
     }
 
+    // Temporal solution (LOL), to refresh a resource and all of its items in case the resource is a collection
+    function _deepRefresh(resource) { 
+        if(resource !== '0' && resource.data && resource.data._links && resource.data._links.self && resource.data._links.self.href){
+            /* 
+                If the resource is a collection we delete its items from the resource directory because maybe an item has been deleted in the API
+                but we won't be able to know it because the item won't be coming in the collection response, so it would stay in the resource
+                directory forever.
+            */
+            if(resource.data._links.item){
+                _cleanUrlsFrom(resource.data._links.self.href);
+            }
+            var promise = _refresh(resource.data._links.self.href);
+
+            // Again, if we had items in the collection, we get them fresh from the API
+            if(resource.data._links.item && promise && promise.then){
+                promise.then(function(response){
+                    if(response && response.data && response.data._links && response.data._links.item) {
+                        var urlsToRefresh;
+                        if(Array.isArray(response.data._links.item)){
+                            urlsToRefresh = response.data._links.item.map(function(item){ return item.href; });
+                        } else {
+                            urlsToRefresh = [ response.data._links.item.href ];
+                        }
+
+                        return $q.all(urlsToRefresh.map(function(url){ return _refresh(url); }));
+                    }
+
+                    return response;
+                });
+            }
+            
+            return promise;
+        }
+    }
+    // Method to clean any resource in the resourceDirectory starting from the passed URL
+    function _cleanUrlsFrom(startingURL) {
+        Object.keys(resourceDirectory).forEach(function(key){
+            if(key.indexOf(startingURL) !== -1 && key !== startingURL) {
+                delete resourceDirectory[key];
+            }
+        });
+    }
+
     function _prepareHeaders(headers){
         if(!headers){
             headers = defaultHeaders;
@@ -109,12 +152,16 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return promise;
     }
 
-    function _refresh(url, params, headers) {
-        resourceDirectory[url] = null;
-        return _get(url, params, _prepareHeaders(headers));
+    function _refresh(url, params, headers, deepRefresh) {
+        if(deepRefresh) {
+            return _deepRefresh(_getFromResourceDirectory(url));
+        } else {
+            resourceDirectory[url] = null;
+            return _get(url, params, _prepareHeaders(headers)).then();
+        }
     }
 
-    function _post(url, data, headers) {
+    function _post(url, data, headers, refresh) {
         var params = _addApiGatewayApiKeys({});
         var promise = $http({
                 method: 'POST',
@@ -127,17 +174,27 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             promise.then(function(response) {
                 if(response.data !== undefined && response.data._links !== undefined && response.data._links.self !== undefined && response.data._links.self.href !== undefined){
                     resourceDirectory[response.data._links.self.href] = response;
-                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });    
+                    $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': undefined });
+                
+                    if(refresh && response && response.data && response.data._links && response.data._links.up && response.data._links.up.href && _getFromResourceDirectory(response.data._links.up.href) !== '0'){
+                        var refreshPromise = _deepRefresh(_getFromResourceDirectory(response.data._links.up.href));
+
+                        if(refreshPromise) {
+                            return refreshPromise;
+                        }
+                    }
                 }
+
+                return response;
             }, function(error) {
                 //console.error(error);
-                return error;
+                throw error;
             });   
         }
         return promise;
     }
 
-    function _delete(url, headers) {
+    function _delete(url, headers, refresh) {
         var params = _addApiGatewayApiKeys({});
         var promise = $http({
             method : 'DELETE',
@@ -151,7 +208,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 resourceDirectory[url] = null;
                 $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
                 
+                if(refresh && previous  && previous !== '0' && previous.data && previous.data._links && previous.data._links.up && previous.data._links.up.href){
+                    var refreshPromise = _deepRefresh(_getFromResourceDirectory(previous.data._links.up.href));
 
+                    if(refreshPromise) {
+                        return refreshPromise;
+                    }
+                }
+
+                return response;
             }, function(error) {
                 console.error(error);
                 throw error;
@@ -160,7 +225,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return promise;
     }
 
-    function _patch(url,data,headers) {
+    function _patch(url,data,headers, refresh) {
         var params = _addApiGatewayApiKeys({});
         var promise = $http({
                 method: 'PATCH',
@@ -179,8 +244,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 // _refresh(url, data, headers);
 
                 $rootScope.$broadcast('resource_directory', { 'url': url, 'response': response, 'previous': previous });
+                if(refresh && response.data && response.data._links && response.data._links.up && response.data._links.up.href && _getFromResourceDirectory(previous.data._links.up.href) !== '0'){
+                    var refreshPromise = _deepRefresh(_getFromResourceDirectory(response.data._links.up.href));
 
-                
+                    if(refreshPromise) {
+                        return refreshPromise;
+                    }
+                }
+
+                return response;
             }, function(error) {
                 console.error(error);
                 throw error;
