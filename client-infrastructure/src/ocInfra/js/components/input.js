@@ -17,7 +17,7 @@ global app
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
-app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
+app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', '$filter', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory,$filter){
 
 	function _backendToFrontendType(typeObject){
 		switch(typeObject.type){
@@ -564,7 +564,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
+
+									var value = $scope.resources[property].value;
+
+									payload[property] = (value !== undefined) ? value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
