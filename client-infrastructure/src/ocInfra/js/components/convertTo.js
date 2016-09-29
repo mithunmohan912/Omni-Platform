@@ -23,5 +23,5 @@ app.directive('convertTo', function() {
 
       }
     }
-  }
+  };
 });

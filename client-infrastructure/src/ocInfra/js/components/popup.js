@@ -184,7 +184,7 @@ return {
 			// 	return true;
 			// }
 
-			$scope.$on('close_popup', function(event, params) {
+			$scope.$on('close_popup', function() {
 				$scope.closePopup();
 			});
 
@@ -210,7 +210,7 @@ return {
 			//OC-947: method to close the popup when the resources is consistent
 			$scope.closePopup = function() {
 				element.find('.modal').modal('hide');
-			}
+			};
 		},
 		templateUrl: $rootScope.templatesURL + 'popup.html'
 	};

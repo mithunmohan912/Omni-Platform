@@ -80,42 +80,42 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 		return undefined;
 	}
 	
-	function _evaluateExpression(expression, $scope, resource) {
-        var response = true;
-        if (expression.operator) //Recursive case
-        {
-            if (expression.operator === 'AND') {
-                angular.forEach(expression.conditions, function(val) {
-                    if (response) {
-                        response = response && _evaluateExpression(val, $scope, resource);
-                    }
-                });
-            } else if (expression.operator === 'OR') {
-                response = false;
-                angular.forEach(expression.conditions, function(val) {
-                    if (!response) {
-                        response = response || _evaluateExpression(val, $scope, resource);
-                    }
-                });
-            }
-        } else //Base case
-        {
-        	if (expression.existsInEntity){
-        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
-        	}else{
-        		var field; 
-        		if (resource && resource[expression.field]) {
-					field = resource[expression.field];
-        		} else {
-        			field = _searchInParents($scope, expression.field);
-        		}
-        		var value = field instanceof Object? field.value: field;
-        		response = value === expression.value;
-        	}
+	// function _evaluateExpression(expression, $scope, resource) {
+ //        var response = true;
+ //        if (expression.operator) //Recursive case
+ //        {
+ //            if (expression.operator === 'AND') {
+ //                angular.forEach(expression.conditions, function(val) {
+ //                    if (response) {
+ //                        response = response && _evaluateExpression(val, $scope, resource);
+ //                    }
+ //                });
+ //            } else if (expression.operator === 'OR') {
+ //                response = false;
+ //                angular.forEach(expression.conditions, function(val) {
+ //                    if (!response) {
+ //                        response = response || _evaluateExpression(val, $scope, resource);
+ //                    }
+ //                });
+ //            }
+ //        } else //Base case
+ //        {
+ //        	if (expression.existsInEntity){
+ //        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+ //        	}else{
+ //        		var field; 
+ //        		if (resource && resource[expression.field]) {
+	// 				field = resource[expression.field];
+ //        		} else {
+ //        			field = _searchInParents($scope, expression.field);
+ //        		}
+ //        		var value = field instanceof Object? field.value: field;
+ //        		response = value === expression.value;
+ //        	}
             
-        }
-        return response;
-    }
+ //        }
+ //        return response;
+ //    }
 
     function _prepareColspanAndOffset(element){
     	var colspan = {
