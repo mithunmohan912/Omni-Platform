@@ -672,7 +672,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 								$scope.patch( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope}, $scope.update );
 							}else if($scope.update){
 								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
-							}else if($scope.metamodel.validation){
+							}
+							if($scope.metamodel.validation){ 
 								$scope.quoteNumberValidate({'value':$scope.property.value , 'maxlength':$scope.metamodel.attributes.maxlength},$scope);
 							}
 						}
