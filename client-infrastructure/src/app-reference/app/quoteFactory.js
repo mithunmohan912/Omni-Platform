@@ -17,6 +17,11 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 	}
 
 	return {
+
+		showAlert: function(params, resp){
+			console.log('Example of onUpdate function after patchOnBlur '+ resp);
+		},
+
 		toCoverage: function() {
 			$location.path('/screen/coverage');
 		},

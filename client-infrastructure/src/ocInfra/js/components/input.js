@@ -572,9 +572,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 								}													
 							}
 							if(Object.keys(payload).length > 0){
-								resourceFactory.patch(params.property.self, payload, {}).then(function(){
+								resourceFactory.patch(params.property.self, payload, {}).then(function(response){
 									if(next){
-										next(params);
+										next(params, response);
 									}
 								}, function(error){
 									console.error(error);
