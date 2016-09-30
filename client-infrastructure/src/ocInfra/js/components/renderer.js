@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -458,7 +458,66 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 			}
 
 
-			$scope.execute = function(inputComponent) {
+			$scope.isValid = function(CurrScreen){
+                var dataField = [];
+                var mandatoryFields = $scope.loadRequiredField(CurrScreen);
+                var emptyField = [];
+                var message = '';
+                var valid = true;
+                if(mandatoryFields){
+                    for(var i=0;i<mandatoryFields.length;i++){
+                    var query = '#\\[\\"elementName\\"\\]';
+                    console.log("..........",mandatoryFields[i]);
+                    query = query.replace('elementName',mandatoryFields[i]);
+                    var val = angular.element($(query)).val();
+                    console.log(val);
+                    	if(!val){
+                       		emptyField[i] = mandatoryFields[i];
+                        	valid = false;
+                    	}
+                	}
+	                console.log("emptyField",emptyField);
+	                if(emptyField.length > 0){
+	                    emptyField.forEach(function(key) {
+	                        message += key + ' is required <br/>';
+	                    });
+	                    msg = growl.error(message);
+	                   	msg.setText(message);
+	                }
+                }
+                return valid;               
+            };
+
+            $scope.loadRequiredField = function(CurrScreen){
+                var mandatoryField = [];
+                var arrparent;
+                try{
+                    if(CurrScreen.id){
+                    	arrparent = $rootScope.metamodel[CurrScreen.id].sections;
+                    }else{
+                    	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                    }
+                    for(var i = 0; i < arrparent.length; i++){
+                    	var arr = arrparent[i].properties;
+                    	for(var j = 0; j < arr.length; j++){
+                        	var object = arr[j];
+                        	if(object.required !== undefined && object.required === 'required'){
+                            	mandatoryField.push(object.id[0]);
+                        	}
+                    	}
+                    }
+                    return mandatoryField;
+                }
+                catch(e){
+                    console.log(e);
+                }
+            };
+            $scope.enterValidation = function(){
+                console.log("$scope.isWizardValid..",$scope.isWizardValid);
+                return $scope.isWizardValid;
+            }
+			$scope.execute = function(inputComponent) {          
+                $scope.isWizardValid = $scope.isValid(inputComponent);
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
