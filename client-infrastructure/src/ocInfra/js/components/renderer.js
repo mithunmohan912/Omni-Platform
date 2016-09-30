@@ -502,7 +502,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							for (var ref in $scope.resourcesToBindRef) {
 								for(var key2 in $scope.resourcesToBindRef[ref].properties){
 									if($scope.resourcesToBindRef[ref].properties[key2] && $scope.resourcesToBindRef[ref].properties[key2].self && $scope.resourcesToBindRef[ref].properties[key2].editable){
-										var href2 = $scope.resourcesToBindRef[href2].properties[key2].self;
+										var href2 = $scope.resourcesToBindRef[ref].properties[key2].self;
 										payloads[href2] = payloads[href2] || {};
 									}
 								}
