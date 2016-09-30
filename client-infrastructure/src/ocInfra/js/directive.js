@@ -32,8 +32,8 @@ app.directive('formatDate', function($filter) {
                     }else{
                     
                         var inputDate = viewValue.split('/');                        
-                        if(Number(inputDate[0])> 0 && Number(inputDate[0])< 32 && Number(inputDate[1]) > 0 
-                        && Number(inputDate[1]) < 13 && Number(inputDate[2]) > 1900 && Number(inputDate[1]) < 2031){
+                        if(Number(inputDate[0])> 0 && Number(inputDate[0])< 32 && Number(inputDate[1]) > 0 && 
+                          Number(inputDate[1]) < 13 && Number(inputDate[2]) > 1900 && Number(inputDate[1]) < 2031){
                             return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), 'yyyy-MM-dd');
                         }
                     }
@@ -42,3 +42,16 @@ app.directive('formatDate', function($filter) {
         }
     };
 });
+
+
+app.directive('getblock', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr) {
+
+            elem.bind('click', function() {
+              scope.$emit('getBlock',attr.getblock);
+              });
+        }
+    };
+  });

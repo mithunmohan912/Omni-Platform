@@ -11,7 +11,8 @@
 	
 	<span ng-class="field.class  ? field.class : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		<input 	type="{{field.format}}"
+		<div ng-if="!(field.inputUnit)">
+			<input 	type="{{field.format}}"
 				class="form-control"
 				autocomplete="off"
 				id="{{field.id}}"
@@ -27,7 +28,29 @@
 				autocapitalize="off"
 				capitalize="{{field.attributes.capitalize}}" 
 				consistent="{{field.property.consistent}}"/>
+		</div>
 
+		<div class="input-group" ng-if="field.inputUnit">
+			<input 	type="{{field.format}}"
+				class="input-text-control form-control"
+				autocomplete="off"
+				id="{{field.id}}"
+				name="{{field.name}}"
+				placeholder="{{field.placeholder | translate}}"
+				maxlength="{{field.attributes.maxlength}}"
+				
+				ng-model="field.property.value"
+				ng-required="field.property.required"
+				ng-disabled="!field.property.editable" 
+				ng-change="field.onChange()"
+				ng-blur="field.onBlur()"
+
+				capitalize="{{field.attributes.capitalize}}" 
+				consistent="{{field.property.consistent}}"/>
+				<span class="input-group-addon unit-control">
+					{{getUnit()}}
+				</span>
+		</div>
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>
 </span>

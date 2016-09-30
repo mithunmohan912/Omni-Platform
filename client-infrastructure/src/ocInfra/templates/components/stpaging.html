@@ -1,6 +1,7 @@
-<div class="pagination" ng-if="pages.length >= 1">
+<div class="pagination" ng-if="pages.length >= 1" >
     <nav>
         <ul class="pagination">
+            <li><a class="glyphicon glyphicon-fast-backward" getblock="prev">&nbsp;</a></li>
             <li><a ng-click="selectPage(1)">{{ '_FIRST' | translate }}</a></li>
             <li><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
             <li>
@@ -11,6 +12,8 @@
             </li>
             <li><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
             <li><a ng-click="selectPage(numPages)">{{ '_LAST' | translate }}</a></li>
+            <li><a class="glyphicon glyphicon-fast-forward"  getblock="next">&nbsp;</a></li>
+             
         </ul>
     </nav>
 </div>

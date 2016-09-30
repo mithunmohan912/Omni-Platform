@@ -17,7 +17,7 @@ global app
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
-app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', '$filter', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory,$filter){
+app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
 	function _backendToFrontendType(typeObject){
 		switch(typeObject.type){
@@ -557,6 +557,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						$scope.timeout = false;
 						var payload = {};
 						resourceFactory.get(params.property.self).then(function(response){
+
 							/*
 							Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
 							we may lose already modified information when the response come back from the backend
@@ -725,7 +726,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
+					'inputUnit': $scope.metamodel.inputUnit
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -789,6 +791,15 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+			};
+
+			$scope.getUnit = function(){
+				if (!_.isEmpty($scope.property.self)){
+					var resource = resourceFactory.getFromResourceDirectory($scope.property.self);
+					return  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';
+
+				}
+				
 			};
 
 			var setClass = function(){
