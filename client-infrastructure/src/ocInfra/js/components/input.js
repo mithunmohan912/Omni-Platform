@@ -17,7 +17,7 @@ global app
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
-app.directive('inputRender', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
+app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache', 'uibButtonConfig', '$injector', '$location', '$timeout', 'resourceFactory', function($compile, $http, $rootScope, $templateCache, uibButtonConfig, $injector, $location, $timeout, resourceFactory){
 
 	function _backendToFrontendType(typeObject){
 		switch(typeObject.type){
@@ -80,42 +80,42 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 		return undefined;
 	}
 	
-	function _evaluateExpression(expression, $scope, resource) {
-        var response = true;
-        if (expression.operator) //Recursive case
-        {
-            if (expression.operator === 'AND') {
-                angular.forEach(expression.conditions, function(val) {
-                    if (response) {
-                        response = response && _evaluateExpression(val, $scope, resource);
-                    }
-                });
-            } else if (expression.operator === 'OR') {
-                response = false;
-                angular.forEach(expression.conditions, function(val) {
-                    if (!response) {
-                        response = response || _evaluateExpression(val, $scope, resource);
-                    }
-                });
-            }
-        } else //Base case
-        {
-        	if (expression.existsInEntity){
-        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
-        	}else{
-        		var field; 
-        		if (resource && resource[expression.field]) {
-					field = resource[expression.field];
-        		} else {
-        			field = _searchInParents($scope, expression.field);
-        		}
-        		var value = field instanceof Object? field.value: field;
-        		response = value === expression.value;
-        	}
+	// function _evaluateExpression(expression, $scope, resource) {
+ //        var response = true;
+ //        if (expression.operator) //Recursive case
+ //        {
+ //            if (expression.operator === 'AND') {
+ //                angular.forEach(expression.conditions, function(val) {
+ //                    if (response) {
+ //                        response = response && _evaluateExpression(val, $scope, resource);
+ //                    }
+ //                });
+ //            } else if (expression.operator === 'OR') {
+ //                response = false;
+ //                angular.forEach(expression.conditions, function(val) {
+ //                    if (!response) {
+ //                        response = response || _evaluateExpression(val, $scope, resource);
+ //                    }
+ //                });
+ //            }
+ //        } else //Base case
+ //        {
+ //        	if (expression.existsInEntity){
+ //        		response = resource && resource[expression.field] && resource[expression.field].value !== null;
+ //        	}else{
+ //        		var field; 
+ //        		if (resource && resource[expression.field]) {
+	// 				field = resource[expression.field];
+ //        		} else {
+ //        			field = _searchInParents($scope, expression.field);
+ //        		}
+ //        		var value = field instanceof Object? field.value: field;
+ //        		response = value === expression.value;
+ //        	}
             
-        }
-        return response;
-    }
+ //        }
+ //        return response;
+ //    }
 
     function _prepareColspanAndOffset(element){
     	var colspan = {
@@ -283,7 +283,7 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 			factoryName: '=',
 			resourceUrl: '='
 		},
-		controller: function($scope){
+		controller: ['$scope', function($scope){
 			/* Default attributes and actions for inputs */
 			var defaults = {};
 			defaults.autocomplete = {
@@ -643,7 +643,23 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 				//var baseUrl = (!$scope.baseUrl || $scope.baseUrl == '') ? 'src/ocInfra/templates/components' : $scope.baseUrl;
 
 				$scope.baseUrl = $scope.baseUrl || $rootScope.templatesURL;
-				$scope.inputHtmlUrl = $scope.baseUrl + 'input-' + inputType + '.html';
+
+                var templateUrl = $scope.baseUrl + 'input-' + inputType + '.html';
+
+                if(!$templateCache.get(templateUrl))
+                {
+                    $http.get(templateUrl).then(function(response){
+                        $templateCache.put(templateUrl, response.data);
+                        $scope.inputHtmlUrl = templateUrl;
+                        $scope.$broadcast('inputHtmlUrlChange', templateUrl);
+                    });
+                }
+                else
+                {
+                    $scope.$broadcast('inputHtmlUrlChange', templateUrl);
+                }
+
+				
 				// Update mode: blur or change. In some cases (toggle and checkbox we need to trigger the update callback on change and not on blur)
 				$scope.updateMode = ((!$scope.updateMode || $scope.updateMode === '') && defaults[inputType]) ? defaults[inputType].updateMode : $scope.updateMode;
 				$scope.updateMode = (!$scope.updateMode || $scope.updateMode === '') ? 'blur' : $scope.updateMode;
@@ -672,7 +688,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 								$scope.patch( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope}, $scope.update );
 							}else if($scope.update){
 								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
-							}else if($scope.metamodel.validation){
+							} 
+							if($scope.metamodel.validation){ 
 								$scope.quoteNumberValidate({'value':$scope.property.value , 'maxlength':$scope.metamodel.attributes.maxlength},$scope);
 							}
 						}
@@ -705,11 +722,8 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
-					'help': ($scope.metamodel.help)
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
 				};
-
-				$scope.helpTemplate = $scope.metamodel.help ? $scope.metamodel.help.helpTemplate : null;
 
 				_prepareColspanAndOffset($scope.field);
 
@@ -795,36 +809,12 @@ app.directive('inputRender', function($compile, $http, $rootScope, $templateCach
 					$scope.load();
 				}
 			});
-		},
-		link: function($scope, element){
-			var unwatch = $scope.$watch('inputHtmlUrl', function(newValue){
-				if(newValue){
-
-					if(!$templateCache.get(newValue)){
-						$templateCache.put(newValue, 'Pending');
-
-						$http.get(newValue).then(function(response){
-							$templateCache.put(newValue, response.data);
-							$rootScope.$broadcast(newValue, response.data);
-							
-							element.html(response.data);
-							$compile(element.contents())($scope);
-							unwatch();
-						});
-					} else {
-						if($templateCache.get(newValue) === 'Pending'){
-							$rootScope.$on(newValue, function(event){
-								element.html($templateCache.get(event.name));
-								$compile(element.contents())($scope);
-							});
-						} else {
-							element.html($templateCache.get(newValue));
-							$compile(element.contents())($scope);
-						}
-						unwatch();
-					}
-				}
-			});
+		}],
+		link: function(scope, element){
+            scope.$on('inputHtmlUrlChange', function(event, templateURL){
+                element.html($templateCache.get(templateURL));
+                $compile(element.contents())(scope);
+            });
 		}
 	};
-});
+}]);

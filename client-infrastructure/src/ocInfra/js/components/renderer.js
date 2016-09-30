@@ -500,10 +500,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						//OC-956: extract the properties of the children renderers
 						if ($scope.resourcesToBindRef) {
 							for (var ref in $scope.resourcesToBindRef) {
-								for(var key in $scope.resourcesToBindRef[ref].properties){
-									if($scope.resourcesToBindRef[ref].properties[key] && $scope.resourcesToBindRef[ref].properties[key].self && $scope.resourcesToBindRef[ref].properties[key].editable){
-										var href = $scope.resourcesToBindRef[ref].properties[key].self;
-										payloads[href] = payloads[href] || {};
+								for(var key2 in $scope.resourcesToBindRef[ref].properties){
+									if($scope.resourcesToBindRef[ref].properties[key2] && $scope.resourcesToBindRef[ref].properties[key2].self && $scope.resourcesToBindRef[ref].properties[key2].editable){
+										var href2 = $scope.resourcesToBindRef[href2].properties[key2].self;
+										payloads[href2] = payloads[href2] || {};
 									}
 								}
 							}
@@ -518,14 +518,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								for(var property in resourceToPatch){
 									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
 										if(property in $scope.resourcesToBind.properties && $scope.resourcesToBind.properties[property].value !== resourceToPatch[property] && 
-											$scope.resourcesToBind.properties[property].self == url){
+											$scope.resourcesToBind.properties[property].self === url){
 											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
 										} else {
 											//OC-956: extract the properties of the children renderers
 											if ($scope.resourcesToBindRef) {
 												for (var ref in $scope.resourcesToBindRef) {
 													if(property in $scope.resourcesToBindRef[ref].properties && $scope.resourcesToBindRef[ref].properties[property].value !== resourceToPatch[property] && 
-														$scope.resourcesToBindRef[ref].properties[property].self == url){
+														$scope.resourcesToBindRef[ref].properties[property].self === url){
 														payloadToPatch[property] = $scope.resourcesToBindRef[ref].properties[property].value? $scope.resourcesToBindRef[ref].properties[property].value:null;
 													} 
 												}
@@ -550,7 +550,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												if ($scope.resourcesToBindRef) {
 													combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
 												}
-												combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+												combinedResourcesProperties.resourceToBind = angular.copy($scope.resourcesToBind);
 
 
 												for (var ref in combinedResourcesProperties) {
@@ -586,13 +586,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											if ($scope.resourcesToBindRef) {
 												combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
 											}
-											combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+											combinedResourcesProperties.resourceToBind = angular.copy($scope.resourcesToBind);
 											
 
-											for (var ref in combinedResourcesProperties) {
-												for (var property in combinedResourcesProperties[ref].properties){
+											for (var ref2 in combinedResourcesProperties) {
+												for (var prop in combinedResourcesProperties[ref2].properties){
 													
-													if (processedProperties[property] && !processedProperties[property].consistent){
+													if (processedProperties[prop] && !processedProperties[prop].consistent){
 														consistent = false;
 														break;  	
 													}		 
