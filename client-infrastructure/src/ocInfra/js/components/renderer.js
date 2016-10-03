@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -457,8 +457,94 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return false;
 			}
 
+			$scope.translateKeyToLabelByTab = function(key, CurrScreen){
+                var arrparent;
+                if(CurrScreen.id){
+                    arrparent = $rootScope.metamodel[CurrScreen.id].sections;
+                }else{
+                    arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                }
+                for(var i = 0; i < arrparent.length; i++){
+                    var arr = arrparent[i].properties;
+                    for(var j = 0; j < arr.length; j++){
+                        var object = arr[j];
+                        if(object.id[0] === key){
+                            return object.label;
+                        }
+                    }
+                }
+            };
 
-			$scope.execute = function(inputComponent) {
+
+			$scope.isValid = function(CurrScreen){
+                var dataField = [];
+                var mandatoryFields = $scope.loadRequiredField(CurrScreen);
+                var emptyField = [];
+                var message = '';
+                var valid = true;
+                if(mandatoryFields){
+                    for(var i=0;i<mandatoryFields.length;i++){
+                    var query = '#elementName';
+                    query = query.replace('elementName',mandatoryFields[i]);
+                    query = query.replace(':',"\\:");
+                    var val = angular.element($(query)).val();
+                        if(!val || val === "?"){
+                       		emptyField[i] = mandatoryFields[i];
+                        	valid = false;
+                    	}
+                	}
+	                if(emptyField.length > 0){
+	                    emptyField.forEach(function(key) {
+	                        //message += key + ' is required <br/>';
+                            var label = $scope.translateKeyToLabelByTab(key, CurrScreen);
+                            message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
+	                    });
+	                    msg = growl.error(message);
+	                   	msg.setText(message);
+	                }
+                }
+                return valid;               
+            };
+
+            $scope.loadRequiredField = function(CurrScreen){
+                var mandatoryField = [];
+                var arrparent;
+                try{
+                    if(CurrScreen.id){
+                    	arrparent = $rootScope.metamodel[CurrScreen.id].sections;
+                    }else{
+                    	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                    }
+                    for(var i = 0; i < arrparent.length; i++){
+                    	var arr = arrparent[i].properties;
+                    	for(var j = 0; j < arr.length; j++){
+                        	var object = arr[j];
+                        	if(object.required !== undefined && object.required === 'required'){
+                            	mandatoryField.push(object.id[0]);
+                        	} else {
+                        		var results = $scope.resultSet;
+                            	angular.forEach(results, function(value, key){
+                               		var properties = value.properties;
+                               		angular.forEach(properties, function(value, key){
+                                    	if(value.required == true && key === object.id[0]){
+                                        	mandatoryField.push(key);
+                                    	}
+                                	});
+                            	});
+                        	}
+                    	}
+                    }
+                    return mandatoryField;
+                }
+                catch(e){
+                    console.log(e);
+                }
+            };
+            $scope.enterValidation = function(){
+                return $scope.isWizardValid;
+            }
+			$scope.execute = function(inputComponent) {          
+                $scope.isWizardValid = $scope.isValid(inputComponent);
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
