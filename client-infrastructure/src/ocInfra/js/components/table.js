@@ -69,12 +69,40 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			});
 
+			$scope.$on('getBlock', function(event, params) {
+
+				
+
+				if (!_.isEmpty(params)){
+	                var existingItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+	                if(!_.isEmpty(existingItems.data._links)) {
+	                    switch (params) {
+	                      case 'prev': 
+	                           $scope.resourceUrl = existingItems.data._links.prev.href;
+	                           break; 
+	                      default: 
+	                           $scope.resourceUrl=existingItems.data._links.next.href;
+	                    }
+	                    if(!_.isEmpty($scope.resourceUrl)){
+	                       MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+	                    }
+	                }
+              	}
+			});
+
 			function _init(metamodelObject){
 				$scope.resultSet = {};
 				$scope.itemSelected = {};
+
+
+			
+				if(!metamodelObject.itemsByPage){
+					metamodelObject.itemsByPage = $rootScope.config.itemsByPage ? $rootScope.config.itemsByPage : stConfig.pagination.itemsByPage;
+				}
+
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-
+				
 				var modalRef = $scope.metamodelObject.modalRef;
                 if (modalRef) {
                 	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
@@ -132,6 +160,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					console.log($scope.factoryName + ' not found');
 				}
 			}
+
 
 			function _addItem(newValue, item, oldItem) {
 				var newItem = angular.copy(newValue[item.href]);
@@ -376,6 +405,28 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	 				});
 	 			}
 	 		};
+
+	 		$scope.nextItemsBlock = function()
+			{
+
+				var nextItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+					if(nextItems.data._links && nextItems.data._links.next) {
+						$scope.resourceUrl=nextItems.data._links.next.href;
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+	 			}
+			
+			};
+
+			$scope.prevItemsBlock = function()
+			{
+
+				var prevItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+					if(prevItems.data._links && prevItems.data._links.prev) {
+						$scope.resourceUrl=prevItems.data._links.next.href;
+					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+	 			}
+			
+			};
 
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
@@ -874,3 +925,4 @@ angular.module('omnichannel').filter('infraGroupBy', function(){
 		}
 	};
 });
+
