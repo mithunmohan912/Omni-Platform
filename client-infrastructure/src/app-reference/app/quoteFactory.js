@@ -175,14 +175,14 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 		},
 		resetOwnerPopUp: function(params) {
 			var payloads = {};
-			var links = ["quote_owner:person_link", "quote_owner:organization_link"];
+			var links = ['quote_owner:person_link', 'quote_owner:organization_link'];
 			if (params.dependencies) {
 			 	for(var key in links){
-			 		params.dependencies.forEach(function(dependency) {
+			 		for(var dependency in params.dependencies) {
 						if(dependency.resource === links[key]){
 							payloads[links[key]] = '';
 						}
-			 		});
+			 		}
 					
 				}
 				resourceFactory.patch(params.href, payloads).then(function() {
