@@ -572,7 +572,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 								}													
 							}
 							if(Object.keys(payload).length > 0){
-								resourceFactory.patch(params.property.self, payload, {}).then(function(response){
+
+								var refresh = false;
+								var modifiedHeaders = $scope.metamodel.modifiedHeaders;
+								resourceFactory.patch(params.property.self, payload, {}, refresh , modifiedHeaders).then(function(){
 									if(next){
 										next(params, response);
 									}

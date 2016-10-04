@@ -624,7 +624,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								var combinedResourcesProperties = [];
 
 								if(Object.keys(payloadToPatch).length > 0){
-									promises.push(resourceFactory.patch(url, payloadToPatch));
+
+									var modifiedHeaders = data.modifiedHeaders;
+									var headers = null;
+									var refresh = false;
+
+									promises.push(resourceFactory.patch(url, payloadToPatch, headers, refresh, modifiedHeaders) );
 									$q.all(promises).then(function(response) {
 										if (data.callback) {
 											$scope.execute({ 'method': data.callback});

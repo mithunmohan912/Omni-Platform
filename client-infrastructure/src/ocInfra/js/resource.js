@@ -225,7 +225,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return promise;
     }
 
-    function _patch(url,data,headers, refresh) {
+    function _patch(url,data,headers, refresh, modifiedHeaders) {
         var params = _addApiGatewayApiKeys({});
         var promise = $http({
                 method: 'PATCH',
@@ -236,6 +236,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         });
         if (promise.then) {
             promise.then(function(response) {
+
+                var modifiedHeaderValue = response.headers('x-graphtalk-modified');
                 var previous = resourceDirectory[url];
 
                 resourceDirectory[url] = response;
@@ -250,6 +252,8 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                     if(refreshPromise) {
                         return refreshPromise;
                     }
+                }else if(modifiedHeaders) {
+                   _refreshModifiedResourcesSpecifiedInResponse(modifiedHeaderValue);
                 }
 
                 return response;
@@ -283,6 +287,23 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         } 
         return promise;
 
+    }
+
+
+    function _refreshModifiedResourcesSpecifiedInResponse(modifiedHeaderValue) {
+        
+        if (modifiedHeaderValue) {
+            var modifiedResourcesArray = modifiedHeaderValue.split(',');
+
+            angular.forEach(modifiedResourcesArray, function(resource){
+
+                var url = resource; 
+                var params = null; 
+                var headers = null; 
+                var responseType = null; 
+                _get(url, params, headers, responseType);
+            });
+        }
     }
 
     return {
