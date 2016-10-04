@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -457,8 +457,94 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return false;
 			}
 
+			$scope.translateKeyToLabelByTab = function(key, currentStep){
+                var arrparent;
+                if(currentStep.id){
+                    arrparent = $rootScope.metamodel[currentStep.id].sections;
+                }else{
+                    arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                }
+                for(var i = 0; i < arrparent.length; i++){
+                    var arr = arrparent[i].properties;
+                    for(var j = 0; j < arr.length; j++){
+                        var object = arr[j];
+                        if(object.id[0] === key){
+                            return object.label;
+                        }
+                    }
+                }
+            };
 
-			$scope.execute = function(inputComponent) {
+
+			$scope.isValid = function(currentStep){
+                var mandatoryFields = $scope.loadRequiredField(currentStep);
+                var emptyField = [];
+                var message = '';
+                var valid = true;
+                if(mandatoryFields){
+                    for(var i=0;i<mandatoryFields.length;i++){
+                    var query = '#elementName';
+                    query = query.replace('elementName',mandatoryFields[i]);
+                    query = query.replace(':','\\:');
+                    var val = angular.element($(query)).val();
+                        if(!val || val === '?'){
+                       		emptyField[i] = mandatoryFields[i];
+                        	valid = false;
+                    	}
+                	}
+	                if(emptyField.length > 0){
+	                    emptyField.forEach(function(key) {
+	                        //message += key + ' is required <br/>';
+                            var label = $scope.translateKeyToLabelByTab(key, currentStep);
+                            message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
+	                    });
+	                    var msg = growl.error(message);
+	                   	msg.setText(message);
+	                }
+                }
+                return valid;               
+            };
+           
+            $scope.loadRequiredField = function(currentStep){
+                var mandatoryField = [];
+                var arrparent;
+                try{
+                    if(currentStep.id){
+                    	arrparent = $rootScope.metamodel[currentStep.id].sections;
+                    }else{
+                    	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                    }
+                    for(var i = 0; i < arrparent.length; i++){
+                      	var arr = arrparent[i].properties;
+                      	for(var j = 0; j < arr.length; j++){
+                          	var object = arr[j];
+                          	if(object.required !== undefined && object.required === 'required'){
+                              	mandatoryField.push(object.id[0]);
+                          	} else {
+                            	var results = $scope.resultSet;
+                             	for(var key in results){
+                             		var properties = results[key].properties;
+                             		for(var prop in properties){
+                             			if(properties[prop].required === true && prop === object.id[0]){
+                             				mandatoryField.push(prop);
+                             			}
+                             		}
+                             	}
+                          	}	
+                      	}
+                    }
+                }
+                catch(e){
+                    console.log(e);
+                }
+				return mandatoryField;
+
+            };
+            $scope.enterValidation = function(){
+                return $scope.isWizardValid;
+            };
+			$scope.execute = function(inputComponent) {          
+                $scope.isWizardValid = $scope.isValid(inputComponent);
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
@@ -502,7 +588,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							for (var ref in $scope.resourcesToBindRef) {
 								for(var key2 in $scope.resourcesToBindRef[ref].properties){
 									if($scope.resourcesToBindRef[ref].properties[key2] && $scope.resourcesToBindRef[ref].properties[key2].self && $scope.resourcesToBindRef[ref].properties[key2].editable){
-										var href2 = $scope.resourcesToBindRef[href2].properties[key2].self;
+										var href2 = $scope.resourcesToBindRef[ref].properties[key2].self;
 										payloads[href2] = payloads[href2] || {};
 									}
 								}

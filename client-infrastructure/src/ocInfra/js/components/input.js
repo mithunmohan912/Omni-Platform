@@ -557,6 +557,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						$scope.timeout = false;
 						var payload = {};
 						resourceFactory.get(params.property.self).then(function(response){
+
 							/*
 							Let's patch all the properties that have changed for that resource. If we patch only the property that triggered the patch
 							we may lose already modified information when the response come back from the backend
@@ -564,7 +565,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							var resourceToPatch = response.data;
 							for(var property in resourceToPatch){
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
-									payload[property] = ($scope.resources[property].value !== undefined) ? $scope.resources[property].value : null;
+
+									var value = $scope.resources[property].value;
+
+									payload[property] = (value !== undefined) ? value : null;
 								}													
 							}
 							if(Object.keys(payload).length > 0){
@@ -722,11 +726,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'format': $scope.metamodel.format || ((defaults[inputType]) ? defaults[inputType].format : undefined),
 					'tooltip': $scope.metamodel.tooltip,	// Check for backend values. It may be that the backend give us this value already translated??
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
-					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null
+					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
+					'inputUnit': $scope.metamodel.inputUnit,
+ 					'help': ($scope.metamodel.help)
 				};
 
 				_prepareColspanAndOffset($scope.field);
 
+				$scope.helpTemplate = $scope.metamodel.help ? $scope.metamodel.help.helpTemplate : null;
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
 				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};
@@ -786,6 +793,15 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+			};
+
+			$scope.getUnit = function(){
+				if (!_.isEmpty($scope.property.self)){
+					var resource = resourceFactory.getFromResourceDirectory($scope.property.self);
+					return  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';
+
+				}
+				
 			};
 
 			var setClass = function(){
