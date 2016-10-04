@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -457,8 +457,94 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return false;
 			}
 
+			$scope.translateKeyToLabelByTab = function(key, currentStep){
+                var arrparent;
+                if(currentStep.id){
+                    arrparent = $rootScope.metamodel[currentStep.id].sections;
+                }else{
+                    arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                }
+                for(var i = 0; i < arrparent.length; i++){
+                    var arr = arrparent[i].properties;
+                    for(var j = 0; j < arr.length; j++){
+                        var object = arr[j];
+                        if(object.id[0] === key){
+                            return object.label;
+                        }
+                    }
+                }
+            };
 
-			$scope.execute = function(inputComponent) {
+
+			$scope.isValid = function(currentStep){
+                var mandatoryFields = $scope.loadRequiredField(currentStep);
+                var emptyField = [];
+                var message = '';
+                var valid = true;
+                if(mandatoryFields){
+                    for(var i=0;i<mandatoryFields.length;i++){
+                    var query = '#elementName';
+                    query = query.replace('elementName',mandatoryFields[i]);
+                    query = query.replace(':','\\:');
+                    var val = angular.element($(query)).val();
+                        if(!val || val === '?'){
+                       		emptyField[i] = mandatoryFields[i];
+                        	valid = false;
+                    	}
+                	}
+	                if(emptyField.length > 0){
+	                    emptyField.forEach(function(key) {
+	                        //message += key + ' is required <br/>';
+                            var label = $scope.translateKeyToLabelByTab(key, currentStep);
+                            message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
+	                    });
+	                    var msg = growl.error(message);
+	                   	msg.setText(message);
+	                }
+                }
+                return valid;               
+            };
+           
+            $scope.loadRequiredField = function(currentStep){
+                var mandatoryField = [];
+                var arrparent;
+                try{
+                    if(currentStep.id){
+                    	arrparent = $rootScope.metamodel[currentStep.id].sections;
+                    }else{
+                    	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+                    }
+                    for(var i = 0; i < arrparent.length; i++){
+                      	var arr = arrparent[i].properties;
+                      	for(var j = 0; j < arr.length; j++){
+                          	var object = arr[j];
+                          	if(object.required !== undefined && object.required === 'required'){
+                              	mandatoryField.push(object.id[0]);
+                          	} else {
+                            	var results = $scope.resultSet;
+                             	for(var key in results){
+                             		var properties = results[key].properties;
+                             		for(var prop in properties){
+                             			if(properties[prop].required === true && prop === object.id[0]){
+                             				mandatoryField.push(prop);
+                             			}
+                             		}
+                             	}
+                          	}	
+                      	}
+                    }
+                }
+                catch(e){
+                    console.log(e);
+                }
+				return mandatoryField;
+
+            };
+            $scope.enterValidation = function(){
+                return $scope.isWizardValid;
+            };
+			$scope.execute = function(inputComponent) {          
+                $scope.isWizardValid = $scope.isValid(inputComponent);
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
@@ -500,10 +586,10 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						//OC-956: extract the properties of the children renderers
 						if ($scope.resourcesToBindRef) {
 							for (var ref in $scope.resourcesToBindRef) {
-								for(var key in $scope.resourcesToBindRef[ref].properties){
-									if($scope.resourcesToBindRef[ref].properties[key] && $scope.resourcesToBindRef[ref].properties[key].self && $scope.resourcesToBindRef[ref].properties[key].editable){
-										var href = $scope.resourcesToBindRef[ref].properties[key].self;
-										payloads[href] = payloads[href] || {};
+								for(var key2 in $scope.resourcesToBindRef[ref].properties){
+									if($scope.resourcesToBindRef[ref].properties[key2] && $scope.resourcesToBindRef[ref].properties[key2].self && $scope.resourcesToBindRef[ref].properties[key2].editable){
+										var href2 = $scope.resourcesToBindRef[ref].properties[key2].self;
+										payloads[href2] = payloads[href2] || {};
 									}
 								}
 							}
@@ -518,14 +604,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 								for(var property in resourceToPatch){
 									if(property.indexOf(':') > 0 && property.indexOf('_') !== 0){
 										if(property in $scope.resourcesToBind.properties && $scope.resourcesToBind.properties[property].value !== resourceToPatch[property] && 
-											$scope.resourcesToBind.properties[property].self == url){
+											$scope.resourcesToBind.properties[property].self === url){
 											payloadToPatch[property] = $scope.resourcesToBind.properties[property].value? $scope.resourcesToBind.properties[property].value:null;
 										} else {
 											//OC-956: extract the properties of the children renderers
 											if ($scope.resourcesToBindRef) {
 												for (var ref in $scope.resourcesToBindRef) {
 													if(property in $scope.resourcesToBindRef[ref].properties && $scope.resourcesToBindRef[ref].properties[property].value !== resourceToPatch[property] && 
-														$scope.resourcesToBindRef[ref].properties[property].self == url){
+														$scope.resourcesToBindRef[ref].properties[property].self === url){
 														payloadToPatch[property] = $scope.resourcesToBindRef[ref].properties[property].value? $scope.resourcesToBindRef[ref].properties[property].value:null;
 													} 
 												}
@@ -550,7 +636,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												if ($scope.resourcesToBindRef) {
 													combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
 												}
-												combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+												combinedResourcesProperties.resourceToBind = angular.copy($scope.resourcesToBind);
 
 
 												for (var ref in combinedResourcesProperties) {
@@ -586,13 +672,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 											if ($scope.resourcesToBindRef) {
 												combinedResourcesProperties = angular.copy($scope.resourcesToBindRef);
 											}
-											combinedResourcesProperties['resourceToBind'] = angular.copy($scope.resourcesToBind);
+											combinedResourcesProperties.resourceToBind = angular.copy($scope.resourcesToBind);
 											
 
-											for (var ref in combinedResourcesProperties) {
-												for (var property in combinedResourcesProperties[ref].properties){
+											for (var ref2 in combinedResourcesProperties) {
+												for (var prop in combinedResourcesProperties[ref2].properties){
 													
-													if (processedProperties[property] && !processedProperties[property].consistent){
+													if (processedProperties[prop] && !processedProperties[prop].consistent){
 														consistent = false;
 														break;  	
 													}		 
