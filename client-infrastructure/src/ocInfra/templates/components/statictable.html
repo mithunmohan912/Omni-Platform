@@ -34,7 +34,7 @@
 			</tr>
 			<tr class="table-row-{{key}}-{{$index}}" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index" ng-if="metamodelObject.testtype">
                <td>
-               	<div class="col-md-4 text-left">
+               	<div class="col-md-4 col-sm-4 padding-none text-left">
 			         <div class=" table-icon green mar-right-15px" >
 			            <span ng-if="displayedItem.properties.symbol.value === 'APV'" class="icon-white flaticon-auto3"></span>
 						<span ng-if="displayedItem.properties.symbol.value === 'HP'" class="icon-white flaticon-home"></span>
@@ -46,14 +46,14 @@
 					 </div>
 			         <div class="comment-text">[{{displayedItem.properties.effectiveDate.value}}-{{displayedItem.properties.expiryDate.value}}]</div>
 			   </div>
-		      <div class="col-md-4 text-left">
+		      <div class="col-md-4 col-sm-4 padding-none text-left">
 		         <div class="doc-link">
 		            <div class="comment-text">{{displayedItem.properties.agentName.value}}</div>
 		            <div class="comment-text">{{displayedItem.properties.agentPhone.value}}</div>
 		            <div class="comment-text">{{displayedItem.properties.agentAddr.value}}, {{displayedItem.properties.agentCity.value}}</div>
 		         </div>
 		      </div>
-		      <div class="col-md-4 icongroup">
+		      <div class="col-md-4 col-sm-4 padding-none icongroup">
 		         <span ng-repeat="field in metamodelObject.properties">
 		         <span ng-repeat="action in field.options">
 		            <ng-switch on="action.value">
