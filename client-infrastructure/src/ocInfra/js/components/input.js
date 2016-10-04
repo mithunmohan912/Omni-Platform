@@ -728,7 +728,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
- +					'help': ($scope.metamodel.help)
+ 					'help': ($scope.metamodel.help)
 				};
 
 				_prepareColspanAndOffset($scope.field);
