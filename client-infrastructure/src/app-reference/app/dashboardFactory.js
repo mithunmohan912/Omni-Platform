@@ -76,6 +76,10 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 		},
 		deleteQuote: function(resource) {
 			resourceFactory.delete(resource.href);
+		},
+		isIdEditable: function(resource) {
+			var edit = true;
+			return edit;
 		}
 	};
 });
