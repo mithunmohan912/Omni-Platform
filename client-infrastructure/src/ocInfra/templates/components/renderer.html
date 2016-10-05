@@ -152,17 +152,14 @@
  								</div>
 								</span>
 								<span ng-switch-when="inslogo">
-									
-									 <div class="container p-l-r-none">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>OmniChannel Insurance</h1>
-       
-      </div>
-
-    </div>
+								<div class="container p-l-r-none">
+             <!-- Main component for a primary marketing message or call to action -->
+             <div class="jumbotron" ng-style="{'background-image':'url({{column.url}})'}"> 
+              <h1>{{column.heading | translate}}</h1>
+            </div>
+                                </div>
 								</span>
+								
 		<span ng-switch-when="groupicon">
 	<div class="container marketing">
 
