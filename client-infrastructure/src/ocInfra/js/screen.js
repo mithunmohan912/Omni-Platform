@@ -231,6 +231,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
        console.log(nextScreenId);
         var screenId = $rootScope.screenId;
         var regionId = $rootScope.regionId;
+        $rootScope.action = action;
         if(action==='navigate'){
 	        var resourcelist=$rootScope.metamodel[screenId].resourcelist;
             var url = $rootScope.HostURL + resourcelist;
@@ -396,16 +397,19 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
             $scope.loadDataByTab($rootScope.currRel);
         } else if($rootScope.resourceHref !== undefined) {
             var params = {};
-             resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(responseData){
-                var data = responseData.data || responseData;
-                if (data) {
-                    $scope.data=data;
-                    EnumerationService.executeEnumerationFromBackEnd(data, 'create');
-                    if($rootScope.regionId === 'us'){
-                        EnumerationService.executeEnumerationFromBackEnd(data, 'fetch');    
+            if($rootScope.action !== undefined)
+            {
+                resourceFactory.get($rootScope.resourceHref, params, $rootScope.headers).success(function(responseData){
+                    var data = responseData.data || responseData;
+                    if (data) {
+                        $scope.data=data;
+                        EnumerationService.executeEnumerationFromBackEnd(data, 'create');
+                        if($rootScope.regionId === 'us'){
+                            EnumerationService.executeEnumerationFromBackEnd(data, 'fetch');    
+                        }
                     }
-                }
-            });            
+                });
+            }            
         }
     });
 
@@ -460,33 +464,35 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
         var url = $rootScope.resourceHref;
 
         if (url !== undefined) {
-            resourceFactory.options(url, $rootScope.headers).success(function(responseData){
+            if($rootScope.action !== undefined) {
+                resourceFactory.options(url, $rootScope.headers).success(function(responseData){
 
-                var data = responseData.data || responseData;
-           
-                //Fetch the links response
-                if(data !== undefined && data._links !== undefined && data._links[tab] !== undefined){
-                    var tabUrl = data._links[tab].href;
+                    var data = responseData.data || responseData;
+               
+                    //Fetch the links response
+                    if(data !== undefined && data._links !== undefined && data._links[tab] !== undefined){
+                        var tabUrl = data._links[tab].href;
 
-                    resourceFactory.options(tabUrl, $rootScope.headers).success(function(responseData){
+                        resourceFactory.options(tabUrl, $rootScope.headers).success(function(responseData){
 
-                        var data = responseData.data || responseData;
-           
-                        var detailTabUrl = data._links.item.href;
+                            var data = responseData.data || responseData;
+               
+                            var detailTabUrl = data._links.item.href;
 
-                        var params = {};
-                        resourceFactory.get(detailTabUrl, params, $rootScope.headers).success(function(responseData){
+                            var params = {};
+                            resourceFactory.get(detailTabUrl, params, $rootScope.headers).success(function(responseData){
 
-                             var data = responseData.data || responseData;
-           
-                            if (data) {
-                                $scope.data=data;
-                                EnumerationService.executeEnumerationFromBackEnd(data, 'update');
-                            }
-                        });                        
-                    });    
-                }
-            });
+                                 var data = responseData.data || responseData;
+               
+                                if (data) {
+                                    $scope.data=data;
+                                    EnumerationService.executeEnumerationFromBackEnd(data, 'update');
+                                }
+                            });                        
+                        });    
+                    }
+                });
+            }
         }
 
     };
