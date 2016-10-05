@@ -94,7 +94,7 @@ return {
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
 				//OC-956: to avoid multiple callbacks, adding condition by name
 				//OC-947: sending the method to close the popup to the renderer
-				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name, closePopup: $scope.closePopup});
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name, closePopup: $scope.closePopup, modifiedHeaders: $scope.metamodelObject.actions.ok.modifiedHeaders});
 			}
 
 			function _defaultClose() {

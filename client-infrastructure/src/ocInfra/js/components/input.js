@@ -572,9 +572,12 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 								}													
 							}
 							if(Object.keys(payload).length > 0){
-								resourceFactory.patch(params.property.self, payload, {}).then(function(){
+
+								var refresh = false;
+								var modifiedHeaders = $scope.metamodel.modifiedHeaders;
+								resourceFactory.patch(params.property.self, payload, {}, refresh , modifiedHeaders).then(function(){
 									if(next){
-										next(params);
+										next(params, response);
 									}
 								}, function(error){
 									console.error(error);
@@ -590,7 +593,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
             $scope.quoteNumberValidate = function(params,$scope){
             	 var value= params.value;
             	 var maxlength=params.maxlength;
-            	 if(value.length < maxlength && !isNaN(value)&& value!="")
+            	 if(value.length < maxlength && !isNaN(value)&& value!=='')
             	 {
 	            	 value= new Array(Math.max(maxlength - String(value).length + 1, 0)).join(0) + value;
 	            	 $scope.field.property.value = value;
