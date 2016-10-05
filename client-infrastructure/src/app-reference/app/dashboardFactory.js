@@ -77,7 +77,8 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 		deleteQuote: function(resource) {
 			resourceFactory.delete(resource.href);
 		},
-		isIdEditable: function(resource) {
+		isIdEditable: function() {
+			//Make some logic here to establish whether the filed should be disable or not. 
 			var edit = true;
 			return edit;
 		}
