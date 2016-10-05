@@ -590,19 +590,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				
 			};
 
-            $scope.quoteNumberValidate = function(params,$scope){
-            	 var value= params.value;
-            	 var maxlength=params.maxlength;
-            	 if(value.length < maxlength && !isNaN(value)&& value!=='')
-            	 {
-	            	 value= new Array(Math.max(maxlength - String(value).length + 1, 0)).join(0) + value;
-	            	 $scope.field.property.value = value;
-	             }
-	             else if(isNaN(value))
-	             {
-	             	$scope.field.property.value = null;
-	             }	 
-            };
+        
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
 				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
@@ -696,9 +684,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 							}else if($scope.update){
 								$scope.update( {'id': $scope.field.id, 'property': $scope.field.property, '$injector': $injector, 'scope': $scope} );
 							} 
-							if($scope.metamodel.validation){ 
-								$scope.quoteNumberValidate({'value':$scope.property.value , 'maxlength':$scope.metamodel.attributes.maxlength},$scope);
-							}
+						
 						}
 					},
 					'onChange': function(){
