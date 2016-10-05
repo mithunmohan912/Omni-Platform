@@ -590,7 +590,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
             $scope.quoteNumberValidate = function(params,$scope){
             	 var value= params.value;
             	 var maxlength=params.maxlength;
-            	 if(value.length < maxlength && !isNaN(value))
+            	 if(value.length < maxlength && !isNaN(value)&& value!="")
             	 {
 	            	 value= new Array(Math.max(maxlength - String(value).length + 1, 0)).join(0) + value;
 	            	 $scope.field.property.value = value;
