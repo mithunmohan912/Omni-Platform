@@ -42,7 +42,8 @@ $routeProvider.
 app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
    $rootScope.$on('$locationChangeStart', function (event,newUrl) {
-   if (newUrl.endsWith('/otp') && $rootScope.authnCallbackData !== undefined) {
+   // strong authn (hotp & oath)
+   if (newUrl.endsWith('/screen/otp')) {
        return;
    } 
    if (sessionStorage.username === null || sessionStorage.username === undefined) {
