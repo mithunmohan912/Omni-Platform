@@ -258,7 +258,7 @@ _Since the rest of keys vary from one type to another, they will be explained in
 * __Placeholder__: _Optional_. String or i18n key to be used in the input's placeholder.
 * __PatchOnBlur__: _Optional_. Boolean flag that indicates whether or not we should patch a property when its value changes or when the input loses the focus. To know when the patch has to be triggered it uses the directive attribute [_update-mode_](#41-input-directive-usage).
 * __Visible__: _Optional_. Boolean flag used to overwrite the input's visibility. By default the input is always visible.
-* __VisibleWhen__: _Optional_. Object that contains one or several expressions that will be evaluated in order to determine the visibility of the field.
+* __VisibleWhen__: _Optional_. Object that contains one or several expressions that will be evaluated in order to determine the visibility of the field. (DEPRECATED)
 * __Label-size__: _Optional_. String that takes the value _lg_ to enable bigger labels. In this case, they would span 8 columns instead of just 4.
 * __Icon__: _Optional_. As of today, used for the _input-label.html_ template to display an icon beside the value of the 'input'.
 * __Format__: _Optional_. String specifying the format for the dates when using an _input-label_. By default it gets the value _dd/MM/yyyy_.
