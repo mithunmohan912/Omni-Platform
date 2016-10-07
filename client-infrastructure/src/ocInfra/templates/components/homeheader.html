@@ -44,7 +44,7 @@
             <ul>
             <div ng-if="showIcon">
                <li class="dropdown-header col-sm-2 text-center" ng-repeat="element in application.elements">
-                <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
+                <a ng-click="execute($parent.element);" href>{{locale[element.label]}}</a>
                   <div class="margaNavIcon {{element.icon}}"></div>
                   <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                   {{ element.label | translate }}
