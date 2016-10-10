@@ -725,9 +725,16 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				$scope.helpTemplate = $scope.metamodel.help ? $scope.metamodel.help.helpTemplate : null;
 
 				// Union of ui attributes and backend attributes. First the default values, then we put the backend metadatas and finally the UI metadatas
-				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};
-				$scope.field.attributes = attributes;
-
+				var attributes = (inputType === 'toggle' && $scope.metamodel.attributes) ? $scope.metamodel.attributes : (defaults[inputType]) ? angular.copy(defaults[inputType].attributes) : {};				
+		                //Toggle with type enumeration: starts
+		                if(inputType === 'toggle' && $scope.property && $scope.property.metainfo && $scope.property.metainfo.enum && $scope.property.metainfo.enum.length > 0){                         
+		                      attributes = {}; //emptying any default attributes
+		                      for(var enum_key in $scope.property.metainfo.enum){                          
+		                          attributes[$scope.property.metainfo.enum[enum_key]] = $scope.property.metainfo.enum[enum_key]
+		                      }                      
+		                }
+		                //Toggle with type enumeration: ends
+		                $scope.field.attributes = attributes;
 				// In case that we have several default values in an array, we select the first one
 				for(var key in attributes){
 					if(attributes[key] && Array.isArray(attributes[key])){
@@ -736,11 +743,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 
 				if($scope.property !== undefined && $scope.property.metainfo !== undefined){
-					for(var metainfo_key in $scope.property.metainfo){
-						if(metainfo_key !== 'type'){
-							attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
-						}
-					}	
+		                    //Toggle with type enumeration: starts
+		                     if(!(inputType === 'toggle' && $scope.property.metainfo.enum)){//Toggle with type enumeration: field will get its attributes from enum data only
+		                        for(var metainfo_key in $scope.property.metainfo){
+		                            if(metainfo_key !== 'type'){
+		                                attributes[metainfo_key.toLowerCase()] = $scope.property.metainfo[metainfo_key];
+		                            }
+		                        }	
+		                     }//Toggle with type enumeration: ends					
 				}
 
 				if($scope.metamodel.attributes !== undefined){
@@ -755,6 +765,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 
 				// Union of ui options and default options. First we put the default options and then the user options defined in the UI metadata
 				var options = (defaults[inputType]) ? angular.copy(defaults[inputType].options) : {};
+		                //Toggle with type enumeration: starts
+		                if(inputType === 'toggle' && $scope.property && $scope.property.metainfo && $scope.property.metainfo.enum && $scope.property.metainfo.enum.length > 0){                         
+		                    options = {}; //emptying any default options
+		                    for(var enum_option_key in $scope.property.metainfo.enum){                          
+		                        options[$scope.property.metainfo.enum[enum_option_key]] = $scope.property.metainfo.enum[enum_option_key]
+		                    }                      
+		                }
+		                //Toggle with type enumeration: ends
 				$scope.field.options = options;
 
 				for(var options_key in $scope.metamodel.options){
