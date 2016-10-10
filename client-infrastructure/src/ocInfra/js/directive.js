@@ -55,3 +55,78 @@ app.directive('getblock', function() {
         }
     };
   });
+
+app.directive('aDisabled', function() {
+    return {
+
+      restrict: "EAC",
+
+      scope:{
+        aconf: '='
+      },
+
+      controller: function($scope){
+          // $scope.aDisabled = tAttrs.aDisabled;
+
+          $scope.atype = $scope.aconf.type;
+          // $scope.currentPage = $scope.aconf.currentPage;
+          $scope.linkDisabled;
+          //$scope.currentPage = $scope.$parent.currentPage;
+      },
+       
+      link: function($scope, tElement, tAttrs, transclude) {
+          //Disable ngClick
+     
+
+          $scope.$parent.$watch('currentPage', function(newValue) {
+              switch($scope.atype) {
+                // case "prevblock":
+                //     $scope.linkDisabled = false;
+                //     break;
+                case "firstpage":
+                    $scope.linkDisabled = (newValue===1);
+                    break;
+                case "prevpage":
+                    $scope.linkDisabled = (newValue===1);
+                    break;
+                case "nextpage":
+                    $scope.linkDisabled = ($scope.$parent.stItemsByPage-1 === newValue);
+                    break;
+                case "lastpage":
+                    $scope.linkDisabled = ($scope.$parent.stItemsByPage-1 === newValue);
+                    break;
+                // case "nextblock":
+                //     $scope.linkDisabled = false;
+                //     break;                
+                default:
+                    $scope.linkDisabled = false;
+              }
+          });
+        
+
+        /*
+        var in $scope.$parent (sttable scope)
+        currentPage
+        stItemsByPage
+        numPages
+        */
+
+        //Toggle "disabled" to class when aDisabled becomes true
+        $scope.$watch('linkDisabled', function(newValue) {
+            if (newValue !== undefined) {
+                tElement.toggleClass("disabled", newValue);
+
+                //Disable href on click
+                tElement.on("click", function(e) {
+                    if (newValue) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+
+        
+          
+      }
+    };
+});

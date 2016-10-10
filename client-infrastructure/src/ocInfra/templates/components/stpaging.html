@@ -1,18 +1,18 @@
 <div class="pagination" ng-if="pages.length >= 1" >
     <nav>
         <ul class="pagination">
-            <li><a class="glyphicon glyphicon-fast-backward" getblock="prev">&nbsp;</a></li>
-            <li><a ng-click="selectPage(1)">{{ '_FIRST' | translate }}</a></li>
-            <li><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
+            <li><a a-disabled aconf="{type: 'prevblock'}" class="glyphicon glyphicon-fast-backward" getblock="prev">&nbsp;</a></li>
+            <li><a a-disabled aconf="{type: 'firstpage'}" ng-click="selectPage(1)">{{ '_FIRST' | translate }}</a></li>
+            <li><a a-disabled aconf="{type: 'prevpage'}"  ng-click="selectPage(currentPage - 1)">&lt;</a></li>
             <li>
                 <a>
                     <page-select></page-select>{{currentPage}} 
                     <span style="text-transform: lowercase;">{{ '_OF_PAGE' | translate }} </span>{{numPages}}
                 </a>
             </li>
-            <li><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
-            <li><a ng-click="selectPage(numPages)">{{ '_LAST' | translate }}</a></li>
-            <li><a class="glyphicon glyphicon-fast-forward"  getblock="next">&nbsp;</a></li>
+            <li><a a-disabled aconf="{type: 'nextPage'}" ng-click="selectPage(currentPage + 1)">&gt;</a></li>
+            <li><a a-disabled aconf="{type: 'lastpage'}" ng-click="selectPage(numPages)">{{ '_LAST' | translate }}</a></li>
+            <li><a a-disabled aconf="{type: 'nextblock'}" class="glyphicon glyphicon-fast-forward"  getblock="next">&nbsp;</a></li>
              
         </ul>
     </nav>
