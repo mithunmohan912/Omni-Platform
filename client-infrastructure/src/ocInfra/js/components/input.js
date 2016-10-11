@@ -730,7 +730,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 		                if(inputType === 'toggle' && $scope.property && $scope.property.metainfo && $scope.property.metainfo.enum && $scope.property.metainfo.enum.length > 0){                         
 		                      attributes = {}; //emptying any default attributes
 		                      for(var enum_key in $scope.property.metainfo.enum){                          
-		                          attributes[$scope.property.metainfo.enum[enum_key]] = $scope.property.metainfo.enum[enum_key]
+		                          attributes[$scope.property.metainfo.enum[enum_key]] = $scope.property.metainfo.enum[enum_key];
 		                      }                      
 		                }
 		                //Toggle with type enumeration: ends
@@ -769,7 +769,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 		                if(inputType === 'toggle' && $scope.property && $scope.property.metainfo && $scope.property.metainfo.enum && $scope.property.metainfo.enum.length > 0){                         
 		                    options = {}; //emptying any default options
 		                    for(var enum_option_key in $scope.property.metainfo.enum){                          
-		                        options[$scope.property.metainfo.enum[enum_option_key]] = $scope.property.metainfo.enum[enum_option_key]
+		                        options[$scope.property.metainfo.enum[enum_option_key]] = $scope.property.metainfo.enum[enum_option_key];
 		                    }                      
 		                }
 		                //Toggle with type enumeration: ends
