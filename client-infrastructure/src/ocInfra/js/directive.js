@@ -80,9 +80,6 @@ app.directive('aDisabled', function() {
 
           $scope.$parent.$watch('currentPage', function(newValue) {
               switch($scope.atype) {
-                // case "prevblock":
-                //     $scope.linkDisabled = false;
-                //     break;
                 case "firstpage":
                     $scope.linkDisabled = (newValue===1);
                     break;
@@ -99,7 +96,7 @@ app.directive('aDisabled', function() {
                 //     $scope.linkDisabled = false;
                 //     break;                
                 default:
-                    $scope.linkDisabled = false;
+                    null;
               }
           });
         
@@ -125,8 +122,17 @@ app.directive('aDisabled', function() {
             }
         });
 
-        
-          
+        $scope.$on('disableGetBlock', function(event, params) {
+            if (params.link==='prev' && $scope.atype === 'prevblock'){
+              $scope.linkDisabled = params.value;
+            }else if (params.link==='next' && $scope.atype === 'nextblock'){
+              $scope.linkDisabled = params.value;
+            }
+        });
+
+        //We need to let know the table that the pagination is listening to changes. 
+        $scope.$emit('initPagination');
+    
       }
     };
 });

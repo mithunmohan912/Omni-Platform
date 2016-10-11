@@ -70,9 +70,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			});
 
 			$scope.$on('getBlock', function(event, params) {
-
-				
-
 				if (!_.isEmpty(params)){
 	                var existingItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
 	                if(!_.isEmpty(existingItems.data._links)) {
@@ -89,6 +86,26 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	                }
               	}
 			});
+
+			$scope.$on('initPagination', function() {
+				_initBlockButtons();
+			});
+
+			function _initBlockButtons(){
+				var items = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+				if(!_.isEmpty(items.data._links)) {
+					if (!items.data._links.prev){
+						$scope.$broadcast('disableGetBlock', {link: 'prev', value: true});
+					}else{
+						$scope.$broadcast('disableGetBlock', {link: 'prev', value: false});
+					}
+					if(!items.data._links.next){
+						$scope.$broadcast('disableGetBlock', {link: 'next', value: true});
+					}else{
+						$scope.$broadcast('disableGetBlock', {link: 'next', value: false});
+					}	
+				}
+			}
 
 			function _init(metamodelObject){
 				$scope.resultSet = {};
@@ -151,6 +168,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 					//buttons
 					_getButtonsFromOptions();
+					//Enable/Disable next/prev Item blocks
+					_initBlockButtons();
 				});
 				
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName ;
@@ -159,6 +178,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
+
+
+				
 			}
 
 
@@ -406,27 +428,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	 			}
 	 		};
 
-	 		$scope.nextItemsBlock = function()
-			{
-
-				var nextItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-					if(nextItems.data._links && nextItems.data._links.next) {
-						$scope.resourceUrl=nextItems.data._links.next.href;
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-	 			}
-			
-			};
-
-			$scope.prevItemsBlock = function()
-			{
-
-				var prevItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-					if(prevItems.data._links && prevItems.data._links.prev) {
-						$scope.resourceUrl=prevItems.data._links.next.href;
-					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-	 			}
-			
-			};
 
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
