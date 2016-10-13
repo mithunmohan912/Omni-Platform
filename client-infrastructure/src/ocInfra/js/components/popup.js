@@ -11,7 +11,7 @@ return {
 		scope: {
 			uiId: '@',
 			metamodel: '=',
-			resourceUrl: '=',
+			resourceUrl: '=?',
 			factoryName: '='
 		},
 
@@ -90,11 +90,11 @@ return {
 			});
 
 
-
 			function _defaultSave(){
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
-				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback});
-
+				//OC-956: to avoid multiple callbacks, adding condition by name
+				//OC-947: sending the method to close the popup to the renderer
+				 $scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name, closePopup: $scope.closePopup, modifiedHeaders: $scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.modifiedHeaders ? $scope.metamodelObject.actions.ok.modifiedHeaders : null}); 
 			}
 
 			function _defaultClose() {
@@ -184,6 +184,11 @@ return {
 			// 	return true;
 			// }
 
+			$scope.$on('close_popup', function() {
+				$scope.closePopup();
+			});
+
+
 			$scope.execute = function(action) {
 				if (typeof action === 'function') {
 					//default actions case
@@ -191,14 +196,20 @@ return {
 					
 				} else if($scope.actionFactory[action]){
 					if ($scope.resourceUrl){
-						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);
+						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties, $scope);
 					}
 					else{
-						$scope.actionFactory[action]();
+						$scope.actionFactory[action]($scope);
 					}
 					
 				}
 
+			};
+		},
+		link: function($scope, element){
+			//OC-947: method to close the popup when the resources is consistent
+			$scope.closePopup = function() {
+				element.find('.modal').modal('hide');
 			};
 		},
 		templateUrl: $rootScope.templatesURL + 'popup.html'

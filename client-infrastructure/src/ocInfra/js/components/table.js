@@ -69,12 +69,57 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			});
 
+			$scope.$on('getBlock', function(event, params) {
+				if (!_.isEmpty(params)){
+	                var existingItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+	                if(!_.isEmpty(existingItems.data._links)) {
+	                    switch (params) {
+	                      case 'prev': 
+	                           $scope.resourceUrl = existingItems.data._links.prev.href;
+	                           break; 
+	                      default: 
+	                           $scope.resourceUrl=existingItems.data._links.next.href;
+	                    }
+	                    if(!_.isEmpty($scope.resourceUrl)){
+	                       MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+	                    }
+	                }
+              	}
+			});
+
+			$scope.$on('initPagination', function() {
+				_initBlockButtons();
+			});
+
+			function _initBlockButtons(){
+				var items = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
+				if(!_.isEmpty(items.data._links)) {
+					if (!items.data._links.prev){
+						$scope.$broadcast('disableGetBlock', {link: 'prev', value: true});
+					}else{
+						$scope.$broadcast('disableGetBlock', {link: 'prev', value: false});
+					}
+					if(!items.data._links.next){
+						$scope.$broadcast('disableGetBlock', {link: 'next', value: true});
+					}else{
+						$scope.$broadcast('disableGetBlock', {link: 'next', value: false});
+					}	
+				}
+			}
+
 			function _init(metamodelObject){
 				$scope.resultSet = {};
 				$scope.itemSelected = {};
+
+
+			
+				if(!metamodelObject.itemsByPage){
+					metamodelObject.itemsByPage = $rootScope.config.itemsByPage ? $rootScope.config.itemsByPage : stConfig.pagination.itemsByPage;
+				}
+
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-
+				
 				var modalRef = $scope.metamodelObject.modalRef;
                 if (modalRef) {
                 	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
@@ -123,6 +168,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 					//buttons
 					_getButtonsFromOptions();
+					//Enable/Disable next/prev Item blocks
+					_initBlockButtons();
 				});
 				
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName ;
@@ -131,7 +178,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
+
+
+				
 			}
+
 
 			function _addItem(newValue, item, oldItem) {
 				var newItem = angular.copy(newValue[item.href]);
@@ -327,7 +378,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			};
 
 			$scope.isValidStatus = function(displayedItem){
- 				var status = true;
+				//OC-1010: Problem with the consistency indicators of the table party roles
+ 				var status;
  				if (displayedItem) {
  					var properties = displayedItem.properties;
 					if ($scope.modalMetamodelObject) {
@@ -340,6 +392,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			 						}
 			 						ids.forEach(function(id){
 			 							if (properties[id]){
+			 								status = status || true;
 				 							status = status && properties[id].consistent;
 				 						}
 			 						});
@@ -349,7 +402,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		               
 					}
  				}
-				return status;
+				return status || false;
 			};
 
 			$scope.edit = function(itemSelected, callback) {
@@ -374,6 +427,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	 				});
 	 			}
 	 		};
+
 
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
@@ -872,3 +926,4 @@ angular.module('omnichannel').filter('infraGroupBy', function(){
 		}
 	};
 });
+

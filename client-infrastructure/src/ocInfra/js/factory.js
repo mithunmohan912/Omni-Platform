@@ -85,7 +85,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     properties = options.properties;
                 }
                 if(options !== undefined){
-                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.msgForPatch, resolve);       
+                    invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.apiMsg, resolve);       
                 }
             });
     }else{
@@ -94,7 +94,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             properties = options.properties;
         }
         if(options !== undefined){
-            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.msgForPatch, resolve);       
+            invokeHttpMethod(growl, undefined, $scope, resourceFactory, properties, $rootScope, options, defaultValues, inputComponent.actionURL, $location, inputComponent.tab,inputComponent.apiMsg, resolve);       
         } 
     } 
 };
@@ -671,6 +671,7 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                 if(optionsMapForResource === undefined){
                     optionsMapForResource = new Map();
                 }
+                if($rootScope.action !== 'create') {
                     //Options call for the resources in the meta model.
                     resourceFactory.options(newURL, $rootScope.headers).success(function(responseData){
                     var data = responseData.data || responseData;
@@ -732,6 +733,8 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                             }
                         }
                     });
+                }
+                delete $rootScope.action;
             });
         }
     return 'success';
@@ -765,7 +768,7 @@ function convertToArray(data) {
     return data;
 }
 
-function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, msgForPatch ,resolve){
+function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $rootScope, options, defaultValues, actionURL, $location, tab, apiMsg ,resolve){
     //Retrieve the URL, Http Method and Schema from the options object
     var url = options.href;
     var httpmethod = options.httpmethod;
@@ -809,6 +812,11 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         if (data) {
             $scope.resourceUrl= data._links.self.href;
             $rootScope.resourceUrl= data._links.self.href;
+            if(apiMsg !== undefined && data.outcome === apiMsg){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value.message);
+                    });
+            }
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
@@ -837,7 +845,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                         growl.error(value.message);
                     });
                 }
-                if(msgForPatch !== undefined && data.outcome === msgForPatch){
+                if(apiMsg !== undefined && data.outcome === apiMsg){
                     angular.forEach(data.messages, function(value){
                         growl.success(value.message);
                     });

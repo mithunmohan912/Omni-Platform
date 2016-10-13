@@ -5,12 +5,12 @@
         "actionOnScreen": "search",
         "defaultValue": [
             {
-                "method": "createQuote",
+                "action": "create",
                 "field": "quote:distributor_id",
                 "value": "998877"
             },
             {
-                "method": "createQuote",
+                "action": "create",
                 "field": "quote:product_id",
                 "value": "MC011"
             }
@@ -23,7 +23,8 @@
                         "buttons": [
                             {
                                 "label": "_CREATE_QUOTE",
-                                "method": "createQuote"
+                                "method": "createQuote",
+                                "action": "create"
                             }
                         ]
                     }
@@ -47,7 +48,14 @@
                             "bind": true,
                             "events": ["resource_directory"],
                             "forceUpdate": true
-                        }
+                        },
+                         "editable": {
+                            "function": "isIdEditable",
+                            "bind": false,
+                            "events": ["resource_directory"],
+                            "forceUpdate": true
+                        },
+                        "visibleWhen": "false"
                     },
                     {
                         "id": "quote:product_id",

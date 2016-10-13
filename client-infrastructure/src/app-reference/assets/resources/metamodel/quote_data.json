@@ -13,10 +13,18 @@
                     {
                         "id": "quote:description",
                         "label": "_DESCRIPTION",
+                        "modifiedHeader": true,
                         "colspan": {
                             "xs": 12,
                             "sm": 8,
                             "md": 6
+                        },
+                        "help": {
+                            "name": "helpTest",
+                            "label": "helpTest",
+                            "metamodel": "getHelp",
+                            "title": "helpTest",
+                            "helpTemplate": "templates/customHelp.html"
                         }
                     },
                     {
@@ -32,7 +40,8 @@
                             "xs": 0,
                             "sm": 0,
                             "md": 6
-                        }
+                        },
+                        "onUpdate":"showAlert"
                     },
                     {
                         "id": "startDate",

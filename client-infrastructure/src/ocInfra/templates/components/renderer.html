@@ -1,6 +1,7 @@
-<div class="padding-none renderer  renderer-{{activeTab}}">
 
-	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type">
+<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html" submitted="{{submitted}}">
+
+	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type" ng-if="section.visible()">
 
 		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
@@ -16,21 +17,27 @@
                     </label>
                   </div>
 			</span>
+
 		    <!-- <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span> -->
             <span ng-if="section.icon" class=" {{section.iconclass}} {{section.icon}}  icon-color section-icon-2"></span>
             <span class="tabTitle section-title-text {{section.titleclass}}" >{{ section.title | translate }}</span>
         	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
+        	<div class="hr_margin">
+                     <hr class="onl_hrOr_1">
+                     <hr class="onl_hrOr_2">
+            </div>
+
     	</h3>
 
 
     	<div  uib-collapse="section.collapse">
 
 			<span ng-switch-when="reference" class="linked-renderer-container">
-				<renderer metamodel="section.$ref" factory-name="factoryName" resource-url="resourceUrl"></renderer>
+				<renderer metamodel="section.$ref" factory-name="section.factoryName || factoryName" resource-url="resourceUrl" parent-resources="resourcesToBindRef[section.$ref]"></renderer>
 			</span>
 
 			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
-				<form>
+				<form novalidate>
 						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column padding-none {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
 							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 								<span ng-switch-when="tabs" class="infra-tabs-container">
@@ -51,7 +58,7 @@
 								<span ng-switch-when="wizards" class="infra-wizards-container">
 									<wizard template="ocInfra/templates/components/wizard.html">
 										<div ng-repeat="wizard in column.wizards">
-                              <wz-step wz-title="{{wizard.title}}">
+                              <wz-step wz-title="{{wizard.title}}" canenter="enterValidation">
 	        									<renderer metamodel="wizard.id" metamodel="wizard.metamodel" factory-name="activeTab+'Factory'"></renderer>
 	        									<!-- <input ng-if="wizard.next" type="button" class="btn btn-primary renderer-button" wz-next="execute(wizard)" value="{{ '_NEXT' | translate }}"/ >
 	        									<input ng-if="wizard.back" type="button" class="btn btn-primary renderer-button pull-left" wz-previous="execute(wizard)" value="{{ '_PREVIOUS' | translate }}"/ >
@@ -145,17 +152,14 @@
  								</div>
 								</span>
 								<span ng-switch-when="inslogo">
-									
-									 <div class="container p-l-r-none">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>OmniChannel Insurance</h1>
-       
-      </div>
-
-    </div>
+								<div class="container p-l-r-none">
+             <!-- Main component for a primary marketing message or call to action -->
+             <div class="jumbotron" ng-style="{'background-image':'url({{column.url}})'}"> 
+              <h1>{{column.heading | translate}}</h1>
+            </div>
+                                </div>
 								</span>
+								
 		<span ng-switch-when="groupicon">
 	<div class="container marketing">
 
@@ -216,7 +220,7 @@
 									 <button data-toggle="modal" data-target="#modal_{{column.popup.name}}" ng-click="execute(column.popup)" class="btn btn-primary btn-mg"> 
 									 	{{ column.popup.label | translate }} 
 									 </button>
-									<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="resourcesToBind[column.popup.id].href" factory-name="factoryName"></popup-render>
+									<popup-render ui-id="modal_{{column.popup.name}}" metamodel="column.popup.metamodel" resource-url="itemSelected[column.popup.name].href" factory-name="factoryName"></popup-render>
 								</span>
 								<!-- Commented code as a reminder of cases we may need to consider -->
 								<!-- <div ng-switch-when="_blank">
@@ -240,7 +244,7 @@
 								</span>
 							</span>
 						</div>
-				</form>
+					</form>
 			</span>
 		</div>
 	</div>

@@ -12,12 +12,12 @@
             </div>
             <div class="clearfix"></div>
             <div class="modal-footer">
-            	<button type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(popup.actions._cancel)" data-dismiss="modal">{{ popup.labels.cancel | translate }}</button>
+            	<button id="{{popup.labels.cancel}}_button_id" type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(popup.actions._cancel)" data-dismiss="modal">{{ popup.labels.cancel | translate }}</button>
 
-                <button type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(popup.actions._reset)">{{ popup.labels.reset | translate }}</button>
+                <button id="{{popup.labels.reset}}_button_id" type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(popup.actions._reset)">{{ popup.labels.reset | translate }}</button>
 
-                <button type="button" class="btn btn-primary btn-popup-save" ng-click="execute(popup.actions._ok)" data-dismiss="modal">{{ popup.labels.ok | translate }}</button>
-              </div>
+                <button id="{{popup.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(popup.actions._ok)">{{ popup.labels.ok | translate }}</button>
+            </div>
         </div>
     </div>
 </div>

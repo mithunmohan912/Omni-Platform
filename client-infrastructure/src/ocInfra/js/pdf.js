@@ -13,7 +13,7 @@ app.factory('pdfFactory', ['$http', '$rootScope',function($http, $rootScope){
 		var pdf;
         var file;
         var pdfUrl=element.href;
-        pdfUrl = 'http://208.43.105.244:7070/ux-point-api/'+pdfUrl.substring(pdfUrl.indexOf('policies'), pdfUrl.length);
+        
 		var params = {};
         if ($rootScope.config.apiGatewayApiKeys) {
             for(var key in $rootScope.config.apiGatewayApiKeys) {
@@ -33,6 +33,51 @@ app.factory('pdfFactory', ['$http', '$rootScope',function($http, $rootScope){
                         $rootScope.pdfUrl =  pdfUrl;
                         $rootScope.$broadcast('pdf_update', {url: pdfUrl});
 
+	// function _getPDF(element, scope){
+
+	// 	//FIXME: remove harcoded url 
+	// 			//element.scope.pdfUrl= 'assets/resources/pdf/topography.pdf';
+
+	// 			var headers = $rootScope.headers;
+	// 			headers.Accept = 'application/pdf'; 
+	// 			// headers['Cookie'] ='ASP.NET_SessionId=a3cwmg4wpjkjh1biz0w4msi0; _culture=french; .FIDEAAUTH=967953C4ADEDCFD5BDB04E6C157CE900A003C9ED806064A093A72CE8215BB147A4B0BC3F50E1E784525F2D54D2C065E840632310F70C9BEC998D22C620E26E0FF108F7EAC597BECEC99A6EE6EF48CDEED7FB0790061DE89673BEDBDCD70CC836';
+	// 			// headers['NSP_USERID'] = 'gtmoni';
+	// 			var pdf;
+	// 			var file;
+	// 			var responseType = 'arraybuffer';
+
+
+	// 			// $resource('assets/resources/pdf/topography.pdf').get(function(m) {
+					
+	// 			// 		pdf = m; //binary data
+ //    //                  	file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+ //    //                  	element.scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+ //    //                  	console.log(element.scope.pdfUrl);
+	// 			// });
+
+	// 			// resourceFactory.get($rootScope.resourceUrl, 
+	// 			// 	{}, headers, responseType).then(function(response) {
+	// 			// 	    pdf = response.data; //binary data
+ //    //                     file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+
+ //    //                     //TEST
+ //    //                     $rootScope.pdfBlob = file;
+
+ //    //                     element.scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+ //    //                     element.scope.$broadcast('pdf_update', {url: element.scope.pdfUrl});
+						
+	// 			// });
+
+	// 			$http.get('assets/resources/pdf/topography.pdf', 
+	// 				{'headers': headers, 'responseType': responseType}).then(function(response) {
+	// 				    pdf = response.data; //binary data
+ //                        file = new Blob([pdf], {type: 'application/pdf'});  //make a blob in the browser
+ //                        scope.pdfUrl = URL.createObjectURL(file); //create a URL object of that blob
+ //                        $rootScope.pdfBlob = file;
+ //                        $rootScope.pdfUrl =  scope.pdfUrl;
+ //                        scope.$broadcast('pdf_update', {url: scope.pdfUrl});
+						
+	// 			});
                                                                                                 
            });	
 	}

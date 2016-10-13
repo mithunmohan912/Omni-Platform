@@ -2032,3 +2032,15 @@ label {display: inline-flex !important;min-height:2px; }
 .form-group label.control-label {
       font-weight: bold;
 }
+
+/* OC-947: message errors*/
+.renderer[submitted="true"] input[consistent="false"] {
+    border: 1px solid red;
+}
+
+a.disabled {
+    color: #AAAAAA;
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+}

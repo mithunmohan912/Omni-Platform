@@ -3,7 +3,7 @@
 
 	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
-	<span ng-class="(!field.label && field.property.required) ? 'required-star' : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+	<span ng-class="field.class  ? field.class : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
 		<input  type="number"
 				class="form-control"
@@ -18,7 +18,8 @@
 				ng-required="field.property.required"
 				ng-disabled="!field.property.editable"
 				ng-change="field.onChange()"
-				ng-blur="field.onBlur()" />
+				ng-blur="field.onBlur()" 
+				consistent="{{field.property.consistent}}"/>
 		
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>
