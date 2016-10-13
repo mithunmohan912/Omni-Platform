@@ -671,6 +671,7 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                 if(optionsMapForResource === undefined){
                     optionsMapForResource = new Map();
                 }
+                if($rootScope.action !== 'create') {
                     //Options call for the resources in the meta model.
                     resourceFactory.options(newURL, $rootScope.headers).success(function(responseData){
                     var data = responseData.data || responseData;
@@ -732,6 +733,8 @@ function loadOptionsDataForMetamodel(growl, item, resourcelist, scope, regionId,
                             }
                         }
                     });
+                }
+                delete $rootScope.action;
             });
         }
     return 'success';
