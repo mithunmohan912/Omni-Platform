@@ -1,7 +1,7 @@
 'use strict';
 /*global app*/
 
-app.controller('HeaderController', function($scope, $rootScope, $http, $location, $resource, tmhDynamicLocale, $translate) {
+app.controller('HeaderController', function($scope, $rootScope, $http, $location, $resource, tmhDynamicLocale, $translate,resourceFactory,$injector) {
     $rootScope.logout = function() {
         // logout user
         if ($rootScope.config !== undefined && $rootScope.config.authnURL !== undefined) {
@@ -60,5 +60,25 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
 
         $rootScope.headermetamodel = data.metamodel;
     }, function() {});
+
+     $scope.execute = function(inputComponent) {
+        if(inputComponent.factoryName){
+            try {
+                    $scope.actionFactory = $injector.get(inputComponent.factoryName);
+                    var params = {};
+                    params.defaultValues={};
+                    params.scope = $scope;
+                    params.inputComponent = inputComponent;
+                    params.properties = {};
+                    $scope.actionFactory[inputComponent.method](params);
+
+                    } catch(e) {
+                        console.log($scope.factoryName + ' not found');
+                   }
+            }
+            else{
+                $scope.navigate(inputComponent.actionurl,inputComponent.name);
+            }
+        };
 
 });
