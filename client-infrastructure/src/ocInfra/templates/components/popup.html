@@ -16,7 +16,7 @@
 
                 <button id="{{popup.labels.reset}}_button_id" type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(popup.actions._reset)">{{ popup.labels.reset | translate }}</button>
 
-                <button id="{{popup.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(popup.actions._ok)">{{ popup.labels.ok | translate }}</button>
+                <button id="{{popup.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save"  ng-if="metamodelObject.actions.ok" ng-click="execute(popup.actions._ok)">{{ popup.labels.ok | translate }}</button>
             </div>
         </div>
     </div>
