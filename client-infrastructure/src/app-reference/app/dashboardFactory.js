@@ -14,6 +14,11 @@ app.factory('dashboardFactory', function($rootScope, resourceFactory){
 
 			return true;
 		},
+		isConsistent: function consist(){
+			// just logging to see how many times the bound function is executed
+			console.log('checkin if property is consistent' );
+			return true;
+		},
 		dashboardToQuote: function(resource){
 			resourceFactory.get(resource.href).then(function(response) {
 				if (response.data._links) {

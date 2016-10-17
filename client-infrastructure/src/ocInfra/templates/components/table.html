@@ -59,7 +59,7 @@
 		                </span>
 		                <span ng-switch-when="literal" class="table-cell-literal">{{ field.id | translate }}</span>
 		                <span ng-switch-when="blank" class="table-cell-blank">&nbsp;</span>
-		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus(displayedItem) ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
+		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
 		                <span ng-switch-when="icon">
 		                	<span ng-if="field.icon" class="{{field.icon}} iconText"></span>	
 		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} iconText"></span>		
