@@ -423,9 +423,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
 				                var id = property.id[k];
-							
-				                $scope.resourcesToBind.properties[id] = 
-				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
+						        if (!$scope.resourcesToBind.properties[id]){
+			                        $scope.resourcesToBind.properties[id] = 
+			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
+			                    }else{
+			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
+		                      	}
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
@@ -630,7 +633,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									}
 								}
 
-
 								var combinedResourcesProperties = [];
 
 								if(Object.keys(payloadToPatch).length > 0){
@@ -666,9 +668,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 														}
 													}
 
-
-											});
-												
+											});											
 											
 										
 										}
@@ -700,10 +700,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												}
 												if (!consistent){
 													break;
-												}
-													
-											}
-											
+												}													
+											}											
 											
 										}
 									if (promises.length === 0 && index === payloadKeys.length-1) {
@@ -736,6 +734,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+
 
 			//OC-958 and OC-957	
 
