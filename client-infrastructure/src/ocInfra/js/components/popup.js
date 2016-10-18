@@ -4,7 +4,7 @@
 global app
 */
 
-app.directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector){
+app.directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector, bindingFactory, validationFactory){
 
 return {
 		restrict: 'E',
@@ -124,14 +124,16 @@ return {
 				_initLabels();
 				_initActions();
 
-				$scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
+				$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName($scope.metamodel));
+ 				
+					
+		        $scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
 				} catch(e) {
 					console.log($scope.screenFactoryName + 'not found');
 				}
 			}	
-
 
 			function _initLabels(){
 				$scope.popup.labels.titleDefault = '_POPUP_TITLE';

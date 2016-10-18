@@ -4,7 +4,9 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
+
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, bindingFactory,validationFactory){
+
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -50,7 +52,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					_processMetamodel(data);
 					_options(data);
 					_init(data);
-				});
+				});								
 			} else {
 				_processMetamodel(metamodelObject);
 				_options(metamodelObject);
@@ -284,6 +286,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
+				bindingFactory.setResourceToBindDirectory($scope.metamodel, $scope.resourcesToBind);
  
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
@@ -420,9 +423,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
 				                var id = property.id[k];
-							
-				                $scope.resourcesToBind.properties[id] = 
-				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
+						        if (!$scope.resourcesToBind.properties[id]){
+			                        $scope.resourcesToBind.properties[id] = 
+			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
+			                    }else{
+			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
+		                      	}
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
@@ -570,6 +576,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			};
 
+
+
 			$scope.$on('patch_renderer', function(event, data){
 				//OC-956: to avoid multiple callbacks, adding condition by name
 				if (data.name === $scope.metamodelObject.name && data.resourceUrl === $scope.resourceUrlToRender) {
@@ -595,6 +603,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						}
 
+						//var modalResourceToBind = bindingFactory.getResourceToBindDirectory($scope.metamodel); //--> tenemos que sacar de nuestro resourceBind Factory
+ 						//var propertiesBound = !_.isEmpty(modalResourceToBind) && !_.isEmpty(modalResourceToBind.properties) ? modalResourceToBind.properties: null;
+ 						$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName($scope.metamodel));  //validationFactory.validateProperties ($scope.metamodelObject.sections,propertiesBound));
+
+
 						var consistent = true;
 						var payloadKeys = Object.keys(payloads);
 						payloadKeys.forEach(function(url, index){
@@ -619,7 +632,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										}
 									}
 								}
-
 
 								var combinedResourcesProperties = [];
 
@@ -656,9 +668,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 														}
 													}
 
-
-											});
-												
+											});											
 											
 										
 										}
@@ -690,10 +700,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												}
 												if (!consistent){
 													break;
-												}
-													
-											}
-											
+												}													
+											}											
 											
 										}
 									if (promises.length === 0 && index === payloadKeys.length-1) {
@@ -726,6 +734,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+
 
 			//OC-958 and OC-957	
 

@@ -30,6 +30,7 @@
         + [2.4.14 Label](#2414-label)
         + [2.4.15 Radio](#2415-radio)
         + [2.4.16 Range](#2416-range)
+        + [2.4.17 Captcha](#2417-captcha)
 * [3. Table](#3-table)
     - [3.1 Table usage](#31-table-usage)
     - [3.2 Table metamodel](#32-table-metamodel)
@@ -518,7 +519,59 @@ This type displays two input components of any type. It has to be defined as a _
                     },
                 },
 
+##### 2.4.17 Catpcha
 
+This types defined a way of challenge-response test used in computing to determine whether or not the user is human.
+
+* for use this component, we have to follow these steps before of define or use this component: 
+First, you need to get a valid recaptcha key for your domain. Go to http://www.google.com/recaptcha. otherwise our component is not going to work fine. 
+for example: in this case, localhost domain is covered by this key 6Ldf8ggUAAAAAKn1FVMTxBjoWmQ_S6K5oTgTeUtH but you have to provide it. 
+* Include the reCaptcha API using this script in your HTML:
+    Example: 
+    
+    <script
+    src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit"
+    async defer
+    ></script>
+
+
+
+###### Metamodel properties
+* __id__: Id of the captcha component.it's  mandatory
+* __type__: 'captcha'.it's  mandatory
+* __label__: text label for captcha component. it's  mandatory.
+* __uiInput__: set to true value,it's  mandatory.
+* __key__: "---YOUR PUBLIC KEY GOES HERE----" // Key to be provided by google captcha. it's  mandatory and has to ve valid otherwise this component is not going to work properly
+* __onSuccess":"getResponseFromCaptchaFunction" // Custom function in custom app factory 
+* __attributes__: optional to be defined
+        ** ___ theme="---- light or dark ----" //light by default
+        ** ___ size="---- compact or normal ----" //compact by default
+        ** ___ type="'---- audio or image ----'" // Image by default
+* You have to define in your customFactory the method for your success response. Your input parameter if a valid key provided by google recaptcha for example: 
+
+In this quote factory we have defined getResponseFromCaptchaFunction for retrieving the valid key. 
+
+/*
+
+app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $resource, $http, pdfFactory){
+
+    function _getOperationsResource(properties){
+        var urls = {};
+        for(var key in properties){
+            if (properties[key].self.indexOf('operations') > -1){
+                urls[properties[key].self] = properties[key].self;
+            }
+        }
+        return urls;
+    }
+
+    return {
+
+        getResponseFromCaptchaFunction: function(params, resp){
+            console.log('Success Response in captcha functionality [Code:'+ params);
+        }, 
+
+*/
 
 ### 3. Table
 - - - -

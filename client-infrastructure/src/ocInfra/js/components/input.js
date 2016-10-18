@@ -13,7 +13,7 @@ global app
 
   * @restrict 'E'
   * @element
-  * @scope 
+  * @scope 	
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
@@ -184,7 +184,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     };
 
     function _initUiInput(element, metamodel, $scope){
-    	var properties = ['required', 'editable', 'value'];
+    	var properties = ['required', 'editable', 'value','consistent'];
     	properties.forEach(function(propertyName){
     		var metamodelInitObject = metamodel[propertyName] || defaultUIProperties[propertyName];
     		var value = _getValueForUiInput(metamodelInitObject, propertyName, $scope);
@@ -245,6 +245,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     	element.metainfo = element.metainfo || {};
     	element.metainfo.uiInput = true;
     }
+
+    function _defaultOnSuccess (){
+		console.log('You must create an onSuccess method into your customFactory');
+	}
 
 
 	function _getValueForUiInput(element, propertyName, $scope){
@@ -542,6 +546,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 			};
 
+			defaults.captcha = {
+				'attributes': {
+					'theme':'light'  ,
+					'size': 'compact',
+					'type': 'image'  
+				}
+			};
+
 			defaults.range = {
 				'attributes': {},
 				'options': {}
@@ -707,6 +719,15 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'getParentResource' : function(){
 						return resourceFactory.get($scope.field.property.self);
 					},
+					'onSuccess': function(response){
+						if($scope.metamodel.onSuccess){
+							$scope.actionFactory[$scope.metamodel.onSuccess](response);
+
+						}else{
+							// you can a response to do your stuff
+							_defaultOnSuccess();						
+						}
+					},
 					'attributes': {},
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
@@ -717,7 +738,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
- 					'help': ($scope.metamodel.help)
+ 					'help': ($scope.metamodel.help),
+ 					'key': $scope.metamodel.key,
+
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -805,8 +828,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			$scope.getUnit = function(){
 				if (!_.isEmpty($scope.property.self)){
 					var resource = resourceFactory.getFromResourceDirectory($scope.property.self);
-					return  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';
 
+					if (!_.isEmpty(resource.data)){
+						$scope.field.unit =  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';	
+					}else{
+						$scope.field.unit =  '';
+					}
+				}else{
+					$scope.field.unit = '';	
 				}
 				
 			};
