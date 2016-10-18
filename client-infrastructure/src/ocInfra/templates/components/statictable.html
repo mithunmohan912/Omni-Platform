@@ -39,7 +39,7 @@
 			            <span ng-if="displayedItem.properties.symbol.value === 'APV'" class="icon-white flaticon-auto3"></span>
 						<span ng-if="displayedItem.properties.symbol.value === 'HP'" class="icon-white flaticon-home"></span>
 			         </div>
-			         <a class="policy-text" ng-click="move('us/screen/policywizard')">{{displayedItem.properties.symbol.value}} {{displayedItem.properties.policyNumber.value}}-{{displayedItem.properties.moduleNumber.value}}</a>
+			         <a class="policy-text" ng-click="move('us/screen/policytabs')">{{displayedItem.properties.symbol.value}} {{displayedItem.properties.policyNumber.value}}-{{displayedItem.properties.moduleNumber.value}}</a>
 			         <div class="mic-info">
 					 <a ng-if="displayedItem.properties.policyStatus.value === 'Cancelled'" class="red policy-status">{{displayedItem.properties.policyStatus.value}}</a>
 					 <a ng-if="displayedItem.properties.policyStatus.value === 'Active'" class="text-green policy-status">{{displayedItem.properties.policyStatus.value}}</a>
