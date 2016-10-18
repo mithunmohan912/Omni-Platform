@@ -63,7 +63,7 @@
          </a>
          <ul class="dropdown-menu right-links" role="menu" ng-if="application.elements && application.elements.length > 0">
            <li ng-repeat="element in application.elements">
-            <a ng-click="navigate(element.actionurl, config.products[element.name]);" href>
+            <a ng-click="execute($parent.element);" href>
               <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
               {{locale[element.label]}}
             </a>
