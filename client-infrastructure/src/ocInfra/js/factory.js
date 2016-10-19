@@ -851,13 +851,23 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.post(url,params,$rootScope.headers).success(function(httpResponse){
             var data = httpResponse.data || httpResponse;
         if (data) {
-            $scope.resourceUrl= data._links.self.href;
-            $rootScope.resourceUrl= data._links.self.href;
-            if(apiMsg !== undefined && data.outcome === apiMsg){
+            if(data.outcome === 'failure'){
                     angular.forEach(data.messages, function(value){
-                        growl.success(value.message);
+                        growl.error(value);
                     });
-            }
+                }
+                if(apiMsg !== undefined && data.outcome === apiMsg){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value);
+                    });
+                }
+                 if(data._links.self===undefined){
+                 $scope.resourceUrl= data._links[0].self.href;
+                 $rootScope.resourceUrl= $scope.resourceUrl;  
+            }else{
+                $scope.resourceUrl= data._links.self.href;
+                $rootScope.resourceUrl= data._links.self.href;
+            }  
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }
