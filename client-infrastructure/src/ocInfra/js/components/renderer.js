@@ -5,7 +5,7 @@ global angular
 */
 
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, bindingFactory,validationFactory){
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, growl, $rootScope, $injector, resourceFactory, $q, $location, bindingFactory,validationFactory){
 
 
 	// WARNING: Copied from input component controller
