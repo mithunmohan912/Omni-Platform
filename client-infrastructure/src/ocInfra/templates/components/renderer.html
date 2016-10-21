@@ -1,5 +1,5 @@
 
-<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html" submitted="{{submitted}}">
+<div class="padding-none renderer  renderer-{{activeTab}}"  submitted="{{submitted}}">
 
 	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type" ng-if="section.visible()">
 
@@ -112,7 +112,7 @@
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
 										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
-										tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
+										 backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
 											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 										</button>

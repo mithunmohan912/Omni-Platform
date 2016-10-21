@@ -19,7 +19,7 @@ app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $re
 	return {
 
 		showAlert: function(params, resp){
-			console.log('Success Response in captcha functionality [Code:'+ params);
+			console.log('Success Response in captcha functionality [Code:'+ params +resp);
 		},
 
 		toCoverage: function() {
