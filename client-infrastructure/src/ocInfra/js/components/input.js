@@ -741,7 +741,6 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputUnit': $scope.metamodel.inputUnit,
  					'help': ($scope.metamodel.help),
  					'key': $scope.metamodel.key,
-
 				};
 
 				_prepareColspanAndOffset($scope.field);
