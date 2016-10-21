@@ -285,7 +285,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			onUpdate: '@',
 			baseUrl: '@',
 			factoryName: '=',
-			resourceUrl: '='
+			resourceUrl: '=',
+			parentMetamodel: '='
 		},
 		controller: ['$scope', function($scope){
 			/* Default attributes and actions for inputs */
@@ -683,7 +684,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
-					'id': $scope.id,
+					'id': $scope.parentMetamodel +'_' + $scope.id,
 					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
 					'name': $scope.metamodel.name || $scope.id || '',
 					'placeholder': $scope.metamodel.placeholder,

@@ -239,7 +239,7 @@
 								</span>
 								<span ng-switch-default>
 									<span ng-repeat="id in column.id" class="infra-input-container">
-										<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
+										<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" parent-metamodel = "metamodelObject.name" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
 									</span>
 								</span>
 							</span>
