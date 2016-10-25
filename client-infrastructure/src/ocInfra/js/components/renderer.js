@@ -79,11 +79,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 			$scope.opened= function (section){
 
-				if (typeof section.collapse !== 'undefined'){
-					if (section.collapse){
-						section.collapse = false;
+				if (typeof section.accordion.collapse !== 'undefined'){
+					if (section.accordion.collapse){
+						section.accordion.collapse = false;
 					}else{
-						section.collapse = true;
+						section.accordion.collapse = true;
 					}	
 				}
 			};
