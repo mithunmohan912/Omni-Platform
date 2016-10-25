@@ -16,6 +16,47 @@ app.factory('MetaModel', function($resource, $rootScope, $location, $browser, $q
         $rootScope.actionAfterNavigation = action;
     };
 
+    
+
+    this.loadProperties = function(screenId){
+
+        var properties = typeof $rootScope.metamodel[screenId] !== 'undefined'?$rootScope.metamodel[screenId]:undefined;
+       
+          // if posts object is not defined then start the new process for fetch it
+        if (!properties) {
+            // create deferred object using $q
+            var deferred = $q.defer();
+
+            // get posts form backend
+             $resource('assets/resources/metamodel/'+ screenId + '.json').get().$promise.then(function(result) {
+                // save fetched posts to the local variable
+                properties = result;
+                // resolve the deferred
+                deferred.resolve(properties);
+              }, function(error) {
+                properties = error;
+                deferred.reject(error);
+              });
+
+            // set the posts object to be a promise until result comeback
+            properties = deferred.promise;
+            return $q.when(properties);
+
+        }
+            return properties;
+
+
+          // in any way wrap the posts object with $q.when which means:
+          // local posts object could be:
+          // a promise
+          // a real posts data
+          // both cases will be handled as promise because $q.when on real data will resolve it immediately
+          
+        };
+    
+    
+
+
     this.load = function(scope, regionId, screenId, onSuccess, resolve) {
         var path;
         scope.regionId = regionId;
@@ -810,13 +851,23 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.post(url,params,$rootScope.headers).success(function(httpResponse){
             var data = httpResponse.data || httpResponse;
         if (data) {
-            $scope.resourceUrl= data._links.self.href;
-            $rootScope.resourceUrl= data._links.self.href;
-            if(apiMsg !== undefined && data.outcome === apiMsg){
+            if(data.outcome === 'failure'){
                     angular.forEach(data.messages, function(value){
-                        growl.success(value.message);
+                        growl.error(value);
                     });
-            }
+                }
+                if(apiMsg !== undefined && data.outcome === apiMsg){
+                    angular.forEach(data.messages, function(value){
+                        growl.success(value);
+                    });
+                }
+                 if(data._links.self===undefined){
+                 $scope.resourceUrl= data._links[0].self.href;
+                 $rootScope.resourceUrl= $scope.resourceUrl;  
+            }else{
+                $scope.resourceUrl= data._links.self.href;
+                $rootScope.resourceUrl= data._links.self.href;
+            }  
             if(actionURL){
                 $rootScope.navigate(actionURL);
             }

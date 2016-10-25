@@ -301,7 +301,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 var params = null; 
                 var headers = null; 
                 var responseType = null; 
-                _get(url, params, headers, responseType);
+                _refresh(url, params, headers, responseType);
             });
         }
     }

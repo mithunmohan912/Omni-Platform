@@ -377,33 +377,14 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-			$scope.isValidStatus = function(displayedItem){
-				//OC-1010: Problem with the consistency indicators of the table party roles
- 				var status;
- 				if (displayedItem) {
- 					var properties = displayedItem.properties;
-					if ($scope.modalMetamodelObject) {
-						$scope.modalMetamodelObject.sections.forEach(function(section) {
-			 				if (section.properties) {
-			                    section.properties.forEach(function(property){
-			 						var ids = property.id;
-			 						if(!Array.isArray(ids)){
-			 							ids = [ids];
-			 						}
-			 						ids.forEach(function(id){
-			 							if (properties[id]){
-			 								status = status || true;
-				 							status = status && properties[id].consistent;
-				 						}
-			 						});
-				 				});
-							}
-						});
-		               
-					}
- 				}
-				return status || false;
-			};
+			$scope.isValidStatus = false;
+				
+			$scope.$on('isValidStatus', function(event, params) {
+				$scope.isValidStatus = !params?false:true;
+			});
+
+
+			
 
 			$scope.edit = function(itemSelected, callback) {
 				$scope.itemSelected = itemSelected;

@@ -1,7 +1,7 @@
 'use strict';
 /*global app*/
 
-app.controller('HeaderController', function($scope, $rootScope, $http, $location, $resource, tmhDynamicLocale, $translate,resourceFactory,$injector) {
+app.controller('HeaderController', function($scope, $rootScope, $http, $location, $resource, MetaModel,tmhDynamicLocale, $translate ,$injector) {
     $rootScope.logout = function() {
         // logout user
         if ($rootScope.config !== undefined && $rootScope.config.authnURL !== undefined) {
@@ -56,10 +56,12 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
 
     };
 
-    $resource('assets/resources/metamodel/header.json').get(function(data) {
+    MetaModel.load( $scope, null,'header',function(data) {
+       // console.log('header json got called' + data);
 
-        $rootScope.headermetamodel = data.metamodel;
+        $rootScope.headermetamodel = data;
     }, function() {});
+
 
      $scope.execute = function(inputComponent) {
         if(inputComponent.factoryName){
@@ -80,5 +82,8 @@ app.controller('HeaderController', function($scope, $rootScope, $http, $location
                 $scope.navigate(inputComponent.actionurl,inputComponent.name);
             }
         };
+
+    
+   
 
 });

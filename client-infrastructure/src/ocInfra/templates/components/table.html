@@ -42,7 +42,7 @@
  							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId] || field.uiInput" style="display:inline-block;">
  								<!-- OC-1029: input label in table component-->
  								<span ng-if="field.input">
- 									<input-render id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+ 									<input-render id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" parent-metamodel="metamodelObject.name" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
  								</span>
  								<span ng-if="!field.input">
 		 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
@@ -59,7 +59,7 @@
 		                </span>
 		                <span ng-switch-when="literal" class="table-cell-literal">{{ field.id | translate }}</span>
 		                <span ng-switch-when="blank" class="table-cell-blank">&nbsp;</span>
-		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus(displayedItem) ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
+		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
 		                <span ng-switch-when="icon">
 		                	<span ng-if="field.icon" class="{{field.icon}} iconText"></span>	
 		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} iconText"></span>		
@@ -80,7 +80,7 @@
 				        </span>
 		                <span ng-switch-default class="table-cell-input">
 	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
-	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" parent-metamodel="metamodelObject.name" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
 		                </span>
 		            </ng-switch>
