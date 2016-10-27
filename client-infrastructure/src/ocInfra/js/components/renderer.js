@@ -68,6 +68,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				}
 			});
 
+
+			$scope.isCustomAccordionSection = function(section){
+				return (section.accordion && typeof section.accordion.componentType !=='undefined' && section.accordion.componentType === 'custom');
+			};
+
 			// $scope.isVisible = function(property, metamodelProperty){
 			$scope.isVisible = function(property){
 				if(property === undefined){
