@@ -313,7 +313,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
-						//keep the ui inputs
+						
+						/*keep the ui inputs - Removed because of a scroll was happening when a field was PATCHed 
 						var propertiesToKeep = {};
 						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
 							for (var property in $scope.resourcesToBind.properties) {
@@ -331,6 +332,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						});
 						$scope.resourcesToBind.properties = propertiesToKeep;
+						*/
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
