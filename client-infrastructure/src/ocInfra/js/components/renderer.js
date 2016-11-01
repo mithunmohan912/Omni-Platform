@@ -198,7 +198,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
                     $scope.resourceUrlToRender = $rootScope.resourceHref;
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
-					var url = $rootScope.hostURL + resource;
+					var url = {};
+					//WORK AROUND FOR RMA--
+					if(resource.includes("http")){
+						url = resource;
+					}
+					else{
+						url = $rootScope.hostURL + resource;
+					}
                     //Retrieve regionToSORMap from the rootScope
                     var regionToSORMap = $rootScope.regionToSoR;
                     //Retrieve the application name for the given region Id
