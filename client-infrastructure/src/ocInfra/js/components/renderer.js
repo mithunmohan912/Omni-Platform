@@ -200,7 +200,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
 					var url = {};
 					//WORK AROUND FOR RMA--
-					if(resource.includes("http")){
+					if(resource.includes('http')){
 						url = resource;
 					}
 					else{
