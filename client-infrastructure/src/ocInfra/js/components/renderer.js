@@ -319,7 +319,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
 						
-						/*keep the ui inputs - Removed because of a scroll was happening when a field was PATCHed 
+						//keep the ui inputs 
 						var propertiesToKeep = {};
 						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
 							for (var property in $scope.resourcesToBind.properties) {
@@ -337,7 +337,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						});
 						$scope.resourcesToBind.properties = propertiesToKeep;
-						*/
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
@@ -437,12 +436,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
 				                var id = property.id[k];
-						        if (!$scope.resourcesToBind.properties[id]){
-			                        $scope.resourcesToBind.properties[id] = 
-			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
-			                    }else{
-			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
-		                      	}
+			                    $scope.resourcesToBind.properties[id] = $scope.resourcesToBind[resourceSelected.resource].properties[id];
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
