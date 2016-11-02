@@ -67,7 +67,7 @@ public class ApiProxyRouter extends RouteBuilder {
 		    .process(responseHeadersProcessor)
 		    
 		    .choice()
-		    	.when(simple("${in.body} != null"))
+		    	.when(simple("${in.body} != null && ${in.headers.Content-Type} contains 'json'"))
 			    	// translate response message
 				    .convertBodyTo(String.class)
 				    .process(responseMessageProcessor)
