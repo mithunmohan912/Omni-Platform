@@ -984,9 +984,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
         resourceFactory.delete(url,$rootScope.headers).success(function(responseData){
 	       var data=responseData.data || responseData ;
             if(data.outcome === 'success'){
-                angular.forEach(data.messages, function(value){
-                    growl.success(value.message);
-                });
+               
             }else{
                 angular.forEach(data.messages, function(value){
                     growl.error(value.message);

@@ -119,18 +119,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
 
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
@@ -396,18 +384,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
-	 		};
+	 		$scope.delete = function(itemSelected, callback) {
+				$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected,$scope);
+					}
+				}
+			};
 
 
     $scope.checkShowItemRow = function(action, displayedItem) {
@@ -540,17 +525,7 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 				$scope.itemSelected = {};
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
+
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 				$scope.$watchCollection('resultSet', function(newValue){
@@ -803,17 +778,14 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 					}
 				}
 			};
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
+	 		$scope.delete = function(itemSelected, callback) {
+	 			$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected);
+					}
+				}
 	 		};
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
