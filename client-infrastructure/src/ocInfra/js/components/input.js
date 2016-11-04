@@ -684,7 +684,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'property': $scope.property,
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
-					'id': $scope.parentMetamodel +'_' + $scope.id,
+					'id': $scope.parentMetamodel ? $scope.parentMetamodel +'_' + $scope.id : $scope.id,
 					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
 					'name': $scope.metamodel.name || $scope.id || '',
 					'placeholder': $scope.metamodel.placeholder,
