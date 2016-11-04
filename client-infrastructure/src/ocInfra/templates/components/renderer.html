@@ -31,8 +31,8 @@
 		            </div>
 				</li>
 			    <li ng-if="section.icon"><span class="flaticon-hexagon section-icon-1"></span></li>
-	            <li ng-if="section.icon"><span class="{{section.icon}} icon-color section-icon-2"></span></li>
-	            <li><span class="tabTitle section-title-text">{{ section.title | translate }}</span></li>
+	            <li ng-if="section.icon"><span class="{{section.iconclass}} {{section.icon}} icon-color section-icon-2"></span></li>
+	            <li><span class="{{section.titleclass}} tabTitle section-title-text">{{ section.title | translate }}</span></li>
 	            </ul>
 	        </div>
 
@@ -126,13 +126,13 @@
 								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
-										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
+										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="{{button.btnclass}}  btn btn-primary renderer-button" ng-click="execute(button)"
 										 backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
 											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 										</button>
 										<button ng-if="button.type == 'tourButton'" class="btn btn-primary renderer-button" ng-click="tour.restart(true)">
-											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
+											<span ng-if="button.icon" class=" {{button.btnclass}} {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
 											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 										</button>
 									</span>
