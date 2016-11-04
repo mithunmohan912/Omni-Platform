@@ -309,7 +309,7 @@ app.factory('insuredloginFactory', function($rootScope, MetaModel, quotessearchF
     };
 });
 
-app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory, $q){
+app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, quotessearchFactory, resourceFactory, $q, validationFactory){
     return {
         navigateToTab: function(params){
             if(params.inputComponent.action){
@@ -328,6 +328,7 @@ app.factory('quotescreateFactory', function($rootScope, $location, MetaModel, qu
             if(params.inputComponent.action){
                 // We shouldn't have .then that does nothing because we break the promise chain. new Promise doesn't work in IE, we use $q instead
                 return $q(function(resolve) {
+                    params.scope.isWizardValid = validationFactory.isNextStepValid(params.scope, params.inputComponent);                    
                     MetaModel.handleAction($rootScope, params.scope, params.inputComponent, params.optionUrl, params.properties, resourceFactory, params.defaultValues, $location, resolve);
                 });
             } 
