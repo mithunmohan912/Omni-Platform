@@ -90,7 +90,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         return headers;
     }
 
-    function _optionsData(url, params, headers, responseType){
+    function _optionsData(url, params, headers){
         params = _addApiGatewayApiKeys(params);
          //Work-around - To allow mock services to be called without username in header
         //headers : _prepareHeaders(headers),

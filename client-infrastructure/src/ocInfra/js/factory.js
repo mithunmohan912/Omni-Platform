@@ -166,7 +166,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                         optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
                     }
                 }else{
-                    methodResourceFactory = resourceFactory.refresh
+                    methodResourceFactory = resourceFactory.refresh;
                     var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
                     if(responseGET.then){
                         responseGET.then(function success(httpResponseGet){
