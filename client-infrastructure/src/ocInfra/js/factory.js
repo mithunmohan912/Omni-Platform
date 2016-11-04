@@ -147,17 +147,46 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if($rootScope.optionsMapForURL.get(rootURL)){
             optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             return;
-        } 
-        var methodResourceFactory = resourceFactory.refresh;
+        }
+
+        var methodResourceFactory = resourceFactory.optionsData;
         var params = {};
-         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
-          if(responseGET.then){
-            responseGET.then(function success(httpResponse){
-                console.log('prepareOptions - OPTIONS CALL - '+rootURL);
+
+         var responseOPTIONS = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseOPTIONS.then){
+            
+            responseOPTIONS.then(function success(httpResponse){
+                console.log('prepareOptions - OPTIONS CALL - ' + rootURL);
                 var responseData = httpResponse.data || httpResponse;
-                // Add the resource to the result set
-                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
-                optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
+                if(responseData && responseData._options){
+                    var optiondataobj = responseData._options.links;
+                    if(optiondataobj !== undefined){
+                        $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                        // Add the resource to the result set
+                        optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
+                    }
+                }else{
+                    methodResourceFactory = resourceFactory.refresh
+                    var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+                    if(responseGET.then){
+                        responseGET.then(function success(httpResponseGet){
+                            console.log('prepareOptions - GET CALL - ' + rootURL);
+                            var responseDataGet = httpResponseGet.data || httpResponseGet;
+                             if(responseDataGet && responseDataGet._options){
+                                var optiondataobj = responseDataGet._options.links;
+                                if(optiondataobj !== undefined){
+                                    $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseDataGet));
+                                    // Add the resource to the result set
+                                    optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
+                                }
+                            }
+                        }, function error(errorResponse){
+                                console.error(errorResponse);
+                                throw errorResponse;
+                        });
+                    }
+                }
+                
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
@@ -335,6 +364,10 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                         }
                     }
                     if(!optionsMapForResource.get(object.action)){
+                        console.log('Action - '+ object.action);
+                        console.log('Httpmethod - '+ object.httpmethod);
+                        console.log('URL - '+ object.href);
+
                         optionsMapForResource.set(object.action, object);
                     }
                 });    
