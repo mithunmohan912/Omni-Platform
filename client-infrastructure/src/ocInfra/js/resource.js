@@ -297,7 +297,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
             angular.forEach(modifiedResourcesArray, function(resource){
 
-                var url = resource; 
+                var url = resource.trim(); 
                 var params = null; 
                 var headers = null; 
                 var responseType = null; 
