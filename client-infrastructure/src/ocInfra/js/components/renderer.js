@@ -319,24 +319,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
 						
-						//keep the ui inputs 
-						var propertiesToKeep = {};
-						if ($scope.resourcesToBind && $scope.resourcesToBind.properties) {
-							for (var property in $scope.resourcesToBind.properties) {
-								if (property.indexOf(':') === -1) {
-									propertiesToKeep[property] = $scope.resourcesToBind.properties[property];
-								}
-							}
-						}
-
-						//OC-956: keep the resourcesToBind object in case it was passed by the parent renderer
-						var keys = Object.keys($scope.resourcesToBind);
-						keys.forEach(function(key){
-							if (key !== 'properties') {
-								delete $scope.resourcesToBind[key];
-							}
-						});
-						$scope.resourcesToBind.properties = propertiesToKeep;
+						
 
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
@@ -436,7 +419,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
 				                var id = property.id[k];
-			                    $scope.resourcesToBind.properties[id] = $scope.resourcesToBind[resourceSelected.resource].properties[id];
+			                    
+				                if (!$scope.resourcesToBind.properties[id]){
+ 			                        $scope.resourcesToBind.properties[id] = 
+ 			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
+ 			                    }else{
+ 			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
+ 		                      	}
+
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	

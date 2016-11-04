@@ -520,6 +520,20 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
+			// defaults.dateMask = {
+			// 	'dateOptions': {
+			// 		'startWeek': 1,
+			// 		'trigger': 'focus',
+			// 		'autoclose': true,
+			// 		'dateFormat': 'dd/mm/yy', 
+			// 		'changeYear': true, 
+			// 		'changeMonth': true, 
+			// 		'yearRange': '1800:2200'
+			// 	},
+			// 	'dateMask': '99/99/9999',
+			// 	'options': {}
+			// };
+
 			defaults.checkbox = {
 				'attributes': {},
 				'options': {},
@@ -740,7 +754,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
  					'help': ($scope.metamodel.help),
- 					'key': $scope.metamodel.key,
+ 					'key': $scope.metamodel.key
+ 					// 'dateOptions': $rootScope.infraConfig.dateOptions ? $rootScope.infraConfig.dateOptions : defaults[inputType].dateOptions,
+ 					// 'dateFormat': $rootScope.infraConfig.dateFormat ? $rootScope.infraConfig.dateFormat : defaults[inputType].dateFormat,
+ 					// 'dateMask': $rootScope.infraConfig.dateMask ? $rootScope.infraConfig.dateMask : defaults[inputType].dateMask
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -856,11 +873,19 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			};
 
 			/* Watchers to react to changes in the property */
-			$scope.$watchGroup(['property', 'metamodel'], function(newValue){
-				if((newValue[0] && newValue[1]) || (newValue[0] === undefined && newValue[1] && newValue[1].uiInput)){
+			$scope.$watch('property', function(newValue){
+				if((newValue && newValue) || (newValue === undefined && newValue && newValue.uiInput)){
 					$scope.load();
 				}
-			});
+			},true);
+
+	        $scope.$watch('metamodel', function(newValue){
+	        if((newValue && newValue) || (newValue === undefined && newValue && newValue.uiInput)){
+	          $scope.load();
+	        }
+	      },true);
+
+        
 		}],
 		link: function(scope, element){
             scope.$on('inputHtmlUrlChange', function(event, templateURL){
