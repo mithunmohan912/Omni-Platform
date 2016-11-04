@@ -1,8 +1,70 @@
 'use strict';
 
-angular.module('omnichannel').factory('validationFactory',['bindingFactory','MetaModel', function(bindingFactory, MetaModel){
+angular.module('omnichannel').factory('validationFactory',['bindingFactory','MetaModel','$rootScope', 'growl', function(bindingFactory, MetaModel, $rootScope, growl){
 
-	
+	function _isNextStepValid(scope,currentStep){
+        var mandatoryFields = _loadRequiredField(scope, currentStep);
+        var emptyField = [];
+        var message = '';
+        var valid = true;
+        if(mandatoryFields){
+            for(var i=0, j=0;i<mandatoryFields.length;i++){
+                var query = '#elementName';
+                query = query.replace('elementName',mandatoryFields[i]);
+                query = query.replace(':','\\:');
+                var val = angular.element($(query)).val();
+                if(!val || val === '?'){
+                    emptyField[j] = mandatoryFields[i];
+                    j++;
+                    valid = false;
+                }
+            }
+	        if(emptyField.length > 0){
+	        	console.log(emptyField.length);
+	            emptyField.forEach(function(key) {
+	                message += key + ' is required </br>';
+	            });
+	            var msg = growl.error(message);
+	            msg.setText(message);
+	        }
+        }
+        return valid;               
+    }
+           
+    function _loadRequiredField(scope, currentStep){
+        var mandatoryField = [];
+        var arrparent;
+        try{
+            if(currentStep.id){
+        		arrparent = $rootScope.metamodel[currentStep.id].sections;
+            }else{
+            	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
+            }
+            for(var i = 0; i < arrparent.length; i++){
+              	var arr = arrparent[i].properties;
+              	for(var j = 0; j < arr.length; j++){
+                  	var object = arr[j];
+                  	if(object.required !== undefined && object.required === 'required'){
+                      	mandatoryField.push(object.id[0]);
+                  	} else {
+                    	var results = scope.resultSet;
+                     	for(var key in results){
+                     		var properties = results[key].properties;
+                     		for(var prop in properties){
+                     			if(properties[prop].required === true && prop === object.id[0]){
+                     				mandatoryField.push(prop);
+                     			}
+                     		}
+                     	}
+                  	}	
+              	}
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+		return mandatoryField;
+    }
 
 	function _validatePropertiesByMetamodelName(metamodelName){
 
@@ -95,6 +157,8 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	}
 	return {
 		'validateProperties': _validateProperties,
-		'validatePropertiesByMetamodelName': _validatePropertiesByMetamodelName
+		'validatePropertiesByMetamodelName': _validatePropertiesByMetamodelName,
+		'isNextStepValid': _isNextStepValid,
+		'loadRequiredField':_loadRequiredField
 	};
 }]);
