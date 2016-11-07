@@ -289,6 +289,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			parentMetamodel: '='
 		},
 		controller: ['$scope', function($scope){
+			$scope.idUnWatch = null;
 			/* Default attributes and actions for inputs */
 			var defaults = {};
 			defaults.autocomplete = {
@@ -840,10 +841,13 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
-				$scope.$on($scope.id, function() {
+				if ($scope.idUnWatch){//check for watch exists
+					$scope.idUnWatch(); //this line will destruct watch if its already there
+				} 
+        
+				$scope.idUnWatch = $scope.$on($scope.id, function() {
 					$scope.load();
-				});
-
+				}); 
 			};
 
 			$scope.getUnit = function(){
