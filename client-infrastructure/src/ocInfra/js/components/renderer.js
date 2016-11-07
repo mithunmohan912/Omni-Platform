@@ -428,7 +428,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 							else
 							{
-								delete $scope.resourcesToBind.properties[id]
+								delete $scope.resourcesToBind.properties[id];
 							}
 							
 						}
