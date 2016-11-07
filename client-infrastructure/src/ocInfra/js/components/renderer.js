@@ -318,9 +318,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue){
-						
-						
-
 						for(var url in newValue){
 							if(url !== 'deferred' && url !== 'pending'){
 								$scope.resourcesToBind[newValue[url].identifier] = newValue[url];
@@ -401,6 +398,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					if (Array.isArray(property.id)){
 						var idValues = property.id;
 						for(var k = 0; k < idValues.length; k++){
+							var id = property.id[k];
 							var resourceSelected = { resource: null, points: 0 };
 							for(var resource in $scope.resourcesToBind){
 								if (resource !=='properties'){
@@ -408,7 +406,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 									//If the resource is part of a collection and we are only interested in on of the collection items. 
 									if (property.selector){
 										seekSelectorInResource($scope.resourcesToBind[resource], property.selector, resourceSelected);
-									} else if (property.id[k] in $scope.resourcesToBind[resource].properties){	
+									} else if (id in $scope.resourcesToBind[resource].properties){	
 										resourceSelected.resource = resource;
 									}
 								}
@@ -416,22 +414,21 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 							$scope.resourcesToBind.properties = $scope.resourcesToBind.properties || {};	
 							//if we have found a value in one of the resources, we are done and no need to go on. 
-							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
-
-				                var id = property.id[k];
-			                    
-				                if (!$scope.resourcesToBind.properties[id]){
- 			                        $scope.resourcesToBind.properties[id] = 
- 			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
- 			                    }else{
- 			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
- 		                      	}
-
-
+							if (resourceSelected.resource && id in $scope.resourcesToBind[resourceSelected.resource].properties){
+								if (!$scope.resourcesToBind.properties[id]){
+									$scope.resourcesToBind.properties[id] = $scope.resourcesToBind[resourceSelected.resource].properties[id];
+								}else{
+									angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
+									$scope.$broadcast(id);
+								}
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
-									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
+									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);  
 								}
 								break;
+							}
+							else
+							{
+								delete $scope.resourcesToBind.properties[id]
 							}
 							
 						}

@@ -28,7 +28,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					(params.previous && params.previous.data && params.previous.data._links && params.previous.data._links.up && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
-					if(typeof $scope.metamodelObject.autoRefresh !== 'undefined' && $scope.metamodelObject.autoRefresh === false){
+					if($scope.metamodelObject && typeof $scope.metamodelObject.autoRefresh !== 'undefined' && $scope.metamodelObject.autoRefresh === false){
 						return;
 					}
 

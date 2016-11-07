@@ -840,6 +840,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+				$scope.$on($scope.id, function() {
+					$scope.load();
+				});
+
 			};
 
 			$scope.getUnit = function(){
@@ -873,17 +877,11 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			};
 
 			/* Watchers to react to changes in the property */
-			$scope.$watch('property', function(newValue){
-				if((newValue && newValue) || (newValue === undefined && newValue && newValue.uiInput)){
+			$scope.$watchGroup(['property', 'metamodel'], function(newValue){
+				if((newValue[0] && newValue[1]) || (newValue[0] === undefined && newValue[1] && newValue[1].uiInput)){
 					$scope.load();
 				}
-			},true);
-
-	        $scope.$watch('metamodel', function(newValue){
-	        if((newValue && newValue) || (newValue === undefined && newValue && newValue.uiInput)){
-	          $scope.load();
-	        }
-	      },true);
+			});
 
         
 		}],
