@@ -68,7 +68,11 @@
 		                	<span ng-repeat="action in field.options">
 		                		<ng-switch on="action.value">
 						            <span ng-switch-when="edit">
-						                <a><i data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						                <a><i data-toggle="modal" data-target="#{{action.value}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						               </a>
+						            </span>
+						            <span ng-switch-when="delete">
+						                <a><i data-toggle="modal" data-target="#{{action.value}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
 						            </span>
 						            <span ng-switch-default>
@@ -99,12 +103,13 @@
 
 	</div>
 
-
 	<div class="btn-group" ng-if="buttons.length > 0">
 	    <button id="{{metamodelObject.name}}_button_id" data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute(button.action)" class="btn btn-primary btn-mg" ng-disabled="!table.creatable || !button.creatable" ng-repeat="button in buttons">
 	    	{{ button.label | translate }}
 	    </button>
 	</div>
 
-	<popup-render ng-if="modalMetamodelObject" ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+	<div ng-repeat="modal in metamodelObject.modalPopUps">
+		<popup-render ng-if="modal.metamodel" ui-id="{{modal.id}}" metamodel="modal.metamodel" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+	</div>
 </div>
