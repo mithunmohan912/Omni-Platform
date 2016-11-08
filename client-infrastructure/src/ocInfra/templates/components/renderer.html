@@ -22,7 +22,7 @@
 			                    	<input type="checkbox" class="checkbox custom-checkbox"
 											id="{{section.title}}_checkbox" 
 					    					name="{{section.title}}_checkbox"
-											ng-checked="!section.accordion.collapse"
+											ng-checked="getDefaultBehaviourAccordionSection(section)"
 					    					ng-click="opened(section)"/>
 					    			<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
 					    		</label>
@@ -30,6 +30,7 @@
 		                </span>
 		            </div>
 				</li>
+
 			    <li ng-if="section.icon"><span class="flaticon-hexagon section-icon-1"></span></li>
 
 	            <li ng-if="section.icon"><span class="{{section.iconclass}} {{section.icon}} icon-color section-icon-2"></span></li>

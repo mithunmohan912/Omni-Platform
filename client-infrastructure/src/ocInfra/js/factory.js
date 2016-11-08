@@ -625,7 +625,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         Output:
             - None. It will insert the results in the third parameter.
     */
-    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh, validationCallback){
         console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
@@ -664,7 +664,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resultSet[rootURL].dependencies.forEach(function(url){
                     console.log('Invoked for dependencies - '+url.href);
                     resultSet.pending++;
-                    self.prepareToRender(url.href, metamodel, resultSet, url.resource);
+                    self.prepareToRender(url.href, metamodel, resultSet, url.resource, refresh, validationCallback);
                 });
 
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
@@ -672,7 +672,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     resultSet[rootURL].items.forEach(function(url){
                         console.log('Invoked for item details - '+url.href);
                         resultSet.pending++;
-                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
+                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh, validationCallback);
                     });
                 } else {
                     for(var resourceURL in summaryData){
@@ -686,6 +686,9 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     var deferred = resultSet.deferred;
                     delete resultSet.deferred;
                     delete resultSet.pending;
+                    if(typeof validationCallback === 'function'){
+                        validationCallback(metamodel, resultSet);  
+                    } 
 
                     deferred.resolve(resultSet);
                 }

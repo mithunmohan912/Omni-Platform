@@ -231,6 +231,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
               		}
                 	$scope.table.items.push(newItem);
+                	// throw an event to popup about validation 
+                	//first of all, check if href and modelRef exist
+                	if (typeof newItem !== 'undefined' && typeof $scope.metamodelObject !== 'undefined' && typeof $scope.metamodelObject.modalRef !== 'undefined'){
+                		$scope.$broadcast('validatePopup',{itemHref:newItem.href, metamodelName: $scope.metamodelObject.modalRef});	
+                	}
+                	
               	}
 			}
 
