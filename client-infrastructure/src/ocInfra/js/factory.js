@@ -467,9 +467,9 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         var itemDependencies = [];
 
         if(responseData && responseData._links){
-            for(var linkKey in responseData._links){
-                if(linkKey === 'item'){
-                    var items = responseData._links[linkKey];
+            for(var itemKey in responseData._links){
+                if(itemKey === 'item'){
+                    var items = responseData._links[itemKey];
                     // If there is only one item, the response it's not an array but an object
                     if(!Array.isArray(items)){
                         items = [items];
@@ -477,13 +477,39 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
 
                     for(var j = 0; j < items.length; j++){
                         var item = items[j];
-                        itemDependencies.push({ href: item.href, title: item.title });
+                        
                         if(item.summary && summaryData){
+                            itemDependencies.push({ href: item.href, title: item.title });
                             // By calling _processResponse without arguments we get the 'skeleton' for a resource
                             summaryData[item.href] = _processResponse();
                             for(var property in item.summary){
                                 summaryData[item.href].properties[property] = { value: item.summary[property] };
                             }
+                        } else if(responseData._embedded){
+                             for (var listKey in responseData._embedded){
+                                var embeddedItems = responseData._embedded[listKey];
+                                if(!Array.isArray(embeddedItems)){
+                                    embeddedItems = [embeddedItems];
+                                }
+                                for(var k=0; k <embeddedItems.length; k++){
+                                    var embeddedItem = embeddedItems[k];
+                                    
+                                    for(var linkKey in embeddedItem._links){
+                                        var link = embeddedItem._links[linkKey];
+                                        if(item.href === link.href){
+                                            itemDependencies.push({ href: item.href });
+                                            if(summaryData){
+                                                summaryData[item.href] = _processResponse();
+                                                for(var property in embeddedItem){
+                                                    summaryData[item.href].properties[property] = {value: embeddedItem[property]};
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    
+                                }
+                             }    
                         }
                     }
                 }
@@ -518,7 +544,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             'creatable': false
         };
         
-        if(responseData && responseData._links && responseData._options){
+        if(responseData && responseData._links){
 
             if(responseData._links.self){
                 resource.href = responseData._links.self.href;    
@@ -528,23 +554,25 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resource.up = responseData._links.up.href;    
             }
 
-            resource.properties = _processProperties(responseData);
+            if(responseData && responseData._options){
+                resource.properties = _processProperties(responseData);
+                // Process CRUD operations to check whether or not we can PATCH, DELETE...
+                if(responseData._options.links){
+                    responseData._options.links.forEach(function(apiOperation){
+                        if(apiOperation.rel === 'update'){
+                            resource.patchable = true;
+                        } else if(apiOperation.rel === 'delete'){
+                            resource.deletable = true;
+                        } else if(apiOperation.rel === 'create'){
+                            resource.creatable = true;
+                        }
+                    });     
+                }
+            }
+            
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
-            // Process CRUD operations to check whether or not we can PATCH, DELETE...
-            if(responseData._options.links){
-                responseData._options.links.forEach(function(apiOperation){
-                    if(apiOperation.rel === 'update'){
-                        resource.patchable = true;
-                    } else if(apiOperation.rel === 'delete'){
-                        resource.deletable = true;
-                    } else if(apiOperation.rel === 'create'){
-                        resource.creatable = true;
-                    }
-                });     
-            }
-           
         }
 
         return resource;
