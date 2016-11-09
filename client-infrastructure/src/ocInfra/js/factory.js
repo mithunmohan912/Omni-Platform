@@ -477,9 +477,8 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
 
                     for(var j = 0; j < items.length; j++){
                         var item = items[j];
-                        
+                        itemDependencies.push({ href: item.href, title: item.title });
                         if(item.summary && summaryData){
-                            itemDependencies.push({ href: item.href, title: item.title });
                             // By calling _processResponse without arguments we get the 'skeleton' for a resource
                             summaryData[item.href] = _processResponse();
                             for(var property in item.summary){
@@ -500,8 +499,8 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                                             itemDependencies.push({ href: item.href });
                                             if(summaryData){
                                                 summaryData[item.href] = _processResponse();
-                                                for(var property in embeddedItem){
-                                                    summaryData[item.href].properties[property] = {value: embeddedItem[property]};
+                                                for(var property1 in embeddedItem){
+                                                    summaryData[item.href].properties[property1] = {value: embeddedItem[property1]};
                                                 }
                                             }
                                             break;
@@ -555,24 +554,26 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
 
             if(responseData && responseData._options){
-                resource.properties = _processProperties(responseData);
-                // Process CRUD operations to check whether or not we can PATCH, DELETE...
-                if(responseData._options.links){
-                    responseData._options.links.forEach(function(apiOperation){
-                        if(apiOperation.rel === 'update'){
-                            resource.patchable = true;
-                        } else if(apiOperation.rel === 'delete'){
-                            resource.deletable = true;
-                        } else if(apiOperation.rel === 'create'){
-                            resource.creatable = true;
-                        }
-                    });     
-                }
-            }
+            	resource.properties = _processProperties(responseData);
+	        }
             
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
+	
+            // Process CRUD operations to check whether or not we can PATCH, DELETE...
+            if(responseData._options && responseData._options.links){
+                responseData._options.links.forEach(function(apiOperation){
+                    if(apiOperation.rel === 'update'){
+                        resource.patchable = true;
+                    } else if(apiOperation.rel === 'delete'){
+                        resource.deletable = true;
+                    } else if(apiOperation.rel === 'create'){
+                        resource.creatable = true;
+                    }
+                });     
+            }
+           
         }
 
         return resource;
