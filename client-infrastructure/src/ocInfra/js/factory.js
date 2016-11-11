@@ -261,18 +261,46 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             $rootScope.optionsMapForURL = new Map();
         }
         
-        var methodResourceFactory = resourceFactory.refresh;
+        var methodResourceFactory = resourceFactory.optionsData;
         var params = {};
-         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
-          if(responseGET.then){
-            responseGET.then(function success(httpResponse){
-                console.log('callOptions - OPTIONS CALL - '+rootURL);
+         
+         var responseOPTIONS = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseOPTIONS.then){
+            
+            responseOPTIONS.then(function success(httpResponse){
+                console.log('callOptions - OPTIONS CALL - ' + rootURL);
                 var responseData = httpResponse.data || httpResponse;
-                // Add the resource to the result set
-                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
-                if(typeof callback === 'function'){
-                  callback($rootScope.optionsMapForURL.get(rootURL));  
-                } 
+                if(responseData && responseData._options){
+                    var optiondataobj = responseData._options.links;
+                    if(optiondataobj !== undefined){
+                        $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                        if(typeof callback === 'function'){
+                            callback($rootScope.optionsMapForURL.get(rootURL));  
+                        } 
+                    }
+                }else{
+                    methodResourceFactory = resourceFactory.refresh;
+                    var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+                    if(responseGET.then){
+                        responseGET.then(function success(httpResponseGet){
+                            console.log('callOptions - GET CALL - ' + rootURL);
+                            var responseDataGet = httpResponseGet.data || httpResponseGet;
+                             if(responseDataGet && responseDataGet._options){
+                                var optiondataobj = responseDataGet._options.links;
+                                if(optiondataobj !== undefined){
+                                    $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseDataGet));
+                                    if(typeof callback === 'function'){
+                                        callback($rootScope.optionsMapForURL.get(rootURL));  
+                                    } 
+                                }
+                            }
+                        }, function error(errorResponse){
+                                console.error(errorResponse);
+                                throw errorResponse;
+                        });
+                    }
+                }
+                
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
@@ -467,9 +495,9 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         var itemDependencies = [];
 
         if(responseData && responseData._links){
-            for(var linkKey in responseData._links){
-                if(linkKey === 'item'){
-                    var items = responseData._links[linkKey];
+            for(var itemKey in responseData._links){
+                if(itemKey === 'item'){
+                    var items = responseData._links[itemKey];
                     // If there is only one item, the response it's not an array but an object
                     if(!Array.isArray(items)){
                         items = [items];
@@ -484,6 +512,30 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                             for(var property in item.summary){
                                 summaryData[item.href].properties[property] = { value: item.summary[property] };
                             }
+                        } else if(responseData._embedded){
+                             for (var listKey in responseData._embedded){
+                                var embeddedItems = responseData._embedded[listKey];
+                                if(!Array.isArray(embeddedItems)){
+                                    embeddedItems = [embeddedItems];
+                                }
+                                for(var k=0; k <embeddedItems.length; k++){
+                                    var embeddedItem = embeddedItems[k];
+                                    
+                                    for(var linkKey in embeddedItem._links){
+                                        var link = embeddedItem._links[linkKey];
+                                        if(item.href === link.href){
+                                            if(summaryData){
+                                                summaryData[item.href] = _processResponse();
+                                                for(var property1 in embeddedItem){
+                                                    summaryData[item.href].properties[property1] = {value: embeddedItem[property1]};
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    
+                                }
+                             }    
                         }
                     }
                 }
@@ -518,7 +570,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             'creatable': false
         };
         
-        if(responseData && responseData._links && responseData._options){
+        if(responseData && responseData._links){
 
             if(responseData._links.self){
                 resource.href = responseData._links.self.href;    
@@ -528,12 +580,16 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resource.up = responseData._links.up.href;    
             }
 
-            resource.properties = _processProperties(responseData);
+            if(responseData && responseData._options){
+            	resource.properties = _processProperties(responseData);
+	        }
+            
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
+	
             // Process CRUD operations to check whether or not we can PATCH, DELETE...
-            if(responseData._options.links){
+            if(responseData._options && responseData._options.links){
                 responseData._options.links.forEach(function(apiOperation){
                     if(apiOperation.rel === 'update'){
                         resource.patchable = true;
