@@ -4,7 +4,9 @@
 global angular
 */
 
-angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, $rootScope, $injector, resourceFactory, $q, $location, growl){
+
+angular.module('omnichannel').directive('renderer', function(MetaModel, $resource, growl, $rootScope, $injector, resourceFactory, $q, $location, bindingFactory,validationFactory){
+
 
 	// WARNING: Copied from input component controller
 	function _searchInParents(scope, fieldName){
@@ -50,7 +52,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					_processMetamodel(data);
 					_options(data);
 					_init(data);
-				});
+				});								
 			} else {
 				_processMetamodel(metamodelObject);
 				_options(metamodelObject);
@@ -77,11 +79,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 			$scope.opened= function (section){
 
-				if (typeof section.collapse !== 'undefined'){
-					if (section.collapse){
-						section.collapse = false;
+				if (typeof section.accordion.collapse !== 'undefined'){
+					if (section.accordion.collapse){
+						section.accordion.collapse = false;
 					}else{
-						section.collapse = true;
+						section.accordion.collapse = true;
 					}	
 				}
 			};
@@ -196,7 +198,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.metamodelObject.optionUrl = $rootScope.resourceHref;
                     $scope.resourceUrlToRender = $rootScope.resourceHref;
 				} else if($rootScope.regionId !== undefined && resource !== undefined){
-					var url = $rootScope.hostURL + resource;
+					var url = {};
+					//WORK AROUND FOR RMA--
+					if(resource.includes('http')){
+						url = resource;
+					}
+					else{
+						url = $rootScope.hostURL + resource;
+					}
                     //Retrieve regionToSORMap from the rootScope
                     var regionToSORMap = $rootScope.regionToSoR;
                     //Retrieve the application name for the given region Id
@@ -284,6 +293,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 				$scope.boundUrls.push($scope.resourceUrl);
 
+				bindingFactory.setResourceToBindDirectory($scope.metamodel, $scope.resourcesToBind);
  
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName;
 				try {
@@ -420,9 +430,12 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							if (resourceSelected.resource && property.id[k] in $scope.resourcesToBind[resourceSelected.resource].properties){
 
 				                var id = property.id[k];
-							
-				                $scope.resourcesToBind.properties[id] = 
-				                $scope.resourcesToBind[resourceSelected.resource].properties[id];
+						        if (!$scope.resourcesToBind.properties[id]){
+			                        $scope.resourcesToBind.properties[id] = 
+			                        $scope.resourcesToBind[resourceSelected.resource].properties[id];
+			                    }else{
+			                         angular.extend( $scope.resourcesToBind.properties[id], $scope.resourcesToBind[resourceSelected.resource].properties[id]);
+		                      	}
 
 								if($scope.boundUrls.indexOf($scope.resourcesToBind.properties[id].self) < 0) {
 									$scope.boundUrls.push($scope.resourcesToBind.properties[id].self);	
@@ -457,94 +470,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				return false;
 			}
 
-			$scope.translateKeyToLabelByTab = function(key, currentStep){
-                var arrparent;
-                if(currentStep.id){
-                    arrparent = $rootScope.metamodel[currentStep.id].sections;
-                }else{
-                    arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
-                }
-                for(var i = 0; i < arrparent.length; i++){
-                    var arr = arrparent[i].properties;
-                    for(var j = 0; j < arr.length; j++){
-                        var object = arr[j];
-                        if(object.id[0] === key){
-                            return object.label;
-                        }
-                    }
-                }
-            };
 
-
-			$scope.isValid = function(currentStep){
-                var mandatoryFields = $scope.loadRequiredField(currentStep);
-                var emptyField = [];
-                var message = '';
-                var valid = true;
-                if(mandatoryFields){
-                    for(var i=0;i<mandatoryFields.length;i++){
-                    var query = '#elementName';
-                    query = query.replace('elementName',mandatoryFields[i]);
-                    query = query.replace(':','\\:');
-                    var val = angular.element($(query)).val();
-                        if(!val || val === '?'){
-                       		emptyField[i] = mandatoryFields[i];
-                        	valid = false;
-                    	}
-                	}
-	                if(emptyField.length > 0){
-	                    emptyField.forEach(function(key) {
-	                        //message += key + ' is required <br/>';
-                            var label = $scope.translateKeyToLabelByTab(key, currentStep);
-                            message += $rootScope.locale[label] + $rootScope.locale.IS_REQD + '<br />';
-	                    });
-	                    var msg = growl.error(message);
-	                   	msg.setText(message);
-	                }
-                }
-                return valid;               
-            };
-           
-            $scope.loadRequiredField = function(currentStep){
-                var mandatoryField = [];
-                var arrparent;
-                try{
-                    if(currentStep.id){
-                    	arrparent = $rootScope.metamodel[currentStep.id].sections;
-                    }else{
-                    	arrparent = $rootScope.metamodel[$rootScope.screenId].sections;
-                    }
-                    for(var i = 0; i < arrparent.length; i++){
-                      	var arr = arrparent[i].properties;
-                      	for(var j = 0; j < arr.length; j++){
-                          	var object = arr[j];
-                          	if(object.required !== undefined && object.required === 'required'){
-                              	mandatoryField.push(object.id[0]);
-                          	} else {
-                            	var results = $scope.resultSet;
-                             	for(var key in results){
-                             		var properties = results[key].properties;
-                             		for(var prop in properties){
-                             			if(properties[prop].required === true && prop === object.id[0]){
-                             				mandatoryField.push(prop);
-                             			}
-                             		}
-                             	}
-                          	}	
-                      	}
-                    }
-                }
-                catch(e){
-                    console.log(e);
-                }
-				return mandatoryField;
-
-            };
             $scope.enterValidation = function(){
                 return $scope.isWizardValid;
             };
 			$scope.execute = function(inputComponent) {          
-                $scope.isWizardValid = $scope.isValid(inputComponent);
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
@@ -569,6 +499,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					$scope.$broadcast(inputComponent.method, $scope);
 				}
 			};
+
+
 
 			$scope.$on('patch_renderer', function(event, data){
 				//OC-956: to avoid multiple callbacks, adding condition by name
@@ -595,6 +527,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 							}
 						}
 
+						//var modalResourceToBind = bindingFactory.getResourceToBindDirectory($scope.metamodel); //--> tenemos que sacar de nuestro resourceBind Factory
+ 						//var propertiesBound = !_.isEmpty(modalResourceToBind) && !_.isEmpty(modalResourceToBind.properties) ? modalResourceToBind.properties: null;
+ 						$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName($scope.metamodel));  //validationFactory.validateProperties ($scope.metamodelObject.sections,propertiesBound));
+
+
 						var consistent = true;
 						var payloadKeys = Object.keys(payloads);
 						payloadKeys.forEach(function(url, index){
@@ -619,7 +556,6 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 										}
 									}
 								}
-
 
 								var combinedResourcesProperties = [];
 
@@ -656,9 +592,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 														}
 													}
 
-
-											});
-												
+											});											
 											
 										
 										}
@@ -690,10 +624,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 												}
 												if (!consistent){
 													break;
-												}
-													
-											}
-											
+												}													
+											}											
 											
 										}
 									if (promises.length === 0 && index === payloadKeys.length-1) {
@@ -726,6 +658,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}
 				}
 			});
+
 
 			//OC-958 and OC-957	
 

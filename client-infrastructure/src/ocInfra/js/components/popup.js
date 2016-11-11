@@ -4,7 +4,7 @@
 global app
 */
 
-app.directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector){
+app.directive('popupRender',  function(MetaModel, $resource, $rootScope, $location, $injector, bindingFactory, validationFactory){
 
 return {
 		restrict: 'E',
@@ -17,20 +17,6 @@ return {
 
 		controller: function($scope){
 
-			$scope.popup = {
-				'id': $scope.uiId || '_popup' + Math.floor(Math.random()*1000000000000),
-				'labels': {},
-				'actions': {}
-			};
-			
-			$scope.resultSet = {};
-
-			$scope.resetDisabled = false;
-
-			if (_.isEmpty($scope.resourceUrl)){
-				$scope.resourceUrl = $rootScope.resourceUrl;
-			}
-
 			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
 			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
@@ -39,7 +25,12 @@ return {
 			} else {
 				_init(metamodelObject);
 			}
+			
+			$scope.resultSet = {};
 
+			$scope.resetDisabled = false;
+
+			$scope.resourceUrl = $scope.resourceUrl || $rootScope.resourceUrl;
 
 			$scope.$on('resource_directory', function(event, params){
 				if($scope.resourceUrl && params.url.indexOf($scope.resourceUrl) >= 0){
@@ -74,9 +65,9 @@ return {
 					if(newValue[$scope.resourceUrl] && newValue[$scope.resourceUrl].properties){
 						var typeValue = newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type] ? newValue[$scope.resourceUrl].properties[$scope.metamodelObject.type].value : '';
 						if (typeValue){
-							$scope.popup.labels.title = typeValue.toUpperCase() + '_' + ($scope.metamodelObject.labels.title || $scope.popup.labels.titleDefault);
+							$scope.metamodelObject.labels.title = typeValue.toUpperCase() + '_' + ($scope.metamodelObject.labels.title || $scope.metamodelObject.labels.titleDefault);
 						}else{
-							$scope.popup.labels.title = ($scope.metamodelObject.labels.title || $scope.popup.labels.titleDefault);
+							$scope.metamodelObject.labels.title = ($scope.metamodelObject.labels.title || $scope.metamodelObject.labels.titleDefault);
 						}
 						
 						$scope.popUpResourceToBind = newValue[$scope.resourceUrl];
@@ -124,7 +115,10 @@ return {
 				_initLabels();
 				_initActions();
 
-				$scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
+				$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName($scope.metamodel));
+ 				
+					
+		        $scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
 				} catch(e) {
@@ -132,36 +126,37 @@ return {
 				}
 			}	
 
-
 			function _initLabels(){
-				$scope.popup.labels.titleDefault = '_POPUP_TITLE';
-				$scope.popup.labels.ok = '_SAVE';
-				$scope.popup.labels.close = '_CLOSE';
-				$scope.popup.labels.reset = '_RESET';
-				$scope.popup.actions._ok = _defaultSave;
-				$scope.popup.actions._close =_defaultClose;
-				$scope.popup.actions._reset =_defaultReset;
-
-
+				$scope.metamodelObject.labels.titleDefault = '_POPUP_TITLE';
+				$scope.metamodelObject.labels.okDefault = '_SAVE';
+				$scope.metamodelObject.labels.closeDefault = '_CLOSE';
+				$scope.metamodelObject.labels.resetDefault = '_RESET';
+				
 				// User defined labels and actions
 				if($scope.metamodelObject.labels){
-					$scope.popup.labels.title =  $scope.metamodelObject.labels.title || $scope.popup.labels.titleDefault;
-					$scope.popup.labels.ok = $scope.metamodelObject.labels.ok || $scope.popup.labels.ok;
-					$scope.popup.labels.close = $scope.metamodelObject.labels.close || $scope.popup.labels.close;
-					$scope.popup.labels.cancel = $scope.metamodelObject.labels.cancel || $scope.popup.labels.cancel;
-					$scope.popup.labels.reset = $scope.metamodelObject.labels.reset || $scope.popup.labels.reset;
+					$scope.metamodelObject.labels.title =  $scope.metamodelObject.labels.title || $scope.metamodelObject.labels.titleDefault;
+					$scope.metamodelObject.labels.ok = $scope.metamodelObject.labels.ok || $scope.metamodelObject.labels.okDefault;
+					$scope.metamodelObject.labels.close = $scope.metamodelObject.labels.close || $scope.metamodelObject.labels.closeDefault;
+					$scope.metamodelObject.labels.cancel = $scope.metamodelObject.labels.cancel || $scope.metamodelObject.labels.cancelDefault;
+					$scope.metamodelObject.labels.reset = $scope.metamodelObject.labels.reset || $scope.metamodelObject.labels.resetDefault;
+					$scope.metamodelObject.labels.bodycontent =  $scope.metamodelObject.labels.bodycontent;
+					$scope.metamodelObject.labels.text =  $scope.metamodelObject.labels.text;
 				}
 
 			}
 
 			function _initActions(){
+				$scope.metamodelObject.actions.cancel = $scope.metamodelObject.actions.cancel;
+				$scope.metamodelObject.actions.reset = $scope.metamodelObject.actions.reset;
+				$scope.metamodelObject.actions._ok = _defaultSave;
+				$scope.metamodelObject.actions._close =_defaultClose;
+				$scope.metamodelObject.actions._reset =_defaultReset;
 
 				if($scope.metamodelObject.actions){
-					$scope.popup.actions._ok = ($scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.method) ? $scope.metamodelObject.actions.ok.method: $scope.popup.actions._ok;
-					$scope.popup.actions._close = ($scope.metamodelObject.actions.close && $scope.metamodelObject.actions.close.method) ? $scope.metamodelObject.actions.close.method:$scope.popup.actions._close;
-					$scope.popup.actions._cancel = ($scope.metamodelObject.actions.cancel && $scope.metamodelObject.actions.cancel.method) ? $scope.metamodelObject.actions.cancel.method:$scope.popup.actions._cancel;
-					$scope.popup.actions._reset = ($scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.method) ? 
-						$scope.metamodelObject.actions.reset.method:$scope.popup.actions._reset;
+					$scope.metamodelObject.actions._ok = ($scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.method) ? $scope.metamodelObject.actions.ok.method: $scope.metamodelObject.actions._ok;
+					$scope.metamodelObject.actions._close = ($scope.metamodelObject.actions.close && $scope.metamodelObject.actions.close.method) ? $scope.metamodelObject.actions.close.method:$scope.metamodelObject.actions._close;
+					$scope.metamodelObject.actions._cancel = ($scope.metamodelObject.actions.cancel && $scope.metamodelObject.actions.cancel.method) ? $scope.metamodelObject.actions.cancel.method:$scope.metamodelObject.actions._cancel;
+					$scope.metamodelObject.actions._reset = ($scope.metamodelObject.actions.reset && $scope.metamodelObject.actions.reset.method) ? $scope.metamodelObject.actions.reset.method:$scope.metamodelObject.actions._reset;
 				}
 
 			}
@@ -196,7 +191,12 @@ return {
 					
 				} else if($scope.actionFactory[action]){
 					if ($scope.resourceUrl){
-						$scope.actionFactory[action]($scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties, $scope);
+						if( $scope.popUpResourceToBind !== undefined){
+							$scope.actionFactory[action]($scope.resourceUrl, $scope, $scope.resultSet[$scope.resourceUrl], $scope.popUpResourceToBind.properties);	
+						} else{
+							$scope.actionFactory[action]($scope.resourceUrl, $scope, $scope.resultSet[$scope.resourceUrl]);
+						}
+						
 					}
 					else{
 						$scope.actionFactory[action]($scope);

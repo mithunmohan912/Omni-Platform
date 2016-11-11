@@ -1,26 +1,41 @@
 
-<div class="padding-none renderer  renderer-{{activeTab}}" tour template-url="ocInfra/templates/tour_template.html" submitted="{{submitted}}">
+<div class="padding-none renderer  renderer-{{activeTab}}"  submitted="{{submitted}}">
 
 	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type" ng-if="section.visible()">
 
-		<h3 ng-if="section.title || section.logodir" class="oc-modal-header border-none section-title-container">
+		<h3 ng-if="(section.title || section.logodir) || (section.accordion && section.accordion.componentType === 'custom') " class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
-		    <span ng-if="section.accordion">
-				<div class="checkbox custom-checkbox">
-                    <label>
-                    	 <input type="checkbox"
-							id="{{section.title}}_checkbox" 
-		    				name="{{section.title}}_checkbox"
-							ng-checked="!section.collapse"
-		    				ng-click="opened(section)"/>
-                      <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                    </label>
-                  </div>
-			</span>
 
-		    <!-- <span ng-if="section.icon" class="flaticon-hexagon section-icon-1"></span> -->
-            <span ng-if="section.icon" class=" {{section.iconclass}} {{section.icon}}  icon-color section-icon-2"></span>
-            <span class="tabTitle section-title-text {{section.titleclass}}" >{{ section.title | translate }}</span>
+		    <div class="hr_margin">
+			    <ul class="list-ul-accordion">
+			    <li ng-if="section.accordion.status">
+			    	<div ng-switch="section.accordion.componentType">
+			    		<span ng-switch-when="clicking" class="{{section.accordion.componentStyle}}"  ng-click="opened(section)"></span>
+			    		<span ng-switch-when="custom"   ng-click="opened(section)">
+ 		                	<div class="checkbox custom-checkbox">
+ 		                		<span ng-include="section.accordion.templateUrl"></span>
+ 		                	</div>
+			    		</span>
+		                <span ng-switch-default>
+		                	<div class="checkbox custom-checkbox">
+			                	<label>
+			                    	<input type="checkbox" class="checkbox custom-checkbox"
+											id="{{section.title}}_checkbox" 
+					    					name="{{section.title}}_checkbox"
+											ng-checked="!section.accordion.collapse"
+					    					ng-click="opened(section)"/>
+					    			<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					    		</label>
+					    	</div>
+		                </span>
+		            </div>
+				</li>
+			    <li ng-if="section.icon"><span class="flaticon-hexagon section-icon-1"></span></li>
+	            <li ng-if="section.icon"><span class="{{section.iconclass}} {{section.icon}} icon-color section-icon-2"></span></li>
+	            <li><span class="{{section.titleclass}} tabTitle section-title-text">{{ section.title | translate }}</span></li>
+	            </ul>
+	        </div>
+
         	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
         	<div class="hr_margin">
                      <hr class="onl_hrOr_1">
@@ -30,7 +45,7 @@
     	</h3>
 
 
-    	<div  uib-collapse="section.collapse">
+    	<div  uib-collapse="section.accordion.collapse">
 
 			<span ng-switch-when="reference" class="linked-renderer-container">
 				<renderer metamodel="section.$ref" factory-name="section.factoryName || factoryName" resource-url="resourceUrl" parent-resources="resourcesToBindRef[section.$ref]"></renderer>
@@ -111,13 +126,13 @@
 								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
-										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="btn btn-primary renderer-button" ng-click="execute(button)"
-										tour-step backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
+										<button ng-if="(button.label || button.icon) && !(button.type == 'tourButton')" class="{{button.btnclass}}  btn btn-primary renderer-button" ng-click="execute(button)"
+										 backdrop="true" order="{{button.order}}" title="{{button.title | translate}}" content="{{button.tourcontent | translate}}" placement="{{button.position}}" autoscroll="true" id="{{button.id}}">
 											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="execute(button)"></span>
 											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 										</button>
 										<button ng-if="button.type == 'tourButton'" class="btn btn-primary renderer-button" ng-click="tour.restart(true)">
-											<span ng-if="button.icon" class="{{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
+											<span ng-if="button.icon" class=" {{button.btnclass}} {{button.icon}} renderer-button-icon" title="{{ button.tooltip | translate }}" ng-click="tour.restart(true)"></span>
 											<span ng-if="button.label" class="renderer-button-text">{{ button.label | translate }}&nbsp;</span>
 										</button>
 									</span>
@@ -239,7 +254,7 @@
 								</span>
 								<span ng-switch-default>
 									<span ng-repeat="id in column.id" class="infra-input-container">
-										<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
+										<input-render ng-if="((resourcesToBind.properties && column.uiInput) || isVisible(resourcesToBind.properties[id], column))" id="id" property="resourcesToBind.properties[id]" parent-metamodel = "metamodelObject.name" metamodel="column" update-mode="{{column.updateMode}}" on-update="{{column.onUpdate}}" base-url="{{column.baseUrl}}" resources="resourcesToBind.properties" factory-name="factoryName" resource-url="resourceUrl"></input-render>
 									</span>
 								</span>
 							</span>

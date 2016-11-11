@@ -119,18 +119,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
 
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
@@ -377,33 +365,14 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-			$scope.isValidStatus = function(displayedItem){
-				//OC-1010: Problem with the consistency indicators of the table party roles
- 				var status;
- 				if (displayedItem) {
- 					var properties = displayedItem.properties;
-					if ($scope.modalMetamodelObject) {
-						$scope.modalMetamodelObject.sections.forEach(function(section) {
-			 				if (section.properties) {
-			                    section.properties.forEach(function(property){
-			 						var ids = property.id;
-			 						if(!Array.isArray(ids)){
-			 							ids = [ids];
-			 						}
-			 						ids.forEach(function(id){
-			 							if (properties[id]){
-			 								status = status || true;
-				 							status = status && properties[id].consistent;
-				 						}
-			 						});
-				 				});
-							}
-						});
-		               
-					}
- 				}
-				return status || false;
-			};
+			$scope.isValidStatus = false;
+				
+			$scope.$on('isValidStatus', function(event, params) {
+				$scope.isValidStatus = !params?false:true;
+			});
+
+
+			
 
 			$scope.edit = function(itemSelected, callback) {
 				$scope.itemSelected = itemSelected;
@@ -415,18 +384,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
-	 		};
+	 		$scope.delete = function(itemSelected, callback) {
+				$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected,$scope);
+					}
+				}
+			};
 
 
     $scope.checkShowItemRow = function(action, displayedItem) {
@@ -559,17 +525,7 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 				$scope.itemSelected = {};
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
+
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 				$scope.$watchCollection('resultSet', function(newValue){
@@ -822,17 +778,14 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 					}
 				}
 			};
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
+	 		$scope.delete = function(itemSelected, callback) {
+	 			$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected);
+					}
+				}
 	 		};
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
