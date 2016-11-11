@@ -7,7 +7,7 @@
 	<div id="no-more-tables">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 padding-none table table-striped table-condensed cf {{class.table}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
-				<tr ng-show="metamodelObject.searching">
+				<tr ng-show="metamodelObject.searching" class="searchInput" >
 					<th colspan="{{metamodelObject.properties.length}}" class="padding-none">
 						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
 					</th>
