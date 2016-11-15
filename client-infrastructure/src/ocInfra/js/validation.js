@@ -6,7 +6,7 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
     
 	    var formScope = angular.element($('form[name="'+currentStep.id+'"]')).scope();
 	    var form = formScope[currentStep.id];
-	    var message= "";
+	    var message= '';
 	    var errors = {};   
 	      for(var index in form.$error.required){
 	        var reqField = form.$error.required[index];
@@ -18,14 +18,14 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	              for(var j = 0; j < arr.length; j++){
 	                  var object = arr[j];
 	                  if(object.id[0] === reqField.$name){
-	                      errors[ $rootScope.locale[object.label] ] = $rootScope.locale['IS_REQD'];
+	                      errors[ $rootScope.locale[object.label] ] = $rootScope.locale.IS_REQD;
 	                      }
 	              }
 	          }          
 	        }                 
 	     }
 	    for(var err in errors){
-	              message += err+" "+errors[err]+"</br>";
+	              message += err+' '+errors[err]+'</br>';
 	          }
 	    var msg = growl.error(message);
 	    msg.setText(message);
