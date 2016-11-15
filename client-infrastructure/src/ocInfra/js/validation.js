@@ -3,32 +3,33 @@
 angular.module('omnichannel').factory('validationFactory',['bindingFactory','MetaModel','$rootScope', 'growl', function(bindingFactory, MetaModel, $rootScope, growl){
 
 	function _isNextStepValid(scope,currentStep){
-        var mandatoryFields = _loadRequiredField(scope, currentStep);
-        var emptyField = [];
-        var message = '';
-        var valid = true;
-        if(mandatoryFields){
-            for(var i=0, j=0;i<mandatoryFields.length;i++){
-                var query = '#elementName';
-                query = query.replace('elementName',mandatoryFields[i]);
-                query = query.replace(':','\\:');
-                var val = angular.element($(query)).val();
-                if(!val || val === '?'){
-                    emptyField[j] = mandatoryFields[i];
-                    j++;
-                    valid = false;
-                }
-            }
-	        if(emptyField.length > 0){
-	        	console.log(emptyField.length);
-	            emptyField.forEach(function(key) {
-	                message += key + ' is required </br>';
-	            });
-	            var msg = growl.error(message);
-	            msg.setText(message);
-	        }
-        }
-        return valid;               
+    
+	    var formScope = angular.element($('form[name="'+currentStep.id+'"]')).scope();
+	    var form = formScope[currentStep.id];
+	    var message= "";
+	    var errors = {};   
+	      for(var index in form.$error.required){
+	        var reqField = form.$error.required[index];
+	        if(! reqField.$valid){
+	          var arrparent;               
+	          arrparent = $rootScope.metamodel[currentStep.id].sections;          
+	          for(var i = 0; i < arrparent.length; i++){
+	              var arr = arrparent[i].properties;
+	              for(var j = 0; j < arr.length; j++){
+	                  var object = arr[j];
+	                  if(object.id[0] === reqField.$name){
+	                      errors[ $rootScope.locale[object.label] ] = $rootScope.locale['IS_REQD'];
+	                      }
+	              }
+	          }          
+	        }                 
+	     }
+	    for(var err in errors){
+	              message += err+" "+errors[err]+"</br>";
+	          }
+	    var msg = growl.error(message);
+	    msg.setText(message);
+    return form.$valid;
     }
            
     function _loadRequiredField(scope, currentStep){
