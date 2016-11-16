@@ -55,7 +55,7 @@
 			</span>
 
 			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
-				<form novalidate>
+				<form name="{{metamodelObject.name}}" novalidate>
 						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column padding-none {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
 							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 								<span ng-switch-when="tabs" class="infra-tabs-container">

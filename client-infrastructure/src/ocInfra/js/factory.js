@@ -261,18 +261,46 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             $rootScope.optionsMapForURL = new Map();
         }
         
-        var methodResourceFactory = resourceFactory.refresh;
+        var methodResourceFactory = resourceFactory.optionsData;
         var params = {};
-         var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
-          if(responseGET.then){
-            responseGET.then(function success(httpResponse){
-                console.log('callOptions - OPTIONS CALL - '+rootURL);
+         
+         var responseOPTIONS = methodResourceFactory(rootURL, params, $rootScope.headers);
+          if(responseOPTIONS.then){
+            
+            responseOPTIONS.then(function success(httpResponse){
+                console.log('callOptions - OPTIONS CALL - ' + rootURL);
                 var responseData = httpResponse.data || httpResponse;
-                // Add the resource to the result set
-                $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
-                if(typeof callback === 'function'){
-                  callback($rootScope.optionsMapForURL.get(rootURL));  
-                } 
+                if(responseData && responseData._options){
+                    var optiondataobj = responseData._options.links;
+                    if(optiondataobj !== undefined){
+                        $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseData));
+                        if(typeof callback === 'function'){
+                            callback($rootScope.optionsMapForURL.get(rootURL));  
+                        } 
+                    }
+                }else{
+                    methodResourceFactory = resourceFactory.refresh;
+                    var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+                    if(responseGET.then){
+                        responseGET.then(function success(httpResponseGet){
+                            console.log('callOptions - GET CALL - ' + rootURL);
+                            var responseDataGet = httpResponseGet.data || httpResponseGet;
+                             if(responseDataGet && responseDataGet._options){
+                                var optiondataobj = responseDataGet._options.links;
+                                if(optiondataobj !== undefined){
+                                    $rootScope.optionsMapForURL.set(rootURL, _processOptions(responseDataGet));
+                                    if(typeof callback === 'function'){
+                                        callback($rootScope.optionsMapForURL.get(rootURL));  
+                                    } 
+                                }
+                            }
+                        }, function error(errorResponse){
+                                console.error(errorResponse);
+                                throw errorResponse;
+                        });
+                    }
+                }
+                
             }, function error(errorResponse){
                 // FIXME TODO: Do something useful if required, for now just logging
                 console.error(errorResponse);
@@ -496,7 +524,6 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                                     for(var linkKey in embeddedItem._links){
                                         var link = embeddedItem._links[linkKey];
                                         if(item.href === link.href){
-                                            itemDependencies.push({ href: item.href });
                                             if(summaryData){
                                                 summaryData[item.href] = _processResponse();
                                                 for(var property1 in embeddedItem){
