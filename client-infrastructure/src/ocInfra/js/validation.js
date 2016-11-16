@@ -11,28 +11,15 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	      for(var index in form.$error.required){
 	        var reqField = form.$error.required[index];
 	        if(! reqField.$valid){
-	          var arrparent;               
-	          arrparent = $rootScope.metamodel[currentStep.id].sections;          
-	          for(var i = 0; i < arrparent.length; i++){
-	              var arr = arrparent[i].properties;
-	              for(var j = 0; j < arr.length; j++){
-	                  var object = arr[j];
-	                  if(object.id[0] === reqField.$name){
-	                      errors[ $rootScope.locale[object.label] ] = $rootScope.locale.IS_REQD;
-	                      }
-	              }
-	          }          
+            var label = reqField.$name.replace( /(:|\.|\[|\]|,|=,|\|)/g, "\\$1" )+"Label";
+            errors[angular.element("#"+label).html() ] = $rootScope.locale.IS_REQD;      
 	        }                 
 	     }
 	    for(var err in errors){
 	              message += err+' '+errors[err]+'</br>';
 	          }
-
-	     	if(message.length > 0){
-	          	var msg = growl.error(message);
-	    		msg.setText(message);
-	          }
-
+	    var msg = growl.error(message);
+	    msg.setText(message);
     return form.$valid;
     }
            
