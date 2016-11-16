@@ -15,18 +15,16 @@ import com.csc.eip.processor.ResponseMessageProcessor;
  */
 public class ApiProxyRouter extends RouteBuilder {
 
-	private String publicUriPrefix;
-	private String privateUriPrefix;
-	private String privateUriPrefixHttp4;
-	private String proxyUriPrefix;
+	private String apiProxyEndpoint;
+	private String apiProxyRoute;
 	private Map<String,String> customHeaders;
-	
+	private Map<String,String> apiEndpointRefs;
+
 	@Override
     public void configure() throws Exception {
 		
-		RequestMessageProcessor requestMessageProcessor = new RequestMessageProcessor();
-		requestMessageProcessor.setRegex(publicUriPrefix);
-		requestMessageProcessor.setReplacement(privateUriPrefix);
+//		RequestMessageProcessor requestMessageProcessor = new RequestMessageProcessor();
+//		requestMessageProcessor.setApiEndpointRefs(apiEndpointRefs);
 
 		ProxyPreProcessor proxyPreProcessor = new ProxyPreProcessor();
 		proxyPreProcessor.setCustomHeaders(customHeaders);
@@ -35,14 +33,12 @@ public class ApiProxyRouter extends RouteBuilder {
 		proxyPostProcessor.setCustomHeaders(customHeaders);
 
 		ResponseHeadersProcessor responseHeadersProcessor = new ResponseHeadersProcessor();
-		responseHeadersProcessor.setRegex(privateUriPrefix);
-		responseHeadersProcessor.setReplacement(publicUriPrefix);
+		responseHeadersProcessor.setApiEndpointRefs(apiEndpointRefs);
 
 		ResponseMessageProcessor responseMessageProcessor = new ResponseMessageProcessor();
-		responseMessageProcessor.setRegex(privateUriPrefix);
-		responseMessageProcessor.setReplacement(publicUriPrefix);
+		responseMessageProcessor.setApiEndpointRefs(apiEndpointRefs);
 
-        from("jetty:http://0.0.0.0:8888/ocintegration/proxy" + proxyUriPrefix + "?matchOnUriPrefix=true")
+        from("jetty:http://0.0.0.0:8888/ocintegration/proxy" + apiProxyRoute + "?matchOnUriPrefix=true")
         
         	.log("${header.CamelServletContextPath} route")
         	//.log("headers:${headers}")
@@ -55,13 +51,13 @@ public class ApiProxyRouter extends RouteBuilder {
 //		        .end()
 		        
 		    // proxy
-		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy")
+		    .log("${header.CamelHttpMethod} " + apiProxyEndpoint + "${header.CamelHttpPath} proxy")
 		    .process(proxyPreProcessor)
 		    .log("proxy process")
-		    .log("privateUriPrefixHttp4: " + privateUriPrefixHttp4)
-        	.to(privateUriPrefixHttp4 + "?bridgeEndpoint=true&throwExceptionOnFailure=false")
+		    .log("privateUriPrefixHttp4: " + apiProxyEndpoint)
+        	.to(apiProxyEndpoint + "?bridgeEndpoint=true&throwExceptionOnFailure=false")
         	.process(proxyPostProcessor)
-		    .log("${header.CamelHttpMethod} " + privateUriPrefix + "${header.CamelHttpPath} proxy ended")
+		    .log("${header.CamelHttpMethod} " + apiProxyEndpoint + "${header.CamelHttpPath} proxy ended")
 		    
 		    // translate response headers
 		    .process(responseHeadersProcessor)
@@ -78,36 +74,20 @@ public class ApiProxyRouter extends RouteBuilder {
         
     }
 
-	public String getPublicUriPrefix() {
-		return publicUriPrefix;
+	public String getApiProxyEndpoint() {
+		return apiProxyEndpoint;
 	}
 
-	public void setPublicUriPrefix(String publicUriPrefix) {
-		this.publicUriPrefix = publicUriPrefix;
+	public void setApiProxyEndpoint(String apiProxyEndpoint) {
+		this.apiProxyEndpoint = apiProxyEndpoint;
 	}
 
-	public String getPrivateUriPrefix() {
-		return privateUriPrefix;
+	public String getApiProxyRoute() {
+		return apiProxyRoute;
 	}
 
-	public void setPrivateUriPrefix(String privateUriPrefix) {
-		this.privateUriPrefix = privateUriPrefix;
-	}
-
-	public String getPrivateUriPrefixHttp4() {
-		return privateUriPrefixHttp4;
-	}
-
-	public void setPrivateUriPrefixHttp4(String privateUriPrefixHttp4) {
-		this.privateUriPrefixHttp4 = privateUriPrefixHttp4;
-	}
-
-	public String getProxyUriPrefix() {
-		return proxyUriPrefix;
-	}
-
-	public void setProxyUriPrefix(String proxyUriPrefix) {
-		this.proxyUriPrefix = proxyUriPrefix;
+	public void setApiProxyRoute(String apiProxyRoute) {
+		this.apiProxyRoute = apiProxyRoute;
 	}
 
     public Map<String,String> getCustomHeaders() {
@@ -116,6 +96,14 @@ public class ApiProxyRouter extends RouteBuilder {
 
 	public void setCustomHeaders(Map<String,String> customHeaders) {
 		this.customHeaders = customHeaders;
+	}
+
+    public Map<String,String> getApiEndpointRefs() {
+		return apiEndpointRefs;
+	}
+
+	public void setApiEndpointRefs(Map<String,String> apiEndpointRefs) {
+		this.apiEndpointRefs = apiEndpointRefs;
 	}
 
 }
