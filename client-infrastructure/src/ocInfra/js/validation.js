@@ -27,8 +27,12 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	    for(var err in errors){
 	              message += err+' '+errors[err]+'</br>';
 	          }
-	    var msg = growl.error(message);
-	    msg.setText(message);
+
+	     	if(message.length > 0){
+	          	var msg = growl.error(message);
+	    		msg.setText(message);
+	          }
+
     return form.$valid;
     }
            
