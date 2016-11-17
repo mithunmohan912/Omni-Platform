@@ -2,6 +2,8 @@ package com.csc.eip.processor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,17 +24,19 @@ public class ResponseHeadersProcessor implements Processor {
 
 	static Logger log = Logger.getLogger(ResponseHeadersProcessor.class.getName());
 
+	private Map<String,String> apiEndpointRefs;
 	private String regex;
 	private String replacement;
 	
 	public void process(Exchange exchange) throws Exception {
 		preprocess();
 		
-		Pattern pattern = Pattern.compile(regex);
-		
-		translateHeader(exchange, pattern, HEADER_LINK);
-		translateHeaderStr(exchange, pattern, HEADER_LOCATION);
-		translateHeaderStr(exchange, pattern, HEADER_CONTENT_LOCATION);	
+		for (Iterator<Entry<String,String>> it=apiEndpointRefs.entrySet().iterator(); it.hasNext(); ) {
+			Entry<String,String> entry = it.next();
+    		regex = entry.getKey();
+    		replacement = entry.getValue();
+    		subprocess(exchange);
+		}
 
 		defaultHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*");
 		
@@ -41,9 +45,7 @@ public class ResponseHeadersProcessor implements Processor {
 		postprocess();
 	}
 
-	private void preprocess() {
-		log.info("translate response headers");
-		
+	private void subprocess(Exchange exchange) throws Exception {
 		if (regex == null || regex.trim().isEmpty())
 			log.error("regex is invalid");
 		log.debug("regex: " + regex);
@@ -51,6 +53,16 @@ public class ResponseHeadersProcessor implements Processor {
 		if (replacement == null || replacement.trim().isEmpty())
 			log.error("replacement is invalid");
 		log.debug("replacement: " + replacement);
+
+		Pattern pattern = Pattern.compile(regex);
+		
+		translateHeader(exchange, pattern, HEADER_LINK);
+		translateHeaderStr(exchange, pattern, HEADER_LOCATION);
+		translateHeaderStr(exchange, pattern, HEADER_CONTENT_LOCATION);	
+	}
+	
+	private void preprocess() {
+		log.info("translate response headers");
 	}
 	
 	private void postprocess() {
@@ -118,6 +130,14 @@ public class ResponseHeadersProcessor implements Processor {
 			exchange.getIn().setHeader(header, newHeader);
 			log.debug("update " + header + " header ended");
 		}
+	}
+
+    public Map<String,String> getApiEndpointRefs() {
+		return apiEndpointRefs;
+	}
+
+	public void setApiEndpointRefs(Map<String,String> apiEndpointRefs) {
+		this.apiEndpointRefs = apiEndpointRefs;
 	}
 
 	public String getRegex() {
