@@ -476,6 +476,18 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 }    
             }
             
+        } else if(responseData) {
+            for(var property in responseData){
+                if(property !== '_links' && property !== '_options' && property !== '_embedded'){
+                    propertiesObject[property] = {};
+                    propertiesObject[property].value = responseData[property];  
+                    propertiesObject[property].self = resourceURL;
+                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                    propertiesObject[property].consistent = true;
+                }else{
+                    continue;
+                }
+            }
         }
 
         return propertiesObject;
