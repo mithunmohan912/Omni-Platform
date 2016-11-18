@@ -5,7 +5,15 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	function _isNextStepValid(scope,currentStep){
     
 	    var formScope = angular.element($('form[name="'+currentStep.id+'"]')).scope();
+	    if(!formScope){
+	    	return true;
+	    }
+	    
 	    var form = formScope[currentStep.id];
+	    if(!form){
+	    	return true;
+	    }
+
 	    var message= '';
 	    var errors = {};   
 	      for(var index in form.$error.required){
