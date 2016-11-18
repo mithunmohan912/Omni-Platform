@@ -11,18 +11,21 @@ angular.module('omnichannel').factory('validationFactory',['bindingFactory','Met
 	      for(var index in form.$error.required){
 	        var reqField = form.$error.required[index];
 	        if(! reqField.$valid){
-            var label = reqField.$name.replace( /(:|\.|\[|\]|,|=,|\|)/g, "\\$1" )+"Label";
-            errors[angular.element("#"+label).html() ] = $rootScope.locale.IS_REQD;      
+            var label = reqField.$name.replace( /(:|\.|\[|\]|,|=,|\|)/g, '\\$1' )+'Label';
+            errors[angular.element('#'+label).html() ] = $rootScope.locale.IS_REQD;      
 	        }                 
 	     }
 	    for(var err in errors){
 	              message += err+' '+errors[err]+'</br>';
 	          }
-	    if(message.length > 0){
-	    	 var msg = growl.error(message);
-	   		 msg.setText(message);
-	    }      
-	   
+		    if(scope.growlMsg){
+	            scope.growlMsg.destroy();
+	          }
+		   if(message.length > 0){
+	         var msg = growl.error(message);
+	         msg.setText(message);         
+	        scope.growlMsg = msg;
+	      } 
     return form.$valid;
     }
            
