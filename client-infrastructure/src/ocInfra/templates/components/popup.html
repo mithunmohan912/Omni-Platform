@@ -5,7 +5,7 @@
                 <button type="button" class="btn-popup-close close" data-dismiss="modal" aria-label="{{ metamodelObject.labels.close | translate }}"><span aria-hidden="true" ng-click="execute(metamodelObject.actions._close)">&times;</span></button>
                 <h4 class="modal-title">{{ metamodelObject.labels.title | translate }}</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body  {{metamodelObject.class}}">
                 <div ng-if="!metamodelObject.labels.bodycontent">
                     <renderer metamodel='metamodel' resource-url='resourceUrl' factory-name='factoryName'></renderer>
                 </div>
