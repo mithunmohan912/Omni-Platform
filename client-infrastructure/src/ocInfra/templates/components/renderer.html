@@ -3,7 +3,7 @@
 
 	<div id="section-{{section.uid !== undefined ? section.uid : $index}}" ng-repeat="section in metamodelObject.sections track by $index" class="padding-top-15px padding-none section {{section.class}} col-xs-{{section.colspan.xs}} col-sm-{{section.colspan.sm}} col-md-{{section.colspan.md}} col-lg-{{section.colspan.lg}} col-xs-offset-{{section.offset.xs}} col-sm-offset-{{section.offset.sm}} col-md-offset-{{section.offset.md}} col-lg-offset-{{section.offset.lg}}" ng-switch on="section.type" ng-if="section.visible()">
 
-		<h3 ng-if="(section.title || section.logodir) || (section.accordion && section.accordion.componentType === 'custom') " class="oc-modal-header border-none section-title-container">
+		<h3 ng-if="(section.title || section.logodir)"  class="oc-modal-header border-none section-title-container">
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
 
 		    <div class="hr_margin">
@@ -22,7 +22,7 @@
 			                    	<input type="checkbox" class="checkbox custom-checkbox"
 											id="{{section.title}}_checkbox" 
 					    					name="{{section.title}}_checkbox"
-											ng-checked="!section.accordion.collapse"
+											ng-checked="getDefaultBehaviourAccordionSection(section)"
 					    					ng-click="opened(section)"/>
 					    			<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
 					    		</label>
@@ -30,14 +30,17 @@
 		                </span>
 		            </div>
 				</li>
+
 			    <li ng-if="section.icon"><span class="flaticon-hexagon section-icon-1"></span></li>
+
 	            <li ng-if="section.icon"><span class="{{section.iconclass}} {{section.icon}} icon-color section-icon-2"></span></li>
-	            <li><span class="{{section.titleclass}} tabTitle section-title-text">{{ section.title | translate }}</span></li>
+	            <li ng-if="!isCustomAccordionSection(section)"><span class="{{section.titleclass}} tabTitle section-title-text">{{ section.title | translate }}</span></li>
+
 	            </ul>
 	        </div>
 
         	<!-- <hr class="onl_hrOr_2 section-title-underline"> -->
-        	<div class="hr_margin">
+        	<div ng-if="!isCustomAccordionSection(section)" class="hr_margin">
                      <hr class="onl_hrOr_1">
                      <hr class="onl_hrOr_2">
             </div>

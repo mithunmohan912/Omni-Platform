@@ -289,6 +289,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			parentMetamodel: '='
 		},
 		controller: ['$scope', function($scope){
+			$scope.idUnWatch = null;
 			/* Default attributes and actions for inputs */
 			var defaults = {};
 			defaults.autocomplete = {
@@ -520,6 +521,20 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
+			// defaults.dateMask = {
+			// 	'dateOptions': {
+			// 		'startWeek': 1,
+			// 		'trigger': 'focus',
+			// 		'autoclose': true,
+			// 		'dateFormat': 'dd/mm/yy', 
+			// 		'changeYear': true, 
+			// 		'changeMonth': true, 
+			// 		'yearRange': '1800:2200'
+			// 	},
+			// 	'dateMask': '99/99/9999',
+			// 	'options': {}
+			// };
+
 			defaults.checkbox = {
 				'attributes': {},
 				'options': {},
@@ -740,7 +755,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
  					'help': ($scope.metamodel.help),
- 					'key': $scope.metamodel.key,
+ 					'key': $scope.metamodel.key
+ 					// 'dateOptions': $rootScope.infraConfig.dateOptions ? $rootScope.infraConfig.dateOptions : defaults[inputType].dateOptions,
+ 					// 'dateFormat': $rootScope.infraConfig.dateFormat ? $rootScope.infraConfig.dateFormat : defaults[inputType].dateFormat,
+ 					// 'dateMask': $rootScope.infraConfig.dateMask ? $rootScope.infraConfig.dateMask : defaults[inputType].dateMask
 				};
 
 				_prepareColspanAndOffset($scope.field);
@@ -823,6 +841,13 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+				if ($scope.idUnWatch){//check for watch exists
+					$scope.idUnWatch(); //this line will destruct watch if its already there
+				} 
+        
+				$scope.idUnWatch = $scope.$on($scope.id, function() {
+					$scope.load();
+				}); 
 			};
 
 			$scope.getUnit = function(){
@@ -862,6 +887,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.load();
 				}
 			});
+
+        
 		}],
 		link: function(scope, element){
             scope.$on('inputHtmlUrlChange', function(event, templateURL){
