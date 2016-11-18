@@ -835,9 +835,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						$scope.field.unit =  '';
 					}
 				}else{
-					$scope.field.unit = '';	
+					$scope.field.unit = '' || $scope.metamodel.unit;	
 				}
 				
+				return $scope.field.unit;
 			};
 
 			var setClass = function(){
