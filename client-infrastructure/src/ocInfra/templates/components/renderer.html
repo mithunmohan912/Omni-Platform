@@ -64,8 +64,8 @@
 										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="tab.id === activeTab ? 'active':''">
 											<a ng-if="tab.id === activeTab">{{ tab.title | translate }}</a>
 											<a ng-if="tab.id !== activeTab" ng-click="execute(tab)">{{ tab.title | translate }}</a>
-											<span ng-show="true" class="tab-icon flaticon-incomplete"> </span>
-											<span ng-show="false" class="tab-icon flaticon-complete"></span>
+											<!-- <span ng-show="true" class="tab-icon flaticon-incomplete"> </span>
+											<span ng-show="false" class="tab-icon flaticon-complete"></span> -->
 										</li>
 									</ul>
 									<div ng-repeat="tab in column.tabs" ng-if="tab.id === activeTab" ng-class="tab.include ? 'tabs-content' : ''">
