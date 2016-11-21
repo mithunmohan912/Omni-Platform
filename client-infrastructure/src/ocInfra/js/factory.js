@@ -1043,6 +1043,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                                                     growl.error(value.message);
                                                 });
                                             }
+                                            $rootScope.loader.loading=false;
+                                            if(actionURL !== undefined){ 
+                                                $rootScope.navigate(actionURL);
+                                            }
+                                            if(resolve) {
+                                                resolve(responseData);
+                                            }
                                         });
                                     } else if(data.outcome === 'failure'){
                                         angular.forEach(data.messages, function(value){
@@ -1068,15 +1075,16 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                 }else if(actionURL !== undefined){ 
                     $rootScope.loader.loading=false;           
                     if(resolve) {
-                        resolve();
+                        resolve(responseData);
                     }
-                }
-                $rootScope.loader.loading=false;
-                if(actionURL !== undefined){ 
-                    $rootScope.navigate(actionURL);
-                }
-                if(resolve) {
-                    resolve();
+                }else{
+                    $rootScope.loader.loading=false;
+                    if(actionURL !== undefined){ 
+                        $rootScope.navigate(actionURL);
+                    }
+                    if(resolve) {
+                        resolve(responseData);
+                    }    
                 }
             }
         }).error(function(){
