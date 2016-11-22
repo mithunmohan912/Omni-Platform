@@ -575,6 +575,19 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
+			defaults.slider = {
+				'options': {
+					        showSelectionBar: true,
+					        floor: 0,
+					        ceil: 100,
+					        step: 1,
+						    translate: function(value) {
+						      // return value + '%';
+						      return value;
+						    }
+				        }
+			}
+
 			// Patch on blur default function
 			$scope.patch = function(params, next){
 				//FIXME: to avoid to patch the resource twice, when the field is defined as an autocomplete with patchOnBlur, 
@@ -762,6 +775,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
  					// 'dateMask': $rootScope.infraConfig.dateMask ? $rootScope.infraConfig.dateMask : defaults[inputType].dateMask
 				};
 
+				
+
 				_prepareColspanAndOffset($scope.field);
 
 				$scope.helpTemplate = $scope.metamodel.help ? $scope.metamodel.help.helpTemplate : null;
@@ -842,6 +857,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+				if (inputType === 'slider'){
+					$scope.field.options.onEnd = $scope.field.options.onChange;
+				}
+
 				if ($scope.idUnWatch){//check for watch exists
 					$scope.idUnWatch(); //this line will destruct watch if its already there
 				} 
@@ -849,6 +868,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				$scope.idUnWatch = $scope.$on($scope.id, function() {
 					$scope.load();
 				}); 
+
+
 			};
 
 			$scope.getUnit = function(){
