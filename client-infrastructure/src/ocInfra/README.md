@@ -25,7 +25,7 @@
         + [2.4.9 Text](#249-text)
         + [2.4.10 Textarea](#2410-textarea)
         + [2.4.11 Toggle](#2411-toggle)
-        + [2.4.12 Date](#2412-date)
+        + [2.4.12 Date](#2412-date)accordion
         + [2.4.13 Checkbox](#2413-checkbox)
         + [2.4.14 Label](#2414-label)
         + [2.4.15 Radio](#2415-radio)
@@ -101,8 +101,63 @@ The renderer metamdel is made out of sections. Those sections are objects with d
 * __colspan__: Number that represents the number of columns that the section will use. It uses bootstrap underneath, so the maximum colspan is 12. The minimum colspan is not 1, as it could be expected, but 3 because we do not want to allow more than 4 sections per row (more sections wouldn’t be user friendly since the content would be so small).
 * __properties__: Array containing json objects that define the content displayed within the section. The object attributes vary from one to another depending on the directive that is going to interpret them (table, input, etc.)
 * __resourceUrl__: This is intended to be used in the first screen. It represents the first API call when launching the application. 
-* __accordion__: Flag that allows you to toggle content on the current section
-* __collapse__: Flag property of accordion that define if section is collapse by default or not
+* __accordion__: Object that allows you to define the current section as  collapsable. An accordion section, so far, can be 3 different types: Custom, checkbox or clicking 
+There are 3 different component types which are collapsing or expanding sections but first of all there are some common properties: 
+**   Status: define if the current metamodel section is a “accordion” section. If he value is true, it means current section is accordion type
+**   Collapse: determine the default value of the accordion section if its collapsed or nor. 
+**   ComponentType: by default is checkbox 
+
+ComponentTypes and attributes: 
+
+**Custom component type: 
+**  componentType: determine the type of the collapse component, in this case is for custom. 
+**   templateUrl: defines a html component for a custom collapse section. In this example, the templateUrl value content could be something like {<div id="custom_collapse_section" class="border-none" > Custom section</div>}
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                        "componentType":"custom",
+                        "templateUrl":"app/views/templates/custom_collapse_section.html"
+                },
+                "properties": [
+                    {
+** Clicking component type: 
+**   componentType: determine the type of the collapse component, in this case is for clicking.
+**   componentStyle: Defines the {icon} class fir this component
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                        "componentType":"clicking",
+                        "componentStyle":"glyphicon glyphicon-plus-sign"
+                },
+                "properties": [
+                    {
+** Checkbox component type: 
+It is not necessary define any property for this component, it’s the default component. And an example would be something like that: 
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                },
+                "properties": [
+                    {
+
 The renderer could include other renderer component. This is handled using a section type reference in the metamodel:
 * __$ref and type__: This twon properties allows to link antoher metamodel file that will be handled by another render instance. 
 

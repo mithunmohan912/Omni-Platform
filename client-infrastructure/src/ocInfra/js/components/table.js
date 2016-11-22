@@ -28,6 +28,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					(params.previous && params.previous.data && params.previous.data._links && params.previous.data._links.up && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
+					if($scope.metamodelObject && typeof $scope.metamodelObject.autoRefresh !== 'undefined' && $scope.metamodelObject.autoRefresh === false){
+						return;
+					}
 
 					$scope.previousTable = [];
 					if($scope.table){
@@ -228,6 +231,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
               		}
                 	$scope.table.items.push(newItem);
+                	// throw an event to popup about validation 
+                	//first of all, check if href and modelRef exist
+                	if (typeof newItem !== 'undefined' && typeof $scope.metamodelObject !== 'undefined' && typeof $scope.metamodelObject.modalRef !== 'undefined'){
+                		$scope.$broadcast('validatePopup',{itemHref:newItem.href, metamodelName: $scope.metamodelObject.modalRef});	
+                	}
+                	
               	}
 			}
 
