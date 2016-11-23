@@ -328,14 +328,6 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         }
 
         var dependencies = [];
-        var keySet = [];
-
-        // Process http response to determine the dependent resources on this resource
-        if(responseData && responseData._links){
-            for(var propertyKey in responseData._links){
-                keySet.push(propertyKey);
-            }
-        }
         
         // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
         for( var objectKey in metamodel.businessObject){
@@ -591,10 +583,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resource.up = responseData._links.up.href;    
             }
 
-            if(responseData && responseData._options){
-            	resource.properties = _processProperties(responseData);
-	        }
-            
+            resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
