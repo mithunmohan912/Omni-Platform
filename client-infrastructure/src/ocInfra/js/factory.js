@@ -319,6 +319,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - An array containing all the resource urls that must be retrieved (empty array if no dependencies).
     */
     function _extractBusinessDependencies(responseData, metamodel){
+        
         if(!metamodel){
             console.warn('No metamodel object to extract business dependencies');
             return [];
@@ -329,34 +330,22 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         var dependencies = [];
         var keySet = [];
 
-        // Process http response to know which keys are contained in this resource
-        for(var property in responseData){
-            var propertyKey = {};
-            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                propertyKey = property.split(':')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
-            } else if(property.indexOf('-') > 0){
-                propertyKey = property.split('-')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
+        // Process http response to determine the dependent resources on this resource
+        if(responseData && responseData._links){
+            for(var propertyKey in responseData._links){
+                keySet.push(propertyKey);
             }
         }
-
+        
         // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
-        keySet.forEach(function(objectKey){
-            if(objectKey in metamodel.businessObject){
-                metamodel.businessObject[objectKey].forEach(function(businessDependency){
-                    if(businessDependency in responseData._links){
-                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-                    }
-                });
-            }
-        });
+        for( var objectKey in metamodel.businessObject){
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                if(businessDependency in responseData._links){
+                    dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+                }
+            });
+        }
+
         return dependencies;
     }
 
