@@ -521,19 +521,20 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
-			// defaults.dateMask = {
-			// 	'dateOptions': {
-			// 		'startWeek': 1,
-			// 		'trigger': 'focus',
-			// 		'autoclose': true,
-			// 		'dateFormat': 'dd/mm/yy', 
-			// 		'changeYear': true, 
-			// 		'changeMonth': true, 
-			// 		'yearRange': '1800:2200'
-			// 	},
-			// 	'dateMask': '99/99/9999',
-			// 	'options': {}
-			// };
+			defaults.datemask = {
+				'attributes': {
+					'startWeek': 1,
+					'trigger': 'focus',
+					'autoclose': true,
+					'dateFormat': 'dd/mm/yy', 
+					'changeYear': true, 
+					'changeMonth': true, 
+					'yearRange': '1800:2200'
+				},
+				'options': {},
+				'dateMask':  '99/99/9999'
+			};
+
 
 			defaults.checkbox = {
 				'attributes': {},
@@ -769,10 +770,9 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
  					'help': ($scope.metamodel.help),
- 					'key': $scope.metamodel.key
- 					// 'dateOptions': $rootScope.infraConfig.dateOptions ? $rootScope.infraConfig.dateOptions : defaults[inputType].dateOptions,
- 					// 'dateFormat': $rootScope.infraConfig.dateFormat ? $rootScope.infraConfig.dateFormat : defaults[inputType].dateFormat,
- 					// 'dateMask': $rootScope.infraConfig.dateMask ? $rootScope.infraConfig.dateMask : defaults[inputType].dateMask
+ 					'key': $scope.metamodel.key,
+ 					'dateOptions': $rootScope.dateOptions ? $rootScope.dateOptions : defaults[inputType].attributes,
+ 					'dateMask': $rootScope.dateMask ? $rootScope.dateMask : defaults[inputType].dateMask
 				};
 
 				
