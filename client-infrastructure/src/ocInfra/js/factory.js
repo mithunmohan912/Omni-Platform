@@ -591,10 +591,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resource.up = responseData._links.up.href;    
             }
 
-            if(responseData && responseData._options){
-            	resource.properties = _processProperties(responseData);
-	        }
-            
+            resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
