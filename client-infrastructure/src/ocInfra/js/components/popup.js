@@ -36,7 +36,7 @@ return {
 				if($scope.resourceUrl && params.url.indexOf($scope.resourceUrl) >= 0){
 					if (params.response.config.method !== 'DELETE') {
 						$scope.resultSet = {};
-						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
+						MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet, null, null);
 					}
 				}
 			});
@@ -81,6 +81,21 @@ return {
 			});
 
 
+			$scope.$on('validatePopup', function(event, data){
+				// This modification is because we need to fetch API resources even before of open the popup in order to display complete indicator component in tables. 
+					MetaModel.prepareToRender(data.itemHref, $scope.metamodelObject, $scope.resultSet, null, null, function(metamodel, resultSet){
+							bindingFactory.populateResourceToBind({}, data.metamodelName, resultSet);
+							_validatePopup(data.metamodelName);
+					});
+			});
+
+
+			function _validatePopup(metamodel){
+				console.log('Inside ValidationPopup when init');
+				$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName(metamodel));  //validationFactory.validateProperties ($scope.metamodelObject.sections,propertiesBound));
+			}
+
+
 			function _defaultSave(){
 				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
 				//OC-956: to avoid multiple callbacks, adding condition by name
@@ -115,10 +130,7 @@ return {
 				_initLabels();
 				_initActions();
 
-				$scope.$emit('isValidStatus',validationFactory.validatePropertiesByMetamodelName($scope.metamodel));
- 				
-					
-		        $scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
+				$scope.screenFactoryName = $scope.metamodelObject.factoryName || $scope.factoryName;
 				try {
 					$scope.actionFactory = $injector.get($scope.screenFactoryName);
 				} catch(e) {

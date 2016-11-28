@@ -319,6 +319,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - An array containing all the resource urls that must be retrieved (empty array if no dependencies).
     */
     function _extractBusinessDependencies(responseData, metamodel){
+        
         if(!metamodel){
             console.warn('No metamodel object to extract business dependencies');
             return [];
@@ -327,36 +328,16 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         }
 
         var dependencies = [];
-        var keySet = [];
-
-        // Process http response to know which keys are contained in this resource
-        for(var property in responseData){
-            var propertyKey = {};
-            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                propertyKey = property.split(':')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
+        
+        // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
+        for( var objectKey in metamodel.businessObject){
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                if(businessDependency in responseData._links){
+                    dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
                 }
-            } else if(property.indexOf('-') > 0){
-                propertyKey = property.split('-')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
-            }
+            });
         }
 
-        // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
-        keySet.forEach(function(objectKey){
-            if(objectKey in metamodel.businessObject){
-                metamodel.businessObject[objectKey].forEach(function(businessDependency){
-                    if(businessDependency in responseData._links){
-                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-                    }
-                });
-            }
-        });
         return dependencies;
     }
 
@@ -476,6 +457,28 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 }    
             }
             
+        } else if(responseData) {
+            var resourceURL1 = {};
+            if(responseData._links){
+                 for(var link1 in responseData._links){
+                    if(link1 === 'self'){
+                        resourceURL1 = responseData._links[link1].href;
+                    }
+                }    
+            }
+            
+
+            for(var prop in responseData){
+                if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
+                    propertiesObject[prop] = {};
+                    propertiesObject[prop].value = responseData[prop];  
+                    propertiesObject[prop].self = resourceURL1;
+                    propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                    propertiesObject[prop].consistent = true;
+                }else{
+                    continue;
+                }
+            }
         }
 
         return propertiesObject;
@@ -580,10 +583,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resource.up = responseData._links.up.href;    
             }
 
-            if(responseData && responseData._options){
-            	resource.properties = _processProperties(responseData);
-	        }
-            
+            resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
@@ -652,7 +652,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         Output:
             - None. It will insert the results in the third parameter.
     */
-    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh){
+    this.prepareToRender = function(rootURL, metamodel, resultSet, dependencyName, refresh, validationCallback){
         console.log('prepareToRender-----'+rootURL);
         // Entry validation
         if(!resultSet){
@@ -691,7 +691,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 resultSet[rootURL].dependencies.forEach(function(url){
                     console.log('Invoked for dependencies - '+url.href);
                     resultSet.pending++;
-                    self.prepareToRender(url.href, metamodel, resultSet, url.resource);
+                    self.prepareToRender(url.href, metamodel, resultSet, url.resource, refresh, validationCallback);
                 });
 
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
@@ -699,7 +699,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     resultSet[rootURL].items.forEach(function(url){
                         console.log('Invoked for item details - '+url.href);
                         resultSet.pending++;
-                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh);
+                        self.prepareToRender(url.href, metamodel, resultSet, null, refresh, validationCallback);
                     });
                 } else {
                     for(var resourceURL in summaryData){
@@ -713,6 +713,9 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     var deferred = resultSet.deferred;
                     delete resultSet.deferred;
                     delete resultSet.pending;
+                    if(typeof validationCallback === 'function'){
+                        validationCallback(metamodel, resultSet);  
+                    } 
 
                     deferred.resolve(resultSet);
                 }
@@ -1028,6 +1031,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                                                     growl.error(value.message);
                                                 });
                                             }
+                                            $rootScope.loader.loading=false;
+                                            if(actionURL !== undefined){ 
+                                                $rootScope.navigate(actionURL);
+                                            }
+                                            if(resolve) {
+                                                resolve(responseData);
+                                            }
                                         });
                                     } else if(data.outcome === 'failure'){
                                         angular.forEach(data.messages, function(value){
@@ -1053,15 +1063,16 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                 }else if(actionURL !== undefined){ 
                     $rootScope.loader.loading=false;           
                     if(resolve) {
-                        resolve();
+                        resolve(responseData);
                     }
-                }
-                $rootScope.loader.loading=false;
-                if(actionURL !== undefined){ 
-                    $rootScope.navigate(actionURL);
-                }
-                if(resolve) {
-                    resolve();
+                }else{
+                    $rootScope.loader.loading=false;
+                    if(actionURL !== undefined){ 
+                        $rootScope.navigate(actionURL);
+                    }
+                    if(resolve) {
+                        resolve(responseData);
+                    }    
                 }
             }
         }).error(function(){
