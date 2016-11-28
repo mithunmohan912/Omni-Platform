@@ -330,7 +330,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         var dependencies = [];
         
         // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
-                // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
+        var objectKey = {};
         for( var key in metamodel.businessObject){
             objectKey = key;
         } 
