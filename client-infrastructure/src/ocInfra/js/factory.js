@@ -330,14 +330,17 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         var dependencies = [];
         
         // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
-        for( var objectKey in metamodel.businessObject){
-            metamodel.businessObject[objectKey].forEach(function(businessDependency){
-                if(businessDependency in responseData._links){
-                    dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-                }
-            });
-        }
+        var objectKey = {};
+        for( var key in metamodel.businessObject){
+            objectKey = key;
+        } 
 
+        metamodel.businessObject[objectKey].forEach(function(businessDependency){
+            if(businessDependency in responseData._links){
+                dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+            }
+        });
+        
         return dependencies;
     }
 
@@ -573,14 +576,16 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             'creatable': false
         };
         
-        if(responseData && responseData._links){
+        if(responseData){
+            if(responseData._links){
+                if(responseData._links.self){
+                    resource.href = responseData._links.self.href;    
+                }
 
-            if(responseData._links.self){
-                resource.href = responseData._links.self.href;    
-            }
-
-            if(responseData._links.up){
-                resource.up = responseData._links.up.href;    
+                if(responseData._links.up){
+                    resource.up = responseData._links.up.href;    
+                }
+    
             }
 
             resource.properties = _processProperties(responseData);
