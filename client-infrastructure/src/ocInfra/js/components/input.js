@@ -705,6 +705,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
 					'selector': $scope.metamodel.selector,
+					'editable': $scope.metamodel.editable ? $scope.metamodel.editable : $scope.property.editable,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
