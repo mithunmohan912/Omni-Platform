@@ -12,6 +12,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     var urlParams = {};
 
     var defaultHeaders = {
+            'User-Id': 'SE30700',
             'Accept': 'application/vnd.hal+json, application/json',
             'Content-Type': 'application/json'
     };
