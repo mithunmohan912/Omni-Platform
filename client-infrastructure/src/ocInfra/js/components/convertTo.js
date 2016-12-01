@@ -21,7 +21,7 @@ app.directive('convertTo', function() {
         });
         ngModel.$formatters.push(function(val) {
              var str = '';
-             if(val){
+             if(angular.isDefined(val) && val !== null){
                  str = val.toString();
              }
           return str;
