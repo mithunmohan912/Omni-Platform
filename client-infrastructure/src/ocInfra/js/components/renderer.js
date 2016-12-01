@@ -100,6 +100,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}else{
 						section.accordion.collapse = true;
 					}	
+					if (section.accordion.callback){
+						if ($scope.actionFactory[section.accordion.callback]){
+							$scope.actionFactory[section.accordion.callback](section.accordion.collapse);
+						} 
+					}
 				}
 			};
 
