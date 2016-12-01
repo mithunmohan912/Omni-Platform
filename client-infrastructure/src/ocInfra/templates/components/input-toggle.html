@@ -11,9 +11,10 @@
                 ng-required="field.property.required"
                 ng-disabled="!field.editable"
                 ng-change="field.onChange()"
-
+                oc-custom-directive
                 uib-btn-radio="field.options[key]">
-            <span>{{value | translate}}</span>
+            <span ng-if="!combined">{{value | translate}}</span>
+            <span ng-if="combined" ng-repeat="val in splitedValues track by $index" style="display:inline-block {{combinedClass}}-{{$index}}; ">{{val | translate}}</span>
         </label>
             
         <div ng-include="baseUrl + 'backend-error-display.html'"></div>
