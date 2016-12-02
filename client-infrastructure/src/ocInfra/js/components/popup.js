@@ -217,6 +217,12 @@ return {
 				}
 
 			};
+
+			$scope.submitPopUpWithoutClose = function() {
+				var callback = ($scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.callback)? $scope.metamodelObject.actions.ok.callback: null;
+
+				$scope.$broadcast('patch_renderer', { resourceUrl: $scope.resourceUrl || $rootScope.resourceUrl, callback: callback, name: $scope.metamodelObject.name, closePopup: undefined, modifiedHeaders: $scope.metamodelObject.actions && $scope.metamodelObject.actions.ok && $scope.metamodelObject.actions.ok.modifiedHeaders ? $scope.metamodelObject.actions.ok.modifiedHeaders : null}); 				
+			};
 		},
 		link: function($scope, element){
 			//OC-947: method to close the popup when the resources is consistent
