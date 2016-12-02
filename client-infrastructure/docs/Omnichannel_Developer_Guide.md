@@ -2760,3 +2760,46 @@ iv.  riskInfo.json
 
   After these commands, an application should launch on your default
   browser.
+  
+ #### ADD Search panel and SearchList for Quotes.
+ Till now we have build the capability to create a quote using wizard, now we are going to implement a functionality from where someone can find created/existing quote or can see list of quotes.
+ Lets create a new tile at anonymous page from where user can navigate to quotesSearch and quotesList page.
+ 
+ ![](docs/quoteSearchList.PNG)
+ 
+ Now add locale support for quote search and quotes list page.
+ Add following attributes in **en-gb.json**
+ ```
+  "_ASIA_AUTO_QS_CREATE" : "Create Auto Quote Asia",
+ "_ASIA_AUTO_QS_SEARCH" : "Search Auto Quote Asia",
+ "_QUOTE_PERMITTED_DRIVER": "Permitted Driver",
+ "_PRODUCT_ID": "Product ID",
+ "_RISK_HOLDER": "Risk Holder",
+ "_QUOTE_NUMBER": "Quote Number",
+ "_DISTRIBUTOR_ID": "Distributor ID",
+ "_SEARCH": "Search",
+ "_RESET": "Reset",
+ "_RESULTS": "Results",
+ "_FILTER_RESULTS": "Enter text to filter results ...",
+ "_PRODUCT_ID": "Product ID",
+ "_NAME": "Name",
+ "_QUOTE_TYPE": "Quote Type",
+ "_DISTRIBUTOR_ID": "Distributor ID",
+ "_RISK_DATA": "Risk Data",
+ "_Effective_Date": "Effective Date",
+ "_NUMBER": "Number",
+ "_ACTION": "Action"
+```
+
+Now create a factory "quotesSearchFactory" in app.js
+Please refer following commit to check what we have implemeted in this section.
+https://github.csc.com/smandal8/app-starter/commit/8a0f6d4638ec74c38bfa88f8feedc572c68463d1
+
+Lets add metamodel files for quotesSearch.json and searchList.json
+Please follow this commit and check this metamodel files.
+https://github.csc.com/smandal8/app-starter/commit/1310c9760516f06ea4ca0666babdd15e737c90bb
+ 
+ 
+ 
+ 
+ 
