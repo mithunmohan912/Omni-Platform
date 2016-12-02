@@ -6,7 +6,7 @@
 	<span ng-class="field.class  ? field.class : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 	
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-			<input  class="form-control calendarIcon"
+			<input  class="form-control"
 					autocomplete="off"
 					id="{{field.id}}"
 					name="{{field.name}}"
@@ -14,12 +14,12 @@
 
 					ng-model="field.property.value"
 					ng-required="field.property.required"
-					ng-disabled="!field.property.editable"
+					ng-disabled="!field.editable"
 					ng-change="field.onChange()"
 					ng-blur="field.onBlur()"
 					ng-class="field.class  ? field.class : ''"
-					ui-date="{dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true, yearRange: '1900:2200'}"
-					data-mask="99/99/9999"
+					ui-date="{{field.dateOptions}}"
+					data-mask="{{field.dateMask}}"
 
 					format-date
 					autoclose="{{field.attributes.autoclose}}"

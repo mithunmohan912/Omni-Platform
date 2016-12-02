@@ -11,10 +11,13 @@ app.directive('ocLogodir', function() {
       template: '<div class="oc-logo" style="margin-left: auto;margin-right: auto;"></div>'
   };
 });
-app.directive('formatDate', function($filter) {
+app.directive('formatDate', function($filter, $rootScope) {
     return {
         require: 'ngModel',
         link: function(scope, elem, attr, modelCtrl) {
+
+            var formatDate = $rootScope.dateOptions.dateFormatFilter || 'yyyy-MM-dd';
+
             // formatters sets the value from the model to the view
 
             modelCtrl.$formatters.unshift(function(modelValue) {
@@ -28,14 +31,22 @@ app.directive('formatDate', function($filter) {
 
                 if (viewValue && viewValue !== '') {
                     if(viewValue instanceof Date){
-                        return $filter('date')(viewValue, 'yyyy-MM-dd');
+                        return $filter('date')(viewValue, formatDate);
                     }else{
                     
-                        var inputDate = viewValue.split('/');                        
-                        if(Number(inputDate[0])> 0 && Number(inputDate[0])< 32 && Number(inputDate[1]) > 0 && 
-                          Number(inputDate[1]) < 13 && Number(inputDate[2]) > 1900 && Number(inputDate[1]) < 2031){
-                            return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), 'yyyy-MM-dd');
+                        var inputDate = viewValue.split('/');  
+                        // if(Number(inputDate[0])> 0 && Number(inputDate[0])< 32 && Number(inputDate[1]) > 0 && 
+                        //   Number(inputDate[1]) < 13 && Number(inputDate[2]) > 1900 && Number(inputDate[1]) < 2031){
+                        //     return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), formatDate);
+                        // }
+                        if (inputDate[2].lenght > 2){
+                          //european format
+                          return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), formatDate);
+                        }else{
+                          //American format
+                          return $filter('date')(new Date(inputDate[0], inputDate[1] - 1, inputDate[2]), formatDate);
                         }
+                        
                     }
                 }
             });
