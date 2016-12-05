@@ -577,3 +577,48 @@ android**.
 
 *Note:* Before opening your project in Android Studio, build your Cordova
 application through the Cordova CLI. This will help avoid build errors.
+
+5. Test Pub-Sub APIs
+===============
+In section 2.2 and 3.2  two Apis are illustrated for subscription any URI and pulishing a message.
+In these section we will learn how can we test this APIS. These can be test using any resquest posting tool like - Postman, REST client etc. We are going to use Postman to test APIs that has been discussed on above sections.
+
+5.1.1. Test Subscription Api
+---------------------------------------
+To Test a Subscription APi, call this  **API** - http://oci.mybluemix.net/subscribe . 
+
+Set **Method** to POST.
+Set **Header** to  **Content-Type** : **application/json**.
+Use sample Payload as below.
+
+{ 
+ "uid" : "kkdrensk",
+ "uri" :  "http://208.43.105.244:7070/ux-point-api/policies/ID-HP+000898700050005YXL"
+} 
+
+Now call this API as a POST.
+After calling this Api you should get a 200 response code and response body should be same as you sent the payload.
+
+5.1.2. Test Publish Api
+---------------------------------------
+To Test a publish APi, call this  **URL** - http://oci.mybluemix.net/publish/ . 
+
+Set **Method** to POST.
+Set **Header** to  **Content-Type** : **application/json**.
+Use sample Payload as below.
+
+{
+  "msg": "Test message to check push notification",
+  "identifier": "HP+000898700050005YHP",
+  "proxy": "http://208.43.105.244:7070/ux-point-api/policies/HP+000898700050005YHP",
+  "event": "Cancellation"
+}  
+
+Now call this API as a POST.
+Please check response code. if it is 200 then you should have a notification on mobile which shows the message, which you have passed in payload i.e. "*Test message to check push notification*"
+it should look as -
+
+![](docs/postman.PNG)
+
+ 
+
