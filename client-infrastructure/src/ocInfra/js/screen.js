@@ -52,6 +52,7 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     }else{
         $rootScope.regionId = undefined;
     }
+    
     //if($routeParams.screenId === undefined){
        // $routeParams.screenId='login';
           //  $location.path('/screen/login');
