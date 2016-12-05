@@ -58,7 +58,7 @@ app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   });  
   $rootScope.showHeader = false;
   OCInfraConfig.load();
-}]);
+});
 
 function showHostErrorMessage(message, severity) {
 
