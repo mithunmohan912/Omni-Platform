@@ -352,8 +352,8 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
 
             metamodel.businessObject[objectKey].forEach(function(businessDependency){
                 for(var embeddedItem in embeddedItems){
-                    if(businessDependency in embeddedItem._links){
-                        dependencies.push({ href: embeddedItem._links[businessDependency].href, resource: businessDependency });
+                    if(businessDependency in embeddedItems[embeddedItem]._links){
+                        dependencies.push({ href: embeddedItems[embeddedItem]._links[businessDependency].href, resource: businessDependency });
                     }
                 }
             });    
