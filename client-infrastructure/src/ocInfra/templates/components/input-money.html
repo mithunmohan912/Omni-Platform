@@ -15,10 +15,11 @@
 
 				ng-model="field.property.value"
 				ng-required="field.property.required"
-				ng-disabled="!field.property.editable"
+				ng-disabled="!field.editable"
 				ng-change="field.onChange()"
 				ng-blur="field.onBlur()"
 
+				oc-custom-directive
 				decimal
 				decimal-precision="field.attributes.decimalprecision"
 				decimal-min="field.attributes.minimum"

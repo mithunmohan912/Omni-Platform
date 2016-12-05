@@ -289,6 +289,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			parentMetamodel: '='
 		},
 		controller: ['$scope', function($scope){
+			$scope.idUnWatch = null;
 			/* Default attributes and actions for inputs */
 			var defaults = {};
 			defaults.autocomplete = {
@@ -520,6 +521,21 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
+			defaults.datemask = {
+				'attributes': {
+					'startWeek': 1,
+					'trigger': 'focus',
+					'autoclose': true,
+					'dateFormat': 'dd/mm/yy', 
+					'changeYear': true, 
+					'changeMonth': true, 
+					'yearRange': '1800:2200'
+				},
+				'options': {},
+				'dateMask':  '99/99/9999'
+			};
+
+
 			defaults.checkbox = {
 				'attributes': {},
 				'options': {},
@@ -559,6 +575,19 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'attributes': {},
 				'options': {}
 			};
+
+			defaults.slider = {
+				'options': {
+					        showSelectionBar: true,
+					        floor: 0,
+					        ceil: 100,
+					        step: 1,
+						    translate: function(value) {
+						      // return value + '%';
+						      return value;
+						    }
+				        }
+			}
 
 			// Patch on blur default function
 			$scope.patch = function(params, next){
@@ -690,6 +719,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
 					'selector': $scope.metamodel.selector,
+					'editable': $scope.metamodel.editable ? $scope.metamodel.editable : $scope.property.editable,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
@@ -741,7 +771,11 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputUnit': $scope.metamodel.inputUnit,
  					'help': ($scope.metamodel.help),
  					'key': $scope.metamodel.key,
+ 					'dateOptions': $rootScope.dateOptions ? $rootScope.dateOptions : defaults[inputType].attributes,
+ 					'dateMask': $rootScope.dateMask ? $rootScope.dateMask : defaults[inputType].dateMask
 				};
+
+				
 
 				_prepareColspanAndOffset($scope.field);
 
@@ -823,6 +857,19 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+				if (inputType === 'slider'){
+					$scope.field.options.onEnd = $scope.field.options.onChange;
+				}
+
+				if ($scope.idUnWatch){//check for watch exists
+					$scope.idUnWatch(); //this line will destruct watch if its already there
+				} 
+        
+				$scope.idUnWatch = $scope.$on($scope.id, function() {
+					$scope.load();
+				}); 
+
+
 			};
 
 			$scope.getUnit = function(){
@@ -835,9 +882,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						$scope.field.unit =  '';
 					}
 				}else{
-					$scope.field.unit = '';	
+					$scope.field.unit = '' || $scope.metamodel.unit;	
 				}
 				
+				return $scope.field.unit;
 			};
 
 			var setClass = function(){
@@ -861,6 +909,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.load();
 				}
 			});
+
+        
 		}],
 		link: function(scope, element){
             scope.$on('inputHtmlUrlChange', function(event, templateURL){

@@ -12,8 +12,9 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
     var urlParams = {};
 
     var defaultHeaders = {
-            'Accept': 'application/vnd.hal+json, application/json',
-            'Content-Type': 'application/json'
+            'User-Id': 'SE30700',
+            'Accept': 'application/hal+json, application/json',
+            'Content-Type': 'application/hal+json, application/json'
     };
 
     function _addApiGatewayApiKeys(params) {

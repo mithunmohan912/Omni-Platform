@@ -14,9 +14,10 @@
 				placeholder="{{field.placeholder | translate}}"
 				maxlength="{{field.attributes.maxlength}}"
 
+				oc-custom-directive
 				ng-model="field.property.value"
 				ng-required="field.property.required"
-				ng-disabled="!field.property.editable"
+				ng-disabled="!field.editable"
 				ng-change="field.onChange()"
 				ng-blur="field.onBlur()" 
 				consistent="{{field.property.consistent}}"/>

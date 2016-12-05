@@ -17,10 +17,11 @@
 									id="{{field.id + '_' + key}}"
 									name="{{field.name}}"
 									ng-model="field.property.value"
-									ng-disabled="!field.property.editable"
+									ng-disabled="!field.editable"
 									ng-change="field.onChange()"
 									ng-blur="field.onBlur()" 
 									value = "{{key}}" 
+									oc-custom-directive
 									consistent="{{field.property.consistent}}"/>
 							 <span ng-class="metamodel.position==='before'? 'cr right':'cr left'"><i class="cr-icon glyphicon glyphicon-stop"></i></span>
 							 <span>{{option | translate}}</span>	

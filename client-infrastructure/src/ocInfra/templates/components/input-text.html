@@ -20,9 +20,10 @@
 				placeholder="{{field.placeholder | translate}}"
 				maxlength="{{field.attributes.maxlength}}"
 				
+				oc-custom-directive
 				ng-model="field.property.value"
 				ng-required="field.property.required"
-				ng-disabled="!field.property.editable" 
+				ng-disabled="!field.editable" 
 				ng-change="field.onChange()"
 				ng-blur="field.onBlur()"
 				autocapitalize="off"
@@ -31,6 +32,10 @@
 		</div>
 
 		<div class="input-group" ng-if="field.inputUnit">
+			<span class="input-group-addon unit-control">
+					<span class="{{getUnit()}}"></span>
+				</span>
+				
 			<input 	type="{{field.format}}"
 				class="input-text-control form-control"
 				autocomplete="off"
@@ -41,15 +46,13 @@
 				
 				ng-model="field.property.value"
 				ng-required="field.property.required"
-				ng-disabled="!field.property.editable" 
+				ng-disabled="!field.editable" 
 				ng-change="field.onChange()"
 				ng-blur="field.onBlur()"
-
+				oc-custom-directive
 				capitalize="{{field.attributes.capitalize}}" 
 				consistent="{{field.property.consistent}}"/>
-				<span class="input-group-addon unit-control">
-					{{getUnit()}}
-				</span>
+				
 		</div>
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>

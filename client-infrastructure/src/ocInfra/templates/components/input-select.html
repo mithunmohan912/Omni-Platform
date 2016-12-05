@@ -15,13 +15,14 @@
 
 					ng-model="field.property.value"
 					ng-required="field.property.required"
-					ng-disabled="!field.property.editable"
+					ng-disabled="!field.editable"
 					ng-change="field.onChange()"
 					ng-blur="field.onBlur()"
 					ng-options="key as value for (key, value) in field.options._getData(field.id, field)"
 					capitalize="{{field.attributes.capitalize}}" 
 					consistent="{{field.property.consistent}}"
-					convert-to="{{field.property.metainfo.type}}"/>
+					convert-to="{{field.property.metainfo.type}}"
+					oc-custom-directive/>
 					<!-- OC-1027: enumeration type should be considered -->
 					<span ng-if="field.inputUnit" class="input-group-addon unit-control" ng-cloak ng-init="getUnit()">
 					{{field.unit}}

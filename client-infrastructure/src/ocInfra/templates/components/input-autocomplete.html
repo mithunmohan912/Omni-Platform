@@ -15,7 +15,7 @@
 
 				ng-model="field.property.value"
 				ng-required="field.property.required"
-				ng-disabled="!field.property.editable"
+				ng-disabled="!field.editable"
 				ng-change="field.onChange()"
 				ng-blur="field.onBlur();field.options._typeaheadBlur($event, field)"
 				ng-focus="field.options._typeaheadFocus($event, field)"
@@ -26,6 +26,8 @@
 				typeahead-min-length="field.attributes['typeahead-min-length']"
 				typeahead-wait-ms="field.attributes['typeahead-wait-ms']"
 				
+				oc-custom-directive
+
 				capitalize="{{field.attributes.capitalize}}"
 				consistent="{{field.property.consistent}}"/>
 		
