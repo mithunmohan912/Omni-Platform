@@ -587,7 +587,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 						      return value;
 						    }
 				        }
-			}
+			};
 
 			// Patch on blur default function
 			$scope.patch = function(params, next){
