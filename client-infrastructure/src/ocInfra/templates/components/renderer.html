@@ -125,7 +125,7 @@
 								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 								</span>	
 								<span ng-switch-when="anchor">
-                                   <a href class="{{column.class}}">{{column.text | translate}}</a>
+                                   <a href="{{column.link}}" class="{{column.class}}">{{column.text | translate}}</a>
 								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
