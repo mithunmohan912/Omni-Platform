@@ -341,6 +341,24 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
         });
         
+        if(responseData._embedded){
+            var embeddedItems = [];
+            for (var listKey in responseData._embedded){
+                embeddedItems = responseData._embedded[listKey];
+                if(!Array.isArray(embeddedItems)){
+                    embeddedItems = [embeddedItems];
+                }
+            }
+
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                for(var embeddedItem in embeddedItems){
+                    if(businessDependency in embeddedItem._links){
+                        dependencies.push({ href: embeddedItem._links[businessDependency].href, resource: businessDependency });
+                    }
+                }
+            });    
+        }
+
         return dependencies;
     }
 
@@ -474,7 +492,20 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             for(var prop in responseData){
                 if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
                     propertiesObject[prop] = {};
-                    propertiesObject[prop].value = responseData[prop];  
+
+                    if(angular.isObject(responseData[prop])){
+                        propertiesObject[prop].properties= {};
+                        for(var propertyKey in responseData[prop]){
+                            var complexObject = responseData[prop];
+                            propertiesObject[prop].properties[propertyKey] = {};
+                            propertiesObject[prop].properties[propertyKey].self = resourceURL1;
+                            propertiesObject[prop].properties[propertyKey].value = complexObject[propertyKey]; 
+                            propertiesObject[prop].value = responseData[prop];  
+                        }
+                    } else{
+                        propertiesObject[prop].value = responseData[prop];    
+                    }
+                    
                     propertiesObject[prop].self = resourceURL1;
                     propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
                     propertiesObject[prop].consistent = true;
