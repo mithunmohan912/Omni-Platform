@@ -319,6 +319,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - An array containing all the resource urls that must be retrieved (empty array if no dependencies).
     */
     function _extractBusinessDependencies(responseData, metamodel){
+        
         if(!metamodel){
             console.warn('No metamodel object to extract business dependencies');
             return [];
@@ -327,36 +328,37 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         }
 
         var dependencies = [];
-        var keySet = [];
-
-        // Process http response to know which keys are contained in this resource
-        for(var property in responseData){
-            var propertyKey = {};
-            if(property.indexOf('_') !== 0 && property.indexOf(':') > 0){
-                propertyKey = property.split(':')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
-            } else if(property.indexOf('-') > 0){
-                propertyKey = property.split('-')[0];
-            
-                if(keySet.indexOf(propertyKey) === -1){
-                    keySet.push(propertyKey);
-                }
-            }
-        }
-
+        
         // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
-        keySet.forEach(function(objectKey){
-            if(objectKey in metamodel.businessObject){
-                metamodel.businessObject[objectKey].forEach(function(businessDependency){
-                    if(businessDependency in responseData._links){
-                        dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-                    }
-                });
+        var objectKey = {};
+        for( var key in metamodel.businessObject){
+            objectKey = key;
+        } 
+
+        metamodel.businessObject[objectKey].forEach(function(businessDependency){
+            if(businessDependency in responseData._links){
+                dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
             }
         });
+        
+        if(responseData._embedded){
+            var embeddedItems = [];
+            for (var listKey in responseData._embedded){
+                embeddedItems = responseData._embedded[listKey];
+                if(!Array.isArray(embeddedItems)){
+                    embeddedItems = [embeddedItems];
+                }
+            }
+
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                for(var embeddedItem in embeddedItems){
+                    if(businessDependency in embeddedItems[embeddedItem]._links){
+                        dependencies.push({ href: embeddedItems[embeddedItem]._links[businessDependency].href, resource: businessDependency });
+                    }
+                }
+            });    
+        }
+
         return dependencies;
     }
 
@@ -490,7 +492,20 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             for(var prop in responseData){
                 if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
                     propertiesObject[prop] = {};
-                    propertiesObject[prop].value = responseData[prop];  
+
+                    if(angular.isObject(responseData[prop])){
+                        propertiesObject[prop].properties= {};
+                        for(var propertyKey in responseData[prop]){
+                            var complexObject = responseData[prop];
+                            propertiesObject[prop].properties[propertyKey] = {};
+                            propertiesObject[prop].properties[propertyKey].self = resourceURL1;
+                            propertiesObject[prop].properties[propertyKey].value = complexObject[propertyKey]; 
+                            propertiesObject[prop].value = responseData[prop];  
+                        }
+                    } else{
+                        propertiesObject[prop].value = responseData[prop];    
+                    }
+                    
                     propertiesObject[prop].self = resourceURL1;
                     propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
                     propertiesObject[prop].consistent = true;
@@ -592,20 +607,19 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             'creatable': false
         };
         
-        if(responseData && responseData._links){
+        if(responseData){
+            if(responseData._links){
+                if(responseData._links.self){
+                    resource.href = responseData._links.self.href;    
+                }
 
-            if(responseData._links.self){
-                resource.href = responseData._links.self.href;    
+                if(responseData._links.up){
+                    resource.up = responseData._links.up.href;    
+                }
+    
             }
 
-            if(responseData._links.up){
-                resource.up = responseData._links.up.href;    
-            }
-
-            if(responseData && responseData._options){
-            	resource.properties = _processProperties(responseData);
-	        }
-            
+            resource.properties = _processProperties(responseData);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
