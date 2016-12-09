@@ -10,11 +10,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     //used to distinct between GET method with and without params
     var urlParams = {};
-
+    
     var defaultHeaders = {
-            'User-Id': 'SE30700',
-            'Accept': 'application/hal+json, application/json',
-            'Content-Type': 'application/hal+json, application/json'
+        'Accept': 'application/hal+json, application/json',
+         'Content-Type': 'application/json'
     };
 
     function _addApiGatewayApiKeys(params) {
@@ -78,7 +77,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     function _prepareHeaders(headers){
         if(!headers){
-            headers = defaultHeaders;
+            var headersForSoRMap = $rootScope.headersForSoR;
+            if(headersForSoRMap !== undefined && $rootScope.regionId !== undefined){
+                headers = headersForSoRMap[$rootScope.regionId];    
+            } 
+
+            if(!headers){
+                headers = defaultHeaders;
+            }
+            
             var appHeaders;
 
             if(sessionStorage.getItem('_headers')){
@@ -95,7 +102,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         params = _addApiGatewayApiKeys(params);
          //Work-around - To allow mock services to be called without username in header
         //headers : _prepareHeaders(headers),
-         headers = defaultHeaders;
+         headers = _prepareHeaders(headers);
           var promise = $http({
                 method: 'OPTIONS',
                 url: url,
