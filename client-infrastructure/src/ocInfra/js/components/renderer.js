@@ -386,7 +386,7 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 
 	      	$scope.nextStep = function(method,currentStep){
 				
-		       	var nextStep = "";
+		       	var nextStep = '';
 		       	if($scope.actionFactory[method]){
 		    		nextStep = $scope.actionFactory[method]($scope.resourcesToBind,currentStep,$scope);
 		    	}
@@ -394,13 +394,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 		    };
 
 		    $scope.preStep = function(method,currentStep){
-		    	var preStep = "";
+		    	var preStep = '';
 		    	if($scope.actionFactory[method]){
 		    		preStep = $scope.actionFactory[method]($scope.resourcesToBind,currentStep,$scope);
 		    	}
 				return preStep;
 		    };
-		    
+
             $scope.enterValidation = function(){
                 return $scope.isWizardValid;
             };
