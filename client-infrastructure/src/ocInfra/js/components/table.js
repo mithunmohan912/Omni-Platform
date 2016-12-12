@@ -96,7 +96,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			function _initBlockButtons(){
 				var items = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-				if(!_.isEmpty(items.data._links)) {
+				if(items.data && !_.isEmpty(items.data._links)) {
 					if (!items.data._links.prev){
 						$scope.$broadcast('disableGetBlock', {link: 'prev', value: true});
 					}else{

@@ -246,11 +246,19 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     };
 
     this.setHeaders = function($rootScope){
-        $rootScope.headers = {
-            'Accept': 'application/vnd.hal+json, application/json',
-            'Content-Type': 'application/json'
-        };
 
+        var headersForSoRMap = $rootScope.headersForSoR;
+        if(headersForSoRMap !== undefined && $rootScope.regionId !== undefined){
+            $rootScope.headers = headersForSoRMap[$rootScope.regionId];
+        }
+
+        if(!$rootScope.headers){
+            $rootScope.headers = {
+                'Accept': 'application/hal+json, application/json',
+                'Content-Type': 'application/json'
+            };
+        }
+        
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
