@@ -148,11 +148,11 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             optionsMap[rootURL] = $rootScope.optionsMapForURL.get(rootURL);
             return;
         }
-
+        var headers = setHeaders($rootScope);
         var methodResourceFactory = resourceFactory.optionsData;
         var params = {};
 
-         var responseOPTIONS = methodResourceFactory(rootURL, params, $rootScope.headers);
+         var responseOPTIONS = methodResourceFactory(rootURL, params, headers);
           if(responseOPTIONS.then){
             
             responseOPTIONS.then(function success(httpResponse){
@@ -167,7 +167,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     }
                 }else{
                     methodResourceFactory = resourceFactory.refresh;
-                    var responseGET = methodResourceFactory(rootURL, params, $rootScope.headers);
+                    var responseGET = methodResourceFactory(rootURL, params, headers);
                     if(responseGET.then){
                         responseGET.then(function success(httpResponseGet){
                             console.log('prepareOptions - GET CALL - ' + rootURL);
@@ -244,9 +244,8 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             });
         }
     };
-
-    this.setHeaders = function($rootScope){
-
+    this.setHeaders = setHeaders;
+    function setHeaders($rootScope){
         var headersForSoRMap = $rootScope.headersForSoR;
         if(headersForSoRMap !== undefined && $rootScope.regionId !== undefined){
             $rootScope.headers = headersForSoRMap[$rootScope.regionId];
@@ -262,8 +261,8 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
+        return $rootScope.headers;
     };
-
     function callOptions($rootScope, rootURL, callback){
         if(!$rootScope.optionsMapForURL){
             $rootScope.optionsMapForURL = new Map();
@@ -1381,23 +1380,27 @@ function setDataToParams(properties, params){
     if(properties !== undefined){
         angular.forEach(properties, function(val, key){
             var value = properties[key].value;
-            var type = properties[key].metainfo.type;
-
-            if(type !== undefined && type==='static'){
-                value = properties[key].metainfo.value;
-            }
-
+            if(properties[key].metainfo){
+                if(properties[key].metainfo.type){
+                    var type = properties[key].metainfo.type;
+                    if(type !== undefined && type==='static'){
+                        value = properties[key].metainfo.value;
+                    }
+                }
+            } 
+            var format = {};
             if(value === null || value === undefined || value === '' || value === 'undefined'){
                 //continue
             }else{
-    
-                var format = properties[key].metainfo.format;
-    
+                if(properties[key].metainfo && properties[key].metainfo.format){
+                    format = properties[key].metainfo.format;
+                }
                 if(format !== undefined && format==='date'){
+
                     //Format the date in to yyyy/mm/dd format
                     value = formatIntoDate(value);
                 }
-    
+
                 if(typeof value === 'object') {
                     if(value.key !== undefined){
                         value = value.key;
