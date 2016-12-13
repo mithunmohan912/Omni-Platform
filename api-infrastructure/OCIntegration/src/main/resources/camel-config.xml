@@ -520,10 +520,22 @@
 	</bean>
 
 		
+
+
+
+
+	<!-- Auth Routers -->
+	<bean id="apiProxyAuthRouter" class="com.csc.eip.route.ApiProxyAuthRouter"/>
+	<bean id="authnTokenRouter" class="com.csc.eip.route.AuthnTokenRouter"/>
+
+
 	<camelContext id="camelContext" streamCache="true"
 		xmlns="http://camel.apache.org/schema/spring">
 		<propertyPlaceholder id="properties"
 			location="classpath:/application.properties" />
+
+		<routeBuilder ref="apiProxyAuthRouter"/> 
+		<routeBuilder ref="authnTokenRouter"/> 
 
 		
 		<!-- APIConnect APIs -->
