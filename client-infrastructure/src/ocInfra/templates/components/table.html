@@ -21,7 +21,7 @@
 
 			<tr ng-if="metamodelObject.showResultCount" ng-show="table.items.length==0">
 			 
-            <td colspan="9" class="greybg"><span>{{ '_Quote_data_not _found' | translate}}.</span></td>
+            <td colspan="9" class="greybg text-center"><span>{{ '_Quote_data_not _found' | translate}}.</span></td>
         </tr>
 
 		</thead>
@@ -39,7 +39,7 @@
 		               <ng-switch on="field.type">
 		               
  						<span ng-switch-when="label" class="table-cell-label">
- 							<span ng-repeat="fieldId in field.id track by $index"  style="display:inline-block;" ng-class="(fieldId === ' ') ? 'brLine' : ''">
+ 							<span ng-repeat="fieldId in field.id track by $index" ng-class="(fieldId === ' ') ? 'brLine' : ''">
  								<span ng-if="displayedItem.properties[fieldId] || field.uiInput" class="{{fieldId}}class">
 	 								<!-- OC-1029: input label in table component-->
 	 								<span ng-if="field.input">
@@ -65,7 +65,7 @@
 		                <span ng-switch-when="blank" class="table-cell-blank">&nbsp;</span>
 		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
 		                <span ng-switch-when="icon" class="{{field.iconsbox}}">
-		                	<span ng-if="field.icon" class="{{field.iconColor}}"></span>	
+		                	<span ng-if="field.icon" class="{{metamodelObject.iconColor}}"></span>	
 		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} {{field.iconColor}}"></span>		
 		                </span>
 		                <span ng-switch-when="actions" class="table-cell-actions">
@@ -87,7 +87,7 @@
 						    </span>
 				        </span>
 		                <span ng-switch-default class="table-cell-input">
-	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
+	                		<span ng-repeat="fieldId in field.id track by $index">
 	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" parent-metamodel="$index + '_' + metamodelObject.name" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
 		                </span>
