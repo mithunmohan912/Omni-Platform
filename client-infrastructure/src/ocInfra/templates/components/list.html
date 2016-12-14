@@ -1,0 +1,38 @@
+<div class="no-padding col-xs-12">
+	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
+<!--  {{resourcesToBind[column.id].properties[column.subId].properties}} 
+<!-- resultset{{resultSet[resourceUrl].properties[listprop].value}} -->
+	<div id="no-more-tables">
+		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 padding-none table table-striped table-condensed cf {{class.table}}">
+			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
+				<tr>
+					<th ng-repeat="column in metamodelObject.properties" ng-attr-style="text-align : {{column.align}}; width: {{column.width}} ">{{ column.list_header | translate }}</th>
+				</tr>
+			</thead>
+
+			<tbody >
+ 
+			<tr ng-repeat="displayedItem in resultSet[resourceUrl].properties[listprop].properties">
+
+				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">				
+		               <ng-switch on="field.type">
+ 						<span ng-switch-when="label" class="table-cell-label">
+ 							<span   style="display:inline-block;">						
+
+                          {{displayedItem.value[field.id]}}								
+ 								
+ 							</span>
+		                </span>                              
+		                
+		            </ng-switch>
+		            
+				</td>
+			</tr>
+		</tbody>
+		
+	</table>
+
+	</div>
+
+	
+</div>
