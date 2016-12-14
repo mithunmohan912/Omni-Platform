@@ -499,46 +499,6 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             for(var prop in responseData){
                 if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
                     propertiesObject[prop] = {};
-
-
-                    if(prop.includes('List')){
-
-                        console.log('response consists of list');
-                        
-                       
-                        var items = [];
-                        var itemsArray = responseData[prop];
-
-                        items.properties = [];
-
-                        if(!Array.isArray(itemsArray)){
-                            itemsArray = [itemsArray];
-                        }
-                        
-                        for(var itemElement in itemsArray){  
-                        
-                            var itemobj = itemsArray[itemElement];  
-                        
-                            items[itemElement] = {};
-                            items[itemElement].properties = [];                        
-                            
-                            for(var propElmnt in itemobj){
-                                items[itemElement].properties[propElmnt] = { value: itemobj[propElmnt] };
-                               console.log('properties['+ propElmnt + '] = ' + itemobj[propElmnt]);
-                            }
-                        
-                        }     
-
-                        propertiesObject[prop].items = [];   
-                      
-                        propertiesObject[prop].items = items;  
-                          console.log('+propertiesobj' +propertiesObject);     
-
-                    } else{
-                        propertiesObject[prop].value = responseData[prop];    
-                    }   
-
-
                     if(angular.isObject(responseData[prop])){
                         propertiesObject[prop].properties= {};
                         for(var propertyKey in responseData[prop]){
