@@ -68,20 +68,20 @@
 		                	<span ng-repeat="action in field.options">
 		                		<ng-switch on="action.value">
 						            <span ng-switch-when="edit">
-						                <a ng-if="!action.target">
+						                <a ng-if="!action.actionURL">
 						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
 						                	</i>
 						               </a>
-						               <a ng-if="action.target" href="{{action.target}}">
+						               <a ng-if="action.actionURL" href="{{action.actionURL}}">
 						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
 						                	</i>
 						               </a>
 						            </span>
 						            <span ng-switch-when="delete">
-						                <a ng-if="!action.target">
+						                <a ng-if="!action.actionURL">
 						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
-						                <a ng-if="action.target" href="{{action.target}}">
+						                <a ng-if="action.actionURL" href="{{action.actionURL}}">
 						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
 						            </span>
