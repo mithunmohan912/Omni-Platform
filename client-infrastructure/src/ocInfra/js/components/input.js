@@ -205,6 +205,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 	    		},
 	    		set: function(newValue){
 	    			if(typeof value === 'function'){
+	    				$scope.field.property.selectedValue = newValue;
 	    				return newValue;
 	    			} else {
 	    				value = newValue;
