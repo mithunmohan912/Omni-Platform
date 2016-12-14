@@ -262,7 +262,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             $rootScope.headers.username = $rootScope.user.name;
         }
         return $rootScope.headers;
-    };
+    }
     function callOptions($rootScope, rootURL, callback){
         if(!$rootScope.optionsMapForURL){
             $rootScope.optionsMapForURL = new Map();
@@ -499,7 +499,6 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             for(var prop in responseData){
                 if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
                     propertiesObject[prop] = {};
-
                     if(angular.isObject(responseData[prop])){
                         propertiesObject[prop].properties= {};
                         for(var propertyKey in responseData[prop]){
