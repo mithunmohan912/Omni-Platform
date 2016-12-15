@@ -52,10 +52,11 @@ function ScreenController($http, $scope, $rootScope,$controller, $injector,$rout
     }else{
         $rootScope.regionId = undefined;
     }
-    if($routeParams.screenId === undefined){
-        $routeParams.screenId='login';
+    
+    //if($routeParams.screenId === undefined){
+       // $routeParams.screenId='login';
           //  $location.path('/screen/login');
-    }
+   // }
     if ($routeParams.screenId.indexOf(':') !== -1) {
         reqParmScreen = $routeParams.screenId.split(':');
         $rootScope.screenId = reqParmScreen[1];

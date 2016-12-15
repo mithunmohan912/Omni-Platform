@@ -28,6 +28,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					(params.previous && params.previous.data && params.previous.data._links && params.previous.data._links.up && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
+					if($scope.metamodelObject && typeof $scope.metamodelObject.autoRefresh !== 'undefined' && $scope.metamodelObject.autoRefresh === false){
+						return;
+					}
 
 					$scope.previousTable = [];
 					if($scope.table){
@@ -93,7 +96,7 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 			function _initBlockButtons(){
 				var items = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-				if(!_.isEmpty(items.data._links)) {
+				if(items.data && !_.isEmpty(items.data._links)) {
 					if (!items.data._links.prev){
 						$scope.$broadcast('disableGetBlock', {link: 'prev', value: true});
 					}else{
@@ -119,18 +122,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
 
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
@@ -240,6 +231,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
               		}
                 	$scope.table.items.push(newItem);
+                	// throw an event to popup about validation 
+                	//first of all, check if href and modelRef exist
+                	if (typeof newItem !== 'undefined' && typeof $scope.metamodelObject !== 'undefined' && typeof $scope.metamodelObject.modalRef !== 'undefined'){
+                		$scope.$broadcast('validatePopup',{itemHref:newItem.href, metamodelName: $scope.metamodelObject.modalRef});	
+                	}
+                	
               	}
 			}
 
@@ -377,33 +374,18 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-			$scope.isValidStatus = function(displayedItem){
-				//OC-1010: Problem with the consistency indicators of the table party roles
- 				var status;
- 				if (displayedItem) {
- 					var properties = displayedItem.properties;
-					if ($scope.modalMetamodelObject) {
-						$scope.modalMetamodelObject.sections.forEach(function(section) {
-			 				if (section.properties) {
-			                    section.properties.forEach(function(property){
-			 						var ids = property.id;
-			 						if(!Array.isArray(ids)){
-			 							ids = [ids];
-			 						}
-			 						ids.forEach(function(id){
-			 							if (properties[id]){
-			 								status = status || true;
-				 							status = status && properties[id].consistent;
-				 						}
-			 						});
-				 				});
-							}
-						});
-		               
-					}
- 				}
-				return status || false;
+          $scope.navigate = function(url) {
+				$location.path(url);
 			};
+           
+			$scope.isValidStatus = false;
+				
+			$scope.$on('isValidStatus', function(event, params) {
+				$scope.isValidStatus = !params?false:true;
+			});
+
+
+			
 
 			$scope.edit = function(itemSelected, callback) {
 				$scope.itemSelected = itemSelected;
@@ -415,18 +397,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
-	 		};
+	 		$scope.delete = function(itemSelected, callback) {
+				$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected,$scope);
+					}
+				}
+			};
 
 
     $scope.checkShowItemRow = function(action, displayedItem) {
@@ -559,17 +538,7 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 				$scope.itemSelected = {};
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
-				var modalRef = $scope.metamodelObject.modalRef;
-                if (modalRef) {
-                	var modalMetamodel = $rootScope.metamodel? $rootScope.metamodel[modalRef]: null;
-					if (!modalMetamodel) {
-						MetaModel.load($rootScope, $rootScope.regionId, modalRef, function(data) {
-							$scope.modalMetamodelObject = data;
-						});
-					} else {
-						$scope.modalMetamodelObject = modalMetamodel;
-					}
-                }
+
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
 				$scope.$watchCollection('resultSet', function(newValue){
@@ -822,17 +791,14 @@ angular.module('omnichannel').directive('staticTableRender', function(MetaModel,
 					}
 				}
 			};
-	 		$scope.delete = function(displayedItem, callback) {
-	 			if (displayedItem.deletable) {
-	 				//delete resource
-	 				resourceFactory.delete(displayedItem.href).then(function(response) {
-	 					if (callback) {
-	 						if ($scope.actionFactory[callback]) {
-								$scope.actionFactory[callback](response);
-							}
-	 					}
-	 				});
-	 			}
+	 		$scope.delete = function(itemSelected, callback) {
+	 			$scope.itemSelected = itemSelected;
+				//Bootstrap takes care of openin a pop up
+				if (callback) {
+					if ($scope.actionFactory[callback]) {
+						$scope.actionFactory[callback](itemSelected);
+					}
+				}
 	 		};
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {

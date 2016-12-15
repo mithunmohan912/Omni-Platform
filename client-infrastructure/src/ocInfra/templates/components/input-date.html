@@ -14,7 +14,7 @@
 
 					ng-model="field.property.value"
 					ng-required="field.property.required"
-					ng-disabled="!field.property.editable"
+					ng-disabled="!field.editable"
 					ng-change="field.onChange()"
 					ng-blur="field.onBlur()"
 					ng-class="field.class  ? field.class : ''"
@@ -25,6 +25,7 @@
 					start-week="{{field.attributes.startWeek}}"
 					trigger="{{field.attributes.trigger}}"
 					format-date 
+					oc-custom-directive
 					consistent="{{field.property.consistent}}"/>
 			<i class="form-control-feedback fa fa-lg fa-calendar"></i>
 		

@@ -1,22 +1,25 @@
-<div class="modal fade" data-keyboard="false" data-backdrop="static" id="{{ popup.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ popup.labels.title | translate }}" aria-hidden="true">
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="{{ metamodelObject.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ metamodelObject.labels.title | translate }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-popup-close close" data-dismiss="modal" aria-label="{{ popup.labels.close | translate }}"><span aria-hidden="true" ng-click="execute(popup.actions._close)">&times;</span></button>
-                <h4 class="modal-title">{{ popup.labels.title | translate }}</h4>
+                <button type="button" class="btn-popup-close close" data-dismiss="modal" aria-label="{{ metamodelObject.labels.close | translate }}"><span aria-hidden="true" ng-click="execute(metamodelObject.actions._close)">&times;</span></button>
+                <h4 class="modal-title">{{ metamodelObject.labels.title | translate }}</h4>
             </div>
-            <div class="modal-body">
-                
-               <renderer metamodel='metamodel' resource-url='resourceUrl' factory-name='factoryName'></renderer>
-
+            <div class="modal-body  {{metamodelObject.class}}">
+                <div ng-if="!metamodelObject.labels.bodycontent">
+                    <renderer metamodel='metamodel' resource-url='resourceUrl' factory-name='factoryName'></renderer>
+                </div>
+                <div ng-if="metamodelObject.labels.bodycontent">
+                    <label>{{ metamodelObject.labels.text | translate }}</label>
+                </div>
             </div>
             <div class="clearfix"></div>
             <div class="modal-footer">
-            	<button id="{{popup.labels.cancel}}_button_id" type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(popup.actions._cancel)" data-dismiss="modal">{{ popup.labels.cancel | translate }}</button>
+                <button id="{{metamodelObject.labels.reset}}_button_id" type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(metamodelObject.actions._reset)">{{ metamodelObject.labels.reset | translate }}</button>
 
-                <button id="{{popup.labels.reset}}_button_id" type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(popup.actions._reset)">{{ popup.labels.reset | translate }}</button>
+                <button id="{{metamodelObject.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(metamodelObject.actions._ok)" data-dismiss="modal">{{ metamodelObject.labels.ok | translate }}</button>
 
-                <button id="{{popup.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(popup.actions._ok)">{{ popup.labels.ok | translate }}</button>
+                <button id="{{metamodelObject.labels.cancel}}_button_id" type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(metamodelObject.actions._cancel)" data-dismiss="modal">{{ metamodelObject.labels.cancel | translate }}</button>
             </div>
         </div>
     </div>

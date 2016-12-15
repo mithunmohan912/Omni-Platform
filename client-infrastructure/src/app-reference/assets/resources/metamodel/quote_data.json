@@ -38,8 +38,8 @@
                         "patchOnBlur": true,
                         "offset": {
                             "xs": 0,
-                            "sm": 0,
-                            "md": 6
+                            "sm": 0
+                    ,"md": 6
                         },
                         "onUpdate":"showAlert"
                     },
@@ -89,6 +89,18 @@
                             }
                         },
                         "colspan": 6
+                    },
+                    {
+                        "id":"quote:verify",
+                        "type":"captcha",
+                        "label": "_CAPTCHA",
+                        "uiInput": true, 
+                        "onSuccess":"showAlert",
+                        "key":"6Ldf8ggUAAAAAKn1FVMTxBjoWmQ_S6K5oTgTeUtH",
+                        "attributes": {
+                            "type":"image",
+                            "theme":"dark"
+                        }
                     }
                 ]
             }

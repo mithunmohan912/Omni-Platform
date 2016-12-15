@@ -40,7 +40,7 @@
   <body  hidemessage tour storage="false" template-url="ocInfra/templates/tour_template.html">
     <div growl></div>
 
-    <div ng-include="'ocInfra/templates/components/homeheader.html'" >
+    <div ng-include="'templates/homeheader.html'" >
     </div>
    
     <div class="header-margin-wide"></div>
@@ -102,11 +102,14 @@
   <script src="../vendors/pdfjs-dist/build/pdf.js"></script>
   <script src="../vendors/pdfjs-dist/build/pdf.worker.js"></script>
   <script src="../vendors/angular-pdf/dist/angular-pdf.js"></script>
+   <script src="//www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&amp;render=explicit" async defer></script>
+  <script src="../vendors/angular-recaptcha/release/angular-recaptcha.js"></script>
   <!-- endbower_injector -->
   <!-- injector:js -->
   <script src="app/app.js"></script>
   <script src="app/LoadConfig/LoadConfig.js"></script>
   <script src="ocInfra/js/ocInfra.js"></script>
+  <script src="app/controller/headerController.js"></script>
   <!-- endinjector -->
   </body>
 </html>
