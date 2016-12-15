@@ -261,9 +261,6 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if($rootScope.user && $rootScope.user.name){
             $rootScope.headers.username = $rootScope.user.name;
         }
-        if (sessionStorage.getItem('tokenId')) {
-            $rootScope.headers.iPlanetDirectoryPro = sessionStorage.getItem('tokenId');
-        }
         return $rootScope.headers;
     };
     function callOptions($rootScope, rootURL, callback){
