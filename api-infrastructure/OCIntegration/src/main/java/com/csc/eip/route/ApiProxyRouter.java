@@ -48,12 +48,13 @@ public class ApiProxyRouter extends RouteBuilder {
     		.log(LoggingLevel.INFO, "${exchangeId}:proxy:${header.CamelHttpMethod} ${header.CamelHttpUri}")
         	.log(LoggingLevel.DEBUG, "${exchangeId}:route request headers:${headers}")
         	
-        	.choice()
-        		.when(simple("${in.header.CamelHttpMethod} =~ 'OPTIONS'"))
-        			.log(LoggingLevel.DEBUG, "${exchangeId}:auth process skipped - OPTIONS request")
-        		.otherwise()
-        			.to("direct:apiProxyAuthRouter")
-        		.end()
+        	//* TODO AuthN/AuthZ
+//        	.choice()
+//        		.when(simple("${in.header.CamelHttpMethod} =~ 'OPTIONS'"))
+//        			.log(LoggingLevel.DEBUG, "${exchangeId}:auth process skipped - OPTIONS request")
+//        		.otherwise()
+//        			.to("direct:apiProxyAuthRouter")
+//        		.end()
         	
         	//* TODO translate request message?
 //        	.choice()
