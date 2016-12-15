@@ -14,12 +14,15 @@ public class ResponseMessageProcessor implements Processor {
 	
 	static Logger log = Logger.getLogger(ResponseMessageProcessor.class.getName());
 
+	private String messagePrefix;
 	private Map<String,String> apiEndpointRefs;
 	private String regex;
 	private String replacement;
 	
 	public void process(Exchange exchange) throws Exception {
-		preprocess();
+		messagePrefix = exchange.getExchangeId()+":";
+		
+		log.debug(messagePrefix+"translate response message");
 		
 		for (Iterator<Entry<String,String>> it=apiEndpointRefs.entrySet().iterator(); it.hasNext(); ) {
 			Entry<String,String> entry = it.next();
@@ -28,17 +31,17 @@ public class ResponseMessageProcessor implements Processor {
     		subprocess(exchange);
 		}
 		
-		postprocess();
+		log.debug(messagePrefix+"translate response message ended");
 	}
 
 	private void subprocess(Exchange exchange) throws Exception {
 		if (regex == null || regex.trim().isEmpty())
-			log.error("regex is invalid");
-		log.debug("regex: " + regex);
+			log.error(messagePrefix+"regex is invalid");
+		log.debug(messagePrefix+"regex: " + regex);
 
 		if (replacement == null || replacement.trim().isEmpty())
-			log.error("replacement is invalid");
-		log.debug("replacement: " + replacement);
+			log.error(messagePrefix+"replacement is invalid");
+		log.debug(messagePrefix+"replacement: " + replacement);
 
 		Pattern pattern = Pattern.compile(regex);
 		
@@ -49,25 +52,17 @@ public class ResponseMessageProcessor implements Processor {
 		Matcher matcher = pattern.matcher(message);
 		
 		if (!matcher.find(0))
-			log.debug("regex not found");
+			log.debug(messagePrefix+"regex not found");
 		
-		log.debug("replace");
+		log.debug(messagePrefix+"replace");
 		message = matcher.replaceAll(replacement);
-		log.debug("replace ended");
+		log.debug(messagePrefix+"replace ended");
 
 		matcher = pattern.matcher(message);
 		if (matcher.find(0))
-			log.error("regex found after replace");
+			log.error(messagePrefix+"regex found after replace");
 		
 		exchange.getIn().setBody(message);
-	}
-	
-	private void preprocess() {
-		log.info("translate response message");
-	}
-	
-	private void postprocess() {
-		log.debug("translate response message ended");
 	}
 	
     public Map<String,String> getApiEndpointRefs() {

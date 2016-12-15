@@ -60,6 +60,17 @@ public class ApiProxyAuthRouter extends RouteBuilder {
 		    	.end()
         	.log(LoggingLevel.DEBUG, "${exchangeId}:authnToken process:${header.CamelHttpResponseCode}")
 
+		    // authZ
+//        	.to("direct:policyAdminAuthnRouter")
+//        	.to("direct:authzRouter")
+//        	.choice()
+//		    	.when(simple("${in.header.CamelHttpResponseCode} != 200")) 
+//		    		.log(LoggingLevel.INFO, "${exchangeId}:authz process failed:${header.CamelHttpResponseCode}")
+//		    		.log(LoggingLevel.INFO, "${exchangeId}:route:${exchangeProperty.proxyHeaders[CamelServletContextPath]} ended")
+//		    		.stop()
+//		    	.end()
+//        	.log(LoggingLevel.DEBUG, "${exchangeId}:authz process:${header.CamelHttpResponseCode}")
+
         	.process(proxyAuthPostProcessor)
         	.log(LoggingLevel.DEBUG, "${exchangeId}:auth process headers:${headers}")
 		    .log(LoggingLevel.DEBUG, "${exchangeId}:auth process ended");
