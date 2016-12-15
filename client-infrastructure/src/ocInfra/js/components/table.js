@@ -374,6 +374,10 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 			};
 
+          $scope.navigate = function(url) {
+				$location.path(url);
+			};
+           
 			$scope.isValidStatus = false;
 				
 			$scope.$on('isValidStatus', function(event, params) {
