@@ -712,6 +712,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				// Field to bind to the input
 				$scope.field = {
 					'property': $scope.property,
+					'toggleswitch':$scope.metamodel.toggleswitch, 
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
 					'id': $scope.parentMetamodel ? $scope.parentMetamodel +'_' + $scope.id : $scope.id,
