@@ -13,23 +13,32 @@ import org.apache.log4j.Logger;
 
 public class ResponseHeadersProcessor implements Processor {
 	
-	public static final String HEADER_LINK					= "Link";
-	public static final String HEADER_LOCATION				= "Location";
-	public static final String HEADER_CONTENT_LOCATION		= "Content-Location";
+	//* TODO FIXME constants
+	private static final String HEADER_LINK					= "Link";
+	private static final String HEADER_LOCATION				= "Location";
+	private static final String HEADER_CONTENT_LOCATION		= "Content-Location";
 
-	public static final String HEADER_CORS_ALLOW_ORIGIN		= "Access-Control-Allow-Origin";
-	public static final String HEADER_CORS_ALLOW_HEADERS	= "Access-Control-Allow-Headers";
+//	private static final String HEADER_CORS_ALLOW_ORIGIN	= "Access-Control-Allow-Origin";
+	private static final String HEADER_CORS_ALLOW_HEADERS	= "Access-Control-Allow-Headers";
 
-	public static final String HEADER_USERNAME				= "Username";
+	private static final String HEADER_IBM_CLIENT_ID		= "X-IBM-Client-Id";
+	private static final String HEADER_IBM_CLIENT_SECRET	= "X-IBM-Client-Secret";
+	private static final String HEADER_FORGEROCK_TOKEN_ID	= "iPlanetDirectoryPro";
+//	private static final String HEADER_CSC_USER_ID			= "X-CSC-User-Id";
+//	private static final String HEADER_CSC_USER_ID			= "User-Id";
+	private static final String HEADER_USERNAME				= "Username";
 
 	static Logger log = Logger.getLogger(ResponseHeadersProcessor.class.getName());
 
+	private String messagePrefix;
 	private Map<String,String> apiEndpointRefs;
 	private String regex;
 	private String replacement;
 	
 	public void process(Exchange exchange) throws Exception {
-		preprocess();
+		messagePrefix = exchange.getExchangeId()+":";
+		
+		log.debug(messagePrefix+"translate response headers");
 		
 		for (Iterator<Entry<String,String>> it=apiEndpointRefs.entrySet().iterator(); it.hasNext(); ) {
 			Entry<String,String> entry = it.next();
@@ -38,35 +47,35 @@ public class ResponseHeadersProcessor implements Processor {
     		subprocess(exchange);
 		}
 
-		defaultHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*");
+//		defaultOverwriteHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*", "http://localhost:8080");
+//		defaultOverwriteHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*", "http://insurance.csc.com:8080");
+//		defaultHeader(exchange, HEADER_CORS_ALLOW_ORIGIN, "*");
 		
+		//* TODO FIXME only OPTIONS?
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_ID);
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_IBM_CLIENT_SECRET);
+		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_FORGEROCK_TOKEN_ID);
+//		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_CSC_USER_ID);
 		updateHeaderAddElement(exchange, HEADER_CORS_ALLOW_HEADERS, HEADER_USERNAME);
 		
-		postprocess();
+		log.debug(messagePrefix+"translate response headers ended");
 	}
 
 	private void subprocess(Exchange exchange) throws Exception {
 		if (regex == null || regex.trim().isEmpty())
-			log.error("regex is invalid");
-		log.debug("regex: " + regex);
+			log.error(messagePrefix+"regex is invalid");
+		log.debug(messagePrefix+"regex: " + regex);
 
 		if (replacement == null || replacement.trim().isEmpty())
-			log.error("replacement is invalid");
-		log.debug("replacement: " + replacement);
+			log.error(messagePrefix+"replacement is invalid");
+		log.debug(messagePrefix+"replacement: " + replacement);
 
 		Pattern pattern = Pattern.compile(regex);
 		
+		//* TODO FIXME only http methods?
 		translateHeader(exchange, pattern, HEADER_LINK);
 		translateHeaderStr(exchange, pattern, HEADER_LOCATION);
 		translateHeaderStr(exchange, pattern, HEADER_CONTENT_LOCATION);	
-	}
-	
-	private void preprocess() {
-		log.info("translate response headers");
-	}
-	
-	private void postprocess() {
-		log.debug("translate response headers ended");
 	}
 	
 	private void translateHeader(Exchange exchange, Pattern pattern, String header) {
@@ -80,13 +89,13 @@ public class ResponseHeadersProcessor implements Processor {
 	private void translateHeaderStr(Exchange exchange, Pattern pattern, String header) {
 		String oldHeader = (String) exchange.getIn().getHeader(header);
 		if (oldHeader != null) {
-			log.info("translate " + header + " header (string)");
-			log.debug("old" + header + ": " + oldHeader);
+			log.debug(messagePrefix+"translate " + header + " header (string)");
+			log.debug(messagePrefix+"old" + header + ": " + oldHeader);
     		Matcher matcher = pattern.matcher(oldHeader);
 	    	String newHeader = matcher.replaceFirst(replacement);
-	    	log.debug("new" + header + ": " + newHeader);
+	    	log.debug(messagePrefix+"new" + header + ": " + newHeader);
 			exchange.getIn().setHeader(header, newHeader);
-			log.debug("translate " + header + " header (string) ended");
+			log.info(messagePrefix+"translate " + header + " header (string) ended");
 		}
 	}
 
@@ -94,41 +103,50 @@ public class ResponseHeadersProcessor implements Processor {
 		@SuppressWarnings("unchecked")
 		ArrayList<String> oldHeader = (ArrayList<String>) exchange.getIn().getHeader(header);
 		if (oldHeader != null) {
-			log.info("translate " + header + " header (arrayList)");
-			log.debug("old" + header + ": " + oldHeader.toString());
+			log.debug(messagePrefix+"translate " + header + " header (arrayList)");
+			log.debug(messagePrefix+"old" + header + ": " + oldHeader.toString());
 			ArrayList<String> newHeader = new ArrayList<String>();
 			for (Iterator<String> it=oldHeader.iterator(); it.hasNext(); ) {
 				String headerVal = (String) it.next();
-				log.debug("old" + header + "Val: " + headerVal);
+				log.debug(messagePrefix+"old" + header + "Val: " + headerVal);
 	    		Matcher matcher = pattern.matcher(headerVal);
 	    		headerVal = matcher.replaceFirst(replacement);
-	    		log.debug("new" + header + "Val: " + headerVal);
+	    		log.debug(messagePrefix+"new" + header + "Val: " + headerVal);
 				newHeader.add(headerVal);
 			}
-			log.debug("new" + header + ": " + newHeader.toString());
+			log.debug(messagePrefix+"new" + header + ": " + newHeader.toString());
 			exchange.getIn().setHeader(header, newHeader);
-			log.debug("translate " + header + " header (arrayList) ended");
+			log.info(messagePrefix+"translate " + header + " header (arrayList) ended");
 		}
 	}
 
-	private void defaultHeader(Exchange exchange, String header, String value) {
-		String oldHeader = (String) exchange.getIn().getHeader(header);
-		if (oldHeader == null) {
-			log.info("default " + header + " header: " + value);
-			exchange.getIn().setHeader(header, value);
-			log.debug("default " + header + " header ended");
-		}
-	}
+//	private void defaultHeader(Exchange exchange, String header, String value) {
+//		String oldHeader = (String) exchange.getIn().getHeader(header);
+//		if (oldHeader == null) {
+//			log.debug(messagePrefix+"default " + header + " header: " + value);
+//			exchange.getIn().setHeader(header, value);
+//			log.info(messagePrefix+"default " + header + " header ended");
+//		}
+//	}
+
+//	private void defaultOverwriteHeader(Exchange exchange, String header, String oldValue, String newValue) {
+//		String oldHeader = (String) exchange.getIn().getHeader(header);
+//		if (oldHeader == null || oldHeader.equals(oldValue)) {
+//			log.debug(messagePrefix+"default " + header + " header: " + newValue);
+//			exchange.getIn().setHeader(header, newValue);
+//			log.info(messagePrefix+"default " + header + " header ended");
+//		}
+//	}
 
 	private void updateHeaderAddElement(Exchange exchange, String header, String element) {
 		String oldHeader = (String) exchange.getIn().getHeader(header);
 		if ((oldHeader != null) && (!oldHeader.toUpperCase().contains(element.toUpperCase()))) {
-			log.info("update " + header + " header add element: " + element);
-			log.debug("old" + header + ": " + oldHeader);
+			log.debug(messagePrefix+"update " + header + " header add element: " + element);
+			log.debug(messagePrefix+"old" + header + ": " + oldHeader);
 			String newHeader = oldHeader + "," + element;
-			log.debug("new" + newHeader + ": " + newHeader);
+			log.debug(messagePrefix+"new" + newHeader + ": " + newHeader);
 			exchange.getIn().setHeader(header, newHeader);
-			log.debug("update " + header + " header ended");
+			log.info(messagePrefix+"update " + header + " header ended");
 		}
 	}
 

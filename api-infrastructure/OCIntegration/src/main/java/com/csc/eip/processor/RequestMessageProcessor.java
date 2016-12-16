@@ -14,12 +14,15 @@ public class RequestMessageProcessor implements Processor {
 	
 	static Logger log = Logger.getLogger(RequestMessageProcessor.class.getName());
 
+	private String messagePrefix;
 	private Map<String,String> apiEndpointRefs;
 	private String regex;
 	private String replacement;
 	
 	public void process(Exchange exchange) throws Exception {
-		preprocess();
+		messagePrefix = exchange.getExchangeId()+":";
+		
+		log.debug(messagePrefix+"translate request message");
 		
 		for (Iterator<Entry<String,String>> it=apiEndpointRefs.entrySet().iterator(); it.hasNext(); ) {
 			Entry<String,String> entry = it.next();
@@ -28,17 +31,17 @@ public class RequestMessageProcessor implements Processor {
     		subprocess(exchange);
 		}
 		
-		postprocess();
+		log.debug(messagePrefix+"translate request message ended");
 	}
 	
 	private void subprocess(Exchange exchange) throws Exception {
 		if (regex == null || regex.trim().isEmpty())
-			log.error("regex is invalid");
-		log.debug("regex: " + regex);
+			log.error(messagePrefix+"regex is invalid");
+		log.debug(messagePrefix+"regex: " + regex);
 
 		if (replacement == null || replacement.trim().isEmpty())
-			log.error("replacement is invalid");
-		log.debug("replacement: " + replacement);
+			log.error(messagePrefix+"replacement is invalid");
+		log.debug(messagePrefix+"replacement: " + replacement);
 
 		Pattern pattern = Pattern.compile(regex);
 		
@@ -50,14 +53,6 @@ public class RequestMessageProcessor implements Processor {
 		exchange.getIn().setBody(message);
 	}
 
-	private void preprocess() {
-		log.info("translate request message");
-	}
-	
-	private void postprocess() {
-		log.debug("translate request message ended");
-	}
-	
     public Map<String,String> getApiEndpointRefs() {
 		return apiEndpointRefs;
 	}
