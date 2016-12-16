@@ -617,7 +617,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 
 								var refresh = false;
 								var modifiedHeaders = $scope.metamodel.modifiedHeaders;
-								resourceFactory.patch(params.property.self, payload, {}, refresh , modifiedHeaders).then(function(){
+								resourceFactory.patch(params.property.self, payload, refresh , modifiedHeaders).then(function(){
 									if(next){
 										next(params, response);
 									}
