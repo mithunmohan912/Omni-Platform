@@ -91,7 +91,7 @@
 						               </a>
 						            </span>
 						            <span ng-switch-default >
-						            	<a class="{{action.crClass}}" ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}} " ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						            	<a class="{{action.crClass}}" title="{{action.title}}"  ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}} " ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
 						            </span>
 		                		</ng-switch>
