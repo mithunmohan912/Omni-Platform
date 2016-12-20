@@ -121,13 +121,10 @@
 									<table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></table-render>
 
 								</span>
-								<span ng-switch-when="statictable" class="table-responsive infra-table-container">
-								<static-table-render ng-if="resourcesToBind[column.id].items" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName"></ static-table-render >
-								</span>
-									<span ng-switch-when="list">         
-
-               				<list-render ng-if="resourcesToBind[column.id].properties[column.subId].properties" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName">
-							    </list-render >
+								
+								<span ng-switch-when="list">
+               						<list-render ng-if="resourcesToBind[column.id].properties[column.subId].properties" resource-url="resourcesToBind[column.id].href" metamodel="column.metamodel" factory-name="factoryName">
+							    	</list-render >
 								</span>
 								<span ng-switch-when="pdf">
 								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
