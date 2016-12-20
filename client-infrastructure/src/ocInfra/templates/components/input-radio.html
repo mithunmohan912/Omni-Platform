@@ -11,8 +11,8 @@
 			<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="'src/ocInfra/templates/components/help-tooltip-display.html'"></div>-->
 
 				<div ng-repeat="(key, option) in field.options._getData(option, field) track by $index">
-					<div class="radio">
-                        <label>                                  
+					<div ng-class="field.attributes.classradio ? field.attributes.classradio : 'radio'">
+                        <label ng-class="field.attributes.classlabel ? field.attributes.classlabel : ''">                                  
 							<input 	type="radio"
 									id="{{field.id + '_' + key}}"
 									name="{{field.name}}"

@@ -4,7 +4,7 @@
 global angular
 */
 
-angular.module('omnichannel').directive('tableRender', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory, stConfig){
+angular.module('omnichannel').directive('listRender', function(MetaModel, $resource, $location, $injector, $rootScope, resourceFactory, stConfig){
 	return {
 		restrict: 'E',
 		replace: 'true',
@@ -14,7 +14,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			factoryName: '='
 		},
 		controller: function($scope){
-			var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
+			
+		var metamodelObject = $rootScope.metamodel? $rootScope.metamodel[$scope.metamodel]: null;
+			
 			if (!metamodelObject) {
 				MetaModel.load($rootScope, $rootScope.regionId, $scope.metamodel, function(data) {
 					_init(data);
@@ -22,21 +24,15 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 			} else {
 				_init(metamodelObject);
 			}
-
 			$scope.$on('resource_directory', function(event, params) {
 				if ((params.url === $scope.resourceUrl) ||
-					(params.previous && params.previous.data && params.previous.data._links && params.previous.data._links.up && params.previous.data._links.up.href === $scope.resourceUrl) || 
+					(params.previous && params.previous.data && params.previous.data._links.up.href === $scope.resourceUrl) || 
 					(params.response.data._links && params.response.data._links.up && params.response.data._links.up.href === $scope.resourceUrl) ||
 					($scope.resultSet && params.url in $scope.resultSet)) {
-					if($scope.metamodelObject && typeof $scope.metamodelObject.autoRefresh !== 'undefined' && $scope.metamodelObject.autoRefresh === false){
-						return;
-					}
-
 					$scope.previousTable = [];
 					if($scope.table){
 						$scope.previousTable = $scope.table.items;
 					}
-
 					if (params.response.config.method === 'DELETE' || params.response.config.method === 'PATCH' || params.response.config.method === 'POST') {
 						//refresh collection and items
 						$scope.inProgress = true;
@@ -56,14 +52,12 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					}
 				}
 			});
-
 			$scope.$on('refresh_table', function(event, params) {
 				if (params.name === $scope.metamodelObject.name) {
 					$scope.previousTable = [];
 					if($scope.table){
 						$scope.previousTable = $scope.table.items;
 					}
-
 					$scope.inProgress = true;
 					MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, {}, null, true).then(function(resultSet) {
 						$scope.resultSet = resultSet;
@@ -71,70 +65,22 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					});
 				}
 			});
-
-			$scope.$on('getBlock', function(event, params) {
-				if (!_.isEmpty(params)){
-	                var existingItems = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-	                if(!_.isEmpty(existingItems.data._links)) {
-	                    switch (params) {
-	                      case 'prev': 
-	                           $scope.resourceUrl = existingItems.data._links.prev.href;
-	                           break; 
-	                      default: 
-	                           $scope.resourceUrl=existingItems.data._links.next.href;
-	                    }
-	                    if(!_.isEmpty($scope.resourceUrl)){
-	                       MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-	                    }
-	                }
-              	}
-			});
-
-			$scope.$on('initPagination', function() {
-				_initBlockButtons();
-			});
-
-			function _initBlockButtons(){
-				var items = resourceFactory.getFromResourceDirectory($scope.resourceUrl);
-				if(items.data && !_.isEmpty(items.data._links)) {
-					if (!items.data._links.prev){
-						$scope.$broadcast('disableGetBlock', {link: 'prev', value: true});
-					}else{
-						$scope.$broadcast('disableGetBlock', {link: 'prev', value: false});
-					}
-					if(!items.data._links.next){
-						$scope.$broadcast('disableGetBlock', {link: 'next', value: true});
-					}else{
-						$scope.$broadcast('disableGetBlock', {link: 'next', value: false});
-					}	
-				}
-			}
-
 			function _init(metamodelObject){
 				$scope.resultSet = {};
 				$scope.itemSelected = {};
-
-
-			
-				if(!metamodelObject.itemsByPage){
-					metamodelObject.itemsByPage = $rootScope.config.itemsByPage ? $rootScope.config.itemsByPage : stConfig.pagination.itemsByPage;
-				}
-
 				$scope.metamodelObject = metamodelObject;
 				stConfig.pagination.template = $rootScope.templatesURL + 'stpaging.html';
+				$scope.listprop= $scope.metamodelObject.subId;
 
 				$scope.resourceUrl = $scope.resourceUrl || $scope.metamodelObject.resourceUrl;
 				MetaModel.prepareToRender($scope.resourceUrl, $scope.metamodelObject, $scope.resultSet);
-
 				$scope.$watchCollection('resultSet', function(newValue){
 					if(newValue && newValue[$scope.resourceUrl]) {
 						$scope.table = angular.copy(newValue[$scope.resourceUrl]);
 						$scope.table.items = [];
 						// Reset the collection that is bound to the table
 						$scope.groupedTable = {};
-
 						newValue[$scope.resourceUrl].items.forEach(function(item){
-
 							var oldItem;
 							if($scope && $scope.previousTable){
 								$scope.previousTable.forEach(function(obj){
@@ -143,7 +89,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 									}
 								});
 							}
-
 							if ($scope.metamodelObject.filters) {
 								_isFiltered(item).then(function(filtered) {
 					                if (!filtered) {
@@ -153,37 +98,25 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 							} else {
 								_addItem(newValue, item, oldItem);
 							} 
-							
 						});
 					}
-
 					//buttons
 					_getButtonsFromOptions();
-					//Enable/Disable next/prev Item blocks
-					_initBlockButtons();
 				});
-				
 				$scope.factoryName = metamodelObject.factoryName || $scope.factoryName ;
 				try {
 					$scope.actionFactory = $injector.get($scope.factoryName);
 				} catch(e) {
 					console.log($scope.factoryName + ' not found');
 				}
-
-
-				
 			}
-
-
 			function _addItem(newValue, item, oldItem) {
 				var newItem = angular.copy(newValue[item.href]);
               	var newValueItem = _getResultSetItem(newValue, newItem);
               	$scope.itemResourcesToBind = { properties : {} };
-
               	for(var resource in newValueItem) {
                 	$scope.itemResourcesToBind[newValueItem[resource].identifier] = newValueItem[resource];
               	}
-
               	// Process previous properties to keep ui input values
               	if(oldItem){
 	              	for(var property in oldItem.properties){
@@ -192,7 +125,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	              		}
 	              	}
 	            }
-
               	for(var i = 0; i < $scope.metamodelObject.properties.length; i++) {
                		var metamodelProperty = $scope.metamodelObject.properties[i];
                 	var idValues = metamodelProperty.id; 
@@ -209,7 +141,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
                   		}
                 	}
               	}
-
               	if (Object.keys($scope.itemResourcesToBind.properties).length > 0) {
               		// If we have groupBy property we will be grouping the table items, so we need to save the property to the bound properties
               		if($scope.metamodelObject.groupBy){
@@ -231,15 +162,8 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
               			$scope.groupedTable.infra_default_group_table[newItem.identifier] = newItem;
               		}
                 	$scope.table.items.push(newItem);
-                	// throw an event to popup about validation 
-                	//first of all, check if href and modelRef exist
-                	if (typeof newItem !== 'undefined' && typeof $scope.metamodelObject !== 'undefined' && typeof $scope.metamodelObject.modalRef !== 'undefined'){
-                		$scope.$broadcast('validatePopup',{itemHref:newItem.href, metamodelName: $scope.metamodelObject.modalRef});	
-                	}
-                	
               	}
 			}
-
 			function _isFiltered(item) {
 		        var filters = $scope.metamodelObject.filters;
 		        return resourceFactory.get(item.href).then(function(resource) {
@@ -257,7 +181,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		          }
 		        });
 		    }
-
 		    function _createButtonFromOptions(label, params, creatable) {
 		    	var button = {};
 		    	button.label = label;
@@ -269,14 +192,11 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 		    	button.creatable = creatable !== undefined? creatable : true;
 		    	return button;
 		    }
-
 			function _getButtonsFromOptions() {
 				$scope.buttons = [];
-
 				if ($scope.metamodelObject.buttons) {
 					var label = $scope.metamodelObject.buttons.label;
 					var values = $scope.metamodelObject.buttons.values;
-
 					if (label) {
 						$scope.buttons.push(_createButtonFromOptions(label, {}));
 					} else {
@@ -300,7 +220,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 														params[required] = value;
 														$scope.buttons.push(_createButtonFromOptions(label, params, creatable));
 													});
-
 												} else {
 													property.enum.forEach(function(value) {
 														label = 'ADD_'+value.toUpperCase().trim();
@@ -318,11 +237,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					}
 				}
 			}
-
 			function _isInput(type) {
 				return type !== 'status' && type !== 'icon' && type !== 'literal' && type !== 'blank' && type !== 'actions';
 			}
-
 			function _getResourceSelected(id) {
 				var resourceSelected = null;
 				var resourceSelectedPreferred = null;
@@ -340,7 +257,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 				return resourceSelectedPreferred || resourceSelected;
 			}
-
 			function _getResultSetItem(resultSet, item) {
 				var resultSetItem = {};
 				if (item && item.href) {
@@ -357,7 +273,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				}
 				return resultSetItem;
 			}
-
 			$scope.execute = function(action, displayedItem) {
 				if(action.buttonAction){
 					if ($scope.metamodelObject.buttons.method) {
@@ -373,41 +288,51 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 					}
 				}
 			};
-
-          $scope.navigate = function(url) {
+			$scope.move = function(url) {
 				$location.path(url);
 			};
-           
-			$scope.isValidStatus = false;
-				
-			$scope.$on('isValidStatus', function(event, params) {
-				$scope.isValidStatus = !params?false:true;
-			});
-
-
-			
-
+			$scope.isValidStatus = function(displayedItem){
+ 				var status = true;
+ 				if (displayedItem) {
+ 					var properties = displayedItem.properties;
+					if ($scope.modalMetamodelObject) {
+						$scope.modalMetamodelObject.sections.forEach(function(section) {
+			 				if (section.properties) {
+			                    section.properties.forEach(function(property){
+			 						var ids = property.id;
+			 						if(!Array.isArray(ids)){
+			 							ids = [ids];
+			 						}
+			 						ids.forEach(function(id){
+			 							if (properties[id]){
+				 							status = status && properties[id].consistent;
+				 						}
+			 						});
+				 				});
+							}
+						});
+					}
+ 				}
+				return status;
+			};
 			$scope.edit = function(itemSelected, callback) {
 				$scope.itemSelected = itemSelected;
 				//Bootstrap takes care of openin a pop up
 				if (callback) {
 					if ($scope.actionFactory[callback]) {
-						$scope.actionFactory[callback](itemSelected,$scope);
+						$scope.actionFactory[callback](itemSelected);
 					}
 				}
 			};
-
 	 		$scope.delete = function(itemSelected, callback) {
-				$scope.itemSelected = itemSelected;
+	 			$scope.itemSelected = itemSelected;
 				//Bootstrap takes care of openin a pop up
 				if (callback) {
 					if ($scope.actionFactory[callback]) {
-						$scope.actionFactory[callback](itemSelected,$scope);
+						$scope.actionFactory[callback](itemSelected);
 					}
 				}
-			};
-
-
+	 		};
     $scope.checkShowItemRow = function(action, displayedItem) {
         if (action.visibleWhen) {
             return $scope.checkVisibleOnItemRowValue(action, displayedItem, $scope);
@@ -456,7 +381,6 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 				 				//select the new resource
 				 				var href = response.data._links.self.href;
 				 				$scope.edit({href: href});
-
 				 				if (callback) {
 				 					if ($scope.actionFactory[callback]) {
 										$scope.actionFactory[callback](response);
@@ -467,39 +391,9 @@ angular.module('omnichannel').directive('tableRender', function(MetaModel, $reso
 	 				});
 	 			});
 	 		};
-
 		},
 		link : function (/*$scope*/) {
 		},
-		templateUrl: $rootScope.templatesURL + 'table.html'
+		templateUrl: $rootScope.templatesURL + 'list.html'
 	};
 });
-
-/*
-	Directive to group the elements of the smart table used within the table component. Some points to keep in mind:
-		- Attribute st-safe-src of the smart table should be an array. If you pass an object, then st-table attribute will get an array wrapping that object.
-		- Elements within st-table collection will not point to the same elements inside st-safe-src. I suppose the smart table is copying them not pointing
-		to the same elements.
-		- We iterate over the $scope.groupedTable to get every group.
-		- Finally we iterate over the st-table and we filter it to get the same items that we have in our groups. If we don't use the same objects contained
-		within the st-table collection... pagination will not work.
-	Warning: This filter directive is tighly coupled to the resource representation of backend resources since it uses the 'identifier' property which is
-	created when parsing the responses inside the MetaData factory's prepareToRender method.
-*/
-angular.module('omnichannel').filter('infraGroupBy', function(){
-	return function(collection, alreadyGrouped){
-		if(collection && alreadyGrouped){
-
-			var result = [];
-
-			collection.forEach(function(elem){
-				if(elem.identifier in alreadyGrouped){
-					result.push(elem);
-				}
-			});
-
-			return result;
-		}
-	};
-});
-

@@ -12,32 +12,27 @@ public class ProxyPostProcessor implements Processor {
 	
 	static Logger log = Logger.getLogger(ProxyPostProcessor.class.getName());
 
+	private String messagePrefix;
 	private Map<String,String> customHeaders;
 	
 	public void process(Exchange exchange) throws Exception {
-		preprocess();
+		messagePrefix = exchange.getExchangeId()+":";
+		
+		log.debug(messagePrefix+"proxy postprocess");
 		
 		removeCustomHeaders(exchange);
 		
-		postprocess();
+		log.debug(messagePrefix+"proxy postprocess ended");
 	}
 
 	private void removeCustomHeaders(Exchange exchange) {
 		if (customHeaders != null) {
-			log.debug("remove custom headers");
+			log.debug(messagePrefix+"remove custom headers");
     		for (Iterator<Entry<String,String>> it=customHeaders.entrySet().iterator(); it.hasNext(); ) {
     			Entry<String,String> entry = it.next();
 	    		exchange.getIn().removeHeader(entry.getKey());
     		}
 		}
-	}
-	
-	private void preprocess() {
-		log.debug("proxy postprocess");
-	}
-	
-	private void postprocess() {
-		log.debug("proxy postprocess ended");
 	}
 	
     public Map<String,String> getCustomHeaders() {

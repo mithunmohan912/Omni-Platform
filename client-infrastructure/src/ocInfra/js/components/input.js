@@ -205,6 +205,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 	    		},
 	    		set: function(newValue){
 	    			if(typeof value === 'function'){
+	    				$scope.field.property.selectedValue = newValue;
 	    				return newValue;
 	    			} else {
 	    				value = newValue;
@@ -617,7 +618,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 
 								var refresh = false;
 								var modifiedHeaders = $scope.metamodel.modifiedHeaders;
-								resourceFactory.patch(params.property.self, payload, {}, refresh , modifiedHeaders).then(function(){
+								resourceFactory.patch(params.property.self, payload, refresh , modifiedHeaders).then(function(){
 									if(next){
 										next(params, response);
 									}
@@ -711,6 +712,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				// Field to bind to the input
 				$scope.field = {
 					'property': $scope.property,
+					'toggleswitch':$scope.metamodel.toggleswitch, 
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
 					'id': $scope.parentMetamodel ? $scope.parentMetamodel +'_' + $scope.id : $scope.id,

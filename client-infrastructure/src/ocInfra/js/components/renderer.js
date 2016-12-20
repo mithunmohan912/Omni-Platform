@@ -100,6 +100,11 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 					}else{
 						section.accordion.collapse = true;
 					}	
+					if (section.accordion.callback){
+						if ($scope.actionFactory[section.accordion.callback]){
+							$scope.actionFactory[section.accordion.callback](section.accordion.collapse);
+						} 
+					}
 				}
 			};
 
@@ -376,6 +381,30 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 				MetaModel.prepareToRender($scope.resourceUrlToRender, $scope.metamodelObject, $scope.resultSet);
 			}
 
+			$scope.canEnabled = function(method,currentStep){
+		        var enabled = '';
+		          if($scope.actionFactory[method]){
+		             enabled = $scope.actionFactory[method]($scope.resourcesToBind,currentStep);
+		          }       
+		        return enabled;
+		    };
+
+	      	$scope.nextStep = function(method,currentStep){
+				
+		       	var nextStep = '';
+		       	if($scope.actionFactory[method]){
+		    		nextStep = $scope.actionFactory[method]($scope.resourcesToBind,currentStep,$scope);
+		    	}
+				return nextStep;
+		    };
+
+		    $scope.preStep = function(method,currentStep){
+		    	var preStep = '';
+		    	if($scope.actionFactory[method]){
+		    		preStep = $scope.actionFactory[method]($scope.resourcesToBind,currentStep,$scope);
+		    	}
+				return preStep;
+		    };
 
             $scope.enterValidation = function(){
                 return $scope.isWizardValid;
