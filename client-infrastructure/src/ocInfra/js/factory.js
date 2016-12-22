@@ -256,11 +256,12 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 'Accept': 'application/hal+json, application/json',
                 'Content-Type': 'application/json'
             };
+            if($rootScope.user && $rootScope.user.name){
+                $rootScope.headers.username = $rootScope.user.name;
+            }
         }
         
-        if($rootScope.user && $rootScope.user.name){
-            $rootScope.headers.username = $rootScope.user.name;
-        }
+        
         return $rootScope.headers;
     }
     function callOptions($rootScope, rootURL, callback){
@@ -1034,84 +1035,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     angular.forEach(data.messages, function(value){
                         growl.success(value.message);
                     });
-                }
-                else if(tab !== undefined){
-                    resourceFactory.options($rootScope.resourceUrl, $rootScope.headers).success(function(responseData){
-                        var data = responseData.data || responseData;
-                        var urlOperations = data._links[tab[0]].href;
-                        resourceFactory.options(urlOperations, $rootScope.headers).success(function(responseData){
-                            var data = responseData.data || responseData;
-                            var urlCalculation;
-                            var items = data._links.item;
-                            if(items && Array.isArray(items)){
-                                angular.forEach(items, function(item){
-                                    if(item.name=== tab[2]){
-                                        urlCalculation = item.href;
-                                    }
-                                });
-                            } else {
-                                urlCalculation = items.href;
-                            }
-                            resourceFactory.options(urlCalculation, $rootScope.headers).success(function(responseData){
-                                var data = responseData.data || responseData;
-                                var urlExecute = data._links[tab[1]].href;
-                                var params = {};
-                                resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(responseData){
-                                    var data = responseData.data || responseData;
-                                    var urlDetail;
-                                    if(Array.isArray(data.messages)){
-                                        // get last element of array
-                                        urlDetail = data.messages[data.messages.length - 1].message[0];
-                                    } else {
-                                        urlDetail = data.messages.context;
-                                    }
-                                    if(data.outcome === 'success'){
-                                        resourceFactory.refresh(urlDetail, params, $rootScope.headers).success(function(responseData){
-                                            var data = responseData.data || responseData;
-                                            if(data.outcome === 'failure'){
-                                                angular.forEach(data.messages, function(value){
-                                                    growl.error(value.message);
-                                                });
-                                            }
-                                            $rootScope.loader.loading=false;
-                                            if(actionURL !== undefined){ 
-                                                $rootScope.navigate(actionURL);
-                                            }
-                                            if(resolve) {
-                                                resolve(responseData);
-                                            }
-                                        });
-                                    } else if(data.outcome === 'failure'){
-                                        angular.forEach(data.messages, function(value){
-                                            growl.error(value.message);
-                                        });
-                                    }
-                                }).error(function(err){
-                                    // Show error message when Calculate Premium failed 
-                                    var mess = '';
-                                    if(err.Errors){
-                                        var arrayErr = convertToArray(err.Errors);                                           
-                                        mess = arrayErr.map(function(elem){
-                                            return elem.Reason;
-                                        }).join('\n');                                            
-                                    } else{
-                                        mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
-                                    } 
-                                    growl.error(mess); 
-                                });
-                            });
-                        });
-                    });
-                }else if(actionURL !== undefined){ 
+                } else if(actionURL !== undefined){ 
                     $rootScope.loader.loading=false;           
                     if(resolve) {
                         resolve(responseData);
                     }
-                }else{
+                } else{
                     $rootScope.loader.loading=false;
-                    if(actionURL !== undefined){ 
-                        $rootScope.navigate(actionURL);
-                    }
                     if(resolve) {
                         resolve(responseData);
                     }    
