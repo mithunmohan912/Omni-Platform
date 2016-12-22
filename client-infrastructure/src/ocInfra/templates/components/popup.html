@@ -17,7 +17,7 @@
             <div class="modal-footer">
                 <button id="{{metamodelObject.labels.reset}}_button_id" type="button" class="btn btn-primary btn-popup-reset" ng-if="metamodelObject.actions.reset" ng-disabled="resetDisabled" ng-click="execute(metamodelObject.actions._reset)">{{ metamodelObject.labels.reset | translate }}</button>
 
-                <button id="{{metamodelObject.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(metamodelObject.actions._ok)" data-dismiss="modal">{{ metamodelObject.labels.ok | translate }}</button>
+                <button id="{{metamodelObject.actions._ok}}_button_id" type="button" class="btn btn-primary btn-popup-save" ng-click="execute(metamodelObject.actions._ok)" ng-if="metamodelObject.actions._ok" data-dismiss="modal">{{ metamodelObject.labels.ok | translate }}</button>
 
                 <button id="{{metamodelObject.labels.cancel}}_button_id" type="button" class="btn btn-primary btn-popup-cancel" ng-if="metamodelObject.actions.cancel" ng-click="execute(metamodelObject.actions._cancel)" data-dismiss="modal">{{ metamodelObject.labels.cancel | translate }}</button>
             </div>
