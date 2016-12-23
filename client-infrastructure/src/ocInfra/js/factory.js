@@ -342,12 +342,14 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         for( var key in metamodel.businessObject){
             objectKey = key;
         } 
-
-        metamodel.businessObject[objectKey].forEach(function(businessDependency){
-            if(businessDependency in responseData._links){
-                dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-            }
-        });
+        if(responseData._links){
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                if(businessDependency in responseData._links){
+                    dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+                }
+            });
+        }
+        
         
         if(responseData._embedded){
             var embeddedItems = [];
