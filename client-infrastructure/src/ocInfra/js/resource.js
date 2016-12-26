@@ -10,10 +10,10 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     //used to distinct between GET method with and without params
     var urlParams = {};
-
+    
     var defaultHeaders = {
-            'Accept': 'application/vnd.hal+json, application/json',
-            'Content-Type': 'application/json'
+        'Accept': 'application/hal+json, application/json',
+         'Content-Type': 'application/json'
     };
 
     function _addApiGatewayApiKeys(params) {
@@ -77,7 +77,15 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
     function _prepareHeaders(headers){
         if(!headers){
-            headers = defaultHeaders;
+            var headersForSoRMap = $rootScope.headersForSoR;
+            if(headersForSoRMap !== undefined && $rootScope.regionId !== undefined){
+                headers = headersForSoRMap[$rootScope.regionId];    
+            } 
+
+            if(!headers){
+                headers = defaultHeaders;
+            }
+            
             var appHeaders;
 
             if(sessionStorage.getItem('_headers')){
@@ -88,6 +96,30 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
             }
         }
         return headers;
+    }
+
+    function _optionsData(url, params, headers){
+        params = _addApiGatewayApiKeys(params);
+         //Work-around - To allow mock services to be called without username in header
+        //headers : _prepareHeaders(headers),
+         headers = _prepareHeaders(headers);
+          var promise = $http({
+                method: 'OPTIONS',
+                url: url,
+                headers: headers,
+                params: params
+        });
+        if (promise.then) {
+            promise.then(function(response) {
+                if(response.data !== undefined && response.data._options !== undefined && response.data._options.links !== undefined){
+                    return response;    
+                }
+            }, function(error) {
+                //console.error(error);
+                throw error;
+            });   
+        }
+        return promise;
     }
 
     function _get(url, params, headers, responseType) {
@@ -297,11 +329,11 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
 
             angular.forEach(modifiedResourcesArray, function(resource){
 
-                var url = resource; 
+                var url = resource.trim(); 
                 var params = null; 
                 var headers = null; 
                 var responseType = null; 
-                _get(url, params, headers, responseType);
+                _refresh(url, params, headers, responseType);
             });
         }
     }
@@ -314,6 +346,7 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
         'patch': _patch,
         'execute': _execute,
         'getFromResourceDirectory': _getFromResourceDirectory,
+        'optionsData': _optionsData,
 
         'getData' : function (urlBase) {
             return $http.get(urlBase);

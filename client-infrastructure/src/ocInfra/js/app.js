@@ -7,7 +7,7 @@ exported showHostErrorMessage
 
 
 
-var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl','mgo-angular-wizard']).
+var app = angular.module('omnichannel', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'mgcrea.ngStrap', 'ngLocale', 'tmh.dynamicLocale', 'colorpicker.module', 'smart-table', 'ui.date','ui.mask', 'QuickList', 'ngCookies','angular-growl','mgo-angular-wizard','vcRecaptcha']).
 config(['$routeProvider', '$locationProvider', '$httpProvider', 'tmhDynamicLocaleProvider','growlProvider', function($routeProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider,growlProvider) {
 
 growlProvider.globalTimeToLive(30000);
@@ -41,17 +41,23 @@ $routeProvider.
 
 app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
-   $rootScope.$on('$locationChangeStart', function (event,newUrl) {
-   // strong authn (hotp & oath)
-   if (newUrl.endsWith('/screen/otp')) {
-       return;
-   } 
-   if (sessionStorage.username === null || sessionStorage.username === undefined) {
-            $location.url('/');
-       }
-   });  
-   $rootScope.showHeader = false;
-   OCInfraConfig.load();
+  $rootScope.$on('$locationChangeStart', function (event,newUrl) {
+    // self-service (register user)
+    if (newUrl.endsWith('/screen/registerUser')) {
+      return;
+    }
+    
+    // strong authn (hotp & oath)
+    if (newUrl.endsWith('/screen/otp')) {
+      return;
+    } 
+
+    if (sessionStorage.username === null || sessionStorage.username === undefined) {
+      $location.url('/');
+    }
+  });  
+  $rootScope.showHeader = false;
+  OCInfraConfig.load();
 });
 
 function showHostErrorMessage(message, severity) {
