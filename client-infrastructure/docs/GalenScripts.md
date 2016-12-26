@@ -190,16 +190,16 @@ Galen has very powerful support of generating visual reports that highlights the
 
 
 ##### Galen overall report
-![](GalenImages/galentestreport.jpg)
+![](GalenImages/galentestreport.JPG)
 
 ##### Successful case
-![](GalenImages/successfulcase.jpg)
+![](GalenImages/successfulcase.JPG)
 
 ##### Failure case
-![](GalenImages/failurecase.jpg)
+![](GalenImages/failurecase.JPG)
 
 ##### Visual representation
-![](GalenImages/visualrepresentation.jpg)
+![](GalenImages/visualrepresentation.JPG)
 
 
 
