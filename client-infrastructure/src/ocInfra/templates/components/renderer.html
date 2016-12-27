@@ -129,8 +129,12 @@
 								<span ng-switch-when="pdf">
 								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 								</span>	
-								<span ng-switch-when="anchor">
-                                   <a href="{{column.link}}" class="{{column.class}}">{{column.text | translate}}</a>
+								<span ng-switch-when="anchor"> 
+									<span> {{column.label | translate}}
+									</span>
+		                           <a ng-if="resourcesToBind.properties[column.id].value" href="execute(column)" class="{{column.class}}">{{resourcesToBind.properties[column.id].value}}</a>
+                                   <a ng-if="!resourcesToBind.properties[column.id].value" href="{{column.link}}" class="{{column.class}}">{{column.text | translate}}</a>
+                                   
 								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
