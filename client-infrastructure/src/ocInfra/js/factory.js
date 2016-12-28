@@ -108,9 +108,11 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     //Pick the URL for the business dependency on which your metamodel depends. 
     if(properties !== undefined){
         angular.forEach(properties, function(val, key) {
-            var url = properties[key].self;
-            if(url !== undefined && url !== rootURL){
-                rootURL = url;
+            if(properties[key] !== undefined){
+                var url = properties[key].self;
+                if(url !== undefined && url !== rootURL){
+                    rootURL = url;
+                }    
             }
         });
     }
@@ -455,20 +457,47 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 }
             }
 
-            // Process the entity properties
-            for(var property in responseData._options.properties){
-                if(responseData._options.properties[property].format !== 'uri'){
-                    propertiesObject[property] = {};
-                    propertiesObject[property].metainfo = responseData._options.properties[property];
-                    propertiesObject[property].value = responseData[property];
-                    propertiesObject[property].self = resourceURL;
-                    propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
-                    propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
-                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
-                    propertiesObject[property].consistent = true;
+            if(responseData._options.properties){
+                // Process the entity properties
+                for(var property in responseData._options.properties){
+                    if(responseData._options.properties[property].format !== 'uri'){
+                        propertiesObject[property] = {};
+                        propertiesObject[property].metainfo = responseData._options.properties[property];
+                        propertiesObject[property].value = responseData[property];
+                        propertiesObject[property].self = resourceURL;
+                        propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
+                        propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
+                        propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                        propertiesObject[property].consistent = true;
+                    }
+                }
+            }else if(responseData) {            
+                for(var prop in responseData){
+                    if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
+                        propertiesObject[prop] = {};
+                        if(angular.isObject(responseData[prop])){
+                            propertiesObject[prop].properties= {};
+                            for(var propertyKey in responseData[prop]){
+                                var complexObject = responseData[prop];
+                                propertiesObject[prop].properties[propertyKey] = {};
+                                propertiesObject[prop].editable = false;
+                                propertiesObject[prop].properties[propertyKey].self = resourceURL;
+                                propertiesObject[prop].properties[propertyKey].value = complexObject[propertyKey]; 
+                                propertiesObject[prop].value = responseData[prop];  
+                            }
+                        } else{
+                            propertiesObject[prop].value = responseData[prop];    
+                        }
+                        propertiesObject[prop].editable = false;
+                        propertiesObject[prop].self = resourceURL;
+                        propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                        propertiesObject[prop].consistent = true;
+                    }else{
+                        continue;
+                    }
                 }
             }
-
+            
             // Process status of the properties (based on status_report coming from backend)
             if(responseData._embedded){
                 for(var rel in responseData._embedded) {
@@ -998,7 +1027,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                         growl.success(value);
                     });
                 }
-                 if(data._links.self===undefined){
+                 if(data._links && data._links.self===undefined){
                  $scope.resourceUrl= data._links[0].self.href;
                  $rootScope.resourceUrl= $scope.resourceUrl;  
             }else{
@@ -1310,37 +1339,40 @@ function loadFromDefaultSet(properties, defaultValues){
 function setDataToParams(properties, params){
     if(properties !== undefined){
         angular.forEach(properties, function(val, key){
-            var value = properties[key].value;
-            if(properties[key].metainfo){
-                if(properties[key].metainfo.type){
-                    var type = properties[key].metainfo.type;
-                    if(type !== undefined && type==='static'){
-                        value = properties[key].metainfo.value;
+            if(properties[key] !== undefined){
+                var value = properties[key].value;
+                if(properties[key].metainfo){
+                    if(properties[key].metainfo.type){
+                        var type = properties[key].metainfo.type;
+                        if(type !== undefined && type==='static'){
+                            value = properties[key].metainfo.value;
+                        }
                     }
-                }
-            } 
-            var format = {};
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
-                //continue
-            }else{
-                if(properties[key].metainfo && properties[key].metainfo.format){
-                    format = properties[key].metainfo.format;
-                }
-                if(format !== undefined && format==='date'){
+                } 
 
-                    //Format the date in to yyyy/mm/dd format
-                    value = formatIntoDate(value);
-                }
-
-                if(typeof value === 'object') {
-                    if(value.key !== undefined){
-                        value = value.key;
-                    }else{
-                        value = value.value;
+                var format = {};
+                if(value === null || value === undefined || value === '' || value === 'undefined'){
+                    //continue
+                }else{
+                    if(properties[key].metainfo && properties[key].metainfo.format){
+                        format = properties[key].metainfo.format;
                     }
+                    if(format !== undefined && format==='date'){
+                        //Format the date in to yyyy/mm/dd format
+                        value = formatIntoDate(value);
+                    }
+                    
+                    if(typeof value === 'object') {
+                        if(value.key !== undefined){
+                            value = value.key;
+                        }else{
+                            value = value.value;
+                        }
+                    }
+
+                    console.log(key +' : '+value);
+                    params[key] = value;
                 }
-                console.log(key +' : '+value);
-                params[key] = value;
             }
         });    
     }

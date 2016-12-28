@@ -344,7 +344,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						var isSectionConsistent = function(properties) {
 							var consistent = true;
 							angular.forEach(properties, function(currentProperty){
-								if (currentProperty.consistent === false){
+
+								if (currentProperty && currentProperty.consistent === false){
 									consistent = false;
 								}
 							});

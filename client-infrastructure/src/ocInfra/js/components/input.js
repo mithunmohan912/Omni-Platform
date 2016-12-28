@@ -610,7 +610,13 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
 
 									var value = $scope.resources[property].value;
-
+									/* If the property is of date format, we would need to format the date before firing the patch operation */
+									if($scope.resources[property].metainfo && $scope.resources[property].metainfo.format){
+										var format = $scope.resources[property].metainfo.format;
+										if(format && format === 'date'){
+											value = $scope.formatIntoDate(value);
+										}
+									}
 									payload[property] = (value !== undefined) ? value : null;
 								}													
 							}
@@ -633,7 +639,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				
 			};
 
-        
+        	$scope.formatIntoDate = function(value){
+        		if(typeof value === 'string') {
+        			var dateValue = new Date(value);
+        			return dateValue.getFullYear() + '-' + (('0' + (dateValue.getMonth() + 1)).slice(-2)) + '-' + ('0' + dateValue.getDate()).slice(-2);
+    			}
+   				return value.getFullYear() + '-' + (('0' + (value.getMonth() + 1)).slice(-2)) + '-' + ('0' + value.getDate()).slice(-2);
+        	}
+
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
 				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
