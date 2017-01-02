@@ -73,6 +73,25 @@
 										<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 									</div>
 								</span>
+								<span ng-switch-when="tabs2" class="infra-tabs-container">
+									<ul class="nav nav-tabs" ng-if="column.align === 'top'">
+
+										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
+											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div ng-repeat="tab in column.tabs" id="{{tab.id}}" ng-class="column.activeTab === tab.id ? 'tab-pane fade in active':'tab-pane fade'">
+											<renderer ui-id="{{tab.id}}" class="renderer-in-tab" factory-name="factoryName" metamodel="tab.id" resource-url="resourceUrl"></renderer>
+										</div>
+									</div>
+									<ul class="nav nav-tabs" ng-if="column.align === 'bottom'">
+
+										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
+											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
+										</li>
+									</ul>
+								</span>
 								<span ng-switch-when="wizards" class="infra-wizards-container">
 									<wizard template="ocInfra/templates/components/wizard.html">
 										<div ng-repeat="wizard in column.wizards">

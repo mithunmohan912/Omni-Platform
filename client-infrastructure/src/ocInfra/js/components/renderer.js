@@ -411,7 +411,14 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                 return $scope.isWizardValid;
             };
             
-			$scope.execute = function(inputComponent) {          
+            $scope.selectTab = function(column, tab){
+            	if(column && tab){
+            		column.activeTab = tab.id;
+            	}
+            	$scope.execute(tab);
+            };
+
+			$scope.execute = function(inputComponent) {
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};
