@@ -418,6 +418,13 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
             	$scope.execute(tab);
             };
 
+			$scope.moveTab = function(column, tab){
+            	if(column && tab){
+            		column.activeTab = tab.id;
+            	}
+            	$scope.execute(tab);
+            };
+
 			$scope.execute = function(inputComponent) {
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
