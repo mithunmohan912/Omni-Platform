@@ -21,11 +21,21 @@
 
  							<span ng-if="displayedItem.value[fieldId]" class="{{fieldId}}class">					
 
-                          {{displayedItem.value[fieldId] | translate}}	
+                           {{displayedItem.value[fieldId] | translate}}	
 
-                          </span>							
+                           </span>							
  								
- 							</span>
+ 						    </span>
+ 						    <ng-switch on="displayedItem.value[fieldId].metainfo.format">
+							 		        <span ng-switch-when="date">
+												{{ displayedItem.value[fieldId].value | date:field.format }}&nbsp;
+											</span>
+											<span ng-switch-default>
+				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | date:field.format | translate }}&nbsp;</span>
+				 								<span ng-if="!field.format" 
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | translate }}&nbsp;</span>
+			 								</span>
+			 				</ng-switch>
 		                </span> 
 
 		                 <span ng-switch-when="date">
