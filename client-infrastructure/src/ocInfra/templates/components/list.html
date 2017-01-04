@@ -17,12 +17,30 @@
 				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">				
 		               <ng-switch on="field.type">
  						<span ng-switch-when="label" class="table-cell-label">
- 							<span   style="display:inline-block;">						
+ 							<span   style="display:inline-block;" ng-repeat="fieldId in field.id track by $index" ng-class="(fieldId === ' ') ? 'brLine' : ''">	
 
-                          {{displayedItem.value[field.id]}}								
+ 							<span ng-if="displayedItem.value[fieldId]" class="{{fieldId}}class">					
+
+                           {{displayedItem.value[fieldId] | translate}}	
+
+                           </span>							
  								
- 							</span>
-		                </span>                              
+ 						    </span>
+ 						    <ng-switch on="displayedItem.value[fieldId].metainfo.format">
+							 		        <span ng-switch-when="date">
+												{{ displayedItem.value[fieldId].value | date:field.format }}&nbsp;
+											</span>
+											<span ng-switch-default>
+				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | date:field.format | translate }}&nbsp;</span>
+				 								<span ng-if="!field.format" 
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | translate }}&nbsp;</span>
+			 								</span>
+			 				</ng-switch>
+		                </span> 
+
+		                 <span ng-switch-when="date">
+							{{ displayedItem.value[field.id] | date:field.format }}
+						 </span>                             
 		                
 		            </ng-switch>
 		            
