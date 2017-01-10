@@ -60,7 +60,7 @@
 							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
 								<span ng-switch-when="tabs" class="infra-tabs-container">
 
-									<ul class="nav nav-tabs">
+									<ul class="nav {{column.tabClass}} nav-tabs">
 										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="tab.id === activeTab ? 'active':''">
 											<a ng-if="tab.id === activeTab">{{ tab.title | translate }}</a>
 											<a ng-if="tab.id !== activeTab" ng-click="execute(tab)">{{ tab.title | translate }}</a>
@@ -74,8 +74,7 @@
 									</div>
 								</span>
 								<span ng-switch-when="tabs2" class="infra-tabs-container">
-									<ul class="nav nav-tabs" ng-if="column.align === 'top'">
-
+									<ul class="nav {{column.tabClass}} nav-tabs" ng-if="column.align === 'top'">
 										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
 											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
 										</li>
@@ -100,14 +99,12 @@
         										</button>
       										</div> 
 										</div>
-
 									</div>
-									<ul class="nav nav-tabs" ng-if="column.align === 'bottom'">
+									<ul class="nav {{column.tabClass}} nav-tabs" ng-if="column.align === 'bottom'">
 										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
 											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
 										</li>
 									</ul>
-
 								</span>
 								<span ng-switch-when="wizards" class="infra-wizards-container">
 									<wizard template="ocInfra/templates/components/wizard.html">
