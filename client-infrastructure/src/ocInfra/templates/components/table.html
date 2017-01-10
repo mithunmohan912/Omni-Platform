@@ -53,7 +53,7 @@
 											<span ng-switch-default>
 				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
 				 								<span ng-if="!field.format" 
-				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | translate | number:2 }}&nbsp;</span>
 			 								</span>
 			 							</ng-switch>
 			 						</span>
