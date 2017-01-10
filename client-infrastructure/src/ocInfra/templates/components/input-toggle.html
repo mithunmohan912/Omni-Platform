@@ -3,23 +3,40 @@
 
     <span ng-class="field.class  ? field.class : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
         <div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-        <label  ng-repeat="(key, value) in field.attributes track by $index"
+        
+        <div ng-if="!(field.toggleswitch)" >
+        <label ng-repeat="(key, value) in field.attributes track by $index"
                 class="btn btn-default col-xs-{{field.colspan.toggles}}"
                 ng-class="field.options[key] === field.property.value ? 'btn-active acttoggle' : ''"
                 name="{{field.name}}"
                 ng-model="field.property.value"
                 ng-required="field.property.required"
-                ng-disabled="!field.property.editable"
+                ng-disabled="!field.editable"
                 ng-change="field.onChange()"
-
+                oc-custom-directive
                 uib-btn-radio="field.options[key]">
-            <span>{{value | translate}}</span>
+            <span ng-if="!combined">{{value | translate}}</span>
+            <span ng-if="combined" ng-repeat="val in splitedValues track by $index" style="display:inline-block {{combinedClass}}-{{$index}}; ">{{val | translate}}</span>
         </label>
+    </div>
+         <div ng-if="field.toggleswitch" class="onoffswitch2">
+            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" 
+                        id="{{field.id}}"
+                        name="{{field.name}}"
+                        ng-model="field.property.value"
+                        ng-disabled="!field.editable"
+                        ng-change="field.onChange()"
+                        ng-blur="field.onBlur()"
+                        consistent="{{field.property.consistent}}"
+                        oc-custom-directive
+
+            >
+            <label class="onoffswitch2-label" for="{{field.id}}">
+                <span class="onoffswitch2-inner"></span>
+                <span class="onoffswitch2-switch"></span>
+            </label>
+        </div>
             
         <div ng-include="baseUrl + 'backend-error-display.html'"></div>
     </span>
 </span>
-
-<!--
-    TODO: init labels in directive controller defaults
--->

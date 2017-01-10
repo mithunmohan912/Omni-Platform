@@ -5,24 +5,34 @@
 
 	<span ng-class="field.class  ? field.class : ''" class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
 		<div class="help-tooltip-container" ng-if="field.tooltip && field.tooltip !== ''" ng-include="baseUrl + 'help-tooltip-display.html'"></div>
-		<input  type="text"
-				autocomplete="off"
-				class="form-control"
-				id="{{field.id}}"
-				name="{{field.name}}"
-				placeholder="{{field.placeholder | translate}}"
+			<div ng-class="field.inputUnit ? 'input-group':''">
 
-				ng-model="field.property.value"
-				ng-required="field.property.required"
-				ng-disabled="!field.property.editable"
-				ng-change="field.onChange()"
-				ng-blur="field.onBlur()"
+				<input  type="text"
+						autocomplete="off"
+						class="form-control"
+						id="{{field.id}}"
+						name="{{field.name}}"
+						placeholder="{{field.placeholder | translate}}"
 
-				decimal
-				decimal-precision="field.attributes.decimalprecision"
-				decimal-min="field.attributes.minimum"
-				decimal-max="field.attributes.maximum" 
-				consistent="{{field.property.consistent}}"/>
+						ng-model="field.property.value"
+						ng-required="field.property.required"
+						ng-disabled="!field.editable"
+						ng-change="field.onChange()"
+						ng-blur="field.onBlur()"
+
+						decimal
+						decimal-precision="field.attributes.decimalprecision"
+						decimal-min="field.attributes.minimum"
+						decimal-max="field.attributes.maximum" 
+						consistent="{{field.property.consistent}}"/>
+
+					<span ng-if="field.inputUnit" class="input-group-addon unit-control" ng-cloak ng-init="getUnit()">
+						{{field.unit}}
+					</span>
+
+
+			<div/>
+			
 		
 		<div ng-include="baseUrl + 'backend-error-display.html'"></div>
 	</span>

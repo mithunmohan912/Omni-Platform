@@ -13,7 +13,7 @@ global app
 
   * @restrict 'E'
   * @element
-  * @scope 
+  * @scope 	
   * @param {Object} property Entity object containing the property that will be used to render and bind the input
   * @param {Object} metamodel Object representing the metadata defined in a JSON file
   */
@@ -184,7 +184,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     };
 
     function _initUiInput(element, metamodel, $scope){
-    	var properties = ['required', 'editable', 'value'];
+    	var properties = ['required', 'editable', 'value','consistent'];
     	properties.forEach(function(propertyName){
     		var metamodelInitObject = metamodel[propertyName] || defaultUIProperties[propertyName];
     		var value = _getValueForUiInput(metamodelInitObject, propertyName, $scope);
@@ -205,6 +205,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 	    		},
 	    		set: function(newValue){
 	    			if(typeof value === 'function'){
+	    				$scope.field.property.selectedValue = newValue;
 	    				return newValue;
 	    			} else {
 	    				value = newValue;
@@ -246,6 +247,10 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
     	element.metainfo.uiInput = true;
     }
 
+    function _defaultOnSuccess (){
+		console.log('You must create an onSuccess method into your customFactory');
+	}
+
 
 	function _getValueForUiInput(element, propertyName, $scope){
 		if(element && element.value){
@@ -281,9 +286,11 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 			onUpdate: '@',
 			baseUrl: '@',
 			factoryName: '=',
-			resourceUrl: '='
+			resourceUrl: '=',
+			parentMetamodel: '='
 		},
 		controller: ['$scope', function($scope){
+			$scope.idUnWatch = null;
 			/* Default attributes and actions for inputs */
 			var defaults = {};
 			defaults.autocomplete = {
@@ -515,6 +522,21 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				'options': {}
 			};
 
+			defaults.datemask = {
+				'attributes': {
+					'startWeek': 1,
+					'trigger': 'focus',
+					'autoclose': true,
+					'dateFormat': 'dd/mm/yy', 
+					'changeYear': true, 
+					'changeMonth': true, 
+					'yearRange': '1800:2200'
+				},
+				'options': {},
+				'dateMask':  '99/99/9999'
+			};
+
+
 			defaults.checkbox = {
 				'attributes': {},
 				'options': {},
@@ -542,9 +564,30 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 			};
 
+			defaults.captcha = {
+				'attributes': {
+					'theme':'light'  ,
+					'size': 'compact',
+					'type': 'image'  
+				}
+			};
+
 			defaults.range = {
 				'attributes': {},
 				'options': {}
+			};
+
+			defaults.slider = {
+				'options': {
+					        showSelectionBar: true,
+					        floor: 0,
+					        ceil: 100,
+					        step: 1,
+						    translate: function(value) {
+						      // return value + '%';
+						      return value;
+						    }
+				        }
 			};
 
 			// Patch on blur default function
@@ -567,7 +610,13 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 								if(property in $scope.resources && $scope.resources[property].value !== resourceToPatch[property]){
 
 									var value = $scope.resources[property].value;
-
+									/* If the property is of date format, we would need to format the date before firing the patch operation */
+									if($scope.resources[property].metainfo && $scope.resources[property].metainfo.format){
+										var format = $scope.resources[property].metainfo.format;
+										if(format && format === 'date'){
+											value = $scope.formatIntoDate(value);
+										}
+									}
 									payload[property] = (value !== undefined) ? value : null;
 								}													
 							}
@@ -575,7 +624,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 
 								var refresh = false;
 								var modifiedHeaders = $scope.metamodel.modifiedHeaders;
-								resourceFactory.patch(params.property.self, payload, {}, refresh , modifiedHeaders).then(function(){
+								resourceFactory.patch(params.property.self, payload, refresh , modifiedHeaders).then(function(){
 									if(next){
 										next(params, response);
 									}
@@ -590,7 +639,14 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				
 			};
 
-        
+        	$scope.formatIntoDate = function(value){
+        		if(typeof value === 'string') {
+        			var dateValue = new Date(value);
+        			return dateValue.getFullYear() + '-' + (('0' + (dateValue.getMonth() + 1)).slice(-2)) + '-' + ('0' + dateValue.getDate()).slice(-2);
+    			}
+   				return value.getFullYear() + '-' + (('0' + (value.getMonth() + 1)).slice(-2)) + '-' + ('0' + value.getDate()).slice(-2);
+        	}
+
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {
 				var url = $rootScope.hostURL + params.field.options.href+'?'+params.field.options.params+'='+params.$viewValue;
@@ -669,14 +725,16 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				// Field to bind to the input
 				$scope.field = {
 					'property': $scope.property,
+					'toggleswitch':$scope.metamodel.toggleswitch, 
 					'label': $scope.metamodel.label,
 					'position':$scope.metamodel.position,
-					'id': $scope.id,
+					'id': $scope.parentMetamodel ? $scope.parentMetamodel +'_' + $scope.id : $scope.id,
 					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
 					'name': $scope.metamodel.name || $scope.id || '',
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
 					'selector': $scope.metamodel.selector,
+					'editable': $scope.metamodel.editable ? $scope.metamodel.editable : $scope.property.editable,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
@@ -707,6 +765,15 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'getParentResource' : function(){
 						return resourceFactory.get($scope.field.property.self);
 					},
+					'onSuccess': function(response){
+						if($scope.metamodel.onSuccess){
+							$scope.actionFactory[$scope.metamodel.onSuccess](response);
+
+						}else{
+							// you can a response to do your stuff
+							_defaultOnSuccess();						
+						}
+					},
 					'attributes': {},
 					'options': {},
 					'labelsize': $scope.metamodel['label-size']? ($scope.metamodel['label-size']==='lg'? 8: 4): 4,
@@ -717,8 +784,13 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'inputColspan': ($scope.metamodel.attributes && $scope.metamodel.attributes.colspan) ? $scope.metamodel.attributes.colspan : null,
 					'inputOffset': ($scope.metamodel.attributes && $scope.metamodel.attributes.offset) ? $scope.metamodel.attributes.offset : null,
 					'inputUnit': $scope.metamodel.inputUnit,
- 					'help': ($scope.metamodel.help)
+ 					'help': ($scope.metamodel.help),
+ 					'key': $scope.metamodel.key,
+ 					'dateOptions': $rootScope.dateOptions ? $rootScope.dateOptions : defaults[inputType].attributes,
+ 					'dateMask': $rootScope.dateMask ? $rootScope.dateMask : defaults[inputType].dateMask
 				};
+
+				
 
 				_prepareColspanAndOffset($scope.field);
 
@@ -800,15 +872,35 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.field.inputColspan.toggles = 12/Object.keys($scope.field.options).length;
 				}
 
+				if (inputType === 'slider'){
+					$scope.field.options.onEnd = $scope.field.options.onChange;
+				}
+
+				if ($scope.idUnWatch){//check for watch exists
+					$scope.idUnWatch(); //this line will destruct watch if its already there
+				} 
+        
+				$scope.idUnWatch = $scope.$on($scope.id, function() {
+					$scope.load();
+				}); 
+
+
 			};
 
 			$scope.getUnit = function(){
 				if (!_.isEmpty($scope.property.self)){
 					var resource = resourceFactory.getFromResourceDirectory($scope.property.self);
-					return  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';
 
+					if (!_.isEmpty(resource.data)){
+						$scope.field.unit =  !_.isEmpty(resource.data[$scope.id + '_unit'])?resource.data[$scope.id + '_unit']:'';	
+					}else{
+						$scope.field.unit =  '';
+					}
+				}else{
+					$scope.field.unit = '' || $scope.metamodel.unit;	
 				}
 				
+				return $scope.field.unit;
 			};
 
 			var setClass = function(){
@@ -832,6 +924,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					$scope.load();
 				}
 			});
+
+        
 		}],
 		link: function(scope, element){
             scope.$on('inputHtmlUrlChange', function(event, templateURL){

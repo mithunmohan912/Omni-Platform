@@ -1,13 +1,13 @@
-<div class="no-padding col-xs-12">
+<div class="no-padding col-xs-12 padding-none">
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 
 	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row col-md-12">
     	<label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 	</div>
 	<div id="no-more-tables">
-		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 padding-none table table-striped table-condensed cf {{class.table}}">
+		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
-				<tr ng-show="metamodelObject.searching">
+				<tr ng-show="metamodelObject.searching" class="searchInput" >
 					<th colspan="{{metamodelObject.properties.length}}" class="padding-none">
 						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
 					</th>
@@ -21,7 +21,7 @@
 
 			<tr ng-if="metamodelObject.showResultCount" ng-show="table.items.length==0">
 			 
-            <td colspan="9" class="greybg"><span>{{ '_Quote_data_not _found' | translate}}.</span></td>
+            <td colspan="9" class="greybg text-center"><span>{{ '_Quote_data_not _found' | translate}}.</span></td>
         </tr>
 
 		</thead>
@@ -35,52 +35,71 @@
 			</tr>
 			<tr class="table-row table-row-{{key}}-{{$index}}" ng-class="key !== 'infra_default_group_table' ? 'table-row-grouped' : ''" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 
-				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}} !important;">
-				
+				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}} !important; width: {{field.width}};" data-title="{{field.label_header | translate}}">
 		               <ng-switch on="field.type">
+		               
  						<span ng-switch-when="label" class="table-cell-label">
- 							<span ng-repeat="fieldId in field.id track by $index" ng-if="displayedItem.properties[fieldId] || field.uiInput" style="display:inline-block;">
- 								<!-- OC-1029: input label in table component-->
- 								<span ng-if="field.input">
- 									<input-render id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+ 							<span ng-repeat="fieldId in field.id track by $index" ng-class="(fieldId === ' ') ? 'brLine' : ''">
+ 								<span ng-if="displayedItem.properties[fieldId] || field.uiInput" class="{{fieldId}}class">
+	 								<!-- OC-1029: input label in table component-->
+	 								<span ng-if="field.input">
+	 									<input-render id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" parent-metamodel="$index + '_' +  metamodelObject.name" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+	 								</span>
+	 								<span ng-if="!field.input">
+			 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
+							 		        <span ng-switch-when="date">
+												{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
+											</span>
+											<span ng-switch-default>
+				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
+				 								<span ng-if="!field.format" 
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
+			 								</span>
+			 							</ng-switch>
+			 						</span>
  								</span>
- 								<span ng-if="!field.input">
-		 							<ng-switch on="displayedItem.properties[fieldId].metainfo.format">
-						 		        <span ng-switch-when="date">
-											{{ displayedItem.properties[fieldId].value | date:field.format }}&nbsp;
-										</span>
-										<span ng-switch-default>
-			 								<span ng-if="field.format">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
-			 								<span ng-if="!field.format">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
-		 								</span>
-		 							</ng-switch>
-		 						</span>
+ 								<span class="{{fieldId}}class" id="fieldId" ng-if="!displayedItem.properties[fieldId]">{{fieldId | translate}}&nbsp;
+ 								</span>
  							</span>
 		                </span>
 		                <span ng-switch-when="literal" class="table-cell-literal">{{ field.id | translate }}</span>
 		                <span ng-switch-when="blank" class="table-cell-blank">&nbsp;</span>
-		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus(displayedItem) ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
-		                <span ng-switch-when="icon">
-		                	<span ng-if="field.icon" class="{{field.icon}} iconText"></span>	
-		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} iconText"></span>		
+		                <span ng-switch-when="status" class="table-cell-status"><i class="{{isValidStatus ? 'fa fa-check-square text-success':'fa fa-minus-square text-danger'}}"></i></span>
+		                <span ng-switch-when="icon" class="{{field.iconsbox}}">
+		                	<span ng-if="field.icon" class="{{metamodelObject.iconColor}}"></span>	
+		                	<span ng-if="!field.icon" class="{{metamodelObject.iconList[displayedItem.properties[field.id].value]}} {{field.iconColor}}"></span>		
 		                </span>
 		                <span ng-switch-when="actions" class="table-cell-actions">
 		                	<span ng-repeat="action in field.options">
 		                		<ng-switch on="action.value">
 						            <span ng-switch-when="edit">
-						                <a><i data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						                <a ng-if="!action.actionURL" title="{{action.title}}" >
+						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
+						                	</i>
+						               </a>
+						               <a ng-if="action.actionURL" title="{{action.title}}"  href="{{action.actionURL}}">
+						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
+						                	</i>
 						               </a>
 						            </span>
-						            <span ng-switch-default>
-						            	<a ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						            <span ng-switch-when="delete">
+						                <a ng-if="!action.actionURL" title="{{action.title}}">
+						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						               </a>
+						                <a ng-if="action.actionURL" title="{{action.title}}" href="{{action.actionURL}}">
+						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						               </a>
+						            </span>
+						            <span ng-switch-default >
+						            	<a class="{{action.crClass}}" title="{{action.title}}"  ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}} " ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
 						            </span>
 		                		</ng-switch>
 						    </span>
 				        </span>
 		                <span ng-switch-default class="table-cell-input">
-	                		<span ng-repeat="fieldId in field.id track by $index" style="display:inline-block;">
-	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
+	                		<span ng-repeat="fieldId in field.id track by $index">
+	                			<input-render ng-if="(displayedItem.properties[fieldId] || field.uiInput)" id="fieldId" property="displayedItem.properties[fieldId]" metamodel="field" parent-metamodel="$index + '_' + metamodelObject.name" update-mode="{{field.updateMode}}" on-update="{{field.onUpdate}}" base-url="{{field.baseUrl}}" resources="displayedItem.properties" factory-name="factoryName"></input-render>
 	                		</span>
 		                </span>
 		            </ng-switch>
@@ -99,12 +118,13 @@
 
 	</div>
 
-
 	<div class="btn-group" ng-if="buttons.length > 0">
 	    <button id="{{metamodelObject.name}}_button_id" data-toggle="modal" data-target="#modal_{{metamodelObject.name}}" ng-click="execute(button.action)" class="btn btn-primary btn-mg" ng-disabled="!table.creatable || !button.creatable" ng-repeat="button in buttons">
 	    	{{ button.label | translate }}
 	    </button>
 	</div>
 
-	<popup-render ng-if="modalMetamodelObject" ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+	<div ng-repeat="modal in metamodelObject.modalPopUps">
+		<popup-render ng-if="modal.metamodel" ui-id="{{modal.id}}" metamodel="modal.metamodel" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+	</div>
 </div>

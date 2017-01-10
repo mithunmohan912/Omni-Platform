@@ -54,8 +54,13 @@
                             "bind": false,
                             "events": ["resource_directory"],
                             "forceUpdate": true
-                        },
-                        "visibleWhen": "false"
+                        }, 
+                        "consistent": {
+                            "function": "isConsistent",
+                            "bind": true,
+                            "events": ["resource_directory"],
+                            "forceUpdate": true
+                        }
                     },
                     {
                         "id": "quote:product_id",

@@ -1,0 +1,15 @@
+<span class="form-group" 
+	  ng-show="field.isVisible()">
+	
+	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-inputOffset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
+
+	<span class="no-padding col-xs-{{field.inputColspan.xs.input}} col-sm-{{field.inputColspan.sm.input}} col-md-{{field.inputColspan.md.input}} col-lg-{{field.inputColspan.lg.input}}">
+		<span>
+			<div vc-recaptcha key="field.key" ng-model="field.property.value" 
+			 on-success="field.onSuccess(response)"
+			 theme="field.attributes['theme']"
+			 size="field.attributes['size']"
+			 type="field.attributes['type']"></div>
+		</span>
+	</span>
+</span>

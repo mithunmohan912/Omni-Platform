@@ -25,11 +25,12 @@
         + [2.4.9 Text](#249-text)
         + [2.4.10 Textarea](#2410-textarea)
         + [2.4.11 Toggle](#2411-toggle)
-        + [2.4.12 Date](#2412-date)
+        + [2.4.12 Date](#2412-date)accordion
         + [2.4.13 Checkbox](#2413-checkbox)
         + [2.4.14 Label](#2414-label)
         + [2.4.15 Radio](#2415-radio)
         + [2.4.16 Range](#2416-range)
+        + [2.4.17 Captcha](#2417-captcha)
 * [3. Table](#3-table)
     - [3.1 Table usage](#31-table-usage)
     - [3.2 Table metamodel](#32-table-metamodel)
@@ -60,7 +61,7 @@
 
 ###Components
 Onmichannel UI renderer is based on AngularJS directives, which will evolve to match the Omnichannel projects development needs. As of today, the rendering process is made thanks to the following directives (_helper directives not included below_):
-	
+    
 + Renderer
 + Table renderer
 + Pop Up renderer
@@ -71,18 +72,18 @@ The source code for those directives is separated in two folders: `src/ocInfra/j
 
     +-- ocInfra
     |   +-- js
-    	|   +-- components
+        |   +-- components
             |   +-- renderer.js
             |   +-- popup.js
             |   +-- table.js
             |   +-- input.js
             |   ...helper directives...
     |   +-- templates
-    	|   +-- components
-    		|   +-- renderer.html
-    		|   +-- popup.html
-    		|   +-- table.html
-    		|   +-- input.html
+        |   +-- components
+            |   +-- renderer.html
+            |   +-- popup.html
+            |   +-- table.html
+            |   +-- input.html
             |   ...specific input templates...
 
 
@@ -100,31 +101,95 @@ The renderer metamdel is made out of sections. Those sections are objects with d
 * __colspan__: Number that represents the number of columns that the section will use. It uses bootstrap underneath, so the maximum colspan is 12. The minimum colspan is not 1, as it could be expected, but 3 because we do not want to allow more than 4 sections per row (more sections wouldn’t be user friendly since the content would be so small).
 * __properties__: Array containing json objects that define the content displayed within the section. The object attributes vary from one to another depending on the directive that is going to interpret them (table, input, etc.)
 * __resourceUrl__: This is intended to be used in the first screen. It represents the first API call when launching the application. 
-* __accordion__: Flag that allows you to toggle content on the current section
-* __collapse__: Flag property of accordion that define if section is collapse by default or not
+* __accordion__: Object that allows you to define the current section as  collapsable. An accordion section, so far, can be 3 different types: Custom, checkbox or clicking 
+There are 3 different component types which are collapsing or expanding sections but first of all there are some common properties: 
+**   Status: define if the current metamodel section is a “accordion” section. If he value is true, it means current section is accordion type
+**   Collapse: determine the default value of the accordion section if its collapsed or nor. 
+**   ComponentType: by default is checkbox 
+**   callback: To store the value of the collapse accordion component. It works defining a custom function in a custom factory. Only works for default component
+                        
+Default behaviour with callback function:
+
+"accordion":{
+                        "status":true,
+                        "collapse":true,
+                        "callback":"accordionCallback" // --> its not mandatory
+                }
+
+ComponentTypes and attributes: 
+
+**Custom component type: 
+**  componentType: determine the type of the collapse component, in this case is for custom. 
+**   templateUrl: defines a html component for a custom collapse section. In this example, the templateUrl value content could be something like {<div id="custom_collapse_section" class="border-none" > Custom section</div>}
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                        "componentType":"custom",
+                        "templateUrl":"app/views/templates/custom_collapse_section.html"
+                },
+                "properties": [
+                    {
+** Clicking component type: 
+**   componentType: determine the type of the collapse component, in this case is for clicking.
+**   componentStyle: Defines the {icon} class fir this component
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                        "componentType":"clicking",
+                        "componentStyle":"glyphicon glyphicon-plus-sign"
+                },
+                "properties": [
+                    {
+** Checkbox component type: 
+It is not necessary define any property for this component, it’s the default component. And an example would be something like that: 
+
+"sections": [
+            {
+                "title":"_CHARGES",
+                "underline": true,
+                "class": "charges_section",
+                "accordion":{
+                        "status":true,
+                        "collapse":false,
+                },
+                "properties": [
+                    {
+
 The renderer could include other renderer component. This is handled using a section type reference in the metamodel:
 * __$ref and type__: This twon properties allows to link antoher metamodel file that will be handled by another render instance. 
 
 Example:
 
-	{
-	    "metamodel": {
-	        "sections": [
-	            {
-	                "$ref": "quote_data",
-	                "type": "reference",
+    {
+        "metamodel": {
+            "sections": [
+                {
+                    "$ref": "quote_data",
+                    "type": "reference",
                     "accordion":true,
                     "collapse":true,
-	            },
-	            {
-	                "title":"Interested parties",
-	                "underline": true,
-	                "properties": [
-	                    {
-	                        "id": "quote:quote_owner_list",
-	                        "type": "table",
-	                        "metamodel": "quote_owner_list"
-	                    },
+                },
+                {
+                    "title":"Interested parties",
+                    "underline": true,
+                    "properties": [
+                        {
+                            "id": "quote:quote_owner_list",
+                            "type": "table",
+                            "metamodel": "quote_owner_list"
+                        },
         
 
 #### 1.2 Renderer template
@@ -132,38 +197,38 @@ Example:
 Based on the metamodel property type, the component will render different kind of sections:
 
 • **Table**: Including another custom directive in this section. [Table](#2-table). In metamodel:
-					
-	{
+                    
+    {
         "id": "quote:quote_owner_list",
          "type": "table",
           "metamodel": "quote_owner_list"
      } 
-		 																
+                                                                        
 
 - id: Resource name to look for inside the API responses. 
 - metamodel: Table metamodel file relative path. 
 
 • **Buttons**: HTML Input type buttons. In metamodel:
-	
-	{
+    
+    {
         "type": "buttonGroup",
         "buttons": [
         {
-        	"icon": "fa-save",
+            "icon": "fa-save",
             "tooltip": "Save quote",
             "action": "saveQuote"
         }
-      ]		
-	}
+      ]     
+    }
    
 - icon: CSS class for icon
 - tooltip: Tooltip text. Could be a key existing in a locale file. 
 - action: Action to execute onclick. This method has to be included in a custom factory and receives as a parameter the resource bound in the scope.
 
-   	 
+     
 • **Pop up**: Bootstrap modal window. [Pop Up](#3-pop-up) . In metamodels:
 
-	{
+    {
         "type": "popup",
          "popup": {
               "name": "editQuoteData",
@@ -196,13 +261,13 @@ Any other property type will be renderized using an [input component](#4-input)
 Directive attributes:
     * metamodel: Metamodel file relative path.
     * factoryName: Custom Factory defined for custom screen actions.
-	* resourceUrl: API resource (optional).
+    * resourceUrl: API resource (optional).
 
 Example:
 
-	<div>
-		<renderer metamodel="screenId" factory-name="screenId+'Factory'"/>
-	</div>
+    <div>
+        <renderer metamodel="screenId" factory-name="screenId+'Factory'"/>
+    </div>
 
 
 ### 2. Input
@@ -495,6 +560,8 @@ This type displays two input components of any type. It has to be defined as a _
 
 ###### Attributes
 * __range__: Array of properties of the range.
+* __classRadio="{{custom_class_name for div container}}" //by default:'radio' and this property attribute is optional,
+* __classLabel="{{custom_class_name for component label}}" // If the effect has to be in-line component , float:left is mandatory. This property attribute is optional
 
 ###### Example
 
@@ -513,12 +580,67 @@ This type displays two input components of any type. It has to be defined as a _
                                 "id": "quote:end_date",
                                 "label": "_TO",
                                 "type": "date"
-                            }
+                            },
+                        "classRadio":"radio-custom-inline",
+                        "classLabel":"radio-custom-label-inline"
                         ]
                     },
                 },
 
+##### 2.4.17 Catpcha
 
+This types defined a way of challenge-response test used in computing to determine whether or not the user is human.
+
+* for use this component, we have to follow these steps before of define or use this component: 
+First, you need to get a valid recaptcha key for your domain. Go to http://www.google.com/recaptcha. otherwise our component is not going to work fine. 
+for example: in this case, localhost domain is covered by this key 6Ldf8ggUAAAAAKn1FVMTxBjoWmQ_S6K5oTgTeUtH but you have to provide it. 
+* Include the reCaptcha API using this script in your HTML:
+    Example: 
+    
+    <script
+    src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit"
+    async defer
+    ></script>
+
+
+
+###### Metamodel properties
+* __id__: Id of the captcha component.it's  mandatory
+* __type__: 'captcha'.it's  mandatory
+* __label__: text label for captcha component. it's  mandatory.
+* __uiInput__: set to true value,it's  mandatory.
+* __key__: "---YOUR PUBLIC KEY GOES HERE----" // Key to be provided by google captcha. it's  mandatory and has to ve valid otherwise this component is not going to work properly
+* __onSuccess":"getResponseFromCaptchaFunction" // Custom function in custom app factory 
+* __attributes__: optional to be defined
+        ** ___ theme="---- light or dark ----" //light by default
+        ** ___ size="---- compact or normal ----" //compact by default
+        ** ___ type="'---- audio or image ----'" // Image by default
+        
+* You have to define in your customFactory the method for your success response. Your input parameter if a valid key provided by google recaptcha for example: 
+
+In this quote factory we have defined getResponseFromCaptchaFunction for retrieving the valid key. 
+
+/*
+
+app.factory('quoteFactory', function($rootScope, $location, resourceFactory, $resource, $http, pdfFactory){
+
+    function _getOperationsResource(properties){
+        var urls = {};
+        for(var key in properties){
+            if (properties[key].self.indexOf('operations') > -1){
+                urls[properties[key].self] = properties[key].self;
+            }
+        }
+        return urls;
+    }
+
+    return {
+
+        getResponseFromCaptchaFunction: function(params, resp){
+            console.log('Success Response in captcha functionality [Code:'+ params);
+        }, 
+
+*/
 
 ### 3. Table
 - - - -
@@ -708,24 +830,24 @@ This component handles the screen section expected to be renderized inside a mod
 
 The metamodel definition interpreted by a pop up can include the follow attributes:
 
-•	**actions**: defines the functions to be executed by the popup buttons. This actions will override the popup default actions.
-•	**labels**: object which properties define the text (or key in i18n file) used for the title and buttons of the popup.
-•	**sections**: similar to the renderer directive.
-•	**actions**: Actions that can be triggered from the pop up:
-	- reset:
-		+ links: resource links to be unpatched 
+•   **actions**: defines the functions to be executed by the popup buttons. This actions will override the popup default actions.
+•   **labels**: object which properties define the text (or key in i18n file) used for the title and buttons of the popup.
+•   **sections**: similar to the renderer directive.
+•   **actions**: Actions that can be triggered from the pop up:
+    - reset:
+        + links: resource links to be unpatched 
         + method: custom action to overwrite the the default behaviour 
-		+ callback: custom action to be executed after the default behaviour. 
-	- ok: Action to be executed from ok accept button.
+        + callback: custom action to be executed after the default behaviour. 
+    - ok: Action to be executed from ok accept button.
          + method: custom action to overwrite the the default behaviour - 
-		+  callback: custom action to be executed after the default behaviour.
-	- close: Action to be executed from X button.
+        +  callback: custom action to be executed after the default behaviour.
+    - close: Action to be executed from X button.
         + method: custom action to overwrite the the default behaviour - 
-		+ callback: custom action to be executed after the default behaviour.
-		
+        + callback: custom action to be executed after the default behaviour.
+        
 ####4.1 Pop up metamodel example:
 
-	"name":"quote_owner",
+    "name":"quote_owner",
         "labels": {
             "title": "_OWNER_POPUP",
             "ok": "_SAVE",
@@ -742,17 +864,17 @@ The metamodel definition interpreted by a pop up can include the follow attribut
                  }
              ]
              "actions": 
-      				 {
-		            "reset": {
-		                "links":["quote_owner:person_link", "quote_owner:organization_link"],
-		                "callback": "callbackQuoteOwner"
-		            },
-		            "ok": {
-		                "callback": "callbackQuoteOwner"
-		            },
-		            "close": {
-		                "callback" : "closeOwnerPopUp"
-		            }
+                     {
+                    "reset": {
+                        "links":["quote_owner:person_link", "quote_owner:organization_link"],
+                        "callback": "callbackQuoteOwner"
+                    },
+                    "ok": {
+                        "callback": "callbackQuoteOwner"
+                    },
+                    "close": {
+                        "callback" : "closeOwnerPopUp"
+                    }
              }
         }]  
 
@@ -767,7 +889,7 @@ The popup renderer directive has an isolate scope and it is restricted to elemen
 
 ####4.3 Pop up code example:
 
-	<popup-render ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
+    <popup-render ui-id="modal_{{metamodelObject.name}}" metamodel="metamodelObject.modalRef" resource-url="itemSelected.href" factory-name="factoryName"></popup-render>
 
 
 ##Metamodels
