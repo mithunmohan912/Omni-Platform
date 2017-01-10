@@ -35,7 +35,7 @@
 			</tr>
 			<tr class="table-row table-row-{{key}}-{{$index}}" ng-class="key !== 'infra_default_group_table' ? 'table-row-grouped' : ''" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 
-				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}} !important; width: {{field.width}} !important;">
+				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}} !important; width: {{field.width}};" data-title="{{field.label_header | translate}}">
 		               <ng-switch on="field.type">
 		               
  						<span ng-switch-when="label" class="table-cell-label">
@@ -58,7 +58,7 @@
 			 							</ng-switch>
 			 						</span>
  								</span>
- 								<span id="fieldId" ng-if="!displayedItem.properties[fieldId]">{{fieldId | translate}}&nbsp;
+ 								<span class="{{fieldId}}class" id="fieldId" ng-if="!displayedItem.properties[fieldId]">{{fieldId | translate}}&nbsp;
  								</span>
  							</span>
 		                </span>

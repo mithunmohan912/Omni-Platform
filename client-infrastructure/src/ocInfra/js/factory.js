@@ -108,9 +108,11 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     //Pick the URL for the business dependency on which your metamodel depends. 
     if(properties !== undefined){
         angular.forEach(properties, function(val, key) {
-            var url = properties[key].self;
-            if(url !== undefined && url !== rootURL){
-                rootURL = url;
+            if(properties[key] !== undefined){
+                var url = properties[key].self;
+                if(url !== undefined && url !== rootURL){
+                    rootURL = url;
+                }    
             }
         });
     }
@@ -256,11 +258,12 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 'Accept': 'application/hal+json, application/json',
                 'Content-Type': 'application/json'
             };
+            if($rootScope.user && $rootScope.user.name){
+                $rootScope.headers.username = $rootScope.user.name;
+            }
         }
         
-        if($rootScope.user && $rootScope.user.name){
-            $rootScope.headers.username = $rootScope.user.name;
-        }
+        
         return $rootScope.headers;
     }
     function callOptions($rootScope, rootURL, callback){
@@ -341,12 +344,14 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         for( var key in metamodel.businessObject){
             objectKey = key;
         } 
-
-        metamodel.businessObject[objectKey].forEach(function(businessDependency){
-            if(businessDependency in responseData._links){
-                dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
-            }
-        });
+        if(responseData._links){
+            metamodel.businessObject[objectKey].forEach(function(businessDependency){
+                if(businessDependency in responseData._links){
+                    dependencies.push({ href: responseData._links[businessDependency].href, resource: businessDependency });
+                }
+            });
+        }
+        
         
         if(responseData._embedded){
             var embeddedItems = [];
@@ -452,20 +457,47 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 }
             }
 
-            // Process the entity properties
-            for(var property in responseData._options.properties){
-                if(responseData._options.properties[property].format !== 'uri'){
-                    propertiesObject[property] = {};
-                    propertiesObject[property].metainfo = responseData._options.properties[property];
-                    propertiesObject[property].value = responseData[property];
-                    propertiesObject[property].self = resourceURL;
-                    propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
-                    propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
-                    propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
-                    propertiesObject[property].consistent = true;
+            if(responseData._options.properties){
+                // Process the entity properties
+                for(var property in responseData._options.properties){
+                    if(responseData._options.properties[property].format !== 'uri'){
+                        propertiesObject[property] = {};
+                        propertiesObject[property].metainfo = responseData._options.properties[property];
+                        propertiesObject[property].value = responseData[property];
+                        propertiesObject[property].self = resourceURL;
+                        propertiesObject[property].required = (responseData._options.required && responseData._options.required.indexOf(property) >= 0);
+                        propertiesObject[property].editable = (updateCRUD && updateCRUD.schema && (property in updateCRUD.schema.properties));
+                        propertiesObject[property].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                        propertiesObject[property].consistent = true;
+                    }
+                }
+            }else if(responseData) {            
+                for(var prop in responseData){
+                    if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
+                        propertiesObject[prop] = {};
+                        if(angular.isObject(responseData[prop])){
+                            propertiesObject[prop].properties= {};
+                            for(var propertyKey in responseData[prop]){
+                                var complexObject = responseData[prop];
+                                propertiesObject[prop].properties[propertyKey] = {};
+                                propertiesObject[prop].editable = false;
+                                propertiesObject[prop].properties[propertyKey].self = resourceURL;
+                                propertiesObject[prop].properties[propertyKey].value = complexObject[propertyKey]; 
+                                propertiesObject[prop].value = responseData[prop];  
+                            }
+                        } else{
+                            propertiesObject[prop].value = responseData[prop];    
+                        }
+                        propertiesObject[prop].editable = false;
+                        propertiesObject[prop].self = resourceURL;
+                        propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                        propertiesObject[prop].consistent = true;
+                    }else{
+                        continue;
+                    }
                 }
             }
-
+            
             // Process status of the properties (based on status_report coming from backend)
             if(responseData._embedded){
                 for(var rel in responseData._embedded) {
@@ -995,7 +1027,7 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                         growl.success(value);
                     });
                 }
-                 if(data._links.self===undefined){
+                 if(data._links && data._links.self===undefined){
                  $scope.resourceUrl= data._links[0].self.href;
                  $rootScope.resourceUrl= $scope.resourceUrl;  
             }else{
@@ -1034,84 +1066,13 @@ function invokeHttpMethod(growl, item, $scope, resourceFactory, properties, $roo
                     angular.forEach(data.messages, function(value){
                         growl.success(value.message);
                     });
-                }
-                else if(tab !== undefined){
-                    resourceFactory.options($rootScope.resourceUrl, $rootScope.headers).success(function(responseData){
-                        var data = responseData.data || responseData;
-                        var urlOperations = data._links[tab[0]].href;
-                        resourceFactory.options(urlOperations, $rootScope.headers).success(function(responseData){
-                            var data = responseData.data || responseData;
-                            var urlCalculation;
-                            var items = data._links.item;
-                            if(items && Array.isArray(items)){
-                                angular.forEach(items, function(item){
-                                    if(item.name=== tab[2]){
-                                        urlCalculation = item.href;
-                                    }
-                                });
-                            } else {
-                                urlCalculation = items.href;
-                            }
-                            resourceFactory.options(urlCalculation, $rootScope.headers).success(function(responseData){
-                                var data = responseData.data || responseData;
-                                var urlExecute = data._links[tab[1]].href;
-                                var params = {};
-                                resourceFactory.post(urlExecute,params,$rootScope.headers).success(function(responseData){
-                                    var data = responseData.data || responseData;
-                                    var urlDetail;
-                                    if(Array.isArray(data.messages)){
-                                        // get last element of array
-                                        urlDetail = data.messages[data.messages.length - 1].message[0];
-                                    } else {
-                                        urlDetail = data.messages.context;
-                                    }
-                                    if(data.outcome === 'success'){
-                                        resourceFactory.refresh(urlDetail, params, $rootScope.headers).success(function(responseData){
-                                            var data = responseData.data || responseData;
-                                            if(data.outcome === 'failure'){
-                                                angular.forEach(data.messages, function(value){
-                                                    growl.error(value.message);
-                                                });
-                                            }
-                                            $rootScope.loader.loading=false;
-                                            if(actionURL !== undefined){ 
-                                                $rootScope.navigate(actionURL);
-                                            }
-                                            if(resolve) {
-                                                resolve(responseData);
-                                            }
-                                        });
-                                    } else if(data.outcome === 'failure'){
-                                        angular.forEach(data.messages, function(value){
-                                            growl.error(value.message);
-                                        });
-                                    }
-                                }).error(function(err){
-                                    // Show error message when Calculate Premium failed 
-                                    var mess = '';
-                                    if(err.Errors){
-                                        var arrayErr = convertToArray(err.Errors);                                           
-                                        mess = arrayErr.map(function(elem){
-                                            return elem.Reason;
-                                        }).join('\n');                                            
-                                    } else{
-                                        mess = $rootScope.locale.CALC_PREMIUM_OP_FAILED;                                                
-                                    } 
-                                    growl.error(mess); 
-                                });
-                            });
-                        });
-                    });
-                }else if(actionURL !== undefined){ 
+                } else if(actionURL !== undefined){ 
                     $rootScope.loader.loading=false;           
                     if(resolve) {
                         resolve(responseData);
                     }
-                }else{
+                } else{
                     $rootScope.loader.loading=false;
-                    if(actionURL !== undefined){ 
-                        $rootScope.navigate(actionURL);
-                    }
                     if(resolve) {
                         resolve(responseData);
                     }    
@@ -1378,37 +1339,40 @@ function loadFromDefaultSet(properties, defaultValues){
 function setDataToParams(properties, params){
     if(properties !== undefined){
         angular.forEach(properties, function(val, key){
-            var value = properties[key].value;
-            if(properties[key].metainfo){
-                if(properties[key].metainfo.type){
-                    var type = properties[key].metainfo.type;
-                    if(type !== undefined && type==='static'){
-                        value = properties[key].metainfo.value;
+            if(properties[key] !== undefined){
+                var value = properties[key].value;
+                if(properties[key].metainfo){
+                    if(properties[key].metainfo.type){
+                        var type = properties[key].metainfo.type;
+                        if(type !== undefined && type==='static'){
+                            value = properties[key].metainfo.value;
+                        }
                     }
-                }
-            } 
-            var format = {};
-            if(value === null || value === undefined || value === '' || value === 'undefined'){
-                //continue
-            }else{
-                if(properties[key].metainfo && properties[key].metainfo.format){
-                    format = properties[key].metainfo.format;
-                }
-                if(format !== undefined && format==='date'){
+                } 
 
-                    //Format the date in to yyyy/mm/dd format
-                    value = formatIntoDate(value);
-                }
-
-                if(typeof value === 'object') {
-                    if(value.key !== undefined){
-                        value = value.key;
-                    }else{
-                        value = value.value;
+                var format = {};
+                if(value === null || value === undefined || value === '' || value === 'undefined'){
+                    //continue
+                }else{
+                    if(properties[key].metainfo && properties[key].metainfo.format){
+                        format = properties[key].metainfo.format;
                     }
+                    if(format !== undefined && format==='date'){
+                        //Format the date in to yyyy/mm/dd format
+                        value = formatIntoDate(value);
+                    }
+                    
+                    if(typeof value === 'object') {
+                        if(value.key !== undefined){
+                            value = value.key;
+                        }else{
+                            value = value.value;
+                        }
+                    }
+
+                    console.log(key +' : '+value);
+                    params[key] = value;
                 }
-                console.log(key +' : '+value);
-                params[key] = value;
             }
         });    
     }

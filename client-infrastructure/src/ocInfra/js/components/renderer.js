@@ -344,7 +344,8 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
 						var isSectionConsistent = function(properties) {
 							var consistent = true;
 							angular.forEach(properties, function(currentProperty){
-								if (currentProperty.consistent === false){
+
+								if (currentProperty && currentProperty.consistent === false){
 									consistent = false;
 								}
 							});
@@ -410,7 +411,21 @@ angular.module('omnichannel').directive('renderer', function(MetaModel, $resourc
                 return $scope.isWizardValid;
             };
             
-			$scope.execute = function(inputComponent) {          
+            $scope.selectTab = function(column, tab){
+            	if(column && tab){
+            		column.activeTab = tab.id;
+            	}
+            	$scope.execute(tab);
+            };
+
+			$scope.moveTab = function(column, tab){
+            	if(column && tab){
+            		column.activeTab = tab.id;
+            	}
+            	$scope.execute(tab);
+            };
+
+			$scope.execute = function(inputComponent) {
 				if($scope.actionFactory && $scope.actionFactory[inputComponent.method]){
 					
 					var defaultValues = {};

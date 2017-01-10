@@ -73,6 +73,42 @@
 										<renderer ng-if="tab.metamodel" class="renderer-in-tab" metamodel="tab.metamodel" factory-name="tab.factoryName" resource-url="resourceUrl"></renderer>
 									</div>
 								</span>
+								<span ng-switch-when="tabs2" class="infra-tabs-container">
+									<ul class="nav nav-tabs" ng-if="column.align === 'top'">
+
+										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
+											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div ng-repeat="tab in column.tabs" id="{{tab.id}}" ng-class="column.activeTab === tab.id ? 'tab-pane fade in active':'tab-pane fade'">
+											<renderer ui-id="{{tab.id}}" class="renderer-in-tab" factory-name="factoryName" metamodel="tab.id" resource-url="resourceUrl"></renderer>
+
+											<div ng-if="tab.prev !== undefined" class="pull-left text-left padding-none">
+        										<button type="button" class="pull-left btn btn-info wiz-btn wiz-btn-r-pad0" ng-click="moveTab(column, tab.prev)">
+        											<span  class="glyphicon glyphicon-chevron-left"></span> 
+      												<span class="wiz-btn-pad">{{tab.prev.title | translate}}</span>
+        											<span class="blue wiz-btn-inner" >{{ '_PREVIOUS' | translate }}</span>
+        										</button>
+      										</div>
+
+      										<div ng-if="tab.next !== undefined" class="pull-right text-right padding-none">
+        										<button type="button" class="pull-right btn btn-info wiz-btn wiz-btn-l-pad0" ng-click="moveTab(column, tab.next)">
+        											<span class="blue wiz-btn-inner" >{{ '_NEXT' | translate }}</span>
+        											<span class="wiz-btn-pad">{{tab.next.title | translate}}</span> 
+          											<span  class="glyphicon glyphicon-chevron-right"></span> 
+        										</button>
+      										</div> 
+										</div>
+
+									</div>
+									<ul class="nav nav-tabs" ng-if="column.align === 'bottom'">
+										<li id="tab-{{tab.id}}" ng-repeat="tab in column.tabs" ng-class="column.activeTab === tab.id ? 'active':''">
+											<a data-toggle="tab" ng-click="selectTab(column, tab)" scroll-to="{{tab.id}}">{{ tab.title | translate }}</a>
+										</li>
+									</ul>
+
+								</span>
 								<span ng-switch-when="wizards" class="infra-wizards-container">
 									<wizard template="ocInfra/templates/components/wizard.html">
 										<div ng-repeat="wizard in column.wizards">
@@ -129,8 +165,12 @@
 								<span ng-switch-when="pdf">
 								 	<ng-pdf template-url="ocInfra/templates/components/viewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
 								</span>	
-								<span ng-switch-when="anchor">
-                                   <a href="{{column.link}}" class="{{column.class}}">{{column.text | translate}}</a>
+								<span ng-switch-when="anchor"> 
+									<span> {{column.label | translate}}
+									</span>
+		                           <a ng-if="resourcesToBind.properties[column.id].value" ng-click="execute(column)" class="{{column.class}}">{{resourcesToBind.properties[column.id].value}}</a>
+                                   <a ng-if="!resourcesToBind.properties[column.id].value" href="{{column.link}}" class="{{column.class}}">{{column.text | translate}}</a>
+                                   
 								</span>
 								<span ng-switch-when="buttonGroup" class="infra-buttons-container">
 									<span ng-repeat="button in column.buttons" class="renderer-button-div">
