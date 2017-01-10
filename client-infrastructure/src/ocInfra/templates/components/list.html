@@ -2,7 +2,7 @@
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 <!--  {{resourcesToBind[column.id].properties[column.subId].properties}} 
 <!-- resultset{{resultSet[resourceUrl].properties[listprop].value}} -->
-	<div id="no-more-tables">
+	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 padding-none table table-striped table-condensed cf {{class.table}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 				<tr>

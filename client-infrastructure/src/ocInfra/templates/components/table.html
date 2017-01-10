@@ -4,7 +4,7 @@
 	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row col-md-12">
     	<label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 	</div>
-	<div id="no-more-tables">
+	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 				<tr ng-show="metamodelObject.searching" class="searchInput" >
