@@ -528,25 +528,25 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
             
 
-            for(var prop in responseData){
-                if(prop !== '_links' && prop !== '_options' && prop !== '_embedded'){
-                    propertiesObject[prop] = {};
-                    if(angular.isObject(responseData[prop])){
-                        propertiesObject[prop].properties= {};
-                        for(var propertyKey in responseData[prop]){
-                            var complexObject = responseData[prop];
-                            propertiesObject[prop].properties[propertyKey] = {};
-                            propertiesObject[prop].properties[propertyKey].self = resourceURL1;
-                            propertiesObject[prop].properties[propertyKey].value = complexObject[propertyKey]; 
-                            propertiesObject[prop].value = responseData[prop];  
+            for(var props in responseData){
+                if(props !== '_links' && props !== '_options' && props !== '_embedded'){
+                    propertiesObject[props] = {};
+                    if(angular.isObject(responseData[props])){
+                        propertiesObject[props].properties= {};
+                        for(var propertyKeys in responseData[props]){
+                            var complexObjects = responseData[props];
+                            propertiesObject[props].properties[propertyKeys] = {};
+                            propertiesObject[props].properties[propertyKeys].self = resourceURL1;
+                            propertiesObject[props].properties[propertyKeys].value = complexObjects[propertyKeys]; 
+                            propertiesObject[props].value = responseData[props];  
                         }
                     } else{
-                        propertiesObject[prop].value = responseData[prop];    
+                        propertiesObject[props].value = responseData[props];    
                     }
                     
-                    propertiesObject[prop].self = resourceURL1;
-                    propertiesObject[prop].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
-                    propertiesObject[prop].consistent = true;
+                    propertiesObject[props].self = resourceURL1;
+                    propertiesObject[props].statusMessages = {information: [], warning: [], error: [], errorCount: 0};
+                    propertiesObject[props].consistent = true;
                 }else{
                     continue;
                 }
