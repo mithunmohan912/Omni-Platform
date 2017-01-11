@@ -4,7 +4,7 @@
 	<div ng-if="metamodelObject.showResultCount" name="table-header" class="row col-md-12">
     	<label class="pull-left">{{ '_RESULTS' | translate }} :  {{table.items.length}}</label>
 	</div>
-	<div id="no-more-tables">
+	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 				<tr ng-show="metamodelObject.searching" class="searchInput" >
@@ -53,7 +53,7 @@
 											<span ng-switch-default>
 				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | date:field.format | translate }}&nbsp;</span>
 				 								<span ng-if="!field.format" 
-				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | translate }}&nbsp;</span>
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.properties[fieldId].value | translate | number:2 }}&nbsp;</span>
 			 								</span>
 			 							</ng-switch>
 			 						</span>

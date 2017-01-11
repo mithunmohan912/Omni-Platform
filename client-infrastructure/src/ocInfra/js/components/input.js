@@ -645,7 +645,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
         			return dateValue.getFullYear() + '-' + (('0' + (dateValue.getMonth() + 1)).slice(-2)) + '-' + ('0' + dateValue.getDate()).slice(-2);
     			}
    				return value.getFullYear() + '-' + (('0' + (value.getMonth() + 1)).slice(-2)) + '-' + ('0' + value.getDate()).slice(-2);
-        	}
+        	};
 
 			// Ger data default function for the autocomplete input
 			$scope.getData = function(params) {

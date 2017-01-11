@@ -2,7 +2,8 @@
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 <!--  {{resourcesToBind[column.id].properties[column.subId].properties}} 
 <!-- resultset{{resultSet[resourceUrl].properties[listprop].value}} -->
-	<div id="no-more-tables">
+	
+	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 padding-none table table-striped table-condensed cf {{class.table}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 				<tr>
@@ -19,23 +20,20 @@
  						<span ng-switch-when="label" class="table-cell-label">
  							<span   style="display:inline-block;" ng-repeat="fieldId in field.id track by $index" ng-class="(fieldId === ' ') ? 'brLine' : ''">	
 
- 							<span ng-if="displayedItem.value[fieldId]" class="{{fieldId}}class">					
-
-                           {{displayedItem.value[fieldId] | translate}}	
-
-                           </span>							
- 								
- 						    </span>
- 						    <ng-switch on="displayedItem.value[fieldId].metainfo.format">
+ 							 <ng-switch on="field.format" >
+ 						
 							 		        <span ng-switch-when="date">
-												{{ displayedItem.value[fieldId].value | date:field.format }}&nbsp;
+												{{ displayedItem.value[fieldId] | date:field.format }}&nbsp;
 											</span>
 											<span ng-switch-default>
-				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | date:field.format | translate }}&nbsp;</span>
+				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | date:field.format | translate }}&nbsp;</span>
 				 								<span ng-if="!field.format" 
-				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId].value | translate }}&nbsp;</span>
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | translate | number : 2}}&nbsp;</span>
 			 								</span>
 			 				</ng-switch>
+			 				<span class="{{fieldId}}class" id="fieldId" ng-if="!displayedItem.value[fieldId]">{{fieldId | translate}}&nbsp;
+ 								</span>
+			 				</span>
 		                </span> 
 
 		                 <span ng-switch-when="date">
