@@ -4,7 +4,7 @@
 	<label ng-if="field.label" for="{{field.name}}" id="{{field.name}}Label" class="no-padding control-label col-xs-{{field.inputColspan.xs.label}} col-sm-{{field.inputColspan.sm.label}} col-md-{{field.inputColspan.md.label}} col-lg-{{field.inputColspan.lg.label}} col-xs-offset-{{field.inputOffset.xs}} col-sm-offset-{{field.inputOffset.sm}} col-md-offset-{{field.inputOffset.md}} col-lg-offset-{{field.inputOffset.lg}}  {{field.class}}" ng-class="field.property.required ? 'required-star' : ''">{{field.label | translate}}</label>
 
 	<span ng-if="field.help" class="infra-popup-container">
-		 <i data-toggle="modal" data-target="#modal_{{field.help.title}}" ng-click="execute(field.help)" class="flaticon-help"> 
+		 <i data-toggle="modal" data-target="#modal_{{field.help.title}}" ng-click="execute(field.help)" class="" ng-class="field.help.icon ?field.help.icon: 'flaticon-help'"> 
 		 </i>
 		<popup-render ui-id="modal_{{field.help.title}}" metamodel="field.help.metamodel" factory-name="factoryName"></popup-render>
 	</span>
