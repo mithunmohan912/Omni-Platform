@@ -8,8 +8,8 @@
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
 				<tr ng-show="metamodelObject.searching" class="searchInput" >
-					<th colspan="{{metamodelObject.properties.length}}" class="padding-none">
-						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control" type="search"/>
+					<th class="padding-none">
+						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control col-xs-12 col-sm-6 col-md-4 col-lg-4" type="search"/>
 					</th>
 				</tr>
 				<!-- OC-711 Start Added Column Lable Header-->
