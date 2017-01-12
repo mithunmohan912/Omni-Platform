@@ -11,7 +11,7 @@ There are two ways to capture the API&#39;s in ReadyAPI tool.
 
 1. On READY API tool open **Projects** section, where first save API calls.
 
-![](Pic_1.png) 
+ ![](Pic_1.png) 
 
 2. Click on NEW Project under the FILE Menu. After filling the url and other fields this will get created on the left hand side. Rename it as required. Under this **testsuite** is created with the url mentioned while creating the project.
 
@@ -29,14 +29,14 @@ There are two ways to capture the API&#39;s in ReadyAPI tool.
 
 7. Check for the type of call it is – GET or POST or PATCH (see the highlighted area in the below fig.)
 
-![](Pic_4.png)
+ ![](Pic_4.png)
 
 8. Double check the ENDPOINT. (see the end point in the above figure beside the highlighted &quot;METHOD&quot;)
 9. Check for the resource values and its parameters.
 
 There are four VERTICAL TABS – &quot;Form&quot;, &quot;Outline&quot;, &quot;RAW&quot;, &quot;Request&quot;.
 
-![](Pic_5.png)
+ ![](Pic_5.png)
 
 10. Click on Request tab and look for a small add button &quot;+&quot; to add all parameters to this call (see this add button beside the tab &quot;Request&quot; highlighted).
 11. Add the mandatory parameters in this section. The parameters are those which are required to hit the API. The style of parameters can be header, template, query.
@@ -112,7 +112,7 @@ Click on any test step in the list below to view the response of API call on the
 
  ![](Pic_12.png)
 
-![](Pic_13.png)
+ ![](Pic_13.png)
 
 **Save the testCase result:**
 
@@ -160,7 +160,7 @@ Click on any test step in the list below to view the response of API call on the
 
 16. Creating a graph.
 
-![](Pic_21.png)
+ ![](Pic_21.png)
 
 17. This the default when adding a Statistic to view.
 18. It&#39;s recommend to &#39;Remove All&#39; for the default statistics.
@@ -191,7 +191,7 @@ Click on any test step in the list below to view the response of API call on the
 
  ![](Pic_26.png)
 
-![](Pic_27.png)
+ ![](Pic_27.png)
 
 31. Select OK
 32. PDF is generated – Just save the PDF.
