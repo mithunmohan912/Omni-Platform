@@ -11,7 +11,12 @@
 					{{ field.property.value | date:field.format }}<i ng-if="field.icon" class="fa fa-{{field.icon}}"></i>
 				</span>
 				<span ng-switch-default>
-					<i ng-if="field.icon" class="glyphicon glyphicon-{{field.icon}}"></i> {{field.property.value}}
+					<span ng-if="field.decimal">
+						<i ng-if="field.icon" class="glyphicon glyphicon-{{field.icon}}"></i> {{field.property.value | number:field.decimal}}
+					</span>
+					<span ng-if="!field.decimal">
+						<i ng-if="field.icon" class="glyphicon glyphicon-{{field.icon}}"></i> {{field.property.value}}
+					</span>
 				</span>
 			</ng-switch>
 		</span>
