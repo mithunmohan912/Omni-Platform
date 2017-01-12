@@ -15,7 +15,7 @@ There are two ways to capture the API&#39;s in ReadyAPI tool.
 
 2. Click on NEW Project under the FILE Menu. After filling the url and other fields this will get created on the left hand side. Rename it as required. Under this **testsuite** is created with the url mentioned while creating the project.
 
-**On Projects Section: Creation of New Test Case/Resource:**
+ **On Projects Section: Creation of New Test Case/Resource:**
 
 3. Click on Create New Resource -&gt; Paste the API URL of the call which needs to be tested.
 
@@ -34,7 +34,7 @@ There are two ways to capture the API&#39;s in ReadyAPI tool.
 8. Double check the ENDPOINT. (see the end point in the above figure beside the highlighted &quot;METHOD&quot;)
 9. Check for the resource values and its parameters.
 
-There are four VERTICAL TABS – &quot;Form&quot;, &quot;Outline&quot;, &quot;RAW&quot;, &quot;Request&quot;.
+ There are four VERTICAL TABS – &quot;Form&quot;, &quot;Outline&quot;, &quot;RAW&quot;, &quot;Request&quot;.
 
  ![](Pic_5.png)
 
@@ -80,10 +80,10 @@ On the SoapUI part, don&#39;t create call conversions directly, use the call Met
 4. Once the resource is created, see in the middle section, the request parameters with their names and input fields for entering the values.
 5. **There are 4 levels of variables in SoupUI:**
 
-- Global variables or environment variables. These are created from environment tab.
-- TestSuite level variables: These are available for that particular test suite.
-- TestCase Level: These will be available for test cases.
-- Test Step Level: These will be only available for that particular step.
+ - Global variables or environment variables. These are created from environment tab.
+ - TestSuite level variables: These are available for that particular test suite.
+ - TestCase Level: These will be available for test cases.
+ - Test Step Level: These will be only available for that particular step.
 
 6. Parameters value depend on the variables in which it is stored.
 
@@ -93,7 +93,7 @@ On the SoapUI part, don&#39;t create call conversions directly, use the call Met
 
 1. This script is used to run through the responses of API calls and pick out some data which is required for consecutive calls.
 
-For e.g.: We want some response data from previous call, we can take that data with the help of groovy script and store it in any level of variable.
+	For e.g.: We want some response data from previous call, we can take that data with the help of groovy script and store it in any level of variable.
 
 2. **Sequence of scripts** should be maintained with care, while writing groovy scripts.
 
@@ -189,7 +189,7 @@ Click on any test step in the list below to view the response of API call on the
 29. Once all the graphs have been created that you want to view.  You can create a PDF that can show those.
 30. On the Statistics row select the Report button
 
- ![](Pic_26.png)
+ ![](pic_26.png)
 
  ![](Pic_27.png)
 
