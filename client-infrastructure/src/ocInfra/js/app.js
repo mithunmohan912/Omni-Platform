@@ -42,9 +42,9 @@ $routeProvider.
 app.run(function($rootScope,  $location,  $cookieStore, OCInfraConfig ) {
   
   $rootScope.$on('$locationChangeStart', function (event,newUrl) {
-    // self-service (register user)
-    if (newUrl.endsWith('/screen/registerUser')) {
-      return;
+    // register user
+    if (newUrl.endsWith('/screen/registerUser') || newUrl.endsWith('/screen/validateEmail') || newUrl.endsWith('/screen/registerUserConfirmed')) {
+        return;
     }
     
     // strong authn (hotp & oath)
