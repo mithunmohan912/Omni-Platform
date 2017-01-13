@@ -1,4 +1,4 @@
-<div class="no-padding col-xs-12">
+<div class="no-padding  padding-none col-xs-12">
 	<!-- Colspan is controlled in the renderer.html. Here we 'hardcode' a colspan of 12 columns to ensure the table uses all the available width -->
 <!--  {{resourcesToBind[column.id].properties[column.subId].properties}} 
 <!-- resultset{{resultSet[resourceUrl].properties[listprop].value}} -->
@@ -27,8 +27,10 @@
 											</span>
 											<span ng-switch-default>
 				 								<span ng-if="field.format" ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | date:field.format | translate }}&nbsp;</span>
-				 								<span ng-if="!field.format" 
-				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | translate | number : 2}}&nbsp;</span>
+				 								<span ng-if="field.decimal" 
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | number : field.decimal | translate }}&nbsp;</span>
+				 								<span ng-if="!field.format && !field.decimal" 
+				 								ng-click= "navigate(field.url)" class="{{fieldId}}Link">{{ displayedItem.value[fieldId] | translate }}&nbsp;</span>
 			 								</span>
 			 				</ng-switch>
 			 				<span class="{{fieldId}}class" id="fieldId" ng-if="!displayedItem.value[fieldId]">{{fieldId | translate}}&nbsp;
