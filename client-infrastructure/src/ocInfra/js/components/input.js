@@ -727,6 +727,7 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'property': $scope.property,
 					'toggleswitch':$scope.metamodel.toggleswitch, 
 					'label': $scope.metamodel.label,
+  		            'labelParams': $scope.metamodel.labelParams,
 					'position':$scope.metamodel.position,
 					'id': $scope.parentMetamodel ? $scope.parentMetamodel +'_' + $scope.id : $scope.id,
 					'currency': ($scope.metamodel.currency) ? $scope.metamodel.currency : '',
@@ -734,7 +735,8 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 					'placeholder': $scope.metamodel.placeholder,
 					'resourceUrl': $scope.resourceUrl,
 					'selector': $scope.metamodel.selector,
-					'editable': $scope.metamodel.editable ? $scope.metamodel.editable : $scope.property.editable,
+					'editable': ($scope.metamodel.editable !== undefined) ? $scope.metamodel.editable : $scope.property.editable,
+					'decimal': $scope.metamodel.decimal,
 					'onBlur': function(){
 						if($scope.updateMode === 'blur'){
 							if($scope.metamodel.patchOnBlur){
