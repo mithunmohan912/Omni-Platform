@@ -189,7 +189,7 @@ Click on any test step in the list below to view the response of API call on the
 29. Once all the graphs have been created that you want to view.  You can create a PDF that can show those.
 30. On the Statistics row select the Report button
 
- ![](pic_26.png)
+ ![](Pic_26.png)
 
  ![](Pic_27.png)
 
