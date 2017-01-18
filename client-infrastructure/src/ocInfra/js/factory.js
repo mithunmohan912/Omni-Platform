@@ -459,7 +459,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     this.processProperties = _processProperties;
     function _processProperties(responseData, metamodel){
         var propertiesObject = {};
-
+        var resourceURL1 = {};
         if(responseData && responseData._options){
             // First get the PATCH and self links to use them later
             var updateCRUD;
@@ -540,7 +540,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
             
         } else if(responseData) {
-            var resourceURL1 = {};
+           
             if(responseData._links){
                  for(var link1 in responseData._links){
                     if(link1 === 'self'){
