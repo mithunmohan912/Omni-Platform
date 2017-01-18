@@ -415,6 +415,28 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                 });    
             }
         }
+
+        if(responseData && responseData.supportData){
+            var supportDataObj = responseData.supportData;
+            if(supportDataObj !== undefined){
+                angular.forEach(supportDataObj, function(supportObj){
+                    var object = {};
+                    if(supportObj !== undefined && supportObj.href !== undefined){
+                        object.action = supportObj.propertyName;
+                        object.href = supportObj.href.href;
+                        object.httpmethod = 'GET';
+                        if(!optionsMapForResource.get(object.action)){
+                            console.log('Action - '+ object.action);
+                            console.log('Httpmethod - '+ object.httpmethod);
+                            console.log('URL - '+ object.href);
+
+                            optionsMapForResource.set(object.action, object);
+                        }
+                    }
+                    
+                });    
+            }
+        }
         return optionsMapForResource;
     }
     /*
@@ -435,7 +457,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             - Object containing the processed properties.
     */
     this.processProperties = _processProperties;
-    function _processProperties(responseData){
+    function _processProperties(responseData, metamodel){
         var propertiesObject = {};
 
         if(responseData && responseData._options){
@@ -553,6 +575,55 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             }
         }
 
+        // If our business object specifies a dependency for any of the keys obtained before, we extract those links to query them
+        
+        if(metamodel.supportData){
+            var objectKey = {};
+            for( var key in metamodel.supportData){
+                objectKey = key;
+            } 
+            var optionsMapForSupportData = $rootScope.optionsMapForURL.get(resourceURL1);
+            if(resourceURL1 !== undefined && $rootScope.optionsMapForURL === undefined){
+                callOptions($rootScope, resourceURL1, function(optionsObj){
+                    metamodel.supportData[objectKey].forEach(function(supportDependency){
+                        if(optionsObj.get(supportDependency)){
+                            resourceFactory.get(optionsMapForSupportData.get(supportDependency).href,$rootScope.setHeaders).success(function(httpResponse){
+                                var data = httpResponse.data || httpResponse;
+                                if (data) {
+                                    propertiesObject[supportDependency] = {};
+                                    var obj = {};
+                                    obj.enum = data;
+                                    propertiesObject[supportDependency].metainfo = obj;
+                                    propertiesObject[supportDependency].self = resourceURL;
+                                    propertiesObject[supportDependency].value = responseData[supportDependency];  
+
+                                }
+                            }).error(function(){
+                                $rootScope.loader.loading=false;
+                            });
+                        }
+                    });
+                });
+            } else{
+                metamodel.supportData[objectKey].forEach(function(supportDependency){
+                    if($rootScope.optionsMapForURL.get(resourceURL1) && $rootScope.optionsMapForURL.get(resourceURL1).get(supportDependency)){
+                        resourceFactory.get(optionsMapForSupportData.get(supportDependency).href,$rootScope.setHeaders).success(function(httpResponse){
+                            var data = httpResponse.data || httpResponse;
+                            if (data) {
+                                propertiesObject[supportDependency] = {};
+                                var obj = {};
+                                obj.enum = data;
+                                propertiesObject[supportDependency].metainfo = obj;
+                                propertiesObject[supportDependency].self = resourceURL1;
+                                propertiesObject[supportDependency].value = responseData[supportDependency];  
+                            }
+                        }).error(function(){
+                            $rootScope.loader.loading=false;
+                        });         
+                    }
+                });
+            } 
+        }
         return propertiesObject;
     }
 
@@ -657,7 +728,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
     
             }
 
-            resource.properties = _processProperties(responseData);
+            resource.properties = _processProperties(responseData, metamodel);
             resource.dependencies = _extractBusinessDependencies(responseData, metamodel);
             resource.items = _extractItemDependencies(responseData, summaryData);
 
@@ -766,7 +837,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
                     console.log('Invoked for dependencies - '+url.href);
                     resultSet.pending++;
                     self.prepareToRender(url.href, metamodel, resultSet, url.resource, refresh, validationCallback);
-                });
+                });                
 
                 // Shall we stick with the summaries or shall we retrieve the whole item ??
                 if(!metamodel.summary){
