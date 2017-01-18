@@ -16,7 +16,7 @@
                 oc-custom-directive
                 uib-btn-radio="field.options[key]">
             <span ng-if="!combined">{{value | translate}}</span>
-            <span ng-if="combined" ng-repeat="val in splitedValues track by $index" style="display:inline-block {{combinedClass}}-{{$index}}; ">{{val | translate}}</span>
+            <span ng-if="combined" ng-repeat="val in splitedValues[$index] track by $index" class="{{combinedClass}}-{{$index}}" style="display:inline-block; ">{{val | translate}}</span>
         </label>
     </div>
          <div ng-if="field.toggleswitch" class="onoffswitch2">
