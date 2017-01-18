@@ -875,8 +875,11 @@ app.directive('inputRender', ['$compile', '$http', '$rootScope', '$templateCache
 				}
 
 				if (inputType === 'slider'){
-					$scope.field.options.onEnd = $scope.field.options.onChange;
-				}
+  					$scope.field.options.onEnd = $scope.field.options.onChange;
+       				$scope.field.options.floor = $scope.field.property.metainfo.minvalue ? parseInt($scope.field.property.metainfo.minvalue) : $scope.field.options.floor;
+      				$scope.field.options.ceil =  $scope.field.property.metainfo.maxvalue ? parseInt($scope.field.property.metainfo.maxvalue) : $scope.field.options.ceil;
+       				$scope.field.options.step =  $scope.field.property.metainfo.stepped ? $scope.field.property.metainfo.stepped : $scope.field.options.step;         
+  				}
 
 				if ($scope.idUnWatch){//check for watch exists
 					$scope.idUnWatch(); //this line will destruct watch if its already there
