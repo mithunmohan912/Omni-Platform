@@ -6,6 +6,7 @@
         
         <div ng-if="!(field.toggleswitch)" >
         <label ng-repeat="(key, value) in field.attributes track by $index"
+                id="{{field.options[key]}}innerLabel"
                 class="btn btn-default col-xs-{{field.colspan.toggles}}"
                 ng-class="field.options[key] === field.property.value ? 'btn-active acttoggle' : ''"
                 name="{{field.name}}"
