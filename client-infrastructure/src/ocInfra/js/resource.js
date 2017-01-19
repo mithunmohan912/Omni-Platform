@@ -95,9 +95,9 @@ app.factory('resourceFactory', ['$http', '$rootScope', '$q', function($http, $ro
                 }
             }
         }
-        if (sessionStorage.getItem('tokenId')) {
-            headers['iPlanetDirectoryPro'] = sessionStorage.getItem('tokenId');
-        }
+        // if (sessionStorage.getItem('tokenId')) {
+        //     headers['iPlanetDirectoryPro'] = sessionStorage.getItem('tokenId');
+        // }
         return headers;
     }
 
