@@ -7,9 +7,12 @@
 	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
-				<tr ng-show="metamodelObject.searching" class="searchInput" >
-					<th class="padding-none">
-						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control col-xs-12 col-sm-6 col-md-4 col-lg-4" type="search"/>
+				<tr ng-show="metamodelObject.searching" class="searchInput padding-none" >
+					<th class="padding-none" colspan="{{metamodelObject.properties.length}}">
+						<div class="input-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<input type="search" class="form-control"  st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" aria-describedby="basic-addon2">
+						  	<span class="input-group-addon flaticon-search" id="basic-addon2"></span>
+						</div>
 					</th>
 				</tr>
 				<!-- OC-711 Start Added Column Lable Header-->
