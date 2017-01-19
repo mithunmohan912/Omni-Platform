@@ -7,7 +7,7 @@
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
 
 		    <div class="hr_margin">
-			    <ul class="list-ul-accordion">
+			    <ul class="list-ul-accordion {{section.border}}">
 			    <li ng-if="section.accordion.status">
 			    	<div ng-switch="section.accordion.componentType">
 			    		<span ng-switch-when="clicking" class="{{section.accordion.componentStyle}}"  ng-click="opened(section)"></span>
