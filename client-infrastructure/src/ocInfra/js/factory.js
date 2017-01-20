@@ -813,8 +813,10 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
+
+        var payload={};
         if(metamodel.resource){
-        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+         payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
        }
         sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
         var responseGET = methodResourceFactory(rootURL, payload);
