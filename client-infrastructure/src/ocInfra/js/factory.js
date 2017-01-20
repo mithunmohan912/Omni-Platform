@@ -814,7 +814,7 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
             methodResourceFactory = resourceFactory.refresh;
         }
 
-        var payload=undefined;
+        var payload;
         if(metamodel.resource){
          payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
        }
