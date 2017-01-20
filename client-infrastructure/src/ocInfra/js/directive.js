@@ -41,10 +41,10 @@ app.directive('formatDate', function($filter, $rootScope) {
                             // }
                             if (inputDate[2].lenght > 2){
                               //european format
-                              return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), formatDate);
+                              return $filter('date')(new Date(inputDate[0], inputDate[1] - 1, inputDate[2]), formatDate);
                             }else{
                               //American format
-                              return $filter('date')(new Date(inputDate[0], inputDate[1] - 1, inputDate[2]), formatDate);
+                              return $filter('date')(new Date(inputDate[2], inputDate[1] - 1, inputDate[0]), formatDate);
                             }
                             
                         }

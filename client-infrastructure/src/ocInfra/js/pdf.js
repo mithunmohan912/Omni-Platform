@@ -7,9 +7,6 @@ app.factory('pdfFactory', ['$http', '$rootScope',function($http, $rootScope){
 
 	function _getPDF(element){
 		
-		var headers = $rootScope.headers;
-        headers.Accept = 'application/pdf'; 
-
 		var pdf;
         var file;
         var pdfUrl=element.href;

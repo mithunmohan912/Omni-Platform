@@ -7,9 +7,12 @@
 	<div id="{{metamodelObject.responsiveclass}}">
 		<table st-table="displayedItems" st-safe-src="table.items" class="col-md-12 table table-striped table-condensed cf {{metamodelObject.tableclass}}">
 			<thead ng-if="metamodelObject.header !== false" class="cf table-header">
-				<tr ng-show="metamodelObject.searching" class="searchInput" >
-					<th class="padding-none">
-						<input st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" class="input-sm form-control col-xs-12 col-sm-6 col-md-4 col-lg-4" type="search"/>
+				<tr ng-show="metamodelObject.searching" class="searchInput padding-none" >
+					<th class="padding-none" colspan="{{metamodelObject.properties.length}}">
+						<div class="input-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<input type="search" class="form-control"  st-search placeholder="{{ '_FILTER_RESULTS' | translate }}" aria-describedby="basic-addon2">
+						  	<span class="input-group-addon flaticon-search" id="basic-addon2"></span>
+						</div>
 					</th>
 				</tr>
 				<!-- OC-711 Start Added Column Lable Header-->
@@ -35,7 +38,7 @@
 			</tr>
 			<tr class="table-row table-row-{{key}}-{{$index}}" ng-class="key !== 'infra_default_group_table' ? 'table-row-grouped' : ''" ng-repeat="displayedItem in displayedItems | infraGroupBy:collection track by $index">
 
-				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}} !important; width: {{field.width}};" data-title="{{field.label_header | translate}}">
+				<td id="field.uid" ng-repeat="field in metamodelObject.properties" class="table-cell {{field.class}}" ng-attr-style="text-align : {{field.align}}; width: {{field.width}};" data-title="{{field.label_header | translate}}">
 		               <ng-switch on="field.type">
 		               
  						<span ng-switch-when="label" class="table-cell-label">
@@ -75,25 +78,25 @@
 		                	<span ng-repeat="action in field.options">
 		                		<ng-switch on="action.value">
 						            <span ng-switch-when="edit">
-						                <a ng-if="!action.actionURL" title="{{action.title}}" >
+						                <a ng-if="!action.actionURL" title="{{action.title | translate}}" >
 						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
 						                	</i>
 						               </a>
-						               <a ng-if="action.actionURL" title="{{action.title}}"  href="{{action.actionURL}}">
+						               <a ng-if="action.actionURL" title="{{action.title | translate}}"  href="{{action.actionURL}}">
 						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon"> {{metamodelObject.name}} {{action.title | translate }}</span>
 						                	</i>
 						               </a>
 						            </span>
 						            <span ng-switch-when="delete">
-						                <a ng-if="!action.actionURL" title="{{action.title}}">
+						                <a ng-if="!action.actionURL" title="{{action.title | translate }}">
 						                	<i data-toggle="modal" data-target="#{{action.value}}{{metamodelObject.name}}Modal" class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
-						                <a ng-if="action.actionURL" title="{{action.title}}" href="{{action.actionURL}}">
+						                <a ng-if="action.actionURL" title="{{action.title | translate}}" href="{{action.actionURL}}">
 						                	<i class="action {{action.icon}}" ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						               </a>
 						            </span>
 						            <span ng-switch-default >
-						            	<a class="{{action.crClass}}" title="{{action.title}}"  ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}} " ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
+						            	<a class="{{action.crClass}}" title="{{action.title | translate}}"  ng-show="checkShowItemRow(action, displayedItem)"><i class="action {{action.icon}} " ng-class="action.icon? 'actionIcon':''" ng-click="execute(action, displayedItem)"><span ng-if="!action.icon">{{action.title | translate }}</span></i>
 						            	</a>
 						            </span>
 		                		</ng-switch>

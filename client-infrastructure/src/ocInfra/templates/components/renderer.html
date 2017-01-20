@@ -7,7 +7,7 @@
 		    <div ng-if="section.logodir == true" class="oc-logo logo-center section-logo"></div>
 
 		    <div class="hr_margin">
-			    <ul class="list-ul-accordion">
+			    <ul class="list-ul-accordion {{section.border}}">
 			    <li ng-if="section.accordion.status">
 			    	<div ng-switch="section.accordion.componentType">
 			    		<span ng-switch-when="clicking" class="{{section.accordion.componentStyle}}"  ng-click="opened(section)"></span>
@@ -48,7 +48,7 @@
     	</h3>
 
 
-    	<div  uib-collapse="section.accordion.collapse">
+    	<div  uib-collapse="section.accordion.collapse" class="{{section.sectionclass}}">
 
 			<span ng-switch-when="reference" class="linked-renderer-container">
 				<renderer metamodel="section.$ref" factory-name="section.factoryName || factoryName" resource-url="resourceUrl" parent-resources="resourcesToBindRef[section.$ref]"></renderer>
@@ -57,7 +57,7 @@
 			<span ng-switch-default ng-class="section.background === true ? 'bg-gray' : '' ">
 				<form name="{{metamodelObject.name}}" novalidate>
 						<div id="component-{{column.uid !== undefined ? column.uid : $index}}" ng-repeat="column in section.properties track by $index" class="section-row-column padding-none {{column.class}} col-xs-{{column.colspan.xs}} col-sm-{{column.colspan.sm}} col-md-{{column.colspan.md}} col-lg-{{column.colspan.lg}} col-xs-offset-{{column.offset.xs}} col-sm-offset-{{column.offset.sm}} col-md-offset-{{column.offset.md}} col-lg-offset-{{column.offset.lg}}">
-							<span ng-if="column" ng-switch on="column.type" class="{{column.type}}">
+							<span ng-if="column" ng-switch on="column.type" class="{{column.type}} {{column.divWidth}}">
 								<span ng-switch-when="tabs" class="infra-tabs-container">
 
 									<ul class="nav {{column.tabClass}} nav-tabs">
