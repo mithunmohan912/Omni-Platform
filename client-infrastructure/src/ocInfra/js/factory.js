@@ -813,7 +813,11 @@ this.handleAction=function($rootScope, $scope, inputComponent, rootURL, properti
         if (refresh) {
             methodResourceFactory = resourceFactory.refresh;
         }
-        var payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+
+        var payload={};
+        if(metamodel.resource){
+         payload = JSON.parse(sessionStorage.getItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params'));
+       }
         sessionStorage.removeItem(metamodel.resource+'_'+metamodel.actionOnScreen+'_params');
         var responseGET = methodResourceFactory(rootURL, payload);
         // Cached response (resource directory) or not, we always get a promise
